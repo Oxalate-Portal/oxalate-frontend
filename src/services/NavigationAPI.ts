@@ -6,7 +6,7 @@ class NavigationAPI {
     async getNavigationItems(language: string): Promise<PageGroupResponse[]|void> {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/pages/navigation-elements?language=${language}`);
 
-        if (response.status === 200 && response.data.id > 0) {
+        if (response.status === 200 && response.data.length > 0) {
             console.info("Received navigation pages:", response.data);
             return response.data;
         } else {
