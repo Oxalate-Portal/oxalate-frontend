@@ -1,25 +1,21 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import { ConfigProvider, theme } from "antd";
+import NavigationBar from "./components/main/NavigationBar";
+import { useSession } from "./session";
 
 function App() {
+    const { darkAlgorithm } = theme;
+    const {userSession} = useSession();
+
     return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <p>
-                        Edit <code>src/App.tsx</code> and save to reload.
-                    </p>
-                    <a
-                            className="App-link"
-                            href="https://reactjs.org"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                    >
-                        Learn React
-                    </a>
-                </header>
-            </div>
+            <div className="app-container bg-light">
+                <NavigationBar/>
+                <div className="container pt-4 pb-4">
+                    <ConfigProvider theme={{ algorithm: darkAlgorithm }}>
+                    </ConfigProvider>
+                </div>
+                </div>
     );
 }
 
