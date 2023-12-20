@@ -1,3 +1,5 @@
+import RoleEnum from "./RoleEnum";
+
 interface SessionVO {
     "id": number;
     "username": string;
@@ -11,7 +13,7 @@ interface SessionVO {
     "language": string;
     "accessToken": string;
     "type": string;
-    "roles": string[];
+    "roles": RoleEnum[];
     "status": string;
     "expiresAt": Date;
 }
