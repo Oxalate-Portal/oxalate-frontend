@@ -6,6 +6,7 @@ import Home from "./components/main/Home";
 import { useSession } from "./session";
 import i18next from "i18next";
 import { Navigate, Route, Routes } from "react-router-dom";
+import Page from "./components/Page/Page";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -25,6 +26,7 @@ function App() {
                         <Routes>
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
+                            <Route path="/pages/:pageId" element={<Page/>}/>
                         </Routes>
                     </ConfigProvider>
                 </div>

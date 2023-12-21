@@ -9,11 +9,12 @@ import { Space, Spin } from "antd";
 import dayjs from "dayjs";
 import DOMPurify from "dompurify";
 
-function Page(pageProps: PageProps) {
-    const optionalParams = useParams();
-    const pageId: number = pageProps.pageId | parseInt(optionalParams.pageId as string);
+function Page(pageProps: PageProps = {}) {
+    const { pageId: propPageId, showTitle = true, showDate = true } = pageProps;
+    const {pageId: paramPageId} = useParams();
+    const pageId = propPageId || parseInt(paramPageId as string, 10);
 
-    const [pageData, setPageData] = useState<PageResponse|null>(null);
+    const [pageData, setPageData] = useState<PageResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const {sessionLanguage} = useSession();
     const {t} = useTranslation();
@@ -26,16 +27,16 @@ function Page(pageProps: PageProps) {
         setLoading(false);
     }, [pageId, sessionLanguage]);
 
-    return (<div className={'darkDiv'}>
+    return (<div className={"darkDiv"}>
         <Spin spinning={loading}>
             {pageData && pageData.pageVersions && pageData.pageVersions.length > 0 && <div>
-                <Space direction={'vertical'} size={'large'}>
-                    {pageProps.showTitle && <h4 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].title)}}></h4>}
+                <Space direction={"vertical"} size={"large"}>
+                    {showTitle && <h4 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].title)}}></h4>}
 
-                    {pageProps.showDate &&
+                    {showDate &&
                             <div>{pageData.modifiedAt == null ?
-                                    t('Page.fields.created') + dayjs(pageData.createdAt).format('YYYY.MM.DD HH:mm') :
-                                    t('Page.fields.updated') + dayjs(pageData.modifiedAt).format('YYYY.MM.DD HH:mm')}</div>}
+                                    t("Page.fields.created") + dayjs(pageData.createdAt).format("YYYY.MM.DD HH:mm") :
+                                    t("Page.fields.updated") + dayjs(pageData.modifiedAt).format("YYYY.MM.DD HH:mm")}</div>}
 
                     {pageData.pageVersions[0].ingress.length > 0 &&
                             <p style={{fontWeight: "bold"}} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].ingress)}}/>}
