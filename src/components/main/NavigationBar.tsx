@@ -17,10 +17,10 @@ function NavigationBar() {
     const [navigationElements, setNavigationElements] = useState<PageGroupResponse[]>([]);
 
     const languages = [
-        {label: 'Suomi 🇫🇮', value: 'fi'},
-        {label: 'English 🇬🇧', value: 'en'},
-        {label: 'Svenska 🇸🇪', value: 'sv'},
-        {label: 'Deutsch 🇩🇪', value: 'de'},
+        {label: "Suomi 🇫🇮", value: "fi"},
+        {label: "English 🇬🇧", value: "en"},
+        {label: "Svenska 🇸🇪", value: "sv"},
+        {label: "Deutsch 🇩🇪", value: "de"},
     ];
 
     useEffect(() => {
@@ -32,27 +32,27 @@ function NavigationBar() {
             if (navElements) {
                 setNavigationElements(JSON.parse(JSON.stringify(navElements)));
             }
-        }
+        };
 
-        window.addEventListener('reloadNavigationEvent', fetchPaths);
+        window.addEventListener("reloadNavigationEvent", fetchPaths);
 
         fetchPaths().catch(console.error);
 
         return () => {
-            window.removeEventListener('reloadNavigationEvent', fetchPaths);
+            window.removeEventListener("reloadNavigationEvent", fetchPaths);
         };
     }, [getSessionLanguage]);
 
     function switchLanguage(language: string) {
         // TODO we need a separate session variable for the language which is not tied to the user session
         setSessionLanguage(language);
-        window.dispatchEvent(new Event('reloadNavigationEvent'));
+        window.dispatchEvent(new Event("reloadNavigationEvent"));
         i18next.changeLanguage(language).then().catch(e => console.log("Failed to load language: " + language));
     }
 
     function getLanguageName(language: string) {
         const languageObject = languages.find(lang => lang.value === language);
-        return languageObject ? languageObject.label : 'Valitse kieli 🌐';
+        return languageObject ? languageObject.label : "Valitse kieli 🌐";
     }
 
     return (
@@ -60,9 +60,9 @@ function NavigationBar() {
                 <div className="container-fluid">
                     <div className="mx-auto order-0">
                         <Tooltip title={process.env.REACT_APP_OXALATE_PAGE_TITLE}>
-                            <div style={{width: '156px', height: '64px', marginRight: '20px'}}>
-                                <NavLink to={'/'}><Logo
-                                        style={{width: '100%', height: '100%'}}
+                            <div style={{width: "156px", height: "64px", marginRight: "20px"}}>
+                                <NavLink to={"/"}><Logo
+                                        style={{width: "100%", height: "100%"}}
                                 /></NavLink>
                             </div>
                         </Tooltip>
@@ -78,31 +78,31 @@ function NavigationBar() {
                             {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN]) &&
                                     <li className="nav-item active">
                                         <div className="dropdown">
-                                            <a className="nav-item nav-link dropdown-toggle" href={undefined} type="button"
-                                               data-bs-toggle="dropdown"
-                                               aria-expanded="false">
-                                                {t('nav.administration.title')}
-                                            </a>
+                                            <button className="nav-item nav-link dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                {t("nav.administration.title")}
+                                            </button>
                                             <ul className="dropdown-menu">
                                                 <li>
                                                     <NavLink to="/administration/main" className="dropdown-item"
-                                                             type="button">{t('nav.administration.readFirst')}</NavLink>
+                                                             type="button">{t("nav.administration.readFirst")}</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/orgusers" className="dropdown-item"
-                                                             type="button">{t('nav.administration.members')}</NavLink>
+                                                             type="button">{t("nav.administration.members")}</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/payments" className="dropdown-item"
-                                                             type="button">{t('nav.administration.payments')}</NavLink>
+                                                             type="button">{t("nav.administration.payments")}</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/statistics" className="dropdown-item"
-                                                             type="button">{t('nav.administration.stats')}</NavLink>
+                                                             type="button">{t("nav.administration.stats")}</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/audit" className="dropdown-item"
-                                                             type="button">{t('nav.administration.audits')}</NavLink>
+                                                             type="button">{t("nav.administration.audits")}</NavLink>
                                                 </li>
                                             </ul>
                                         </div>
@@ -110,15 +110,15 @@ function NavigationBar() {
                             {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]) &&
                                     <li className="nav-item active">
                                         <div className="dropdown">
-                                            <a className="nav-item nav-link dropdown-toggle" href={undefined} type="button"
-                                               data-bs-toggle="dropdown"
-                                               aria-expanded="false">
-                                                {t('nav.pageManagement.title')}
-                                            </a>
+                                            <button className="nav-item nav-link dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                {t("nav.pageManagement.title")}
+                                            </button>
                                             <ul className="dropdown-menu">
                                                 <li>
                                                     <NavLink to="/administration/page-groups" className="dropdown-item"
-                                                             type="button">{t('nav.pageManagement.pages')}</NavLink>
+                                                             type="button">{t("nav.pageManagement.pages")}</NavLink>
                                                 </li>
                                             </ul>
                                         </div>
@@ -126,26 +126,27 @@ function NavigationBar() {
                             {userSession &&
                                     <li className="nav-item active">
                                         <div className="dropdown">
-                                            <a className="nav-item nav-link dropdown-toggle" href={undefined} type="button"
-                                               data-bs-toggle="dropdown"
-                                               aria-expanded="false">
-                                                {t('nav.events.title')}
-                                            </a>
+                                            <button className="nav-item nav-link dropdown-toggle"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                {t("nav.events.title")}
+                                            </button>
                                             <ul className="dropdown-menu">
                                                 <li>
-                                                    <NavLink to="/events/main" className="dropdown-item" type="button">{t('nav.events.new')}</NavLink>
+                                                    <NavLink to="/events/main" className="dropdown-item" type="button">{t("nav.events.new")}</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink to="/events/past" className="dropdown-item" type="button">{t('nav.events.past')}</NavLink>
+                                                    <NavLink to="/events/past" className="dropdown-item" type="button">{t("nav.events.past")}</NavLink>
                                                 </li>
                                                 {checkRoles(userSession, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]) &&
                                                         <li>
-                                                            <NavLink to="/events/add" className="dropdown-item" type="button">{t('nav.events.add')}</NavLink>
+                                                            <NavLink to="/events/add" className="dropdown-item" type="button">{t("nav.events.add")}</NavLink>
                                                         </li>
                                                 }
                                                 {userSession &&
                                                         <li>
-                                                            <NavLink to="/events/dive-stats" className="dropdown-item" type="button">{t('nav.events.yearlyStats')}</NavLink>
+                                                            <NavLink to="/events/dive-stats" className="dropdown-item"
+                                                                     type="button">{t("nav.events.yearlyStats")}</NavLink>
                                                         </li>
                                                 }
                                             </ul>
@@ -155,14 +156,14 @@ function NavigationBar() {
                                 return (
                                         <li className="nav-item active" key={navigationElement.id}>
                                             <div className="dropdown">
-                                                <a className="nav-item nav-link dropdown-toggle" href={undefined} type="button"
-                                                   data-bs-toggle="dropdown"
-                                                   aria-expanded="false">{navigationElement.pageGroupVersions[0].title}</a>
+                                                <button className="nav-item nav-link dropdown-toggle"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">{navigationElement.pageGroupVersions[0].title}</button>
                                                 <ul className="dropdown-menu">
                                                     {navigationElement.pages && navigationElement.pages.map(page => {
                                                         return (
                                                                 <li key={page.id}>
-                                                                    <NavLink to={'/pages/' + page.id} className="dropdown-item"
+                                                                    <NavLink to={"/pages/" + page.id} className="dropdown-item"
                                                                              type="button">{page.pageVersions[0].title}</NavLink>
                                                                 </li>
                                                         );
@@ -179,10 +180,12 @@ function NavigationBar() {
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item active">
                                 <div className="dropdown">
-                                    <a className="nav-item nav-link dropdown-toggle" type="button" href={undefined} data-bs-toggle="dropdown"
-                                       aria-expanded="false">
-                                        {getSessionLanguage() === undefined ? 'Valitse kieli 🌐' : getLanguageName(getSessionLanguage())}
-                                    </a>
+                                    <button className="nav-item nav-link dropdown-toggle"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                    >
+                                        {getSessionLanguage() === undefined ? "Valitse kieli 🌐" : getLanguageName(getSessionLanguage())}
+                                    </button>
                                     <ul className="dropdown-menu dropdown-menu-end">
                                         {languages.map(lang => {
                                             return (
@@ -190,7 +193,7 @@ function NavigationBar() {
                                                             key={lang.value}
                                                             className="dropdown-item"
                                                             onClick={() => switchLanguage(lang.value)}
-                                                            style={{cursor: 'pointer'}}
+                                                            style={{cursor: "pointer"}}
                                                     >
                                                         {lang.label}
                                                     </li>);
@@ -201,19 +204,21 @@ function NavigationBar() {
                             {userSession &&
                                     <li className="nav-item active">
                                         <div className="dropdown">
-                                            <a className="nav-item nav-link dropdown-toggle" href={undefined} type="button"
+                                            <button className="nav-item nav-link dropdown-toggle"
                                                data-bs-toggle="dropdown" aria-expanded="false">
                                                 {userSession.firstName} {userSession.lastName}
-                                            </a>
+                                            </button>
                                             <ul className="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <NavLink to="/users/profile" className="dropdown-item" type="button">{t('nav.action.profile')}</NavLink>
+                                                    <NavLink to="/users/profile" className="dropdown-item" type="button">{t("nav.action.profile")}</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink to="/users/password" className="dropdown-item" type="button">{t('nav.action.changePassword')}</NavLink>
+                                                    <NavLink to="/users/password" className="dropdown-item"
+                                                             type="button">{t("nav.action.changePassword")}</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink onClick={logoutUser} to="/logout" className="dropdown-item" type="button">{t('nav.action.logout')}</NavLink>
+                                                    <NavLink onClick={logoutUser} to="/logout" className="dropdown-item"
+                                                             type="button">{t("nav.action.logout")}</NavLink>
                                                 </li>
                                             </ul>
                                         </div>
@@ -221,10 +226,10 @@ function NavigationBar() {
                             {!userSession &&
                                     <>
                                         <li className="nav-item">
-                                            <NavLink to="/login" className="nav-item nav-link">{t('nav.action.login')}</NavLink>
+                                            <NavLink to="/login" className="nav-item nav-link">{t("nav.action.login")}</NavLink>
                                         </li>
                                         <li className="nav-item">
-                                            <NavLink to="/auth/register" className="nav-item nav-link">{t('nav.action.register')}</NavLink>
+                                            <NavLink to="/auth/register" className="nav-item nav-link">{t("nav.action.register")}</NavLink>
                                         </li>
                                     </>
                             }
