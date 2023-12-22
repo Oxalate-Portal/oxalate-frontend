@@ -17,5 +17,13 @@ export abstract class AbstractAPI<T> {
         const response = await this.abstractAxios.get<T>(url);
         return response.data;
     }
+
+    public async update(id: number, payload: T): Promise<T> {
+        const response = await this.abstractAxios.put<T>(
+            this.URLPREFIX + this.member + "/" + id,
+            payload
+        );
+        return response.data;
+    }
 }
 

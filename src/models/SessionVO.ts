@@ -1,21 +1,7 @@
-import RoleEnum from "./RoleEnum";
+import UserResponse from "./responses/UserResponse";
 
-interface SessionVO {
-    id: number;
-    username: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    registered: Date;
-    diveCount: number;
-    payments: [];
-    approvedTerms: true;
-    language: string;
+interface SessionVO extends UserResponse {
     accessToken: string;
-    type: string;
-    roles: RoleEnum[];
-    status: string;
-    expiresAt: Date;
 }
 
 export default SessionVO;
