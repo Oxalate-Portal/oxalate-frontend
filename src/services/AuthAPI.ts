@@ -2,14 +2,14 @@ import LoginRequest from "../models/requests/LoginRequest";
 import axios from "axios";
 import SessionVO from "../models/SessionVO";
 
-const API_URL = `${process.env.REACT_APP_API_URL}/login`;
+const API_URL = `${process.env.REACT_APP_API_URL}/auth/login`;
 
 class AuthAPI {
     userKey: string = "user";
 
     async login(user: LoginRequest) {
         const response = await axios
-            .post(API_URL, user);
+            .post(API_URL, user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
 
         if (response.status === 200 && response.data.id > 0) {
             console.info("Storing login response to local storage: ");

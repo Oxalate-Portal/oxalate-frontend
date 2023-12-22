@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import SessionVO from "../models/SessionVO";
 import LoginRequest from "../models/requests/LoginRequest";
 import authAPI from "../services/AuthAPI";
+import ActionResultEnum from "../models/ActionResultEnum";
+import LoginResponse from "../models/responses/LoginResponse";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -10,7 +12,7 @@ interface SessionContextType {
     sessionLanguage: string;
     getSessionLanguage: () => string;
     setSessionLanguage: (language: string) => void;
-    loginUser: (loginRequest: LoginRequest) => void;
+    loginUser: (loginRequest: LoginRequest) => LoginResponse;
     logoutUser: () => void;
 }
 
@@ -40,14 +42,27 @@ function SessionProvider({children}: any) {
     }, [userKey, languageKey]);
 
     // Function to handle login
-    const loginUser = (loginRequest: LoginRequest) => {
+    const loginUser = (loginRequest: LoginRequest): LoginResponse => {
         authAPI.login(loginRequest).then((response) => {
-            console.log(response);
+            console.log("Received login response:", response);
             setUser(response);
             setLanguage(response.language);
+            return {
+                status: ActionResultEnum.SUCCESS,
+                message: "Login successful"
+            }
         }).catch((error) => {
             console.log(error);
+            return {
+                status: ActionResultEnum.FAILURE,
+                message: "Failed to log on user"
+            }
         });
+
+        return {
+            status: ActionResultEnum.FAILURE,
+            message: "Internal error"
+        }
     };
 
     // Function to handle logout
