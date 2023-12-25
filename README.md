@@ -1,6 +1,6 @@
-# OxalatePortal frontend
+# Oxalate Portal frontend UI
 
-This is the React-based frontend for the OxalatePortal project.
+This is the React-based frontend for the Oxalat-ePortal project.
 
 Uses:
 
@@ -18,6 +18,10 @@ To set up development, copy the `.env` as `.env.local` and add `REACT_APP_SITE_K
 ## Available additional UIs
 
 * Local [translation check](http://localhost:3000/?showtranslations) for checking translations
+
+# Licence
+
+This code is published under the [GPL 2 License](LICENSE).
 
 # Contributors
 
