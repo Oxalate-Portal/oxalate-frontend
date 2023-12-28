@@ -1,10 +1,10 @@
 // Create a context to hold the session information
-import { createContext, useContext, useEffect, useState } from "react";
+import {createContext, useContext, useEffect, useState} from "react";
 import SessionVO from "../models/SessionVO";
 import LoginRequest from "../models/requests/LoginRequest";
 import authAPI from "../services/AuthAPI";
 import ActionResultEnum from "../models/ActionResultEnum";
-import LoginResponse from "../models/responses/LoginResponse";
+import LoginStatus from "../models/LoginStatus";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -12,8 +12,9 @@ interface SessionContextType {
     sessionLanguage: string;
     getSessionLanguage: () => string;
     setSessionLanguage: (language: string) => void;
-    loginUser: (loginRequest: LoginRequest) => LoginResponse;
+    loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
     logoutUser: () => void;
+    refreshUserSession: (sessionVO: SessionVO) => void;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
@@ -42,32 +43,33 @@ function SessionProvider({children}: any) {
     }, [userKey, languageKey]);
 
     // Function to handle login
-    const loginUser = (loginRequest: LoginRequest): LoginResponse => {
-        authAPI.login(loginRequest).then((response) => {
-            console.log("Received login response:", response);
-            setUser(response);
-            setLanguage(response.language);
-            return {
-                status: ActionResultEnum.SUCCESS,
-                message: "Login successful"
-            }
-        }).catch((error) => {
-            console.log(error);
-            return {
-                status: ActionResultEnum.FAILURE,
-                message: "Failed to log on user"
-            }
-        });
+    const loginUser = async (loginRequest: LoginRequest): Promise<LoginStatus> => {
+        return authAPI.login(loginRequest)
+                .then((sessionVO) => {
+                    localStorage.setItem(userKey, JSON.stringify(sessionVO));
 
-        return {
-            status: ActionResultEnum.FAILURE,
-            message: "Internal error"
-        }
+                    setUser(sessionVO);
+                    setLanguage(sessionVO.language);
+                    return {
+                        status: ActionResultEnum.SUCCESS,
+                        message: "Login successful"
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    return {
+                        status: ActionResultEnum.FAILURE,
+                        message: "Failed to log on user"
+                    }
+                });
     };
 
     // Function to handle logout
     const logoutUser = () => {
         setUser(null);
+        console.log("Logout so clearing out local storage");
+        localStorage.removeItem(userKey);
+        console.info("Removed user key from local storage");
         console.log("Logging out so set user data to null and calling authService.logout()");
         authAPI.logout();
     };
@@ -82,13 +84,19 @@ function SessionProvider({children}: any) {
         return language;
     }
 
+    const refreshUserSession = (sessionVO: SessionVO): void => {
+        localStorage.setItem(userKey, JSON.stringify(sessionVO));
+        setUser(sessionVO);
+    }
+
     const contextValue: SessionContextType = {
         userSession: user,
         sessionLanguage: language,
         getSessionLanguage,
         setSessionLanguage,
         loginUser,
-        logoutUser
+        logoutUser,
+        refreshUserSession
     };
 
     return (
@@ -105,9 +113,7 @@ function useSession(): SessionContextType {
         throw new Error("useSession must be used within a SessionProvider");
     }
 
-    console.log("useSession() returning context:", context);
-
     return context;
 }
 
-export { SessionProvider, useSession };
+export {SessionProvider, useSession};

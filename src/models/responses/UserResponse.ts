@@ -1,22 +1,6 @@
-import PaymentsResponse from "./PaymentsResponse";
-import RoleEnum from "../RoleEnum";
-import UserStatusEnum from "../UserStatusEnum";
+import AbstractUser from "../AbstractUser";
 
-interface UserResponse {
-    id: number;
-    username: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    registered: boolean;
-    diveCount: number;
-    payments: PaymentsResponse[];
-    approvedTerms: boolean;
-    language: string;
-    roles: RoleEnum[];
-    status: UserStatusEnum;
-    privacy: boolean;
-    nextOfKin: string;
+interface UserResponse extends AbstractUser {
 }
 
 export default UserResponse;

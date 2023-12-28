@@ -1,27 +1,21 @@
-import { ReactComponent as Logo } from "../../portal_logo.svg";
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
-import { Tooltip } from "antd";
+import {ReactComponent as Logo} from "../../portal_logo.svg";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {Tooltip} from "antd";
 import i18next from "i18next";
-import { useEffect, useState } from "react";
-import { checkRoles } from "../../helpers";
+import {useEffect, useState} from "react";
+import {checkRoles} from "../../helpers";
 import RoleEnum from "../../models/RoleEnum";
 import navigationAPI from "../../services/NavigationAPI";
 import PageGroupResponse from "../../models/responses/PageGroupResponse";
+import LanguageUtil from "../../helpers/LanguageUtil";
 
 function NavigationBar() {
     const {userSession, logoutUser, getSessionLanguage, setSessionLanguage} = useSession();
 
     const {t} = useTranslation();
     const [navigationElements, setNavigationElements] = useState<PageGroupResponse[]>([]);
-
-    const languages = [
-        {label: "Suomi 🇫🇮", value: "fi"},
-        {label: "English 🇬🇧", value: "en"},
-        {label: "Svenska 🇸🇪", value: "sv"},
-        {label: "Deutsch 🇩🇪", value: "de"},
-    ];
 
     useEffect(() => {
         const fetchPaths = async () => {
@@ -47,12 +41,7 @@ function NavigationBar() {
         // TODO we need a separate session variable for the language which is not tied to the user session
         setSessionLanguage(language);
         window.dispatchEvent(new Event("reloadNavigationEvent"));
-        i18next.changeLanguage(language).then().catch(e => console.log("Failed to load language: " + language));
-    }
-
-    function getLanguageName(language: string) {
-        const languageObject = languages.find(lang => lang.value === language);
-        return languageObject ? languageObject.label : "Valitse kieli 🌐";
+        i18next.changeLanguage(language).then().catch(e => console.log("Failed to load language: " + language + ", error: " + e));
     }
 
     return (
@@ -184,10 +173,10 @@ function NavigationBar() {
                                             data-bs-toggle="dropdown"
                                             aria-expanded="false"
                                     >
-                                        {getSessionLanguage() === undefined ? "Valitse kieli 🌐" : getLanguageName(getSessionLanguage())}
+                                        {getSessionLanguage() === undefined ? "Valitse kieli 🌐" : LanguageUtil.getLabelByValue(getSessionLanguage())}
                                     </button>
                                     <ul className="dropdown-menu dropdown-menu-end">
-                                        {languages.map(lang => {
+                                        {LanguageUtil.getLanguages().map(lang => {
                                             return (
                                                     <li
                                                             key={lang.value}
@@ -205,7 +194,7 @@ function NavigationBar() {
                                     <li className="nav-item active">
                                         <div className="dropdown">
                                             <button className="nav-item nav-link dropdown-toggle"
-                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                    data-bs-toggle="dropdown" aria-expanded="false">
                                                 {userSession.firstName} {userSession.lastName}
                                             </button>
                                             <ul className="dropdown-menu dropdown-menu-end">

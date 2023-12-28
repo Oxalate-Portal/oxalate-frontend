@@ -11,4 +11,4 @@ class UserAPI extends AbstractAPI<UserResponse> {
 }
 
 const userAPI = new UserAPI("/users");
-export default userAPI;
+export default {UserAPI, userAPI};

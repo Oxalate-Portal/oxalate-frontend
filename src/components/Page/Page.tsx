@@ -1,16 +1,16 @@
 import PageProps from "../../models/props/PageProps";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 import PageResponse from "../../models/responses/PageResponse";
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
 import pageAPI from "../../services/PageAPI";
-import { Space, Spin } from "antd";
+import {Space, Spin} from "antd";
 import dayjs from "dayjs";
 import DOMPurify from "dompurify";
 
 function Page(pageProps: PageProps = {}) {
-    const { pageId: propPageId, showTitle = true, showDate = true } = pageProps;
+    const {pageId: propPageId, showTitle = true, showDate = true} = pageProps;
     const {pageId: paramPageId} = useParams();
     const pageId = propPageId || parseInt(paramPageId as string, 10);
 
@@ -21,9 +21,10 @@ function Page(pageProps: PageProps = {}) {
 
     useEffect(() => {
         setLoading(true);
-        pageAPI.findById(pageId, "language=" + sessionLanguage).then((response) => {
-            setPageData(response);
-        });
+        pageAPI.findById(pageId, "language=" + sessionLanguage)
+                .then((response) => {
+                    setPageData(response);
+                });
         setLoading(false);
     }, [pageId, sessionLanguage]);
 

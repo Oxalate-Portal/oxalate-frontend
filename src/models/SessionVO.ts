@@ -1,7 +1,9 @@
-import UserResponse from "./responses/UserResponse";
+import AbstractUser from "./AbstractUser";
 
-interface SessionVO extends UserResponse {
+interface SessionVO extends AbstractUser {
     accessToken: string;
+    type: string;
+    expiresAt: Date;
 }
 
 export default SessionVO;

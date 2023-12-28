@@ -1,11 +1,11 @@
-import { Alert, Button, Form, Input, Row, Space } from "antd";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import { useSession } from "../../session";
+import {Alert, Button, Form, Input, Row, Space} from "antd";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
+import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
+import {useSession} from "../../session";
 import LoginRequest from "../../models/requests/LoginRequest";
-import LoginResponse from "../../models/responses/LoginResponse";
+import LoginStatus from "../../models/LoginStatus";
 import ActionResultEnum from "../../models/ActionResultEnum";
 
 function Login() {
@@ -35,9 +35,10 @@ function Login() {
         };
 
         console.log("Calling loginUser with:", loginRequest);
-        const loginResult: LoginResponse = loginUser(loginRequest);
+        const loginResult: LoginStatus = await loginUser(loginRequest);
 
         if (!loginResult || loginResult.status === ActionResultEnum.FAILURE) {
+            console.error("Login failed", loginResult);
             setUpdateStatus({status: "ERROR", message: t('Login.updateStatus.loginFail')});
         } else {
             navigate('/');

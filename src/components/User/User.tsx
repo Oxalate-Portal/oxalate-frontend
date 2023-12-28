@@ -1,25 +1,37 @@
-import { useSession } from "../../session";
-import { useEffect, useState } from "react";
-import { Button, Checkbox, Col, Form, Input, Row, Space, Spin } from "antd";
-import { useTranslation } from "react-i18next";
-import userAPI from "../../services/UserAPI";
+import {useSession} from "../../session";
+import {useEffect, useState} from "react";
+import {Button, Checkbox, Col, Form, Input, Row, Space, Spin} from "antd";
+import {useTranslation} from "react-i18next";
+import UserAPI from "../../services/UserAPI";
 import UserResponse from "../../models/responses/UserResponse";
 import UserStatusEnum from "../../models/UserStatusEnum";
+import UserRequest from "../../models/requests/UserRequest";
+import SessionVO from "../../models/SessionVO";
+import {checkRoles} from "../../helpers";
+import RoleEnum from "../../models/RoleEnum";
+import {Certificates} from "./Certificates";
+import UserFields from "./UserFields";
+import FormatPayments from "./FormatPayments";
+import UserEvents from "./UserEvents";
+import SubmitResult from "../main/SubmitResult";
+import {useNavigate} from "react-router-dom";
 
 function User() {
-    const {userSession, logoutUser} = useSession();
+    const {userSession, logoutUser, refreshUserSession} = useSession();
     const [updateStatus, setUpdateStatus] = useState({status: "", message: ""});
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
     const [workUser, setWorkUser] = useState<UserResponse>();
     const [userForm] = Form.useForm();
+    const myUserAPI = new UserAPI.UserAPI("/users");
 
     useEffect(() => {
         const fetchMemberData = async () => {
             setLoading(true);
 
             if (userSession) {
-                userAPI.findById(userSession?.id, null)
+
+                myUserAPI.findById(userSession?.id, null)
                         .then((response) => {
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                         })
@@ -44,7 +56,7 @@ function User() {
             return;
         }
 
-        userAPI.updateUserStatus(workUser?.id, status)
+        myUserAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
                     console.log(response);
                     setUpdateStatus({status: "SUCCESS", message: "Successfully updated user status"});
@@ -72,9 +84,15 @@ function User() {
 
     const onFinish = (userInfo: UserResponse) => {
         setLoading(true);
+
+        if (workUser?.id === undefined) {
+            console.error("No user ID found");
+            return;
+        }
         // We send all data, but only some of them will in this case be used, see backend for more details when a user sends the request
         // TODO This is duplicated from adminOrgMember.jsx, refactor this
-        let postData = {
+        let postData: UserRequest = {
+            id: workUser.id,
             username: workUser.username,
             firstName: userInfo.firstName,
             lastName: userInfo.lastName,
@@ -85,45 +103,56 @@ function User() {
             registered: workUser.registered,
             approvedTerms: workUser.approvedTerms,
             roles: workUser.roles,
+            payments: workUser.payments,
+            diveCount: workUser.diveCount,
             language: userInfo.language
         };
 
-        fetchWrapper.put(`${process.env.REACT_APP_API_URL}/users/${authUser.id}/update`, postData)
+        myUserAPI.update(postData)
+                .then((response) => {
+                    console.log("Update response:", response);
+                    setUpdateStatus({status: "SUCCESS", message: "Successfully updated user"});
+                    console.log("Update status is:", updateStatus);
+
+                    const newSession: SessionVO = {
+                        id: response.id,
+                        username: response.username,
+                        firstName: response.firstName,
+                        lastName: response.lastName,
+                        phoneNumber: response.phoneNumber,
+                        registered: response.registered,
+                        diveCount: response.diveCount,
+                        accessToken: userSession === null ? "" : userSession.accessToken,
+                        type:  userSession === null ? "" : userSession.type,
+                        expiresAt: userSession === null ? new Date() : userSession.expiresAt,
+                        roles: response.roles,
+                        language: response.language,
+                        status: response.status,
+                        approvedTerms: response.approvedTerms,
+                        privacy: response.privacy,
+                        payments: response.payments,
+                        nextOfKin: response.nextOfKin
+                    };
+                    refreshUserSession(newSession);
+                })
                 .catch(e => {
                     console.log(e);
                     setUpdateStatus({status: "ERROR", message: e});
-                }).then((response) => {
-            if (response.id && response.id === authUser.id) {
-                setUpdateStatus({status: "OK", message: t('User.updateStatus.ok')});
-                const newState = {
-                    id: authUser.id,
-                    username: authUser.username,
-                    firstName: response.firstName,
-                    lastName: response.lastName,
-                    phoneNumber: response.phoneNumber,
-                    registered: response.registered,
-                    diveCount: authUser.diveCount,
-                    accessToken: authUser.accessToken,
-                    type: authUser.type,
-                    roles: response.roles,
-                    language: response.language,
-                    status: response.status,
-                    approvedTerms: response.approvedTerms,
-                    expiresAt: authUser.expiresAt,
-                }
-
-                dispatch(authActions.refreshSession(newState));
-            } else {
-                console.log("Failed to update user, error: " + response.message);
-                setUpdateStatus({status: "ERROR", message: t('User.updateStatus.fail')});
-            }
-        });
+                });
         setLoading(false);
     }
 
-    function onFinishFailed(errorInfo: any){
+    function onFinishFailed(errorInfo: any) {
         console.log('Failed:', errorInfo);
         setLoading(false);
+    }
+
+    const navigate = useNavigate();
+
+    if (updateStatus.status.length > 0) {
+        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
+    } else {
+        console.log("Update status is:", updateStatus);
     }
 
     return (
@@ -165,7 +194,7 @@ function User() {
                                    style={{display: "none"}}>
                             <Input type="text"/>
                         </Form.Item>
-                        <UserFields userId={workUser.id} username={workUser.username} isOrganizer={checkRoles(workUser, ["ORGANIZER"])}/>
+                        {userSession && workUser && <UserFields userId={workUser.id} username={workUser.username} isOrganizer={checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER])}/>}
                         <Form.Item label={t("User.form.status.label")}>
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>
@@ -227,8 +256,8 @@ function User() {
 
                     <p style={{height: 30}}></p>
 
-                    <Certificates userId={authUser.id}/>
-                    <UserEvents userId={authUser.id}/>
+                    {workUser && workUser.id && <Certificates userId={workUser?.id}/>}
+                    {workUser && workUser.id && <UserEvents userId={workUser.id}/>}
                 </Spin>
             </div>
     );

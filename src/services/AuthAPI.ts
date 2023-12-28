@@ -9,29 +9,11 @@ class AuthAPI {
 
     async login(user: LoginRequest) {
         const response = await axios
-            .post(API_URL, user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
+            .post<SessionVO>(API_URL, user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
 
         if (response.status === 200 && response.data.id > 0) {
-            console.info("Storing login response to local storage: ");
-
-            const session: SessionVO = {
-                id: response.data.id,
-                username: response.data.username,
-                firstName: response.data.firstName,
-                lastName: response.data.lastName,
-                phoneNumber: response.data.phoneNumber,
-                registered: response.data.registered,
-                diveCount: response.data.diveCount,
-                payments: response.data.payments,
-                approvedTerms: response.data.approvedTerms,
-                language: response.data.language,
-                accessToken: response.data.token,
-                type: response.data.type,
-                roles: response.data.roles,
-                status: response.data.status,
-                expiresAt: response.data.expiresAt,
-            };
-
+            const session: SessionVO = response.data;
+            console.info("Received session data:", session);
             localStorage.setItem(this.userKey, JSON.stringify(session));
             console.log('After login post, set user data in local storage:', session);
         } else {
@@ -45,9 +27,7 @@ class AuthAPI {
     }
 
     logout() {
-        console.log("Logout so clearing out local storage");
-        localStorage.removeItem(this.userKey);
-        console.info("Removed user key from local storage");
+        // We could add here call to backend to end session
     }
 }
 
