@@ -15,15 +15,16 @@ import FormatPayments from "./FormatPayments";
 import UserEvents from "./UserEvents";
 import SubmitResult from "../main/SubmitResult";
 import {useNavigate} from "react-router-dom";
+import UpdateStatusVO from "../../models/UpdateStatusVO";
+import UpdateStatusEnum from "../../models/UpdateStatusEnum";
 
 function User() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
-    const [updateStatus, setUpdateStatus] = useState({status: "", message: ""});
+    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
     const [workUser, setWorkUser] = useState<UserResponse>();
     const [userForm] = Form.useForm();
-    const myUserAPI = new UserAPI.UserAPI("/users");
 
     useEffect(() => {
         const fetchMemberData = async () => {
@@ -31,13 +32,13 @@ function User() {
 
             if (userSession) {
 
-                myUserAPI.findById(userSession?.id, null)
+                UserAPI.findById(userSession?.id, null)
                         .then((response) => {
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                         })
                         .catch((error) => {
                             console.error("Error fetching:", error);
-                            setUpdateStatus({status: "ERROR", message: error});
+                            setUpdateStatus({status: UpdateStatusEnum.FAILED, message: error});
                         });
             } else {
                 console.error("No userSession found");
@@ -56,14 +57,14 @@ function User() {
             return;
         }
 
-        myUserAPI.updateUserStatus(workUser?.id, status)
+        UserAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
                     console.log(response);
-                    setUpdateStatus({status: "SUCCESS", message: "Successfully updated user status"});
+                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: "Successfully updated user status"});
                 })
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: "ERROR", message: e});
+                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: e});
                 });
         setLoading(false);
     }
@@ -82,7 +83,7 @@ function User() {
         }
     };
 
-    const onFinish = (userInfo: UserResponse) => {
+    function onFinish(userInfo: UserResponse): void {
         setLoading(true);
 
         if (workUser?.id === undefined) {
@@ -108,11 +109,9 @@ function User() {
             language: userInfo.language
         };
 
-        myUserAPI.update(postData)
+        UserAPI.update(postData)
                 .then((response) => {
                     console.log("Update response:", response);
-                    setUpdateStatus({status: "SUCCESS", message: "Successfully updated user"});
-                    console.log("Update status is:", updateStatus);
 
                     const newSession: SessionVO = {
                         id: response.id,
@@ -134,12 +133,14 @@ function User() {
                         nextOfKin: response.nextOfKin
                     };
                     refreshUserSession(newSession);
+                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: "Successfully updated user"});
+                    setLoading(false);
                 })
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: "ERROR", message: e});
+                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: e});
+                    setLoading(false);
                 });
-        setLoading(false);
     }
 
     function onFinishFailed(errorInfo: any) {
@@ -149,10 +150,11 @@ function User() {
 
     const navigate = useNavigate();
 
-    if (updateStatus.status.length > 0) {
+    if (updateStatus.status !== UpdateStatusEnum.NONE) {
+        console.debug("Showing update result:", updateStatus);
         return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
     } else {
-        console.log("Update status is:", updateStatus);
+        console.debug("Update status is:", updateStatus);
     }
 
     return (

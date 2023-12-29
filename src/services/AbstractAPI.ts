@@ -53,11 +53,8 @@ export abstract class AbstractAPI<T> {
         const session: SessionVO = JSON.parse(localStorage.getItem("user") || "{}");
 
         if (session && session.accessToken) {
-            console.debug("Authorization header set.", session);
             this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + session.accessToken;
             console.debug("Authorization header set.", this.axiosInstance.defaults.headers.common['Authorization']);
-        } else {
-            console.debug("No authorization header set because no session was found.", session);
         }
     }
 }
