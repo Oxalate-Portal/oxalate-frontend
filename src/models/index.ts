@@ -4,6 +4,8 @@ export * from "./DiveEventVO";
 export * from "./LoginStatus";
 export * from "./PageStatusEnum";
 export * from "./PaymentTypeEnum";
+export * from "./RegistrationVO";
+export * from "./ResultEnum";
 export * from "./RoleEnum";
 export * from "./SessionVO";
 export * from "./UpdateStatusEnum";

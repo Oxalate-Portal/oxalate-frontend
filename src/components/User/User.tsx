@@ -250,7 +250,7 @@ function User() {
                             {!workUser.approvedTerms && <Button
                                     danger={true}
                                     type={"dashed"} onClick={logoutUser}
-                                    href={"/logout"}
+                                    href={"/"}
                                     disabled={loading}
                             >{t("common.button.logout")}</Button>}
                         </Space>

@@ -1,15 +1,16 @@
 import LoginRequest from "../models/requests/LoginRequest";
 import axios from "axios";
 import SessionVO from "../models/SessionVO";
-
-const API_URL = `${process.env.REACT_APP_API_URL}/auth/login`;
+import RegistrationVO from "../models/RegistrationVO";
+import RegistrationResponse from "../models/responses/RegistrationResponse";
 
 class AuthAPI {
     userKey: string = "user";
+    BASE_URL: string = process.env.REACT_APP_API_URL + '/auth' || "";
 
     async login(user: LoginRequest) {
         const response = await axios
-            .post<SessionVO>(API_URL, user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
+            .post<SessionVO>(this.BASE_URL + "/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
 
         if (response.status === 200 && response.data.id > 0) {
             const session: SessionVO = response.data;
@@ -28,6 +29,16 @@ class AuthAPI {
 
     logout() {
         // We could add here call to backend to end session
+    }
+
+    async register(registrationData: RegistrationVO): Promise<RegistrationResponse> {
+        const response = await axios.post<RegistrationResponse>(this.BASE_URL + "/register", registrationData);
+        return response.data;
+    }
+
+    async resendRegistrationEmail(token: string): Promise<boolean> {
+        const response = await axios.post<void>(this.BASE_URL + "/registrations/resend-confirmation", {token: token});
+        return response.status === 200;
     }
 }
 

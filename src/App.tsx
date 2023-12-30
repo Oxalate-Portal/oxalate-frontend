@@ -1,14 +1,15 @@
 import React from "react";
 import "./App.css";
-import { ConfigProvider, theme } from "antd";
+import {ConfigProvider, theme} from "antd";
 import NavigationBar from "./components/main/NavigationBar";
 import Home from "./components/main/Home";
-import { PrivateRoute, useSession } from "./session";
+import {PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
-import { Navigate, Route, Routes } from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Page from "./components/Page/Page";
 import LoginWithCaptcha from "./components/main/LoginWithCaptcha";
 import User from "./components/User/User";
+import {Register} from "./components/Register";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -36,6 +37,7 @@ function App() {
                         <Routes>
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
+                            <Route path="/auth/register" element={<Register/>}/>
                             <Route path="/login" element={<LoginWithCaptcha/>}/>
                             <Route path="/pages/:pageId" element={<Page/>}/>
                             <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>

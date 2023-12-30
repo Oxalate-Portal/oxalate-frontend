@@ -206,7 +206,7 @@ function NavigationBar() {
                                                              type="button">{t("nav.action.changePassword")}</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink onClick={logoutUser} to="/logout" className="dropdown-item"
+                                                    <NavLink onClick={logoutUser} to="/" className="dropdown-item"
                                                              type="button">{t("nav.action.logout")}</NavLink>
                                                 </li>
                                             </ul>

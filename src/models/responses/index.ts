@@ -6,3 +6,4 @@ export * from "./PageResponse";
 export * from "./PageVersionResponse";
 export * from "./PaymentsResponse";
 export * from "./RolePermissionResponse";
+export * from "./TermsResponse";

@@ -2,7 +2,7 @@ import LanguageUtil from "../../helpers/LanguageUtil";
 import {Form, Input, Select, Switch} from "antd";
 import {useTranslation} from "react-i18next";
 
-export function UserFields(props: { userId: number; username: string; isOrganizer: boolean; }) {
+export function UserFields(props: { userId: number; username: string | null; isOrganizer: boolean; }) {
     const {t} = useTranslation();
 
     return (
