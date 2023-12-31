@@ -4,11 +4,10 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 import {useSession} from "../../session";
-import LoginRequest from "../../models/requests/LoginRequest";
-import LoginStatus from "../../models/LoginStatus";
-import ActionResultEnum from "../../models/ActionResultEnum";
+import {LoginRequest} from "../../models/requests";
+import {ActionResultEnum, LoginStatus} from "../../models";
 
-function Login() {
+export function Login() {
     const [loading, setLoading] = useState(false);
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -126,5 +125,3 @@ function Login() {
                 </Space>
             </Row>    );
 }
-
-export default Login;

@@ -1,4 +1,4 @@
-interface CertificateVO {
+export interface CertificateVO {
     id: number;
     userId: number;
     organization: string;
@@ -7,5 +7,3 @@ interface CertificateVO {
     diverId: string;
     certificationDate: Date;
 }
-
-export default CertificateVO;

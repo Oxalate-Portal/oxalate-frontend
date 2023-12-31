@@ -1,5 +1,5 @@
 import axios from "axios";
-import PageGroupResponse from "../models/responses/PageGroupResponse";
+import {PageGroupResponse} from "../models/responses";
 
 class NavigationAPI {
 
@@ -19,5 +19,4 @@ class NavigationAPI {
     }
 }
 
-const navigationAPI = new NavigationAPI();
-export default navigationAPI;
+export const navigationAPI = new NavigationAPI();

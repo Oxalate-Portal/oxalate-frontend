@@ -3,5 +3,3 @@ export function DiveEventList() {
             <></>
     );
 }
-
-export default DiveEventList;

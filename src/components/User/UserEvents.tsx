@@ -2,11 +2,11 @@ import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {Collapse, CollapseProps} from "antd";
 import {UserEventList} from "./UserEventList";
-import UserIdProps from "../../models/props/UserIdProps";
-import diveEventAPI from "../../services/DiveEventAPI";
-import DiveEventListItemResponse from "../../models/responses/DiveEventListItemResponse";
+import {UserIdProps} from "../../models/props";
+import {DiveEventListItemResponse} from "../../models/responses";
+import {diveEventAPI} from "../../services";
 
-function UserEvents(props: UserIdProps) {
+export function UserEvents(props: UserIdProps) {
     const [upcomingEvents, setUpcomingEvents] = useState<DiveEventListItemResponse[]>([]);
     const [pastEvents, setPastEvents] = useState<DiveEventListItemResponse[]>([]);
     const [loading, setLoading] = useState(true);
@@ -59,5 +59,3 @@ function UserEvents(props: UserIdProps) {
                 {!loading && <Collapse items={eventCollapses}/>}
             </>);
 }
-
-export default UserEvents;

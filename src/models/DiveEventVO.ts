@@ -1,10 +1,8 @@
-import UserResponse from "./responses/UserResponse";
 import AbstractDiveEvent from "./AbstractDiveEvent";
+import {UserResponse} from "./responses";
 
-interface DiveEventVO extends AbstractDiveEvent {
+export interface DiveEventVO extends AbstractDiveEvent {
     published: boolean;
     organizer: UserResponse;
     participants: UserResponse[];
 }
-
-export default DiveEventVO;

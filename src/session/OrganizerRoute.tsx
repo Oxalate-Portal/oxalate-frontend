@@ -1,9 +1,9 @@
-import { Navigate } from "react-router-dom";
-import { useSession } from "./SessionProvider";
-import RoleEnum from "../models/RoleEnum";
-import RoleRouteProps from "../models/props/RoleRouteProps";
+import {Navigate} from "react-router-dom";
+import {useSession} from "./SessionProvider";
+import {RoleRouteProps} from "../models/props";
+import {RoleEnum} from "../models";
 
-function OrganizerRoute({ children }: RoleRouteProps) {
+export function OrganizerRoute({ children }: RoleRouteProps) {
     const {userSession} = useSession()
 
     if (!userSession) {
@@ -19,5 +19,3 @@ function OrganizerRoute({ children }: RoleRouteProps) {
     // authorized so return child components
     return <>{children}</>;
 }
-
-export default OrganizerRoute;

@@ -1,5 +1,5 @@
 import Axios, {AxiosInstance} from "axios";
-import SessionVO from "../models/SessionVO";
+import {SessionVO} from "../models";
 
 export abstract class AbstractAPI<T> {
     protected axiosInstance: AxiosInstance;
@@ -37,11 +37,9 @@ export abstract class AbstractAPI<T> {
     public async delete(id: number): Promise<boolean> {
         this.setAuthorizationHeader();
         const response = await this.axiosInstance.delete<T>("/" + id);
-        if (response.status === 200) {
-            return true;
-        }
+        return response.status === 200;
 
-        return false;
+
     }
 
     /**

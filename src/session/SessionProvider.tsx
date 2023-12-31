@@ -1,10 +1,7 @@
-// Create a context to hold the session information
 import {createContext, useContext, useEffect, useState} from "react";
-import SessionVO from "../models/SessionVO";
-import LoginRequest from "../models/requests/LoginRequest";
-import authAPI from "../services/AuthAPI";
-import ActionResultEnum from "../models/ActionResultEnum";
-import LoginStatus from "../models/LoginStatus";
+import {ActionResultEnum, LoginStatus, SessionVO} from "../models";
+import {LoginRequest} from "../models/requests";
+import {authAPI} from "../services";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -19,7 +16,7 @@ interface SessionContextType {
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
-function SessionProvider({children}: any) {
+export function SessionProvider({children}: any) {
     const [user, setUser] = useState<SessionVO | null>(null);
     const [language, setLanguage] = useState<string>("fi");
     const userKey: string = "user";
@@ -107,7 +104,7 @@ function SessionProvider({children}: any) {
 }
 
 // Custom hook to use session data in components
-function useSession(): SessionContextType {
+export function useSession(): SessionContextType {
     const context = useContext(SessionContext);
     if (!context) {
         throw new Error("useSession must be used within a SessionProvider");
@@ -115,5 +112,3 @@ function useSession(): SessionContextType {
 
     return context;
 }
-
-export {SessionProvider, useSession};

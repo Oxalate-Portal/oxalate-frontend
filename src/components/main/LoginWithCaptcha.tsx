@@ -1,7 +1,7 @@
-import Login from "./Login";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import {GoogleReCaptchaProvider} from "react-google-recaptcha-v3";
+import {Login} from "./Login";
 
-function LoginWithCaptcha() {
+export function LoginWithCaptcha() {
     let captchaKey = process.env.REACT_APP_RECAPTCHA_SITE_KEY as string;
     console.log("Using captcha key:", captchaKey);
 
@@ -16,5 +16,3 @@ function LoginWithCaptcha() {
             </GoogleReCaptchaProvider>
     );
 }
-
-export default LoginWithCaptcha;

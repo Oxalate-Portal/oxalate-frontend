@@ -1,4 +1,4 @@
-interface RegistrationVO {
+export interface RegistrationVO {
     username: string;
     password: string;
     firstName: string;
@@ -8,5 +8,3 @@ interface RegistrationVO {
     privacy: boolean;
     language: string;
 }
-
-export default RegistrationVO;

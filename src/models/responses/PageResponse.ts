@@ -1,8 +1,8 @@
-import PageVersionResponse from "./PageVersionResponse";
-import RolePermissionResponse from "./RolePermissionResponse";
-import PageStatusEnum from "../PageStatusEnum";
+import {PageStatusEnum} from "../index";
+import {PageVersionResponse} from "./PageVersionResponse";
+import {RolePermissionResponse} from "./RolePermissionResponse";
 
-interface PageResponse {
+export interface PageResponse {
     id: number;
     status: PageStatusEnum;
     pageGroupId: number;
@@ -13,5 +13,3 @@ interface PageResponse {
     modifier: number | null;
     modifiedAt: Date | null;
 }
-
-export default PageResponse;

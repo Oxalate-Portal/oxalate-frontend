@@ -1,8 +1,6 @@
-import UpdateStatusEnum from "./UpdateStatusEnum";
+import {UpdateStatusEnum} from "./UpdateStatusEnum";
 
-interface UpdateStatusVO {
+export interface UpdateStatusVO {
     status: UpdateStatusEnum;
     message: string;
 }
-
-export default UpdateStatusVO;

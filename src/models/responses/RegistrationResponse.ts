@@ -1,8 +1,6 @@
-import ResultEnum from "../ResultEnum";
+import {ResultEnum} from "../ResultEnum";
 
-interface RegistrationResponse {
+export interface RegistrationResponse {
     status: ResultEnum;
     token: string;
 }
-
-export default RegistrationResponse;

@@ -1,13 +1,15 @@
-export * from "./ActionResultEnum";
-export * from "./CertificateVO";
-export * from "./DiveEventVO";
-export * from "./LoginStatus";
-export * from "./PageStatusEnum";
-export * from "./PaymentTypeEnum";
-export * from "./RegistrationVO";
-export * from "./ResultEnum";
-export * from "./RoleEnum";
-export * from "./SessionVO";
-export * from "./UpdateStatusEnum";
-export * from "./UpdateStatusVO";
-export * from "./UserStatusEnum";
+// Interfaces
+export type {CertificateVO} from "./CertificateVO";
+export type {DiveEventVO} from "./DiveEventVO";
+export type {LoginStatus} from "./LoginStatus";
+export type {RegistrationVO} from "./RegistrationVO";
+export type {SessionVO} from "./SessionVO";
+export type {UpdateStatusVO} from "./UpdateStatusVO";
+// Enums
+export {ActionResultEnum} from "./ActionResultEnum";
+export {PageStatusEnum} from "./PageStatusEnum";
+export {PaymentTypeEnum} from "./PaymentTypeEnum";
+export {ResultEnum} from "./ResultEnum";
+export {RoleEnum} from "./RoleEnum";
+export {UpdateStatusEnum} from "./UpdateStatusEnum";
+export {UserStatusEnum} from "./UserStatusEnum";

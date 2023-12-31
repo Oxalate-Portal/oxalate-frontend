@@ -1,6 +1,6 @@
-import PaymentsResponse from "./responses/PaymentsResponse";
-import RoleEnum from "./RoleEnum";
-import UserStatusEnum from "./UserStatusEnum";
+import {PaymentsResponse} from "./responses";
+import {RoleEnum} from "./RoleEnum";
+import {UserStatusEnum} from "./UserStatusEnum";
 
 interface AbstractUser {
     id: number;

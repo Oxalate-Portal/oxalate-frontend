@@ -1,5 +1,3 @@
-interface LostPasswordRequest {
+export interface LostPasswordRequest {
     email: string;
 }
-
-export default LostPasswordRequest;

@@ -1,8 +1,6 @@
-import ActionResultEnum from "./ActionResultEnum";
+import {ActionResultEnum} from "./ActionResultEnum";
 
-interface LoginStatus {
+export interface LoginStatus {
     status: ActionResultEnum;
     message: string;
 }
-
-export default LoginStatus;

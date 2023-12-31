@@ -1,9 +1,7 @@
 import AbstractDiveEvent from "../AbstractDiveEvent";
 
-interface DiveEventVO extends AbstractDiveEvent {
+export interface DiveEventListItemResponse extends AbstractDiveEvent {
     published: boolean;
     organizerName: string;
     participantCount: number;
 }
-
-export default DiveEventVO;

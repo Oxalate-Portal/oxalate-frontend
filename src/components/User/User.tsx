@@ -2,23 +2,16 @@ import {useSession} from "../../session";
 import {useEffect, useState} from "react";
 import {Button, Checkbox, Col, Form, Input, Row, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
-import UserAPI from "../../services/UserAPI";
-import UserResponse from "../../models/responses/UserResponse";
-import UserStatusEnum from "../../models/UserStatusEnum";
-import UserRequest from "../../models/requests/UserRequest";
-import SessionVO from "../../models/SessionVO";
 import {checkRoles} from "../../helpers";
-import RoleEnum from "../../models/RoleEnum";
-import {Certificates} from "./Certificates";
-import UserFields from "./UserFields";
-import FormatPayments from "./FormatPayments";
-import UserEvents from "./UserEvents";
-import SubmitResult from "../main/SubmitResult";
 import {useNavigate} from "react-router-dom";
-import UpdateStatusVO from "../../models/UpdateStatusVO";
-import UpdateStatusEnum from "../../models/UpdateStatusEnum";
+import {Certificates, FormatPayments, UserEvents, UserFields} from "./index";
+import {RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum} from "../../models";
+import {UserResponse} from "../../models/responses";
+import {UserRequest} from "../../models/requests";
+import {SubmitResult} from "../main";
+import {userAPI} from "../../services";
 
-function User() {
+export function User() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [loading, setLoading] = useState(true);
@@ -32,7 +25,7 @@ function User() {
 
             if (userSession) {
 
-                UserAPI.findById(userSession?.id, null)
+                userAPI.findById(userSession?.id, null)
                         .then((response) => {
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                         })
@@ -57,14 +50,14 @@ function User() {
             return;
         }
 
-        UserAPI.updateUserStatus(workUser?.id, status)
+        userAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
                     console.log(response);
-                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: "Successfully updated user status"});
+                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: t('User.updateStatus.ok')});
                 })
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: e});
+                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: t('User.updateStatus.fail')});
                 });
         setLoading(false);
     }
@@ -109,7 +102,7 @@ function User() {
             language: userInfo.language
         };
 
-        UserAPI.update(postData)
+        userAPI.update(postData)
                 .then((response) => {
                     console.log("Update response:", response);
 
@@ -133,12 +126,12 @@ function User() {
                         nextOfKin: response.nextOfKin
                     };
                     refreshUserSession(newSession);
-                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: "Successfully updated user"});
+                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: t("User.update.ok")});
                     setLoading(false);
                 })
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: e});
+                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: t("User.update.fail")});
                     setLoading(false);
                 });
     }
@@ -264,5 +257,3 @@ function User() {
             </div>
     );
 }
-
-export default User;

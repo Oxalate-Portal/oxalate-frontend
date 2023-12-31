@@ -1,7 +1,7 @@
 import {Form, Input} from "antd";
 import {useTranslation} from "react-i18next";
 
-function PasswordFields() {
+export function PasswordFields() {
     const {t} = useTranslation();
 
     return (
@@ -52,5 +52,3 @@ function PasswordFields() {
             </>
     );
 }
-
-export default PasswordFields;

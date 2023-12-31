@@ -1,4 +1,4 @@
-class LanguageUtil {
+export class LanguageUtil {
     static languages = [
         { label: "Suomi 🇫🇮", value: "fi" },
         { label: "English 🇬🇧", value: "en" },
@@ -16,4 +16,3 @@ class LanguageUtil {
     }
 }
 
-export default LanguageUtil;

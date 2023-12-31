@@ -1,13 +1,13 @@
 import {Alert, Button, Form, Space, Spin} from "antd";
-import PasswordRules from "./PasswordRules";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
-import AuthAPI from "../../services/AuthAPI";
-import PasswordResetRequest from "../../models/requests/PasswordResetRequest";
-import PasswordFields from "./PasswordFields";
+import {PasswordResetRequest} from "../../models/requests";
+import {authAPI} from "../../services";
+import {PasswordRules} from "./PasswordRules";
+import {PasswordFields} from "./PasswordFields";
 
-function NewPassword() {
+export function NewPassword() {
     const [newPasswordForm] = Form.useForm();
     const [updateStatus, setUpdateStatus] = useState({status: '', message: ''});
     const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ function NewPassword() {
             token: token
         };
 
-        AuthAPI.resetPassword(postData)
+        authAPI.resetPassword(postData)
                 .catch(e => {
                     console.log(e);
                     setUpdateStatus({status: "ERROR", message: e});
@@ -95,5 +95,3 @@ function NewPassword() {
                 </Spin>
             </div>);
 }
-
-export default NewPassword;

@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {Alert, Button} from "antd";
-import authAPI from "../../services/AuthAPI";
 import {useState} from "react";
+import {authAPI} from "../../services";
 
 interface ResendRegistrationEmailProps {
     token: string;
@@ -31,5 +31,3 @@ export function ResendRegistrationEmail({token}: ResendRegistrationEmailProps) {
                 {!resendSuccess && <Alert type={'error'} message={t('ResendRegistrationEmail.text.fail')}/>}
             </>    );
 }
-
-export default ResendRegistrationEmail;

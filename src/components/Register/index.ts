@@ -1,2 +1,2 @@
-export * from "./Register";
-export * from "./ResendRegistrationEmail";
+export {Register} from "./Register";
+export {ResendRegistrationEmail} from "./ResendRegistrationEmail";

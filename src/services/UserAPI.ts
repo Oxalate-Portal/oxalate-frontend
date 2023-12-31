@@ -1,7 +1,7 @@
 import {AbstractAPI} from "./AbstractAPI";
-import UserResponse from "../models/responses/UserResponse";
-import UserStatusEnum from "../models/UserStatusEnum";
 import axios from "axios";
+import {UserResponse} from "../models/responses";
+import {UserStatusEnum} from "../models";
 
 class UserAPI extends AbstractAPI<UserResponse> {
 
@@ -16,5 +16,4 @@ class UserAPI extends AbstractAPI<UserResponse> {
     }
 }
 
-const userAPI = new UserAPI("/users");
-export default userAPI;
+export const userAPI = new UserAPI("/users");

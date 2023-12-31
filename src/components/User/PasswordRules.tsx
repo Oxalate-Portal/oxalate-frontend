@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 
-function PasswordRules()
+export function PasswordRules()
 {
     const {t} = useTranslation();
 
@@ -16,5 +16,3 @@ function PasswordRules()
             </>
     );
 }
-
-export default PasswordRules;

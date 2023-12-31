@@ -1,8 +1,7 @@
 import {AbstractAPI} from "./AbstractAPI";
-import PageResponse from "../models/responses/PageResponse";
+import {PageResponse} from "../models/responses";
 
 class PageAPI extends AbstractAPI<PageResponse> {
 }
 
-const pageAPI = new PageAPI("/pages");
-export default pageAPI;
+export const pageAPI = new PageAPI("/pages");

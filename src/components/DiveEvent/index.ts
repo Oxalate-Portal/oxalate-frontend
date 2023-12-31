@@ -1,1 +1,1 @@
-export * from './DiveEventList';
+export {DiveEventList} from './DiveEventList';

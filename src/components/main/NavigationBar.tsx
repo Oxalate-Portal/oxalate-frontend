@@ -5,13 +5,12 @@ import {NavLink} from "react-router-dom";
 import {Tooltip} from "antd";
 import i18next from "i18next";
 import {useEffect, useState} from "react";
-import {checkRoles} from "../../helpers";
-import RoleEnum from "../../models/RoleEnum";
-import navigationAPI from "../../services/NavigationAPI";
-import PageGroupResponse from "../../models/responses/PageGroupResponse";
-import LanguageUtil from "../../helpers/LanguageUtil";
+import {checkRoles, LanguageUtil} from "../../helpers";
+import {PageGroupResponse} from "../../models/responses";
+import {RoleEnum} from "../../models";
+import {navigationAPI} from "../../services";
 
-function NavigationBar() {
+export function NavigationBar() {
     const {userSession, logoutUser, getSessionLanguage, setSessionLanguage} = useSession();
 
     const {t} = useTranslation();
@@ -228,5 +227,3 @@ function NavigationBar() {
             </nav>
     );
 }
-
-export default NavigationBar;

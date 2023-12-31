@@ -1,11 +1,7 @@
-import LoginRequest from "../models/requests/LoginRequest";
 import axios from "axios";
-import SessionVO from "../models/SessionVO";
-import RegistrationVO from "../models/RegistrationVO";
-import RegistrationResponse from "../models/responses/RegistrationResponse";
-import LostPasswordRequest from "../models/requests/LostPasswordRequest";
-import GenericMessageResponse from "../models/responses/GenericMessageResponse";
-import PasswordResetRequest from "../models/requests/PasswordResetRequest";
+import {LoginRequest, LostPasswordRequest, PasswordResetRequest} from "../models/requests";
+import {RegistrationVO, SessionVO} from "../models";
+import {GenericMessageResponse, RegistrationResponse} from "../models/responses";
 
 class AuthAPI {
     userKey: string = "user";
@@ -55,5 +51,4 @@ class AuthAPI {
     }
 }
 
-const authAPI = new AuthAPI();
-export default authAPI;
+export const authAPI = new AuthAPI();

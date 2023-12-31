@@ -1,15 +1,14 @@
 import {NavigateFunction} from "react-router-dom";
 import {Alert, Button} from "antd";
 import {useTranslation} from "react-i18next";
-import UpdateStatusVO from "../../models/UpdateStatusVO";
-import UpdateStatusEnum from "../../models/UpdateStatusEnum";
+import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
 
 interface SubmitResultProps {
     updateStatus: UpdateStatusVO,
     navigate: NavigateFunction
 }
 
-function SubmitResult({ updateStatus, navigate }: SubmitResultProps) {
+export function SubmitResult({ updateStatus, navigate }: SubmitResultProps) {
     const {t} = useTranslation();
 
     if (updateStatus.status === UpdateStatusEnum.SUCCESS) {
@@ -33,5 +32,3 @@ function SubmitResult({ updateStatus, navigate }: SubmitResultProps) {
         return (<></>);
     }
 }
-
-export default SubmitResult;

@@ -1,15 +1,15 @@
-import PageProps from "../../models/props/PageProps";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import PageResponse from "../../models/responses/PageResponse";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
-import pageAPI from "../../services/PageAPI";
 import {Space, Spin} from "antd";
 import dayjs from "dayjs";
 import DOMPurify from "dompurify";
+import {PageProps} from "../../models/props";
+import {PageResponse} from "../../models/responses";
+import {pageAPI} from "../../services";
 
-function Page(pageProps: PageProps = {}) {
+export function Page(pageProps: PageProps = {}) {
     const {pageId: propPageId, showTitle = true, showDate = true} = pageProps;
     const {pageId: paramPageId} = useParams();
     const pageId = propPageId || parseInt(paramPageId as string, 10);
@@ -49,5 +49,3 @@ function Page(pageProps: PageProps = {}) {
         </Spin>
     </div>);
 }
-
-export default Page;

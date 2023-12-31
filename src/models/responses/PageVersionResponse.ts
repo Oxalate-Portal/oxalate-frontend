@@ -1,4 +1,4 @@
-interface PageVersionResponse {
+export interface PageVersionResponse {
     id: number;
     pageId: number;
     language: string;
@@ -6,5 +6,3 @@ interface PageVersionResponse {
     ingress: string;
     body: string;
 }
-
-export default PageVersionResponse;

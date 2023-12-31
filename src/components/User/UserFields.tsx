@@ -1,6 +1,6 @@
-import LanguageUtil from "../../helpers/LanguageUtil";
 import {Form, Input, Select, Switch} from "antd";
 import {useTranslation} from "react-i18next";
+import {LanguageUtil} from "../../helpers";
 
 export function UserFields(props: { userId: number; username: string | null; isOrganizer: boolean; }) {
     const {t} = useTranslation();
@@ -120,4 +120,3 @@ export function UserFields(props: { userId: number; username: string | null; isO
     );
 }
 
-export default UserFields;

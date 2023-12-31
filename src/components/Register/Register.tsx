@@ -4,13 +4,11 @@ import {useNavigate} from "react-router-dom";
 import {Alert, Button, Form, Input, Modal, Row} from "antd";
 import {useTranslation} from "react-i18next";
 import {UserFields} from "../User";
-import UpdateStatusVO from "../../models/UpdateStatusVO";
-import UpdateStatusEnum from "../../models/UpdateStatusEnum";
-import AuthAPI from "../../services/AuthAPI";
-import ResultEnum from "../../models/ResultEnum";
-import ResendRegistrationEmail from "./ResendRegistrationEmail";
-import RegistrationResponse from "../../models/responses/RegistrationResponse";
 import {AcceptTerms} from "../main";
+import {ResultEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
+import {RegistrationResponse} from "../../models/responses";
+import {authAPI} from "../../services";
 
 export function Register() {
     const {userSession} = useSession();
@@ -41,7 +39,7 @@ export function Register() {
         language: any;
     }) {
         setLoading(true);
-        AuthAPI.register({
+        authAPI.register({
             username: regData.username,
             password: regData.password,
             firstName: regData.firstName,
@@ -176,11 +174,11 @@ export function Register() {
                            }}
                            open={showTerms}
                            title={t('Register.form.terms.title')}
-                           width={'80%'}><AcceptTerms registration={true}
-                    /></Modal>
+                           width={'80%'}>
+                        <AcceptTerms registration={true}/>
+                    </Modal>
                 </Row>
             </div>
     );
 }
 
-export default Register;

@@ -1,12 +1,12 @@
 import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
-import SessionVO from "../models/SessionVO";
+import {SessionVO} from "../models";
 
 interface AuthVerifyProps {
     logOut: () => void
 }
 
-function AuthVerify({logOut}: AuthVerifyProps) {
+export function AuthVerify({logOut}: AuthVerifyProps) {
     const location = useLocation();
 
     useEffect(() => {
@@ -27,5 +27,3 @@ function AuthVerify({logOut}: AuthVerifyProps) {
 
     return (<></>);
 }
-
-export default AuthVerify;

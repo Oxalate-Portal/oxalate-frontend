@@ -1,5 +1,3 @@
-interface UserIdProps {
+export interface UserIdProps {
     userId: number;
 }
-
-export default UserIdProps;

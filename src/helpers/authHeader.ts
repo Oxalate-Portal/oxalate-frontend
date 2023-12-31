@@ -1,6 +1,6 @@
-import SessionVO from "../models/SessionVO";
+import {SessionVO} from "../models";
 
-export default function authHeader() {
+export function authHeader() {
     const session: SessionVO = JSON.parse(localStorage.getItem("user") || "{}");
 
     if (session && session.accessToken) {

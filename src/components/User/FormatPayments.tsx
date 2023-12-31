@@ -1,13 +1,13 @@
-import UserResponse from "../../models/responses/UserResponse";
 import {Link} from "react-router-dom";
 import {formatDateTime} from "../../helpers";
 import {useTranslation} from "react-i18next";
+import {UserResponse} from "../../models/responses";
 
 interface FormatPaymentsProps {
     userData: UserResponse | undefined
 }
 
-function FormatPayments(props: FormatPaymentsProps) {
+export function FormatPayments(props: FormatPaymentsProps) {
     const {t} = useTranslation();
 
     if (!props.userData || props.userData.payments === undefined || props.userData.payments.length === 0) {
@@ -30,5 +30,3 @@ function FormatPayments(props: FormatPaymentsProps) {
         })}
     </>);
 }
-
-export default FormatPayments;

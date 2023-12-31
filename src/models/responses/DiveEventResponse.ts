@@ -1,7 +1,4 @@
-import DiveEventVO from "../DiveEventVO";
+import {DiveEventVO} from "../DiveEventVO";
 
-interface DiveEventResponse extends DiveEventVO {
-
+export interface DiveEventResponse extends DiveEventVO {
 }
-
-export default DiveEventResponse;

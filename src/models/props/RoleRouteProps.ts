@@ -1,5 +1,4 @@
-interface RoleRouteProps {
+export interface RoleRouteProps {
     children: React.ReactNode;
 }
 
-export default RoleRouteProps;

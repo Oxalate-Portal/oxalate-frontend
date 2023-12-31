@@ -1,19 +1,13 @@
 import React from "react";
 import "./App.css";
 import {ConfigProvider, theme} from "antd";
-import NavigationBar from "./components/main/NavigationBar";
-import Home from "./components/main/Home";
-import {PrivateRoute, useSession} from "./session";
+import {AuthVerify, PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
 import {Navigate, Route, Routes} from "react-router-dom";
-import Page from "./components/Page/Page";
-import LoginWithCaptcha from "./components/main/LoginWithCaptcha";
-import User from "./components/User/User";
 import {Register} from "./components/Register";
-import LostPassword from "./components/User/LostPassword";
-import NewPassword from "./components/User/NewPassword";
-import Password from "./components/User/Password";
-import AuthVerify from "./session/AuthVerify";
+import {LostPassword, NewPassword, Password, User} from "./components/User";
+import {Home, LoginWithCaptcha, NavigationBar} from "./components/main";
+import {Page} from "./components/Page";
 
 function App() {
     const {darkAlgorithm} = theme;

@@ -1,9 +1,9 @@
 import {useSession} from "../../session";
 import {Alert, Button, Space} from "antd";
-import Page from "../Page/Page";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
-import userAPI from "../../services/UserAPI";
+import {Page} from "../Page";
+import {userAPI} from "../../services";
 
 interface AcceptTermsProps {
     registration: boolean
@@ -57,5 +57,3 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
             </div>
     );
 }
-
-export default AcceptTerms;

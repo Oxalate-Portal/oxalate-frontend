@@ -1,7 +1,5 @@
-enum PageStatusEnum {
+export enum PageStatusEnum {
     HIDDEN = 'HIDDEN',
     PUBLIC = 'PUBLIC',
     CLOSED = 'CLOSED'
 }
-
-export default PageStatusEnum;
