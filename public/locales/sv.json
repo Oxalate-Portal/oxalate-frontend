@@ -570,7 +570,7 @@
   "LostPassword": {
     "form": {
       "submitButton": "Skicka",
-      "username": {
+      "email": {
         "label": "Användarnamn/E-post:",
         "placeholder": "någon@någonstans.se",
         "rules": {

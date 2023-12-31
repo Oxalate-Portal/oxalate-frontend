@@ -569,7 +569,7 @@
   "LostPassword": {
     "form": {
       "submitButton": "Lähetä",
-      "username": {
+      "email": {
         "label": "Käyttäjätunnus/Sähköposti:",
         "placeholder": "joku@jossain.tld",
         "rules": {

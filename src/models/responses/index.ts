@@ -1,5 +1,6 @@
 export * from "./DiveEventResponse";
 export * from "./DiveEventListItemResponse";
+export * from "./GenericMessageResponse";
 export * from "./PageGroupResponse";
 export * from "./PageGroupVersionResponse";
 export * from "./PageResponse";

@@ -3,6 +3,9 @@ import axios from "axios";
 import SessionVO from "../models/SessionVO";
 import RegistrationVO from "../models/RegistrationVO";
 import RegistrationResponse from "../models/responses/RegistrationResponse";
+import LostPasswordRequest from "../models/requests/LostPasswordRequest";
+import GenericMessageResponse from "../models/responses/GenericMessageResponse";
+import PasswordResetRequest from "../models/requests/PasswordResetRequest";
 
 class AuthAPI {
     userKey: string = "user";
@@ -39,6 +42,16 @@ class AuthAPI {
     async resendRegistrationEmail(token: string): Promise<boolean> {
         const response = await axios.post<void>(this.BASE_URL + "/registrations/resend-confirmation", {token: token});
         return response.status === 200;
+    }
+
+    async recoverLostPassword(data: LostPasswordRequest): Promise<GenericMessageResponse> {
+        const response = await axios.post<GenericMessageResponse>(this.BASE_URL + "/lost-password", data);
+        return response.data;
+    }
+
+    async resetPassword(data: PasswordResetRequest): Promise<GenericMessageResponse> {
+        const response = await axios.post<GenericMessageResponse>(this.BASE_URL + "/reset-password", data);
+        return response.data;
     }
 }
 

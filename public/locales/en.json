@@ -569,7 +569,7 @@
   "LostPassword": {
     "form": {
       "submitButton": "Send",
-      "username": {
+      "email": {
         "label": "Username/Email:",
         "placeholder": "someone@example.com",
         "rules": {
