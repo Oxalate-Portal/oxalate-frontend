@@ -13,10 +13,11 @@ import {Register} from "./components/Register";
 import LostPassword from "./components/User/LostPassword";
 import NewPassword from "./components/User/NewPassword";
 import Password from "./components/User/Password";
+import AuthVerify from "./session/AuthVerify";
 
 function App() {
     const {darkAlgorithm} = theme;
-    const {userSession, getSessionLanguage} = useSession();
+    const {userSession, getSessionLanguage, logoutUser} = useSession();
     const sessionLanguage = getSessionLanguage();
 
     if (sessionLanguage !== undefined && sessionLanguage !== i18next.language) {
@@ -51,6 +52,7 @@ function App() {
                         </Routes>
                     </ConfigProvider>
                 </div>
+                <AuthVerify logOut={logoutUser}/>
             </div>
     );
 }

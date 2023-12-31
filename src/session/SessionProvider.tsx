@@ -67,10 +67,10 @@ function SessionProvider({children}: any) {
     // Function to handle logout
     const logoutUser = () => {
         setUser(null);
-        console.log("Logout so clearing out local storage");
+        console.debug("Logout so clearing out local storage");
         localStorage.removeItem(userKey);
-        console.info("Removed user key from local storage");
-        console.log("Logging out so set user data to null and calling authService.logout()");
+        console.debug("Removed user key from local storage");
+        console.debug("Logging out so set user data to null and calling authService.logout()");
         authAPI.logout();
     };
 
