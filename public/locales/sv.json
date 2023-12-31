@@ -897,6 +897,10 @@
       "confirm": "Vill du verkligen låsa kontot? Kontoinformationen bevaras, men administratören måste öppna ditt konto för att du ska kunna logga in i systemet igen."
     },
     "title": "Medlemsinformation",
+    "update": {
+      "fail": "Misslyckades med att uppdatera användarens information",
+      "ok": "Användarinformation uppdaterad"
+    },
     "updateStatus": {
       "fail": "Uppdatering av användarinformation misslyckades",
       "ok": "Användarinformationen har uppdaterats"

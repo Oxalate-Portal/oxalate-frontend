@@ -904,6 +904,10 @@
       "confirm": "Are you sure you want to lock the account? Account details will be preserved, but the administration needs to unlock your account for you to log in again."
     },
     "title": "member information",
+    "update": {
+      "fail": "Failed to update user's information",
+      "ok": "User information updated"
+    },
     "updateStatus": {
       "fail": "Failed to update user's information",
       "ok": "User information updated"

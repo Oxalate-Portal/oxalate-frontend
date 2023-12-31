@@ -904,6 +904,10 @@
       "confirm": "Haluatko varmasti lukita tilin? Tilin tiedot säilyvät, mutta ylläpidon on avattava tilisi jotta voit kirjautua järjestelmään uudelleen."
     },
     "title": "jäsentiedot",
+    "update": {
+      "fail": "Käyttäjätietojen päivitys epäonnistui",
+      "ok": "Käyttäjätiedot päivitetty"
+    },
     "updateStatus": {
       "fail": "Käyttäjän tietojen päivitys epäonnistui",
       "ok": "Käyttäjän tiedot päivitetty"

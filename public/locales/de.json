@@ -904,6 +904,10 @@
       "confirm": "Möchten Sie Ihr Konto wirklich sperren? Ihre Kontoinformationen werden gespeichert, aber die Freigabe durch den Support ist erforderlich, um sich erneut im System anzumelden."
     },
     "title": "Benutzerinformationen",
+    "update": {
+      "fail": "Aktualisierung der Benutzerinformationen fehlgeschlagen",
+      "ok": "Benutzerinformationen aktualisiert"
+    },
     "updateStatus": {
       "fail": "Aktualisierung der Benutzerdaten fehlgeschlagen",
       "ok": "Benutzerdaten erfolgreich aktualisiert"
