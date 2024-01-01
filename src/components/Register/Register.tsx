@@ -54,16 +54,16 @@ export function Register() {
                         console.debug("Registration successful");
                         localStorage.setItem("oxalateRegistrationStatus", JSON.stringify(registrationResponse));
                         console.debug('After registration post, set registration data in local storage:', registrationResponse);
-                        setRegistrationStatus({status: UpdateStatusEnum.SUCCESS, message: t('Register.success.message')} as UpdateStatusVO);
+                        setRegistrationStatus({status: UpdateStatusEnum.OK, message: t('Register.success.message')} as UpdateStatusVO);
                         setRegistrationResult(registrationResponse);
                     } else {
                         console.error("The register response did not contain known status: " + JSON.stringify(registrationResponse));
-                        setRegistrationStatus({status: UpdateStatusEnum.FAILED, message: t('Register.fail.message')} as UpdateStatusVO);
+                        setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t('Register.fail.message')} as UpdateStatusVO);
                     }
                 })
                 .catch(error => {
                     console.error("Failed to register new user: " + error);
-                    setRegistrationStatus({status: UpdateStatusEnum.FAILED, message: t('Register.fail.message')} as UpdateStatusVO);
+                    setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t('Register.fail.message')} as UpdateStatusVO);
                 });
 
         setLoading(false);
@@ -73,7 +73,7 @@ export function Register() {
         console.log('Failed:', errorInfo);
     }
 
-    if (registrationStatus.status === UpdateStatusEnum.SUCCESS && registrationResult !== null) {
+    if (registrationStatus.status === UpdateStatusEnum.OK && registrationResult !== null) {
         return (
                 <div className={'darkDiv'}>
                     <Row justify={'center'}>
@@ -87,7 +87,7 @@ export function Register() {
                     </Row>
                 </div>
         );
-    } else if (registrationStatus.status === UpdateStatusEnum.FAILED) {
+    } else if (registrationStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={'darkDiv'}>
             <Alert type={'error'}
                    showIcon

@@ -1,5 +1,5 @@
 export enum UpdateStatusEnum {
-    NONE = 0,
-    SUCCESS = 1,
-    FAILED = 2,
+    NONE = 'NONE',
+    OK = 'OK',
+    FAIL = 'FAIL',
 }

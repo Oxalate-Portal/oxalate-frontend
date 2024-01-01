@@ -31,7 +31,7 @@ export function User() {
                         })
                         .catch((error) => {
                             console.error("Error fetching:", error);
-                            setUpdateStatus({status: UpdateStatusEnum.FAILED, message: error});
+                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: error});
                         });
             } else {
                 console.error("No userSession found");
@@ -53,11 +53,11 @@ export function User() {
         userAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
                     console.log(response);
-                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: t('User.updateStatus.ok')});
+                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t('User.updateStatus.ok')});
                 })
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: t('User.updateStatus.fail')});
+                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('User.updateStatus.fail')});
                 });
         setLoading(false);
     }
@@ -126,12 +126,12 @@ export function User() {
                         nextOfKin: response.nextOfKin
                     };
                     refreshUserSession(newSession);
-                    setUpdateStatus({status: UpdateStatusEnum.SUCCESS, message: t("User.update.ok")});
+                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("User.update.ok")});
                     setLoading(false);
                 })
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAILED, message: t("User.update.fail")});
+                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("User.update.fail")});
                     setLoading(false);
                 });
     }

@@ -11,7 +11,7 @@ interface SubmitResultProps {
 export function SubmitResult({ updateStatus, navigate }: SubmitResultProps) {
     const {t} = useTranslation();
 
-    if (updateStatus.status === UpdateStatusEnum.SUCCESS) {
+    if (updateStatus.status === UpdateStatusEnum.OK) {
         window.dispatchEvent(new Event('reloadNavigationEvent'));
         return (<><div className={'darkDiv'}>
             <Alert type={'success'}
@@ -20,7 +20,7 @@ export function SubmitResult({ updateStatus, navigate }: SubmitResultProps) {
                    action={<Button type={'primary'} onClick={() => navigate(-1)}>{t('common.button.back')}</Button>}
             />
         </div></>);
-    } else if (updateStatus.status === UpdateStatusEnum.FAILED) {
+    } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={'darkDiv'}>
             <Alert type={'error'}
                    showIcon

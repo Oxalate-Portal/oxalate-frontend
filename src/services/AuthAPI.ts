@@ -1,15 +1,21 @@
-import axios from "axios";
+import Axios, {AxiosInstance} from "axios";
 import {LoginRequest, LostPasswordRequest, PasswordResetRequest} from "../models/requests";
-import {RegistrationVO, SessionVO} from "../models";
+import {RegistrationVO, SessionVO, UpdateStatusVO} from "../models";
 import {GenericMessageResponse, RegistrationResponse} from "../models/responses";
 
 class AuthAPI {
     userKey: string = "user";
-    BASE_URL: string = process.env.REACT_APP_API_URL + '/auth' || "";
 
+    protected axiosInstance: AxiosInstance;
+
+    constructor(member: string) {
+        this.axiosInstance = Axios.create({
+            baseURL: `${process.env.REACT_APP_API_URL}` + member
+        });
+    }
     async login(user: LoginRequest) {
-        const response = await axios
-            .post<SessionVO>(this.BASE_URL + "/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
+        const response = await this.axiosInstance
+            .post<SessionVO>("/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
 
         if (response.status === 200 && response.data.id > 0) {
             const session: SessionVO = response.data;
@@ -31,24 +37,44 @@ class AuthAPI {
     }
 
     async register(registrationData: RegistrationVO): Promise<RegistrationResponse> {
-        const response = await axios.post<RegistrationResponse>(this.BASE_URL + "/register", registrationData);
+        const response = await this.axiosInstance.post<RegistrationResponse>("/register", registrationData);
         return response.data;
     }
 
     async resendRegistrationEmail(token: string): Promise<boolean> {
-        const response = await axios.post<void>(this.BASE_URL + "/registrations/resend-confirmation", {token: token});
+        const response = await this.axiosInstance.post<void>("/registrations/resend-confirmation", {token: token});
         return response.status === 200;
     }
 
     async recoverLostPassword(data: LostPasswordRequest): Promise<GenericMessageResponse> {
-        const response = await axios.post<GenericMessageResponse>(this.BASE_URL + "/lost-password", data);
+        const response = await this.axiosInstance.post<GenericMessageResponse>("/lost-password", data);
         return response.data;
     }
 
     async resetPassword(data: PasswordResetRequest): Promise<GenericMessageResponse> {
-        const response = await axios.post<GenericMessageResponse>(this.BASE_URL + "/reset-password", data);
+        const response = await this.axiosInstance.post<GenericMessageResponse>("/reset-password", data);
         return response.data;
     }
-}
 
-export const authAPI = new AuthAPI();
+    public async updatePassword(userId: number | undefined, postData: { oldPassword: any; newPassword: any; confirmPassword: any }): Promise<UpdateStatusVO> {
+        this.setAuthorizationHeader();
+        const response = await this.axiosInstance.put<UpdateStatusVO>("/" + userId + "/password", postData);
+        return response.data;
+    }
+
+    /**
+     * Sets the authorization header for the axios instance. We get the authorization bearer value from the local storage. We're forced
+     * to do this on every request because the token can expire at any time.
+     * This is a copy from the one in AbstractAPI.ts
+     * @protected
+     */
+    protected setAuthorizationHeader(): void {
+        const session: SessionVO = JSON.parse(localStorage.getItem("user") || "{}");
+
+        if (session && session.accessToken) {
+            this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + session.accessToken;
+            console.debug("Authorization header set.", this.axiosInstance.defaults.headers.common['Authorization']);
+        }
+    }}
+
+export const authAPI = new AuthAPI('/auth');
