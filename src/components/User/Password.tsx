@@ -68,7 +68,7 @@ export function Password() {
                    showIcon
                    message={t('Password.updateStatus.fail.text')}
                    action={<Button type={'primary'}
-                                   onClick={() => navigate(-1)}>{t('common.button.back')}</Button>}
+                                   onClick={() => navigate('/')}>{t('common.button.back')}</Button>}
             />
         </div>);
     }

@@ -1,13 +1,14 @@
 import React from "react";
 import "./App.css";
 import {ConfigProvider, theme} from "antd";
-import {AuthVerify, PrivateRoute, useSession} from "./session";
+import {AdminRoute, AuthVerify, PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Register} from "./components/Register";
 import {LostPassword, NewPassword, Password, User} from "./components/User";
 import {Home, LoginWithCaptcha, NavigationBar} from "./components/main";
 import {Page} from "./components/Page";
+import {AdminMain} from "./components/Administration";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -35,6 +36,7 @@ function App() {
                         <Routes>
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
+                            <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>
