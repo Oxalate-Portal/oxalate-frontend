@@ -10,12 +10,17 @@ export abstract class AbstractAPI<T> {
         });
     }
 
+    public async findAll(params?: Record<string, any>): Promise<T> {
+        this.setAuthorizationHeader();
+        console.debug("findAll params", params);
+        const response = await this.axiosInstance.get<T>("", {params: params});
+        return response.data;
+    }
+
     public async findById(id: number, parameters: string | null): Promise<T> {
         this.setAuthorizationHeader();
         let url = "/" + id;
         url = parameters ? url + "?" + parameters : url;
-        console.log("URL: " + url);
-        // console.log("Arguments:", this.abstractAxios.arguments);
         const response = await this.axiosInstance.get<T>(url);
         return response.data;
     }
