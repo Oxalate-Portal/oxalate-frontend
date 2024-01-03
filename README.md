@@ -25,6 +25,6 @@ This code is published under the [GPL 2 License](LICENSE).
 
 # Contributors
 
-* Mikko Mustonen (React)
-* Paul-Erik 'Poltsi' Törrönen  (React)
+* Mikko Mustonen, founder, (React)
+* Paul-Erik 'Poltsi' Törrönen, developer, (React)
 * Pekka Palokorpi (Graphics)
