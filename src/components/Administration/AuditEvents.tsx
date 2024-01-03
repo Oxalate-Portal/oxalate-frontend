@@ -1,18 +1,22 @@
-import {Flex, Input, Select, Spin, Table, TablePaginationConfig, Tag} from "antd";
+import {Button, Input, InputRef, Space, Spin, Table, TablePaginationConfig, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../helpers";
 import {useCallback, useEffect, useRef, useState} from "react";
-import {ColumnsType} from "antd/lib/table";
 import {AuditEntryResponse} from "../../models/responses";
 import {AuditLevelEnum, SortableTableParams} from "../../models";
 import {auditAPI} from "../../services";
-import {FilterValue, SorterResult} from "antd/es/table/interface";
+import type {ColumnsType, ColumnType} from 'antd/es/table';
+import {FilterConfirmProps, FilterValue, SorterResult} from "antd/es/table/interface";
+import {SearchOutlined} from "@ant-design/icons";
+import Highlighter from 'react-highlight-words';
+
+type AuditEntryIndex = keyof AuditEntryResponse;
 
 export function AuditEvents() {
+    const defaultFilterColumn: string = 'userName';
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [auditEvents, setAuditEvents] = useState<AuditEntryResponse[]>([]);
-    const [filterColumn, setFilterColumn] = useState<string>('userName');
     const refreshDataFromServer = useRef(true); // useRef to track whether data should be fetched or not
 
     const [tablePaginationConfig, setTablePaginationConfig] = useState<TablePaginationConfig>({
@@ -34,8 +38,98 @@ export function AuditEvents() {
         order: 'descend',
         filter: '',
         filters: {},
-        filterColumn: 'message'
+        filterColumn: defaultFilterColumn
     });
+
+    /////////////////////////////////////////////////////
+
+    const [filterText, setFilterText] = useState('');
+    const [filteredColumn, setFilteredColumn] = useState(defaultFilterColumn);
+    const searchInput = useRef<InputRef>(null);
+
+    const handleReset = (clearFilters: () => void) => {
+        clearFilters();
+        setFilterText('');
+    };
+    const getColumnSearchProps = (auditEntryKey: AuditEntryIndex): ColumnType<AuditEntryResponse> => ({
+        filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters, close}) => (
+                <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
+                    <Input
+                            ref={searchInput}
+                            placeholder={`Search ${auditEntryKey}`}
+                            value={selectedKeys[0]}
+                            onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                            onPressEnter={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
+                            style={{marginBottom: 8, display: 'block'}}
+                    />
+                    <Space>
+                        <Button
+                                type="primary"
+                                onClick={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
+                                icon={<SearchOutlined/>}
+                                size="small"
+                                style={{width: 90}}
+                        >
+                            Search
+                        </Button>
+                        <Button
+                                onClick={() => clearFilters && handleReset(clearFilters)}
+                                size="small"
+                                style={{width: 90}}
+                        >
+                            Reset
+                        </Button>
+                        <Button
+                                type="link"
+                                size="small"
+                                onClick={() => {
+                                    confirm({closeDropdown: false});
+                                    setFilterText((selectedKeys as string[])[0]);
+                                    setFilteredColumn(auditEntryKey);
+                                }}
+                        >
+                            Filter
+                        </Button>
+                        <Button
+                                type="link"
+                                size="small"
+                                onClick={() => {
+                                    close();
+                                }}
+                        >
+                            close
+                        </Button>
+                    </Space>
+                </div>
+        ),
+        filterIcon: (filtered: boolean) => (
+                <SearchOutlined style={{color: filtered ? '#1677ff' : undefined}}/>
+        ),
+        onFilter: (value, record) =>
+                record[auditEntryKey]
+                        .toString()
+                        .toLowerCase()
+                        .includes((value as string).toLowerCase()),
+        onFilterDropdownOpenChange: (visible) => {
+            if (visible) {
+                setTimeout(() => searchInput.current?.select(), 100);
+            }
+        },
+        render: (text) =>
+                filteredColumn === auditEntryKey ? (
+                        <Highlighter
+                                highlightStyle={{backgroundColor: '#ffc069', padding: 0}}
+                                searchWords={[filterText]}
+                                autoEscape
+                                textToHighlight={text ? text.toString() : ''}
+                        />
+                ) : (
+                        text
+                ),
+    });
+
+    /////////////////////////////////////////////////////
+
 
     const auditColumns: ColumnsType<AuditEntryResponse> = [
         {
@@ -53,17 +147,20 @@ export function AuditEvents() {
             dataIndex: 'userName',
             key: 'userName',
             sorter: (a, b) => a.userName.localeCompare(b.userName),
-            sortDirections: ['descend', 'ascend']
+            sortDirections: ['descend', 'ascend'],
+            ...getColumnSearchProps('userName')
         },
         {
             title: t('AuditEvents.table.traceId'),
             dataIndex: 'traceId',
-            key: 'traceId'
+            key: 'traceId',
+            ...getColumnSearchProps('traceId')
         },
         {
             title: t('AuditEvents.table.source'),
             dataIndex: 'source',
-            key: 'source'
+            key: 'source',
+            ...getColumnSearchProps('source')
         },
         {
             title: t('AuditEvents.table.level'),
@@ -87,31 +184,33 @@ export function AuditEvents() {
                             {level}
                         </Tag>
                 );
-            })
+            }),
+            ...getColumnSearchProps('level')
         },
         {
             title: t('AuditEvents.table.address'),
             dataIndex: 'address',
             sorter: true,
-            key: 'address'
+            key: 'address',
+            ...getColumnSearchProps('address')
         },
         {
             title: t('AuditEvents.table.message'),
             dataIndex: 'message',
             key: 'message',
+            ...getColumnSearchProps('message')
         }
     ];
-
 
     const updateDataFromServer = useCallback(() => {
         console.debug("refreshData: got first parameter:", refreshDataFromServer.current);
         if (refreshDataFromServer.current) {
             auditAPI.findAll({
-                page: tablePaginationConfig.current,
+                page: (tablePaginationConfig.current === undefined ? 0 : (tablePaginationConfig.current - 1)),
                 pageSize: tablePaginationConfig.pageSize,
                 sorting: tableParams.field ? `${tableParams.field},${tableParams.order}` : null,
                 filter: tableParams.filter,
-                filterColumn: filterColumn
+                filterColumn: filteredColumn
             })
                     .then((response) => {
                         setAuditEvents(response.content);
@@ -139,7 +238,7 @@ export function AuditEvents() {
                         setLoading(false);
                     });
         }
-    }, [filterColumn, tableParams, tablePaginationConfig]);
+    }, [filteredColumn, tableParams, tablePaginationConfig]);
 
     useEffect(() => {
         setLoading(true);
@@ -148,56 +247,69 @@ export function AuditEvents() {
         refreshDataFromServer.current = false;
     }, [updateDataFromServer]);
 
-    const handleFilterColumnChange = (value: string) => {
-        console.debug("handleFilterColumnChange: got first parameter:", value);
-        setFilterColumn(value);
-    };
-
     function handleTableChange(tablePaginationConfig: TablePaginationConfig, filters: Record<string, FilterValue | null>,
                                sorter: SorterResult<AuditEntryResponse> | SorterResult<AuditEntryResponse>[]) {
         console.debug("handleTableChange: got pagination parameter:", tablePaginationConfig);
         console.debug("handleTableChange: got filter parameter:", filters);
         console.debug("handleTableChange: got sorter parameter:", sorter);
         setTablePaginationConfig(tablePaginationConfig);
+
+        if (filters) {
+            setTableParams({
+                ...tableParams,
+                pagination: tablePaginationConfig,
+                filters: filters,
+            });
+        }
+
+        if (sorter) {
+            // At this point we only sort by one column
+            let primarySorter: null | SorterResult<AuditEntryResponse>;
+
+            if (Array.isArray(sorter)) {
+                primarySorter = sorter[0];
+            } else {
+                primarySorter = sorter;
+            }
+
+            setTableParams({
+                ...tableParams,
+                pagination: tablePaginationConfig,
+                field: primarySorter.field === undefined ? defaultFilterColumn : primarySorter.field.toString(),
+                order: primarySorter.order === 'ascend' ? 'asc' : 'desc'
+            });
+        }
+
         refreshDataFromServer.current = true;
     }
 
-    function handleSearch(searchText: string) {
-        console.log("Searching for: " + searchText);
+    function handleSearch(searchText: string[], confirm: (param?: FilterConfirmProps) => void,
+                          dataIndex: AuditEntryIndex) {
+        console.debug("handleSearch: got first parameter:", searchText);
+        console.debug("handleSearch: got second parameter:", confirm);
+        console.debug("handleSearch: got third parameter:", dataIndex);
+        setFilterText(searchText[0]);
+        setFilteredColumn(dataIndex);
         setTableParams({
             ...tableParams,
-            filter: searchText,
-            filterColumn: filterColumn,
+            filter: searchText[0],
+            filterColumn: filteredColumn,
             pagination: {
                 ...tableParams.pagination,
                 current: 1, // Reset the current page to 1
             },
         });
+        // We need to reset also the tablePaginationConfig.current to 1, otherwise the table will not be updated
+        setTablePaginationConfig({
+            ...tablePaginationConfig,
+            current: 1
+        });
         refreshDataFromServer.current = true;
     }
-
 
     return (<div className={'darkDiv'}>
         <h4>{t('AuditEvents.title')}</h4>
 
-        <Flex>
-            <Select
-                    style={{width: 120, marginRight: 8}}
-                    defaultValue={filterColumn}
-                    onChange={handleFilterColumnChange}
-            >
-                <Select.Option value="userName">{t('AuditEvents.filter.userName')}</Select.Option>
-                <Select.Option value="traceId">{t('AuditEvents.filter.traceId')}</Select.Option>
-                <Select.Option value="source">{t('AuditEvents.filter.source')}</Select.Option>
-                <Select.Option value="address">{t('AuditEvents.filter.address')}</Select.Option>
-                <Select.Option value="message">{t('AuditEvents.filter.message')}</Select.Option>
-            </Select>
-            <Input.Search
-                    placeholder={t('AuditEvents.search.placeholder')}
-                    onSearch={value => handleSearch(value)}
-                    enterButton
-            />
-        </Flex>
         <Spin spinning={loading}>
             <Table dataSource={auditEvents}
                    columns={auditColumns}

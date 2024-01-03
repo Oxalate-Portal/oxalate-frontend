@@ -9,6 +9,6 @@ export interface SortableTableParams {
     field: string;
     order: string;
     filter: string;
-    filters: Record<string, FilterValue> | null;
+    filters: Record<string, FilterValue | null>;
     filterColumn: string;
 }
