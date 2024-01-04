@@ -1,8 +1,7 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {AuditEntryResponse, PageableResponse} from "../models/responses";
+import {AuditEntryResponse} from "../models/responses";
 
-class AuditAPI extends AbstractAPI<PageableResponse<AuditEntryResponse>> {
-
+class AuditAPI extends AbstractAPI<AuditEntryResponse> {
 }
 
 export const auditAPI = new AuditAPI("/audits");

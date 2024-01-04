@@ -1,5 +1,6 @@
 import Axios, {AxiosInstance} from "axios";
 import {SessionVO} from "../models";
+import {PageableResponse} from "../models/responses";
 
 export abstract class AbstractAPI<T> {
     protected axiosInstance: AxiosInstance;
@@ -10,10 +11,21 @@ export abstract class AbstractAPI<T> {
         });
     }
 
-    public async findAll(params?: Record<string, any>): Promise<T> {
+    public async findAll(params?: Record<string, any>): Promise<T[]> {
         this.setAuthorizationHeader();
         console.debug("findAll params", params);
-        const response = await this.axiosInstance.get<T>("", {params: params});
+        const response = await this.axiosInstance.get<T[]>("", {params: params});
+        return response.data;
+    }
+
+    /**
+     * This should be used instead of findAll() when you want to use pagination.
+     * @param params
+     */
+    public async findPageable(params?: Record<string, any>): Promise<PageableResponse<T>> {
+        this.setAuthorizationHeader();
+        console.debug("findPageable params", params);
+        const response = await this.axiosInstance.get<PageableResponse<T>>("", {params: params});
         return response.data;
     }
 

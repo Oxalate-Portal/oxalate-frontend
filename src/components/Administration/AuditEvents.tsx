@@ -41,8 +41,6 @@ export function AuditEvents() {
         filterColumn: defaultFilterColumn
     });
 
-    /////////////////////////////////////////////////////
-
     const [filterText, setFilterText] = useState('');
     const [filteredColumn, setFilteredColumn] = useState(defaultFilterColumn);
     const searchInput = useRef<InputRef>(null);
@@ -128,9 +126,6 @@ export function AuditEvents() {
                 ),
     });
 
-    /////////////////////////////////////////////////////
-
-
     const auditColumns: ColumnsType<AuditEntryResponse> = [
         {
             title: t('AuditEvents.table.createdAt'),
@@ -205,7 +200,7 @@ export function AuditEvents() {
     const updateDataFromServer = useCallback(() => {
         console.debug("refreshData: got first parameter:", refreshDataFromServer.current);
         if (refreshDataFromServer.current) {
-            auditAPI.findAll({
+            auditAPI.findPageable({
                 page: (tablePaginationConfig.current === undefined ? 0 : (tablePaginationConfig.current - 1)),
                 pageSize: tablePaginationConfig.pageSize,
                 sorting: tableParams.field ? `${tableParams.field},${tableParams.order}` : null,
