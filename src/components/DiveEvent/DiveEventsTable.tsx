@@ -116,6 +116,8 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             diveEventResponses = diveEventAPI.findAll()
         } else if (diveEventType === 'ongoing') {
             diveEventResponses = diveEventAPI.findAllOngoingDiveEvents()
+        } else if (diveEventType === 'past') {
+            diveEventResponses = diveEventAPI.findAllPastDiveEvents()
         } else {
             console.error("Unknown dive event type: " + diveEventType);
             return

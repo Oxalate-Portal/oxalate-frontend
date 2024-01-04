@@ -13,6 +13,7 @@ export abstract class AbstractAPI<T> {
 
     public async findAll(params?: Record<string, any>): Promise<T[]> {
         this.setAuthorizationHeader();
+        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         console.debug("findAll params", params);
         const response = await this.axiosInstance.get<T[]>("", {params: params});
         return response.data;
@@ -24,6 +25,7 @@ export abstract class AbstractAPI<T> {
      */
     public async findPageable(params?: Record<string, any>): Promise<PageableResponse<T>> {
         this.setAuthorizationHeader();
+        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         console.debug("findPageable params", params);
         const response = await this.axiosInstance.get<PageableResponse<T>>("", {params: params});
         return response.data;
@@ -31,8 +33,12 @@ export abstract class AbstractAPI<T> {
 
     public async findById(id: number, parameters: string | null): Promise<T> {
         this.setAuthorizationHeader();
+        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         let url = "/" + id;
-        url = parameters ? url + "?" + parameters : url;
+
+        if (parameters !== null) {
+            url = parameters ? url + "?" + parameters : url;
+        }
         const response = await this.axiosInstance.get<T>(url);
         return response.data;
     }
