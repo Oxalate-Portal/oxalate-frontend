@@ -1,4 +1,4 @@
-import {PaymentsResponse} from "./responses";
+import {PaymentResponse} from "./responses";
 import {RoleEnum} from "./RoleEnum";
 import {UserStatusEnum} from "./UserStatusEnum";
 
@@ -10,7 +10,7 @@ interface AbstractUser {
     phoneNumber: string;
     registered: boolean;
     diveCount: number;
-    payments: PaymentsResponse[];
+    payments: PaymentResponse[];
     approvedTerms: boolean;
     language: string;
     roles: RoleEnum[];

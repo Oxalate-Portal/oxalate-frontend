@@ -1,13 +1,14 @@
 export type {AuditEntryResponse} from "./AuditEntryResponse";
-export type {DiveEventResponse} from "./DiveEventResponse";
 export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
+export type {DiveEventResponse} from "./DiveEventResponse";
+export type {DiveEventUserResponse} from "./DiveEventUserResponse";
 export type {GenericMessageResponse} from "./GenericMessageResponse";
 export type {PageGroupResponse} from "./PageGroupResponse";
 export type {PageGroupVersionResponse} from "./PageGroupVersionResponse";
 export type {PageableResponse} from "./PageableResponse";
 export type {PageResponse} from "./PageResponse";
 export type {PageVersionResponse} from "./PageVersionResponse";
-export type {PaymentsResponse} from "./PaymentsResponse";
+export type {PaymentResponse} from "./PaymentResponse";
 export type {RegistrationResponse} from "./RegistrationResponse";
 export type {RolePermissionResponse} from "./RolePermissionResponse";
 export type {TermsResponse} from "./TermsResponse";

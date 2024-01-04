@@ -1,6 +1,6 @@
 import {PaymentTypeEnum} from "../PaymentTypeEnum";
 
-export interface PaymentsResponse {
+export interface PaymentResponse {
     id: number;
     paymentType: PaymentTypeEnum;
     paymentCount: number;

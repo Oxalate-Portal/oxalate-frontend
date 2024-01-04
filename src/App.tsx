@@ -9,6 +9,7 @@ import {LostPassword, NewPassword, Password, User} from "./components/User";
 import {Home, LoginWithCaptcha, NavigationBar} from "./components/main";
 import {Page} from "./components/Page";
 import {AdminMain, AuditEvents} from "./components/Administration";
+import {DiveEvents} from "./components/DiveEvent";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -42,6 +43,7 @@ function App() {
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>
                             <Route path="/auth/register" element={<Register/>}/>
+                            <Route path="/events/main" element={<PrivateRoute><DiveEvents/></PrivateRoute>}/>
                             <Route path="/login" element={<LoginWithCaptcha/>}/>
                             <Route path="/pages/:pageId" element={<Page/>}/>
                             <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>

@@ -19,6 +19,12 @@ class DiveEventAPI extends AbstractAPI<DiveEventResponse> {
         const response = await this.axiosInstance.get<DiveEventListItemResponse[]>('/user/' + userId);
         return response.data;
     }
+
+    public async findAllOngoingDiveEvents(): Promise<DiveEventResponse[]> {
+        this.setAuthorizationHeader();
+        const response = await this.axiosInstance.get<DiveEventResponse[]>('/ongoing');
+        return response.data;
+    }
 }
 
 export const diveEventAPI = new DiveEventAPI('/events');

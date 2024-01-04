@@ -1,0 +1,142 @@
+import {useEffect, useState} from "react";
+import {RoleEnum} from "../../models";
+import {Button, Space, Table} from "antd";
+import type {ColumnsType} from "antd/es/table";
+import {checkRoles, formatDateTime} from "../../helpers";
+import {Link} from "react-router-dom";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {diveEventAPI} from "../../services";
+import {DiveEventResponse} from "../../models/responses";
+
+interface DiveEventsTableProps {
+    type: string,
+    title: string
+}
+
+export function DiveEventsTable({type, title}: DiveEventsTableProps) {
+    const {userSession} = useSession();
+    const {t} = useTranslation();
+    const [diveEvents, setDiveEvents] = useState<DiveEventResponse[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const diveEventColumns: ColumnsType<DiveEventResponse> = [
+        {
+            title: t('Events.table.startTime'),
+            dataIndex: 'startTime',
+            key: 'startTime',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => (a.startTime.getTime() - b.startTime.getTime()),
+            sortDirections: ['descend', 'ascend'],
+            render: (text: string, record: DiveEventResponse) => {
+                return (<>{formatDateTime(new Date(record.startTime))}</>);
+            }
+        },
+        {
+            title: t('Events.table.title'),
+            dataIndex: 'title',
+            key: 'title',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.title.localeCompare(b.title),
+            sortDirections: ['descend', 'ascend']
+        },
+        {
+            title: t('Events.table.participants'),
+            dataIndex: 'participants',
+            key: 'participants',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.participants.length - b.participants.length,
+            sortDirections: ['descend', 'ascend'],
+            render: (text: string, record: DiveEventResponse) => {
+                return (<>{record.participants.length} / {record.maxParticipants}</>);
+            }
+        },
+        {
+            title: t('Events.table.maxDuration'),
+            dataIndex: 'maxDuration',
+            key: 'maxDuration',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.eventDuration - b.eventDuration,
+            sortDirections: ['descend', 'ascend']
+        },
+        {
+            title: t('Events.table.maxDepth'),
+            dataIndex: 'maxDepth',
+            key: 'maxDepth',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.maxDepth - b.maxDepth,
+            sortDirections: ['descend', 'ascend']
+        },
+        {
+            title: t('Events.table.type'),
+            dataIndex: 'type',
+            key: 'type',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.type.localeCompare(b.type),
+            sortDirections: ['descend', 'ascend']
+        },
+        {
+            title: t('Events.table.organizer'),
+            dataIndex: 'organizer',
+            key: 'organizer',
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.organizer.lastName.localeCompare(b.organizer.lastName),
+            sortDirections: ['descend', 'ascend'],
+            render: (text: string, record: DiveEventResponse) => {
+                return (<>{record.organizer.lastName} {record.organizer.firstName}</>);
+            }
+        },
+        {
+            title: '',
+            key: 'action',
+            render: (_: any, record: DiveEventResponse) => (
+                    <>
+                        <Space size="middle">
+                            {userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
+                                    <Link to={'/events/' + record.id + '/edit'}>
+                                        <Button style={{
+                                            background: "green",
+                                            borderColor: "white"
+                                        }}>{t('common.button.update')}</Button></Link>}
+                            <Link to={'/events/' + record.id}><Button
+                                    type={'primary'}>{t('common.button.open')}</Button></Link>
+                        </Space>
+                    </>
+            ),
+        }
+    ];
+
+
+    useEffect(() => {
+        setLoading(true);
+        let diveEventResponses: Promise<DiveEventResponse[]>;
+        if (type === 'new') {
+            diveEventResponses = diveEventAPI.findAll()
+        } else if (type === 'ongoing') {
+            diveEventResponses = diveEventAPI.findAllOngoingDiveEvents()
+        } else {
+            console.error("Unknown dive event type: " + type);
+            return
+        }
+
+        diveEventResponses
+                .then((response) => {
+                    setDiveEvents(response);
+                })
+                .catch((error: any) => {
+                    console.error("Failed to fetch events for type: " + type, error);
+                });
+        setLoading(false);
+    }, []);
+    return (
+            <>
+                <h4>{title}</h4>
+
+                {!loading && diveEvents && diveEvents.length > 0 && <Table
+                        dataSource={diveEvents}
+                        rowKey={'id'}
+                        columns={diveEventColumns}
+                        pagination={{
+                            defaultPageSize: 5,
+                            hideOnSinglePage: false,
+                            showSizeChanger: true,
+                            showQuickJumper: true,
+                            total: diveEvents.length,
+                            pageSizeOptions: ['5', '10', '20', '30', '50', '100']
+                        }}/>}
+            </>
+    );
+}
