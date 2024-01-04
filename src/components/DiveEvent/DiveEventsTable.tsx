@@ -10,11 +10,11 @@ import {diveEventAPI} from "../../services";
 import {DiveEventResponse} from "../../models/responses";
 
 interface DiveEventsTableProps {
-    type: string,
+    diveEventType: string,
     title: string
 }
 
-export function DiveEventsTable({type, title}: DiveEventsTableProps) {
+export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
     const {userSession} = useSession();
     const {t} = useTranslation();
     const [diveEvents, setDiveEvents] = useState<DiveEventResponse[]>([]);
@@ -82,20 +82,29 @@ export function DiveEventsTable({type, title}: DiveEventsTableProps) {
         {
             title: '',
             key: 'action',
-            render: (_: any, record: DiveEventResponse) => (
-                    <>
+            render: (_: any, record: DiveEventResponse) => {
+                if (diveEventType === 'new' || diveEventType === 'ongoing') {
+                return (<>
+                    <Space size="middle">
+                        {userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
+                                <Link to={'/events/' + record.id + '/edit'}>
+                                    <Button style={{
+                                        background: "green",
+                                        borderColor: "white"
+                                    }}>{t('common.button.update')}</Button></Link>}
+                        <Link to={'/events/' + record.id}><Button
+                                type={'primary'}>{t('common.button.open')}</Button></Link>
+                    </Space>
+                </>);
+                } else {
+                    return (<>
                         <Space size="middle">
-                            {userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
-                                    <Link to={'/events/' + record.id + '/edit'}>
-                                        <Button style={{
-                                            background: "green",
-                                            borderColor: "white"
-                                        }}>{t('common.button.update')}</Button></Link>}
                             <Link to={'/events/' + record.id}><Button
                                     type={'primary'}>{t('common.button.open')}</Button></Link>
                         </Space>
-                    </>
-            ),
+                    </>);
+                }
+            },
         }
     ];
 
@@ -103,12 +112,12 @@ export function DiveEventsTable({type, title}: DiveEventsTableProps) {
     useEffect(() => {
         setLoading(true);
         let diveEventResponses: Promise<DiveEventResponse[]>;
-        if (type === 'new') {
+        if (diveEventType === 'new') {
             diveEventResponses = diveEventAPI.findAll()
-        } else if (type === 'ongoing') {
+        } else if (diveEventType === 'ongoing') {
             diveEventResponses = diveEventAPI.findAllOngoingDiveEvents()
         } else {
-            console.error("Unknown dive event type: " + type);
+            console.error("Unknown dive event type: " + diveEventType);
             return
         }
 
@@ -117,10 +126,10 @@ export function DiveEventsTable({type, title}: DiveEventsTableProps) {
                     setDiveEvents(response);
                 })
                 .catch((error: any) => {
-                    console.error("Failed to fetch events for type: " + type, error);
+                    console.error("Failed to fetch events for type: " + diveEventType, error);
                 });
         setLoading(false);
-    }, []);
+    }, [diveEventType]);
     return (
             <>
                 <h4>{title}</h4>
