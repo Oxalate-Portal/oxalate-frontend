@@ -5,6 +5,7 @@ import {UserEventList} from "./UserEventList";
 import {UserIdProps} from "../../models/props";
 import {DiveEventListItemResponse} from "../../models/responses";
 import {diveEventAPI} from "../../services";
+import dayjs from "dayjs";
 
 export function UserEvents(props: UserIdProps) {
     const [upcomingEvents, setUpcomingEvents] = useState<DiveEventListItemResponse[]>([]);
@@ -34,10 +35,9 @@ export function UserEvents(props: UserIdProps) {
                     .then(response => {
                         let oldEvents: DiveEventListItemResponse[] = [];
                         let newEvents: DiveEventListItemResponse[] = [];
-                        let nowDate = Date.now();
 
                         for (let i = 0; i < response.length; i++) {
-                            if (response[i].startTime.valueOf() > nowDate) {
+                            if (dayjs().isBefore(dayjs(response[i].startTime))) {
                                 newEvents.push(response[i]);
                             } else {
                                 oldEvents.push(response[i]);
