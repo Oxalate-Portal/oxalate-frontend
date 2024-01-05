@@ -4,12 +4,13 @@ import {useTranslation} from "react-i18next";
 import {Alert, Button, Form, Input, Row} from "antd";
 import {useSession} from "../../session";
 import {authAPI} from "../../services";
+import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
 
 export function LostPassword() {
     const {userSession} = useSession();
 
     const navigate = useNavigate();
-    const [updateStatus, setUpdateStatus] = useState({status: '', message: ''});
+    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
 
@@ -25,16 +26,16 @@ export function LostPassword() {
         authAPI.recoverLostPassword(credentials)
                 .then((response) => {
                     if (response.message === 'OK') {
-                        setUpdateStatus({status: "OK", message: t('LostPassword.setStatus.update.ok')});
+                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t('LostPassword.setStatus.update.ok')});
                     } else {
-                        setUpdateStatus({status: "ERROR", message: t('LostPassword.setStatus.update.fail')});
+                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('LostPassword.setStatus.update.fail')});
                     }
 
                     setLoading(false);
                 })
                 .catch((error) => {
                     console.error(error);
-                    setUpdateStatus({status: "ERROR", message: error});
+                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: error});
                     setLoading(false);
                 });
     }
@@ -44,7 +45,7 @@ export function LostPassword() {
             <Alert type={'success'} message={t('LostPassword.updateStatus.ok.text')}/>
             <Button type={'default'} onClick={() => navigate('/login')}>{t('LostPassword.updateStatus.ok.button')}</Button>
         </div>)
-    } else if (updateStatus.status === "ERROR") {
+    } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={'darkDiv'}>
             <Alert type={'error'} message={t('LostPassword.updateStatus.fail.text')}/>
             <Button type={'default'} onClick={() => navigate('/auth/reconfirm')}>{t('LostPassword.updateStatus.fail.button')}</Button>

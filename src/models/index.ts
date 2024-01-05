@@ -2,6 +2,7 @@
 export type {CertificateVO} from "./CertificateVO";
 export type {DiveEventVO} from "./DiveEventVO";
 export type {LoginStatus} from "./LoginStatus";
+export type {OptionItemVO} from "./OptionItemVO";
 export type {Pageable} from "./Pageable";
 export type {RegistrationVO} from "./RegistrationVO";
 export type {SessionVO} from "./SessionVO";

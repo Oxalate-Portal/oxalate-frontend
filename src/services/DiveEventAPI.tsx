@@ -1,7 +1,8 @@
 import {AbstractAPI} from "./AbstractAPI";
 import {DiveEventListItemResponse, DiveEventResponse} from "../models/responses";
+import {DiveEventRequest} from "../models/requests";
 
-class DiveEventAPI extends AbstractAPI<DiveEventResponse> {
+class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
     public async findByUserId(userId: number): Promise<DiveEventResponse[]> {
         this.setAuthorizationHeader();
         const response = await this.axiosInstance.get<DiveEventResponse[]>('/user/' + userId);

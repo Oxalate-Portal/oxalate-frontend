@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useGoogleReCaptcha} from "react-google-recaptcha-v3";
 import {useSession} from "../../session";
 import {LoginRequest} from "../../models/requests";
-import {ActionResultEnum, LoginStatus} from "../../models";
+import {ActionResultEnum, LoginStatus, UpdateStatusEnum, UpdateStatusVO} from "../../models";
 
 export function Login() {
     const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ export function Login() {
     const navigate = useNavigate();
     const {executeRecaptcha} = useGoogleReCaptcha();
     const {loginUser} = useSession();
-    const [updateStatus, setUpdateStatus] = useState({status: "NONE", message: ""});
+    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
 
     async function onFinish(credentials: any): Promise<void> {
         console.log("Called with login information:", credentials);
@@ -38,7 +38,7 @@ export function Login() {
 
         if (!loginResult || loginResult.status === ActionResultEnum.FAILURE) {
             console.error("Login failed", loginResult);
-            setUpdateStatus({status: "ERROR", message: t('Login.updateStatus.loginFail')});
+            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('Login.updateStatus.loginFail')});
         } else {
             navigate('/');
         }
@@ -54,7 +54,7 @@ export function Login() {
         navigate('/')
     }
 
-    if (updateStatus.status === 'ERROR') {
+    if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div>
             <Alert type={'error'}
                    message={updateStatus.message}

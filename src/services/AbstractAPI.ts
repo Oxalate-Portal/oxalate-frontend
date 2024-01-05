@@ -2,7 +2,7 @@ import Axios, {AxiosInstance} from "axios";
 import {SessionVO} from "../models";
 import {PageableResponse} from "../models/responses";
 
-export abstract class AbstractAPI<T> {
+export abstract class AbstractAPI<REQUEST, RESPONSE> {
     protected axiosInstance: AxiosInstance;
 
     constructor(member: string) {
@@ -11,11 +11,11 @@ export abstract class AbstractAPI<T> {
         });
     }
 
-    public async findAll(params?: Record<string, any>): Promise<T[]> {
+    public async findAll(params?: Record<string, any>): Promise<RESPONSE[]> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         console.debug("findAll params", params);
-        const response = await this.axiosInstance.get<T[]>("", {params: params});
+        const response = await this.axiosInstance.get<RESPONSE[]>("", {params: params});
         return response.data;
     }
 
@@ -23,15 +23,15 @@ export abstract class AbstractAPI<T> {
      * This should be used instead of findAll() when you want to use pagination.
      * @param params
      */
-    public async findPageable(params?: Record<string, any>): Promise<PageableResponse<T>> {
+    public async findPageable(params?: Record<string, any>): Promise<PageableResponse<RESPONSE>> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         console.debug("findPageable params", params);
-        const response = await this.axiosInstance.get<PageableResponse<T>>("", {params: params});
+        const response = await this.axiosInstance.get<PageableResponse<RESPONSE>>("", {params: params});
         return response.data;
     }
 
-    public async findById(id: number, parameters: string | null): Promise<T> {
+    public async findById(id: number, parameters: string | null): Promise<RESPONSE> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         let url = "/" + id;
@@ -39,27 +39,27 @@ export abstract class AbstractAPI<T> {
         if (parameters !== null) {
             url = parameters ? url + "?" + parameters : url;
         }
-        const response = await this.axiosInstance.get<T>(url);
+        const response = await this.axiosInstance.get<RESPONSE>(url);
         return response.data;
     }
 
-    public async create(payload: T): Promise<T> {
+    public async create(payload: REQUEST): Promise<RESPONSE> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        const response = await this.axiosInstance.post<T>("", payload);
+        const response = await this.axiosInstance.post<RESPONSE>("", payload);
         return response.data;
     }
 
-    public async update(payload: T): Promise<T> {
+    public async update(payload: REQUEST): Promise<RESPONSE> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        const response = await this.axiosInstance.put<T>("", payload);
+        const response = await this.axiosInstance.put<RESPONSE>("", payload);
         return response.data;
     }
 
     public async delete(id: number): Promise<boolean> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.delete<T>("/" + id);
+        const response = await this.axiosInstance.delete<RESPONSE>("/" + id);
         return response.status === 200;
 
 

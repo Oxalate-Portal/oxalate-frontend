@@ -6,10 +6,11 @@ import {PasswordResetRequest} from "../../models/requests";
 import {authAPI} from "../../services";
 import {PasswordRules} from "./PasswordRules";
 import {PasswordFields} from "./PasswordFields";
+import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
 
 export function NewPassword() {
     const [newPasswordForm] = Form.useForm();
-    const [updateStatus, setUpdateStatus] = useState({status: '', message: ''});
+    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [loading, setLoading] = useState(false);
     const {token} = useParams();
     const {t} = useTranslation();
@@ -17,7 +18,7 @@ export function NewPassword() {
     const resetPassword = (values: { newPassword: any; confirmPassword: any; }) => {
         if (!token) {
             console.error("No token provided");
-            setUpdateStatus({status: "ERROR", message: t('NewPassword.setUpdateStatus.update.fail')});
+            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('NewPassword.setUpdateStatus.update.fail')});
             return;
         }
 
@@ -31,14 +32,14 @@ export function NewPassword() {
         authAPI.resetPassword(postData)
                 .catch(e => {
                     console.log(e);
-                    setUpdateStatus({status: "ERROR", message: e});
+                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                 })
                 .then((response) => {
                     if (response?.message === "OK") {
-                        setUpdateStatus({status: "OK", message: t('NewPassword.setUpdateStatus.update.ok')});
+                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t('NewPassword.setUpdateStatus.update.ok')});
                     } else {
                         console.log("Failed to update user, error: " + response?.message);
-                        setUpdateStatus({status: "ERROR", message: t('NewPassword.setUpdateStatus.update.fail')});
+                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('NewPassword.setUpdateStatus.update.fail')});
                     }
                 });
         setLoading(false);
@@ -53,7 +54,7 @@ export function NewPassword() {
             <Alert type={'success'} message={t('NewPassword.updateStatus.ok.text')}/>
             <div className="p-4">{t('NewPassword.updateStatus.ok.button')}</div>
         </div>);
-    } else if (updateStatus.status === 'ERROR') {
+    } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div>
             <Alert type={'error'} message={t('NewPassword.updateStatus.fail.text')}/>
             <div>{t('NewPassword.updateStatus.fail.button')}</div>

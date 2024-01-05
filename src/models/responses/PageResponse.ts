@@ -1,15 +1,8 @@
-import {PageStatusEnum} from "../index";
 import {PageVersionResponse} from "./PageVersionResponse";
 import {RolePermissionResponse} from "./RolePermissionResponse";
+import {AbstractPage} from "../AbstractPage";
 
-export interface PageResponse {
-    id: number;
-    status: PageStatusEnum;
-    pageGroupId: number;
+export interface PageResponse extends AbstractPage {
     pageVersions: PageVersionResponse[];
     rolePermissions: RolePermissionResponse[];
-    creator: number;
-    createdAt: Date;
-    modifier: number | null;
-    modifiedAt: Date | null;
 }

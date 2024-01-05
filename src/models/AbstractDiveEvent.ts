@@ -5,9 +5,10 @@ interface AbstractDiveEvent {
     description: string;
     startTime: Date;
     eventDuration: number;
-    maxDuration1: number;
+    maxDuration: number;
     maxDepth: number;
     maxParticipants: number;
+    published: boolean;
 }
 
 export default AbstractDiveEvent;
