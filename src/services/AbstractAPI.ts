@@ -46,6 +46,7 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     public async create(payload: REQUEST): Promise<RESPONSE> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        console.debug("create payload", payload);
         const response = await this.axiosInstance.post<RESPONSE>("", payload);
         return response.data;
     }

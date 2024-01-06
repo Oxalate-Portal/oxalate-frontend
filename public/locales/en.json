@@ -94,7 +94,7 @@
     "yearlyResetButton": "Void annual payments",
     "yearlyResetDivider": "Annual payments void"
   },
-  "AdminPaymentsAdd": {
+  "AddPayments": {
     "form": {
       "button": "Save payments",
       "name": {
@@ -121,7 +121,7 @@
       "period": "Yearly payment"
     }
   },
-  "AdminPaymentsList": {
+  "ListPayments": {
     "oneTime": "One-time payments",
     "period": "Yearly payments",
     "unknown": "Unknown"

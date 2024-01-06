@@ -94,7 +94,7 @@
     "yearlyResetButton": "Jahresgebühren annullieren",
     "yearlyResetDivider": "Annullierung der Jahresgebühren"
   },
-  "AdminPaymentsAdd": {
+  "AddPayments": {
     "form": {
       "button": "Zahlungen speichern",
       "name": {
@@ -121,7 +121,7 @@
       "period": "Periodische Zahlung"
     }
   },
-  "AdminPaymentsList": {
+  "ListPayments": {
     "oneTime": "Einmalzahlungen",
     "period": "Periodische Zahlungen",
     "unknown": "Unbekannt"

@@ -94,7 +94,7 @@
     "yearlyResetButton": "Mitätöi vuosimaksut",
     "yearlyResetDivider": "Vuosimaksun mitätöinti"
   },
-  "AdminPaymentsAdd": {
+  "AddPayments": {
     "form": {
       "button": "Talleta maksut",
       "name": {
@@ -121,7 +121,7 @@
       "period": "Kausimaksu"
     }
   },
-  "AdminPaymentsList": {
+  "ListPayments": {
     "oneTime": "Kertamaksut",
     "period": "Kausimaksut",
     "unknown": "Tuntemattomat"

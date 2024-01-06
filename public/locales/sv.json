@@ -95,7 +95,7 @@
     "yearlyResetButton": "Ogiltigförklara årsbetalningar",
     "yearlyResetDivider": "Ogiltigförklara årsbetalningar"
   },
-  "AdminPaymentsAdd": {
+  "AddPayments": {
     "form": {
       "button": "Spara betalningar",
       "name": {
@@ -122,7 +122,7 @@
       "period": "Periodisk betalning"
     }
   },
-  "AdminPaymentsList": {
+  "ListPayments": {
     "oneTime": "Engångsbetalningar",
     "period": "Periodiska betalningar",
     "unknown": "Okända"

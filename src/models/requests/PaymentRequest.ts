@@ -1,10 +1,8 @@
 import {PaymentTypeEnum} from "../PaymentTypeEnum";
 
-export interface PaymentResponse {
+export interface PaymentRequest {
     id: number;
     userId: number;
     paymentType: PaymentTypeEnum;
     paymentCount: number;
-    createdAt: Date;
-    expiresAt: Date;
 }

@@ -11,6 +11,7 @@ import { Page } from "./components/Page";
 import { AdminMain, AuditEvents } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents } from "./components/DiveEvent";
 import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
+import { Payments } from "./components/Payment";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -40,6 +41,7 @@ function App() {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
+                            <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
                             <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
