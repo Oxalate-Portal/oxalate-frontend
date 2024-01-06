@@ -300,7 +300,7 @@
         },
         "tooltip": "Veranstalter des Tauchereignisses"
       },
-      "participantIds": {
+      "participants": {
         "label": "Teilnehmer",
         "placeholder": "Teilnehmer hinzufügen",
         "tooltip": "Mitglieder, die an dem Ereignis teilnehmen"

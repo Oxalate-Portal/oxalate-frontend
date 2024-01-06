@@ -301,7 +301,7 @@
         },
         "tooltip": "Arrangören av dykevenemanget"
       },
-      "participantIds": {
+      "participants": {
         "label": "Deltagare",
         "placeholder": "Lägg till deltagare",
         "tooltip": "Medlemmar som deltar i evenemanget"

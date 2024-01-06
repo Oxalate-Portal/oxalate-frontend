@@ -1,15 +1,15 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {diveEventAPI, userAPI} from "../../services";
-import {DiveEventResponse, DiveEventUserResponse} from "../../models/responses";
-import {OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {useTranslation} from "react-i18next";
-import {Alert, Button, DatePicker, Form, Input, Select, Slider, Space, Switch} from "antd";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { diveEventAPI, userAPI } from "../../services";
+import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { useTranslation } from "react-i18next";
+import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space, Switch } from "antd";
 import dayjs from "dayjs";
-import {SubmitResult} from "../main";
+import { SubmitResult } from "../main";
 import TextArea from "antd/es/input/TextArea";
-import {DiveEventRequest} from "../../models/requests";
-import customParseFormat from 'dayjs/plugin/customParseFormat';
+import { DiveEventRequest } from "../../models/requests";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(customParseFormat);
 
@@ -63,15 +63,16 @@ export function EditDiveEvent() {
         }
 
         setLoading(true);
-        let eventId = 0;
+        let tmpDiveEventId = 0;
+
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
-            eventId = parseInt(paramId);
-            setDiveEventId(eventId);
+            tmpDiveEventId = parseInt(paramId);
+            setDiveEventId(tmpDiveEventId);
         }
 
-        if (eventId > 0) { // We're editing an existing dive event
+        if (tmpDiveEventId > 0) { // We're editing an existing dive event
             Promise.all([
-                diveEventAPI.findById(eventId, null),
+                diveEventAPI.findById(tmpDiveEventId, null),
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER)
             ]).then(([eventResponse, organizerResponses, participantResponses]) => {
@@ -89,6 +90,23 @@ export function EditDiveEvent() {
             ]).then(([organizerResponse, participantResponse]) => {
                 populateOrganizerList(organizerResponse);
                 populateParticipantList(participantResponse);
+                setDiveEvent(
+                        {
+                            id: 0,
+                            title: '',
+                            description: '',
+                            type: '',
+                            startTime: nextEventTime().toDate(),
+                            eventDuration: 6,
+                            maxDuration: 120,
+                            maxDepth: 60,
+                            maxParticipants: 12,
+                            organizer: null,
+                            participants: [],
+                            published: false
+                        }
+                )
+
                 setLoading(false);
             }).catch((error) => {
                 console.error(error);
@@ -100,7 +118,7 @@ export function EditDiveEvent() {
     // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
     function nextEventTime(): dayjs.Dayjs {
         let now = dayjs();
-        let nextEvent = dayjs();
+        let nextEvent: dayjs.Dayjs;
 
         if (now.minute() % 30 === 0) {
             nextEvent = now.add(30, 'minute');
@@ -113,10 +131,10 @@ export function EditDiveEvent() {
 
     function validateMaxParticipants(_: any, value: number): Promise<void> {
         // Get the selected participant IDs
-        const selectedParticipantIds = diveEventForm.getFieldValue('participantIds');
+        const selectedParticipants = diveEventForm.getFieldValue('participants');
 
         // Ensure that the input value is not less than the number of selected participants
-        if (value < selectedParticipantIds.length) {
+        if (value < selectedParticipants.length) {
             return Promise.reject(t('EditEvent.form.maxDepth.rules.maxParticipants'));
         }
 
@@ -124,9 +142,10 @@ export function EditDiveEvent() {
     }
 
     function onFinish(submitValues: DiveEventRequest) {
+        console.debug("Submit data: ", submitValues);
         setLoading(true);
         // Check also that the new maxParticipants value is not lower than the current number of participants
-        if (submitValues.maxParticipants < submitValues.participantsIds.length) {
+        if (submitValues.maxParticipants < submitValues.participants.length) {
             setUpdateStatus({
                 status: UpdateStatusEnum.FAIL,
                 message: t('EditEvent.onFinish.updateStatusFailMaxPartisipant')
@@ -213,7 +232,7 @@ export function EditDiveEvent() {
                             maxDepth: diveEvent.maxDepth,
                             maxParticipants: diveEvent.maxParticipants,
                             published: diveEvent.published,
-                            participantIds: diveEvent.participants.map((participant) => {
+                            participants: diveEvent.participants.map((participant) => {
                                 return participant.id
                             })
                         }}
@@ -298,7 +317,7 @@ export function EditDiveEvent() {
                                        required: true,
                                        message: t('EditEvent.form.startTime.rules.required')
                                    },
-                                   ({getFieldValue}) => ({
+                                   () => ({
                                        validator(_, value) {
                                            if (value && dayjs().isBefore(value - 30 * 60 * 1000)) {
                                                return Promise.resolve();
@@ -350,14 +369,14 @@ export function EditDiveEvent() {
                                valuePropName={'checked'}>
                         <Switch/>
                     </Form.Item>
-                    <Form.Item name={'participantIds'}
-                               label={t('EditEvent.form.participantIds.label')}
-                               tooltip={t('EditEvent.form.participantIds.tooltip')}
+                    <Form.Item name={'participants'}
+                               label={t('EditEvent.form.participants.label')}
+                               tooltip={t('EditEvent.form.participants.tooltip')}
                     >
                         <Select
                                 mode="multiple"
                                 options={participantOptions}
-                                placeholder={t('EditEvent.form.participantIds.placeholder')}
+                                placeholder={t('EditEvent.form.participants.placeholder')}
                                 showSearch={true}
                                 style={{
                                     width: "100%"

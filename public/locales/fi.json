@@ -300,7 +300,7 @@
         },
         "tooltip": "Sukellustapahtuman järjestäjä"
       },
-      "participantIds": {
+      "participants": {
         "label": "Osallistujat",
         "placeholder": "Add participants",
         "tooltip": "Tapahtumaan osallistuvat jäsenet"

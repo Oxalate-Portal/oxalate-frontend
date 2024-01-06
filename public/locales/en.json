@@ -300,7 +300,7 @@
         },
         "tooltip": "Organizer of the diving event"
       },
-      "participantIds": {
+      "participants": {
         "label": "Participants",
         "placeholder": "Add participants",
         "tooltip": "Members participating in the event"

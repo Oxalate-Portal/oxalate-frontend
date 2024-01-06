@@ -1,13 +1,13 @@
-import {useEffect, useState} from "react";
-import {RoleEnum} from "../../models";
-import {Button, Space, Table} from "antd";
-import type {ColumnsType} from "antd/es/table";
-import {checkRoles, formatDateTime} from "../../helpers";
-import {Link} from "react-router-dom";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {diveEventAPI} from "../../services";
-import {DiveEventResponse} from "../../models/responses";
+import { useEffect, useState } from "react";
+import { RoleEnum } from "../../models";
+import { Button, Space, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { checkRoles, formatDateTime } from "../../helpers";
+import { Link } from "react-router-dom";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { diveEventAPI } from "../../services";
+import { DiveEventResponse } from "../../models/responses";
 
 interface DiveEventsTableProps {
     diveEventType: string,
@@ -73,9 +73,25 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t('Events.table.organizer'),
             dataIndex: 'organizer',
             key: 'organizer',
-            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.organizer.lastName.localeCompare(b.organizer.lastName),
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => {
+                if (a.organizer === b.organizer) {
+                    return 0;
+                }
+
+                if (a.organizer === null) {
+                    return -1;
+                }
+                if (b.organizer === null) {
+                    return 1;
+                }
+
+                return a.organizer.lastName.localeCompare(b.organizer.lastName);
+            },
             sortDirections: ['descend', 'ascend'],
             render: (text: string, record: DiveEventResponse) => {
+                if (record.organizer === null) {
+                    return (<></>);
+                }
                 return (<>{record.organizer.lastName} {record.organizer.firstName}</>);
             }
         },

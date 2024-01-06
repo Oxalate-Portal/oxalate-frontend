@@ -1,13 +1,13 @@
-import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
-import {useSession} from "../../session";
-import {DiveEventResponse, DiveEventUserResponse} from "../../models/responses";
-import {checkRoles, formatDateTime} from "../../helpers";
-import {Link} from "react-router-dom";
-import {PaymentTypeEnum, RoleEnum} from "../../models";
-import {Space, Spin, Table, Tag, Tooltip} from "antd";
-import {LinkOutlined} from "@ant-design/icons";
-import type {ColumnsType} from "antd/es/table";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { useSession } from "../../session";
+import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { checkRoles, formatDateTime } from "../../helpers";
+import { Link } from "react-router-dom";
+import { PaymentTypeEnum, RoleEnum } from "../../models";
+import { Space, Spin, Table, Tag, Tooltip } from "antd";
+import { LinkOutlined } from "@ant-design/icons";
+import type { ColumnsType } from "antd/es/table";
 
 interface DiveEventDetailsProps {
     eventInfo: DiveEventResponse | null
@@ -62,6 +62,9 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: 'organizer',
             key: 'organizer',
             render: (text: string, record: DiveEventResponse) => {
+                if (record.organizer === null) {
+                    return (<></>);
+                }
                 if (userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={'/users/' + record.organizer.id + '/show'}>{record.organizer.lastName} {record.organizer.firstName}</Link>);
                 }
@@ -73,6 +76,10 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: 'phoneNumber',
             key: 'phoneNumber',
             render: (text: string, record: DiveEventResponse) => {
+                if (record.organizer === null) {
+                    return (<></>);
+                }
+
                 return (<>{record.organizer.phoneNumber}</>);
             }
         }
@@ -118,9 +125,9 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                 key: 'payments',
                 render: (_, {payments}) => (
                         <>
-                            {payments.map((payment, index) => {
-                                let color = '';
-                                let labelText = '';
+                            {payments.map((payment) => {
+                                let color: string;
+                                let labelText: string;
 
                                 switch (payment.paymentType) {
                                     case PaymentTypeEnum.PERIOD:

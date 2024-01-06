@@ -3,6 +3,6 @@ import {UserResponse} from "./UserResponse";
 import {DiveEventUserResponse} from "./DiveEventUserResponse";
 
 export interface DiveEventResponse extends AbstractDiveEvent {
-    organizer: UserResponse;
+    organizer: UserResponse | null;
     participants: DiveEventUserResponse[];
 }
