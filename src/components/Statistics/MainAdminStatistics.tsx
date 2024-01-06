@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Space } from "antd";
-import { YearlyEventsStats } from "./YearlyEventsStats";
+import { YearlyDiveEventsStats } from "./YearlyDiveEventsStats";
 import { YearlyRegistrationsStats } from "./YearlyRegistrationsStats";
 import { YearlyOrganizersStats } from "./YearlyOrganizersStats";
 import { YearlyPaymentsStats } from "./YearlyPaymentsStats";
@@ -14,7 +14,7 @@ export function MainAdminStatistics() {
                 <h4>{t('StatisticsMain.yearlyStats')}</h4>
 
                 <Space direction={'vertical'} size={40} style={{width: '100%'}}>
-                    <YearlyEventsStats/>
+                    <YearlyDiveEventsStats/>
                     <YearlyRegistrationsStats/>
                     <YearlyOrganizersStats/>
                     <YearlyPaymentsStats/>
