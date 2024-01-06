@@ -10,6 +10,7 @@ import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
 import { Page } from "./components/Page";
 import { AdminMain, AuditEvents } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents } from "./components/DiveEvent";
+import { YearlyDiveStats } from "./components/Statistics";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -46,6 +47,7 @@ function App() {
                             <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
                             <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
                             <Route path="/events/add" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
+                            <Route path="/events/dive-stats" element={<PrivateRoute><YearlyDiveStats/></PrivateRoute>}/>
                             <Route path="/events/main" element={<PrivateRoute><DiveEvents/></PrivateRoute>}/>
                             <Route path="/events/past" element={<PrivateRoute><PastDiveEvents/></PrivateRoute>}/>
                             <Route path="/login" element={<LoginWithCaptcha/>}/>
