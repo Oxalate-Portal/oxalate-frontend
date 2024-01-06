@@ -13,6 +13,7 @@ export type {PageableResponse} from "./PageableResponse";
 export type {PageResponse} from "./PageResponse";
 export type {PageVersionResponse} from "./PageVersionResponse";
 export type {PaymentResponse} from "./PaymentResponse";
+export type {PaymentStatusResponse} from "./PaymentStatusResponse";
 export type {RegistrationResponse} from "./RegistrationResponse";
 export type {RolePermissionResponse} from "./RolePermissionResponse";
 export type {TermsResponse} from "./TermsResponse";

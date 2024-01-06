@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { paymentAPI } from "../../services/PaymentAPI";
-import { PaymentResponse } from "../../models/responses";
-import { PaymentStatusResponse } from "../../models/responses/PaymentStatusResponse";
+import { PaymentResponse, PaymentStatusResponse } from "../../models/responses";
 import { PaymentTypeEnum } from "../../models";
 import { PaymentVO } from "../../models/PaymentVO";
 import { Spin } from "antd";
