@@ -1,10 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Space } from "antd";
-import { YearlyDiveEventsStats } from "./YearlyDiveEventsStats";
-import { YearlyRegistrationsStats } from "./YearlyRegistrationsStats";
-import { YearlyOrganizersStats } from "./YearlyOrganizersStats";
-import { YearlyPaymentsStats } from "./YearlyPaymentsStats";
 import { DiveEventReport } from "./DiveEventReport";
+import { YearlyStats } from "./YearlyStats";
 
 export function MainAdminStatistics() {
     const { t } = useTranslation();
@@ -14,10 +11,10 @@ export function MainAdminStatistics() {
                 <h4>{t('StatisticsMain.yearlyStats')}</h4>
 
                 <Space direction={'vertical'} size={40} style={{width: '100%'}}>
-                    <YearlyDiveEventsStats/>
-                    <YearlyRegistrationsStats/>
-                    <YearlyOrganizersStats/>
-                    <YearlyPaymentsStats/>
+                    <YearlyStats typeOfStats={'events'} headerText={t('StatsYearlyEvents.stats.title')}/>
+                    <YearlyStats typeOfStats={'registrations'} headerText={t('StatsYearlyRegistrations.stats.title')}/>
+                    <YearlyStats typeOfStats={'organizers'} headerText={t('StatsOrganizers.stats.title')}/>
+                    <YearlyStats typeOfStats={'payments'} headerText={t('StatsPayments.stats.title')}/>
                 </Space>
 
                 <h4>{t('StatisticsMain.reports')}</h4>

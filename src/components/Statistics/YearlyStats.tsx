@@ -1,20 +1,23 @@
-import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { MultiYearValueResponse } from "../../models/responses";
 import { statsAPI } from "../../services/StatsAPI";
-import { Line } from "@ant-design/charts";
 import { Spin } from "antd";
+import { Line } from "@ant-design/charts";
 
-export function YearlyDiveEventsStats() {
+interface YearlyStatsProps {
+    typeOfStats: string,
+    headerText: string
+}
+
+export function YearlyStats({ typeOfStats, headerText }: YearlyStatsProps) {
     const [loading, setLoading] = useState(true);
-    const [yearlyEventData, setYearlyEventData] = useState<MultiYearValueResponse[]>([]);
-    const {t} = useTranslation();
+    const [yearlyData, setYearlyData] = useState<MultiYearValueResponse[]>([]);
 
     useEffect(() => {
         setLoading(true);
-        statsAPI.getYearlyDiveEvents()
+        statsAPI.getYearlyStatsData(typeOfStats)
                 .then((response) => {
-                    setYearlyEventData(response);
+                    setYearlyData(response);
                 })
                 .catch((error) => {
                     console.error(error);
@@ -22,10 +25,11 @@ export function YearlyDiveEventsStats() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, []);
+    }, [typeOfStats]);
+
 
     const config = {
-        data: yearlyEventData,
+        data: yearlyData,
         xField: 'year',
         yField: 'value',
         seriesField: 'type',
@@ -33,14 +37,14 @@ export function YearlyDiveEventsStats() {
             size: 5,
             shape: 'diamond',
         },
+        theme: 'dark'
     };
 
     return (
             <div>
-                <h5>{t('StatsYearlyEvents.stats.title')}</h5>
+                <h5>{headerText}</h5>
                 <Spin spinning={loading}>
                     <Line {...config} />
                 </Spin>
             </div>
-    );
-}
+    );}

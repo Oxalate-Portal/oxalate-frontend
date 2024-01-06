@@ -18,9 +18,9 @@ class StatsAPI extends AbstractAPI<void, MultiYearValueResponse[]> {
         return response.data;
     }
 
-    public async getYearlyDiveEvents(): Promise<MultiYearValueResponse[]> {
+    public async getYearlyStatsData(type: string): Promise<MultiYearValueResponse[]> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<MultiYearValueResponse[]>('/yearly-events');
+        const response = await this.axiosInstance.get<MultiYearValueResponse[]>('/yearly-' + type);
         return response.data;
     }
 }
