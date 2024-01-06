@@ -3,6 +3,8 @@ export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
 export type {DiveEventResponse} from "./DiveEventResponse";
 export type {DiveEventUserResponse} from "./DiveEventUserResponse";
 export type {DiverListItemResponse} from "./DiverListItemResponse";
+export type {EventPeriodReportResponse} from "./EventPeriodReportResponse";
+export type {EventReportResponse} from "./EventReportResponse";
 export type {GenericMessageResponse} from "./GenericMessageResponse";
 export type {MultiYearValueResponse} from "./MultiYearValueResponse";
 export type {PageGroupResponse} from "./PageGroupResponse";

@@ -10,7 +10,7 @@ import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
 import { Page } from "./components/Page";
 import { AdminMain, AuditEvents } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents } from "./components/DiveEvent";
-import { YearlyDiveStats } from "./components/Statistics";
+import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -40,6 +40,7 @@ function App() {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
+                            <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>
