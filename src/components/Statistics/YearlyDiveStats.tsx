@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { statsAPI } from "../../services/StatsAPI";
-import { YearlyDiversListResponse } from "../../models/responses";
+import { DiverListItemResponse, YearlyDiversListResponse } from "../../models/responses";
 import { Collapse, Spin, Table } from "antd";
+import { ColumnsType } from "antd/es/table";
 
 const {Panel} = Collapse;
 
@@ -11,7 +12,7 @@ export function YearlyDiveStats() {
     const [yearlyDiveData, setYearlyDiveData] = useState<YearlyDiversListResponse[]>([]);
     const {t} = useTranslation();
 
-    const columns = [
+    const columns: ColumnsType<DiverListItemResponse> = [
         {
             title: t("StatsYearlyDives.table.position"),
             dataIndex: "position",

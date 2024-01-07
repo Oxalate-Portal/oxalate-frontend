@@ -1,8 +1,6 @@
-import {PageGroupVersionResponse} from "./PageGroupVersionResponse";
 import {PageResponse} from "./PageResponse";
+import {AbstractPageGroup} from "../AbstractPageGroup";
 
-export interface PageGroupResponse {
-    id: number;
-    pageGroupVersions: PageGroupVersionResponse[];
+export interface PageGroupResponse extends AbstractPageGroup {
     pages: PageResponse[];
 }
