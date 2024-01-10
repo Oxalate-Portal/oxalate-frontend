@@ -710,7 +710,8 @@
       "title": "Sida"
     },
     "updateStatus": {
-      "ok": "Sidan borttagen"
+      "ok": "Sidan borttagen",
+      "fail": "Misslyckades att ta bort sidan, vänligen kontakta supporten om detta fortsätter."
     }
   },
   "Password": {

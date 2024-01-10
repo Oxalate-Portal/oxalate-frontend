@@ -709,7 +709,8 @@
       "title": "Seite"
     },
     "updateStatus": {
-      "ok": "Seite gelöscht"
+      "ok": "Seite gelöscht",
+      "fail": "Löschen der Seite fehlgeschlagen, bitte kontaktieren Sie den Support, wenn das Problem weiterhin besteht."
     }
   },
   "Password": {

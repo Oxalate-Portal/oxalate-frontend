@@ -709,7 +709,8 @@
       "title": "Sivu"
     },
     "updateStatus": {
-      "ok": "Sivu poistettu"
+      "ok": "Sivu poistettu",
+      "fail": "Sivun poistaminen epäonnistui, ota yhteyttä tukeen, jos ongelma jatkuu."
     }
   },
   "Password": {

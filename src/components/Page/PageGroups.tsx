@@ -11,7 +11,7 @@ import { ColumnsType } from "antd/es/table";
 import { SubmitResult } from "../main";
 
 export function PageGroups() {
-    const {userSession, getSessionLanguage} = useSession();
+    const {userSession, sessionLanguage} = useSession();
     const [loading, setLoading] = useState<boolean>(true);
     const [pageGroups, setPageGroups] = useState<PageGroupResponse[]>([]);
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
@@ -30,8 +30,9 @@ export function PageGroups() {
             key: "title",
             render: (_text: string, record: PageGroupResponse) => {
                 let language = "fi";
-                if (getSessionLanguage() !== undefined) {
-                    language = getSessionLanguage();
+
+                if (sessionLanguage !== undefined) {
+                    language = sessionLanguage;
                 }
 
                 let title = getPageGroupTitleByLanguage(language, record);

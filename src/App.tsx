@@ -7,7 +7,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Register } from "./components/Register";
 import { LostPassword, NewPassword, Password, User } from "./components/User";
 import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
-import { EditPageGroup, Page, PageGroups } from "./components/Page";
+import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
 import { AdminMain, AuditEvents } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents } from "./components/DiveEvent";
 import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
@@ -43,6 +43,8 @@ function App() {
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
+                            <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
+                            <Route path="/administration/pages/:paramId" element={<OrganizerRoute><EditPage/></OrganizerRoute>}/>
                             <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
                             <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>

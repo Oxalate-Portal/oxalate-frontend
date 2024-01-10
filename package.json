@@ -5,6 +5,7 @@
   "dependencies": {
     "@ant-design/charts": "^2.0.3",
     "@ant-design/icons": "^5.2.6",
+    "@ckeditor/ckeditor5-react": "^6.2.0",
     "@testing-library/jest-dom": "^6.2.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.5.2",
@@ -15,6 +16,7 @@
     "@types/react-highlight-words": "^0.16.7",
     "antd": "^5.12.7",
     "axios": "^1.6.2",
+    "ckeditor5-custom-build": "file:ckeditor",
     "dayjs": "^1.11.10",
     "dompurify": "^3.0.6",
     "env-cmd": "^10.1.0",

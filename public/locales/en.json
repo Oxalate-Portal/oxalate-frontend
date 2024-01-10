@@ -709,7 +709,8 @@
       "title": "Page"
     },
     "updateStatus": {
-      "ok": "Page deleted"
+      "ok": "Page deleted",
+        "fail": "Failed to delete the page, please contact support if this persists."
     }
   },
   "Password": {

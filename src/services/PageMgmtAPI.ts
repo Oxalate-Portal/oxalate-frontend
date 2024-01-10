@@ -1,6 +1,6 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {PageRequest} from "../models/requests/PageRequest";
 import {PageResponse} from "../models/responses";
+import {PageRequest} from "../models/requests";
 
 class PageMgmtAPI extends AbstractAPI<PageRequest, PageResponse> {
 }
