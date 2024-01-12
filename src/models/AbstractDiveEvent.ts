@@ -1,4 +1,4 @@
-interface AbstractDiveEvent {
+export interface AbstractDiveEvent {
     id: number;
     type: string;
     title: string;
@@ -10,5 +10,3 @@ interface AbstractDiveEvent {
     maxParticipants: number;
     published: boolean;
 }
-
-export default AbstractDiveEvent;

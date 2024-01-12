@@ -1,4 +1,4 @@
-import AbstractUser from "./AbstractUser";
+import {AbstractUser} from "./AbstractUser";
 
 export interface SessionVO extends AbstractUser {
     accessToken: string;

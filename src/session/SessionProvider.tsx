@@ -1,7 +1,7 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {ActionResultEnum, LoginStatus, SessionVO} from "../models";
-import {LoginRequest} from "../models/requests";
-import {authAPI} from "../services";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ActionResultEnum, LoginStatus, SessionVO } from "../models";
+import { LoginRequest } from "../models/requests";
+import { authAPI } from "../services";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -19,11 +19,14 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 export function SessionProvider({children}: any) {
     const [user, setUser] = useState<SessionVO | null>(null);
     const [language, setLanguage] = useState<string>("fi");
+    const [isLoading, setIsLoading] = useState<boolean>(true); // New state to track loading
+
     const userKey: string = "user";
     const languageKey: string = "language";
 
     // Check if user data exists in local storage on initial load
     useEffect(() => {
+        setIsLoading(true);
         const userData = localStorage.getItem(userKey);
         console.log("Checking for user data in local storage:", userData);
 
@@ -37,6 +40,8 @@ export function SessionProvider({children}: any) {
             console.log("Setting language to:", languageData);
             setLanguage(languageData);
         }
+
+        setIsLoading(false);
     }, [userKey, languageKey]);
 
     // Function to handle login
@@ -86,6 +91,10 @@ export function SessionProvider({children}: any) {
         setUser(sessionVO);
     }
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
     const contextValue: SessionContextType = {
         userSession: user,
         sessionLanguage: language,
@@ -107,7 +116,10 @@ export function SessionProvider({children}: any) {
 export function useSession(): SessionContextType {
     const context = useContext(SessionContext);
     if (!context) {
+        console.error("No context found");
         throw new Error("useSession must be used within a SessionProvider");
+    } else {
+        console.debug("Context found: ", context);
     }
 
     return context;

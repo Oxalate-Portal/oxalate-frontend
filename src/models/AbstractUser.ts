@@ -2,7 +2,7 @@ import {PaymentResponse} from "./responses";
 import {RoleEnum} from "./RoleEnum";
 import {UserStatusEnum} from "./UserStatusEnum";
 
-interface AbstractUser {
+export interface AbstractUser {
     id: number;
     username: string;
     firstName: string;
@@ -18,5 +18,3 @@ interface AbstractUser {
     privacy: boolean;
     nextOfKin: string;
 }
-
-export default AbstractUser;

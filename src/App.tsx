@@ -12,6 +12,7 @@ import { AdminMain, AuditEvents } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents } from "./components/DiveEvent";
 import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
 import { Payments } from "./components/Payment";
+import { EditCertificate } from "./components/Certificate";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -41,6 +42,8 @@ function App() {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
+                            {/*<Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>*/}
+                            {/*<Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>*/}
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
@@ -53,14 +56,18 @@ function App() {
                             <Route path="/auth/register" element={<Register/>}/>
                             <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
                             <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
+                            {/*<Route path="/events/:paramId/set-dives" element={<PrivateRoute><SetDives/></PrivateRoute>}/>*/}
+                            {/*<Route path="/events/:paramId/show" element={<PrivateRoute><ShowEvent/></PrivateRoute>}/>*/}
                             <Route path="/events/add" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
                             <Route path="/events/dive-stats" element={<PrivateRoute><YearlyDiveStats/></PrivateRoute>}/>
                             <Route path="/events/main" element={<PrivateRoute><DiveEvents/></PrivateRoute>}/>
                             <Route path="/events/past" element={<PrivateRoute><PastDiveEvents/></PrivateRoute>}/>
                             <Route path="/login" element={<LoginWithCaptcha/>}/>
-                            <Route path="/pages/:pageId" element={<Page/>}/>
-                            <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>
+                            <Route path="/pages/:paramId" element={<Page/>}/>
                             <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>
+                            {/*<Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>*/}
+                            <Route path="/users/certificates/:paramId" element={<PrivateRoute><EditCertificate/></PrivateRoute>}/>
+                            <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>
                         </Routes>
                     </ConfigProvider>
                 </div>

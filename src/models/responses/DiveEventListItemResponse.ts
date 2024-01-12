@@ -1,4 +1,4 @@
-import AbstractDiveEvent from "../AbstractDiveEvent";
+import {AbstractDiveEvent} from "../AbstractDiveEvent";
 
 export interface DiveEventListItemResponse extends AbstractDiveEvent {
     organizerName: string;

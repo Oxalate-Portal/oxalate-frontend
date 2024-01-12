@@ -1,3 +1,9 @@
+// Abstracts
+export type {AbstractCertificate} from "./AbstractCertificate";
+export type {AbstractDiveEvent} from "./AbstractDiveEvent";
+export type {AbstractPageGroup} from "./AbstractPageGroup";
+export type {AbstractPage} from "./AbstractPage";
+export type {AbstractUser} from "./AbstractUser";
 // Interfaces
 export type {CertificateVO} from "./CertificateVO";
 export type {DiveEventVO} from "./DiveEventVO";

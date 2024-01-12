@@ -1,18 +1,18 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {Space, Spin} from "antd";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { Space, Spin } from "antd";
 import dayjs from "dayjs";
 import DOMPurify from "dompurify";
-import {PageProps} from "../../models/props";
-import {PageResponse} from "../../models/responses";
-import {pageAPI} from "../../services";
+import { PageProps } from "../../models/props";
+import { PageResponse } from "../../models/responses";
+import { pageAPI } from "../../services";
 
 export function Page(pageProps: PageProps = {}) {
     const {pageId: propPageId, showTitle = true, showDate = true} = pageProps;
-    const {pageId: paramPageId} = useParams();
-    const pageId = propPageId || parseInt(paramPageId as string, 10);
+    const {paramId} = useParams();
+    const pageId = propPageId || parseInt(paramId as string, 10);
 
     const [pageData, setPageData] = useState<PageResponse | null>(null);
     const [loading, setLoading] = useState(true);

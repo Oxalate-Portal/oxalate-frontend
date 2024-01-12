@@ -1,3 +1,4 @@
+export type {CertificateRequest} from './CertificateRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
 export type {LoginRequest} from './LoginRequest';
 export type {LostPasswordRequest} from './LostPasswordRequest';

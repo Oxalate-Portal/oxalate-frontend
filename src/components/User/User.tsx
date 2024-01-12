@@ -1,15 +1,15 @@
-import {useSession} from "../../session";
-import {useEffect, useState} from "react";
-import {Button, Checkbox, Col, Form, Input, Row, Space, Spin} from "antd";
-import {useTranslation} from "react-i18next";
-import {checkRoles} from "../../helpers";
-import {useNavigate} from "react-router-dom";
-import {Certificates, FormatPayments, UserEvents, UserFields} from "./index";
-import {RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum} from "../../models";
-import {UserResponse} from "../../models/responses";
-import {UserRequest} from "../../models/requests";
-import {SubmitResult} from "../main";
-import {userAPI} from "../../services";
+import { useSession } from "../../session";
+import { useEffect, useState } from "react";
+import { Button, Checkbox, Col, Form, Input, Row, Space, Spin } from "antd";
+import { useTranslation } from "react-i18next";
+import { checkRoles } from "../../helpers";
+import { useNavigate } from "react-router-dom";
+import { FormatPayments, ProfileCollapse, UserFields } from "./index";
+import { RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
+import { UserResponse } from "../../models/responses";
+import { UserRequest } from "../../models/requests";
+import { SubmitResult } from "../main";
+import { userAPI } from "../../services";
 
 export function User() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
@@ -251,8 +251,7 @@ export function User() {
 
                     <p style={{height: 30}}></p>
 
-                    {workUser && workUser.id && <Certificates userId={workUser?.id}/>}
-                    {workUser && workUser.id && <UserEvents userId={workUser.id}/>}
+                    {workUser && <ProfileCollapse userId={workUser.id} viewOnly={false}/>}
                 </Spin>
             </div>
     );

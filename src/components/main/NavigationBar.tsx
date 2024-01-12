@@ -1,14 +1,14 @@
-import {ReactComponent as Logo} from "../../portal_logo.svg";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {Tooltip} from "antd";
+import { ReactComponent as Logo } from "../../portal_logo.svg";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import { Tooltip } from "antd";
 import i18next from "i18next";
-import {useEffect, useState} from "react";
-import {checkRoles, LanguageUtil} from "../../helpers";
-import {PageGroupResponse} from "../../models/responses";
-import {RoleEnum} from "../../models";
-import {navigationAPI} from "../../services";
+import { useEffect, useState } from "react";
+import { checkRoles, LanguageUtil } from "../../helpers";
+import { PageGroupResponse } from "../../models/responses";
+import { RoleEnum } from "../../models";
+import { navigationAPI } from "../../services";
 
 export function NavigationBar() {
     const {userSession, logoutUser, getSessionLanguage, setSessionLanguage} = useSession();
@@ -77,7 +77,7 @@ export function NavigationBar() {
                                                              type="button">{t("nav.administration.readFirst")}</NavLink>
                                                 </li>
                                                 <li>
-                                                    <NavLink to="/administration/orgusers" className="dropdown-item"
+                                                    <NavLink to="/administration/users" className="dropdown-item"
                                                              type="button">{t("nav.administration.members")}</NavLink>
                                                 </li>
                                                 <li>
