@@ -5,7 +5,7 @@ import { AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession } from
 import i18next from "i18next";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Register } from "./components/Register";
-import { LostPassword, NewPassword, Password, User } from "./components/User";
+import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
 import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
 import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
 import { AdminMain, AuditEvents } from "./components/Administration";
@@ -65,7 +65,7 @@ function App() {
                             <Route path="/login" element={<LoginWithCaptcha/>}/>
                             <Route path="/pages/:paramId" element={<Page/>}/>
                             <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>
-                            {/*<Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>*/}
+                            <Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>
                             <Route path="/users/certificates/:paramId" element={<PrivateRoute><EditCertificate/></PrivateRoute>}/>
                             <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>
                         </Routes>

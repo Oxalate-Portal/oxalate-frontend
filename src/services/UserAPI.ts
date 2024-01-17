@@ -3,6 +3,7 @@ import axios from "axios";
 import {DiveEventUserResponse, UserResponse} from "../models/responses";
 import {RoleEnum, UserStatusEnum} from "../models";
 import {UserRequest} from "../models/requests";
+import {AdminUserResponse} from "../models/responses/AdminUserResponse";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
@@ -20,6 +21,13 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
     public async findByRole(role: RoleEnum): Promise<DiveEventUserResponse[]> {
         this.setAuthorizationHeader()
         const response = await this.axiosInstance.get<DiveEventUserResponse[]>("/list/" + role);
+        return response.data;
+    }
+
+    public async findAdminUserById(userId: number): Promise<AdminUserResponse> {
+        this.setAuthorizationHeader()
+        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        const response = await this.axiosInstance.get<AdminUserResponse>("/admin/" + userId);
         return response.data;
     }
 }

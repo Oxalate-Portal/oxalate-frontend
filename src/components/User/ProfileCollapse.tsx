@@ -23,7 +23,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
         {
             key: "profile-certificates",
             label: "Certificates",
-            children: <Certificates userId={userId} viewOnly={false}/>
+            children: <Certificates userId={userId} viewOnly={viewOnly}/>
         },
         {
             key: "upcomingEvents",

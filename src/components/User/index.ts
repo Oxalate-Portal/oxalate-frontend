@@ -6,6 +6,6 @@ export {Password} from './Password';
 export {PasswordFields} from './PasswordFields';
 export {PasswordRules} from './PasswordRules';
 export {ProfileCollapse} from './ProfileCollapse';
-export {ShowCertificateCard} from '../Certificate/ShowCertificateCard';
+export {ShowUser} from './ShowUser';
 export {User} from './User';
 export {UserFields} from './UserFields';

@@ -8,7 +8,7 @@ export interface AbstractUser {
     firstName: string;
     lastName: string;
     phoneNumber: string;
-    registered: boolean;
+    registered: Date;
     diveCount: number;
     payments: PaymentResponse[];
     approvedTerms: boolean;
