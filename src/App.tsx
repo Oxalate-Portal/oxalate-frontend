@@ -9,7 +9,7 @@ import { LostPassword, NewPassword, Password, ShowUser, User } from "./component
 import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
 import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
 import { AdminMain, AuditEvents } from "./components/Administration";
-import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives } from "./components/DiveEvent";
+import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
 import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
 import { Payments } from "./components/Payment";
 import { EditCertificate } from "./components/Certificate";
@@ -57,7 +57,7 @@ function App() {
                             <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
                             <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
                             <Route path="/events/:paramId/set-dives" element={<PrivateRoute><SetDives/></PrivateRoute>}/>
-                            {/*<Route path="/events/:paramId/show" element={<PrivateRoute><ShowEvent/></PrivateRoute>}/>*/}
+                            <Route path="/events/:paramId/show" element={<PrivateRoute><ShowDiveEvent/></PrivateRoute>}/>
                             <Route path="/events/add" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
                             <Route path="/events/dive-stats" element={<PrivateRoute><YearlyDiveStats/></PrivateRoute>}/>
                             <Route path="/events/main" element={<PrivateRoute><DiveEvents/></PrivateRoute>}/>

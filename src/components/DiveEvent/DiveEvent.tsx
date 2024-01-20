@@ -1,13 +1,13 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {diveEventAPI} from "../../services";
-import {DiveEventResponse} from "../../models/responses";
-import {DiveEventDetails} from "./DiveEventDetails";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { diveEventAPI } from "../../services";
+import { DiveEventResponse } from "../../models/responses";
+import { DiveEventDetails } from "./DiveEventDetails";
 import dayjs from "dayjs";
-import {SessionVO} from "../../models";
-import {Spin} from "antd";
+import { SessionVO } from "../../models";
+import { Spin } from "antd";
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -47,7 +47,6 @@ export function DiveEvent() {
             console.error("Invalid dive event id:", tmpEventId);
 
         }
-
     }, [paramId]);
 
     useEffect(() => {
