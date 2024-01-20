@@ -6,6 +6,7 @@ export type {AbstractPage} from "./AbstractPage";
 export type {AbstractUser} from "./AbstractUser";
 // Interfaces
 export type {CertificateVO} from "./CertificateVO";
+export type {DiveCountItemVO} from "./DiveCountItemVO";
 export type {DiveEventVO} from "./DiveEventVO";
 export type {LoginStatus} from "./LoginStatus";
 export type {OptionItemVO} from "./OptionItemVO";

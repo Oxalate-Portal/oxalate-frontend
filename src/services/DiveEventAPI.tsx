@@ -1,6 +1,7 @@
-import {AbstractAPI} from "./AbstractAPI";
-import {DiveEventListItemResponse, DiveEventResponse} from "../models/responses";
-import {DiveEventRequest} from "../models/requests";
+import { AbstractAPI } from "./AbstractAPI";
+import { DiveEventListItemResponse, DiveEventResponse } from "../models/responses";
+import { DiveEventListRequest, DiveEventRequest } from "../models/requests";
+import { DiveEventListResponse } from "../models/responses/DiveEventListResponse";
 
 class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
     public async findByUserId(userId: number): Promise<DiveEventResponse[]> {
@@ -42,6 +43,18 @@ class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
     public async unsubscribeUserToEvent(diveEventId: number): Promise<DiveEventResponse> {
         this.setAuthorizationHeader();
         const response = await this.axiosInstance.delete<DiveEventResponse>('/' + diveEventId + '/unsubscribe');
+        return response.data;
+    }
+
+    public async getDiveEventDives(diveEventId: number): Promise<DiveEventListResponse> {
+        this.setAuthorizationHeader();
+        const response = await this.axiosInstance.get<DiveEventListResponse>('/' + diveEventId + '/dives');
+        return response.data;
+    }
+
+    public async updateDiveEventDives(diveEventId: number, diveEventDives: DiveEventListRequest): Promise<DiveEventListResponse> {
+        this.setAuthorizationHeader();
+        const response = await this.axiosInstance.put<DiveEventListResponse>('/' + diveEventId + '/dives', diveEventDives);
         return response.data;
     }
 }

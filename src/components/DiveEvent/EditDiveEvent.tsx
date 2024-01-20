@@ -397,7 +397,7 @@ export function EditDiveEvent() {
                         >{t('common.button.reset')}</Button>
                         {diveEvent && diveEvent.participants.length > 0 &&
                                 <Button
-                                        href={'/events/' + diveEventId + '/setdives'}
+                                        href={'/events/' + diveEventId + '/set-dives'}
                                         disabled={loading}
                                 >{t('EditEvent.form.button.updateDives')}</Button>}
                     </Space>
