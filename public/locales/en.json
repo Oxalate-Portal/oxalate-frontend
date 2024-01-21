@@ -62,7 +62,9 @@
   },
   "AdminOrgUsers": {
     "invalidateTermAgreements": {
-      "confirm": "Are you sure all members must re-accept the terms? This change cannot be undone."
+      "confirm": "Are you sure all members must re-accept the terms? This change cannot be undone.",
+      "fail": "Failed to invalidate the terms agreements",
+      "ok": "Successfully invalidated the terms agreements"
     },
     "search": {
       "placeholder": "Search members",
@@ -76,6 +78,7 @@
       "firstName": "First name",
       "lastName": "Last name",
       "login": "Username",
+      "paymentStatus": "Payment status",
       "role": {
         "title": "Roles"
       },
@@ -185,6 +188,12 @@
       "anonymous": "Anonymous",
       "organizer": "Event Organizer",
       "user": "Member"
+    },
+    "userStatus": {
+      "active": "Active",
+      "anonymized": "Anonymized",
+      "locked": "Locked",
+      "registered": "Registered"
     }
   },
   "EditCertificate": {

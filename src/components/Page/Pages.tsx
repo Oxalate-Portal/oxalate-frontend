@@ -107,7 +107,7 @@ export function Pages() {
             key: "action",
             render: (_: any, record: PageResponse) => (
                     <Space size="middle">
-                        {userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
+                        {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
                                 && isAllowedToEditPage(userSession, record.rolePermissions) &&
                                 <>
                                     <Link to={"/administration/pages/" + record.id}><Button

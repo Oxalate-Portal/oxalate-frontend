@@ -63,7 +63,7 @@ export function NavigationBar() {
                     </div>
                     <div className="navbar-collapse collapse w-100 order-2 order-md-0 dual-collapse2">
                         <ul className="navbar-nav me-auto">
-                            {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN]) &&
+                            {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                                     <li className="nav-item active">
                                         <div className="dropdown">
                                             <button className="nav-item nav-link dropdown-toggle"
@@ -95,7 +95,7 @@ export function NavigationBar() {
                                             </ul>
                                         </div>
                                     </li>}
-                            {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]) &&
+                            {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]) &&
                                     <li className="nav-item active">
                                         <div className="dropdown">
                                             <button className="nav-item nav-link dropdown-toggle"
@@ -126,7 +126,7 @@ export function NavigationBar() {
                                                 <li>
                                                     <NavLink to="/events/past" className="dropdown-item" type="button">{t("nav.events.past")}</NavLink>
                                                 </li>
-                                                {checkRoles(userSession, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]) &&
+                                                {checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]) &&
                                                         <li>
                                                             <NavLink to="/events/add" className="dropdown-item" type="button">{t("nav.events.add")}</NavLink>
                                                         </li>

@@ -47,14 +47,19 @@ function formatDateTimeWithMs(date: Date | string) {
 }
 
 /**
- * Check if the user has one of the given roles. There must be separate checking of roles in the backend. This is merely used to show or hide components in the frontend.
- * @param sessionVO SessionVO object
- * @param userRoles Array of short name roles (ADMIN, ORGANIZER, USER) to check if they're present.
+ * Check if the user roles (haystack) has one of the given roles (needles). There must be separate checking of roles in the backend.
+ * This is merely used to show or hide components in the frontend.
+ * @param haystack This is the list of roles the user has. Can be also null in which case we return false immediately.
+ * @param Needles List of roles that we're looking for
  * @returns {boolean} Whether or not the user is of the given role(s).
  */
-function checkRoles(sessionVO: SessionVO, userRoles: RoleEnum[]): boolean {
-    for (let i = 0; i < userRoles.length; i++) {
-        if (sessionVO.roles.indexOf(userRoles[i]) !== -1) {
+function checkRoles(haystack: RoleEnum[]|null, needles: RoleEnum[]): boolean {
+    if (haystack === null) {
+        return false;
+    }
+
+    for (let i = 0; i < needles.length; i++) {
+        if (haystack.indexOf(needles[i]) !== -1) {
             return true;
         }
     }

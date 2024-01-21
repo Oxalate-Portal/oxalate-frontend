@@ -1,8 +1,8 @@
 import {AbstractAPI} from "./AbstractAPI";
 import axios from "axios";
-import {DiveEventUserResponse, UserResponse} from "../models/responses";
+import {DiveEventUserResponse, GenericMessageResponse, UserResponse} from "../models/responses";
 import {RoleEnum, UserStatusEnum} from "../models";
-import {UserRequest} from "../models/requests";
+import {EmailRequest, UserRequest} from "../models/requests";
 import {AdminUserResponse} from "../models/responses/AdminUserResponse";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
@@ -20,14 +20,45 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
     public async findByRole(role: RoleEnum): Promise<DiveEventUserResponse[]> {
         this.setAuthorizationHeader()
-        const response = await this.axiosInstance.get<DiveEventUserResponse[]>("/list/" + role);
+        const response = await this.axiosInstance.get<DiveEventUserResponse[]>("/role/" + role);
         return response.data;
     }
 
     public async findAdminUserById(userId: number): Promise<AdminUserResponse> {
         this.setAuthorizationHeader()
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        const response = await this.axiosInstance.get<AdminUserResponse>("/admin/" + userId);
+        const response = await this.axiosInstance.get<AdminUserResponse>("/" + userId);
+        return response.data;
+    }
+
+    public async resetTerms(): Promise<boolean> {
+        this.setAuthorizationHeader()
+        const response = await this.axiosInstance.get<AdminUserResponse>("/reset-terms");
+        return response.status === 200;
+    }
+
+    public async recoverLostPassword(emailRequest: EmailRequest): Promise<boolean> {
+        const response = await axios.post<GenericMessageResponse>("/lost-password", emailRequest);
+        return response.status === 200 && response.data.message === "OK";
+    }
+
+    // TODO Convert the post data to an interface, requires reworking of the whole user data handling starting with AbstractUser
+    public async adminUpdateUser(postData: {
+        firstName: string;
+        lastName: string;
+        phoneNumber: string;
+        nextOfKin: string;
+        roles: RoleEnum[];
+        privacy: boolean;
+        registered: Date;
+        language: string;
+        id: number;
+        username: string;
+        status: UserStatusEnum
+    }) {
+        this.setAuthorizationHeader()
+        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        const response = await this.axiosInstance.put<AdminUserResponse>("", postData);
         return response.data;
     }
 }

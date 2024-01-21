@@ -1,4 +1,4 @@
-import {AbstractUser} from "../AbstractUser";
+import {UserResponse} from "./UserResponse";
 
-export interface AdminUserResponse extends AbstractUser {
+export interface AdminUserResponse extends UserResponse {
 }

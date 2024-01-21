@@ -65,7 +65,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                 if (record.organizer === null) {
                     return (<></>);
                 }
-                if (userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
+                if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={'/users/' + record.organizer.id + '/show'}>{record.organizer.lastName} {record.organizer.firstName}</Link>);
                 }
                 return (<>{record.organizer.lastName} {record.organizer.firstName}</>);
@@ -91,7 +91,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: 'id',
             key: 'id',
             render: (text: string, record: DiveEventUserResponse) => {
-                if (userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
+                if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={'/users/' + record.id + '/show'}>{record.id}</Link>);
                 }
 
@@ -103,7 +103,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: 'name',
             key: 'name',
             render: (text: string, record: DiveEventUserResponse) => {
-                if (userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
+                if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={'/users/' + record.id + '/show'}>{record.name}</Link>);
                 }
 
@@ -117,7 +117,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         }
     ];
 
-    if (userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
+    if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
         participantColumns = [...participantColumns,
             {
                 title: t('EventDetails.participantTable.payments'),

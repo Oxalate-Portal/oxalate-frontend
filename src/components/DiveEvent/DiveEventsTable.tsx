@@ -102,7 +102,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                 if (diveEventType === 'new' || diveEventType === 'ongoing') {
                 return (<>
                     <Space size="middle">
-                        {userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
+                        {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
                                 <Link to={'/events/' + record.id + '/edit'}>
                                     <Button style={{
                                         background: "green",

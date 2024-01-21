@@ -63,7 +63,9 @@
   },
   "AdminOrgUsers": {
     "invalidateTermAgreements": {
-      "confirm": "Är du säker på att alla medlemmar måste godkänna användarvillkoren igen? Denna åtgärd kan inte ångras."
+      "confirm": "Är du säker på att alla medlemmar måste godkänna användarvillkoren igen? Denna åtgärd kan inte återkallas.",
+      "fail": "Det gick inte att ogiltigförklara användarvillkoren",
+      "ok": "Användarvillkoren ogiltigförklarades framgångsrikt"
     },
     "search": {
       "placeholder": "Sök medlemmar",
@@ -77,6 +79,7 @@
       "firstName": "Förnamn",
       "lastName": "Efternamn",
       "login": "Användarnamn",
+      "paymentStatus": "Betalningsstatus",
       "role": {
         "title": "Roller"
       },
@@ -186,6 +189,12 @@
       "anonymous": "Anonym",
       "organizer": "Evenemangsarrangör",
       "user": "Medlem"
+    },
+    "userStatus": {
+      "active": "Aktiv",
+      "anonymized": "Anonymiserad",
+      "locked": "Låst",
+      "registered": "Registrerad"
     }
   },
   "EditCertificate": {

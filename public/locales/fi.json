@@ -62,7 +62,9 @@
   },
   "AdminOrgUsers": {
     "invalidateTermAgreements": {
-      "confirm": "Oletko varma että kaikkien jäsenten täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua."
+      "confirm": "Oletko varma että kaikkien jäsenten täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
+      "fail": "Ei onnistuttu mitätöimään käyttöehtoja",
+      "ok": "Käyttöehdot mitätöitiin onnistuneesti"
     },
     "search": {
       "placeholder": "Hae jäseniä",
@@ -76,6 +78,7 @@
       "firstName": "Etunimi",
       "lastName": "Sukunimi",
       "login": "Tunnus",
+      "paymentStatus": "Maksun tila",
       "role": {
         "title": "Roolit"
       },
@@ -185,6 +188,12 @@
       "anonymous": "Anonyymi",
       "organizer": "Tapahtumajärjestäjä",
       "user": "Jäsen"
+    },
+    "userStatus": {
+      "active": "Aktiivinen",
+      "anonymized": "Anonyymisoitu",
+      "locked": "Lukittu",
+      "registered": "Rekisteröity"
     }
   },
   "EditCertificate": {

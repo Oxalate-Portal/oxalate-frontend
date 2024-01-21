@@ -95,10 +95,7 @@ export function User() {
             privacy: userInfo.privacy,
             nextOfKin: userInfo.nextOfKin,
             registered: workUser.registered,
-            approvedTerms: workUser.approvedTerms,
             roles: workUser.roles,
-            payments: workUser.payments,
-            diveCount: workUser.diveCount,
             language: userInfo.language
         };
 
@@ -122,7 +119,6 @@ export function User() {
                         status: response.status,
                         approvedTerms: response.approvedTerms,
                         privacy: response.privacy,
-                        payments: response.payments,
                         nextOfKin: response.nextOfKin
                     };
                     refreshUserSession(newSession);
@@ -189,7 +185,7 @@ export function User() {
                                    style={{display: "none"}}>
                             <Input type="text"/>
                         </Form.Item>
-                        {userSession && workUser && <UserFields userId={workUser.id} username={workUser.username} isOrganizer={checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER])}/>}
+                        {userSession && workUser && <UserFields userId={workUser.id} username={workUser.username} isOrganizer={checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER])}/>}
                         <Form.Item label={t("User.form.status.label")}>
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>

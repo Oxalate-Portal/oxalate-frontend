@@ -62,7 +62,9 @@
   },
   "AdminOrgUsers": {
     "invalidateTermAgreements": {
-      "confirm": "Sind Sie sicher, dass alle Mitglieder die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden."
+      "confirm": "Sind Sie sicher, dass alle Mitglieder die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
+      "fail": "Die Bedingungen konnten nicht für ungültig erklärt werden",
+      "ok": "Die Bedingungen wurden erfolgreich für ungültig erklärt"
     },
     "search": {
       "placeholder": "Mitglieder durchsuchen",
@@ -76,6 +78,7 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "login": "Benutzername",
+      "paymentStatus": "Zahlungsstatus",
       "role": {
         "title": "Rollen"
       },
@@ -185,6 +188,12 @@
       "anonymous": "Anonym",
       "organizer": "Veranstaltungsorganisator",
       "user": "Mitglied"
+    },
+    "userStatus": {
+      "active": "Aktiv",
+      "anonymized": "Anonymisiert",
+      "locked": "Gesperrt",
+      "registered": "Registriert"
     }
   },
   "EditCertificate": {

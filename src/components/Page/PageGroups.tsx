@@ -68,14 +68,14 @@ export function PageGroups() {
                 }
 
                 return (<Space size="middle">
-                    {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN]) &&
+                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                             record.id !== 1 &&
                             <Link to={"/administration/page-groups/" + record.id}><Button
                                     type={"primary"}>{t("common.button.update")}</Button></Link>}
-                    {((record.id === 1 && userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN]))
-                                    || (record.id !== 1 && userSession && checkRoles(userSession, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]))) &&
+                    {((record.id === 1 && userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))
+                                    || (record.id !== 1 && userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]))) &&
                             <Link to={pageLink}><Button>{buttonText}</Button></Link>}
-                    {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN]) &&
+                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                             record.id !== 1 &&
                             <Button danger type={"primary"}
                                     onClick={() => deletePath(record.id)}>{t("common.button.delete")}</Button>}
@@ -131,7 +131,7 @@ export function PageGroups() {
                             <Table dataSource={pageGroups} columns={columns} pagination={false} rowKey="id"/>}
                 </Spin>
                 <Space direction={'horizontal'} size={12} style={{width: '100%', justifyContent: 'right', margin: 12}}>
-                    {userSession && checkRoles(userSession, [RoleEnum.ROLE_ADMIN]) &&
+                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                             <Link to={'/administration/page-groups/0'}><Button
                                     type={'primary'}>{t('PageGroups.button.addGroup')}</Button></Link>}
                 </Space>

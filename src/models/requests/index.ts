@@ -1,6 +1,7 @@
 export type {CertificateRequest} from './CertificateRequest';
 export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
+export type {EmailRequest} from './EmailRequest';
 export type {LoginRequest} from './LoginRequest';
 export type {LostPasswordRequest} from './LostPasswordRequest';
 export type {PageGroupRequest} from './PageGroupRequest';

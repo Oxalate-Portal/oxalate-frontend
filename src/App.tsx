@@ -8,7 +8,7 @@ import { Register } from "./components/Register";
 import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
 import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
 import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
-import { AdminMain, AuditEvents } from "./components/Administration";
+import { AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
 import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
 import { Payments } from "./components/Payment";
@@ -42,8 +42,8 @@ function App() {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
-                            {/*<Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>*/}
-                            {/*<Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>*/}
+                            <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
+                            <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
