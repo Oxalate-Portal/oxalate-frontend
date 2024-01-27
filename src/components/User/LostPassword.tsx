@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {Alert, Button, Form, Input, Row} from "antd";
-import {useSession} from "../../session";
-import {authAPI} from "../../services";
-import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Alert, Button, Form, Input, Row } from "antd";
+import { useSession } from "../../session";
+import { authAPI } from "../../services";
+import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
 
 export function LostPassword() {
     const {userSession} = useSession();
@@ -42,13 +42,22 @@ export function LostPassword() {
 
     if (updateStatus.status === "OK") {
         return (<div className={'darkDiv'}>
-            <Alert type={'success'} message={t('LostPassword.updateStatus.ok.text')}/>
-            <Button type={'default'} onClick={() => navigate('/login')}>{t('LostPassword.updateStatus.ok.button')}</Button>
+            <Alert
+                    type={'success'}
+                    showIcon={true}
+                    message={t('LostPassword.updateStatus.ok.text')}
+                    action={<Button type={'default'} onClick={() => navigate('/login')}>{t('LostPassword.updateStatus.ok.button')}</Button>}
+            />
+
         </div>)
     } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={'darkDiv'}>
-            <Alert type={'error'} message={t('LostPassword.updateStatus.fail.text')}/>
-            <Button type={'default'} onClick={() => navigate('/auth/reconfirm')}>{t('LostPassword.updateStatus.fail.button')}</Button>
+            <Alert
+                    type={'error'}
+                    showIcon={true}
+                    message={t('LostPassword.updateStatus.fail.text')}
+                    action={<Button type={'default'} onClick={() => navigate('/auth/reconfirm')}>{t('LostPassword.updateStatus.fail.button')}</Button>}
+            />
         </div>)
     }
 

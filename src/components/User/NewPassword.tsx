@@ -1,12 +1,12 @@
-import {Alert, Button, Form, Space, Spin} from "antd";
-import {useTranslation} from "react-i18next";
-import {useParams} from "react-router-dom";
-import {useState} from "react";
-import {PasswordResetRequest} from "../../models/requests";
-import {authAPI} from "../../services";
-import {PasswordRules} from "./PasswordRules";
-import {PasswordFields} from "./PasswordFields";
-import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import { Alert, Button, Form, Space, Spin } from "antd";
+import { useTranslation } from "react-i18next";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { PasswordResetRequest } from "../../models/requests";
+import { authAPI } from "../../services";
+import { PasswordRules } from "./PasswordRules";
+import { PasswordFields } from "./PasswordFields";
+import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
 
 export function NewPassword() {
     const [newPasswordForm] = Form.useForm();
@@ -50,13 +50,21 @@ export function NewPassword() {
     }
 
     if (updateStatus.status === 'OK') {
-        return (<div>
-            <Alert type={'success'} message={t('NewPassword.updateStatus.ok.text')}/>
+        return (<div className={'darkDiv'}>
+            <Alert
+                    type={'success'}
+                    showIcon={true}
+                    message={t('NewPassword.updateStatus.ok.text')}
+            />
             <div className="p-4">{t('NewPassword.updateStatus.ok.button')}</div>
         </div>);
     } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
-        return (<div>
-            <Alert type={'error'} message={t('NewPassword.updateStatus.fail.text')}/>
+        return (<div className={'darkDiv'}>
+            <Alert
+                    type={'error'}
+                    showIcon={true}
+                    message={t('NewPassword.updateStatus.fail.text')}
+            />
             <div>{t('NewPassword.updateStatus.fail.button')}</div>
         </div>);
     }
