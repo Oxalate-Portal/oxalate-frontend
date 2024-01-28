@@ -1,4 +1,16 @@
 <!--ts-->
+* [Installation of Oxalate frontend](#installation-of-oxalate-frontend)
+   * [Prerequisites](#prerequisites)
+   * [Building the frontend](#building-the-frontend)
+   * [Modifications](#modifications)
+      * [Images](#images)
+   * [Setups](#setups)
+      * [Native](#native)
+      * [Container](#container)
+
+<!-- Created by https://github.com/ekalinin/github-markdown-toc -->
+<!-- Added by: poltsi, at: Fri Jan 26 07:19:10 PM EET 2024 -->
+
 <!--te-->
 
 # Installation of Oxalate frontend
