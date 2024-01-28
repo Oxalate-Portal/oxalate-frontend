@@ -148,7 +148,7 @@ export function EditDiveEvent() {
         if (submitValues.maxParticipants < submitValues.participants.length) {
             setUpdateStatus({
                 status: UpdateStatusEnum.FAIL,
-                message: t('EditEvent.onFinish.updateStatusFailMaxPartisipant')
+                message: t('EditEvent.onFinish.updateStatusFailMaxParticipant')
             });
             setLoading(false);
             return;
@@ -319,7 +319,8 @@ export function EditDiveEvent() {
                                    },
                                    () => ({
                                        validator(_, value) {
-                                           if (value && dayjs().isBefore(value - 30 * 60 * 1000)) {
+                                           // If we're editing an existing event, then we allow the start time to be in the past
+                                           if (diveEventId > 0 || (value && dayjs().isBefore(value - 30 * 60 * 1000))) {
                                                return Promise.resolve();
                                            }
 

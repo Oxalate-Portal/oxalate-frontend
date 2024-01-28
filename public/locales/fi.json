@@ -354,7 +354,7 @@
       "addStatusFail": "Tapahtuman lisääminen epäonnistui",
       "addStatusOk": "Tapahtuma lisätty",
       "updateStatusFail": "Tapahtumatietojen päivitys epäonnistui",
-      "updateStatusFailMaxPartisipant": "Maksimiosallistujamäärä ei voi olla pienempi kuin nykyinen osallistujamäärä",
+      "updateStatusFailMaxParticipant": "Maksimiosallistujamäärä ei voi olla pienempi kuin nykyinen osallistujamäärä",
       "updateStatusOk": "Tapahtumatiedot päivitetty"
     },
     "title": "Tapahtumatiedot"

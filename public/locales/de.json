@@ -354,7 +354,7 @@
       "addStatusFail": "Ereignis hinzufügen fehlgeschlagen",
       "addStatusOk": "Ereignis hinzugefügt",
       "updateStatusFail": "Aktualisierung der Ereignisinformationen fehlgeschlagen",
-      "updateStatusFailMaxPartisipant": "Die maximale Teilnehmeranzahl darf nicht kleiner sein als die aktuelle Teilnehmeranzahl",
+      "updateStatusFailMaxParticipant": "Die maximale Teilnehmeranzahl darf nicht kleiner sein als die aktuelle Teilnehmeranzahl",
       "updateStatusOk": "Ereignisinformationen aktualisiert"
     },
     "title": "Ereignisinformationen"

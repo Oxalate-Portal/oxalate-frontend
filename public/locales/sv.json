@@ -355,7 +355,7 @@
       "addStatusFail": "Misslyckades med att lägga till evenemangsinformation",
       "addStatusOk": "Evenemanget tillagt",
       "updateStatusFail": "Misslyckades med att uppdatera evenemangsinformation",
-      "updateStatusFailMaxPartisipant": "Maximalt antal deltagare kan inte vara mindre än det aktuella antalet deltagare",
+      "updateStatusFailMaxParticipant": "Maximalt antal deltagare kan inte vara mindre än det aktuella antalet deltagare",
       "updateStatusOk": "Evenemangsinformation uppdaterad"
     },
     "title": "Evenemangsinformation"

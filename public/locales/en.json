@@ -354,7 +354,7 @@
       "addStatusFail": "Failed to add the event",
       "addStatusOk": "Event added",
       "updateStatusFail": "Failed to update event information",
-      "updateStatusFailMaxPartisipant": "The maximum number of participants cannot be smaller than the current number of participants",
+      "updateStatusFailMaxParticipant": "The maximum number of participants cannot be smaller than the current number of participants",
       "updateStatusOk": "Event information updated"
     },
     "title": "Event information"
