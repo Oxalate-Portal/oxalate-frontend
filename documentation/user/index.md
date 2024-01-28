@@ -291,3 +291,90 @@ event or next of kin in case of an accident. This will override the user's priva
 
 ## Administrator
 
+An administrator in Oxalate portal has access to all functionality in the portal. This includes the following:
+
+* The administration section
+* Full page management
+
+### Administration section
+
+The administration section is accessible from the navigation menu.
+
+[![Administrator access to administration section](images/user-role-administrator-administration-thumb.jpg)](images/user-role-administrator-administration.jpg)
+
+#### Members
+
+The administrator can view all members of the portal. The list shows the main characteristics of the members such as name, email address, status, roles and
+payment status.
+
+[![Administrator access to members](images/user-role-administrator-members-thumb.jpg)](images/user-role-administrator-members.jpg)
+
+Clicking on the Update button will take the administrator to the member details form where most details can be updated, including the roles and status.
+
+[![Administrator access to member details](images/user-role-administrator-member-details-thumb.jpg)](images/user-role-administrator-member-details.jpg)
+
+Note that there is also a button to send a password reset email to the member. This is useful in case the member has forgotten their password and the
+administrator wants to help the member reset it. Updating the member details will take the administrator to a confirmation view.
+
+[![Administrator access to member details](images/user-role-administrator-member-details-confirmation-thumb.jpg)](images/user-role-administrator-member-details-confirmation.jpg)
+
+#### Term acceptance reset
+
+On the bottom of the member list, there is a button to reset the term acceptance status for all members. This is useful in case the terms and conditions are
+updated and the administrator wants to force all members to accept the new terms and conditions.
+
+A result of this action is that the next time any user logs in, they will be presented with the updated terms and conditions and they must accept them before
+they can proceed.
+
+#### Payments
+
+The payments page shows the list of all valid payments made by the members. The payment types are separated to one-time payments and periodical payments.
+
+[![Administrator access to payments](images/user-role-administrator-payments-thumb.jpg)](images/user-role-administrator-payments.jpg)
+
+The administrator can also add new payments by selecting the type of payments, select the users and depending of whether the type is one-time payment, the
+number of payments.
+
+Finally, there is a button to void all periodical payments if needs be.
+
+#### Statistics
+
+The statistics page shows various yearly dive statistics per year as well as cumulative for all years of action. The following stats are displayed:
+
+[![Administrator access to statistics](images/user-role-administrator-statistics-thumb.jpg)](images/user-role-administrator-statistics.jpg)
+
+* Number of dive events
+* Number or registrations
+* Events organized per organizer
+* Number and type of payments
+
+Finally on the bottom of the page is a list of dive reports that have been arranged. The reports are summaries of dive events for each 6 months.
+
+#### Audits
+
+The audit page displays the immutable log of all actions performed on the site. The list shows the date and time of the action, the action itself, the address
+and, if recognized, the user. The purpose for this page is to be able to track down any malicious activity on the site.
+
+[![Administrator access to audits](images/user-role-administrator-audits-thumb.jpg)](images/user-role-administrator-audits.jpg)
+
+The entries in the audit trail are immutable and can not be deleted nor edited from the UI. They will be removed automatically after 30 days since they do
+contain PII (personally identifiable information).
+
+### Page management
+
+The administrator has full access to page management. This means that the administrator can create new page groups, create new pages, edit existing pages and
+delete pages. The administrator can also edit the page group names and delete page groups.
+
+[![Administrator access to page management](images/user-role-administrator-pages-thumb.jpg)](images/user-role-administrator-pages.jpg)
+
+An administrator can update the pages located in the reserved page group.
+
+Adding a new page group is simple. Click on the Add page group button and enter the title of the page group in all supported languages.
+
+[![Administrator access to page management](images/user-role-administrator-page-group-add-thumb.jpg)](images/user-role-administrator-page-group-add.jpg)
+
+Click on the Create new page group button to save the page group. The confirmation of adding a page group will be displayed.
+
+[![Administrator access to page management](images/user-role-administrator-page-group-add-confirmation-thumb.jpg)](images/user-role-administrator-page-group-add-confirmation.jpg)
+
+An administrator can also remove page groups. If doing this, make sure that any pages assigned to the group is also meant to be removed.
