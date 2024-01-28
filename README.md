@@ -1,8 +1,15 @@
 # Oxalate Portal frontend UI
 
-This is the React-based frontend for the Oxalat-ePortal project.
+This is the React-based frontend for the [Oxalate-Portal project](https://github.com/Oxalate-Portal/).
 
-Uses:
+There are separate documentation for:
+
+* [Setting up the frontend for testing and production](documentation/installation/index.md)
+* [User documentation](documentation/user/index.md)
+
+## Development
+
+Oxalate frontend uses:
 
 * [Ant Design](https://ant.design/) for UI components and forms
 * [Ant Charts](https://charts.ant.design/en/) for charts and graphs
@@ -11,13 +18,13 @@ Uses:
 * [i18next](https://www.i18next.com/) for internationalization
 * [translation-check](https://github.com/locize/translation-check) for checking translations
 
-## Set up
+### Set up
 
 To set up development, copy the `.env` as `.env.local` and add `REACT_APP_SITE_KEY` as variable containing the Google ReCAPTCHA site key.
 
 ## Available additional UIs
 
-* Local [translation check](http://localhost:3000/?showtranslations) for checking translations
+* Local [translation check](http://localhost:3000/?showtranslations) for checking translations.
 
 # Licence
 
