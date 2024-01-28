@@ -18,9 +18,16 @@
       * [Create dive events](#create-dive-events)
       * [Access to user information](#access-to-user-information)
    * [Administrator](#administrator)
+      * [Administration section](#administration-section)
+         * [Members](#members)
+         * [Term acceptance reset](#term-acceptance-reset)
+         * [Payments](#payments)
+         * [Statistics](#statistics)
+         * [Audits](#audits)
+      * [Page management](#page-management)
 
 <!-- Created by https://github.com/ekalinin/github-markdown-toc -->
-<!-- Added by: poltsi, at: Sun Jan 28 02:19:18 PM EET 2024 -->
+<!-- Added by: poltsi, at: Sun Jan 28 07:43:08 PM EET 2024 -->
 
 <!--te-->
 
