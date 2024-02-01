@@ -373,7 +373,7 @@ export function EditPage() {
                                                                 ]}
                                                         >
                                                             <PageBodyEditor key={uniqueKey + "body-editor"}
-                                                                            onChange={(data: string) => pageForm.setFieldsValue({["index"]: {body: data}})}
+                                                                            onChange={(data: string) => pageForm.setFieldsValue({"index": {body: data}})}
                                                                             value={pageForm.getFieldValue(["index", "body"])}
                                                             />
                                                         </Form.Item>
