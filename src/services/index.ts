@@ -1,7 +1,6 @@
 export {auditAPI} from './AuditAPI';
 export {authAPI} from './AuthAPI';
 export {diveEventAPI} from './DiveEventAPI';
-export {navigationAPI} from './NavigationAPI';
 export {pageAPI} from './PageAPI';
 export {pageGroupMgmtAPI} from './PageGroupMgmtAPI';
 export {pageMgmtAPI} from './PageMgmtAPI';
