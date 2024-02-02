@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { checkRoles, LanguageUtil } from "../../helpers";
 import { PageGroupResponse } from "../../models/responses";
 import { RoleEnum } from "../../models";
-import { navigationAPI } from "../../services";
+import { pageAPI } from "../../services";
 
 export function NavigationBar() {
     const {userSession, logoutUser, getSessionLanguage, setSessionLanguage} = useSession();
@@ -20,7 +20,7 @@ export function NavigationBar() {
         const fetchPaths = async () => {
             const language = getSessionLanguage();
 
-            const navElements = await navigationAPI.getNavigationItems(language);
+            const navElements = await pageAPI.getNavigationItems(language);
 
             if (navElements) {
                 setNavigationElements(JSON.parse(JSON.stringify(navElements)));
