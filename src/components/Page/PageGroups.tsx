@@ -111,14 +111,13 @@ export function PageGroups() {
                         setUpdateStatus({status: UpdateStatusEnum.OK, message: t("PageGroups.updateStatus.removed")});
                     })
                     .catch((e: any) => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     });
         }
     }
 
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        console.debug("Showing update result:", updateStatus);
         return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
     }
 

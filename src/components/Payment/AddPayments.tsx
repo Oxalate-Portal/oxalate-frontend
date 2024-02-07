@@ -77,7 +77,7 @@ export function AddPayments() {
                         setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AddPayments.onFinish.ok")});
                     })
                     .catch(e => {
-                        console.log("Failed to update user payment information, error: " + e.message);
+                        console.error("Failed to update user payment information, error: " + e.message);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AddPayments.onFinish.fail") + e.message});
                     })
                     .finally(() => {
@@ -87,10 +87,7 @@ export function AddPayments() {
     }
 
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        console.debug("Showing update result:", updateStatus);
         return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    } else {
-        console.debug("Update status is:", updateStatus);
     }
 
     return (

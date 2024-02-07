@@ -14,7 +14,6 @@ import { PageBodyEditor } from "./PageBodyEditor";
 
 export function EditPage() {
     const {paramId} = useParams();
-    console.debug("XXXXXXXXXXXXX ParamId: " + paramId);
     const {userSession, sessionLanguage} = useSession();
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -96,7 +95,6 @@ export function EditPage() {
 
     useEffect(() => {
         function populatePageGroups(data: PageGroupResponse[]) {
-            console.debug("Populating page groups:", data);
             let pageGroups = [];
 
             for (let i = 0; i < data.length; i++) {
@@ -119,7 +117,6 @@ export function EditPage() {
         }
 
         if (tmpPageId > 0) {
-            console.debug("Updating existing page");
             setLoading(true);
             setCreateNewPage(false);
 
@@ -140,7 +137,6 @@ export function EditPage() {
                         setLoading(false);
                     });
         } else {
-            console.debug("Creating new page");
             setCreateNewPage(true);
 
             pageGroupMgmtAPI.findAll()
@@ -163,7 +159,6 @@ export function EditPage() {
         setLoading(true);
 
         if (createNewPage) {
-            console.debug("Creating page:", formData);
             pageMgmtAPI.create(formData)
                     .then((response: PageResponse) => {
                         // If we get back an ID, we assume the creation was successful
@@ -174,14 +169,13 @@ export function EditPage() {
                         }
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     })
                     .finally(() => {
                         setLoading(false);
                     });
         } else {
-            console.debug("Updating page:", formData);
             pageMgmtAPI.update(formData)
                     .then((response) => {
                         // If we get back the same ID as we sent, we assume the update was successful
@@ -193,7 +187,7 @@ export function EditPage() {
                         setLoading(false);
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                         setLoading(false);
                     })
@@ -204,7 +198,7 @@ export function EditPage() {
     }
 
     function onFinishFailed(errorInfo: any) {
-        console.log("Failed:", errorInfo);
+        console.error("Failed:", errorInfo);
     }
 
     const validatePermissions = (rule: any, value: any, index: number) => {
@@ -234,9 +228,7 @@ export function EditPage() {
         }
 
         const allRolePermissions: RolePermissionResponse[] = pageForm.getFieldValue("rolePermissions");
-        console.debug("All role permissions:", allRolePermissions);
         const roles: RoleEnum[] = allRolePermissions.map((item: RolePermissionResponse) => item.role);
-        console.debug("Mapped roles:", roles);
         const countRoles: Record<RoleEnum, number> = roles.reduce((acc, role) => {
             acc[role] = (acc[role] || 0) + 1;
             return acc;
@@ -262,14 +254,10 @@ export function EditPage() {
         return Promise.reject(t("EditPage.form.pageversions.body.rules.min"));
     }
 
-    console.debug("Page data:", pageData);
-    console.debug("Update status:", updateStatus);
     // We use this to get back from success/fail update
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
         return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
     }
-
-    console.debug("Rendering page form");
 
     return (
             <div className={"darkDiv"} key={"pageDiv"}>

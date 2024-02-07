@@ -14,7 +14,6 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     public async findAll(params?: Record<string, any>): Promise<RESPONSE[]> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        console.debug("findAll params", params);
         const response = await this.axiosInstance.get<RESPONSE[]>("", {params: params});
         return response.data;
     }
@@ -26,7 +25,6 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     public async findPageable(params?: Record<string, any>): Promise<PageableResponse<RESPONSE>> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        console.debug("findPageable params", params);
         const response = await this.axiosInstance.get<PageableResponse<RESPONSE>>("", {params: params});
         return response.data;
     }
@@ -46,7 +44,6 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     public async create(payload: REQUEST): Promise<RESPONSE> {
         this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        console.debug("create payload", payload);
         const response = await this.axiosInstance.post<RESPONSE>("", payload);
         return response.data;
     }
@@ -76,7 +73,6 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
 
         if (session && session.accessToken) {
             this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + session.accessToken;
-            console.debug("Authorization header set.", this.axiosInstance.defaults.headers.common['Authorization']);
         }
     }
 }

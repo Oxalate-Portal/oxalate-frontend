@@ -22,7 +22,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                     setCertificates(response);
                 })
                 .catch(error => {
-                    console.log("Certificate fetch error: " + error);
+                    console.error("Certificate fetch error: " + error);
                 })
                 .finally(() => {
                     setLoading(false);
@@ -41,7 +41,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                         window.location.reload();
                     })
                     .catch(error => {
-                        console.log("Certificate delete error: " + error);
+                        console.error("Certificate delete error: " + error);
                     })
                     .finally(() => {
                         setLoading(false);

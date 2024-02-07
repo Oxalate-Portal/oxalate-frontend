@@ -52,11 +52,10 @@ export function User() {
 
         userAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
-                    console.log(response);
                     setUpdateStatus({status: UpdateStatusEnum.OK, message: t('User.updateStatus.ok')});
                 })
                 .catch(e => {
-                    console.log(e);
+                    console.error(e);
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('User.updateStatus.fail')});
                 });
         setLoading(false);
@@ -101,8 +100,6 @@ export function User() {
 
         userAPI.update(postData)
                 .then((response) => {
-                    console.log("Update response:", response);
-
                     const newSession: SessionVO = {
                         id: response.id,
                         username: response.username,
@@ -126,24 +123,21 @@ export function User() {
                     setLoading(false);
                 })
                 .catch(e => {
-                    console.log(e);
+                    console.error(e);
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("User.update.fail")});
                     setLoading(false);
                 });
     }
 
     function onFinishFailed(errorInfo: any) {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
         setLoading(false);
     }
 
     const navigate = useNavigate();
 
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        console.debug("Showing update result:", updateStatus);
         return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    } else {
-        console.debug("Update status is:", updateStatus);
     }
 
     return (

@@ -142,7 +142,6 @@ export function EditDiveEvent() {
     }
 
     function onFinish(submitValues: DiveEventRequest) {
-        console.debug("Submit data: ", submitValues);
         setLoading(true);
         // Check also that the new maxParticipants value is not lower than the current number of participants
         if (submitValues.maxParticipants < submitValues.participants.length) {
@@ -172,7 +171,7 @@ export function EditDiveEvent() {
                         }
                     })
                     .catch(e => {
-                        console.log("Failed to update event:", e);
+                        console.error("Failed to update event:", e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     });
         } else {
@@ -190,7 +189,7 @@ export function EditDiveEvent() {
                         }
                     })
                     .catch(e => {
-                        console.log("Failed to create event:", e);
+                        console.error("Failed to create event:", e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     });
         }

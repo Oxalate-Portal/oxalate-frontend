@@ -23,14 +23,13 @@ export function ShowDiveEvent() {
 
         if (tmpDiveEventId > 0) {
             setLoading(true);
-            console.log("Fetching dive event with id:", tmpDiveEventId);
+            console.error("Fetching dive event with id:", tmpDiveEventId);
             diveEventAPI.findById(tmpDiveEventId, null)
                     .then(response => {
-                        console.log("Response:", response);
                         setDiveEvent(response);
                     })
                     .catch(error => {
-                        console.log("Error:", error);
+                        console.error("Error:", error);
                     });
             setLoading(false);
         } else {

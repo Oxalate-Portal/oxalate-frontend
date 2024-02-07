@@ -1,9 +1,9 @@
-import {useSession} from "../../session";
-import {Alert, Button, Space} from "antd";
-import {useTranslation} from "react-i18next";
-import {useState} from "react";
-import {Page} from "../Page";
-import {userAPI} from "../../services";
+import { useSession } from "../../session";
+import { Alert, Button, Space } from "antd";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+import { Page } from "../Page";
+import { userAPI } from "../../services";
 
 interface AcceptTermsProps {
     registration: boolean
@@ -24,7 +24,7 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
                     refreshUserSession(newSession);
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                     setError(error.message);
                 });
     }

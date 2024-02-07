@@ -9,13 +9,12 @@ class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
         const response = await this.axiosInstance.get("/navigation-elements?language=" + language);
 
         if (response.status === 200 && response.data.length > 0) {
-            console.debug("Received navigation pages:", response.data);
             return response.data;
         } else {
             if (response.status !== 200) {
-                console.info("The response status was " + response.status + ": " + JSON.stringify(response));
+                console.error("The response status was " + response.status + ": " + JSON.stringify(response));
             } else {
-                console.info("The response did not contain data.token: " + JSON.stringify(response));
+                console.error("The response did not contain data.token: " + JSON.stringify(response));
             }
         }
     }

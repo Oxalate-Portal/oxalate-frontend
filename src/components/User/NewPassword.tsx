@@ -31,14 +31,14 @@ export function NewPassword() {
 
         authAPI.resetPassword(postData)
                 .catch(e => {
-                    console.log(e);
+                    console.error(e);
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                 })
                 .then((response) => {
                     if (response?.message === "OK") {
                         setUpdateStatus({status: UpdateStatusEnum.OK, message: t('NewPassword.setUpdateStatus.update.ok')});
                     } else {
-                        console.log("Failed to update user, error: " + response?.message);
+                        console.error("Failed to update user, error: " + response?.message);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('NewPassword.setUpdateStatus.update.fail')});
                     }
                 });
@@ -46,7 +46,7 @@ export function NewPassword() {
     }
 
     const updatePasswordFailed = (errorInfo: any) => {
-        console.log("Updating password failed", errorInfo);
+        console.error("Updating password failed", errorInfo);
     }
 
     if (updateStatus.status === 'OK') {

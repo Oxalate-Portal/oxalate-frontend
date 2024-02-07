@@ -20,13 +20,12 @@ function App() {
     const sessionLanguage = getSessionLanguage();
 
     if (sessionLanguage !== undefined && sessionLanguage !== i18next.language) {
-        console.log("Changing language to:", sessionLanguage);
         i18next.changeLanguage(getSessionLanguage());
     }
 
     // If the user is not logged in, then the user can only visit the front page, the login page and designated public pages where the anonymous user has access
     if (userSession && !userSession.approvedTerms) {
-        console.log("User is logged in, but has not accepted terms and conditions");
+        console.warn("User is logged in, but has not accepted terms and conditions");
     }
 
     // If the user is logged in, but they have not accepted the terms and conditions, then redirect them to the terms and conditions page. The user

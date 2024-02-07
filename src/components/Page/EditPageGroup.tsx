@@ -63,7 +63,6 @@ export function EditPageGroup() {
     }, [pageGroupId, paramId, t]);
 
     function onFinish(formData: PageGroupRequest): void {
-        console.debug("onFinish:", formData);
         setLoading(true);
 
         if (createNewPageGroup) {
@@ -78,7 +77,7 @@ export function EditPageGroup() {
                         setLoading(false);
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                         setLoading(false);
                     });
@@ -94,7 +93,7 @@ export function EditPageGroup() {
                         setLoading(false);
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                         setLoading(false);
                     });
@@ -102,7 +101,7 @@ export function EditPageGroup() {
     }
 
     function onFinishFailed(errorInfo: any) {
-        console.log("Failed:", errorInfo);
+        console.error("Failed:", errorInfo);
     }
 
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
