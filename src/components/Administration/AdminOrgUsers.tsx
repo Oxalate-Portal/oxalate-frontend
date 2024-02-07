@@ -146,7 +146,7 @@ export function AdminOrgUsers() {
                     setUserList(response);
                 })
                 .catch(error => {
-                    console.log("Error:", error);
+                    console.error("Error:", error);
                 })
                 .finally(() => {
                     setLoading(false);
@@ -158,7 +158,6 @@ export function AdminOrgUsers() {
             setLoading(true);
             userAPI.resetTerms()
                     .then(response => {
-                        console.log("Terms reset:", response);
                         if (response) {
                             setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AdminOrgUsers.invalidateTermAgreements.ok")});
                         } else {

@@ -33,14 +33,13 @@ export function DiveEvent() {
 
         if (tmpEventId > 0) {
             setLoading(true);
-            console.log("Fetching dive event with id:", tmpEventId);
+
             diveEventAPI.findById(tmpEventId, null)
                     .then(response => {
-                        console.log("Response:", response);
                         setDiveEvent(response);
                     })
                     .catch(error => {
-                        console.log("Error:", error);
+                        console.error("Error:", error);
                     });
             setLoading(false);
         } else {
@@ -88,24 +87,22 @@ export function DiveEvent() {
     function subscribeEvent(diveEventId: number) {
         diveEventAPI.subscribeUserToEvent(diveEventId)
                 .then(response => {
-                    console.log("Subscribe response:", response);
                     setDiveEvent(response);
                     setSubscribing(true);
                 })
                 .catch(error => {
-                    console.log("Error:", error);
+                    console.error("Error:", error);
                 });
     }
 
     function unSubscribeEvent(diveEventId: number) {
         diveEventAPI.unsubscribeUserToEvent(diveEventId)
                 .then(response => {
-                    console.log("Unsubscribe response:", response);
                     setDiveEvent(response);
                     setSubscribing(false);
                 })
                 .catch(error => {
-                    console.log("Error:", error);
+                    console.error("Error:", error);
 
                 })
     }

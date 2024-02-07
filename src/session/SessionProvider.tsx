@@ -28,16 +28,14 @@ export function SessionProvider({children}: any) {
     useEffect(() => {
         setIsLoading(true);
         const userData = localStorage.getItem(userKey);
-        console.log("Checking for user data in local storage:", userData);
 
         if (userData) {
             setUser(JSON.parse(userData));
         }
 
         const languageData = localStorage.getItem(languageKey);
-        console.log("Checking for language data in local storage:", languageData);
+
         if (languageData) {
-            console.log("Setting language to:", languageData);
             setLanguage(languageData);
         }
 
@@ -58,7 +56,7 @@ export function SessionProvider({children}: any) {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                     return {
                         status: ActionResultEnum.FAILURE,
                         message: "Failed to log on user"
@@ -69,15 +67,11 @@ export function SessionProvider({children}: any) {
     // Function to handle logout
     const logoutUser = () => {
         setUser(null);
-        console.debug("Logout so clearing out local storage");
         localStorage.removeItem(userKey);
-        console.debug("Removed user key from local storage");
-        console.debug("Logging out so set user data to null and calling authService.logout()");
         authAPI.logout();
     };
 
     const setSessionLanguage = (language: string) => {
-        console.log("Setting language to:", language);
         setLanguage(language);
         localStorage.setItem(languageKey, language);
     }
@@ -118,8 +112,6 @@ export function useSession(): SessionContextType {
     if (!context) {
         console.error("No context found");
         throw new Error("useSession must be used within a SessionProvider");
-    } else {
-        console.debug("Context found: ", context);
     }
 
     return context;

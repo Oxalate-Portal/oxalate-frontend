@@ -1,12 +1,12 @@
-import {useTranslation} from "react-i18next";
-import {Alert, Button, Form, Input, Space, Spin} from "antd";
-import {useState} from "react";
-import {useSession} from "../../session";
-import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {useNavigate} from "react-router-dom";
-import {PasswordFields} from "./PasswordFields";
-import {PasswordRules} from "./PasswordRules";
-import {authAPI} from "../../services";
+import { useTranslation } from "react-i18next";
+import { Alert, Button, Form, Input, Space, Spin } from "antd";
+import { useState } from "react";
+import { useSession } from "../../session";
+import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { useNavigate } from "react-router-dom";
+import { PasswordFields } from "./PasswordFields";
+import { PasswordRules } from "./PasswordRules";
+import { authAPI } from "../../services";
 
 export function Password() {
     const [loading, setLoading] = useState(false);
@@ -26,7 +26,6 @@ export function Password() {
 
         authAPI.updatePassword(userSession?.id, postData)
                 .then((response) => {
-                    console.debug("Is status " + response.status + " equal to " + UpdateStatusEnum.OK + "?: " + (response.status === UpdateStatusEnum.OK));
 
                     if (response && response.status === UpdateStatusEnum.OK) {
                         setUpdateStatus({
@@ -35,7 +34,6 @@ export function Password() {
                         });
                     } else {
                         console.error("Failed to update user, error: " + response?.message);
-                        console.debug("Response:", response);
                         setUpdateStatus({
                             status: UpdateStatusEnum.FAIL,
                             message: t('Password.setUpdateStatus.update.fail')
@@ -43,14 +41,14 @@ export function Password() {
                     }
                 })
                 .catch(e => {
-                    console.log("Failed to authorize", e);
+                    console.error("Failed to authorize", e);
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                 });
         setLoading(false);
     }
 
     const updatePasswordFailed = (errorInfo: any) => {
-        console.log("Updating password failed", errorInfo);
+        console.error("Updating password failed", errorInfo);
     }
 
     if (updateStatus.status === UpdateStatusEnum.OK) {

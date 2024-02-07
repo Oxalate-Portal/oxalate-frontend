@@ -1,14 +1,14 @@
-import {Button, Input, InputRef, Space, Spin, Table, TablePaginationConfig, Tag} from "antd";
-import {useTranslation} from "react-i18next";
-import {formatDateTimeWithMs} from "../../helpers";
-import {useCallback, useEffect, useRef, useState} from "react";
-import {AuditEntryResponse} from "../../models/responses";
-import {AuditLevelEnum, SortableTableParams} from "../../models";
-import {auditAPI} from "../../services";
-import type {ColumnsType, ColumnType} from 'antd/es/table';
-import {FilterConfirmProps, FilterValue, SorterResult} from "antd/es/table/interface";
-import {SearchOutlined} from "@ant-design/icons";
-import Highlighter from 'react-highlight-words';
+import { Button, Input, InputRef, Space, Spin, Table, TablePaginationConfig, Tag } from "antd";
+import { useTranslation } from "react-i18next";
+import { formatDateTimeWithMs } from "../../helpers";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AuditEntryResponse } from "../../models/responses";
+import { AuditLevelEnum, SortableTableParams } from "../../models";
+import { auditAPI } from "../../services";
+import type { ColumnsType, ColumnType } from "antd/es/table";
+import { FilterConfirmProps, FilterValue, SorterResult } from "antd/es/table/interface";
+import { SearchOutlined } from "@ant-design/icons";
+import Highlighter from "react-highlight-words";
 
 type AuditEntryIndex = keyof AuditEntryResponse;
 
@@ -198,7 +198,6 @@ export function AuditEvents() {
     ];
 
     const updateDataFromServer = useCallback(() => {
-        console.debug("refreshData: got first parameter:", refreshDataFromServer.current);
         if (refreshDataFromServer.current) {
             auditAPI.findPageable({
                 page: (tablePaginationConfig.current === undefined ? 0 : (tablePaginationConfig.current - 1)),
@@ -244,9 +243,6 @@ export function AuditEvents() {
 
     function handleTableChange(tablePaginationConfig: TablePaginationConfig, filters: Record<string, FilterValue | null>,
                                sorter: SorterResult<AuditEntryResponse> | SorterResult<AuditEntryResponse>[]) {
-        console.debug("handleTableChange: got pagination parameter:", tablePaginationConfig);
-        console.debug("handleTableChange: got filter parameter:", filters);
-        console.debug("handleTableChange: got sorter parameter:", sorter);
         setTablePaginationConfig(tablePaginationConfig);
 
         if (filters) {
@@ -280,9 +276,6 @@ export function AuditEvents() {
 
     function handleSearch(searchText: string[], confirm: (param?: FilterConfirmProps) => void,
                           dataIndex: AuditEntryIndex) {
-        console.debug("handleSearch: got first parameter:", searchText);
-        console.debug("handleSearch: got second parameter:", confirm);
-        console.debug("handleSearch: got third parameter:", dataIndex);
         setFilterText(searchText[0]);
         setFilteredColumn(dataIndex);
         setTableParams({

@@ -39,7 +39,6 @@ export function AdminOrgUser() {
         if (tmpUserId > 0) {
             userAPI.findAdminUserById(tmpUserId)
                     .then(response => {
-                        console.log("Response:", response);
 
                         if (response == null ||
                                 response.status == null ||
@@ -53,7 +52,7 @@ export function AdminOrgUser() {
                         setWorkUser(response);
                     })
                     .catch(error => {
-                        console.log("Error:", error);
+                        console.error("Error:", error);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -69,7 +68,7 @@ export function AdminOrgUser() {
         event.preventDefault();
 
         if (blockSendEmail || workUser == null || workUser.id === 0) {
-            console.log("Email sending blocked");
+            console.warn("Email sending blocked");
             return;
         }
 
@@ -125,7 +124,7 @@ export function AdminOrgUser() {
                         setWorkUser(response);
                 })
                 .catch(e => {
-                    console.log("Failed to update user, error: " + e.message);
+                    console.error("Failed to update user, error: " + e.message);
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUser.updateUser.fail")});
                 })
                 .finally(() => {
@@ -134,7 +133,7 @@ export function AdminOrgUser() {
     }
 
     function updateUserFailed(errorInfo: any) {
-        console.log("Failed:", errorInfo);
+        console.error("Failed:", errorInfo);
     }
 
     if (updateStatus.status !== UpdateStatusEnum.NONE) {

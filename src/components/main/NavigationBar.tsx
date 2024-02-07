@@ -40,7 +40,7 @@ export function NavigationBar() {
         // TODO we need a separate session variable for the language which is not tied to the user session
         setSessionLanguage(language);
         window.dispatchEvent(new Event("reloadNavigationEvent"));
-        i18next.changeLanguage(language).then().catch(e => console.log("Failed to load language: " + language + ", error: " + e));
+        i18next.changeLanguage(language).then().catch(e => console.error("Failed to load language: " + language + ", error: " + e));
     }
 
     return (

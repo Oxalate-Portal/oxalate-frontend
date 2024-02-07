@@ -43,7 +43,6 @@ export function EditCertificate() {
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpCertificateId = parseInt(paramId);
             setCertificateId(tmpCertificateId);
-            console.debug("Setting certificate ID to: " + tmpCertificateId);
         }
 
         // ID 0 means that we're supposed to create a new certificate
@@ -60,7 +59,6 @@ export function EditCertificate() {
                             diverId: result.diverId,
                             certificationDate: result.certificationDate
                         };
-                        console.debug("Retrieved certificate: ", formData);
                         certificateForm.setFieldsValue(formData);
                         // TODO investigate why the form doesn't get updated automatically when setting the certificate data with this
                         setCertificate(formData);
@@ -102,7 +100,7 @@ export function EditCertificate() {
                         }
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     })
                     .finally(() => {
@@ -125,7 +123,7 @@ export function EditCertificate() {
                         }
                     })
                     .catch(e => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     })
                     .finally(() => {

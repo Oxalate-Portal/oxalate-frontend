@@ -19,14 +19,12 @@ class AuthAPI {
 
         if (response.status === 200 && response.data.id > 0) {
             const session: SessionVO = response.data;
-            console.info("Received session data:", session);
             localStorage.setItem(this.userKey, JSON.stringify(session));
-            console.log('After login post, set user data in local storage:', session);
         } else {
             if (response.status !== 200) {
-                console.info("The response status was " + response.status + ": " + JSON.stringify(response));
+                console.error("The response status was " + response.status + ": " + JSON.stringify(response));
             } else {
-                console.info("The response did not contain data.token: " + JSON.stringify(response));
+                console.error("The response did not contain data.token: " + JSON.stringify(response));
             }
         }
         return response.data;
@@ -73,7 +71,6 @@ class AuthAPI {
 
         if (session && session.accessToken) {
             this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + session.accessToken;
-            console.debug("Authorization header set.", this.axiosInstance.defaults.headers.common['Authorization']);
         }
     }}
 

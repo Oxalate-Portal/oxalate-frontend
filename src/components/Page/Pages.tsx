@@ -145,7 +145,6 @@ export function Pages() {
                         lang = sessionLanguage;
                     }
 
-                    console.debug("Setting page group title from:", response);
                     setPageGroupTitle(getPageGroupTitleByLanguage(lang, response));
                 })
                 .catch(error => {
@@ -167,7 +166,7 @@ export function Pages() {
                         }
                     })
                     .catch((e) => {
-                        console.log(e);
+                        console.error(e);
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     });
         }

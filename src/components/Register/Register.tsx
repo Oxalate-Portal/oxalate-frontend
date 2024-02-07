@@ -1,14 +1,14 @@
-import {useSession} from "../../session";
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {Alert, Button, Form, Input, Modal, Row} from "antd";
-import {useTranslation} from "react-i18next";
-import {UserFields} from "../User";
-import {AcceptTerms} from "../main";
-import {ResultEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
-import {RegistrationResponse} from "../../models/responses";
-import {authAPI} from "../../services";
+import { useSession } from "../../session";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Alert, Button, Form, Input, Modal, Row } from "antd";
+import { useTranslation } from "react-i18next";
+import { UserFields } from "../User";
+import { AcceptTerms } from "../main";
+import { ResultEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { ResendRegistrationEmail } from "./ResendRegistrationEmail";
+import { RegistrationResponse } from "../../models/responses";
+import { authAPI } from "../../services";
 
 export function Register() {
     const {userSession} = useSession();
@@ -51,9 +51,7 @@ export function Register() {
         })
                 .then(registrationResponse => {
                     if (registrationResponse.status === ResultEnum.OK) {
-                        console.debug("Registration successful");
                         localStorage.setItem("oxalateRegistrationStatus", JSON.stringify(registrationResponse));
-                        console.debug('After registration post, set registration data in local storage:', registrationResponse);
                         setRegistrationStatus({status: UpdateStatusEnum.OK, message: t('Register.success.message')} as UpdateStatusVO);
                         setRegistrationResult(registrationResponse);
                     } else {
@@ -70,7 +68,7 @@ export function Register() {
     }
 
     function onFinishFailed(errorInfo: any) {
-        console.log('Failed:', errorInfo);
+        console.error('Failed:', errorInfo);
     }
 
     if (registrationStatus.status === UpdateStatusEnum.OK && registrationResult !== null) {
