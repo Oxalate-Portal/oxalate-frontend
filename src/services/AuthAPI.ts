@@ -13,6 +13,7 @@ class AuthAPI {
             baseURL: `${process.env.REACT_APP_API_URL}` + member
         });
     }
+
     async login(user: LoginRequest) {
         const response = await this.axiosInstance
             .post<SessionVO>("/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
