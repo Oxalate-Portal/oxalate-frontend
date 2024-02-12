@@ -57,7 +57,7 @@ export function Login() {
             <Alert type={'error'}
                    message={updateStatus.message}
                    showIcon
-                   action={<Button type={'primary'} onClick={() => clearStateOnBackButton()}>{ t('common.button.back')}</Button>}
+                   action={<Button type={'primary'} onClick={() => clearStateOnBackButton()}>{t('common.button.back')}</Button>}
             />
         </div>);
     }

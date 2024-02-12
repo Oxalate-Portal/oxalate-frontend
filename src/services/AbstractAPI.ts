@@ -59,8 +59,6 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
         this.setAuthorizationHeader();
         const response = await this.axiosInstance.delete<RESPONSE>("/" + id);
         return response.status === 200;
-
-
     }
 
     /**
