@@ -43,14 +43,13 @@ function formatDateTimeWithMs(date: Date | string) {
             padTo3Digits(date.getMilliseconds())
         ].join(':')
     );
-
 }
 
 /**
  * Check if the user roles (haystack) has one of the given roles (needles). There must be separate checking of roles in the backend.
  * This is merely used to show or hide components in the frontend.
  * @param haystack This is the list of roles the user has. Can be also null in which case we return false immediately.
- * @param Needles List of roles that we're looking for
+ * @param needles List of roles that we're looking for
  * @returns {boolean} Whether or not the user is of the given role(s).
  */
 function checkRoles(haystack: RoleEnum[]|null, needles: RoleEnum[]): boolean {
