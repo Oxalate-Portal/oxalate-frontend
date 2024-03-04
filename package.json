@@ -18,7 +18,7 @@
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.18",
     "@types/react-highlight-words": "^0.16.7",
-    "antd": "^5.14.2",
+    "antd": "^5.15.0",
     "axios": "^1.6.6",
     "dayjs": "^1.11.10",
     "dompurify": "^3.0.6",
