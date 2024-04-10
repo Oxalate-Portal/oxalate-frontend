@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/charts": "^2.0.3",
-    "@ant-design/icons": "^5.3.3",
+    "@ant-design/icons": "^5.3.6",
     "@ckeditor/ckeditor5-basic-styles": "^41.2.0",
     "@ckeditor/ckeditor5-build-classic": "^41.2.0",
     "@ckeditor/ckeditor5-essentials": "^41.2.0",
