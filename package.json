@@ -21,7 +21,7 @@
     "antd": "^5.15.3",
     "axios": "^1.6.8",
     "dayjs": "^1.11.10",
-    "dompurify": "^3.0.6",
+    "dompurify": "^3.1.0",
     "env-cmd": "^10.1.0",
     "i18next": "^23.8.0",
     "i18next-http-backend": "^2.4.2",
