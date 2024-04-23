@@ -20,7 +20,7 @@ Oxalate frontend uses:
 
 ### Set up
 
-To set up development, copy the `.env` as `.env.local` and add `REACT_APP_SITE_KEY` as variable containing the Google ReCAPTCHA site key.
+To set up development, copy the `.env` as `.env.local` and add `VITE_APP_SITE_KEY` as variable containing the Google ReCAPTCHA site key.
 
 ## Available additional UIs
 

@@ -1,4 +1,4 @@
-import { ReactComponent as Logo } from "../../portal_logo.svg";
+/// <reference types="vite-plugin-svgr/client" />
 import { useSession } from "../../session";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
@@ -9,6 +9,7 @@ import { checkRoles, LanguageUtil } from "../../helpers";
 import { PageGroupResponse } from "../../models/responses";
 import { RoleEnum } from "../../models";
 import { pageAPI } from "../../services";
+import Logo from "../../portal_logo.svg?react";
 
 export function NavigationBar() {
     const {userSession, logoutUser, getSessionLanguage, setSessionLanguage} = useSession();
@@ -37,7 +38,6 @@ export function NavigationBar() {
     }, [getSessionLanguage]);
 
     function switchLanguage(language: string) {
-        // TODO we need a separate session variable for the language which is not tied to the user session
         setSessionLanguage(language);
         window.dispatchEvent(new Event("reloadNavigationEvent"));
         i18next.changeLanguage(language).then().catch(e => console.error("Failed to load language: " + language + ", error: " + e));
@@ -47,7 +47,7 @@ export function NavigationBar() {
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
                 <div className="container-fluid">
                     <div className="mx-auto order-0">
-                        <Tooltip title={process.env.REACT_APP_OXALATE_PAGE_TITLE}>
+                        <Tooltip title={import.meta.env.VITE_APP_OXALATE_PAGE_TITLE}>
                             <div style={{width: "156px", height: "64px", marginRight: "20px"}}>
                                 <NavLink to={"/"}><Logo
                                         style={{width: "100%", height: "100%"}}
