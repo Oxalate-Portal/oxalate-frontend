@@ -20,5 +20,5 @@ jobs:
       - name: Test
         run: |
           npm install
-          npm run build:test
+          npm build:production
           npm run test --passWithNoTests -- --watchAll=false
