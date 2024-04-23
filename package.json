@@ -41,8 +41,9 @@
   },
   "scripts": {
     "start": "env-cmd -f .env.local vite",
+    "build:test": "tsc && vite build",
     "build:stage": "tsc && env-cmd -f .env.stage vite build",
-    "build:production": "tsc && env-cmd -f .env.prod vite build",
+    "build:production": "tsc && env-cmd -f .env.production vite build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage .",

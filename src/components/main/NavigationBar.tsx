@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import { useSession } from "../../session";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
@@ -37,7 +38,6 @@ export function NavigationBar() {
     }, [getSessionLanguage]);
 
     function switchLanguage(language: string) {
-        // TODO we need a separate session variable for the language which is not tied to the user session
         setSessionLanguage(language);
         window.dispatchEvent(new Event("reloadNavigationEvent"));
         i18next.changeLanguage(language).then().catch(e => console.error("Failed to load language: " + language + ", error: " + e));
