@@ -39,13 +39,13 @@ Once the repository has been downloaded, you should create an environment file t
 your editor of choice the file `env` and save it as `.env.local`, or `.env.production` depending of your use case, in the same directory. With modifying this
 file, you can modify the following parts of the frontend:
 
-| Variable                           | Description                                                                                                 |
-|------------------------------------|-------------------------------------------------------------------------------------------------------------|
-| REACT_APP_API_URL                  | The URL to the backend service. This is the URL that the frontend will use to communicate with the backend. |
-| REACT_APP_OXALATE_PAGE_TITLE       | The title of the page. This will be shown in the browser tab.                                               |
-| REACT_APP_OXALATE_COPYRIGHT_FOOTER | The copyright part of the footer.                                                                           |
-| REACT_APP_POWERED_BY_OXALATE       | The powered by part of the footer.                                                                          |
-| REACT_APP_RECAPTCHA_SITE_KEY       | The site key for the reCAPTCHA service. This is used to verify that the user is not a robot.                |
+| Variable                           | Description                                                                                                |
+|------------------------------------|------------------------------------------------------------------------------------------------------------|
+| VITE_APP_API_URL                  | The URL to the backend service. This is the URL that the frontend will use to communicate with the backend. |
+| VITE_APP_OXALATE_PAGE_TITLE       | The title of the page. This will be shown in the browser tab.                                               |
+| VITE_APP_OXALATE_COPYRIGHT_FOOTER | The copyright part of the footer.                                                                           |
+| VITE_APP_POWERED_BY_OXALATE       | The powered by part of the footer.                                                                          |
+| VITE_APP_RECAPTCHA_SITE_KEY       | The site key for the reCAPTCHA service. This is used to verify that the user is not a robot.                |
 
 In case you're building a production setup, then you need to also set up the Google Captcha v3. Go to the
 [Google reCAPTCHA admin page](https://www.google.com/recaptcha/admin/create) and follow the instructions there.
