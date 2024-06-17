@@ -79,7 +79,7 @@
       "firstName": "Förnamn",
       "lastName": "Efternamn",
       "login": "Användarnamn",
-      "paymentStatus": "Betalningsstatus",
+      "paymentStatus": "Medlemskaps avgift",
       "role": {
         "title": "Roller"
       },

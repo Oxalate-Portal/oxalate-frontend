@@ -78,7 +78,7 @@
       "firstName": "Vorname",
       "lastName": "Nachname",
       "login": "Benutzername",
-      "paymentStatus": "Zahlungsstatus",
+      "paymentStatus": "Mitgliedsbeitrag",
       "role": {
         "title": "Rollen"
       },
