@@ -180,6 +180,12 @@
         "public": "Julkinen"
       }
     },
+    "payment": {
+      "type": {
+        "oneTime": "Kerta",
+        "period": "Kausi"
+      }
+    },
     "roles": {
       "administrator": "Ylläpitäjä",
       "anonymous": "Anonyymi",

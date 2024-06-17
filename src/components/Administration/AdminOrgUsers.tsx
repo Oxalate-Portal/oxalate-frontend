@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
-import { Link, useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Button, Divider, Input, Space, Spin, Table, Tag } from "antd";
-import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { userAPI } from "../../services";
-import { SubmitResult } from "../main";
-import type { ColumnsType } from "antd/es/table";
+import {useEffect, useState} from "react";
+import {AdminUserResponse} from "../../models/responses/AdminUserResponse";
+import {Link, useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {Button, Divider, Input, Space, Spin, Table, Tag} from "antd";
+import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {userAPI} from "../../services";
+import {SubmitResult} from "../main";
+import type {ColumnsType} from "antd/es/table";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
@@ -107,20 +107,20 @@ export function AdminOrgUsers() {
                     <>
                         {record.payments.map((payment) => {
                             let color = "";
-                            let roleLabel = "";
+                            let paymentTypeLabel = "";
 
                             if (payment.paymentType === "PERIOD") {
                                 color = "green";
-                                roleLabel = "Kausi";
+                                paymentTypeLabel = t("common.payment.type.period");
                             }
                             if (payment.paymentType === "ONE_TIME") {
                                 color = "blue";
-                                roleLabel = "Kerta";
+                                paymentTypeLabel = t("common.payment.type.oneTime");
                             }
 
                             return (
                                     <Tag color={color} key={"payment-" + payment.paymentType}>
-                                        {roleLabel}
+                                        {paymentTypeLabel}
                                     </Tag>
                             );
                         })}

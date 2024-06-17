@@ -180,6 +180,12 @@
         "public": "Public"
       }
     },
+    "payment": {
+      "type": {
+        "oneTime": "One time",
+        "period": "Season"
+      }
+    },
     "roles": {
       "administrator": "Administrator",
       "anonymous": "Anonymous",
