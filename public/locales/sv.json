@@ -181,6 +181,12 @@
         "public": "Offentlig"
       }
     },
+    "payment": {
+      "type": {
+        "oneTime": "Engångs",
+        "period": "Sesångs"
+      }
+    },
     "roles": {
       "administrator": "Administratör",
       "anonymous": "Anonym",

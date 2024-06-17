@@ -180,6 +180,12 @@
         "public": "Öffentlich"
       }
     },
+    "payment": {
+      "type": {
+        "oneTime": "Einmal",
+        "period": "Saisong"
+      }
+    },
     "roles": {
       "administrator": "Administrator",
       "anonymous": "Anonym",
