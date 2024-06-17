@@ -174,9 +174,6 @@
       "send": "Skicka",
       "update": "Uppdatera"
     },
-    "buttons": {
-      "logout": "Logga ut"
-    },
     "pages": {
       "status": {
         "closed": "Stängd",
