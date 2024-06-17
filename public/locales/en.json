@@ -78,7 +78,7 @@
       "firstName": "First name",
       "lastName": "Last name",
       "login": "Username",
-      "paymentStatus": "Payment status",
+      "paymentStatus": "Membership fee",
       "role": {
         "title": "Roles"
       },

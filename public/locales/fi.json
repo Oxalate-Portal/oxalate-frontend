@@ -78,7 +78,7 @@
       "firstName": "Etunimi",
       "lastName": "Sukunimi",
       "login": "Tunnus",
-      "paymentStatus": "Maksun tila",
+      "paymentStatus": "Jäsenmaksu",
       "role": {
         "title": "Roolit"
       },
