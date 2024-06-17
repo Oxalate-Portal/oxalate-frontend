@@ -12,9 +12,7 @@ class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
             return response.data;
         } else {
             if (response.status !== 200) {
-                console.error("The response status was " + response.status + ": " + JSON.stringify(response));
-            } else {
-                console.error("The response did not contain data.token: " + JSON.stringify(response));
+                console.error("The response status was " + response.status + ":", response);
             }
         }
     }
