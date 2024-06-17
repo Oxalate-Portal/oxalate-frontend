@@ -173,9 +173,6 @@
       "send": "Lähetä",
       "update": "Päivitä"
     },
-    "buttons": {
-      "logout": "Kirjaudu ulos"
-    },
     "pages": {
       "status": {
         "closed": "Poistettu",

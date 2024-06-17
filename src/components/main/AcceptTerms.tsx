@@ -1,9 +1,9 @@
-import { useSession } from "../../session";
-import { Alert, Button, Space } from "antd";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import { Page } from "../Page";
-import { userAPI } from "../../services";
+import {useSession} from "../../session";
+import {Alert, Button, Space} from "antd";
+import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {Page} from "../Page";
+import {userAPI} from "../../services";
 
 interface AcceptTermsProps {
     registration: boolean
@@ -50,7 +50,7 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
                                     <Button danger={true} type={'primary'} href={'/user'}
                                             onClick={() => acceptTerms('no')}>{t('AcceptTerms.rejectTerms')}</Button>
                                     <Button danger={true} type={'dashed'} onClick={logoutUser}
-                                            href="/">{t('common.buttons.logout')}</Button>
+                                            href="/">{t('common.button.logout')}</Button>
                                 </Space>}
                     </Space>
                 </div>

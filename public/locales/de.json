@@ -173,9 +173,6 @@
       "send": "Senden",
       "update": "Bearbeiten"
     },
-    "buttons": {
-      "logout": "Abmelden"
-    },
     "pages": {
       "status": {
         "closed": "Geschlossen",
