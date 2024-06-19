@@ -199,6 +199,17 @@
       "registered": "Registriert"
     }
   },
+  "DownloadData": {
+    "choose": "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
+    "description": "Hier können Sie verschiedene Datensätze im CSV-Format herunterladen.",
+    "diveLabel": "Tauchgänge",
+    "eventLabel": "Veranstaltungen",
+    "gdprWarning": "Beachten Sie, dass einige der Downloads persönliche Informationen enthalten können, die der DSGVO unterliegen. Bitte behandeln Sie die Daten mit Sorgfalt und teilen Sie sie nicht mit unbefugten Dritten. Entfernen Sie die Dateien, wenn sie nicht mehr benötigt werden.",
+    "header": "Daten herunterladen",
+    "memberLabel": "Mitglieder",
+    "paymentLabel": "Zahlungen",
+    "rowCount": "Zeilenanzahl:  {{count}}"
+  },
   "EditCertificate": {
     "form": {
       "button": {
@@ -621,6 +632,7 @@
     },
     "administration": {
       "audits": "Audits",
+      "download": "Herunterladen",
       "members": "Mitglieder",
       "payments": "Zahlungen",
       "readFirst": "Zuerst lesen",

@@ -1,18 +1,18 @@
 import React from "react";
 import "./App.css";
-import { ConfigProvider, theme } from "antd";
-import { AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession } from "./session";
+import {ConfigProvider, theme} from "antd";
+import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { Register, Registration } from "./components/Register";
-import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
-import { Home, LoginWithCaptcha, NavigationBar } from "./components/main";
-import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
-import { AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents } from "./components/Administration";
-import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
-import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
-import { Payments } from "./components/Payment";
-import { EditCertificate } from "./components/Certificate";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Register, Registration} from "./components/Register";
+import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
+import {Home, LoginWithCaptcha, NavigationBar} from "./components/main";
+import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
+import {AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, DownloadData} from "./components/Administration";
+import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
+import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
+import {Payments} from "./components/Payment";
+import {EditCertificate} from "./components/Certificate";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -40,8 +40,8 @@ function App() {
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
+                            <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
-                            <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
                             <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
@@ -49,6 +49,7 @@ function App() {
                             <Route path="/administration/pages/:paramId" element={<OrganizerRoute><EditPage/></OrganizerRoute>}/>
                             <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
                             <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
+                            <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>
