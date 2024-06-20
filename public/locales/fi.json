@@ -200,10 +200,12 @@
     }
   },
   "DownloadData": {
+    "certificateLabel": "Luokitukset",
     "choose": "Valitse yksi seuraavista ladattavaksi:",
     "description": "Täällä voit ladata erilaisia tietoaineistoja CSV-muodossa.",
     "diveLabel": "Sukellukset",
-    "eventLabel": "Tapahtumat",
+    "downloadPrompt": "Lataa tästä: ",
+    "diveEventLabel": "Tapahtumat",
     "gdprWarning": "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
     "header": "Lataa tietoja",
     "memberLabel": "Jäsenet",

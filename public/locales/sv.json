@@ -201,10 +201,12 @@
     }
   },
   "DownloadData": {
+    "certificateLabel": "Certifikat",
     "choose": "Välj en av följande för att ladda ner:",
     "description": "Här kan du ladda ner olika dataset i CSV-format.",
     "diveLabel": "Dykningar",
-    "eventLabel": "Evenemang",
+    "downloadPrompt": "Klicka på länken för att ladda ner data: ",
+    "diveEventLabel": "Evenemang",
     "gdprWarning": "Var medveten om att vissa nedladdningar kan innehålla personlig information som regleras av GDPR. Hantera data med omsorg och dela den inte med obehöriga parter. Ta bort filerna när de inte längre behövs.",
     "header": "Ladda ner data",
     "memberLabel": "Medlemmar",
