@@ -199,6 +199,19 @@
       "registered": "Registered"
     }
   },
+  "DownloadData": {
+    "certificateLabel": "Certificates",
+    "choose": "Choose one of the following to download:",
+    "description": "Here you can download various datasets in CSV-format.",
+    "diveLabel": "Dives",
+    "downloadPrompt": "Download here: ",
+    "diveEventLabel": "Events",
+    "gdprWarning": "Be aware that some of the downloads may contain personal information which is governed by the GDPR. Please handle the data with care and do not share it with unauthorized parties. Remove the files when they are no longer needed.",
+    "header": "Download data",
+    "memberLabel": "Members",
+    "paymentLabel": "Payments",
+    "rowCount": "Number of rows:  {{count}}"
+  },
   "EditCertificate": {
     "form": {
       "button": {
@@ -621,6 +634,7 @@
     },
     "administration": {
       "audits": "Audits",
+      "download": "Download",
       "members": "Members",
       "payments": "Payments",
       "readFirst": "Read first",
