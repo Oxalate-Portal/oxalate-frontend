@@ -199,6 +199,19 @@
       "registered": "Rekisteröity"
     }
   },
+  "DownloadData": {
+    "certificateLabel": "Luokitukset",
+    "choose": "Valitse yksi seuraavista ladattavaksi:",
+    "description": "Täällä voit ladata erilaisia tietoaineistoja CSV-muodossa.",
+    "diveLabel": "Sukellukset",
+    "downloadPrompt": "Lataa tästä: ",
+    "diveEventLabel": "Tapahtumat",
+    "gdprWarning": "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
+    "header": "Lataa tietoja",
+    "memberLabel": "Jäsenet",
+    "paymentLabel": "Maksut",
+    "rowCount": "Rivien määrä:  {{count}}"
+  },
   "EditCertificate": {
     "form": {
       "button": {
@@ -621,6 +634,7 @@
     },
     "administration": {
       "audits": "Auditointi",
+      "download": "Lataa",
       "members": "Jäsenet",
       "payments": "Maksut",
       "readFirst": "Lue ensin",
