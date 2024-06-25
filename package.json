@@ -42,10 +42,12 @@
     "web-vitals": "^3.5.1"
   },
   "scripts": {
+    "prebuild": "node generateBuildInfo.js",
+    "prestart": "node generateBuildInfo.js",
     "start": "env-cmd -f .env.local vite",
     "build:test": "tsc && vite build",
-    "build:stage": "tsc && env-cmd -f .env.stage vite build",
-    "build:production": "tsc && env-cmd -f .env.production vite build",
+    "build:stage": "npm run prebuild && env-cmd -f .env.stage vite build",
+    "build:production": "npm run prebuild && env-cmd -f .env.production vite build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage .",

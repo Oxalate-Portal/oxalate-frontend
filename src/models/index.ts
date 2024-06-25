@@ -5,6 +5,7 @@ export type {AbstractPageGroup} from "./AbstractPageGroup";
 export type {AbstractPage} from "./AbstractPage";
 export type {AbstractUser} from "./AbstractUser";
 // Interfaces
+export type {BuildInfo} from "./BuildInfo";
 export type {CertificateVO} from "./CertificateVO";
 export type {DiveCountItemVO} from "./DiveCountItemVO";
 export type {DiveEventVO} from "./DiveEventVO";
