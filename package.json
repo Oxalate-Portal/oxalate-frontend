@@ -45,7 +45,7 @@
     "prebuild": "node generateBuildInfo.js",
     "prestart": "node generateBuildInfo.js",
     "start": "env-cmd -f .env.local vite",
-    "build:test": "tsc && vite build",
+    "build:test": "npm run prebuild && vite build",
     "build:stage": "npm run prebuild && env-cmd -f .env.stage vite build",
     "build:production": "npm run prebuild && env-cmd -f .env.production vite build",
     "test": "jest",
