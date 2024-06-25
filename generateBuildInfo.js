@@ -20,14 +20,14 @@ function getLatestTag() {
     }
 }
 
-function getNextVersion(currentVersion, latestTag) {
+function getCurrentVersionString(currentVersion, latestTag) {
     const [currentMajor, currentMinor] = currentVersion.split('.').map(Number);
 
     if (latestTag) {
         const [latestMajor, latestMinor, latestPatch] = latestTag.split('.').map(Number);
 
         if (currentMajor === latestMajor && currentMinor === latestMinor) {
-            return `${currentMajor}.${currentMinor}.${latestPatch + 1}`;
+            return `${currentMajor}.${currentMinor}.${latestPatch}`;
         }
     }
 
@@ -40,7 +40,7 @@ const currentVersion = fs.readFileSync(versionFilePath, 'utf8').trim();
 gitFetch();
 
 const latestTag = getLatestTag();
-const nextVersion = getNextVersion(currentVersion, latestTag);
+const nextVersion = getCurrentVersionString(currentVersion, latestTag);
 
 const buildTime = new Date().toISOString();
 const buildTimeFormatted = dayjs(buildTime).format("YYYY.MM.DD HH:mm")
