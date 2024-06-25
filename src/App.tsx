@@ -6,7 +6,7 @@ import i18next from "i18next";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Register, Registration} from "./components/Register";
 import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
-import {Home, LoginWithCaptcha, NavigationBar} from "./components/main";
+import {Home, LoginWithCaptcha, NavigationBar, OxalateFooter} from "./components/main";
 import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
 import {AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, DownloadData} from "./components/Administration";
 import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
@@ -70,6 +70,7 @@ function App() {
                             <Route path="/users/certificates/:paramId" element={<PrivateRoute><EditCertificate/></PrivateRoute>}/>
                             <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>
                         </Routes>
+                        <OxalateFooter/>
                     </ConfigProvider>
                 </div>
                 <AuthVerify logOut={logoutUser}/>

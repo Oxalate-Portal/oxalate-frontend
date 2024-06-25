@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 concurrency: build
 
@@ -17,8 +17,75 @@ jobs:
         uses: actions/setup-node@v4.0.2
         with:
           node-version: '20'
+
       - name: Test
         run: |
           npm install
           npm run build:test
           npm run test --passWithNoTests -- --watchAll=false
+
+      - name: Coverage
+        run: |
+          npm run test:coverage
+
+      - name: Get main and base version
+        id: basemain
+        shell: bash
+        run: |
+          baseVersion=$(cat VERSION)
+          mainVersion=$(echo ${baseVersion} | cut -d '.' -f 1)
+          echo "baseVersion=${baseVersion}" >> $GITHUB_OUTPUT
+          echo "mainVersion=${mainVersion}" >> $GITHUB_OUTPUT
+
+      - name: Generate new version
+        id: newVer
+        shell: bash
+        run: |
+          git fetch --tags origin
+          currentVersion=$(git tag --list --sort=-version:refname "${baseVersion}.*" | head -n 1 || "${baseVersion}.0")
+
+          if [ -z "${currentVersion}" ]; then
+            newVersion="${baseVersion}.0"
+          else
+            runningNumber=$(echo ${currentVersion} | cut -f 3 -d '.')
+            newVersion="${baseVersion}.$((${runningNumber} + 1))"
+          fi
+          echo "The generated new version is: ${newVersion}"
+          echo "newVersion=${newVersion}" >> $GITHUB_OUTPUT
+        env:
+          baseVersion: ${{ steps.basemain.outputs.baseVersion }}
+
+      - name: Set new version
+        shell: bash
+        # Replace the default version in package.json with the new version
+        run: |
+          sed -i "s/\"version\": \".*\"/\"version\": \"${newVersion}\"/g" package.json
+        env:
+          newVersion: ${{ steps.newVer.outputs.newVersion }}
+
+      - name: Build production package
+        run: |
+          npm run build:production
+
+      - name: Upload package to GitHub
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: "oxalate-frontend-${{ steps.newVer.outputs.newVersion }}"
+          path: build/*
+          retention-days: 30
+          compression-level: 9
+          overwrite: true
+          if-no-files-found: warn
+
+      - name: Create tag
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.TAG_CREATION_TOKEN }}
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ steps.newVer.outputs.newVersion }}',
+              sha: context.sha
+            })
