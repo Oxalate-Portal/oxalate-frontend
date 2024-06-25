@@ -28,7 +28,7 @@ jobs:
         run: |
           npm run test:coverage
 
-  version-and-deploy:
+  version-and-upload:
     runs-on: ubuntu-latest
     needs: test
     if: github.ref == 'refs/heads/main'
