@@ -77,6 +77,7 @@ jobs:
 
       - name: Build production package
         run: |
+          npm install
           npm run build:production
 
       - name: Upload package to GitHub
