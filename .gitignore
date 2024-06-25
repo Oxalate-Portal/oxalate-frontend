@@ -20,10 +20,11 @@ ckeditor/node_modules
 .DS_Store
 .env.local
 .env.stage
-.env.production
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
 *.log
+
+src/buildInfo.json
