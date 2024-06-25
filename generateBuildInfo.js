@@ -3,11 +3,11 @@ const path = require('path');
 const { execSync } = require('child_process');
 const dayjs = require("dayjs");
 
-function gitPull() {
+function gitFetch() {
     try {
-        execSync('git pull', { stdio: 'inherit' });
+        execSync('git fetch', { stdio: 'inherit' });
     } catch (error) {
-        console.error('Error pulling the latest changes from the repository:', error);
+        console.error('Error fetching the latest changes from the repository:', error);
         process.exit(1);
     }
 }
@@ -37,7 +37,7 @@ function getNextVersion(currentVersion, latestTag) {
 const versionFilePath = path.resolve(__dirname, 'VERSION');
 const currentVersion = fs.readFileSync(versionFilePath, 'utf8').trim();
 
-gitPull();
+gitFetch();
 
 const latestTag = getLatestTag();
 const nextVersion = getNextVersion(currentVersion, latestTag);
