@@ -1,5 +1,4 @@
 import {AbstractAPI} from "./AbstractAPI";
-import axios from "axios";
 import {DiveEventUserResponse, GenericMessageResponse, UserResponse} from "../models/responses";
 import {RoleEnum, UserStatusEnum} from "../models";
 import {EmailRequest, UserRequest} from "../models/requests";
@@ -14,7 +13,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
     }
 
     public async acceptTerms(payload: { termAnswer: string }): Promise<boolean> {
-        const response = await axios.put<void>("/accept-terms", payload);
+        const response = await this.axiosInstance.put<void>("/accept-terms", payload);
         return response.status === 200;
     }
 
@@ -38,7 +37,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
     }
 
     public async recoverLostPassword(emailRequest: EmailRequest): Promise<boolean> {
-        const response = await axios.post<GenericMessageResponse>("/lost-password", emailRequest);
+        const response = await this.axiosInstance.post<GenericMessageResponse>("/lost-password", emailRequest);
         return response.status === 200 && response.data.message === "OK";
     }
 
