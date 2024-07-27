@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { RoleEnum, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
+import { ResultEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
 import { useTranslation } from "react-i18next";
-import { userAPI } from "../../services";
+import { authAPI, userAPI } from "../../services";
 import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
 import { Button, Checkbox, Col, Form, Input, Row, Select, Space, Spin } from "antd";
 import { UserFields } from "../User";
@@ -74,13 +74,16 @@ export function AdminOrgUser() {
 
         setLoading(true);
 
-        userAPI.recoverLostPassword({email: workUser.username})
+        authAPI.recoverLostPassword({email: workUser.username})
                 .then((response) => {
-                    if (response) {
+                    if (response.message === ResultEnum.OK) {
                         alert(t("AdminOrgUser.sendPasswordEmail.ok"));
                     } else {
                         alert(t("AdminOrgUser.sendPasswordEmail.fail"));
                     }
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
     }
 
