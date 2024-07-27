@@ -1,18 +1,18 @@
 import React from "react";
 import "./App.css";
-import {ConfigProvider, theme} from "antd";
-import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";
+import { ConfigProvider, theme } from "antd";
+import { AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession } from "./session";
 import i18next from "i18next";
-import {Navigate, Route, Routes} from "react-router-dom";
-import {Register, Registration} from "./components/Register";
-import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
-import {Home, LoginWithCaptcha, NavigationBar, OxalateFooter} from "./components/main";
-import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
-import {AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, DownloadData} from "./components/Administration";
-import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
-import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
-import {Payments} from "./components/Payment";
-import {EditCertificate} from "./components/Certificate";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { Register, Registration } from "./components/Register";
+import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
+import { AcceptTerms, Home, LoginWithCaptcha, NavigationBar, OxalateFooter } from "./components/main";
+import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
+import { AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, DownloadData } from "./components/Administration";
+import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
+import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
+import { Payments } from "./components/Payment";
+import { EditCertificate } from "./components/Certificate";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -23,13 +23,28 @@ function App() {
         i18next.changeLanguage(getSessionLanguage());
     }
 
-    // If the user is not logged in, then the user can only visit the front page, the login page and designated public pages where the anonymous user has access
-    if (userSession && !userSession.approvedTerms) {
-        console.warn("User is logged in, but has not accepted terms and conditions");
-    }
-
     // If the user is logged in, but they have not accepted the terms and conditions, then redirect them to the terms and conditions page. The user
     // is only allowed to access their own profile page until they have accepted the terms and conditions.
+
+    if (userSession && !userSession.approvedTerms) {
+        return (
+                <div className="app-container bg-light">
+                    <NavigationBar/>
+                    <div className="container pt-4 pb-4">
+                        <ConfigProvider theme={{algorithm: darkAlgorithm}}>
+                            <Routes>
+                                <Route path="*" element={<Navigate to="/"/>}/>
+                                <Route path="/" element={<Home/>}/>
+                                <Route path="/user" element={<PrivateRoute><User/></PrivateRoute>}/>
+                            </Routes>
+                            {window.location.pathname !== "/user" && <AcceptTerms registration={false}/>}
+                            <OxalateFooter/>
+                        </ConfigProvider>
+                    </div>
+                    <AuthVerify logOut={logoutUser}/>
+                </div>
+        );
+    }
 
     return (
             <div className="app-container bg-light">
