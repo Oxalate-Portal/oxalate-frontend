@@ -1,7 +1,7 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {DiveEventUserResponse, GenericMessageResponse, UserResponse} from "../models/responses";
+import {DiveEventUserResponse, UserResponse} from "../models/responses";
 import {RoleEnum, UserStatusEnum} from "../models";
-import {EmailRequest, UserRequest} from "../models/requests";
+import {UserRequest} from "../models/requests";
 import {AdminUserResponse} from "../models/responses/AdminUserResponse";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
@@ -34,11 +34,6 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
         this.setAuthorizationHeader()
         const response = await this.axiosInstance.get<AdminUserResponse>("/reset-terms");
         return response.status === 200;
-    }
-
-    public async recoverLostPassword(emailRequest: EmailRequest): Promise<boolean> {
-        const response = await this.axiosInstance.post<GenericMessageResponse>("/lost-password", emailRequest);
-        return response.status === 200 && response.data.message === "OK";
     }
 
     // TODO Convert the post data to an interface, requires reworking of the whole user data handling starting with AbstractUser
