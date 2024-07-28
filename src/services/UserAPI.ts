@@ -13,6 +13,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
     }
 
     public async acceptTerms(payload: { termAnswer: string }): Promise<boolean> {
+        this.setAuthorizationHeader()
         const response = await this.axiosInstance.put<void>("/accept-terms", payload);
         return response.status === 200;
     }
