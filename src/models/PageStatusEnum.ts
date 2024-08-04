@@ -1,5 +1,5 @@
 export enum PageStatusEnum {
-    HIDDEN = 'HIDDEN',
-    PUBLIC = 'PUBLIC',
-    CLOSED = 'CLOSED'
+    DRAFTED = 'DRAFTED',
+    PUBLISHED = 'PUBLISHED',
+    DELETED = 'DELETED'
 }

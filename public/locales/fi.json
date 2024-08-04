@@ -164,7 +164,9 @@
   "common": {
     "button": {
       "back": "Takaisin",
+      "close": "Sulje",
       "delete": "Poista",
+      "held": "Pidetty",
       "login": "Kirjaudu sisään",
       "logout": "Kirjaudu ulos",
       "open": "Avaa",
@@ -173,11 +175,29 @@
       "send": "Lähetä",
       "update": "Päivitä"
     },
+    "dive-event": {
+      "status": {
+        "cancelled": "Peruutettu",
+        "drafted": "Luonnos",
+        "held": "Pidetty",
+        "published": "Julkaistu"
+      }
+    },
+    "email-subscription-type": {
+      "EVENT": {
+        "label": "Tapahtumat",
+        "tooltip": "Saat sähköpostiviestin kun uusi tapahtuma luodaan tai olemassaolevaa muutetaan"
+      },
+      "PAGE": {
+        "label": "Sivut",
+        "tooltip": "Saat sähköpostiviestin kun tehdään muutos sivuihin tai uusi sivu lisätään"
+      }
+    },
     "pages": {
       "status": {
-        "closed": "Poistettu",
-        "hidden": "Piilotettu",
-        "public": "Julkinen"
+        "drafted": "Luonnos",
+        "deleted": "Poistettu",
+        "published": "Julkaistu"
       }
     },
     "payment": {
@@ -191,6 +211,9 @@
       "anonymous": "Anonyymi",
       "organizer": "Tapahtumajärjestäjä",
       "user": "Jäsen"
+    },
+    "spinner": {
+      "loading": "Ladataan..."
     },
     "userStatus": {
       "active": "Aktiivinen",
@@ -330,9 +353,12 @@
         "placeholder": "Add participants",
         "tooltip": "Tapahtumaan osallistuvat jäsenet"
       },
-      "published": {
-        "label": "Laita tapahtuma julkiseksi",
-        "tooltip": "Ei-julkaistut tapahtumat eivät näy jäsenille"
+      "status": {
+        "label": "Sukellustapahtuman tila",
+        "tooltip": "Luonnos-tila ei ole vielä näkyvissä jäsenille. Julkaistu-tila on näkyvissä kaikille jäsenille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä jäsenille.",
+        "rules": {
+          "required": "Tila on pakollinen kenttä"
+        }
       },
       "startTime": {
         "label": "Aloitusaika",
@@ -449,7 +475,7 @@
         "rules": {
           "required": "Status on vaadittu kenttä"
         },
-        "tooltip": "Sivun status. Piilotettu voidaan käyttää kun sivua vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivun sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
+        "tooltip": "Sivun status. Luonnos voidaan käyttää kun sivua vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivun sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
       }
     },
     "onFinish": {
@@ -462,13 +488,34 @@
         "ok": "Sivu päivitetty"
       }
     },
-    "title": "Sivun päivitys"
+    "title": {
+      "new": "Uusi sivu",
+      "update": "Päivitä sivu"
+    }
   },
   "EditPageGroup": {
     "form": {
       "button": {
         "create": "Luo uusi sivuryhmä",
         "update": "Päivitä ryhmä"
+      },
+      "divider": {
+        "languages": "Kieliversiot"
+      },
+      "pageGroupVersions": {
+        "label": "Otsikko",
+        "rules": {
+          "min": "Otsikon pitää olla vähintään 2 merkkiä pitkä",
+          "required": "Otsikko on vaadittu kenttä"
+        },
+        "tooltip": "Sivuryhmän otsikko, vähintään 2 merkkiä pitkä"
+      },
+      "status": {
+        "label": "Sivuryhmän status",
+        "rules": {
+          "required": "Status on vaadittu kenttä"
+        },
+        "tooltip": "Sivuryhmän status. Luonnos voidaan käyttää kun sivuryhmää vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivuryhmän sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
       }
     },
     "onFinish": {
@@ -482,20 +529,8 @@
       }
     }
   },
-  "EditPageGroups": {
-    "form": {
-      "divider": {
-        "languages": "Kieliversiot"
-      },
-      "pageGroupVersions": {
-        "label": "Otsikko",
-        "rules": {
-          "min": "Otsikon pitää olla vähintään 2 merkkiä pitkä",
-          "required": "Otsikko on vaadittu kenttä"
-        },
-        "tooltip": "Sivuryhmän otsikko, vähintään 2 merkkiä pitkä"
-      }
-    }
+  "EmailSubscriptionCard":{
+    "header": "Vastaanota sähköpostiviesti kun:"
   },
   "Event": {
     "subscribe": {
@@ -703,13 +738,14 @@
     },
     "deletePath": {
       "confirm": {
-        "1": "Poistetaanko sivuryhmä ",
-        "2": "HUOM! Sivuryhmän poistaminen poistaa myös kaikki siihen liittyvät sivut ja niiden kieliversiot."
+        "1": "Suljetaanko sivuryhmä ",
+        "2": "HUOM! Sivuryhmän sulkeminen sulkee myös kaikki siihen liittyvät sivut ja niiden kieliversiot."
       }
     },
     "table": {
       "languageVersions": "Kieliversiot",
       "pageCount": "Sivujen lukumäärä",
+      "status": "Status",
       "title": "Sivuryhmänimi"
     },
     "title": "Sivuryhmät",
@@ -718,13 +754,14 @@
     }
   },
   "Pages": {
+    "title": "sivuryhmän hallinta",
     "alert": {
       "noPages": "Sivuryhmässä ei ole sivuja"
     },
     "button": {
       "addPage": "Lisää sivu"
     },
-    "deletePage": {
+    "closePage": {
       "confirm": "Poistetaanko sivu "
     },
     "table": {
@@ -732,6 +769,7 @@
       "languageVersions": "Kieliversiot",
       "modifiedAt": "Päivitetty",
       "rolePermissions": "Roolit",
+      "status": "Status",
       "title": "Sivu"
     },
     "updateStatus": {
@@ -951,10 +989,16 @@
     }
   },
   "UserEvents": {
-    "futurePanel": {
+    "profile-certificates-panel": {
+      "header": "Sukellusluokitukset"
+    },
+    "email-subscription-panel": {
+      "header": "Sähköpostitilaukset"
+    },
+    "future-panel": {
       "header": "Tulevat tapahtumat"
     },
-    "pastPanel": {
+    "past-panel": {
       "header": "Menneet tapahtumat"
     }
   },

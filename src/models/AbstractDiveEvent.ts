@@ -1,3 +1,5 @@
+import {DiveEventStatusEnum} from "./DiveEventStatusEnum";
+
 export interface AbstractDiveEvent {
     id: number;
     type: string;
@@ -8,5 +10,5 @@ export interface AbstractDiveEvent {
     maxDuration: number;
     maxDepth: number;
     maxParticipants: number;
-    published: boolean;
+    status: DiveEventStatusEnum;
 }

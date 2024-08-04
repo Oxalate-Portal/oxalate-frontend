@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { DiveEventListItemResponse } from "../../models/responses";
 import { diveEventAPI } from "../../services";
 import dayjs from "dayjs";
+import { EmailSubscriptionCard } from "./EmailSubscriptionCard";
 
 interface ProfileCollapseProps {
     userId: number,
@@ -22,17 +23,22 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
     const profileItems: ItemType[] = [
         {
             key: "profile-certificates",
-            label: "Certificates",
+            label: t("UserEvents.profile-certificates-panel.header"),
             children: <Certificates userId={userId} viewOnly={viewOnly}/>
         },
         {
+            key: "email-subscriptions",
+            label: t("UserEvents.email-subscription-panel.header"),
+            children: <EmailSubscriptionCard userId={userId}/>
+        },
+        {
             key: "upcomingEvents",
-            label: t("UserEvents.futurePanel.header") + " (" + upcomingEvents.length + ")",
+            label: t("UserEvents.future-panel.header") + " (" + upcomingEvents.length + ")",
             children: <UserEventList eventType={"upcoming"} events={upcomingEvents}/>
         },
         {
             key: "pastEvents",
-            label: t("UserEvents.pastPanel.header") + " (" + pastEvents.length + ")",
+            label: t("UserEvents.past-panel.header") + " (" + pastEvents.length + ")",
             children: <UserEventList eventType={"past"} events={pastEvents}/>
         }
 

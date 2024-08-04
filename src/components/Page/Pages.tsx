@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import { ColumnsType } from "antd/es/table";
 import { pageGroupMgmtAPI, pageMgmtAPI } from "../../services";
 import { SubmitResult } from "../main";
+import { PageStatusTag } from "./PageStatusTag";
 
 export function Pages() {
     const {paramId} = useParams();
@@ -66,6 +67,14 @@ export function Pages() {
             }
         },
         {
+            title: t("Pages.table.status"),
+            dataIndex: "status",
+            key: "status",
+            render: (_text: string, record: PageResponse) => {
+                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>)
+            },
+        },
+        {
             title: t("Pages.table.rolePermissions"),
             dataIndex: "rolePermissions",
             key: "rolePermissions",
@@ -114,7 +123,7 @@ export function Pages() {
                                             type={"primary"}>{t("common.button.update")}</Button></Link>
                                     {pageGroupId !== 1 &&
                                             <Button danger type={"primary"}
-                                                    onClick={() => deletePage(record.id)}>{t("common.button.delete")}</Button>}
+                                                    onClick={() => closePage(record.id)}>{t("common.button.close")}</Button>}
                                 </>
                         }
                     </Space>
@@ -155,8 +164,8 @@ export function Pages() {
                 });
     }, [paramId, sessionLanguage]);
 
-    function deletePage(pageId: number) {
-        if (window.confirm(t("Pages.deletePage.confirm") + pageId + "?")) {
+    function closePage(pageId: number) {
+        if (window.confirm(t("Pages.closePage.confirm") + pageId + "?")) {
             pageMgmtAPI.delete(pageId)
                     .then((result: boolean) => {
                         if (result) {
@@ -182,7 +191,7 @@ export function Pages() {
 
     return (
             <div className={"darkDiv"}>
-                <h4>{pageGroupTitle}-sivuryhmän hallinta</h4>
+                <h4>{pageGroupTitle}-{t("Pages.title")}</h4>
 
                 {pages && pages.length === 0 && <Alert key={"info"} showIcon={true} message={t("Pages.alert.noPages")}/>}
                 {pages && pages.length > 0 && <Spin spinning={loading}>

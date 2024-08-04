@@ -2,8 +2,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { PageGroupResponse } from "../../models/responses";
-import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { Button, Divider, Form, Input, Spin } from "antd";
+import { OptionItemVO, PageStatusEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { Button, Divider, Form, Input, Select, Spin } from "antd";
 import { pageGroupMgmtAPI } from "../../services";
 import { SubmitResult } from "../main";
 import { LanguageUtil } from "../../helpers";
@@ -28,8 +28,15 @@ export function EditPageGroup() {
             language: language.value,
             title: "",
         })),
+        status: PageStatusEnum.DRAFTED,
         pages: []
     });
+
+    const statusOptions: OptionItemVO[] = [
+        {value: PageStatusEnum.DRAFTED, label: t("common.pages.status.drafted")},
+        {value: PageStatusEnum.PUBLISHED, label: t("common.pages.status.published")},
+        {value: PageStatusEnum.DELETED, label: t("common.pages.status.deleted")},
+    ];
 
     useEffect(() => {
         if (paramId?.length === 0) {
@@ -129,7 +136,7 @@ export function EditPageGroup() {
                             <Input type={"text"} key={"pageGroupId"}/>
                         </Form.Item>
 
-                        <Divider orientation={"left"} key={"pageGroupDividerMain"}>{t("EditPageGroups.form.divider.languages")}</Divider>
+                        <Divider orientation={"left"} key={"pageGroupDividerMain"}>{t("EditPageGroup.form.divider.languages")}</Divider>
 
                         <Form.List name={"pageGroupVersions"}
                                    key={"page-group-versions"}
@@ -152,17 +159,17 @@ export function EditPageGroup() {
                                                     </Form.Item>
                                                     <Form.Item
                                                             name={[index, "title"]}
-                                                            label={t("EditPageGroups.form.pageGroupVersions.label")}
+                                                            label={t("EditPageGroup.form.pageGroupVersions.label")}
                                                             key={uniqueKey + "-title"}
-                                                            tooltip={t("EditPageGroups.form.pageGroupVersions.tooltip")}
+                                                            tooltip={t("EditPageGroup.form.pageGroupVersions.tooltip")}
                                                             rules={[
                                                                 {
                                                                     required: true,
-                                                                    message: t("EditPageGroups.form.pageGroupVersions.rules.required")
+                                                                    message: t("EditPageGroup.form.pageGroupVersions.rules.required")
                                                                 },
                                                                 {
                                                                     min: 2,
-                                                                    message: t("EditPageGroups.form.pageGroupVersions.rules.min")
+                                                                    message: t("EditPageGroup.form.pageGroupVersions.rules.min")
                                                                 }
                                                             ]}
                                                     >
@@ -174,6 +181,20 @@ export function EditPageGroup() {
                                 );
                             }}
                         </Form.List>
+                        <Form.Item name={"status"}
+                                   required
+                                   label={t("EditPageGroup.form.status.label")}
+                                   tooltip={t("EditPageGroup.form.status.tooltip")}
+                                   key={"page-group-status"}
+                                   rules={[
+                                       {
+                                           required: true,
+                                           message: t("EditPageGroup.form.status.rules.required")
+                                       }
+                                   ]}
+                        >
+                            <Select options={statusOptions}/>
+                        </Form.Item>
                         <Form.Item
                                 wrapperCol={{
                                     offset: 8,

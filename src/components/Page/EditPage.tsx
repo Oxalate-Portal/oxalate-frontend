@@ -25,6 +25,7 @@ export function EditPage() {
     const [createNewPage, setCreateNewPage] = useState<boolean>(false);
     const [sendButtonText, setSendButtonText] = useState<string>(t("EditPage.form.button.update"));
     const [pageForm] = Form.useForm();
+    const [formTitleKey, setFormTitleKey] = useState<string>("EditPage.title.new");
 
     const searchParams = new URLSearchParams(window.location.search);
     let queryPageGroupId = searchParams.get("pageGroupId");
@@ -41,7 +42,7 @@ export function EditPage() {
         const basePageData: PageResponse = {
             id: 0,
             pageGroupId: tmpPageGroupId,
-            status: PageStatusEnum.HIDDEN,
+            status: PageStatusEnum.DRAFTED,
             pageVersions: LanguageUtil.languages.map((language) => ({
                 id: 0,
                 pageId: 0,
@@ -80,9 +81,9 @@ export function EditPage() {
     });
 
     const statusOptions: OptionItemVO[] = [
-        {value: PageStatusEnum.HIDDEN, label: t("common.pages.status.hidden")},
-        {value: PageStatusEnum.PUBLIC, label: t("common.pages.status.public")},
-        {value: PageStatusEnum.CLOSED, label: t("common.pages.status.closed")},
+        {value: PageStatusEnum.DRAFTED, label: t("common.pages.status.drafted")},
+        {value: PageStatusEnum.PUBLISHED, label: t("common.pages.status.published")},
+        {value: PageStatusEnum.DELETED, label: t("common.pages.status.deleted")},
     ];
 
     const roleOptions: OptionItemVO[] = [
@@ -119,6 +120,7 @@ export function EditPage() {
         if (tmpPageId > 0) {
             setLoading(true);
             setCreateNewPage(false);
+            setFormTitleKey("EditPage.title.update");
 
             Promise.all([
                 pageGroupMgmtAPI.findAll(),
@@ -261,7 +263,7 @@ export function EditPage() {
 
     return (
             <div className={"darkDiv"} key={"pageDiv"}>
-                <h4 key={"pageHeader"}>{t("EditPage.title")}</h4>
+                <h4 key={"pageHeader"}>{t(formTitleKey)}</h4>
                 {!loading && pageData &&
                         <Form
                                 form={pageForm}
