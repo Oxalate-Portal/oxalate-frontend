@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { diveEventAPI, userAPI } from "../../services";
-import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
+import { BlockedDateResponse, DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
 import { DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { useTranslation } from "react-i18next";
 import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { SubmitResult } from "../main";
 import TextArea from "antd/es/input/TextArea";
 import { DiveEventRequest } from "../../models/requests";
@@ -21,6 +21,7 @@ export function EditDiveEvent() {
     const {t} = useTranslation();
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const navigate = useNavigate();
+    const [blockedDates, setBlockedDates] = useState<Date[]>([]);
 
     const [organizerOptions, setOrganizerOptions] = useState<OptionItemVO[]>([]);
     const [participantOptions, setParticipantOptions] = useState<OptionItemVO[]>([]);
@@ -81,46 +82,66 @@ export function EditDiveEvent() {
             Promise.all([
                 diveEventAPI.findById(tmpDiveEventId, null),
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
-                userAPI.findByRole(RoleEnum.ROLE_USER)
-            ]).then(([eventResponse, organizerResponses, participantResponses]) => {
-                setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
-                populateOrganizerList(organizerResponses);
-                populateParticipantList(participantResponses);
-                setLoading(false);
-            }).catch((error) => {
-                console.error(error);
-            })
+                userAPI.findByRole(RoleEnum.ROLE_USER),
+                blockedDatesAPI.findAll()
+            ])
+                    .then(([eventResponse, organizerResponses,
+                               participantResponses, blockedDatesResponses]) => {
+                        setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
+                        populateOrganizerList(organizerResponses);
+                        populateParticipantList(participantResponses);
+                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                        setBlockedDates(dates);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
         } else { // We're creating a new dive event
             Promise.all([
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
-                userAPI.findByRole(RoleEnum.ROLE_USER)
-            ]).then(([organizerResponse, participantResponse]) => {
-                populateOrganizerList(organizerResponse);
-                populateParticipantList(participantResponse);
-                setDiveEvent(
-                        {
-                            id: 0,
-                            title: '',
-                            description: '',
-                            type: '',
-                            startTime: nextEventTime().toDate(),
-                            eventDuration: 6,
-                            maxDuration: 120,
-                            maxDepth: 60,
-                            maxParticipants: 12,
-                            organizer: null,
-                            participants: [],
-                            status: DiveEventStatusEnum.DRAFTED
-                        }
-                )
+                userAPI.findByRole(RoleEnum.ROLE_USER),
+                blockedDatesAPI.findAll()
+            ])
+                    .then(([organizerResponse, participantResponse, blockedDatesResponses]) => {
+                        populateOrganizerList(organizerResponse);
+                        populateParticipantList(participantResponse);
+                        setDiveEvent(
+                                {
+                                    id: 0,
+                                    title: "",
+                                    description: "",
+                                    type: "",
+                                    startTime: nextEventTime().toDate(),
+                                    eventDuration: 6,
+                                    maxDuration: 120,
+                                    maxDepth: 60,
+                                    maxParticipants: 12,
+                                    organizer: null,
+                                    participants: [],
+                                    status: DiveEventStatusEnum.DRAFTED
+                                }
+                        );
+                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                        setBlockedDates(dates);
 
-                setLoading(false);
-            }).catch((error) => {
-                console.error(error);
-            })
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
             setSubmitButtonText(t('EditEvent.form.submitButton.add'));
         }
     }, [paramId, t]);
+
+    function disabledDate(current: Dayjs): boolean {
+        return blockedDates.some(date => dayjs(date).isSame(current, 'day'));
+    }
 
     // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
     function nextEventTime(): dayjs.Dayjs {
@@ -336,6 +357,7 @@ export function EditDiveEvent() {
                                ]}
                     >
                         <DatePicker
+                                disabledDate={disabledDate}
                                 showTime={{format: 'HH:mm', defaultValue: dayjs()}}
                                 minuteStep={30 as 30}
                                 format={'YYYY-DD-MM HH:mm'}
