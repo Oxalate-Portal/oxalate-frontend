@@ -2,9 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { diveEventAPI, userAPI } from "../../services";
 import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
-import { OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { useTranslation } from "react-i18next";
-import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space, Switch } from "antd";
+import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
 import dayjs from "dayjs";
 import { SubmitResult } from "../main";
 import TextArea from "antd/es/input/TextArea";
@@ -39,6 +39,13 @@ export function EditDiveEvent() {
         {value: 'Avo', label: t('EditEvent.eventTypes.open')},
         {value: 'Vain pintatoimintaa', label: t('EditEvent.eventTypes.surface')},
         {value: 'Muu', label: t('EditEvent.eventTypes.other')}
+    ];
+
+    const statusOptions: OptionItemVO[] = [
+        {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
+        {value: DiveEventStatusEnum.PUBLISHED, label: t("common.dive-event.status.published")},
+        {value: DiveEventStatusEnum.HELD, label: t("common.dive-event.status.held")},
+        {value: DiveEventStatusEnum.CANCELLED, label: t("common.dive-event.status.cancelled")},
     ];
 
     const [diveEventForm] = Form.useForm();
@@ -103,7 +110,7 @@ export function EditDiveEvent() {
                             maxParticipants: 12,
                             organizer: null,
                             participants: [],
-                            published: false
+                            status: DiveEventStatusEnum.DRAFTED
                         }
                 )
 
@@ -230,7 +237,7 @@ export function EditDiveEvent() {
                             maxDuration: diveEvent.maxDuration,
                             maxDepth: diveEvent.maxDepth,
                             maxParticipants: diveEvent.maxParticipants,
-                            published: diveEvent.published,
+                            status: diveEvent.status,
                             participants: diveEvent.participants.map((participant) => {
                                 return participant.id
                             })
@@ -362,12 +369,19 @@ export function EditDiveEvent() {
                     >
                         <Slider min={3} max={29} step={1} marks={maxParticipantsMarks}/>
                     </Form.Item>
-                    <Form.Item name={'published'}
+                    <Form.Item name={"status"}
                                required={true}
-                               label={t('EditEvent.form.published.label')}
-                               tooltip={t('EditEvent.form.published.tooltip')}
-                               valuePropName={'checked'}>
-                        <Switch/>
+                               label={t("EditEvent.form.status.label")}
+                               tooltip={t("EditEvent.form.status.tooltip")}
+                               key={"dive-event-status"}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: t("EditEvent.form.status.rules.required")
+                                   }
+                               ]}
+                    >
+                        <Select options={statusOptions}/>
                     </Form.Item>
                     <Form.Item name={'participants'}
                                label={t('EditEvent.form.participants.label')}

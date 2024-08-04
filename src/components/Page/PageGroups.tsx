@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { pageGroupMgmtAPI } from "../../services";
 import { ColumnsType } from "antd/es/table";
 import { SubmitResult } from "../main";
+import { PageStatusTag } from "./PageStatusTag";
 
 export function PageGroups() {
     const {userSession, sessionLanguage} = useSession();
@@ -56,6 +57,14 @@ export function PageGroups() {
             }
         },
         {
+            title: t("PageGroups.table.status"),
+            dataIndex: "status",
+            key: "status",
+            render: (_text: string, record: PageGroupResponse) => {
+                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>)
+            },
+        },
+        {
             title: "",
             key: "action",
             render: (_text: string, record: PageGroupResponse) => {
@@ -78,7 +87,7 @@ export function PageGroups() {
                     {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                             record.id !== 1 &&
                             <Button danger type={"primary"}
-                                    onClick={() => deletePath(record.id)}>{t("common.button.delete")}</Button>}
+                                    onClick={() => closePageGroup(record.id)}>{t("common.button.close")}</Button>}
                 </Space>);
             },
         }
@@ -103,7 +112,7 @@ export function PageGroups() {
         fetchData().catch(console.error);
     }, []);
 
-    function deletePath(pageGroupId: number) {
+    function closePageGroup(pageGroupId: number) {
         if (window.confirm(t("PageGroups.deletePath.confirm.1") + pageGroupId + "?\n" +
                 t("PageGroups.deletePath.confirm.2"))) {
             pageGroupMgmtAPI.delete(pageGroupId)

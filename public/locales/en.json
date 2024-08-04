@@ -164,7 +164,9 @@
   "common": {
     "button": {
       "back": "Back",
+      "close": "Close",
       "delete": "Delete",
+      "held": "Held",
       "login": "Log In",
       "logout": "Log Out",
       "open": "Open",
@@ -173,11 +175,29 @@
       "send": "Send",
       "update": "Update"
     },
+    "dive-event": {
+      "status": {
+        "cancelled": "Cancelled",
+        "drafted": "Drafted",
+        "held": "Held",
+        "published": "Published"
+      }
+    },
+    "email-subscription-type": {
+      "EVENT": {
+        "label" : "Dive events",
+        "tooltip" : "Receive email notification when there are changes to dive events"
+      },
+      "PAGE": {
+        "label": "Site pages",
+        "tooltip": "Receive email notification when there are changes to site pages"
+      }
+    },
     "pages": {
       "status": {
-        "closed": "Closed",
-        "hidden": "Hidden",
-        "public": "Public"
+        "drafted": "Drafted",
+        "deleted": "Deleted",
+        "published": "Published"
       }
     },
     "payment": {
@@ -191,6 +211,9 @@
       "anonymous": "Anonymous",
       "organizer": "Event Organizer",
       "user": "Member"
+    },
+    "spinner": {
+      "loading": "Loading..."
     },
     "userStatus": {
       "active": "Active",
@@ -330,9 +353,12 @@
         "placeholder": "Add participants",
         "tooltip": "Members participating in the event"
       },
-      "published": {
-        "label": "Make event public",
-        "tooltip": "Unpublished events will not be visible to members"
+      "status": {
+        "label": "Dive event status",
+        "tooltip": "Drafted status is not yet shown to members. Published status is visible to all members as is held which is for events in the past. Cancelled status is not shown to members.",
+        "rules": {
+          "required" : "Status is a required field"
+        }
       },
       "startTime": {
         "label": "Start time",
@@ -449,7 +475,7 @@
         "rules": {
           "required": "Status is a required field"
         },
-        "tooltip": "Page status. Hidden can be used when the page is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page is outdated and should no longer be displayed."
+        "tooltip": "Page status. Drafted can be used when the page is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page is outdated and should no longer be displayed."
       }
     },
     "onFinish": {
@@ -462,13 +488,34 @@
         "ok": "Page updated"
       }
     },
-    "title": "Page update"
+    "title": {
+      "new": "New page",
+      "update": "Update page"
+    }
   },
   "EditPageGroup": {
     "form": {
       "button": {
         "create": "Create new page group",
         "update": "Update group"
+      },
+      "divider": {
+        "languages": "Language versions"
+      },
+      "pageGroupVersions": {
+        "label": "Title",
+        "rules": {
+          "min": "Title must be at least 2 characters long",
+          "required": "Title is a required field"
+        },
+        "tooltip": "Page group title, at least 2 characters long"
+      },
+      "status": {
+        "label": "Page group status",
+        "rules": {
+          "required": "Status is a required field"
+        },
+        "tooltip": "Page group status. Drafted can be used when the page group is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page group is outdated and should no longer be displayed."
       }
     },
     "onFinish": {
@@ -482,20 +529,8 @@
       }
     }
   },
-  "EditPageGroups": {
-    "form": {
-      "divider": {
-        "languages": "Language versions"
-      },
-      "pageGroupVersions": {
-        "label": "Title",
-        "rules": {
-          "min": "Title must be at least 2 characters long",
-          "required": "Title is a required field"
-        },
-        "tooltip": "Page group title, at least 2 characters long"
-      }
-    }
+  "EmailSubscriptionCard":{
+    "header": "Email Receive email notification when:"
   },
   "Event": {
     "subscribe": {
@@ -696,20 +731,21 @@
     }
   },
   "PageGroups": {
-    "button" : {
-      "addGroup" : "Add page group",
-      "addPage" : "Add page",
-      "updatePage" : "Update pages"
+    "button": {
+      "addGroup": "Add page group",
+      "addPage": "Add page",
+      "updatePage": "Update pages"
     },
-    "deletePath" : {
-      "confirm" : {
-        "1" : "Delete page group ",
-        "2" : "NOTE: Deleting the page group will also delete all associated pages and their language versions."
+    "deletePath": {
+      "confirm": {
+        "1": "Close page group ",
+        "2": "NOTE: Closing the page group will also close all associated pages and their language versions."
       }
     },
     "table" : {
       "languageVersions" : "Language versions",
       "pageCount" : "Page count",
+      "status" : "Status",
       "title" : "Page group name"
     },
     "title" : "Page groups",
@@ -718,20 +754,22 @@
     }
   },
   "Pages": {
+    "title": "page group management",
     "alert": {
       "noPages": "No pages in this page group"
     },
     "button": {
       "addPage": "Add page"
     },
-    "deletePage": {
-      "confirm": "Delete page "
+    "closePage": {
+      "confirm": "Close page "
     },
     "table": {
       "createdAt": "Created",
       "languageVersions": "Language versions",
       "modifiedAt": "Modified",
       "rolePermissions": "Roles",
+      "status" : "Status",
       "title": "Page"
     },
     "updateStatus": {
@@ -951,10 +989,16 @@
     }
   },
   "UserEvents": {
-    "futurePanel": {
+    "profile-certificates-panel": {
+      "header": "Dive certifications"
+    },
+    "email-subscription-panel": {
+      "header": "Email subscriptions"
+    },
+    "future-panel": {
       "header": "Upcoming events"
     },
-    "pastPanel": {
+    "past-panel": {
       "header": "Past events"
     }
   },
