@@ -66,6 +66,10 @@ function BlockedDates() {
                 });
     }
 
+    function pastDates(current: dayjs.Dayjs): boolean {
+        return current && current < dayjs().startOf('day');
+    }
+
     return (
             <div className="darkDiv">
                 <h4>{t('BlockedDates.title')}</h4>
@@ -96,7 +100,10 @@ function BlockedDates() {
                                 name="blockedDate"
                                 rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
                         >
-                            <DatePicker format="YYYY-MM-DD"/>
+                            <DatePicker
+                                    format="YYYY-MM-DD"
+                                    disabledDate={pastDates}
+                            />
                         </Item>
                         <Item>
                             <Button type="primary" htmlType="submit">
