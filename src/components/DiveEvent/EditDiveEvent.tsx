@@ -140,7 +140,7 @@ export function EditDiveEvent() {
     }, [paramId, t]);
 
     function disabledDate(current: Dayjs): boolean {
-        return blockedDates.some(date => dayjs(date).isSame(current, 'day'));
+        return current && (blockedDates.some(date => dayjs(date).isSame(current, 'day')) || current < dayjs().startOf('day'));
     }
 
     // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
@@ -360,7 +360,7 @@ export function EditDiveEvent() {
                                 disabledDate={disabledDate}
                                 showTime={{format: 'HH:mm', defaultValue: dayjs()}}
                                 minuteStep={30 as 30}
-                                format={'YYYY-DD-MM HH:mm'}
+                                format={'YYYY-MM-DD HH:mm'}
                         />
                     </Form.Item>
                     <Form.Item name={'eventDuration'}
