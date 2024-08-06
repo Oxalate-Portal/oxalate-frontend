@@ -3,16 +3,34 @@ import { paymentAPI } from "../../services/PaymentAPI";
 import { PaymentResponse, PaymentStatusResponse } from "../../models/responses";
 import { PaymentTypeEnum } from "../../models";
 import { PaymentVO } from "../../models/PaymentVO";
-import { Spin } from "antd";
+import { Collapse, CollapseProps, Spin } from "antd";
 import { useTranslation } from "react-i18next";
-import { PaymentListPanel } from "./PaymentListPanel";
+import { PaymentListTable } from "./PaymentListTable";
 
 export function ListPayments() {
     const [loading, setLoading] = useState<boolean>(true);
     const [periodPayments, setPeriodPayments] = useState<PaymentVO[]>([]);
     const [oneTimePayments, setOneTimePayments] = useState<PaymentVO[]>([]);
     const [unknownPayments, setUnknownPayments] = useState<PaymentVO[]>([]);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
+
+    const paymentItems: CollapseProps["items"] = [
+        {
+            key: "one-time-payments",
+            label: t("ListPayments.oneTime"),
+            children: <PaymentListTable payments={oneTimePayments} keyName={"one_time"} key={"one_time"}/>
+        },
+        {
+            key: "period-payments",
+            label: t("ListPayments.period"),
+            children: <PaymentListTable payments={periodPayments} keyName={"period"} key={"period"}/>
+        },
+        {
+            key: "unknown-payments",
+            label: t("ListPayments.unknown"),
+            children: <PaymentListTable payments={unknownPayments} keyName={"unknown"} key={"unknown"}/>
+        },
+    ];
 
     useEffect(() => {
         const fetchPayments = async () => {
@@ -90,9 +108,7 @@ export function ListPayments() {
 
     return (
             <Spin spinning={loading}>
-                <PaymentListPanel payments={oneTimePayments} header={t('ListPayments.oneTime')} keyName={'one_time'} key={'one_time'}/>
-                <PaymentListPanel payments={periodPayments} header={t('ListPayments.period')} keyName={'period'} key={'period'}/>
-                <PaymentListPanel payments={unknownPayments} header={t('ListPayments.unknown')} keyName={'unknown'} key={'unknown'}/>
+                {!loading && <Collapse items={paymentItems}/>}
             </Spin>
     );
 }

@@ -151,6 +151,17 @@
     },
     "title": "Audit-Ereignisse"
   },
+  "BlockedDates": {
+    "title": "Datumsblockierung",
+    "list": {
+      "confirm": "Sind Sie sicher, dass Sie das Datum blockieren möchten?"
+    },
+    "form": {
+      "date": {
+        "rule": "Das Datum ist ein Pflichtfeld"
+      }
+    }
+  },
   "Certificates": {
     "deleteCertificate": {
       "confirm": "Sind Sie sicher, dass Sie die Klassifizierung löschen möchten? \""
@@ -163,6 +174,7 @@
   },
   "common": {
     "button": {
+      "add": "Hinzufügen",
       "back": "Zurück",
       "close": "Schließen",
       "delete": "Löschen",
@@ -669,6 +681,7 @@
     },
     "administration": {
       "audits": "Audits",
+      "blocked-dates": "Datumsblockierung",
       "download": "Herunterladen",
       "members": "Mitglieder",
       "payments": "Zahlungen",

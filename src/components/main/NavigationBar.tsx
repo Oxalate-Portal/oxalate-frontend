@@ -1,14 +1,14 @@
 /// <reference types="vite-plugin-svgr/client" />
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {Tooltip} from "antd";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import { Tooltip } from "antd";
 import i18next from "i18next";
-import {useEffect, useState} from "react";
-import {checkRoles, LanguageUtil} from "../../helpers";
-import {PageGroupResponse} from "../../models/responses";
-import {RoleEnum} from "../../models";
-import {pageAPI} from "../../services";
+import { useEffect, useState } from "react";
+import { checkRoles, LanguageUtil } from "../../helpers";
+import { PageGroupResponse } from "../../models/responses";
+import { RoleEnum } from "../../models";
+import { pageAPI } from "../../services";
 import Logo from "../../portal_logo.svg?react";
 
 export function NavigationBar() {
@@ -83,6 +83,10 @@ export function NavigationBar() {
                                                 <li>
                                                     <NavLink to="/administration/payments" className="dropdown-item"
                                                              type="button">{t("nav.administration.payments")}</NavLink>
+                                                </li>
+                                                <li>
+                                                    <NavLink to="/administration/blocked-dates" className="dropdown-item"
+                                                             type="button">{t("nav.administration.blocked-dates")}</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/statistics" className="dropdown-item"

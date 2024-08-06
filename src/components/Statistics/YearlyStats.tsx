@@ -37,7 +37,9 @@ export function YearlyStats({ typeOfStats, headerText }: YearlyStatsProps) {
             size: 5,
             shape: 'diamond',
         },
-        theme: 'dark'
+        theme: 'dark',
+        colorField: 'type',
+        color: ['#F4664A', '#30BF78', '#FAAD14', '#2B8CBE', '#F6BD16', '#A0D911', '#13C2C2', '#FF6F61']
     };
 
     return (

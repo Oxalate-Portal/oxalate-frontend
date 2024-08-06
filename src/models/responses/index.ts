@@ -1,4 +1,5 @@
 export type {AuditEntryResponse} from "./AuditEntryResponse";
+export type {BlockedDateResponse} from "./BlockedDateResponse";
 export type {CertificateResponse} from "./CertificateResponse";
 export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
 export type {DiveEventListResponse} from "./DiveEventListResponse";
