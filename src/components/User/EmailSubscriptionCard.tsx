@@ -68,7 +68,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
                                    onFinish={updateSubscriptions}>
                     {Object.values(EmailNotificationTypeEnum).map((type) => {
                         const subscription = subscriptions.find(sub => sub.emailNotificationType === type);
-                        console.log("Initial value for " + type + " : " + !!subscription);
+
                         return (
                                 <Form.Item
                                         key={userId + "-subscription-" + type}
