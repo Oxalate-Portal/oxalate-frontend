@@ -1,7 +1,7 @@
-import {NavigateFunction} from "react-router-dom";
-import {Alert, Button} from "antd";
-import {useTranslation} from "react-i18next";
-import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import { NavigateFunction } from "react-router-dom";
+import { Alert, Button } from "antd";
+import { useTranslation } from "react-i18next";
+import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
 
 interface SubmitResultProps {
     updateStatus: UpdateStatusVO,

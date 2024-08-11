@@ -1,7 +1,7 @@
-import {Link} from "react-router-dom";
-import {formatDateTime} from "../../helpers";
-import {useTranslation} from "react-i18next";
-import {UserResponse} from "../../models/responses";
+import { Link } from "react-router-dom";
+import { formatDateTime } from "../../helpers";
+import { useTranslation } from "react-i18next";
+import { UserResponse } from "../../models/responses";
 
 interface FormatPaymentsProps {
     userData: UserResponse | undefined

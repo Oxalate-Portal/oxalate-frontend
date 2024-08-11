@@ -1,7 +1,7 @@
-import {Navigate} from "react-router-dom";
-import {useSession} from "./SessionProvider";
-import {RoleRouteProps} from "../models/props";
-import {RoleEnum} from "../models";
+import { Navigate } from "react-router-dom";
+import { useSession } from "./SessionProvider";
+import { RoleRouteProps } from "../models/props";
+import { RoleEnum } from "../models";
 
 export function OrganizerRoute({ children }: RoleRouteProps) {
     const {userSession} = useSession()

@@ -1,5 +1,5 @@
-import {Link} from "react-router-dom";
-import {DiveEventListItemResponse} from "../../models/responses";
+import { Link } from "react-router-dom";
+import { DiveEventListItemResponse } from "../../models/responses";
 
 interface UserEventListProps {
     eventType: string,

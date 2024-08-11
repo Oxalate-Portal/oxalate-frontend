@@ -1,5 +1,5 @@
-import {Space} from "antd";
-import {useTranslation} from "react-i18next";
+import { Space } from "antd";
+import { useTranslation } from "react-i18next";
 
 export function AdminMain() {
     const { t } = useTranslation();
