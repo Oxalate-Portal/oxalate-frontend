@@ -8,7 +8,7 @@ import { Register, Registration } from "./components/Register";
 import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
 import { AcceptTerms, Home, LoginWithCaptcha, NavigationBar, OxalateFooter } from "./components/main";
 import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
-import { AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, DownloadData } from "./components/Administration";
+import { AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData } from "./components/Administration";
 import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
 import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
 import { Payments } from "./components/Payment";
@@ -55,9 +55,9 @@ function App() {
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
+                            <Route path="/administration/blocked-dates" element={<AdminRoute><BlockedDates/></AdminRoute>}/>
                             <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
-                            <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
@@ -65,6 +65,7 @@ function App() {
                             <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
                             <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
                             <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
+                            <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>

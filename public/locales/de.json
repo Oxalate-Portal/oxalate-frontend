@@ -151,6 +151,17 @@
     },
     "title": "Audit-Ereignisse"
   },
+  "BlockedDates": {
+    "title": "Datumsblockierung",
+    "list": {
+      "confirm": "Sind Sie sicher, dass Sie das Datum blockieren möchten?"
+    },
+    "form": {
+      "date": {
+        "rule": "Das Datum ist ein Pflichtfeld"
+      }
+    }
+  },
   "Certificates": {
     "deleteCertificate": {
       "confirm": "Sind Sie sicher, dass Sie die Klassifizierung löschen möchten? \""
@@ -163,8 +174,11 @@
   },
   "common": {
     "button": {
+      "add": "Hinzufügen",
       "back": "Zurück",
+      "close": "Schließen",
       "delete": "Löschen",
+      "held": "Gehalten",
       "login": "Anmelden",
       "logout": "Abmelden",
       "open": "Öffnen",
@@ -173,11 +187,29 @@
       "send": "Senden",
       "update": "Bearbeiten"
     },
+    "dive-event": {
+      "status": {
+        "cancelled": "Abgesagt",
+        "drafted": "Entworfen",
+        "held": "Gehalten",
+        "published": "Veröffentlicht"
+      }
+    },
+    "email-subscription-type": {
+      "EVENT": {
+        "label": "Tauchveranstaltungen",
+        "tooltip": "Erhalten Sie eine E-Mail-Benachrichtigung, wenn es Änderungen bei Tauchveranstaltungen gibt"
+      },
+      "PAGE": {
+        "label": "Seiten",
+        "tooltip": "Erhalten Sie eine E-Mail-Benachrichtigung, wenn es Änderungen bei Seiten gibt"
+      }
+    },
     "pages": {
       "status": {
-        "closed": "Geschlossen",
-        "hidden": "Versteckt",
-        "public": "Öffentlich"
+        "drafted": "Entworfen",
+        "deleted": "Versteckt",
+        "published": "Veröffentlicht"
       }
     },
     "payment": {
@@ -191,6 +223,9 @@
       "anonymous": "Anonym",
       "organizer": "Veranstaltungsorganisator",
       "user": "Mitglied"
+    },
+    "spinner": {
+      "loading": "Laden..."
     },
     "userStatus": {
       "active": "Aktiv",
@@ -330,9 +365,12 @@
         "placeholder": "Teilnehmer hinzufügen",
         "tooltip": "Mitglieder, die an dem Ereignis teilnehmen"
       },
-      "published": {
-        "label": "Ereignis veröffentlichen",
-        "tooltip": "Nicht veröffentlichte Ereignisse sind für Mitglieder nicht sichtbar"
+      "status": {
+        "label": "Status des Tauchereignisses",
+        "tooltip": "Entworfen Status wird den Mitgliedern noch nicht angezeigt. Veröffentlicht Status ist für alle Mitglieder sichtbar, ebenso wie gehalten, das für vergangene Ereignisse gilt. Abgesagt Status wird den Mitgliedern nicht angezeigt.",
+        "rules": {
+          "required": "Status ist ein Pflichtfeld"
+        }
       },
       "startTime": {
         "label": "Startzeit",
@@ -449,7 +487,7 @@
         "rules": {
           "required": "Status ist ein Pflichtfeld"
         },
-        "tooltip": "Seitenstatus. Versteckt wird verwendet, wenn die Seite noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seiteninhalt veraltet ist und nicht mehr angezeigt werden soll."
+        "tooltip": "Seitenstatus. Entworfen wird verwendet, wenn die Seite noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seiteninhalt veraltet ist und nicht mehr angezeigt werden soll."
       }
     },
     "onFinish": {
@@ -462,13 +500,34 @@
         "ok": "Seite bearbeiten"
       }
     },
-    "title": "Seitenaufbereitung"
+    "title": {
+      "new": "Neue Seite",
+      "update": "Seite bearbeiten"
+    }
   },
   "EditPageGroup": {
     "form": {
       "button": {
         "create": "Neue Seitengruppe erstellen",
         "update": "Gruppe bearbeiten"
+      },
+      "divider": {
+        "languages": "Sprachversionen"
+      },
+      "pageGroupVersions": {
+        "label": "Titel",
+        "rules": {
+          "min": "Der Titel muss mindestens 2 Zeichen lang sein",
+          "required": "Titel ist ein Pflichtfeld"
+        },
+        "tooltip": "Titel der Seitengruppe, mindestens 2 Zeichen lang"
+      },
+      "status": {
+        "label": "Seitengruppestatus",
+        "rules": {
+          "required": "Status ist ein Pflichtfeld"
+        },
+        "tooltip": "Seitensgruppetatus. Entworfen wird verwendet, wenn die Seitegruppe noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seitegruppe veraltet ist und nicht mehr angezeigt werden soll."
       }
     },
     "onFinish": {
@@ -482,20 +541,8 @@
       }
     }
   },
-  "EditPageGroups": {
-    "form": {
-      "divider": {
-        "languages": "Sprachversionen"
-      },
-      "pageGroupVersions": {
-        "label": "Titel",
-        "rules": {
-          "min": "Der Titel muss mindestens 2 Zeichen lang sein",
-          "required": "Titel ist ein Pflichtfeld"
-        },
-        "tooltip": "Titel der Seitengruppe, mindestens 2 Zeichen lang"
-      }
-    }
+  "EmailSubscriptionCard":{
+    "header": "E-Mail erhalten, für:"
   },
   "Event": {
     "subscribe": {
@@ -634,6 +681,7 @@
     },
     "administration": {
       "audits": "Audits",
+      "blocked-dates": "Datumsblockierung",
       "download": "Herunterladen",
       "members": "Mitglieder",
       "payments": "Zahlungen",
@@ -703,13 +751,14 @@
     },
     "deletePath": {
       "confirm": {
-        "1": "Seite wirklich löschen ",
-        "2": "ACHTUNG! Das Löschen der Seite löscht auch alle dazugehörigen Seiten und ihre Sprachversionen."
+        "1": "Seite wirklich schließen ",
+        "2": "HINWEIS: Durch das Schließen der Seitengruppe werden auch alle zugehörigen Seiten und deren Sprachversionen geschlossen."
       }
     },
     "table": {
       "languageVersions": "Sprachversionen",
       "pageCount": "Seitenanzahl",
+      "status": "Status",
       "title": "Gruppenname"
     },
     "title": "Seitengruppen",
@@ -718,13 +767,14 @@
     }
   },
   "Pages": {
+    "title": "Seitengruppenverwaltung",
     "alert": {
       "noPages": "In dieser Gruppe gibt es keine Seiten."
     },
     "button": {
       "addPage": "Seite hinzufügen"
     },
-    "deletePage": {
+    "closePage": {
       "confirm": "Seite wirklich löschen "
     },
     "table": {
@@ -732,6 +782,7 @@
       "languageVersions": "Sprachversionen",
       "modifiedAt": "Aktualisiert",
       "rolePermissions": "Rollen",
+      "status": "Status",
       "title": "Seite"
     },
     "updateStatus": {
@@ -951,10 +1002,16 @@
     }
   },
   "UserEvents": {
-    "futurePanel": {
+    "profile-certificates-panel": {
+      "header": "Tauchzertifikate"
+    },
+    "email-subscription-panel": {
+      "header": "E-Mail-Abonnement"
+    },
+    "future-panel": {
       "header": "Kommende Veranstaltungen"
     },
-    "pastPanel": {
+    "past-panel": {
       "header": "Vergangene Veranstaltungen"
     }
   },

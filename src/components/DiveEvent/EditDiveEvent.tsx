@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { diveEventAPI, userAPI } from "../../services";
-import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
-import { OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
+import { BlockedDateResponse, DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { useTranslation } from "react-i18next";
-import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space, Switch } from "antd";
-import dayjs from "dayjs";
+import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
+import dayjs, { Dayjs } from "dayjs";
 import { SubmitResult } from "../main";
 import TextArea from "antd/es/input/TextArea";
 import { DiveEventRequest } from "../../models/requests";
@@ -21,6 +21,7 @@ export function EditDiveEvent() {
     const {t} = useTranslation();
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const navigate = useNavigate();
+    const [blockedDates, setBlockedDates] = useState<Date[]>([]);
 
     const [organizerOptions, setOrganizerOptions] = useState<OptionItemVO[]>([]);
     const [participantOptions, setParticipantOptions] = useState<OptionItemVO[]>([]);
@@ -39,6 +40,13 @@ export function EditDiveEvent() {
         {value: 'Avo', label: t('EditEvent.eventTypes.open')},
         {value: 'Vain pintatoimintaa', label: t('EditEvent.eventTypes.surface')},
         {value: 'Muu', label: t('EditEvent.eventTypes.other')}
+    ];
+
+    const statusOptions: OptionItemVO[] = [
+        {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
+        {value: DiveEventStatusEnum.PUBLISHED, label: t("common.dive-event.status.published")},
+        {value: DiveEventStatusEnum.HELD, label: t("common.dive-event.status.held")},
+        {value: DiveEventStatusEnum.CANCELLED, label: t("common.dive-event.status.cancelled")},
     ];
 
     const [diveEventForm] = Form.useForm();
@@ -74,46 +82,66 @@ export function EditDiveEvent() {
             Promise.all([
                 diveEventAPI.findById(tmpDiveEventId, null),
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
-                userAPI.findByRole(RoleEnum.ROLE_USER)
-            ]).then(([eventResponse, organizerResponses, participantResponses]) => {
-                setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
-                populateOrganizerList(organizerResponses);
-                populateParticipantList(participantResponses);
-                setLoading(false);
-            }).catch((error) => {
-                console.error(error);
-            })
+                userAPI.findByRole(RoleEnum.ROLE_USER),
+                blockedDatesAPI.findAll()
+            ])
+                    .then(([eventResponse, organizerResponses,
+                               participantResponses, blockedDatesResponses]) => {
+                        setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
+                        populateOrganizerList(organizerResponses);
+                        populateParticipantList(participantResponses);
+                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                        setBlockedDates(dates);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
         } else { // We're creating a new dive event
             Promise.all([
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
-                userAPI.findByRole(RoleEnum.ROLE_USER)
-            ]).then(([organizerResponse, participantResponse]) => {
-                populateOrganizerList(organizerResponse);
-                populateParticipantList(participantResponse);
-                setDiveEvent(
-                        {
-                            id: 0,
-                            title: '',
-                            description: '',
-                            type: '',
-                            startTime: nextEventTime().toDate(),
-                            eventDuration: 6,
-                            maxDuration: 120,
-                            maxDepth: 60,
-                            maxParticipants: 12,
-                            organizer: null,
-                            participants: [],
-                            published: false
-                        }
-                )
+                userAPI.findByRole(RoleEnum.ROLE_USER),
+                blockedDatesAPI.findAll()
+            ])
+                    .then(([organizerResponse, participantResponse, blockedDatesResponses]) => {
+                        populateOrganizerList(organizerResponse);
+                        populateParticipantList(participantResponse);
+                        setDiveEvent(
+                                {
+                                    id: 0,
+                                    title: "",
+                                    description: "",
+                                    type: "",
+                                    startTime: nextEventTime().toDate(),
+                                    eventDuration: 6,
+                                    maxDuration: 120,
+                                    maxDepth: 60,
+                                    maxParticipants: 12,
+                                    organizer: null,
+                                    participants: [],
+                                    status: DiveEventStatusEnum.DRAFTED
+                                }
+                        );
+                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                        setBlockedDates(dates);
 
-                setLoading(false);
-            }).catch((error) => {
-                console.error(error);
-            })
+                        setLoading(false);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
             setSubmitButtonText(t('EditEvent.form.submitButton.add'));
         }
     }, [paramId, t]);
+
+    function disabledDate(current: Dayjs): boolean {
+        return current && (blockedDates.some(date => dayjs(date).isSame(current, 'day')) || current < dayjs().startOf('day'));
+    }
 
     // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
     function nextEventTime(): dayjs.Dayjs {
@@ -230,7 +258,7 @@ export function EditDiveEvent() {
                             maxDuration: diveEvent.maxDuration,
                             maxDepth: diveEvent.maxDepth,
                             maxParticipants: diveEvent.maxParticipants,
-                            published: diveEvent.published,
+                            status: diveEvent.status,
                             participants: diveEvent.participants.map((participant) => {
                                 return participant.id
                             })
@@ -329,9 +357,10 @@ export function EditDiveEvent() {
                                ]}
                     >
                         <DatePicker
+                                disabledDate={disabledDate}
                                 showTime={{format: 'HH:mm', defaultValue: dayjs()}}
                                 minuteStep={30 as 30}
-                                format={'YYYY-DD-MM HH:mm'}
+                                format={'YYYY-MM-DD HH:mm'}
                         />
                     </Form.Item>
                     <Form.Item name={'eventDuration'}
@@ -362,12 +391,19 @@ export function EditDiveEvent() {
                     >
                         <Slider min={3} max={29} step={1} marks={maxParticipantsMarks}/>
                     </Form.Item>
-                    <Form.Item name={'published'}
+                    <Form.Item name={"status"}
                                required={true}
-                               label={t('EditEvent.form.published.label')}
-                               tooltip={t('EditEvent.form.published.tooltip')}
-                               valuePropName={'checked'}>
-                        <Switch/>
+                               label={t("EditEvent.form.status.label")}
+                               tooltip={t("EditEvent.form.status.tooltip")}
+                               key={"dive-event-status"}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: t("EditEvent.form.status.rules.required")
+                                   }
+                               ]}
+                    >
+                        <Select options={statusOptions}/>
                     </Form.Item>
                     <Form.Item name={'participants'}
                                label={t('EditEvent.form.participants.label')}

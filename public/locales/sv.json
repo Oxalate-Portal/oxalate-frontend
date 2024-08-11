@@ -30,7 +30,6 @@
       "paymentDate": "Betalningsdatum"
     }
   },
-
   "AdminOrgUser": {
     "form": {
       "button": {
@@ -152,6 +151,17 @@
     },
     "title": "Revisionshändelser"
   },
+  "BlockedDates": {
+    "title": "Datumsblockering",
+    "list": {
+      "confirm": "Är du säker på att du vill ta bort blockeringen för datumet?"
+    },
+    "form": {
+      "date": {
+        "rule": "Datumet är ett obligatoriskt fält"
+      }
+    }
+  },
   "Certificates": {
     "deleteCertificate": {
       "confirm": "Är du säker på att du vill ta bort certifikatet \""
@@ -164,8 +174,11 @@
   },
   "common": {
     "button": {
+      "add": "Lägg till",
       "back": "Tillbaka",
+      "close": "Stäng",
       "delete": "Ta bort",
+      "held": "Hållits",
       "login": "Logga in",
       "logout": "Logga ut",
       "open": "Öppna",
@@ -174,11 +187,29 @@
       "send": "Skicka",
       "update": "Uppdatera"
     },
+    "dive-event": {
+      "status": {
+        "cancelled": "Avbokat",
+        "drafted": "Utkast",
+        "held": "Hållits",
+        "published": "Publicerad"
+      }
+    },
+    "email-subscription-type": {
+      "EVENT": {
+        "label": "Evenemang",
+        "tooltip": "När ett nytt evenemang skapas eller existerande evenemang uppdateras"
+      },
+      "PAGE": {
+        "label": "Sidor",
+        "tooltip": "När en ny sida skapas eller existerande sidor uppdateras"
+      }
+    },
     "pages": {
       "status": {
-        "closed": "Stängd",
-        "hidden": "Dold",
-        "public": "Offentlig"
+        "drafted": "Utkast",
+        "deleted": "Borttagen",
+        "published": "Publicerad"
       }
     },
     "payment": {
@@ -192,6 +223,9 @@
       "anonymous": "Anonym",
       "organizer": "Evenemangsarrangör",
       "user": "Medlem"
+    },
+    "spinner": {
+      "loading": "Laddar..."
     },
     "userStatus": {
       "active": "Aktiv",
@@ -331,9 +365,12 @@
         "placeholder": "Lägg till deltagare",
         "tooltip": "Medlemmar som deltar i evenemanget"
       },
-      "published": {
-        "label": "Gör evenemanget offentligt",
-        "tooltip": "Evenemang som inte är offentliga syns inte för medlemmar"
+      "status": {
+        "label": "Dykeventstatus",
+        "tooltip": "Utkast status visas inte ännu för medlemmar. Publicerad status är synlig för alla medlemmar, likaså hållits som är för händelser i det förflutna. Avbokat status visas inte för medlemmar.",
+        "rules": {
+          "required": "Status är ett obligatoriskt fält"
+        }
       },
       "startTime": {
         "label": "Starttid",
@@ -450,7 +487,7 @@
         "rules": {
           "required": "Status är ett obligatoriskt fält"
         },
-        "tooltip": "Sidans status. Dold används när sidan fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
+        "tooltip": "Sidans status. Utkast används när sidan fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
       }
     },
     "onFinish": {
@@ -463,13 +500,34 @@
         "ok": "Sida uppdaterad"
       }
     },
-    "title": "Uppdatera sida"
+    "title": {
+      "new": "Ny sida",
+      "update": "Uppdatera sidan"
+    }
   },
   "EditPageGroup": {
     "form": {
       "button": {
         "create": "Skapa ny sidgrupp",
         "update": "Uppdatera grupp"
+      },
+      "divider": {
+        "languages": "Språkversioner"
+      },
+      "pageGroupVersions": {
+        "label": "Rubrik",
+        "rules": {
+          "min": "Rubriken måste vara minst 2 tecken lång",
+          "required": "Rubrik är ett obligatoriskt fält"
+        },
+        "tooltip": "Sidgruppens rubrik, minst 2 tecken lång"
+      },
+      "status": {
+        "label": "Sidgruppens status",
+        "rules": {
+          "required": "Status är ett obligatoriskt fält"
+        },
+        "tooltip": "Sidgruppens status. Utkast används när sidgruppen fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
       }
     },
     "onFinish": {
@@ -483,20 +541,8 @@
       }
     }
   },
-  "EditPageGroups": {
-    "form": {
-      "divider": {
-        "languages": "Språkversioner"
-      },
-      "pageGroupVersions": {
-        "label": "Rubrik",
-        "rules": {
-          "min": "Rubriken måste vara minst 2 tecken lång",
-          "required": "Rubrik är ett obligatoriskt fält"
-        },
-        "tooltip": "Sidgruppens rubrik, minst 2 tecken lång"
-      }
-    }
+  "EmailSubscriptionCard":{
+    "header": "Mottag e-postmeddelanden då:"
   },
   "Event": {
     "subscribe": {
@@ -635,6 +681,7 @@
     },
     "administration": {
       "audits": "Revisionshistorik",
+      "blocked-dates": "Datumsblockering",
       "download": "Laddan ner",
       "members": "Medlemmar",
       "payments": "Betalningar",
@@ -704,13 +751,14 @@
     },
     "deletePath": {
       "confirm": {
-        "1": "Vill du ta bort sidgrupp ",
-        "2": "OBS! Borttagning av sidgrupp tar bort alla tillhörande sidor och deras språkversioner."
+        "1": "Vill du stänga sidgrupp ",
+        "2": "OBS! Stängning av sidgrupp stänger även alla tillhörande sidor och deras språkversioner."
       }
     },
     "table": {
       "languageVersions": "Språkversioner",
       "pageCount": "Antal sidor",
+      "status": "Status",
       "title": "Sidgruppsnamn"
     },
     "title": "Sidgrupper",
@@ -719,13 +767,14 @@
     }
   },
   "Pages": {
+    "title": "Sidgruppshantering",
     "alert": {
       "noPages": "Inga sidor i sidgruppen"
     },
     "button": {
       "addPage": "Lägg till sida"
     },
-    "deletePage": {
+    "closePage": {
       "confirm": "Vill du ta bort sidan "
     },
     "table": {
@@ -733,6 +782,7 @@
       "languageVersions": "Språkversioner",
       "modifiedAt": "Senast uppdaterad",
       "rolePermissions": "Befattningar",
+      "status": "Status",
       "title": "Sida"
     },
     "updateStatus": {
@@ -944,10 +994,16 @@
     }
   },
   "UserEvents": {
-    "futurePanel": {
+    "profile-certificates-panel": {
+      "header": "Dykcertifikat"
+    },
+    "email-subscription-panel": {
+      "header": "E-postprenumerationer"
+    },
+    "future-panel": {
       "header": "Kommande evenemang"
     },
-    "pastPanel": {
+    "past-panel": {
       "header": "Tidigare evenemang"
     }
   },
