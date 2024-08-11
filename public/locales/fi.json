@@ -151,6 +151,17 @@
     },
     "title": "Audit tapahtumat"
   },
+  "BlockedDates": {
+    "title": "Päivämäärän estäminen",
+    "list": {
+      "confirm": "Oletko varma että haluat poistaa estetty päivämäärä?"
+    },
+    "form": {
+      "date": {
+        "rule": "Päivämäärä on vaadittu kenttä"
+      }
+    }
+  },
   "Certificates": {
     "deleteCertificate": {
       "confirm": "Haluatko varmasti poistaa luokituksen \""
@@ -163,6 +174,7 @@
   },
   "common": {
     "button": {
+      "add": "Lisää",
       "back": "Takaisin",
       "close": "Sulje",
       "delete": "Poista",
@@ -669,6 +681,7 @@
     },
     "administration": {
       "audits": "Auditointi",
+      "blocked-dates": "Päivämäärän estäminen",
       "download": "Lataa",
       "members": "Jäsenet",
       "payments": "Maksut",

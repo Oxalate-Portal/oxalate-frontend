@@ -1,5 +1,6 @@
 export {auditAPI} from './AuditAPI';
 export {authAPI} from './AuthAPI';
+export {blockedDatesAPI} from './BlockedDatesAPI';
 export {diveEventAPI} from './DiveEventAPI';
 export {downloadAPI} from './DownloadAPI';
 export {pageAPI} from './PageAPI';

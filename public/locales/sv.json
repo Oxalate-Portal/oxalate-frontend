@@ -30,7 +30,6 @@
       "paymentDate": "Betalningsdatum"
     }
   },
-
   "AdminOrgUser": {
     "form": {
       "button": {
@@ -152,6 +151,17 @@
     },
     "title": "Revisionshändelser"
   },
+  "BlockedDates": {
+    "title": "Datumsblockering",
+    "list": {
+      "confirm": "Är du säker på att du vill ta bort blockeringen för datumet?"
+    },
+    "form": {
+      "date": {
+        "rule": "Datumet är ett obligatoriskt fält"
+      }
+    }
+  },
   "Certificates": {
     "deleteCertificate": {
       "confirm": "Är du säker på att du vill ta bort certifikatet \""
@@ -164,6 +174,7 @@
   },
   "common": {
     "button": {
+      "add": "Lägg till",
       "back": "Tillbaka",
       "close": "Stäng",
       "delete": "Ta bort",
@@ -670,6 +681,7 @@
     },
     "administration": {
       "audits": "Revisionshistorik",
+      "blocked-dates": "Datumsblockering",
       "download": "Laddan ner",
       "members": "Medlemmar",
       "payments": "Betalningar",
