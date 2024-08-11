@@ -1,10 +1,10 @@
-import {Navigate} from "react-router-dom";
-import {useSession} from "./SessionProvider";
-import {RoleRouteProps} from "../models/props";
-import {RoleEnum} from "../models";
+import { Navigate } from "react-router-dom";
+import { useSession } from "./SessionProvider";
+import { RoleRouteProps } from "../models/props";
+import { RoleEnum } from "../models";
 
-export function AdminRoute({ children }: RoleRouteProps) {
-    const {userSession} = useSession()
+export function AdminRoute({children}: RoleRouteProps) {
+    const {userSession} = useSession();
 
     if (!userSession) {
         // not logged in so redirect to login page with the return url

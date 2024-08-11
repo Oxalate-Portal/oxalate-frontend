@@ -1,5 +1,5 @@
 export enum DiveEventStatusEnum {
-    DRAFTED= 'DRAFTED',
+    DRAFTED = 'DRAFTED',
     PUBLISHED = 'PUBLISHED',
     HELD = 'HELD',
     CANCELLED = 'CANCELLED'

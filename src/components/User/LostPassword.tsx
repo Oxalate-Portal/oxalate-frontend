@@ -19,16 +19,16 @@ export function LostPassword() {
         if (userSession && userSession.accessToken.length > 0) {
             navigate("/");
         }
-    })
+    });
 
     function requestEmailLink(credentials: { email: string; }) {
         setLoading(true);
         authAPI.recoverLostPassword(credentials)
                 .then((response) => {
-                    if (response.message === 'OK') {
-                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t('LostPassword.setStatus.update.ok')});
+                    if (response.message === "OK") {
+                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t("LostPassword.setStatus.update.ok")});
                     } else {
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('LostPassword.setStatus.update.fail')});
+                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("LostPassword.setStatus.update.fail")});
                     }
 
                     setLoading(false);
@@ -41,32 +41,32 @@ export function LostPassword() {
     }
 
     if (updateStatus.status === "OK") {
-        return (<div className={'darkDiv'}>
+        return (<div className={"darkDiv"}>
             <Alert
-                    type={'success'}
+                    type={"success"}
                     showIcon={true}
-                    message={t('LostPassword.updateStatus.ok.text')}
-                    action={<Button type={'default'} onClick={() => navigate('/login')}>{t('LostPassword.updateStatus.ok.button')}</Button>}
+                    message={t("LostPassword.updateStatus.ok.text")}
+                    action={<Button type={"default"} onClick={() => navigate("/login")}>{t("LostPassword.updateStatus.ok.button")}</Button>}
             />
 
-        </div>)
+        </div>);
     } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
-        return (<div className={'darkDiv'}>
+        return (<div className={"darkDiv"}>
             <Alert
-                    type={'error'}
+                    type={"error"}
                     showIcon={true}
-                    message={t('LostPassword.updateStatus.fail.text')}
-                    action={<Button type={'default'} onClick={() => navigate('/auth/reconfirm')}>{t('LostPassword.updateStatus.fail.button')}</Button>}
+                    message={t("LostPassword.updateStatus.fail.text")}
+                    action={<Button type={"default"} onClick={() => navigate("/auth/reconfirm")}>{t("LostPassword.updateStatus.fail.button")}</Button>}
             />
-        </div>)
+        </div>);
     }
 
     return (
-            <div className={'darkDiv'}>
-                <Row justify={'center'} align={'middle'}>
-                    <p>{t('LostPassword.text.top')}</p>
+            <div className={"darkDiv"}>
+                <Row justify={"center"} align={"middle"}>
+                    <p>{t("LostPassword.text.top")}</p>
                 </Row>
-                <Row justify={'center'} align={'middle'} style={{minHeight: '15vh'}}>
+                <Row justify={"center"} align={"middle"} style={{minHeight: "15vh"}}>
                     <Form
                             name="lostPasswordForm"
                             labelCol={{span: 12}}
@@ -76,33 +76,33 @@ export function LostPassword() {
                             onFinish={requestEmailLink}
                             autoComplete="off"
                     >
-                        <Form.Item name={'email'}
-                                   label={t('LostPassword.form.email.label')}
+                        <Form.Item name={"email"}
+                                   label={t("LostPassword.form.email.label")}
                                    rules={[
                                        {
                                            required: true,
-                                           message: t('LostPassword.form.email.rules.required')
+                                           message: t("LostPassword.form.email.rules.required")
                                        },
                                        {
-                                           type: 'email',
-                                           message: t('LostPassword.form.email.rules.email')
+                                           type: "email",
+                                           message: t("LostPassword.form.email.rules.email")
                                        }
                                    ]}>
-                            <Input type="text" placeholder={t('LostPassword.form.email.placeholder')}/>
+                            <Input type="text" placeholder={t("LostPassword.form.email.placeholder")}/>
                         </Form.Item>
                         <Form.Item wrapperCol={{offset: 8, span: 16,}}>
                             <Button
-                                    type={'primary'}
-                                    htmlType={'submit'}
+                                    type={"primary"}
+                                    htmlType={"submit"}
                                     disabled={loading}
                             >
-                                {t('LostPassword.form.submitButton')}
+                                {t("LostPassword.form.submitButton")}
                             </Button>
                         </Form.Item>
                     </Form>
                 </Row>
-                <Row justify={'center'} align={'middle'}>
-                    <p>{t('LostPassword.text.bottom')}</p>
+                <Row justify={"center"} align={"middle"}>
+                    <p>{t("LostPassword.text.bottom")}</p>
                 </Row>
             </div>);
 }

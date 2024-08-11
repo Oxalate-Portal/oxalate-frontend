@@ -52,7 +52,8 @@ export function YearlyDiveStats() {
                                              key={"table" + yearlyData.year}
                                              rowKey={"id" + yearlyData.year}/>
                         }));
-                        setCollapseItems(items);                    })
+                        setCollapseItems(items);
+                    })
                     .catch((error) => {
                         console.error(error);
                     })
@@ -69,7 +70,7 @@ export function YearlyDiveStats() {
                 <h5>{t("StatsYearlyDives.title")}</h5>
 
                 <Spin spinning={loading}>
-                    {!loading && yearlyDiveData.length > 0 && <Collapse items={collapseItems} />}
+                    {!loading && yearlyDiveData.length > 0 && <Collapse items={collapseItems}/>}
                 </Spin>
             </div>
     );

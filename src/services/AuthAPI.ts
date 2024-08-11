@@ -73,6 +73,7 @@ class AuthAPI {
         if (session && session.accessToken) {
             this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + session.accessToken;
         }
-    }}
+    }
+}
 
 export const authAPI = new AuthAPI('/auth');

@@ -1,4 +1,3 @@
-
 // Copied from https://bobbyhadz.com/blog/javascript-format-date-yyyy-mm-dd-hh-mm-ss
 
 import {RoleEnum, SessionVO} from "../models";
@@ -52,7 +51,7 @@ function formatDateTimeWithMs(date: Date | string) {
  * @param needles List of roles that we're looking for
  * @returns {boolean} Whether or not the user is of the given role(s).
  */
-function checkRoles(haystack: RoleEnum[]|null, needles: RoleEnum[]): boolean {
+function checkRoles(haystack: RoleEnum[] | null, needles: RoleEnum[]): boolean {
     if (haystack === null) {
         return false;
     }

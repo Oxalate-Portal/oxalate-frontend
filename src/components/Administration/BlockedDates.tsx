@@ -67,12 +67,12 @@ function BlockedDates() {
     }
 
     function pastDates(current: dayjs.Dayjs): boolean {
-        return current && current < dayjs().startOf('day');
+        return current && current < dayjs().startOf("day");
     }
 
     return (
             <div className="darkDiv">
-                <h4>{t('BlockedDates.title')}</h4>
+                <h4>{t("BlockedDates.title")}</h4>
 
                 <Spin spinning={loading}>
                     <List
@@ -82,13 +82,13 @@ function BlockedDates() {
                                     <List.Item key={item.id}>
                                         {dayjs(item.blockedDate).format("YYYY-MM-DD")}
                                         <Popconfirm
-                                                title={t('BlockedDates.list.confirm')}
+                                                title={t("BlockedDates.list.confirm")}
                                                 onConfirm={() => handleRemoveBlockedDate(item.id)}
                                                 okText="Yes"
                                                 cancelText="No"
                                         >
                                             <Button type="link" danger>
-                                                {t('common.button.delete')}
+                                                {t("common.button.delete")}
                                             </Button>
                                         </Popconfirm>
                                     </List.Item>
@@ -107,7 +107,7 @@ function BlockedDates() {
                         </Item>
                         <Item>
                             <Button type="primary" htmlType="submit">
-                                {t('common.button.add')}
+                                {t("common.button.add")}
                             </Button>
                         </Item>
                     </Form>

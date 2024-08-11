@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { SessionVO } from "../models";
 
 interface AuthVerifyProps {
-    logOut: () => void
+    logOut: () => void;
 }
 
 export function AuthVerify({logOut}: AuthVerifyProps) {

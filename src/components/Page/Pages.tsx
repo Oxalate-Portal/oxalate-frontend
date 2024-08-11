@@ -71,7 +71,7 @@ export function Pages() {
             dataIndex: "status",
             key: "status",
             render: (_text: string, record: PageResponse) => {
-                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>)
+                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>);
             },
         },
         {

@@ -72,7 +72,7 @@ export function DiveEvent() {
 
         // If the event has passed, we don't want to show the subscribe button
         if (diveEvent) {
-            if (dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, 'hour'))) {
+            if (dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour"))) {
                 setCanSubscribe(false);
                 setSubscribing(false);
                 return;
@@ -104,33 +104,33 @@ export function DiveEvent() {
                 .catch(error => {
                     console.error("Error:", error);
 
-                })
+                });
     }
 
     return (
-            <div className={'darkDiv'}>
+            <div className={"darkDiv"}>
                 <Spin spinning={loading}>
-                {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
-                {!subscribing && canSubscribe &&
-                        <div className="row pt-5">
-                            <div>
-                                <button
-                                        className="btn btn-primary"
-                                        onClick={() => subscribeEvent(diveEventId)}
-                                        key={diveEventId + '-sub-button'}>{t('Event.subscribe.button')}</button>
+                    {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
+                    {!subscribing && canSubscribe &&
+                            <div className="row pt-5">
+                                <div>
+                                    <button
+                                            className="btn btn-primary"
+                                            onClick={() => subscribeEvent(diveEventId)}
+                                            key={diveEventId + "-sub-button"}>{t("Event.subscribe.button")}</button>
+                                </div>
                             </div>
-                        </div>
-                }
-                {subscribing &&
-                        <div className="row pt-5">
-                            <div>
-                                <button
-                                        className="btn btn-danger"
-                                        onClick={() => unSubscribeEvent(diveEventId)}
-                                        key={diveEventId + 'unsub-button'}>{t('Event.unsubscribe.button')}</button>
+                    }
+                    {subscribing &&
+                            <div className="row pt-5">
+                                <div>
+                                    <button
+                                            className="btn btn-danger"
+                                            onClick={() => unSubscribeEvent(diveEventId)}
+                                            key={diveEventId + "unsub-button"}>{t("Event.unsubscribe.button")}</button>
+                                </div>
                             </div>
-                        </div>
-                }
+                    }
                 </Spin>
             </div>
     );

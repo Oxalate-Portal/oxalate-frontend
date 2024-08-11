@@ -7,7 +7,7 @@ interface PageBodyEditorProps {
     onChange: (data: string) => void;
 }
 
-export function PageBodyEditor({ value, onChange }: PageBodyEditorProps): JSX.Element {
+export function PageBodyEditor({value, onChange}: PageBodyEditorProps): JSX.Element {
     function contentUpdated(event: any, editor: any) {
         const data = editor.getData();
         onChange(data);
