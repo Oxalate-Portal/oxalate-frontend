@@ -14,8 +14,8 @@ export function UserEventList({eventType, events}: UserEventListProps) {
                                 // We can not yet use the generic EventDetails component here, because the event object does not contain list of
                                 // participants or detailed organizer
                                 return (
-                                        <li key={eventType + '-' + event.id}>
-                                            <Link to={`/events/${event.id}/show`}>{new Date(event.startTime).toISOString().split('T')[0]}: {event.title}</Link>
+                                        <li key={eventType + "-" + event.id}>
+                                            <Link to={`/events/${event.id}/show`}>{new Date(event.startTime).toISOString().split("T")[0]}: {event.title}</Link>
                                         </li>);
                             }
                     )}

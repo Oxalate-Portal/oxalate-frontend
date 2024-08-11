@@ -61,7 +61,7 @@ export function PageGroups() {
             dataIndex: "status",
             key: "status",
             render: (_text: string, record: PageGroupResponse) => {
-                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>)
+                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>);
             },
         },
         {
@@ -107,7 +107,7 @@ export function PageGroups() {
                     .finally(() => {
                         setLoading(false);
                     });
-        }
+        };
 
         fetchData().catch(console.error);
     }, []);
@@ -131,17 +131,17 @@ export function PageGroups() {
     }
 
     return (
-            <div className={'darkDiv'}>
-                <h4>{t('PageGroups.title')}</h4>
+            <div className={"darkDiv"}>
+                <h4>{t("PageGroups.title")}</h4>
 
                 <Spin spinning={loading}>
                     {pageGroups && pageGroups.length > 0 &&
                             <Table dataSource={pageGroups} columns={columns} pagination={false} rowKey="id"/>}
                 </Spin>
-                <Space direction={'horizontal'} size={12} style={{width: '100%', justifyContent: 'right', margin: 12}}>
+                <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "right", margin: 12}}>
                     {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
-                            <Link to={'/administration/page-groups/0'}><Button
-                                    type={'primary'}>{t('PageGroups.button.addGroup')}</Button></Link>}
+                            <Link to={"/administration/page-groups/0"}><Button
+                                    type={"primary"}>{t("PageGroups.button.addGroup")}</Button></Link>}
                 </Space>
             </div>
     );

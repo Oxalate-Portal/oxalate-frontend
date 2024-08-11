@@ -6,57 +6,57 @@ import { DiveEventListResponse } from "../models/responses/DiveEventListResponse
 class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
     public async findByUserId(userId: number): Promise<DiveEventResponse[]> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<DiveEventResponse[]>('/user/' + userId);
+        const response = await this.axiosInstance.get<DiveEventResponse[]>("/user/" + userId);
         return response.data;
     }
 
     public async findAllDiveEventListItems(): Promise<DiveEventListItemResponse[]> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<DiveEventListItemResponse[]>('/');
+        const response = await this.axiosInstance.get<DiveEventListItemResponse[]>("/");
         return response.data;
     }
 
     public async findAllDiveEventListItemsByUser(userId: number): Promise<DiveEventListItemResponse[]> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<DiveEventListItemResponse[]>('/user/' + userId);
+        const response = await this.axiosInstance.get<DiveEventListItemResponse[]>("/user/" + userId);
         return response.data;
     }
 
     public async findAllOngoingDiveEvents(): Promise<DiveEventResponse[]> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<DiveEventResponse[]>('/ongoing');
+        const response = await this.axiosInstance.get<DiveEventResponse[]>("/ongoing");
         return response.data;
     }
 
     public async findAllPastDiveEvents(): Promise<DiveEventResponse[]> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<DiveEventResponse[]>('/past');
+        const response = await this.axiosInstance.get<DiveEventResponse[]>("/past");
         return response.data;
     }
 
     public async subscribeUserToEvent(diveEventId: number): Promise<DiveEventResponse> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.put<DiveEventResponse>('/' + diveEventId + '/subscribe');
+        const response = await this.axiosInstance.put<DiveEventResponse>("/" + diveEventId + "/subscribe");
         return response.data;
     }
 
     public async unsubscribeUserToEvent(diveEventId: number): Promise<DiveEventResponse> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.delete<DiveEventResponse>('/' + diveEventId + '/unsubscribe');
+        const response = await this.axiosInstance.delete<DiveEventResponse>("/" + diveEventId + "/unsubscribe");
         return response.data;
     }
 
     public async getDiveEventDives(diveEventId: number): Promise<DiveEventListResponse> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<DiveEventListResponse>('/' + diveEventId + '/dives');
+        const response = await this.axiosInstance.get<DiveEventListResponse>("/" + diveEventId + "/dives");
         return response.data;
     }
 
     public async updateDiveEventDives(diveEventId: number, diveEventDives: DiveEventListRequest): Promise<DiveEventListResponse> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.put<DiveEventListResponse>('/' + diveEventId + '/dives', diveEventDives);
+        const response = await this.axiosInstance.put<DiveEventListResponse>("/" + diveEventId + "/dives", diveEventDives);
         return response.data;
     }
 }
 
-export const diveEventAPI = new DiveEventAPI('/events');
+export const diveEventAPI = new DiveEventAPI("/events");

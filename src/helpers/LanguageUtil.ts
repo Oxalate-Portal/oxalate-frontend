@@ -1,9 +1,9 @@
 export class LanguageUtil {
     static languages = [
-        { label: "Suomi 🇫🇮", value: "fi" },
-        { label: "English 🇬🇧", value: "en" },
-        { label: "Svenska 🇸🇪", value: "sv" },
-        { label: "Deutsch 🇩🇪", value: "de" },
+        {label: "Suomi 🇫🇮", value: "fi"},
+        {label: "English 🇬🇧", value: "en"},
+        {label: "Svenska 🇸🇪", value: "sv"},
+        {label: "Deutsch 🇩🇪", value: "de"},
     ];
 
     static getLabelByValue(value: string): string | undefined {

@@ -5,9 +5,9 @@ export function DiveEvents() {
     const {t} = useTranslation();
 
     return (
-            <div className={'darkDiv'}>
-                <DiveEventsTable diveEventType={'new'} title={t('Events.search.placeholder')}/>
-                <DiveEventsTable diveEventType={'ongoing'} title={t('Events.ongoing.title')}/>
+            <div className={"darkDiv"}>
+                <DiveEventsTable diveEventType={"new"} title={t("Events.search.placeholder")}/>
+                <DiveEventsTable diveEventType={"ongoing"} title={t("Events.ongoing.title")}/>
             </div>
     );
 }

@@ -8,9 +8,9 @@ import { BiannualEventReportTable } from "./BiannualEventReportTable";
 export function DiveEventReport() {
     const [loading, setLoading] = useState<boolean>(true);
     const [eventReports, setEventReports] = useState<EventPeriodReportResponse[]>([]);
-    const { t } = useTranslation();
+    const {t} = useTranslation();
 
-    const [collapseItems, setCollapseItems] = useState<CollapseProps['items']>([]);
+    const [collapseItems, setCollapseItems] = useState<CollapseProps["items"]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,16 +31,16 @@ export function DiveEventReport() {
                     .finally(() => {
                         setLoading(false);
                     });
-        }
+        };
 
         fetchData().catch(console.error);
     }, []);
 
     return (
             <div>
-                <h4>{t('ReportEvents.title')}</h4>
+                <h4>{t("ReportEvents.title")}</h4>
                 <Spin spinning={loading}>
-                    {eventReports.length > 0 && <Collapse items={collapseItems} />}
+                    {eventReports.length > 0 && <Collapse items={collapseItems}/>}
                 </Spin>
             </div>
     );

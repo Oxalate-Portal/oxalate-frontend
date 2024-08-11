@@ -123,8 +123,8 @@ export function AdminOrgUser() {
 
         userAPI.update(postData)
                 .then((response) => {
-                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AdminOrgUser.updateUser.ok")});
-                        setWorkUser(response);
+                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AdminOrgUser.updateUser.ok")});
+                    setWorkUser(response);
                 })
                 .catch(e => {
                     console.error("Failed to update user, error: " + e.message);

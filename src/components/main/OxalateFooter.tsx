@@ -15,4 +15,4 @@ function OxalateFooter() {
     );
 }
 
-export {OxalateFooter};
+export { OxalateFooter };

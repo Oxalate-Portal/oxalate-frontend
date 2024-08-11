@@ -22,16 +22,16 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
     }
 
     return (
-                <Card key={certificate.id}
-                      title={t("ShowCertificateCard.card.title") + certificate.certificateName}
-                      style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 600}}
-                      extra={showExtras()}
-                >
-                        <p key={"cert-detail-1"}>{t("ShowCertificateCard.card.organization")}: {certificate.organization}</p>
-                        <p key={"cert-detail-2"}>{t("ShowCertificateCard.card.certification")}: {certificate.certificateName}</p>
-                        <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificateId}</p>
-                        <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diverId}</p>
-                        <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certificationDate.toString()}</p>
-                </Card>
+            <Card key={certificate.id}
+                  title={t("ShowCertificateCard.card.title") + certificate.certificateName}
+                  style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 600}}
+                  extra={showExtras()}
+            >
+                <p key={"cert-detail-1"}>{t("ShowCertificateCard.card.organization")}: {certificate.organization}</p>
+                <p key={"cert-detail-2"}>{t("ShowCertificateCard.card.certification")}: {certificate.certificateName}</p>
+                <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificateId}</p>
+                <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diverId}</p>
+                <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certificationDate.toString()}</p>
+            </Card>
     );
 }

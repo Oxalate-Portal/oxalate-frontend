@@ -16,11 +16,11 @@ enum DownloadTypeEnum {
 function DownloadData() {
     const {t} = useTranslation();
     const downloadSelectOptions = [
-        {label: t('DownloadData.certificateLabel'), value: DownloadTypeEnum.CERTIFICATE},
-        {label: t('DownloadData.diveLabel'), value: DownloadTypeEnum.DIVE},
-        {label: t('DownloadData.diveEventLabel'), value: DownloadTypeEnum.DIVE_EVENT},
-        {label: t('DownloadData.memberLabel'), value: DownloadTypeEnum.MEMBER},
-        {label: t('DownloadData.paymentLabel'), value: DownloadTypeEnum.PAYMENT}
+        {label: t("DownloadData.certificateLabel"), value: DownloadTypeEnum.CERTIFICATE},
+        {label: t("DownloadData.diveLabel"), value: DownloadTypeEnum.DIVE},
+        {label: t("DownloadData.diveEventLabel"), value: DownloadTypeEnum.DIVE_EVENT},
+        {label: t("DownloadData.memberLabel"), value: DownloadTypeEnum.MEMBER},
+        {label: t("DownloadData.paymentLabel"), value: DownloadTypeEnum.PAYMENT}
     ];
 
     const [loading, setLoading] = useState<boolean>(false);
@@ -69,7 +69,7 @@ function DownloadData() {
                     {label: "Organizer, last name", key: "organizer.lastName"},
                     {label: "Organizer, first name", key: "organizer.firstName"},
                 ]);
-                downloadData(() => diveEventAPI.findAllPastDiveEvents(), "dive-events")
+                downloadData(() => diveEventAPI.findAllPastDiveEvents(), "dive-events");
                 break;
             case DownloadTypeEnum.MEMBER:
                 setCsvHeaders([
@@ -87,7 +87,7 @@ function DownloadData() {
                     {label: "Dive count", key: "diveCount"},
                     {label: "Approved terms", key: "approvedTerms"},
                 ]);
-                downloadData(() => userAPI.findAll(), "members")
+                downloadData(() => userAPI.findAll(), "members");
                 break;
             case DownloadTypeEnum.PAYMENT:
                 setCsvHeaders([
@@ -98,7 +98,7 @@ function DownloadData() {
                     {label: "Payment type", key: "paymentType"},
                     {label: "Created at", key: "createdAt"}
                 ]);
-                downloadData(() => downloadAPI.downloadPayments(), "payments")
+                downloadData(() => downloadAPI.downloadPayments(), "payments");
                 break;
             default:
                 console.error("Unknown download type:", value);
@@ -125,24 +125,24 @@ function DownloadData() {
     }
 
     return (
-            <div className={'darkDiv'}>
+            <div className={"darkDiv"}>
                 <Spin spinning={loading}>
-                    <h4>{t('DownloadData.header')}</h4>
-                    <p>{t('DownloadData.description')}</p>
-                    <p>{t('DownloadData.gdprWarning')}</p>
-                    <p>{t('DownloadData.choose')}</p>
+                    <h4>{t("DownloadData.header")}</h4>
+                    <p>{t("DownloadData.description")}</p>
+                    <p>{t("DownloadData.gdprWarning")}</p>
+                    <p>{t("DownloadData.choose")}</p>
                     <Select options={downloadSelectOptions}
                             style={{width: 300}}
                             onChange={(value) => {
-                                selectToDownload(value)
+                                selectToDownload(value);
                             }}
                     /><br/>
                     {dataLoaded &&
                             <Space direction={"vertical"} size={"middle"}>
                                 <p/>
-                                <p>{t('DownloadData.rowCount', {count: rowCount})}</p>
+                                <p>{t("DownloadData.rowCount", {count: rowCount})}</p>
                                 <Space direction={"horizontal"} size={"middle"}>
-                                    {t('DownloadData.downloadPrompt')}
+                                    {t("DownloadData.downloadPrompt")}
                                     <CSVLink filename={downloadFileName}
                                              data={csvData}
                                              headers={csvHeaders}
@@ -154,4 +154,4 @@ function DownloadData() {
     );
 }
 
-export {DownloadData}
+export { DownloadData };

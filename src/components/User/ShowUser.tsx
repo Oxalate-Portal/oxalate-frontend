@@ -13,7 +13,7 @@ import { ProfileCollapse } from "./ProfileCollapse";
 export function ShowUser() {
     const {paramId} = useParams<string>();
     const [userId, setUserId] = useState<number>(0);
-    const [tableData, setTableData] = useState<{id: number, name: string, value: string|number}[]>([]);
+    const [tableData, setTableData] = useState<{ id: number, name: string, value: string | number }[]>([]);
     const [userData, setUserData] = useState<UserResponse | null>(null);
     const [loading, setLoading] = useState(true);
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
@@ -41,7 +41,7 @@ export function ShowUser() {
                             {id: 3, name: t("UserDetails.table.registered"), value: formatDateTime(response.registered)},
                             {id: 4, name: t("UserDetails.table.diveCount"), value: response.diveCount},
                             {id: 5, name: t("UserDetails.table.nextOfKin"), value: response.nextOfKin},
-                        ])
+                        ]);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -81,11 +81,11 @@ export function ShowUser() {
     ];
 
     return (
-            <div className={'darkDiv'}>
+            <div className={"darkDiv"}>
                 <Spin spinning={loading}>
                     {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
-                    {userData &&  t("UserDetails.table.payments")}
-                    {userData &&  <FormatPayments userData={userData}/>}
+                    {userData && t("UserDetails.table.payments")}
+                    {userData && <FormatPayments userData={userData}/>}
                     {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
                     {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
                 </Spin>

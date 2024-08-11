@@ -10,7 +10,7 @@ import { LinkOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 
 interface DiveEventDetailsProps {
-    eventInfo: DiveEventResponse | null
+    eventInfo: DiveEventResponse | null;
 }
 
 export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
@@ -20,22 +20,22 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
     const columns: ColumnsType<DiveEventResponse> = [
         {
-            title: '#',
-            dataIndex: 'id',
-            key: 'id'
+            title: "#",
+            dataIndex: "id",
+            key: "id"
         },
         {
-            title: t('EventDetails.table.startTime'),
-            dataIndex: 'startTime',
-            key: 'startTime',
+            title: t("EventDetails.table.startTime"),
+            dataIndex: "startTime",
+            key: "startTime",
             render: (text: string, record: DiveEventResponse) => {
                 return (<>{formatDateTime(new Date(record.startTime))}</>);
             }
         },
         {
-            title: t('EventDetails.table.participants'),
-            dataIndex: 'participants',
-            key: 'participants',
+            title: t("EventDetails.table.participants"),
+            dataIndex: "participants",
+            key: "participants",
             render: (text: string, record: DiveEventResponse) => {
                 if (record.participants) {
                     return (<>{record.participants.length} / {record.maxParticipants}</>);
@@ -43,38 +43,38 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             }
         },
         {
-            title: t('EventDetails.table.maxDuration'),
-            dataIndex: 'maxDuration',
-            key: 'maxDuration',
+            title: t("EventDetails.table.maxDuration"),
+            dataIndex: "maxDuration",
+            key: "maxDuration",
         },
         {
-            title: t('EventDetails.table.maxDepth'),
-            dataIndex: 'maxDepth',
-            key: 'maxDepth',
+            title: t("EventDetails.table.maxDepth"),
+            dataIndex: "maxDepth",
+            key: "maxDepth",
         },
         {
-            title: t('EventDetails.table.type'),
-            dataIndex: 'type',
-            key: 'type',
+            title: t("EventDetails.table.type"),
+            dataIndex: "type",
+            key: "type",
         },
         {
-            title: t('EventDetails.table.organizer'),
-            dataIndex: 'organizer',
-            key: 'organizer',
+            title: t("EventDetails.table.organizer"),
+            dataIndex: "organizer",
+            key: "organizer",
             render: (text: string, record: DiveEventResponse) => {
                 if (record.organizer === null) {
                     return (<></>);
                 }
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={'/users/' + record.organizer.id + '/show'}>{record.organizer.lastName} {record.organizer.firstName}</Link>);
+                    return (<Link to={"/users/" + record.organizer.id + "/show"}>{record.organizer.lastName} {record.organizer.firstName}</Link>);
                 }
                 return (<>{record.organizer.lastName} {record.organizer.firstName}</>);
             }
         },
         {
-            title: t('EventDetails.table.phoneNumber'),
-            dataIndex: 'phoneNumber',
-            key: 'phoneNumber',
+            title: t("EventDetails.table.phoneNumber"),
+            dataIndex: "phoneNumber",
+            key: "phoneNumber",
             render: (text: string, record: DiveEventResponse) => {
                 if (record.organizer === null) {
                     return (<></>);
@@ -87,42 +87,42 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
     let participantColumns: ColumnsType<DiveEventUserResponse> = [
         {
-            title: '#',
-            dataIndex: 'id',
-            key: 'id',
+            title: "#",
+            dataIndex: "id",
+            key: "id",
             render: (text: string, record: DiveEventUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={'/users/' + record.id + '/show'}>{record.id}</Link>);
+                    return (<Link to={"/users/" + record.id + "/show"}>{record.id}</Link>);
                 }
 
                 return (<>{record.id}</>);
             }
         },
         {
-            title: t('EventDetails.participantTable.name'),
-            dataIndex: 'name',
-            key: 'name',
+            title: t("EventDetails.participantTable.name"),
+            dataIndex: "name",
+            key: "name",
             render: (text: string, record: DiveEventUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={'/users/' + record.id + '/show'}>{record.name}</Link>);
+                    return (<Link to={"/users/" + record.id + "/show"}>{record.name}</Link>);
                 }
 
                 return (<>{record.name}</>);
             }
         },
         {
-            title: t('EventDetails.participantTable.eventDiveCount'),
-            dataIndex: 'eventDiveCount',
-            key: 'eventDiveCount'
+            title: t("EventDetails.participantTable.eventDiveCount"),
+            dataIndex: "eventDiveCount",
+            key: "eventDiveCount"
         }
     ];
 
     if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
         participantColumns = [...participantColumns,
             {
-                title: t('EventDetails.participantTable.payments'),
-                dataIndex: 'payments',
-                key: 'payments',
+                title: t("EventDetails.participantTable.payments"),
+                dataIndex: "payments",
+                key: "payments",
                 render: (_, {payments}) => (
                         <>
                             {payments.map((payment) => {
@@ -131,16 +131,16 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
                                 switch (payment.paymentType) {
                                     case PaymentTypeEnum.PERIOD:
-                                        color = 'green';
-                                        labelText = t('EventDetails.participantTable.paymentType.period');
+                                        color = "green";
+                                        labelText = t("EventDetails.participantTable.paymentType.period");
                                         break;
                                     case PaymentTypeEnum.ONE_TIME:
-                                        color = 'blue';
-                                        labelText = t('EventDetails.participantTable.paymentType.oneTime');
+                                        color = "blue";
+                                        labelText = t("EventDetails.participantTable.paymentType.oneTime");
                                         break;
                                     default:
-                                        color = 'red';
-                                        labelText = t('EventDetails.participantTable.paymentType.unknown');
+                                        color = "red";
+                                        labelText = t("EventDetails.participantTable.paymentType.unknown");
                                 }
 
                                 return (
@@ -163,30 +163,30 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
     return (<Spin spinning={loading}>
                 {eventInfo &&
-                        <Space direction={'vertical'} size={12}>
-                            <h5 key={'eventmain-' + eventInfo.id}>{t('EventDetails.title')}: {eventInfo.title}
-                                <Link to={'/events/' + eventInfo.id + '/show'} key={'link-' + eventInfo.id}>
-                                    <Tooltip title={t('EventDetails.link.tooltip')} key={'tooltip-' + eventInfo.id}>
-                                        <LinkOutlined key={'linkout' + eventInfo.id}/>
+                        <Space direction={"vertical"} size={12}>
+                            <h5 key={"eventmain-" + eventInfo.id}>{t("EventDetails.title")}: {eventInfo.title}
+                                <Link to={"/events/" + eventInfo.id + "/show"} key={"link-" + eventInfo.id}>
+                                    <Tooltip title={t("EventDetails.link.tooltip")} key={"tooltip-" + eventInfo.id}>
+                                        <LinkOutlined key={"linkout" + eventInfo.id}/>
                                     </Tooltip>
                                 </Link>
                             </h5>
 
-                            <p key={'eventdesc-' + eventInfo.id}>{t('EventDetails.description.title')}: {eventInfo.description}</p>
+                            <p key={"eventdesc-" + eventInfo.id}>{t("EventDetails.description.title")}: {eventInfo.description}</p>
 
                             <Table columns={columns}
                                    dataSource={[eventInfo]}
                                    pagination={false}
-                                   key={'dive-' + eventInfo.id}
-                                   rowKey={(record) => 'table-row-' + eventInfo.id + '-' + record.id}
+                                   key={"dive-" + eventInfo.id}
+                                   rowKey={(record) => "table-row-" + eventInfo.id + "-" + record.id}
                             />
 
-                            <h5 key={'eventpart-' + eventInfo.id}>{t('EventDetails.participants.title')}: ({eventInfo.participants.length}):</h5>
+                            <h5 key={"eventpart-" + eventInfo.id}>{t("EventDetails.participants.title")}: ({eventInfo.participants.length}):</h5>
 
                             <Table columns={participantColumns}
                                    dataSource={eventInfo.participants}
                                    pagination={false}
-                                   key={'parts' + eventInfo.id}
+                                   key={"parts" + eventInfo.id}
                             />
                         </Space>}
             </Spin>

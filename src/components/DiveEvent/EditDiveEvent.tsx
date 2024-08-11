@@ -26,20 +26,20 @@ export function EditDiveEvent() {
     const [organizerOptions, setOrganizerOptions] = useState<OptionItemVO[]>([]);
     const [participantOptions, setParticipantOptions] = useState<OptionItemVO[]>([]);
 
-    const [submitButtonText, setSubmitButtonText] = useState(t('EditEvent.form.submitButton.update'));
+    const [submitButtonText, setSubmitButtonText] = useState(t("EditEvent.form.submitButton.update"));
 
-    const eventDurationMarks = {1: '1h', 6: '6h', 12: '12h', 24: '24h'};
-    const maxDurationMarks = {30: '30 min', 60: '60 min', 120: '120 min', 180: '180 min', 240: '240 min'};
-    const maxDepthMarks = {10: '10m', 30: '30m', 60: '60m', 90: '90m', 120: '120m', 180: '180m'};
-    const maxParticipantsMarks = {4: '4', 8: '8', 12: '12', 16: '16', 20: '20', 24: '24', 30: '30'};
+    const eventDurationMarks = {1: "1h", 6: "6h", 12: "12h", 24: "24h"};
+    const maxDurationMarks = {30: "30 min", 60: "60 min", 120: "120 min", 180: "180 min", 240: "240 min"};
+    const maxDepthMarks = {10: "10m", 30: "30m", 60: "60m", 90: "90m", 120: "120m", 180: "180m"};
+    const maxParticipantsMarks = {4: "4", 8: "8", 12: "12", 16: "16", 20: "20", 24: "24", 30: "30"};
 
     const eventTypes = [
-        {value: 'DIVE', label: t('EditEvent.eventTypes.dive')},
-        {value: 'Luola', label: t('EditEvent.eventTypes.cave')},
-        {value: 'Luola / Avo', label: t('EditEvent.eventTypes.caveOpen')},
-        {value: 'Avo', label: t('EditEvent.eventTypes.open')},
-        {value: 'Vain pintatoimintaa', label: t('EditEvent.eventTypes.surface')},
-        {value: 'Muu', label: t('EditEvent.eventTypes.other')}
+        {value: "DIVE", label: t("EditEvent.eventTypes.dive")},
+        {value: "Luola", label: t("EditEvent.eventTypes.cave")},
+        {value: "Luola / Avo", label: t("EditEvent.eventTypes.caveOpen")},
+        {value: "Avo", label: t("EditEvent.eventTypes.open")},
+        {value: "Vain pintatoimintaa", label: t("EditEvent.eventTypes.surface")},
+        {value: "Muu", label: t("EditEvent.eventTypes.other")}
     ];
 
     const statusOptions: OptionItemVO[] = [
@@ -135,12 +135,12 @@ export function EditDiveEvent() {
                     .finally(() => {
                         setLoading(false);
                     });
-            setSubmitButtonText(t('EditEvent.form.submitButton.add'));
+            setSubmitButtonText(t("EditEvent.form.submitButton.add"));
         }
     }, [paramId, t]);
 
     function disabledDate(current: Dayjs): boolean {
-        return current && (blockedDates.some(date => dayjs(date).isSame(current, 'day')) || current < dayjs().startOf('day'));
+        return current && (blockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
     }
 
     // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
@@ -149,9 +149,9 @@ export function EditDiveEvent() {
         let nextEvent: dayjs.Dayjs;
 
         if (now.minute() % 30 === 0) {
-            nextEvent = now.add(30, 'minute');
+            nextEvent = now.add(30, "minute");
         } else {
-            nextEvent = now.add(60 - now.minute() % 30, 'minute');
+            nextEvent = now.add(60 - now.minute() % 30, "minute");
         }
 
         return nextEvent;
@@ -159,11 +159,11 @@ export function EditDiveEvent() {
 
     function validateMaxParticipants(_: any, value: number): Promise<void> {
         // Get the selected participant IDs
-        const selectedParticipants = diveEventForm.getFieldValue('participants');
+        const selectedParticipants = diveEventForm.getFieldValue("participants");
 
         // Ensure that the input value is not less than the number of selected participants
         if (value < selectedParticipants.length) {
-            return Promise.reject(t('EditEvent.form.maxDepth.rules.maxParticipants'));
+            return Promise.reject(t("EditEvent.form.maxDepth.rules.maxParticipants"));
         }
 
         return Promise.resolve();
@@ -175,7 +175,7 @@ export function EditDiveEvent() {
         if (submitValues.maxParticipants < submitValues.participants.length) {
             setUpdateStatus({
                 status: UpdateStatusEnum.FAIL,
-                message: t('EditEvent.onFinish.updateStatusFailMaxParticipant')
+                message: t("EditEvent.onFinish.updateStatusFailMaxParticipant")
             });
             setLoading(false);
             return;
@@ -189,12 +189,12 @@ export function EditDiveEvent() {
                         if (response.id === diveEventId) {
                             setUpdateStatus({
                                 status: UpdateStatusEnum.OK,
-                                message: t('EditEvent.onFinish.updateStatusOk')
+                                message: t("EditEvent.onFinish.updateStatusOk")
                             });
                         } else {
                             setUpdateStatus({
                                 status: UpdateStatusEnum.FAIL,
-                                message: t('EditEvent.onFinish.updateStatusFail')
+                                message: t("EditEvent.onFinish.updateStatusFail")
                             });
                         }
                     })
@@ -208,11 +208,11 @@ export function EditDiveEvent() {
                     .then((response) => {
                         // If we get back an non-zero positive ID as we sent, we assume the update was successful
                         if (response && !isNaN(response.id) && response.id > 0) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t('EditEvent.onFinish.addStatusOk')});
+                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("EditEvent.onFinish.addStatusOk")});
                         } else {
                             setUpdateStatus({
                                 status: UpdateStatusEnum.FAIL,
-                                message: t('EditEvent.onFinish.addStatusFail')
+                                message: t("EditEvent.onFinish.addStatusFail")
                             });
                         }
                     })
@@ -230,20 +230,20 @@ export function EditDiveEvent() {
 
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
         return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    } else if (diveEvent && diveEvent.id > 0 && diveEvent.startTime && dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, 'hour'))) {
+    } else if (diveEvent && diveEvent.id > 0 && diveEvent.startTime && dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour"))) {
         return (<div>
-            <Alert type={'error'}
-                   message={t('EditEvent.oldEvent.alertText')}/>
-            <Button onClick={() => navigate(-1)}>{t('common.button.back')}</Button>
+            <Alert type={"error"}
+                   message={t("EditEvent.oldEvent.alertText")}/>
+            <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>
         </div>);
     }
 
     return (
-            <div className={'darkDiv'}>
-                <h4>{t('EditEvent.title')}</h4>
+            <div className={"darkDiv"}>
+                <h4>{t("EditEvent.title")}</h4>
                 {!loading && diveEvent && <Form
                         form={diveEventForm}
-                        name={'event'}
+                        name={"event"}
                         labelCol={{span: 8}}
                         wrapperCol={{span: 12}}
                         style={{maxWidth: 800}}
@@ -260,26 +260,26 @@ export function EditDiveEvent() {
                             maxParticipants: diveEvent.maxParticipants,
                             status: diveEvent.status,
                             participants: diveEvent.participants.map((participant) => {
-                                return participant.id
+                                return participant.id;
                             })
                         }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFail}
-                        autoComplete={'off'}
+                        autoComplete={"off"}
                         scrollToFirstError={true}
-                        validateTrigger={['onBlur', 'onChange']}
+                        validateTrigger={["onBlur", "onChange"]}
                 >
-                    <Form.Item name={'id'} label={'ID'} style={{display: 'none'}}>
-                        <Input type={'text'}/>
+                    <Form.Item name={"id"} label={"ID"} style={{display: "none"}}>
+                        <Input type={"text"}/>
                     </Form.Item>
-                    <Form.Item name={'organizerId'}
+                    <Form.Item name={"organizerId"}
                                required={true}
-                               label={t('EditEvent.form.organizerId.label')}
-                               tooltip={t('EditEvent.form.organizerId.tooltip')}
+                               label={t("EditEvent.form.organizerId.label")}
+                               tooltip={t("EditEvent.form.organizerId.tooltip")}
                                rules={[
                                    {
                                        required: true,
-                                       message: t('EditEvent.form.organizerId.rules.required')
+                                       message: t("EditEvent.form.organizerId.rules.required")
                                    }
                                ]}>
                         <Select options={organizerOptions}
@@ -287,62 +287,62 @@ export function EditDiveEvent() {
                                 allowClear={true}
                         />
                     </Form.Item>
-                    <Form.Item name={'title'}
+                    <Form.Item name={"title"}
                                required={true}
-                               label={t('EditEvent.form.title.label')}
-                               tooltip={t('EditEvent.form.title.tooltip')}
+                               label={t("EditEvent.form.title.label")}
+                               tooltip={t("EditEvent.form.title.tooltip")}
                                rules={[
                                    {
                                        required: true,
-                                       message: t('EditEvent.form.title.rules.required')
+                                       message: t("EditEvent.form.title.rules.required")
                                    },
                                    {
                                        min: 4,
-                                       message: t('EditEvent.form.title.rules.min')
+                                       message: t("EditEvent.form.title.rules.min")
                                    }
                                ]}>
-                        <Input placeholder={t('EditEvent.form.title.placeholder')}/>
+                        <Input placeholder={t("EditEvent.form.title.placeholder")}/>
                     </Form.Item>
-                    <Form.Item name={'description'}
+                    <Form.Item name={"description"}
                                required={true}
-                               label={t('EditEvent.form.description.label')}
-                               tooltip={t('EditEvent.form.description.tooltip')}
+                               label={t("EditEvent.form.description.label")}
+                               tooltip={t("EditEvent.form.description.tooltip")}
                                rules={[
                                    {
                                        required: true,
-                                       message: t('EditEvent.form.description.rules.required')
+                                       message: t("EditEvent.form.description.rules.required")
                                    },
                                    {
                                        min: 20,
-                                       message: t('EditEvent.form.description.rules.min')
+                                       message: t("EditEvent.form.description.rules.min")
                                    },
                                    {
                                        max: 15000,
-                                       message: t('EditEvent.form.description.rules.max')
+                                       message: t("EditEvent.form.description.rules.max")
                                    }
                                ]}>
-                        <TextArea placeholder={t('EditEvent.form.description.placeholder')} rows={6}/>
+                        <TextArea placeholder={t("EditEvent.form.description.placeholder")} rows={6}/>
                     </Form.Item>
-                    <Form.Item name={'type'}
+                    <Form.Item name={"type"}
                                required={true}
-                               label={t('EditEvent.form.type.label')}
-                               tooltip={t('EditEvent.form.type.tooltip')}
+                               label={t("EditEvent.form.type.label")}
+                               tooltip={t("EditEvent.form.type.tooltip")}
                                rules={[
                                    {
                                        required: true,
-                                       message: t('EditEvent.form.type.rules.required')
+                                       message: t("EditEvent.form.type.rules.required")
                                    }
                                ]}>
                         <Select options={eventTypes}/>
                     </Form.Item>
-                    <Form.Item name={'startTime'}
+                    <Form.Item name={"startTime"}
                                required={true}
-                               label={t('EditEvent.form.startTime.label')}
-                               tooltip={t('EditEvent.form.startTime.tooltip')}
+                               label={t("EditEvent.form.startTime.label")}
+                               tooltip={t("EditEvent.form.startTime.tooltip")}
                                rules={[
                                    {
                                        required: true,
-                                       message: t('EditEvent.form.startTime.rules.required')
+                                       message: t("EditEvent.form.startTime.rules.required")
                                    },
                                    () => ({
                                        validator(_, value) {
@@ -351,40 +351,40 @@ export function EditDiveEvent() {
                                                return Promise.resolve();
                                            }
 
-                                           return Promise.reject(new Error(t('EditEvent.form.startTime.rules.validator')));
+                                           return Promise.reject(new Error(t("EditEvent.form.startTime.rules.validator")));
                                        },
                                    })
                                ]}
                     >
                         <DatePicker
                                 disabledDate={disabledDate}
-                                showTime={{format: 'HH:mm', defaultValue: dayjs()}}
+                                showTime={{format: "HH:mm", defaultValue: dayjs()}}
                                 minuteStep={30 as 30}
-                                format={'YYYY-MM-DD HH:mm'}
+                                format={"YYYY-MM-DD HH:mm"}
                         />
                     </Form.Item>
-                    <Form.Item name={'eventDuration'}
+                    <Form.Item name={"eventDuration"}
                                required={true}
-                               label={t('EditEvent.form.eventDuration.label')}
-                               tooltip={t('EditEvent.form.eventDuration.tooltip')}>
+                               label={t("EditEvent.form.eventDuration.label")}
+                               tooltip={t("EditEvent.form.eventDuration.tooltip")}>
                         <Slider min={1} max={24} step={1} marks={eventDurationMarks}/>
                     </Form.Item>
-                    <Form.Item name={'maxDuration'}
+                    <Form.Item name={"maxDuration"}
                                required={true}
-                               label={t('EditEvent.form.maxDuration.label')}
-                               tooltip={t('EditEvent.form.maxDuration.tooltip')}>
+                               label={t("EditEvent.form.maxDuration.label")}
+                               tooltip={t("EditEvent.form.maxDuration.tooltip")}>
                         <Slider min={30} max={240} step={10} marks={maxDurationMarks}/>
                     </Form.Item>
-                    <Form.Item name={'maxDepth'}
+                    <Form.Item name={"maxDepth"}
                                required={true}
-                               label={t('EditEvent.form.maxDepth.label')}
-                               tooltip={t('EditEvent.form.maxDepth.tooltip')}>
+                               label={t("EditEvent.form.maxDepth.label")}
+                               tooltip={t("EditEvent.form.maxDepth.tooltip")}>
                         <Slider min={10} max={180} step={5} marks={maxDepthMarks}/>
                     </Form.Item>
-                    <Form.Item name={'maxParticipants'}
+                    <Form.Item name={"maxParticipants"}
                                required={true}
-                               label={t('EditEvent.form.maxParticipants.label')}
-                               tooltip={t('EditEvent.form.maxParticipants.tooltip')}
+                               label={t("EditEvent.form.maxParticipants.label")}
+                               tooltip={t("EditEvent.form.maxParticipants.tooltip")}
                                rules={[
                                    {validator: validateMaxParticipants}
                                ]}
@@ -405,14 +405,14 @@ export function EditDiveEvent() {
                     >
                         <Select options={statusOptions}/>
                     </Form.Item>
-                    <Form.Item name={'participants'}
-                               label={t('EditEvent.form.participants.label')}
-                               tooltip={t('EditEvent.form.participants.tooltip')}
+                    <Form.Item name={"participants"}
+                               label={t("EditEvent.form.participants.label")}
+                               tooltip={t("EditEvent.form.participants.tooltip")}
                     >
                         <Select
                                 mode="multiple"
                                 options={participantOptions}
-                                placeholder={t('EditEvent.form.participants.placeholder')}
+                                placeholder={t("EditEvent.form.participants.placeholder")}
                                 showSearch={true}
                                 style={{
                                     width: "100%"
@@ -420,22 +420,22 @@ export function EditDiveEvent() {
                         />
                     </Form.Item>
 
-                    <Space direction={'horizontal'} size={12} style={{width: '100%', justifyContent: 'center'}}>
+                    <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button
-                                type={'primary'}
-                                htmlType={'submit'}
+                                type={"primary"}
+                                htmlType={"submit"}
                                 disabled={loading}
                         >{submitButtonText}</Button>
                         <Button
-                                type={'default'}
-                                htmlType={'reset'}
+                                type={"default"}
+                                htmlType={"reset"}
                                 disabled={loading}
-                        >{t('common.button.reset')}</Button>
+                        >{t("common.button.reset")}</Button>
                         {diveEvent && diveEvent.participants.length > 0 &&
                                 <Button
-                                        href={'/events/' + diveEventId + '/set-dives'}
+                                        href={"/events/" + diveEventId + "/set-dives"}
                                         disabled={loading}
-                                >{t('EditEvent.form.button.updateDives')}</Button>}
+                                >{t("EditEvent.form.button.updateDives")}</Button>}
                     </Space>
                 </Form>}
             </div>

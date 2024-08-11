@@ -30,13 +30,13 @@ export function Password() {
                     if (response && response.status === UpdateStatusEnum.OK) {
                         setUpdateStatus({
                             status: UpdateStatusEnum.OK,
-                            message: t('Password.setUpdateStatus.update.ok')
+                            message: t("Password.setUpdateStatus.update.ok")
                         });
                     } else {
                         console.error("Failed to update user, error: " + response?.message);
                         setUpdateStatus({
                             status: UpdateStatusEnum.FAIL,
-                            message: t('Password.setUpdateStatus.update.fail')
+                            message: t("Password.setUpdateStatus.update.fail")
                         });
                     }
                 })
@@ -45,70 +45,70 @@ export function Password() {
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                 });
         setLoading(false);
-    }
+    };
 
     const updatePasswordFailed = (errorInfo: any) => {
         console.error("Updating password failed", errorInfo);
-    }
+    };
 
     if (updateStatus.status === UpdateStatusEnum.OK) {
-        return (<div className={'darkDiv'}>
-            <Alert type={'success'}
+        return (<div className={"darkDiv"}>
+            <Alert type={"success"}
                    showIcon
-                   message={t('Password.updateStatus.ok.text')}
-                   action={<Button type={'primary'}
-                                   onClick={() => logoutUser()}>{t('Password.updateStatus.ok.button')}</Button>}
+                   message={t("Password.updateStatus.ok.text")}
+                   action={<Button type={"primary"}
+                                   onClick={() => logoutUser()}>{t("Password.updateStatus.ok.button")}</Button>}
             />
         </div>);
     } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
-        return (<div className={'darkDiv'}>
-            <Alert type={'error'}
+        return (<div className={"darkDiv"}>
+            <Alert type={"error"}
                    showIcon
-                   message={t('Password.updateStatus.fail.text')}
-                   action={<Button type={'primary'}
-                                   onClick={() => navigate('/')}>{t('common.button.back')}</Button>}
+                   message={t("Password.updateStatus.fail.text")}
+                   action={<Button type={"primary"}
+                                   onClick={() => navigate("/")}>{t("common.button.back")}</Button>}
             />
         </div>);
     }
 
     return (
             <Spin spinning={loading}>
-                <div className={'darkDiv'}>
+                <div className={"darkDiv"}>
                     <PasswordRules/>
                     <Form
                             form={updatePasswordForm}
-                            name={'update-password'}
+                            name={"update-password"}
                             labelCol={{span: 8}}
                             wrapperCol={{span: 12}}
                             style={{maxWidth: 800}}
                             initialValues={{
-                                oldPassword: '',
-                                newPassword: '',
-                                confirmPassword: ''
+                                oldPassword: "",
+                                newPassword: "",
+                                confirmPassword: ""
                             }}
                             onFinish={updatePassword}
                             onFinishFailed={updatePasswordFailed}
-                            autoComplete={'off'}
+                            autoComplete={"off"}
                             scrollToFirstError={true}>
                         <Form.Item
                                 name="oldPassword"
-                                label={t('Password.form.oldPassword.label')}
+                                label={t("Password.form.oldPassword.label")}
                                 wrapperCol={{span: 12}}
                                 rules={[
                                     {
                                         required: true,
-                                        message: t('Password.form.oldPassword.rules.required')
+                                        message: t("Password.form.oldPassword.rules.required")
                                     }
                                 ]}>
                             <Input.Password/>
                         </Form.Item>
                         <PasswordFields/>
-                        <Space direction={'horizontal'} size={12} style={{width: '100%', justifyContent: 'center'}}>
+                        <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                             <Button
-                                    type={'primary'}
-                                    htmlType={'submit'}
+                                    type={"primary"}
+                                    htmlType={"submit"}
                                     disabled={loading}
-                            >{t('Password.form.submitButton')}</Button>
+                            >{t("Password.form.submitButton")}</Button>
                         </Space>
                     </Form>
                 </div>

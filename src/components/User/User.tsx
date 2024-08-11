@@ -52,11 +52,11 @@ export function User() {
 
         userAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
-                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t('User.updateStatus.ok')});
+                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("User.updateStatus.ok")});
                 })
                 .catch(e => {
                     console.error(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('User.updateStatus.fail')});
+                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("User.updateStatus.fail")});
                 });
         setLoading(false);
     }
@@ -109,7 +109,7 @@ export function User() {
                         registered: response.registered,
                         diveCount: response.diveCount,
                         accessToken: userSession === null ? "" : userSession.accessToken,
-                        type:  userSession === null ? "" : userSession.type,
+                        type: userSession === null ? "" : userSession.type,
                         expiresAt: userSession === null ? new Date() : userSession.expiresAt,
                         roles: response.roles,
                         language: response.language,
@@ -130,7 +130,7 @@ export function User() {
     }
 
     function onFinishFailed(errorInfo: any) {
-        console.error('Failed:', errorInfo);
+        console.error("Failed:", errorInfo);
         setLoading(false);
     }
 
@@ -179,7 +179,8 @@ export function User() {
                                    style={{display: "none"}}>
                             <Input type="text"/>
                         </Form.Item>
-                        {userSession && workUser && <UserFields userId={workUser.id} username={workUser.username} isOrganizer={checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER])}/>}
+                        {userSession && workUser && <UserFields userId={workUser.id} username={workUser.username}
+                                                                isOrganizer={checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER])}/>}
                         <Form.Item label={t("User.form.status.label")}>
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>

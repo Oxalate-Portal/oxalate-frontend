@@ -53,14 +53,14 @@ export function SessionProvider({children}: any) {
                     return {
                         status: ActionResultEnum.SUCCESS,
                         message: "Login successful"
-                    }
+                    };
                 })
                 .catch((error) => {
                     console.error(error);
                     return {
                         status: ActionResultEnum.FAILURE,
                         message: "Failed to log on user"
-                    }
+                    };
                 });
     };
 
@@ -74,16 +74,16 @@ export function SessionProvider({children}: any) {
     const setSessionLanguage = (language: string) => {
         setLanguage(language);
         localStorage.setItem(languageKey, language);
-    }
+    };
 
     const getSessionLanguage = () => {
         return language;
-    }
+    };
 
     const refreshUserSession = (sessionVO: SessionVO): void => {
         localStorage.setItem(userKey, JSON.stringify(sessionVO));
         setUser(sessionVO);
-    }
+    };
 
     if (isLoading) {
         return <div>Loading...</div>;

@@ -6,7 +6,7 @@ import { Page } from "../Page";
 import { userAPI } from "../../services";
 
 interface AcceptTermsProps {
-    registration: boolean
+    registration: boolean;
 }
 
 export function AcceptTerms({registration}: AcceptTermsProps) {
@@ -31,26 +31,26 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
 
     if (error !== null) {
         return (
-                <Alert type={'error'}
-                       message={t('AcceptTerms.error.alert')}/>
+                <Alert type={"error"}
+                       message={t("AcceptTerms.error.alert")}/>
         );
     }
 
     return (
-            <div style={{width: '100%', textAlign: 'center'}} className={'darkDiv'}>
-                <div style={{width: '50%', display: 'inline-block', textAlign: 'left'}}>
+            <div style={{width: "100%", textAlign: "center"}} className={"darkDiv"}>
+                <div style={{width: "50%", display: "inline-block", textAlign: "left"}}>
 
-                    <Space direction={'vertical'} size={20} style={{width: '100%', margin: 12}}>
+                    <Space direction={"vertical"} size={20} style={{width: "100%", margin: 12}}>
                         <Page pageId={2} showTitle={false} showDate={false}/>
 
                         {!registration &&
-                                <Space direction={'horizontal'} size={12} style={{width: '100%', justifyContent: 'center'}}>
-                                    <Button type={'primary'}
-                                            onClick={() => acceptTerms('yes')}>{t('AcceptTerms.button.acceptTerms')}</Button>
-                                    <Button danger={true} type={'primary'} href={'/user'}
-                                            onClick={() => acceptTerms('no')}>{t('AcceptTerms.rejectTerms')}</Button>
-                                    <Button danger={true} type={'dashed'} onClick={logoutUser}
-                                            href="/">{t('common.button.logout')}</Button>
+                                <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                                    <Button type={"primary"}
+                                            onClick={() => acceptTerms("yes")}>{t("AcceptTerms.button.acceptTerms")}</Button>
+                                    <Button danger={true} type={"primary"} href={"/user"}
+                                            onClick={() => acceptTerms("no")}>{t("AcceptTerms.rejectTerms")}</Button>
+                                    <Button danger={true} type={"dashed"} onClick={logoutUser}
+                                            href="/">{t("common.button.logout")}</Button>
                                 </Space>}
                     </Space>
                 </div>

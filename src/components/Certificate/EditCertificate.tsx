@@ -20,7 +20,7 @@ export function EditCertificate() {
         certificateName: "",
         certificateId: "",
         diverId: "",
-        certificationDate: dayjs().format('YYYY-MM-DD')
+        certificationDate: dayjs().format("YYYY-MM-DD")
     };
 
     const [certificateForm] = Form.useForm();
@@ -67,8 +67,9 @@ export function EditCertificate() {
                         console.error("Failed to retrieve certificate: " + error);
                         setUpdateStatus({
                             status: UpdateStatusEnum.FAIL,
-                            message: t("EditCertificate.updateCertificate.update.fail")});
-                        })
+                            message: t("EditCertificate.updateCertificate.update.fail")
+                        });
+                    })
                     .finally(() => {
                         setLoading(false);
                     });
@@ -76,7 +77,7 @@ export function EditCertificate() {
             setSubmitButtonText(t("EditCertificate.form.button.add"));
         }
 
-        setLoading(false)
+        setLoading(false);
     }, [paramId, certificateForm, t]);
 
 
@@ -159,8 +160,8 @@ export function EditCertificate() {
                                     scrollToFirstError={true}
                                     validateTrigger={["onBlur", "onChange"]}
                             >
-                                <Form.Item name={'id'} label={'ID'} style={{display: 'none'}}>
-                                    <Input type={'text'}/>
+                                <Form.Item name={"id"} label={"ID"} style={{display: "none"}}>
+                                    <Input type={"text"}/>
                                 </Form.Item>
                                 <Form.Item name={"organization"}
                                            required={true}

@@ -9,7 +9,7 @@ interface YearlyStatsProps {
     headerText: string
 }
 
-export function YearlyStats({ typeOfStats, headerText }: YearlyStatsProps) {
+export function YearlyStats({typeOfStats, headerText}: YearlyStatsProps) {
     const [loading, setLoading] = useState(true);
     const [yearlyData, setYearlyData] = useState<MultiYearValueResponse[]>([]);
 
@@ -30,16 +30,16 @@ export function YearlyStats({ typeOfStats, headerText }: YearlyStatsProps) {
 
     const config = {
         data: yearlyData,
-        xField: 'year',
-        yField: 'value',
-        seriesField: 'type',
+        xField: "year",
+        yField: "value",
+        seriesField: "type",
         point: {
             size: 5,
-            shape: 'diamond',
+            shape: "diamond",
         },
-        theme: 'dark',
-        colorField: 'type',
-        color: ['#F4664A', '#30BF78', '#FAAD14', '#2B8CBE', '#F6BD16', '#A0D911', '#13C2C2', '#FF6F61']
+        theme: "dark",
+        colorField: "type",
+        color: ["#F4664A", "#30BF78", "#FAAD14", "#2B8CBE", "#F6BD16", "#A0D911", "#13C2C2", "#FF6F61"]
     };
 
     return (
@@ -49,4 +49,5 @@ export function YearlyStats({ typeOfStats, headerText }: YearlyStatsProps) {
                     <Line {...config} />
                 </Spin>
             </div>
-    );}
+    );
+}

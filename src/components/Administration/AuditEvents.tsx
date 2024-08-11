@@ -13,7 +13,7 @@ import Highlighter from "react-highlight-words";
 type AuditEntryIndex = keyof AuditEntryResponse;
 
 export function AuditEvents() {
-    const defaultFilterColumn: string = 'userName';
+    const defaultFilterColumn: string = "userName";
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [auditEvents, setAuditEvents] = useState<AuditEntryResponse[]>([]);
@@ -24,7 +24,7 @@ export function AuditEvents() {
         pageSize: 10,
         defaultPageSize: 10,
         total: 0,
-        pageSizeOptions: ['5', '10', '20', '30', '50', '100'],
+        pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
         showSizeChanger: true,
         hideOnSinglePage: false,
     });
@@ -33,21 +33,21 @@ export function AuditEvents() {
         sortField: "",
         sortOrder: "",
         pagination: tablePaginationConfig,
-        columnKey: 'createdAt',
-        field: 'createdAt',
-        order: 'descend',
-        filter: '',
+        columnKey: "createdAt",
+        field: "createdAt",
+        order: "descend",
+        filter: "",
         filters: {},
         filterColumn: defaultFilterColumn
     });
 
-    const [filterText, setFilterText] = useState('');
+    const [filterText, setFilterText] = useState("");
     const [filteredColumn, setFilteredColumn] = useState(defaultFilterColumn);
     const searchInput = useRef<InputRef>(null);
 
     const handleReset = (clearFilters: () => void) => {
         clearFilters();
-        setFilterText('');
+        setFilterText("");
     };
     const getColumnSearchProps = (auditEntryKey: AuditEntryIndex): ColumnType<AuditEntryResponse> => ({
         filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters, close}) => (
@@ -58,7 +58,7 @@ export function AuditEvents() {
                             value={selectedKeys[0]}
                             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                             onPressEnter={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
-                            style={{marginBottom: 8, display: 'block'}}
+                            style={{marginBottom: 8, display: "block"}}
                     />
                     <Space>
                         <Button
@@ -101,7 +101,7 @@ export function AuditEvents() {
                 </div>
         ),
         filterIcon: (filtered: boolean) => (
-                <SearchOutlined style={{color: filtered ? '#1677ff' : undefined}}/>
+                <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>
         ),
         onFilter: (value, record) =>
                 record[auditEntryKey]
@@ -116,10 +116,10 @@ export function AuditEvents() {
         render: (text) =>
                 filteredColumn === auditEntryKey ? (
                         <Highlighter
-                                highlightStyle={{backgroundColor: '#ffc069', padding: 0}}
+                                highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
                                 searchWords={[filterText]}
                                 autoEscape
-                                textToHighlight={text ? text.toString() : ''}
+                                textToHighlight={text ? text.toString() : ""}
                         />
                 ) : (
                         text
@@ -128,50 +128,50 @@ export function AuditEvents() {
 
     const auditColumns: ColumnsType<AuditEntryResponse> = [
         {
-            title: t('AuditEvents.table.createdAt'),
-            dataIndex: 'createdAt',
-            key: 'createdAt',
+            title: t("AuditEvents.table.createdAt"),
+            dataIndex: "createdAt",
+            key: "createdAt",
             sorter: true,
-            sortDirections: ['descend', 'ascend'],
+            sortDirections: ["descend", "ascend"],
             render: (_, record) => {
                 return (<>{formatDateTimeWithMs(record.createdAt)}</>);
             }
         },
         {
-            title: t('AuditEvents.table.userName'),
-            dataIndex: 'userName',
-            key: 'userName',
+            title: t("AuditEvents.table.userName"),
+            dataIndex: "userName",
+            key: "userName",
             sorter: (a, b) => a.userName.localeCompare(b.userName),
-            sortDirections: ['descend', 'ascend'],
-            ...getColumnSearchProps('userName')
+            sortDirections: ["descend", "ascend"],
+            ...getColumnSearchProps("userName")
         },
         {
-            title: t('AuditEvents.table.traceId'),
-            dataIndex: 'traceId',
-            key: 'traceId',
-            ...getColumnSearchProps('traceId')
+            title: t("AuditEvents.table.traceId"),
+            dataIndex: "traceId",
+            key: "traceId",
+            ...getColumnSearchProps("traceId")
         },
         {
-            title: t('AuditEvents.table.source'),
-            dataIndex: 'source',
-            key: 'source',
-            ...getColumnSearchProps('source')
+            title: t("AuditEvents.table.source"),
+            dataIndex: "source",
+            key: "source",
+            ...getColumnSearchProps("source")
         },
         {
-            title: t('AuditEvents.table.level'),
-            dataIndex: 'level',
-            key: 'level',
+            title: t("AuditEvents.table.level"),
+            dataIndex: "level",
+            key: "level",
             render: ((level) => {
-                let color = '';
+                let color = "";
 
                 if (level === AuditLevelEnum.ERROR) {
-                    color = 'red';
+                    color = "red";
                 }
                 if (level === AuditLevelEnum.WARN) {
-                    color = 'orange';
+                    color = "orange";
                 }
                 if (level === AuditLevelEnum.INFO) {
-                    color = 'blue';
+                    color = "blue";
                 }
 
                 return (
@@ -180,20 +180,20 @@ export function AuditEvents() {
                         </Tag>
                 );
             }),
-            ...getColumnSearchProps('level')
+            ...getColumnSearchProps("level")
         },
         {
-            title: t('AuditEvents.table.address'),
-            dataIndex: 'address',
+            title: t("AuditEvents.table.address"),
+            dataIndex: "address",
             sorter: true,
-            key: 'address',
-            ...getColumnSearchProps('address')
+            key: "address",
+            ...getColumnSearchProps("address")
         },
         {
-            title: t('AuditEvents.table.message'),
-            dataIndex: 'message',
-            key: 'message',
-            ...getColumnSearchProps('message')
+            title: t("AuditEvents.table.message"),
+            dataIndex: "message",
+            key: "message",
+            ...getColumnSearchProps("message")
         }
     ];
 
@@ -216,16 +216,16 @@ export function AuditEvents() {
                                     pageSize: response.pageable.pageSize,
                                     defaultPageSize: 10,
                                     total: response.totalElements,
-                                    pageSizeOptions: ['5', '10', '20', '30', '50', '100'],
+                                    pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
                                     showSizeChanger: true,
                                     hideOnSinglePage: false
                                 }
-                        )
+                        );
 
                         setTableParams({
                             ...tableParams,
                             pagination: tablePaginationConfig
-                        })
+                        });
                     })
                     .catch((error) => {
                         console.error(error);
@@ -267,7 +267,7 @@ export function AuditEvents() {
                 ...tableParams,
                 pagination: tablePaginationConfig,
                 field: primarySorter.field === undefined ? defaultFilterColumn : primarySorter.field.toString(),
-                order: primarySorter.order === 'ascend' ? 'asc' : 'desc'
+                order: primarySorter.order === "ascend" ? "asc" : "desc"
             });
         }
 
@@ -295,15 +295,15 @@ export function AuditEvents() {
         refreshDataFromServer.current = true;
     }
 
-    return (<div className={'darkDiv'}>
-        <h4>{t('AuditEvents.title')}</h4>
+    return (<div className={"darkDiv"}>
+        <h4>{t("AuditEvents.title")}</h4>
 
         <Spin spinning={loading}>
             <Table dataSource={auditEvents}
                    columns={auditColumns}
                    pagination={tablePaginationConfig}
                    loading={loading}
-                   rowKey={'id'}
+                   rowKey={"id"}
                    onChange={handleTableChange}
             />
         </Spin>

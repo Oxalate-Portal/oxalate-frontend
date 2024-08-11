@@ -24,7 +24,7 @@ export function Login() {
             return;
         }
 
-        const recaptchaResult = await executeRecaptcha('register');
+        const recaptchaResult = await executeRecaptcha("register");
 
         const loginRequest: LoginRequest = {
             username: credentials.username,
@@ -36,35 +36,35 @@ export function Login() {
 
         if (!loginResult || loginResult.status === ActionResultEnum.FAILURE) {
             console.error("Login failed", loginResult);
-            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t('Login.updateStatus.loginFail')});
+            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("Login.updateStatus.loginFail")});
         } else {
-            navigate('/');
+            navigate("/");
         }
 
         setLoading(false);
     }
 
     function onFinishFailed(errorInfo: any) {
-        console.error('Failed:', errorInfo);
+        console.error("Failed:", errorInfo);
     }
 
     function clearStateOnBackButton() {
-        navigate('/')
+        navigate("/");
     }
 
     if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div>
-            <Alert type={'error'}
+            <Alert type={"error"}
                    message={updateStatus.message}
                    showIcon
-                   action={<Button type={'primary'} onClick={() => clearStateOnBackButton()}>{t('common.button.back')}</Button>}
+                   action={<Button type={"primary"} onClick={() => clearStateOnBackButton()}>{t("common.button.back")}</Button>}
             />
         </div>);
     }
 
     return (
-            <Row justify="center" align="middle" style={{minHeight: '30vh'}}>
-                <Space direction={'vertical'}>
+            <Row justify="center" align="middle" style={{minHeight: "30vh"}}>
+                <Space direction={"vertical"}>
 
                     <Form
                             name="basic"
@@ -76,27 +76,27 @@ export function Login() {
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
                     >
-                        <Form.Item name={'username'}
-                                   label={t('Login.form.username.label')}
+                        <Form.Item name={"username"}
+                                   label={t("Login.form.username.label")}
                                    rules={[
                                        {
-                                           type: 'email',
-                                           message: t('Login.form.username.rules.email'),
+                                           type: "email",
+                                           message: t("Login.form.username.rules.email"),
                                        },
                                        {
                                            required: true,
-                                           message: t('Login.form.username.rules.required')
+                                           message: t("Login.form.username.rules.required")
                                        },
                                    ]}>
                             <Input type="text"/>
                         </Form.Item>
                         <Form.Item
-                                label={t('Login.form.password.label')}
+                                label={t("Login.form.password.label")}
                                 name="password"
                                 rules={[
                                     {
                                         required: true,
-                                        message: t('Login.form.password.rules.required')
+                                        message: t("Login.form.password.rules.required")
                                     },
                                 ]}
                         >
@@ -105,12 +105,12 @@ export function Login() {
                         <Form.Item wrapperCol={{offset: 8, span: 16,}}
                         >
                             <Button
-                                    type={'primary'}
-                                    htmlType={'submit'}
-                                    className={'g-recaptcha'}
+                                    type={"primary"}
+                                    htmlType={"submit"}
+                                    className={"g-recaptcha"}
                                     disabled={loading}
                             >
-                                {t('common.button.login')}
+                                {t("common.button.login")}
                             </Button>
                         </Form.Item>
                     </Form>
@@ -119,7 +119,7 @@ export function Login() {
                             onClick={() => navigate("/auth/lost-password")}
                             disabled={loading}
                     >
-                        {t('Login.form.button.forgotPassword')}</Button></p>
+                        {t("Login.form.button.forgotPassword")}</Button></p>
                 </Space>
-            </Row>    );
+            </Row>);
 }
