@@ -1,6 +1,6 @@
 import { Collapse, Spin } from "antd";
 import { ItemType } from "rc-collapse/es/interface";
-import { Certificates } from "../Certificate/Certificates";
+import { Certificates } from "../Certificate";
 import { UserEventList } from "./UserEventList";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
