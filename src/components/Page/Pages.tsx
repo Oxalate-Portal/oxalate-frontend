@@ -3,7 +3,7 @@ import { useSession } from "../../session";
 import { useEffect, useState } from "react";
 import { PageResponse, RolePermissionResponse } from "../../models/responses";
 import { useTranslation } from "react-i18next";
-import { RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { Alert, Button, Space, Spin, Table, Tag } from "antd";
 import { checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage } from "../../helpers";
 import dayjs from "dayjs";
@@ -122,6 +122,7 @@ export function Pages() {
                                     <Link to={"/administration/pages/" + record.id}><Button
                                             type={"primary"}>{t("common.button.update")}</Button></Link>
                                     {pageGroupId !== 1 &&
+                                            record.status !== PageStatusEnum.DELETED &&
                                             <Button danger type={"primary"}
                                                     onClick={() => closePage(record.id)}>{t("common.button.close")}</Button>}
                                 </>

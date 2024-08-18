@@ -1,7 +1,7 @@
 import { useSession } from "../../session";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { PageGroupResponse } from "../../models/responses";
 import { Button, Space, Spin, Table } from "antd";
 import { checkRoles, getPageGroupTitleByLanguage } from "../../helpers";
@@ -86,6 +86,7 @@ export function PageGroups() {
                             <Link to={pageLink}><Button>{buttonText}</Button></Link>}
                     {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                             record.id !== 1 &&
+                            record.status !== PageStatusEnum.DELETED  &&
                             <Button danger type={"primary"}
                                     onClick={() => closePageGroup(record.id)}>{t("common.button.close")}</Button>}
                 </Space>);
