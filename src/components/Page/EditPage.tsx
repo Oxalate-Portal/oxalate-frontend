@@ -253,7 +253,7 @@ export function EditPage() {
             return Promise.resolve();
         }
 
-        return Promise.reject(t("EditPage.form.pageversions.body.rules.min"));
+        return Promise.reject(t("EditPage.form.page-versions.body.rules.min"));
     }
 
     // We use this to get back from success/fail update
@@ -330,39 +330,41 @@ export function EditPage() {
                                                         </Form.Item>
                                                         <Form.Item
                                                                 name={[index, "title"]}
-                                                                label={t("EditPage.form.pageversions.title.label")}
+                                                                label={t("EditPage.form.page-versions.title.label")}
                                                                 key={uniqueKey + "title"}
                                                                 rules={[
                                                                     {
                                                                         required: true,
-                                                                        message: t("EditPage.form.pageversions.title.rules.required")
+                                                                        message: t("EditPage.form.page-versions.title.rules.required")
                                                                     },
                                                                     {
                                                                         min: 2,
-                                                                        message: t("EditPage.form.pageversions.title.rules.min")
+                                                                        message: t("EditPage.form.page-versions.title.rules.min")
                                                                     }
                                                                 ]}
                                                         >
                                                             <Input type={"text"} key={uniqueKey + "title-input"}
-                                                                   placeholder={t("EditPage.form.pageversions.title.placeholder")}/>
+                                                                   placeholder={t("EditPage.form.page-versions.title.placeholder")}/>
                                                         </Form.Item>
                                                         <Form.Item
                                                                 name={[index, "ingress"]}
-                                                                label={t("EditPage.form.pageversions.ingress.label")}
+                                                                label={t("EditPage.form.page-versions.ingress.label")}
                                                                 key={uniqueKey + "ingress"}
                                                         >
                                                             <Input type={"text"} key={uniqueKey + "ingress-input"}
-                                                                   placeholder={t("EditPage.form.pageversions.ingress.placeholder")}/>
+                                                                   placeholder={t("EditPage.form.page-versions.ingress.placeholder")}/>
                                                         </Form.Item>
                                                         <Form.Item
                                                                 name={[index, "body"]}
-                                                                label={t("EditPage.form.pageversions.body.label")}
+                                                                label={t("EditPage.form.page-versions.body.label")}
                                                                 key={uniqueKey + "body"}
                                                                 rules={[
                                                                     {validator: validatePageEditorContent}
                                                                 ]}
                                                         >
                                                             <PageBodyEditor key={uniqueKey + "body-editor"}
+                                                                            language={pageData.pageVersions[index].language}
+                                                                            pageId={pageData.pageVersions[index].pageId}
                                                                             onChange={(data: string) => pageForm.setFieldsValue({"index": {body: data}})}
                                                                             value={pageForm.getFieldValue(["index", "body"])}
                                                             />

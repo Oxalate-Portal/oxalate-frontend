@@ -439,7 +439,7 @@
         },
         "tooltip": "Sivuryhmä, johon sivu kuuluu"
       },
-      "pageversions": {
+      "page-versions": {
         "body": {
           "label": "Teksti",
           "rules": {
