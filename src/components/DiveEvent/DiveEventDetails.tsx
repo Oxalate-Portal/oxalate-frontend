@@ -90,6 +90,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: "#",
             dataIndex: "id",
             key: "id",
+            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.id - b.id,
             render: (text: string, record: DiveEventUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={"/users/" + record.id + "/show"}>{record.id}</Link>);
@@ -102,6 +103,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.participantTable.name"),
             dataIndex: "name",
             key: "name",
+            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.name.localeCompare(b.name),
             render: (text: string, record: DiveEventUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={"/users/" + record.id + "/show"}>{record.name}</Link>);
@@ -113,7 +115,8 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         {
             title: t("EventDetails.participantTable.eventDiveCount"),
             dataIndex: "eventDiveCount",
-            key: "eventDiveCount"
+            key: "eventDiveCount",
+            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.eventDiveCount - b.eventDiveCount,
         }
     ];
 

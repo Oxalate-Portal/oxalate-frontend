@@ -439,7 +439,7 @@
         },
         "tooltip": "Die Seitengruppe, zu der die Seite gehört"
       },
-      "pageversions": {
+      "page-versions": {
         "body": {
           "label": "Text",
           "rules": {
