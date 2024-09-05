@@ -37,6 +37,18 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
                         extraPlugins: [initiateUploadAdapter],
                         toolbar: {
                             shouldNotGroupWhenFull: true
+                        },
+                        image: {
+                            toolbar: [
+                                "imageStyle:wrapText",
+                                "imageStyle:breakText",
+                                "|",
+                                "toggleImageCaption",
+                                "imageTextAlternative"
+                            ],
+                            upload: {
+                                types: ["jpeg", "png", "gif", "bmp", "webp"],
+                            }
                         }
                     }}
                     data={value}
