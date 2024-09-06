@@ -152,15 +152,24 @@
     "title": "Audit-Ereignisse"
   },
   "BlockedDates": {
-    "title": "Datumsblockierung",
-    "list": {
-      "confirm": "Sind Sie sicher, dass Sie das Datum blockieren möchten?"
-    },
     "form": {
       "date": {
-        "rule": "Das Datum ist ein Pflichtfeld"
+        "rule": "Datum ist ein Pflichtfeld"
       }
-    }
+    },
+    "list": {
+      "confirm": "Sind Sie sicher, dass Sie das gesperrte Datum entfernen möchten?"
+    },
+    "load": {
+      "fail": "Fehler beim Laden der gesperrten Daten"
+    },
+    "popup": {
+      "add-fail": "Das Hinzufügen des gesperrten Datums ist fehlgeschlagen",
+      "add-success": "Gesperrtes Datum erfolgreich hinzugefügt",
+      "remove-fail": "Das Entfernen des gesperrten Datums ist fehlgeschlagen",
+      "remove-success": "Gesperrtes Datum erfolgreich entfernt"
+    },
+    "title": "Datumsblockierung"
   },
   "Certificates": {
     "deleteCertificate": {
@@ -181,11 +190,13 @@
       "held": "Gehalten",
       "login": "Anmelden",
       "logout": "Abmelden",
+      "no": "Nein",
       "open": "Öffnen",
       "reset": "Zurücksetzen",
       "save": "Speichern",
       "send": "Senden",
-      "update": "Bearbeiten"
+      "update": "Bearbeiten",
+      "yes": "Ja"
     },
     "dive-event": {
       "status": {

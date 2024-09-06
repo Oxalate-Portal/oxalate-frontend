@@ -152,15 +152,24 @@
     "title": "Audit events"
   },
   "BlockedDates": {
-    "title": "Date blocking",
-    "list": {
-      "confirm": "Are you sure you want to remove the blocked date?"
-    },
     "form": {
       "date": {
         "rule": "Date is a required field"
       }
-    }
+    },
+    "list": {
+      "confirm": "Are you sure you want to remove the blocked date?"
+    },
+    "load": {
+      "fail": "Failed to load blocked dates"
+    },
+    "popup": {
+      "add-fail": "Failed to add the blocked date",
+      "add-success": "Blocked date added successfully",
+      "remove-fail": "Failed to remove the blocked date",
+      "remove-success": "Blocked date removed successfully"
+    },
+    "title": "Date blocking"
   },
   "Certificates": {
     "deleteCertificate": {
@@ -181,11 +190,13 @@
       "held": "Held",
       "login": "Log In",
       "logout": "Log Out",
+      "no": "No",
       "open": "Open",
       "reset": "Reset",
       "save": "Save",
       "send": "Send",
-      "update": "Update"
+      "update": "Update",
+      "yes": "Yes"
     },
     "dive-event": {
       "status": {

@@ -152,15 +152,24 @@
     "title": "Audit tapahtumat"
   },
   "BlockedDates": {
-    "title": "Päivämäärän estäminen",
-    "list": {
-      "confirm": "Oletko varma että haluat poistaa estetty päivämäärä?"
-    },
     "form": {
       "date": {
-        "rule": "Päivämäärä on vaadittu kenttä"
+        "rule": "Päivämäärä on pakollinen kenttä"
       }
-    }
+    },
+    "list": {
+      "confirm": "Haluatko varmasti poistaa estetyn päivämäärän?"
+    },
+    "load": {
+      "fail": "Estettyjen päivämäärien lataus epäonnistui"
+    },
+    "popup": {
+      "add-fail": "Estetyn päivämäärän lisääminen epäonnistui",
+      "add-success": "Estetty päivämäärä lisätty onnistuneesti",
+      "remove-fail": "Estetyn päivämäärän poistaminen epäonnistui",
+      "remove-success": "Estetty päivämäärä poistettu onnistuneesti"
+    },
+    "title": "Päivämäärän estäminen"
   },
   "Certificates": {
     "deleteCertificate": {
@@ -181,11 +190,13 @@
       "held": "Pidetty",
       "login": "Kirjaudu sisään",
       "logout": "Kirjaudu ulos",
+      "no": "Ei",
       "open": "Avaa",
       "reset": "Palauta",
       "save": "Tallenna",
       "send": "Lähetä",
-      "update": "Päivitä"
+      "update": "Päivitä",
+      "yes": "Kyllä"
     },
     "dive-event": {
       "status": {
