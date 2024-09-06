@@ -7,5 +7,6 @@ export {
     getPageGroupTitleByLanguage,
     getPageTitleByLanguage,
     getHighestRole,
-    isAllowedToEditPage
+    isAllowedToEditPage,
+    localToUTCDate
 } from "./tools";

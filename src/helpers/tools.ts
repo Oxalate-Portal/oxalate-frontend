@@ -111,6 +111,13 @@ function isAllowedToEditPage(sessionVO: SessionVO, pageRoles: RolePermissionResp
     return false;
 }
 
+function localToUTCDate(date: Date): Date {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    return new Date(Date.UTC(year, month, day));
+}
+
 export {
     formatDateTime,
     formatDateTimeWithMs,
@@ -118,5 +125,6 @@ export {
     getPageGroupTitleByLanguage,
     getPageTitleByLanguage,
     getHighestRole,
-    isAllowedToEditPage
+    isAllowedToEditPage,
+    localToUTCDate
 };

@@ -152,15 +152,24 @@
     "title": "Revisionshändelser"
   },
   "BlockedDates": {
-    "title": "Datumsblockering",
-    "list": {
-      "confirm": "Är du säker på att du vill ta bort blockeringen för datumet?"
-    },
     "form": {
       "date": {
-        "rule": "Datumet är ett obligatoriskt fält"
+        "rule": "Datum är ett obligatoriskt fält"
       }
-    }
+    },
+    "list": {
+      "confirm": "Är du säker på att du vill ta bort det blockerade datumet?"
+    },
+    "load": {
+      "fail": "Misslyckades med att ladda blockerade datum"
+    },
+    "popup": {
+      "add-fail": "Misslyckades med att lägga till det blockerade datumet",
+      "add-success": "Blockerat datum tillagt framgångsrikt",
+      "remove-fail": "Misslyckades med att ta bort det blockerade datumet",
+      "remove-success": "Blockerat datum borttaget framgångsrikt"
+    },
+    "title": "Blockering av datum"
   },
   "Certificates": {
     "deleteCertificate": {
@@ -181,11 +190,13 @@
       "held": "Hållits",
       "login": "Logga in",
       "logout": "Logga ut",
+      "no": "Nej",
       "open": "Öppna",
       "reset": "Återställ",
       "save": "Spara",
       "send": "Skicka",
-      "update": "Uppdatera"
+      "update": "Uppdatera",
+      "yes": "Ja"
     },
     "dive-event": {
       "status": {
