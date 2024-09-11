@@ -425,6 +425,7 @@
     "title": "Tapahtumatiedot"
   },
   "EditPage": {
+    "description": "Huom! Uutta sivua luodessasi sinun on ensin tallennettava se, ennen kuin voit lisätä kuvia.",
     "form": {
       "button": {
         "addPermission": "Lisää oikeus",
@@ -931,7 +932,9 @@
       "date": "Sukellusluokituksen päiväys",
       "diverId": "Sukeltajatunnus",
       "organization": "Luokitusjärjestö",
-      "title": "Luokitus: "
+      "photocopy": "Luokituskortin kopio",
+      "title": "Luokitus: ",
+      "upload-photo": "Lataa kuva"
     }
   },
   "StatisticsMain": {

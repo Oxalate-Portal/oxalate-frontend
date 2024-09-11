@@ -425,6 +425,7 @@
     "title": "Event information"
   },
   "EditPage": {
+    "description": "Note! When creating a new page, you need to first save it before you can add any images.",
     "form": {
       "button": {
         "addPermission": "Add permission",
@@ -931,7 +932,9 @@
       "date": "Certification date",
       "diverId": "Diver ID",
       "organization": "Certification organization",
-      "title": "Certification: "
+      "photocopy": "Certification photocopy",
+      "title": "Certification: ",
+      "upload-photo": "Upload certification photo"
     }
   },
   "StatisticsMain": {

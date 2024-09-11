@@ -4,7 +4,7 @@ import { useSession } from "../../session";
 import { getHighestRole, getPageGroupTitleByLanguage, LanguageUtil } from "../../helpers";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Button, Checkbox, Divider, Form, Input, Select, Space } from "antd";
+import { Alert, Button, Checkbox, Divider, Form, Input, Select, Space } from "antd";
 import { PageGroupResponse, PageResponse, RolePermissionResponse } from "../../models/responses";
 import { pageGroupMgmtAPI, pageMgmtAPI } from "../../services";
 import { SubmitResult } from "../main";
@@ -264,6 +264,14 @@ export function EditPage() {
     return (
             <div className={"darkDiv"} key={"pageDiv"}>
                 <h4 key={"pageHeader"}>{t(formTitleKey)}</h4>
+                {pageId == 0 &&
+                        <p>
+                            <Alert type={"warning"}
+                                   showIcon
+                                   message={t("EditPage.description")}
+                            />
+                        </p>
+                }
                 {!loading && pageData &&
                         <Form
                                 form={pageForm}

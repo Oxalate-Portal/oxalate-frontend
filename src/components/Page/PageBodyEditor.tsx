@@ -53,7 +53,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
         }
 
         editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) => {
-            return new CKUploadAdapter(loader, language, pageId, session.accessToken, `${import.meta.env.VITE_APP_API_URL}` + "/files/upload");
+            return new CKUploadAdapter(loader, language, pageId, session.accessToken, `${import.meta.env.VITE_APP_API_URL}` + "/files/upload/page-files");
         };
     }
 

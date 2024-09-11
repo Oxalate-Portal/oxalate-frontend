@@ -425,6 +425,7 @@
     "title": "Ereignisinformationen"
   },
   "EditPage": {
+    "description": "Hinweis! Beim Erstellen einer neuen Seite müssen Sie diese zuerst speichern, bevor Sie Bilder hinzufügen können.",
     "form": {
       "button": {
         "addPermission": "Berechtigung hinzufügen",
@@ -931,7 +932,9 @@
       "date": "Zertifizierungsdatum",
       "diverId": "Taucher-ID",
       "organization": "Zertifizierungsstelle",
-      "title": "Zertifikat: "
+      "photocopy": "Zertifikatskopie",
+      "title": "Zertifikat: ",
+      "upload-photo": "Foto hochladen"
     }
   },
   "StatisticsMain": {

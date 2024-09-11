@@ -54,7 +54,8 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                 {!loading && certificates.length > 0 && certificates.map(certificate =>
                         <ShowCertificateCard certificate={certificate}
                                              deleteCertificate={viewOnly ? null : deleteCertificate}
-                                             key={certificate.id}/>
+                                             key={certificate.id}
+                        />
                 )}
                 {!viewOnly && <Button type={"primary"} href={"/users/certificates/0"}>{t("Certificates.panel.addButton")}</Button>}
             </Space>

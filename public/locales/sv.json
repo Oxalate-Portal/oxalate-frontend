@@ -425,6 +425,7 @@
     "title": "Evenemangsinformation"
   },
   "EditPage": {
+    "description": "Observera! När du skapar en ny sida måste du spara den först innan du kan lägga till några bilder.",
     "form": {
       "button": {
         "addPermission": "Lägg till behörighet",
@@ -923,7 +924,9 @@
       "date": "Datum för dykcertifikat",
       "diverId": "Dykarnummer",
       "organization": "Certifieringsorganisation",
-      "title": "Certifikat: "
+      "photocopy": "Kopia av dykcertifikat",
+      "title": "Certifikat: ",
+      "upload-photo": "Ladda bild"
     }
   },
   "StatisticsMain": {
