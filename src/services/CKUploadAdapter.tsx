@@ -87,7 +87,7 @@ export class CKUploadAdapter {
         // Resolve the file promise before appending
         const file = await this.loader.file;
 
-        data.append("upload", file);
+        data.append("uploadFile", file);
         this.xhr!.send(data);
     }
 }
