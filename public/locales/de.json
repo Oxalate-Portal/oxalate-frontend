@@ -97,6 +97,63 @@
     "yearlyResetButton": "Jahresgebühren annullieren",
     "yearlyResetDivider": "Annullierung der Jahresgebühren"
   },
+  "AdminUploads": {
+    "overview": {
+      "tab-title": "Übersicht",
+      "overview-title": "Übersicht der Dateitypen",
+      "overview-content-1": "Hier können Sie alle hochgeladenen Dateien verschiedener Typen einsehen: Avatar-, Zertifikat-, Tauch-, Dokument- und Seitendateien. Für all diese Typen können Sie auch neue Dokumentdateien hochladen.",
+      "overview-content-2": "Jede Liste enthält auch den Download-Link für die Datei, beachten Sie jedoch, dass es Einschränkungen gibt, wer die Dateien sehen kann. Z. B. kann die Zertifikatsdatei nur vom Benutzer angesehen werden, der sie hochgeladen hat, sowie von Organisatoren und Administratoren.",
+      "type-title": "Verschiedene Dateitypen",
+      "type-content": "Verschiedene Dateitypen stehen für unterschiedliche Zwecke zur Verfügung. Die folgenden Dateitypen können hochgeladen werden:",
+      "avatar-title": "Avatare",
+      "avatar-content": "<b>Hinweis! Diese Funktion ist noch nicht aktiviert.</b> Avatare sind Bilder, die das Benutzerprofil darstellen. Sie können vom Benutzer selbst hochgeladen und verwaltet werden. Das Avatarbild wird im Benutzerprofil und in der Benutzerliste angezeigt. Alle authentifizierten Benutzer können das Avatarbild sehen. Nur der Benutzer, dem das Avatar gehört, kann das Avatarbild löschen.",
+      "certificate-title": "Zertifikate",
+      "certificate-content": "Zertifikate sind Fotokopien von Tauchzertifikaten, die vom Benutzer hochgeladen werden und dazu dienen, nachzuweisen, dass der Benutzer einen Kurs absolviert hat. Die Zertifikatsdatei kann nur vom Benutzer, der sie hochgeladen hat, sowie von Organisatoren und Administratoren eingesehen werden. Nur der Benutzer, dem das Zertifikat gehört, kann die Zertifikatskopie löschen.",
+      "dive-file-title": "Tauchdateien",
+      "dive-file-content": "<b>Hinweis! Diese Funktion ist noch nicht aktiviert.</b> Tauchdateien sind Dateien, die von Benutzern hochgeladen werden, wenn sie eine Tauchgruppe für ein bestimmtes Tauchevent gebildet haben. Hauptsächlich handelt es sich bei den Tauchdateien um Tauchpläne, aber sie können auch andere relevante Dokumentationen enthalten. Die Tauchdateien können von allen authentifizierten Benutzern eingesehen werden. Nur Mitglieder der Tauchgruppe können die Tauchdatei löschen.",
+      "document-title": "Dokumente",
+      "document-content": "Dokumente sind Nicht-Bilddateien, die die Organisation mit den Benutzern teilen möchte. Die Dokumente können nur von Administratoren hochgeladen werden und sind für alle authentifizierten Benutzer sichtbar. Derzeit wird nur das PDF-Format unterstützt. Das Hochladen erfolgt über die Registerkarte „Dokumentdateien“, und sobald die Datei hochgeladen ist, wird sie in der Liste auf derselben Registerkarte angezeigt, aus der der Administrator dann den Link kopieren kann, um ihn in Seiten einzubetten. Nur Administratoren können Dokumente löschen.",
+      "page-file-title": "Seitendateien",
+      "page-file-content": "Seitendateien sind ausgewählte Bildtypen, die beim Bearbeiten einer bestimmten Sprachversion einer Seite mithilfe der Seiteneditor-Bild-Upload-Funktion hochgeladen werden. Beachten Sie, dass das hochgeladene Bild die Sichtbarkeit der Seite erbt. Wenn die Seite für den Benutzer nicht sichtbar ist, ist auch das Bild nicht sichtbar. Jeder Organisator oder Administrator, der die Seite, auf der sich das Bild befindet, bearbeiten kann, kann verlinkte Bilder entfernen."
+    },
+    "avatar": {
+      "tab-title": "Avatar-Dateien"
+    },
+    "certificate": {
+      "tab-title": "Zertifikatsdateien",
+      "certificate-id": "Zertifikat ID"
+    },
+    "dive-file": {
+      "tab-title": "Tauchdateien",
+      "event-id": "Ereignis-ID",
+      "dive-group-id": "Tauchgruppen-ID",
+      "status": "Status"
+    },
+    "document": {
+      "tab-title": "Dokumentdateien",
+      "status": "Status",
+      "upload": {
+        "button": "Neues Dokument hochladen",
+        "successful": "Dokument erfolgreich hochgeladen",
+        "failed": "Dokument-Upload fehlgeschlagen"
+      }
+    },
+    "page-file": {
+      "tab-title": "Seitendateien",
+      "page-id": "Seiten-ID",
+      "language": "Sprache",
+      "status": "Status"
+    },
+    "common-file-column-title": {
+      "filename": "Dateiname",
+      "filesize": "Dateigröße",
+      "creator": "Ersteller",
+      "created-at": "Erstellt am",
+      "download-link": "Download-Link",
+      "view": "Ansehen",
+      "actions": "Aktionen"
+    }
+  },
   "AddPayments": {
     "form": {
       "button": "Zahlungen speichern",

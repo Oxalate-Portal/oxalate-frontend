@@ -97,6 +97,63 @@
     "yearlyResetButton": "Mitätöi vuosimaksut",
     "yearlyResetDivider": "Vuosimaksun mitätöinti"
   },
+  "AdminUploads": {
+    "overview": {
+      "tab-title": "Yleiskatsaus",
+      "overview-title": "Tiedostotyyppien yleiskatsaus",
+      "overview-content-1": "Täällä voit tarkastella eri tyyppisiä ladattuja tiedostoja, kuten Avatar-, luokitus-, sukellus-, asiakirja- ja sivu-tiedostoja. Näistä kaikista voit myös ladata uusia asiakirjatiedostoja.",
+      "overview-content-2": "Jokaisessa listassa on myös tiedoston latauslinkki, mutta huomaa, että tiedostojen katseluun on rajoituksia. Esimerkiksi luokitustiedostoa voi katsella vain käyttäjä, joka sen on ladannut, sekä järjestäjät ja ylläpitäjät.",
+      "type-title": "Erilaiset ladattavat tiedostotyypit",
+      "type-content": "Erilaiset ladattavat tiedostotyypit ovat saatavilla eri tarkoituksiin. Seuraavat ovat tiedostotyyppejä, joita voidaan ladata:",
+      "avatar-title": "Avatarit",
+      "avatar-content": "<b>Huom! Tämä toiminto ei ole vielä käytössä.</b> Avatarit ovat kuvia, jotka edustavat käyttäjäprofiilia. Käyttäjä voi ladata ja hallita niitä itse. Avatar-kuva näkyy käyttäjäprofiilissa ja käyttäjäluettelossa. Kaikki tunnistautuneet käyttäjät voivat tarkastella avatar-kuvaa. Vain käyttäjä, jolle avatar kuuluu, voi poistaa avatar-kuvan.",
+      "certificate-title": "Luokitustiedostot",
+      "certificate-content": "Luokitustiedostot ovat sukellussertifikaattikorttien valokopiokuvia, jotka käyttäjä lataa todistaakseen, että hän on suorittanut kurssin. Sertifikaattitiedostoa voi katsella vain käyttäjä, joka sen on ladannut, sekä järjestäjät ja ylläpitäjät. Vain käyttäjä, jolle sertifikaatti kuuluu, voi poistaa sertifikaatin valokopion.",
+      "dive-file-title": "Sukellustiedostot",
+      "dive-file-content": "<b>Huom! Tämä toiminto ei ole vielä käytössä.</b> Sukellustiedostot ovat tiedostoja, jotka käyttäjät lataavat muodostettuaan sukellusryhmän tiettyä sukellustapahtumaa varten. Ensisijaisesti sukellustiedostot ovat sukellussuunnitelmia, mutta ne voivat sisältää muuta sukellukseen liittyvää dokumentaatiota. Kaikki tunnistautuneet käyttäjät voivat tarkastella sukellustiedostoja. Vain sukellusryhmän jäsenet voivat poistaa sukellustiedoston.",
+      "document-title": "Asiakirjat",
+      "document-content": "Asiakirjat ovat ei-kuvatiedostoja, joita organisaatio haluaa jakaa käyttäjille. Asiakirjat voivat ladata vain ylläpitäjät, ja ne ovat kaikkien tunnistautuneiden käyttäjien katsottavissa. Tällä hetkellä tuetaan vain PDF-muotoa. Lataaminen tapahtuu asiakirjatiedostot-välilehden kautta, ja kun tiedosto on ladattu, se näkyy samalla välilehdellä luettelossa, josta ylläpitäjä voi kopioida linkin upotettavaksi sivuille. Vain ylläpitäjät voivat poistaa asiakirjat.",
+      "page-file-title": "Sivutiedostot",
+      "page-file-content": "Sivutiedostot ovat valittuja kuvatiedostoja, jotka ladataan, kun muokataan tietyn kielen sivuversiota sivueditorin kuvan lataus-toiminnolla. Huomaa, että ladattu kuva perii sivun näkyvyyden, joten jos sivu ei ole käyttäjän näkyvissä, kuva ei myöskään ole näkyvissä. Kaikki järjestäjät tai ylläpitäjät, jotka voivat muokata sivua, jossa kuva sijaitsee, voivat poistaa linkitetyt kuvat."
+    },
+    "avatar": {
+      "tab-title": "Avatartiedostot"
+    },
+    "certificate": {
+      "tab-title": "Sertifikaattitiedostot",
+      "certificate-id": "Sertifikaatti ID"
+    },
+    "dive-file": {
+      "tab-title": "Sukellustiedostot",
+      "event-id": "Tapahtuma ID",
+      "dive-group-id": "Sukellusryhmä ID",
+      "status": "Tila"
+    },
+    "document": {
+      "tab-title": "Asiakirjatiedostot",
+      "status": "Tila",
+      "upload": {
+        "button": "Lataa uusi asiakirja",
+        "successful": "asiakirja ladattu onnistuneesti",
+        "failed": "asiakirjan lataus epäonnistui"
+      }
+    },
+    "page-file": {
+      "tab-title": "Sivutiedostot",
+      "page-id": "Sivu ID",
+      "language": "Kieli",
+      "status": "Tila"
+    },
+    "common-file-column-title": {
+      "filename": "Tiedostonimi",
+      "filesize": "Tiedoston koko",
+      "creator": "Luonut",
+      "created-at": "Luotu",
+      "download-link": "Latauslinkki",
+      "view": "Näytä",
+      "actions": "Toiminnot"
+    }
+  },
   "AddPayments": {
     "form": {
       "button": "Talleta maksut",

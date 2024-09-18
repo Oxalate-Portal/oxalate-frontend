@@ -97,6 +97,63 @@
     "yearlyResetButton": "Ogiltigförklara årsbetalningar",
     "yearlyResetDivider": "Ogiltigförklara årsbetalningar"
   },
+  "AdminUploads": {
+    "overview": {
+      "tab-title": "Översikt",
+      "overview-title": "Översikt över filtyper",
+      "overview-content-1": "Här kan du se alla uppladdade filer av olika typer, Avatar-, Certifikat-, Dyk-, Dokument- och Sidofiler. För alla dessa kan du också ladda upp nya dokumentfiler.",
+      "overview-content-2": "Varje lista innehåller också en nedladdningslänk för filen, men var medveten om att det finns begränsningar för vem som kan se filerna. T.ex. kan certifikatsfilen endast ses av användaren som laddade upp den, samt av organisatörer och administratörer.",
+      "type-title": "Olika typer av uppladdade filer",
+      "type-content": "Olika typer av uppladdade filer finns tillgängliga för olika ändamål. Följande är de typer av filer som kan laddas upp:",
+      "avatar-title": "Avatarer",
+      "avatar-content": "<b>Observera! Den här funktionen är ännu inte aktiverad.</b> Avatarer är bilder som representerar användarprofilen. De kan laddas upp och hanteras av användaren själv. Avatarbilden visas i användarprofilen och i användarlistan. Alla autentiserade användare kan se avatarbilden. Endast användaren som avataren tillhör kan ta bort avatarbilden.",
+      "certificate-title": "Certifikat",
+      "certificate-content": "Certifikat är fotokopior av dykarcertifikatkort som laddas upp av användaren och används för att bevisa att användaren har genomfört en kurs. Certifikatsfilen kan endast ses av användaren som laddade upp den, samt av organisatörer och administratörer. Endast användaren som certifikatet tillhör kan ta bort certifikatskopian.",
+      "dive-file-title": "Dykfiler",
+      "dive-file-content": "<b>Observera! Den här funktionen är ännu inte aktiverad.</b> Dykfiler är filer som laddas upp av användarna när de har bildat en dykgrupp för ett specifikt dykarrangemang. Dykfiler är främst dykplaner men kan också innehålla annan relevant dokumentation som krävs för dykningen. Dykfiler kan ses av alla autentiserade användare. Endast medlemmar i dykgruppen kan ta bort dykfilen.",
+      "document-title": "Dokument",
+      "document-content": "Dokument är icke-bildfiler som organisationen vill dela med användarna. Dokumenten kan endast laddas upp av administratörer och kan ses av alla autentiserade användare. För närvarande stöds endast PDF-format. Uppladdning sker via fliken dokumentfiler, och när filen har laddats upp visas den i listan på samma flik, varifrån administratören kan kopiera länken för att bädda in den på sidor. Endast administratörer kan ta bort dokument.",
+      "page-file-title": "Sidofiler",
+      "page-file-content": "Sidofiler är utvalda typer av bilder som laddas upp när du redigerar en specifik språkversion av en sida med sidredigerarens bilduppladdningsfunktion. Observera att den uppladdade bilden ärver sidans synlighet, så om sidan inte är synlig för användaren, är inte heller bilden synlig. Alla arrangörer eller administratörer som kan redigera sidan där bilden är placerad kan ta bort länkade bilder."
+    },
+    "avatar": {
+      "tab-title": "Avatarfiler"
+    },
+    "certificate": {
+      "tab-title": "Certifikatsfiler",
+      "certificate-id": "Certifikat ID"
+    },
+    "dive-file": {
+      "tab-title": "Dykfiler",
+      "event-id": "Event-ID",
+      "dive-group-id": "Dykgrupps-ID",
+      "status": "Status"
+    },
+    "document": {
+      "tab-title": "Dokumentfiler",
+      "status": "Status",
+      "upload": {
+        "button": "Ladda upp nytt dokument",
+        "successful": "dokumentet laddades upp framgångsrikt",
+        "failed": "dokumentuppladdning misslyckades"
+      }
+    },
+    "page-file": {
+      "tab-title": "Sidfiler",
+      "page-id": "Sida ID",
+      "language": "Språk",
+      "status": "Status"
+    },
+    "common-file-column-title": {
+      "filename": "Filnamn",
+      "filesize": "Filstorlek",
+      "creator": "Skapare",
+      "created-at": "Skapad",
+      "download-link": "Nedladdningslänk",
+      "view": "Visa",
+      "actions": "Åtgärder"
+    }
+  },
   "AddPayments": {
     "form": {
       "button": "Spara betalningar",

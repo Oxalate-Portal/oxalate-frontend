@@ -97,6 +97,63 @@
     "yearlyResetButton": "Void annual payments",
     "yearlyResetDivider": "Annual payments void"
   },
+  "AdminUploads": {
+    "overview": {
+      "tab-title": "Overview",
+      "overview-title": "File Types Overview",
+      "overview-content-1": "Here you can view all the uploaded file of different types, Avatar, Certificate, Dive, Document, and Page files. Of all of these you can also upload new document files.",
+      "overview-content-2": "Each least also contains the download link for the file, but beware that restrictions on who can view the files exist. E.g. the certificate file can only be viewed by the user who uploaded it as well as organizers and admins.",
+      "type-title": "Different types of upload files",
+      "type-content": "Different types of upload files are available for different purposes. The following are the types of files that can be uploaded:",
+      "avatar-title": "Avatars",
+      "avatar-content": "<b>Note! This feature is not yet enabled.</b> Avatars are images representing the user profile. They can be uploaded and managed by the user themselves. The avatar image is displayed in the user profile and in the user list. All authenticated users can view the avatar image. Only the user to whom the avatar belongs can delete the avatar image.",
+      "certificate-title": "Certificates",
+      "certificate-content": "Certificates are photocopy images of dive certificate cards that are uploaded by the user and are used to prove that the user has completed a course. The certificate file can only be viewed by the user who uploaded it as well as organizers and admins. Only the user to which the certificate belongs can delete the certificate photo copy.",
+      "dive-file-title": "Dive files",
+      "dive-file-content": "<b>Note! This feature is not yet enabled.</b> Dive files are files that are uploaded by the users as they've formed a dive group for a specific dive event. Primarily the dive files are dive plans, but may include other relevant documentation required for the dive. The dive files can be viewed by all authenticated users. Only the dive group members can delete the dive file.",
+      "document-title": "Documents",
+      "document-content": "Documents are non-image files that the organization wants to share with the users. The documents can be uploaded by the admins only and can be viewed by all authenticated users. Currently the only document format supported is PDF. The upload is done through the document files tab, and once the file is uploaded, it will be shown in the list on the same tab, from which the admin can then copy the link to be embedded in pages. Only admins can delete documents.",
+      "page-file-title": "Page files",
+      "page-file-content": "Page files are selected type of images which are uploaded when editing a specific language version of a page using the page editor upload image-functionality. Note that the uploaded image inherits the visibility of the page, so if the page is not visible to the user, the image is not visible either. Any organizer or admin who can edit the page in which the image is located, can remove linked images."
+    },
+    "avatar": {
+      "tab-title": "Avatar Files"
+    },
+    "certificate": {
+      "tab-title": "Certificate Files",
+      "certificate-id": "Certificate ID"
+    },
+    "dive-file": {
+      "tab-title": "Dive Files",
+      "event-id": "Event ID",
+      "dive-group-id": "Dive Group ID",
+      "status": "Status"
+    },
+    "document": {
+      "tab-title": "Document Files",
+      "status": "Status",
+      "upload": {
+        "button": "Upload new document",
+        "successful": "document uploaded successfully",
+        "failed": "document upload failed"
+      }
+    },
+    "page-file": {
+      "tab-title": "Page Files",
+      "page-id": "Page ID",
+      "language": "Language",
+      "status": "Status"
+    },
+    "common-file-column-title": {
+      "filename": "File Name",
+      "filesize": "File Size",
+      "creator": "Creator",
+      "created-at": "Created at",
+      "download-link": "Download link",
+      "view": "View",
+      "actions": "Actions"
+    }
+  },
   "AddPayments": {
     "form": {
       "button": "Save payments",
