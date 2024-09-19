@@ -893,7 +893,9 @@
       "organization" : "Certifieringsorganisation",
       "photocopy" : "Kopia av dykcertifikat",
       "title" : "Certifikat: ",
-      "upload-photo" : "Ladda bild"
+      "upload-photo" : "Ladda dykcertificat",
+      "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna.",
+      "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet."
     }
   },
   "StatisticsMain" : {

@@ -1,6 +1,6 @@
-import { UploadOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import { CertificateResponse } from "../../models/responses";
-import { Button, Card, Col, message, Row, Space, Spin, Upload, UploadProps } from "antd";
+import { Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useSession } from "../../session";
 import { useState } from "react";
@@ -10,9 +10,10 @@ import { fileTransferAPI } from "../../services";
 interface ShowCertificateCardProps {
     certificate: CertificateResponse;
     deleteCertificate: any;
+    viewOnly: boolean;
 }
 
-export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertificateCardProps) {
+export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: ShowCertificateCardProps) {
     const {t} = useTranslation();
     const {userSession} = useSession();
     const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificatePhotoUrl);
@@ -24,6 +25,15 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
         action: `${import.meta.env.VITE_APP_API_URL}` + "/files/certificates/" + certificate.id,
         headers: {
             authorization: "Bearer " + userSession?.accessToken,
+        },
+        showUploadList: false,
+        accept: "image/png, image/jpeg, image/jpg",
+        beforeUpload: (file) => {
+            const maxFileSize = 1 * 1024 * 1024;
+            if (file.size > maxFileSize) {
+                message.error(t("ShowCertificateCard.card.upload-photo-size-too-big"));
+                return false;
+            }
         },
         onChange(info) {
             if (info.file.status !== "uploading") {
@@ -38,8 +48,6 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
                 message.error(`${info.file.name} file upload failed.`);
             }
         },
-        showUploadList: false,
-        accept: "image/png, image/jpeg, image/jpg",
     };
 
     function showExtras() {
@@ -52,11 +60,16 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
                         <Button danger type="primary" onClick={() => deleteCertificate(certificate)}>
                             {t("common.button.delete")}
                         </Button>
-                        <Upload {...uploadProps}>
-                            <Button icon={<UploadOutlined/>}>
-                                {t("ShowCertificateCard.card.upload-photo")}
-                            </Button>
-                        </Upload>
+                        <div>
+                            <Upload {...uploadProps}>
+                                <Button icon={<UploadOutlined/>}>
+                                    {t("ShowCertificateCard.card.upload-photo")}
+                                </Button>
+                            </Upload>&nbsp;
+                            <Tooltip title={t("ShowCertificateCard.card.upload-photo-tooltip")}>
+                                <QuestionCircleOutlined/>
+                            </Tooltip>
+                        </div>
                     </Space>
             );
         }
@@ -91,6 +104,7 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
                             style={{width: "250px"}}
                             alt={t("ShowCertificateCard.card.certificatePhoto")}
                             onRemove={removeCertificatePhoto}
+                            viewOnly={viewOnly}
                     />
             );
         } else {

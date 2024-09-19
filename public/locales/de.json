@@ -901,7 +901,9 @@
       "organization" : "Zertifizierungsstelle",
       "photocopy" : "Zertifikatskopie",
       "title" : "Zertifikat: ",
-      "upload-photo" : "Foto hochladen"
+      "upload-photo" : "Zertifikat hochladen",
+      "upload-photo-tooltip": "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt.",
+      "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist."
     }
   },
   "StatisticsMain" : {

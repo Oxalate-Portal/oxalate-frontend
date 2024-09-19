@@ -55,6 +55,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                         <ShowCertificateCard certificate={certificate}
                                              deleteCertificate={viewOnly ? null : deleteCertificate}
                                              key={certificate.id}
+                                             viewOnly={viewOnly}
                         />
                 )}
                 {!viewOnly && <Button type={"primary"} href={"/users/certificates/0"}>{t("Certificates.panel.addButton")}</Button>}

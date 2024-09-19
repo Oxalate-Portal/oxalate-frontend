@@ -901,7 +901,9 @@
       "organization" : "Luokitusjärjestö",
       "photocopy" : "Luokituskortin kopio",
       "title" : "Luokitus: ",
-      "upload-photo" : "Lataa kuva"
+      "upload-photo" : "Lataa luokituskortti",
+      "upload-photo-tooltip": "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu.",
+      "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt."
     }
   },
   "StatisticsMain" : {

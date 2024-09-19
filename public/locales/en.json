@@ -901,7 +901,9 @@
       "organization" : "Certification organization",
       "photocopy" : "Certification photocopy",
       "title" : "Certification: ",
-      "upload-photo" : "Upload certification photo"
+      "upload-photo" : "Upload certificate",
+      "upload-photo-tooltip" : "Upload a photocopy of your certificate, max. 1MB in size. Uploading a second file will overwrite the first one. Only JPEG and PNG files are allowed.",
+      "upload-photo-size-too-big" : "File size is too big, max 1MB allowed"
     }
   },
   "StatisticsMain" : {

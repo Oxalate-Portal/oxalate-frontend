@@ -10,9 +10,10 @@ interface ProtectedImageProps {
     style?: CSSProperties;
     onRemove?: () => void;
     preview?: boolean;
+    viewOnly?: boolean;
 }
 
-export function ProtectedImage({ imageUrl, alt, style, onRemove, preview }: ProtectedImageProps) {
+export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOnly }: ProtectedImageProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const { userSession } = useSession();
 
@@ -53,7 +54,7 @@ export function ProtectedImage({ imageUrl, alt, style, onRemove, preview }: Prot
                 />
 
                 {/* Conditionally render the remove icon if onRemove is provided */}
-                {onRemove && (
+                {onRemove && !viewOnly && (
                         <CloseCircleOutlined
                                 onClick={onRemove}
                                 style={{
