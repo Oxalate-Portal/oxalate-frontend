@@ -135,7 +135,11 @@
       "upload": {
         "button": "Upload new document",
         "successful": "document uploaded successfully",
-        "failed": "document upload failed"
+        "fail": "document upload failed"
+      },
+      "delete": {
+        "fail": "Failed to delete the document",
+        "successful": "Document deleted successfully"
       }
     },
     "page-file": {

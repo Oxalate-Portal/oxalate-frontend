@@ -135,7 +135,11 @@
       "upload": {
         "button": "Ladda upp nytt dokument",
         "successful": "dokumentet laddades upp framgångsrikt",
-        "failed": "dokumentuppladdning misslyckades"
+        "fail": "dokumentuppladdning misslyckades"
+      },
+      "delete": {
+        "fail": "Misslyckades med att ta bort dokumentet",
+        "successful": "Dokumentet raderades framgångsrikt"
       }
     },
     "page-file": {

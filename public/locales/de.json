@@ -135,7 +135,11 @@
       "upload": {
         "button": "Neues Dokument hochladen",
         "successful": "Dokument erfolgreich hochgeladen",
-        "failed": "Dokument-Upload fehlgeschlagen"
+        "fail": "Dokument-Upload fehlgeschlagen"
+      },
+      "delete": {
+        "fail": "Löschen des Dokuments fehlgeschlagen",
+        "successful": "Dokument erfolgreich gelöscht"
       }
     },
     "page-file": {

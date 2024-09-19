@@ -135,7 +135,11 @@
       "upload": {
         "button": "Lataa uusi asiakirja",
         "successful": "asiakirja ladattu onnistuneesti",
-        "failed": "asiakirjan lataus epäonnistui"
+        "fail": "asiakirjan lataus epäonnistui"
+      },
+      "delete": {
+        "fail": "Dokumentin poistaminen epäonnistui",
+        "successful": "Dokumentti poistettu onnistuneesti"
       }
     },
     "page-file": {
