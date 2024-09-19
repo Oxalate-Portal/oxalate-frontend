@@ -1,15 +1,18 @@
 import { CSSProperties, useEffect, useState } from "react";
 import axios from "axios";
 import { Image } from "antd";
+import { CloseCircleOutlined } from "@ant-design/icons";
 import { useSession } from "../../session";
 
 interface ProtectedImageProps {
     imageUrl: string;
     alt?: string;
     style?: CSSProperties;
+    onRemove?: () => void;
+    preview?: boolean;
 }
 
-export function ProtectedImage({ imageUrl, alt, style }: ProtectedImageProps) {
+export function ProtectedImage({ imageUrl, alt, style, onRemove, preview }: ProtectedImageProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const { userSession } = useSession();
 
@@ -40,10 +43,29 @@ export function ProtectedImage({ imageUrl, alt, style }: ProtectedImageProps) {
     }
 
     return (
-            <Image
-                    src={imageSrc}
-                    alt={alt || "Protected content"}
-                    style={style}
-            />
+            <div style={{ position: "relative", display: "inline-block" }}>
+                {/* Display the image */}
+                <Image
+                        src={imageSrc}
+                        alt={alt || "Protected content"}
+                        style={style}
+                        preview={(preview === undefined) ? true : preview}
+                />
+
+                {/* Conditionally render the remove icon if onRemove is provided */}
+                {onRemove && (
+                        <CloseCircleOutlined
+                                onClick={onRemove}
+                                style={{
+                                    position: "absolute",
+                                    top: 8,
+                                    right: 8,
+                                    fontSize: "24px",
+                                    color: "black",
+                                    cursor: "pointer",
+                                }}
+                        />
+                )}
+            </div>
     );
 }

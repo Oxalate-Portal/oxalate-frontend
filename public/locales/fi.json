@@ -1,1155 +1,1155 @@
 {
-  "AcceptTerms": {
-    "button": {
-      "acceptTerms": "Hyväksyn ehdot"
+  "AcceptTerms" : {
+    "button" : {
+      "acceptTerms" : "Hyväksyn ehdot"
     },
-    "error": {
-      "alert": "Jokin meni vikaan, ole hyvä ja ota yhteyttä ylläpitoon"
+    "error" : {
+      "alert" : "Jokin meni vikaan, ole hyvä ja ota yhteyttä ylläpitoon"
     },
-    "rejectTerms": "En hyväksy ehtoja"
+    "rejectTerms" : "En hyväksy ehtoja"
   },
-  "AdminAudit": {
-    "header": "Auditointilogit"
-  },
-  "AdminMain": {
-    "header": "Ylläpito",
-    "memberHeader": "Jäsenet",
-    "memberText": "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
-    "paymentHeader": "Maksut",
-    "paymentText": "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto jäsenille",
-    "statsHeader": "Tilastot",
-    "statsText1": "Vuositason tapahtuma-, jäsenrekisteröinti- tapahtumajärjestäjien sekä maksutilastot",
-    "statsText2": "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
-    "text": "Ylläpito-sivut. Ole varovainen"
-  },
-  "AdminOrgAdminPaymentListPanel": {
-    "table": {
-      "expirationtDate": "Päättymispäivä",
-      "name": "Nimi",
-      "paymentCount": "Määrä",
-      "paymentDate": "Maksupäiväys"
+  "AddPayments" : {
+    "form" : {
+      "button" : "Talleta maksut",
+      "name" : {
+        "label" : "Jäsenet",
+        "placeholder" : "Lisää jäseniä"
+      },
+      "paymentCount" : {
+        "label" : "Kertamaksujen määrä"
+      },
+      "paymentType" : {
+        "label" : "Maksutyyppi"
+      }
+    },
+    "onFinish" : {
+      "fail" : "Käyttäjien maksutietojen päivitys epäonnistui",
+      "ok" : "Käyttäjien maksutiedot päivitetty"
+    },
+    "status" : {
+      "buttonOk" : "Lataa päivitetyt tiedot",
+      "tryAgain" : "Yritä uudelleen"
+    },
+    "types" : {
+      "oneTime" : "Kertamaksu",
+      "period" : "Kausimaksu"
     }
   },
-  "AdminOrgUser": {
-    "form": {
-      "button": {
-        "reset": "Palauta",
-        "sendPasswordEmail": "Lähetä salasanaviesti",
-        "update": "Päivitä tiedot"
-      },
-      "roles": {
-        "administrator": "Ylläpitäjä",
-        "label": "Roolit",
-        "member": "Jäsen",
-        "organizer": "Tapahtumajärjestäjä"
-      },
-      "status": {
-        "label": "Status",
-        "rule1": "Status on vaadittu kenttä",
-        "tooltip": "Käyttäjän status"
-      }
-    },
-    "sendPasswordEmail": {
-      "fail": "Salasanan vaihtolinkin lähetys epäonnistui",
-      "ok": "Salasanan vaihtolinkki lähetetty sähköpostiin"
-    },
-    "updateUser": {
-      "confirmAnonymize": "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki jäsenen henkilökohtaiset tiedot jotka hän on syöttänyt järjestelmään. Tätä muutosta ei voi perua.",
-      "confirmOrganizer": "Tapahtumajärjestäjän roolin lisääminen poistaa yksityisyyden suojan käytöstä. Haluatko jatkaa?",
-      "fail": "Käyttäjän tietojen päivitys epäonnistui",
-      "ok": "Käyttäjän tiedot päivitetty"
+  "AdminAudit" : {
+    "header" : "Auditointilogit"
+  },
+  "AdminMain" : {
+    "header" : "Ylläpito",
+    "memberHeader" : "Jäsenet",
+    "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
+    "paymentHeader" : "Maksut",
+    "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto jäsenille",
+    "statsHeader" : "Tilastot",
+    "statsText1" : "Vuositason tapahtuma-, jäsenrekisteröinti- tapahtumajärjestäjien sekä maksutilastot",
+    "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
+    "text" : "Ylläpito-sivut. Ole varovainen"
+  },
+  "AdminOrgAdminPaymentListPanel" : {
+    "table" : {
+      "expirationtDate" : "Päättymispäivä",
+      "name" : "Nimi",
+      "paymentCount" : "Määrä",
+      "paymentDate" : "Maksupäiväys"
     }
   },
-  "AdminOrgUsers": {
-    "invalidateTermAgreements": {
-      "confirm": "Oletko varma että kaikkien jäsenten täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
-      "fail": "Ei onnistuttu mitätöimään käyttöehtoja",
-      "ok": "Käyttöehdot mitätöitiin onnistuneesti"
-    },
-    "search": {
-      "placeholder": "Hae jäseniä",
-      "spinText": "Haetaan jäseniä..."
-    },
-    "table": {
-      "action": {
-        "button": "Päivitä",
-        "title": "Päivitä"
+  "AdminOrgUser" : {
+    "form" : {
+      "button" : {
+        "reset" : "Palauta",
+        "sendPasswordEmail" : "Lähetä salasanaviesti",
+        "update" : "Päivitä tiedot"
       },
-      "firstName": "Etunimi",
-      "lastName": "Sukunimi",
-      "login": "Tunnus",
-      "paymentStatus": "Jäsenmaksu",
-      "role": {
-        "title": "Roolit"
+      "roles" : {
+        "administrator" : "Ylläpitäjä",
+        "label" : "Roolit",
+        "member" : "Jäsen",
+        "organizer" : "Tapahtumajärjestäjä"
       },
-      "status": "Status"
-    },
-    "terms": {
-      "resetButton": "Uusi käyttöehtohyväksyminen",
-      "resetDivider": "Käyttöehtojen nollaus"
-    },
-    "title": "Jäsenet"
-  },
-  "AdminPayments": {
-    "activeDivider": "Voimassaolevat maksut",
-    "addPaymentsDivider": "Lisää maksuja",
-    "confirmInvalidate": "Haluatko varmasti mitätöidä kaikki vuosimaksut? Tätä muutosta ei voi perua.",
-    "yearlyResetButton": "Mitätöi vuosimaksut",
-    "yearlyResetDivider": "Vuosimaksun mitätöinti"
-  },
-  "AdminUploads": {
-    "overview": {
-      "tab-title": "Yleiskatsaus",
-      "overview-title": "Tiedostotyyppien yleiskatsaus",
-      "overview-content-1": "Täällä voit tarkastella eri tyyppisiä ladattuja tiedostoja, kuten Avatar-, luokitus-, sukellus-, asiakirja- ja sivu-tiedostoja. Näistä kaikista voit myös ladata uusia asiakirjatiedostoja.",
-      "overview-content-2": "Jokaisessa listassa on myös tiedoston latauslinkki, mutta huomaa, että tiedostojen katseluun on rajoituksia. Esimerkiksi luokitustiedostoa voi katsella vain käyttäjä, joka sen on ladannut, sekä järjestäjät ja ylläpitäjät.",
-      "type-title": "Erilaiset ladattavat tiedostotyypit",
-      "type-content": "Erilaiset ladattavat tiedostotyypit ovat saatavilla eri tarkoituksiin. Seuraavat ovat tiedostotyyppejä, joita voidaan ladata:",
-      "avatar-title": "Avatarit",
-      "avatar-content": "<b>Huom! Tämä toiminto ei ole vielä käytössä.</b> Avatarit ovat kuvia, jotka edustavat käyttäjäprofiilia. Käyttäjä voi ladata ja hallita niitä itse. Avatar-kuva näkyy käyttäjäprofiilissa ja käyttäjäluettelossa. Kaikki tunnistautuneet käyttäjät voivat tarkastella avatar-kuvaa. Vain käyttäjä, jolle avatar kuuluu, voi poistaa avatar-kuvan.",
-      "certificate-title": "Luokitustiedostot",
-      "certificate-content": "Luokitustiedostot ovat sukellussertifikaattikorttien valokopiokuvia, jotka käyttäjä lataa todistaakseen, että hän on suorittanut kurssin. Sertifikaattitiedostoa voi katsella vain käyttäjä, joka sen on ladannut, sekä järjestäjät ja ylläpitäjät. Vain käyttäjä, jolle sertifikaatti kuuluu, voi poistaa sertifikaatin valokopion.",
-      "dive-file-title": "Sukellustiedostot",
-      "dive-file-content": "<b>Huom! Tämä toiminto ei ole vielä käytössä.</b> Sukellustiedostot ovat tiedostoja, jotka käyttäjät lataavat muodostettuaan sukellusryhmän tiettyä sukellustapahtumaa varten. Ensisijaisesti sukellustiedostot ovat sukellussuunnitelmia, mutta ne voivat sisältää muuta sukellukseen liittyvää dokumentaatiota. Kaikki tunnistautuneet käyttäjät voivat tarkastella sukellustiedostoja. Vain sukellusryhmän jäsenet voivat poistaa sukellustiedoston.",
-      "document-title": "Asiakirjat",
-      "document-content": "Asiakirjat ovat ei-kuvatiedostoja, joita organisaatio haluaa jakaa käyttäjille. Asiakirjat voivat ladata vain ylläpitäjät, ja ne ovat kaikkien tunnistautuneiden käyttäjien katsottavissa. Tällä hetkellä tuetaan vain PDF-muotoa. Lataaminen tapahtuu asiakirjatiedostot-välilehden kautta, ja kun tiedosto on ladattu, se näkyy samalla välilehdellä luettelossa, josta ylläpitäjä voi kopioida linkin upotettavaksi sivuille. Vain ylläpitäjät voivat poistaa asiakirjat.",
-      "page-file-title": "Sivutiedostot",
-      "page-file-content": "Sivutiedostot ovat valittuja kuvatiedostoja, jotka ladataan, kun muokataan tietyn kielen sivuversiota sivueditorin kuvan lataus-toiminnolla. Huomaa, että ladattu kuva perii sivun näkyvyyden, joten jos sivu ei ole käyttäjän näkyvissä, kuva ei myöskään ole näkyvissä. Kaikki järjestäjät tai ylläpitäjät, jotka voivat muokata sivua, jossa kuva sijaitsee, voivat poistaa linkitetyt kuvat."
-    },
-    "avatar": {
-      "tab-title": "Avatartiedostot"
-    },
-    "certificate": {
-      "tab-title": "Sertifikaattitiedostot",
-      "certificate-id": "Sertifikaatti ID"
-    },
-    "dive-file": {
-      "tab-title": "Sukellustiedostot",
-      "event-id": "Tapahtuma ID",
-      "dive-group-id": "Sukellusryhmä ID",
-      "status": "Tila"
-    },
-    "document": {
-      "tab-title": "Asiakirjatiedostot",
-      "status": "Tila",
-      "upload": {
-        "button": "Lataa uusi asiakirja",
-        "successful": "asiakirja ladattu onnistuneesti",
-        "fail": "asiakirjan lataus epäonnistui"
-      },
-      "delete": {
-        "fail": "Dokumentin poistaminen epäonnistui",
-        "successful": "Dokumentti poistettu onnistuneesti"
+      "status" : {
+        "label" : "Status",
+        "rule1" : "Status on vaadittu kenttä",
+        "tooltip" : "Käyttäjän status"
       }
     },
-    "page-file": {
-      "tab-title": "Sivutiedostot",
-      "page-id": "Sivu ID",
-      "language": "Kieli",
-      "status": "Tila"
+    "sendPasswordEmail" : {
+      "fail" : "Salasanan vaihtolinkin lähetys epäonnistui",
+      "ok" : "Salasanan vaihtolinkki lähetetty sähköpostiin"
     },
-    "common-file-column-title": {
-      "filename": "Tiedostonimi",
-      "filesize": "Tiedoston koko",
-      "creator": "Luonut",
-      "created-at": "Luotu",
-      "download-link": "Latauslinkki",
-      "view": "Näytä",
-      "actions": "Toiminnot"
+    "updateUser" : {
+      "confirmAnonymize" : "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki jäsenen henkilökohtaiset tiedot jotka hän on syöttänyt järjestelmään. Tätä muutosta ei voi perua.",
+      "confirmOrganizer" : "Tapahtumajärjestäjän roolin lisääminen poistaa yksityisyyden suojan käytöstä. Haluatko jatkaa?",
+      "fail" : "Käyttäjän tietojen päivitys epäonnistui",
+      "ok" : "Käyttäjän tiedot päivitetty"
     }
   },
-  "AddPayments": {
-    "form": {
-      "button": "Talleta maksut",
-      "name": {
-        "label": "Jäsenet",
-        "placeholder": "Lisää jäseniä"
+  "AdminOrgUsers" : {
+    "invalidateTermAgreements" : {
+      "confirm" : "Oletko varma että kaikkien jäsenten täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
+      "fail" : "Ei onnistuttu mitätöimään käyttöehtoja",
+      "ok" : "Käyttöehdot mitätöitiin onnistuneesti"
+    },
+    "search" : {
+      "placeholder" : "Hae jäseniä",
+      "spinText" : "Haetaan jäseniä..."
+    },
+    "table" : {
+      "action" : {
+        "button" : "Päivitä",
+        "title" : "Päivitä"
       },
-      "paymentCount": {
-        "label": "Kertamaksujen määrä"
+      "firstName" : "Etunimi",
+      "lastName" : "Sukunimi",
+      "login" : "Tunnus",
+      "paymentStatus" : "Jäsenmaksu",
+      "role" : {
+        "title" : "Roolit"
       },
-      "paymentType": {
-        "label": "Maksutyyppi"
+      "status" : "Status"
+    },
+    "terms" : {
+      "resetButton" : "Uusi käyttöehtohyväksyminen",
+      "resetDivider" : "Käyttöehtojen nollaus"
+    },
+    "title" : "Jäsenet"
+  },
+  "AdminPayments" : {
+    "activeDivider" : "Voimassaolevat maksut",
+    "addPaymentsDivider" : "Lisää maksuja",
+    "confirmInvalidate" : "Haluatko varmasti mitätöidä kaikki vuosimaksut? Tätä muutosta ei voi perua.",
+    "yearlyResetButton" : "Mitätöi vuosimaksut",
+    "yearlyResetDivider" : "Vuosimaksun mitätöinti"
+  },
+  "AdminUploads" : {
+    "avatar" : {
+      "tab-title" : "Avatartiedostot"
+    },
+    "certificate" : {
+      "certificate-id" : "Sertifikaatti ID",
+      "tab-title" : "Sertifikaattitiedostot"
+    },
+    "common-file-column-title" : {
+      "actions" : "Toiminnot",
+      "created-at" : "Luotu",
+      "creator" : "Luonut",
+      "download-link" : "Latauslinkki",
+      "filename" : "Tiedostonimi",
+      "filesize" : "Tiedoston koko",
+      "view" : "Näytä"
+    },
+    "dive-file" : {
+      "dive-group-id" : "Sukellusryhmä ID",
+      "event-id" : "Tapahtuma ID",
+      "status" : "Tila",
+      "tab-title" : "Sukellustiedostot"
+    },
+    "document" : {
+      "delete" : {
+        "fail" : "Dokumentin poistaminen epäonnistui",
+        "successful" : "Dokumentti poistettu onnistuneesti"
+      },
+      "status" : "Tila",
+      "tab-title" : "Asiakirjatiedostot",
+      "upload" : {
+        "button" : "Lataa uusi asiakirja",
+        "fail" : "asiakirjan lataus epäonnistui",
+        "successful" : "asiakirja ladattu onnistuneesti"
       }
     },
-    "onFinish": {
-      "fail": "Käyttäjien maksutietojen päivitys epäonnistui",
-      "ok": "Käyttäjien maksutiedot päivitetty"
+    "overview" : {
+      "avatar-content" : "<b>Huom! Tämä toiminto ei ole vielä käytössä.</b> Avatarit ovat kuvia, jotka edustavat käyttäjäprofiilia. Käyttäjä voi ladata ja hallita niitä itse. Avatar-kuva näkyy käyttäjäprofiilissa ja käyttäjäluettelossa. Kaikki tunnistautuneet käyttäjät voivat tarkastella avatar-kuvaa. Vain käyttäjä, jolle avatar kuuluu, voi poistaa avatar-kuvan.",
+      "avatar-title" : "Avatarit",
+      "certificate-content" : "Luokitustiedostot ovat sukellussertifikaattikorttien valokopiokuvia, jotka käyttäjä lataa todistaakseen, että hän on suorittanut kurssin. Sertifikaattitiedostoa voi katsella vain käyttäjä, joka sen on ladannut, sekä järjestäjät ja ylläpitäjät. Vain käyttäjä, jolle sertifikaatti kuuluu, voi poistaa sertifikaatin valokopion.",
+      "certificate-title" : "Luokitustiedostot",
+      "dive-file-content" : "<b>Huom! Tämä toiminto ei ole vielä käytössä.</b> Sukellustiedostot ovat tiedostoja, jotka käyttäjät lataavat muodostettuaan sukellusryhmän tiettyä sukellustapahtumaa varten. Ensisijaisesti sukellustiedostot ovat sukellussuunnitelmia, mutta ne voivat sisältää muuta sukellukseen liittyvää dokumentaatiota. Kaikki tunnistautuneet käyttäjät voivat tarkastella sukellustiedostoja. Vain sukellusryhmän jäsenet voivat poistaa sukellustiedoston.",
+      "dive-file-title" : "Sukellustiedostot",
+      "document-content" : "Asiakirjat ovat ei-kuvatiedostoja, joita organisaatio haluaa jakaa käyttäjille. Asiakirjat voivat ladata vain ylläpitäjät, ja ne ovat kaikkien tunnistautuneiden käyttäjien katsottavissa. Tällä hetkellä tuetaan vain PDF-muotoa. Lataaminen tapahtuu asiakirjatiedostot-välilehden kautta, ja kun tiedosto on ladattu, se näkyy samalla välilehdellä luettelossa, josta ylläpitäjä voi kopioida linkin upotettavaksi sivuille. Vain ylläpitäjät voivat poistaa asiakirjat.",
+      "document-title" : "Asiakirjat",
+      "overview-content-1" : "Täällä voit tarkastella eri tyyppisiä ladattuja tiedostoja, kuten Avatar-, luokitus-, sukellus-, asiakirja- ja sivu-tiedostoja. Näistä kaikista voit myös ladata uusia asiakirjatiedostoja.",
+      "overview-content-2" : "Jokaisessa listassa on myös tiedoston latauslinkki, mutta huomaa, että tiedostojen katseluun on rajoituksia. Esimerkiksi luokitustiedostoa voi katsella vain käyttäjä, joka sen on ladannut, sekä järjestäjät ja ylläpitäjät.",
+      "overview-title" : "Tiedostotyyppien yleiskatsaus",
+      "page-file-content" : "Sivutiedostot ovat valittuja kuvatiedostoja, jotka ladataan, kun muokataan tietyn kielen sivuversiota sivueditorin kuvan lataus-toiminnolla. Huomaa, että ladattu kuva perii sivun näkyvyyden, joten jos sivu ei ole käyttäjän näkyvissä, kuva ei myöskään ole näkyvissä. Kaikki järjestäjät tai ylläpitäjät, jotka voivat muokata sivua, jossa kuva sijaitsee, voivat poistaa linkitetyt kuvat.",
+      "page-file-title" : "Sivutiedostot",
+      "tab-title" : "Yleiskatsaus",
+      "type-content" : "Erilaiset ladattavat tiedostotyypit ovat saatavilla eri tarkoituksiin. Seuraavat ovat tiedostotyyppejä, joita voidaan ladata:",
+      "type-title" : "Erilaiset ladattavat tiedostotyypit"
     },
-    "status": {
-      "buttonOk": "Lataa päivitetyt tiedot",
-      "tryAgain": "Yritä uudelleen"
-    },
-    "types": {
-      "oneTime": "Kertamaksu",
-      "period": "Kausimaksu"
+    "page-file" : {
+      "language" : "Kieli",
+      "page-id" : "Sivu ID",
+      "status" : "Tila",
+      "tab-title" : "Sivutiedostot"
     }
   },
-  "ListPayments": {
-    "oneTime": "Kertamaksut",
-    "period": "Kausimaksut",
-    "unknown": "Tuntemattomat"
+  "AuditEvents" : {
+    "filter" : {
+      "address" : "IP osoite",
+      "message" : "Viesti",
+      "source" : "Lähde",
+      "traceId" : "Seurantatunnus",
+      "userName" : "Käyttäjänimi"
+    },
+    "search" : {
+      "placeholder" : "Hae..."
+    },
+    "table" : {
+      "address" : "IP osoite",
+      "createdAt" : "Aikaleima",
+      "level" : "Taso",
+      "message" : "Viesti",
+      "source" : "Lähde",
+      "traceId" : "Seurantatunnus",
+      "userName" : "Käyttäjänimi"
+    },
+    "title" : "Audit tapahtumat"
   },
-  "AuditEvents": {
-    "filter": {
-      "userName": "Käyttäjänimi",
-      "traceId": "Seurantatunnus",
-      "source": "Lähde",
-      "address": "IP osoite",
-      "message": "Viesti"
-    },
-    "search": {
-      "placeholder": "Hae..."
-    },
-    "table": {
-      "address": "IP osoite",
-      "createdAt": "Aikaleima",
-      "level": "Taso",
-      "message": "Viesti",
-      "source": "Lähde",
-      "traceId": "Seurantatunnus",
-      "userName": "Käyttäjänimi"
-    },
-    "title": "Audit tapahtumat"
-  },
-  "BlockedDates": {
-    "form": {
-      "date": {
-        "rule": "Päivämäärä on pakollinen kenttä"
+  "BlockedDates" : {
+    "form" : {
+      "date" : {
+        "rule" : "Päivämäärä on pakollinen kenttä"
       }
     },
-    "list": {
-      "confirm": "Haluatko varmasti poistaa estetyn päivämäärän?"
+    "list" : {
+      "confirm" : "Haluatko varmasti poistaa estetyn päivämäärän?"
     },
-    "load": {
-      "fail": "Estettyjen päivämäärien lataus epäonnistui"
+    "load" : {
+      "fail" : "Estettyjen päivämäärien lataus epäonnistui"
     },
-    "popup": {
-      "add-fail": "Estetyn päivämäärän lisääminen epäonnistui",
-      "add-success": "Estetty päivämäärä lisätty onnistuneesti",
-      "remove-fail": "Estetyn päivämäärän poistaminen epäonnistui",
-      "remove-success": "Estetty päivämäärä poistettu onnistuneesti"
+    "popup" : {
+      "add-fail" : "Estetyn päivämäärän lisääminen epäonnistui",
+      "add-success" : "Estetty päivämäärä lisätty onnistuneesti",
+      "remove-fail" : "Estetyn päivämäärän poistaminen epäonnistui",
+      "remove-success" : "Estetty päivämäärä poistettu onnistuneesti"
     },
-    "title": "Päivämäärän estäminen"
+    "title" : "Päivämäärän estäminen"
   },
-  "Certificates": {
-    "deleteCertificate": {
-      "confirm": "Haluatko varmasti poistaa luokituksen \""
+  "Certificates" : {
+    "deleteCertificate" : {
+      "confirm" : "Haluatko varmasti poistaa luokituksen \""
     },
-    "panel": {
-      "addButton": "Lisää uusi luokitus",
-      "text": "Jäsen on suorittanut seuraavat sukellusluokitukset:",
-      "title": "Sukellusluokitukset"
+    "panel" : {
+      "addButton" : "Lisää uusi luokitus",
+      "text" : "Jäsen on suorittanut seuraavat sukellusluokitukset:",
+      "title" : "Sukellusluokitukset"
     }
   },
-  "common": {
-    "button": {
-      "add": "Lisää",
-      "back": "Takaisin",
-      "close": "Sulje",
-      "delete": "Poista",
-      "held": "Pidetty",
-      "login": "Kirjaudu sisään",
-      "logout": "Kirjaudu ulos",
-      "no": "Ei",
-      "open": "Avaa",
-      "reset": "Palauta",
-      "save": "Tallenna",
-      "send": "Lähetä",
-      "update": "Päivitä",
-      "yes": "Kyllä"
-    },
-    "dive-event": {
-      "status": {
-        "cancelled": "Peruutettu",
-        "drafted": "Luonnos",
-        "held": "Pidetty",
-        "published": "Julkaistu"
-      }
-    },
-    "email-subscription-type": {
-      "EVENT": {
-        "label": "Tapahtumat",
-        "tooltip": "Saat sähköpostiviestin kun uusi tapahtuma luodaan tai olemassaolevaa muutetaan"
-      },
-      "PAGE": {
-        "label": "Sivut",
-        "tooltip": "Saat sähköpostiviestin kun tehdään muutos sivuihin tai uusi sivu lisätään"
-      }
-    },
-    "pages": {
-      "status": {
-        "drafted": "Luonnos",
-        "deleted": "Poistettu",
-        "published": "Julkaistu"
-      }
-    },
-    "payment": {
-      "type": {
-        "oneTime": "Kerta",
-        "period": "Kausi"
-      }
-    },
-    "roles": {
-      "administrator": "Ylläpitäjä",
-      "anonymous": "Anonyymi",
-      "organizer": "Tapahtumajärjestäjä",
-      "user": "Jäsen"
-    },
-    "spinner": {
-      "loading": "Ladataan..."
-    },
-    "userStatus": {
-      "active": "Aktiivinen",
-      "anonymized": "Anonyymisoitu",
-      "locked": "Lukittu",
-      "registered": "Rekisteröity"
-    }
+  "DownloadData" : {
+    "certificateLabel" : "Luokitukset",
+    "choose" : "Valitse yksi seuraavista ladattavaksi:",
+    "description" : "Täällä voit ladata erilaisia tietoaineistoja CSV-muodossa.",
+    "diveEventLabel" : "Tapahtumat",
+    "diveLabel" : "Sukellukset",
+    "downloadPrompt" : "Lataa tästä: ",
+    "gdprWarning" : "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
+    "header" : "Lataa tietoja",
+    "memberLabel" : "Jäsenet",
+    "paymentLabel" : "Maksut",
+    "rowCount" : "Rivien määrä:  {{count}}"
   },
-  "DownloadData": {
-    "certificateLabel": "Luokitukset",
-    "choose": "Valitse yksi seuraavista ladattavaksi:",
-    "description": "Täällä voit ladata erilaisia tietoaineistoja CSV-muodossa.",
-    "diveLabel": "Sukellukset",
-    "downloadPrompt": "Lataa tästä: ",
-    "diveEventLabel": "Tapahtumat",
-    "gdprWarning": "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
-    "header": "Lataa tietoja",
-    "memberLabel": "Jäsenet",
-    "paymentLabel": "Maksut",
-    "rowCount": "Rivien määrä:  {{count}}"
-  },
-  "EditCertificate": {
-    "form": {
-      "button": {
-        "add": "Lisää luokitus",
-        "update": "Päivitä luokitus"
+  "EditCertificate" : {
+    "form" : {
+      "button" : {
+        "add" : "Lisää luokitus",
+        "update" : "Päivitä luokitus"
       },
-      "certificateId": {
-        "label": "Luokitustunnus",
-        "placeholder": "Luokitustunnus",
-        "rules": {
-          "min": "Luokitustunnus on liian lyhyt",
-          "validator": "Luokitus- tai sukeltajatunnus on vaadittu kenttä"
+      "certificateId" : {
+        "label" : "Luokitustunnus",
+        "placeholder" : "Luokitustunnus",
+        "rules" : {
+          "min" : "Luokitustunnus on liian lyhyt",
+          "validator" : "Luokitus- tai sukeltajatunnus on vaadittu kenttä"
         },
-        "tooltip": "Joko luokitustunnus tai sukeltajatunnus on vaadittu kenttä. Jos luokituskortissa ei löydy kumpaakaan, lisää luokitustunnukseksi 000-000"
+        "tooltip" : "Joko luokitustunnus tai sukeltajatunnus on vaadittu kenttä. Jos luokituskortissa ei löydy kumpaakaan, lisää luokitustunnukseksi 000-000"
       },
-      "certificateName": {
-        "label": "Luokitus",
-        "placeholder": "Luokituksen nimi",
-        "rules": {
-          "min": "Luokituksen nimi on liian lyhyt",
-          "required": "Luokitus on vaadittu kenttä"
+      "certificateName" : {
+        "label" : "Luokitus",
+        "placeholder" : "Luokituksen nimi",
+        "rules" : {
+          "min" : "Luokituksen nimi on liian lyhyt",
+          "required" : "Luokitus on vaadittu kenttä"
         },
-        "tooltip": "Luokituksen nimi, englanniksi, esim. Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master tai muu"
+        "tooltip" : "Luokituksen nimi, englanniksi, esim. Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master tai muu"
       },
-      "certificationDate": {
-        "label": "Luokituksen päiväys",
-        "placeholder": "Luokituksen päiväys (muodossa vvvv-kk-pp)",
-        "rules": {
-          "max": "Päiväys on liian pitkä",
-          "min": "Päiväys on liian lyhyt",
-          "pattern": "Päiväyksen tulee olla muodossa VVVV-KK-PP"
+      "certificationDate" : {
+        "label" : "Luokituksen päiväys",
+        "placeholder" : "Luokituksen päiväys (muodossa vvvv-kk-pp)",
+        "rules" : {
+          "max" : "Päiväys on liian pitkä",
+          "min" : "Päiväys on liian lyhyt",
+          "pattern" : "Päiväyksen tulee olla muodossa VVVV-KK-PP"
         }
       },
-      "diverId": {
-        "label": "Sukeltajatunnus",
-        "placeholder": "Sukeltajatunnus",
-        "rules": {
-          "min": "Sukeltajatunnus on liian lyhyt",
-          "validator": "Luokitus- tai sukeltajatunnus on vaadittu kenttä"
+      "diverId" : {
+        "label" : "Sukeltajatunnus",
+        "placeholder" : "Sukeltajatunnus",
+        "rules" : {
+          "min" : "Sukeltajatunnus on liian lyhyt",
+          "validator" : "Luokitus- tai sukeltajatunnus on vaadittu kenttä"
         },
-        "tooltip": "Joko luokitustunnus tai sukeltajatunnus on vaadittu kenttä. Jos luokituskortissa ei löydy kumpaakaan, lisää luokitustunnukseksi 000-000"
+        "tooltip" : "Joko luokitustunnus tai sukeltajatunnus on vaadittu kenttä. Jos luokituskortissa ei löydy kumpaakaan, lisää luokitustunnukseksi 000-000"
       },
-      "organization": {
-        "label": "Luokitusjärjestö",
-        "placeholder": "Luokitusjärjestön nimi",
-        "rules": {
-          "min": "Luokitusjärjestön nimi on liian lyhyt",
-          "required": "Luokitusjärjestö on vaadittu kenttä"
+      "organization" : {
+        "label" : "Luokitusjärjestö",
+        "placeholder" : "Luokitusjärjestön nimi",
+        "rules" : {
+          "min" : "Luokitusjärjestön nimi on liian lyhyt",
+          "required" : "Luokitusjärjestö on vaadittu kenttä"
         },
-        "tooltip": "Luokitusjärjestön nimi, esim. PADI, SSI, CMAS, DSAT, DSAC, NAUI tai muu"
+        "tooltip" : "Luokitusjärjestön nimi, esim. PADI, SSI, CMAS, DSAT, DSAC, NAUI tai muu"
       }
     },
-    "title": "Luokitustiedot",
-    "updateCertificate": {
-      "add": {
-        "fail": "Luokitustiedon lisääminen epäonnistui",
-        "ok": "Luokitustieto lisätty"
+    "title" : "Luokitustiedot",
+    "updateCertificate" : {
+      "add" : {
+        "fail" : "Luokitustiedon lisääminen epäonnistui",
+        "ok" : "Luokitustieto lisätty"
       },
-      "update": {
-        "fail": "Luokitustietojen päivitys epäonnistui",
-        "ok": "Luokitustiedot päivitetty"
+      "update" : {
+        "fail" : "Luokitustietojen päivitys epäonnistui",
+        "ok" : "Luokitustiedot päivitetty"
       }
     }
   },
-  "EditEvent": {
-    "eventTypes": {
-      "cave": "Luola",
-      "caveOpen": "Luola / Avo",
-      "dive": "Sukellus",
-      "open": "Avo",
-      "other": "Muu (esim. blokkaava varaus)",
-      "surface": "Vain pintatoimintaa"
+  "EditEvent" : {
+    "eventTypes" : {
+      "cave" : "Luola",
+      "caveOpen" : "Luola / Avo",
+      "dive" : "Sukellus",
+      "open" : "Avo",
+      "other" : "Muu (esim. blokkaava varaus)",
+      "surface" : "Vain pintatoimintaa"
     },
-    "form": {
-      "button": {
-        "updateDives": "Päivitä sukellusmäärät"
+    "form" : {
+      "button" : {
+        "updateDives" : "Päivitä sukellusmäärät"
       },
-      "description": {
-        "label": "Tapahtuman kuvaus",
-        "placeholder": "Tapahtuman kuvaus",
-        "rules": {
-          "max": "Tapahtuman kuvauksen maksimikoko on 15000 merkkiä",
-          "min": "Tapahtuman kuvaus on liian lyhyt",
-          "required": "Tapahtuman kuvaus on vaadittu kenttä"
+      "description" : {
+        "label" : "Tapahtuman kuvaus",
+        "placeholder" : "Tapahtuman kuvaus",
+        "rules" : {
+          "max" : "Tapahtuman kuvauksen maksimikoko on 15000 merkkiä",
+          "min" : "Tapahtuman kuvaus on liian lyhyt",
+          "required" : "Tapahtuman kuvaus on vaadittu kenttä"
         },
-        "tooltip": "Tapahtuman kuvaus. Mitä tapahtumassa tehdään?"
+        "tooltip" : "Tapahtuman kuvaus. Mitä tapahtumassa tehdään?"
       },
-      "eventDuration": {
-        "label": "Tapahtuman kesto (h)",
-        "tooltip": "Tapahtuman kesto tunteina"
+      "eventDuration" : {
+        "label" : "Tapahtuman kesto (h)",
+        "tooltip" : "Tapahtuman kesto tunteina"
       },
-      "maxDepth": {
-        "label": "Suurin syvyys (m)",
-        "rules": {
-          "maxParticipants": "Tapahtuman maksimiosallistujamäärä ei voi olla pienempi kuin nykyinen osallistujamäärä."
+      "maxDepth" : {
+        "label" : "Suurin syvyys (m)",
+        "rules" : {
+          "maxParticipants" : "Tapahtuman maksimiosallistujamäärä ei voi olla pienempi kuin nykyinen osallistujamäärä."
         },
-        "tooltip": "Sukelluksen kesto minuuteissa"
+        "tooltip" : "Sukelluksen kesto minuuteissa"
       },
-      "maxDuration": {
-        "label": "Sukelluksen kesto (min)",
-        "tooltip": "Sukelluksen kesto minuuteissa"
+      "maxDuration" : {
+        "label" : "Sukelluksen kesto (min)",
+        "tooltip" : "Sukelluksen kesto minuuteissa"
       },
-      "maxParticipants": {
-        "label": "Osallistujien maksimimäärä",
-        "tooltip": "Osallistujien maksimimäärä, tapahtumajärjestäjä lasketaan myös mukaan"
+      "maxParticipants" : {
+        "label" : "Osallistujien maksimimäärä",
+        "tooltip" : "Osallistujien maksimimäärä, tapahtumajärjestäjä lasketaan myös mukaan"
       },
-      "organizerId": {
-        "label": "Tapahtumajärjestäjä",
-        "rules": {
-          "required": "Tapahtumanjärjestäjä on vaadittu kenttä"
+      "organizerId" : {
+        "label" : "Tapahtumajärjestäjä",
+        "rules" : {
+          "required" : "Tapahtumanjärjestäjä on vaadittu kenttä"
         },
-        "tooltip": "Sukellustapahtuman järjestäjä"
+        "tooltip" : "Sukellustapahtuman järjestäjä"
       },
-      "participants": {
-        "label": "Osallistujat",
-        "placeholder": "Add participants",
-        "tooltip": "Tapahtumaan osallistuvat jäsenet"
+      "participants" : {
+        "label" : "Osallistujat",
+        "placeholder" : "Add participants",
+        "tooltip" : "Tapahtumaan osallistuvat jäsenet"
       },
-      "status": {
-        "label": "Sukellustapahtuman tila",
-        "tooltip": "Luonnos-tila ei ole vielä näkyvissä jäsenille. Julkaistu-tila on näkyvissä kaikille jäsenille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä jäsenille.",
-        "rules": {
-          "required": "Tila on pakollinen kenttä"
-        }
-      },
-      "startTime": {
-        "label": "Aloitusaika",
-        "rules": {
-          "required": "Aloitusaika on vaadittu kenttä",
-          "validator": "Päivämäärän täytyy olla vähintään 30min tulevaisuudessa!"
+      "startTime" : {
+        "label" : "Aloitusaika",
+        "rules" : {
+          "required" : "Aloitusaika on vaadittu kenttä",
+          "validator" : "Päivämäärän täytyy olla vähintään 30min tulevaisuudessa!"
         },
-        "tooltip": "Aloitusaika"
+        "tooltip" : "Aloitusaika"
       },
-      "submitButton": {
-        "add": "Lisää tapahtuma",
-        "update": "Päivitä tapahtuma"
-      },
-      "title": {
-        "label": "Tapahtuman nimi",
-        "placeholder": "Tapahtuman nimi",
-        "rules": {
-          "min": "Tapahtuman nimi on liian lyhyt",
-          "required": "Tapahtuman nimi on vaadittu kenttä"
+      "status" : {
+        "label" : "Sukellustapahtuman tila",
+        "rules" : {
+          "required" : "Tila on pakollinen kenttä"
         },
-        "tooltip": "Lyhyt nimi, esimerkiksi \"Wappusukellus\""
+        "tooltip" : "Luonnos-tila ei ole vielä näkyvissä jäsenille. Julkaistu-tila on näkyvissä kaikille jäsenille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä jäsenille."
       },
-      "type": {
-        "label": "Tyyppi",
-        "rules": {
-          "required": "Tyyppi on vaadittu kenttä"
+      "submitButton" : {
+        "add" : "Lisää tapahtuma",
+        "update" : "Päivitä tapahtuma"
+      },
+      "title" : {
+        "label" : "Tapahtuman nimi",
+        "placeholder" : "Tapahtuman nimi",
+        "rules" : {
+          "min" : "Tapahtuman nimi on liian lyhyt",
+          "required" : "Tapahtuman nimi on vaadittu kenttä"
         },
-        "tooltip": "Sukellustapahtuman tyyppi"
+        "tooltip" : "Lyhyt nimi, esimerkiksi \"Wappusukellus\""
+      },
+      "type" : {
+        "label" : "Tyyppi",
+        "rules" : {
+          "required" : "Tyyppi on vaadittu kenttä"
+        },
+        "tooltip" : "Sukellustapahtuman tyyppi"
       }
     },
-    "oldEvent": {
-      "alertText": "Tapahtuma on jo päättynyt, eikä tapahtumaa voi enää muokata"
+    "oldEvent" : {
+      "alertText" : "Tapahtuma on jo päättynyt, eikä tapahtumaa voi enää muokata"
     },
-    "onFinish": {
-      "addStatusFail": "Tapahtuman lisääminen epäonnistui",
-      "addStatusOk": "Tapahtuma lisätty",
-      "updateStatusFail": "Tapahtumatietojen päivitys epäonnistui",
-      "updateStatusFailMaxParticipant": "Maksimiosallistujamäärä ei voi olla pienempi kuin nykyinen osallistujamäärä",
-      "updateStatusOk": "Tapahtumatiedot päivitetty"
+    "onFinish" : {
+      "addStatusFail" : "Tapahtuman lisääminen epäonnistui",
+      "addStatusOk" : "Tapahtuma lisätty",
+      "updateStatusFail" : "Tapahtumatietojen päivitys epäonnistui",
+      "updateStatusFailMaxParticipant" : "Maksimiosallistujamäärä ei voi olla pienempi kuin nykyinen osallistujamäärä",
+      "updateStatusOk" : "Tapahtumatiedot päivitetty"
     },
-    "title": "Tapahtumatiedot"
+    "title" : "Tapahtumatiedot"
   },
-  "EditPage": {
-    "description": "Huom! Uutta sivua luodessasi sinun on ensin tallennettava se, ennen kuin voit lisätä kuvia.",
-    "form": {
-      "button": {
-        "addPermission": "Lisää oikeus",
-        "create": "Luo uusi sivu",
-        "update": "Päivitä sivu"
+  "EditPage" : {
+    "description" : "Huom! Uutta sivua luodessasi sinun on ensin tallennettava se, ennen kuin voit lisätä kuvia.",
+    "form" : {
+      "button" : {
+        "addPermission" : "Lisää oikeus",
+        "create" : "Luo uusi sivu",
+        "update" : "Päivitä sivu"
       },
-      "divider": {
-        "languages": "Kieliversiot",
-        "metadata": "Metadata",
-        "permissions": "Käyttöoikeudet"
+      "divider" : {
+        "languages" : "Kieliversiot",
+        "metadata" : "Metadata",
+        "permissions" : "Käyttöoikeudet"
       },
-      "metadata": {
-        "createdAt": "Luontiaika",
-        "creator": "Luoja",
-        "modifiedAt": "Viimeiseksi päivitetty",
-        "modifier": "Viimeiseksi päivittämä"
+      "metadata" : {
+        "createdAt" : "Luontiaika",
+        "creator" : "Luoja",
+        "modifiedAt" : "Viimeiseksi päivitetty",
+        "modifier" : "Viimeiseksi päivittämä"
       },
-      "pageGroupId": {
-        "label": "Sivuryhmä",
-        "placeholder": "Valitse mihin ryhmään sivu kuuluu",
-        "rules": {
-          "required": "Sivuryhmä on vaadittu kenttä"
-        },
-        "tooltip": "Sivuryhmä, johon sivu kuuluu"
-      },
-      "page-versions": {
-        "body": {
-          "label": "Teksti",
-          "rules": {
-            "min": "Sivun sisältö ei voi olla tyhjä"
+      "page-versions" : {
+        "body" : {
+          "label" : "Teksti",
+          "rules" : {
+            "min" : "Sivun sisältö ei voi olla tyhjä"
           }
         },
-        "ingress": {
-          "label": "Ingressi",
-          "placeholder": "Ingressiteksti"
+        "ingress" : {
+          "label" : "Ingressi",
+          "placeholder" : "Ingressiteksti"
         },
-        "title": {
-          "label": "Otsikko",
-          "placeholder": "Otsikkoteksti",
-          "rules": {
-            "min": "Otsikon pitää olla vähintään 2 merkkiä pitkä",
-            "required": "Otsikko on vaadittu kenttä"
+        "title" : {
+          "label" : "Otsikko",
+          "placeholder" : "Otsikkoteksti",
+          "rules" : {
+            "min" : "Otsikon pitää olla vähintään 2 merkkiä pitkä",
+            "required" : "Otsikko on vaadittu kenttä"
           }
         }
       },
-      "rolePermissions": {
-        "readPermission": {
-          "label": "Lukuoikeudet",
-          "rules": {
-            "leastReadRequired": "Vähintään lukuoikeus on oltava valittuna",
-            "required": "Lukuoikeus on vaadittu kenttä",
-            "writeRequiresRead": "Kirjoitusoikeudet edellyttävät lukuoikeudet"
+      "pageGroupId" : {
+        "label" : "Sivuryhmä",
+        "placeholder" : "Valitse mihin ryhmään sivu kuuluu",
+        "rules" : {
+          "required" : "Sivuryhmä on vaadittu kenttä"
+        },
+        "tooltip" : "Sivuryhmä, johon sivu kuuluu"
+      },
+      "rolePermissions" : {
+        "readPermission" : {
+          "label" : "Lukuoikeudet",
+          "rules" : {
+            "leastReadRequired" : "Vähintään lukuoikeus on oltava valittuna",
+            "required" : "Lukuoikeus on vaadittu kenttä",
+            "writeRequiresRead" : "Kirjoitusoikeudet edellyttävät lukuoikeudet"
           },
-          "tooltip": "Oikeus nähdä sivu"
+          "tooltip" : "Oikeus nähdä sivu"
         },
-        "role": {
-          "label": "Rooli",
-          "rules": {
-            "noDuplicates": "Samasta roolista ei voi olla useita kaksoiskappaleita",
-            "required": "Rooli on vaadittu kenttä"
+        "role" : {
+          "label" : "Rooli",
+          "rules" : {
+            "noDuplicates" : "Samasta roolista ei voi olla useita kaksoiskappaleita",
+            "required" : "Rooli on vaadittu kenttä"
           },
-          "tooltip": "Rooli, jolle oikeus myönnetään. Anonyymi tarkoittaa että sivu on julkinen kaikille."
+          "tooltip" : "Rooli, jolle oikeus myönnetään. Anonyymi tarkoittaa että sivu on julkinen kaikille."
         },
-        "writePermission": {
-          "label": "Kirjoitusoikeudet",
-          "tooltip": "Oikeus muokata sivua. Anonyymi käyttäjä ei voi koskaan muokata sivua."
+        "writePermission" : {
+          "label" : "Kirjoitusoikeudet",
+          "tooltip" : "Oikeus muokata sivua. Anonyymi käyttäjä ei voi koskaan muokata sivua."
         }
       },
-      "status": {
-        "label": "Sivun status",
-        "rules": {
-          "required": "Status on vaadittu kenttä"
+      "status" : {
+        "label" : "Sivun status",
+        "rules" : {
+          "required" : "Status on vaadittu kenttä"
         },
-        "tooltip": "Sivun status. Luonnos voidaan käyttää kun sivua vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivun sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
+        "tooltip" : "Sivun status. Luonnos voidaan käyttää kun sivua vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivun sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
       }
     },
-    "onFinish": {
-      "create": {
-        "fail": "Sivun luominen epäonnistui",
-        "ok": "Sivu luotu"
+    "onFinish" : {
+      "create" : {
+        "fail" : "Sivun luominen epäonnistui",
+        "ok" : "Sivu luotu"
       },
-      "update": {
-        "fail": "Sivun päivitys epäonnistui",
-        "ok": "Sivu päivitetty"
+      "update" : {
+        "fail" : "Sivun päivitys epäonnistui",
+        "ok" : "Sivu päivitetty"
       }
     },
-    "title": {
-      "new": "Uusi sivu",
-      "update": "Päivitä sivu"
+    "title" : {
+      "new" : "Uusi sivu",
+      "update" : "Päivitä sivu"
     }
   },
-  "EditPageGroup": {
-    "form": {
-      "button": {
-        "create": "Luo uusi sivuryhmä",
-        "update": "Päivitä ryhmä"
+  "EditPageGroup" : {
+    "form" : {
+      "button" : {
+        "create" : "Luo uusi sivuryhmä",
+        "update" : "Päivitä ryhmä"
       },
-      "divider": {
-        "languages": "Kieliversiot"
+      "divider" : {
+        "languages" : "Kieliversiot"
       },
-      "pageGroupVersions": {
-        "label": "Otsikko",
-        "rules": {
-          "min": "Otsikon pitää olla vähintään 2 merkkiä pitkä",
-          "required": "Otsikko on vaadittu kenttä"
+      "pageGroupVersions" : {
+        "label" : "Otsikko",
+        "rules" : {
+          "min" : "Otsikon pitää olla vähintään 2 merkkiä pitkä",
+          "required" : "Otsikko on vaadittu kenttä"
         },
-        "tooltip": "Sivuryhmän otsikko, vähintään 2 merkkiä pitkä"
+        "tooltip" : "Sivuryhmän otsikko, vähintään 2 merkkiä pitkä"
       },
-      "status": {
-        "label": "Sivuryhmän status",
-        "rules": {
-          "required": "Status on vaadittu kenttä"
+      "status" : {
+        "label" : "Sivuryhmän status",
+        "rules" : {
+          "required" : "Status on vaadittu kenttä"
         },
-        "tooltip": "Sivuryhmän status. Luonnos voidaan käyttää kun sivuryhmää vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivuryhmän sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
+        "tooltip" : "Sivuryhmän status. Luonnos voidaan käyttää kun sivuryhmää vielä muokataan eikä haluta näyttää sitä. Julkinen näkyy kaikille. Poistettu on tarkoitettu indikoimaan että sivuryhmän sisältö on vanhentunut eikä sitä enää haluta näyttää enää."
       }
     },
-    "onFinish": {
-      "create": {
-        "fail": "Sivuryhmän luominen epäonnistui",
-        "ok": "Sivuryhmä luotu"
+    "onFinish" : {
+      "create" : {
+        "fail" : "Sivuryhmän luominen epäonnistui",
+        "ok" : "Sivuryhmä luotu"
       },
-      "update": {
-        "fail": "Sivuryhmän päivitys epäonnistui",
-        "ok": "Sivuryhmä päivitetty"
+      "update" : {
+        "fail" : "Sivuryhmän päivitys epäonnistui",
+        "ok" : "Sivuryhmä päivitetty"
       }
     }
   },
-  "EmailSubscriptionCard":{
-    "header": "Vastaanota sähköpostiviesti kun:"
+  "EmailSubscriptionCard" : {
+    "header" : "Vastaanota sähköpostiviesti kun:"
   },
-  "Event": {
-    "subscribe": {
-      "button": "Osallistu tapahtumaan"
+  "Event" : {
+    "subscribe" : {
+      "button" : "Osallistu tapahtumaan"
     },
-    "unsubscribe": {
-      "button": "Poista itsesi tapahtumasta"
+    "unsubscribe" : {
+      "button" : "Poista itsesi tapahtumasta"
     }
   },
-  "EventDetails": {
-    "description": {
-      "title": "Tapahtumakuvaus"
+  "EventDetails" : {
+    "description" : {
+      "title" : "Tapahtumakuvaus"
     },
-    "link": {
-      "tooltip": "Avaa tapahtuma"
+    "link" : {
+      "tooltip" : "Avaa tapahtuma"
     },
-    "participants": {
-      "title": "Osallistujat"
-    },
-    "participantTable": {
-      "eventDiveCount": "Sukellusmäärä",
-      "name": "Nimi",
-      "payments": "Maksutilanne",
-      "paymentType": {
-        "oneTime": "Kertamaksu",
-        "period": "Kausimaksu",
-        "unknown": "Tuntematon"
-      }
-    },
-    "table": {
-      "maxDepth": "Maksimisyvyys, m",
-      "maxDuration": "Maksimiaika, min",
-      "organizer": "Järjestäjä",
-      "participants": "Osallistujat",
-      "phoneNumber": "Puhelin",
-      "startTime": "Ajankohta",
-      "type": "Tyyppi"
-    },
-    "title": "Tapahtuma"
-  },
-  "Events": {
-    "ongoing": {
-      "title": "Käynnissä olevat tapahtumat"
-    },
-    "results": {
-      "error": "'Tietojen lataaminen epäonnistui: '",
-      "noEvents": "Ei tulevia tapahtumia."
-    },
-    "search": {
-      "placeholder": "Hae tapahtumia"
-    },
-    "table": {
-      "maxDepth": "Maksimisyvyys, m",
-      "maxDuration": "Maksimiaika, min",
-      "organizer": "Järjestäjä",
-      "participants": "Osallistujat",
-      "startTime": "Ajankohta",
-      "title": "Kuvaus",
-      "type": "Tyyppi"
-    },
-    "upcoming": {
-      "title": "Tulevat tapahtumat"
-    }
-  },
-  "FormatPayments": {
-    "noValid": "Ei voimassa olevia maksutietoja.",
-    "singlePayment": "kertamaksua",
-    "unknownPayment": "Tuntematon maksutyyppi",
-    "unknownPaymentContact": "ota yhteyttä ylläpitoon",
-    "unknownPaymentPlease": "Ole hyvä ja",
-    "yearlyPayment": "Vuosimaksu (päättyy"
-  },
-  "Login": {
-    "form": {
-      "button": {
-        "forgotPassword": "Unohditko salasanan?"
+    "participantTable" : {
+      "eventDiveCount" : "Sukellusmäärä",
+      "name" : "Nimi",
+      "paymentType" : {
+        "oneTime" : "Kertamaksu",
+        "period" : "Kausimaksu",
+        "unknown" : "Tuntematon"
       },
-      "password": {
-        "label": "Salasana:",
-        "rules": {
-          "required": "Ole hyvä ja syötä salasana!"
+      "payments" : "Maksutilanne"
+    },
+    "participants" : {
+      "title" : "Osallistujat"
+    },
+    "table" : {
+      "maxDepth" : "Maksimisyvyys, m",
+      "maxDuration" : "Maksimiaika, min",
+      "organizer" : "Järjestäjä",
+      "participants" : "Osallistujat",
+      "phoneNumber" : "Puhelin",
+      "startTime" : "Ajankohta",
+      "type" : "Tyyppi"
+    },
+    "title" : "Tapahtuma"
+  },
+  "Events" : {
+    "ongoing" : {
+      "title" : "Käynnissä olevat tapahtumat"
+    },
+    "results" : {
+      "error" : "'Tietojen lataaminen epäonnistui: '",
+      "noEvents" : "Ei tulevia tapahtumia."
+    },
+    "search" : {
+      "placeholder" : "Hae tapahtumia"
+    },
+    "table" : {
+      "maxDepth" : "Maksimisyvyys, m",
+      "maxDuration" : "Maksimiaika, min",
+      "organizer" : "Järjestäjä",
+      "participants" : "Osallistujat",
+      "startTime" : "Ajankohta",
+      "title" : "Kuvaus",
+      "type" : "Tyyppi"
+    },
+    "upcoming" : {
+      "title" : "Tulevat tapahtumat"
+    }
+  },
+  "FormatPayments" : {
+    "noValid" : "Ei voimassa olevia maksutietoja.",
+    "singlePayment" : "kertamaksua",
+    "unknownPayment" : "Tuntematon maksutyyppi",
+    "unknownPaymentContact" : "ota yhteyttä ylläpitoon",
+    "unknownPaymentPlease" : "Ole hyvä ja",
+    "yearlyPayment" : "Vuosimaksu (päättyy"
+  },
+  "ListPayments" : {
+    "oneTime" : "Kertamaksut",
+    "period" : "Kausimaksut",
+    "unknown" : "Tuntemattomat"
+  },
+  "Login" : {
+    "form" : {
+      "button" : {
+        "forgotPassword" : "Unohditko salasanan?"
+      },
+      "password" : {
+        "label" : "Salasana:",
+        "rules" : {
+          "required" : "Ole hyvä ja syötä salasana!"
         }
       },
-      "username": {
-        "label": "Käyttäjätunnus/Sähköposti:",
-        "rules": {
-          "email": "Ei ole kelvollinen sähköpostiosoite!",
-          "required": "Ole hyvä ja syötä sähköpostiosoite!"
-        }
-      }
-    },
-    "updateStatus": {
-      "loginFail": "Sisäänkirjautuminen epäonnistui!"
-    }
-  },
-  "LostPassword": {
-    "form": {
-      "submitButton": "Lähetä",
-      "email": {
-        "label": "Käyttäjätunnus/Sähköposti:",
-        "placeholder": "joku@jossain.tld",
-        "rules": {
-          "email": "Ei ole kelvollinen sähköpostiosoite!",
-          "required": "Ole hyvä ja syötä sähköpostiosoite!"
+      "username" : {
+        "label" : "Käyttäjätunnus/Sähköposti:",
+        "rules" : {
+          "email" : "Ei ole kelvollinen sähköpostiosoite!",
+          "required" : "Ole hyvä ja syötä sähköpostiosoite!"
         }
       }
     },
-    "setStatus": {
-      "update": {
-        "fail": "Salasanan viestilähetys epäonnistui",
-        "ok": "Salasanan viestilähetys onnistui"
-      }
-    },
-    "text": {
-      "bottom": "Mikäli ongelma jatkuu, ota yhteys ylläpitoon.",
-      "top": "Jos olet hukannut salasanasi, voit lähettää salasanan vaihtolinkin sähköpostiisi (max. 3 kertaa)."
-    },
-    "updateStatus": {
-      "fail": {
-        "button": "Palaa uudelleen lähetyssivulle",
-        "text": "Vaihtolinkin lähetys epäonnistui, odota hetki ja yritä uudelleen myöhemmin."
-      },
-      "ok": {
-        "button": "Takaisin kirjautumissivulle",
-        "text": "Vaihtolinkki lähetetty uudelleen."
-      }
+    "updateStatus" : {
+      "loginFail" : "Sisäänkirjautuminen epäonnistui!"
     }
   },
-  "nav": {
-    "action": {
-      "changePassword": "Vaihda salasana",
-      "login": "Kirjaudu sisään",
-      "logout": "Kirjaudu ulos",
-      "profile": "Profiili",
-      "register": "Rekisteröidy"
-    },
-    "administration": {
-      "audits": "Auditointi",
-      "blocked-dates": "Päivämäärän estäminen",
-      "download": "Lataa",
-      "files": "Tiedostot",
-      "members": "Jäsenet",
-      "payments": "Maksut",
-      "readFirst": "Lue ensin",
-      "stats": "Tilastot",
-      "title": "Ylläpito"
-    },
-    "events": {
-      "add": "Lisää tapahtuma",
-      "new": "Tapahtumat",
-      "past": "Menneet tapahtumat",
-      "title": "Tapahtumat",
-      "yearlyStats": "Vuositilastot"
-    },
-    "pageManagement": {
-      "pages": "Sivut",
-      "title": "Sivuhallinta"
-    }
-  },
-  "NewPassword": {
-    "setUpdateStatus": {
-      "update": {
-        "fail": "Käyttäjän salasanan päivitys epäonnistui",
-        "ok": "Käyttäjän salasana päivitetty"
-      }
-    },
-    "title": "Uusi salasana",
-    "updateStatus": {
-      "fail": {
-        "button": "Ole hyvä ja ole yhteydessä ylläpitoon.",
-        "text": "Salasanan päivitys epäonnistui!"
-      },
-      "ok": {
-        "button": "Voit kirjautua sisään.",
-        "text": "Salasanan päivitys onnistui!"
-      }
-    }
-  },
-  "OngoingEvents": {
-    "results": {
-      "noEvents": "Ei meneillään olevia tapahtumia."
-    },
-    "search": {
-      "placeholder": "Hae tapahtumia"
-    },
-    "table": {
-      "maxDepth": "Maksimisyvyys, m",
-      "maxDuration": "Maksimiaika, min",
-      "organizer": "Järjestäjä",
-      "participants": "Osallistujat",
-      "startTime": "Ajankohta",
-      "title": "Kuvaus",
-      "type": "Tyyppi"
-    }
-  },
-  "Page": {
-    "fields": {
-      "created": "Luotu: ",
-      "updated": "Päivitetty: "
-    }
-  },
-  "PageGroups": {
-    "button": {
-      "addGroup": "Lisää sivuryhmä",
-      "addPage": "Lisää sivu",
-      "updatePage": "Päivitä sivuja"
-    },
-    "deletePath": {
-      "confirm": {
-        "1": "Suljetaanko sivuryhmä ",
-        "2": "HUOM! Sivuryhmän sulkeminen sulkee myös kaikki siihen liittyvät sivut ja niiden kieliversiot."
-      }
-    },
-    "table": {
-      "languageVersions": "Kieliversiot",
-      "pageCount": "Sivujen lukumäärä",
-      "status": "Status",
-      "title": "Sivuryhmänimi"
-    },
-    "title": "Sivuryhmät",
-    "updateStatus": {
-      "removed": "Sivuryhmä poistettu"
-    }
-  },
-  "Pages": {
-    "title": "sivuryhmän hallinta",
-    "alert": {
-      "noPages": "Sivuryhmässä ei ole sivuja"
-    },
-    "button": {
-      "addPage": "Lisää sivu"
-    },
-    "closePage": {
-      "confirm": "Poistetaanko sivu "
-    },
-    "table": {
-      "createdAt": "Luotu",
-      "languageVersions": "Kieliversiot",
-      "modifiedAt": "Päivitetty",
-      "rolePermissions": "Roolit",
-      "status": "Status",
-      "title": "Sivu"
-    },
-    "updateStatus": {
-      "ok": "Sivu poistettu",
-      "fail": "Sivun poistaminen epäonnistui, ota yhteyttä tukeen, jos ongelma jatkuu."
-    }
-  },
-  "Password": {
-    "form": {
-      "oldPassword": {
-        "label": "Nykyinen salasana",
-        "rules": {
-          "required": "Ole hyvä ja syötä nykyinen salasanasi!"
+  "LostPassword" : {
+    "form" : {
+      "email" : {
+        "label" : "Käyttäjätunnus/Sähköposti:",
+        "placeholder" : "joku@jossain.tld",
+        "rules" : {
+          "email" : "Ei ole kelvollinen sähköpostiosoite!",
+          "required" : "Ole hyvä ja syötä sähköpostiosoite!"
         }
       },
-      "submitButton": "Päivitä salasana"
+      "submitButton" : "Lähetä"
     },
-    "setUpdateStatus": {
-      "update": {
-        "fail": "Käyttäjän salasanan päivitys epäonnistui",
-        "ok": "Käyttäjän salasana päivitetty. Jatkaaksesi sinun tulee kirjautua uudelleen sisään."
+    "setStatus" : {
+      "update" : {
+        "fail" : "Salasanan viestilähetys epäonnistui",
+        "ok" : "Salasanan viestilähetys onnistui"
       }
     },
-    "updateStatus": {
-      "fail": {
-        "text": "Salasanan päivitys epäonnistui!"
+    "text" : {
+      "bottom" : "Mikäli ongelma jatkuu, ota yhteys ylläpitoon.",
+      "top" : "Jos olet hukannut salasanasi, voit lähettää salasanan vaihtolinkin sähköpostiisi (max. 3 kertaa)."
+    },
+    "updateStatus" : {
+      "fail" : {
+        "button" : "Palaa uudelleen lähetyssivulle",
+        "text" : "Vaihtolinkin lähetys epäonnistui, odota hetki ja yritä uudelleen myöhemmin."
       },
-      "ok": {
-        "button": "Kirjaudu ulos",
-        "text": "Salasanan päivitys onnistui!"
+      "ok" : {
+        "button" : "Takaisin kirjautumissivulle",
+        "text" : "Vaihtolinkki lähetetty uudelleen."
       }
     }
   },
-  "PasswordFields": {
-    "form": {
-      "confirmPassword": {
-        "label": "Vahvista uusi salasana",
-        "rules": {
-          "required": "Ole hyvä ja syötä uusi salasana toistamiseen!",
-          "validator": "Uusi salasana ei täsmää!"
+  "NewPassword" : {
+    "setUpdateStatus" : {
+      "update" : {
+        "fail" : "Käyttäjän salasanan päivitys epäonnistui",
+        "ok" : "Käyttäjän salasana päivitetty"
+      }
+    },
+    "title" : "Uusi salasana",
+    "updateStatus" : {
+      "fail" : {
+        "button" : "Ole hyvä ja ole yhteydessä ylläpitoon.",
+        "text" : "Salasanan päivitys epäonnistui!"
+      },
+      "ok" : {
+        "button" : "Voit kirjautua sisään.",
+        "text" : "Salasanan päivitys onnistui!"
+      }
+    }
+  },
+  "OngoingEvents" : {
+    "results" : {
+      "noEvents" : "Ei meneillään olevia tapahtumia."
+    },
+    "search" : {
+      "placeholder" : "Hae tapahtumia"
+    },
+    "table" : {
+      "maxDepth" : "Maksimisyvyys, m",
+      "maxDuration" : "Maksimiaika, min",
+      "organizer" : "Järjestäjä",
+      "participants" : "Osallistujat",
+      "startTime" : "Ajankohta",
+      "title" : "Kuvaus",
+      "type" : "Tyyppi"
+    }
+  },
+  "Page" : {
+    "fields" : {
+      "created" : "Luotu: ",
+      "updated" : "Päivitetty: "
+    }
+  },
+  "PageGroups" : {
+    "button" : {
+      "addGroup" : "Lisää sivuryhmä",
+      "addPage" : "Lisää sivu",
+      "updatePage" : "Päivitä sivuja"
+    },
+    "deletePath" : {
+      "confirm" : {
+        "1" : "Suljetaanko sivuryhmä ",
+        "2" : "HUOM! Sivuryhmän sulkeminen sulkee myös kaikki siihen liittyvät sivut ja niiden kieliversiot."
+      }
+    },
+    "table" : {
+      "languageVersions" : "Kieliversiot",
+      "pageCount" : "Sivujen lukumäärä",
+      "status" : "Status",
+      "title" : "Sivuryhmänimi"
+    },
+    "title" : "Sivuryhmät",
+    "updateStatus" : {
+      "removed" : "Sivuryhmä poistettu"
+    }
+  },
+  "Pages" : {
+    "alert" : {
+      "noPages" : "Sivuryhmässä ei ole sivuja"
+    },
+    "button" : {
+      "addPage" : "Lisää sivu"
+    },
+    "closePage" : {
+      "confirm" : "Poistetaanko sivu "
+    },
+    "table" : {
+      "createdAt" : "Luotu",
+      "languageVersions" : "Kieliversiot",
+      "modifiedAt" : "Päivitetty",
+      "rolePermissions" : "Roolit",
+      "status" : "Status",
+      "title" : "Sivu"
+    },
+    "title" : "sivuryhmän hallinta",
+    "updateStatus" : {
+      "fail" : "Sivun poistaminen epäonnistui, ota yhteyttä tukeen, jos ongelma jatkuu.",
+      "ok" : "Sivu poistettu"
+    }
+  },
+  "Password" : {
+    "form" : {
+      "oldPassword" : {
+        "label" : "Nykyinen salasana",
+        "rules" : {
+          "required" : "Ole hyvä ja syötä nykyinen salasanasi!"
         }
       },
-      "newPassword": {
-        "label": "Uusi salasana",
-        "rules": {
-          "min": "Salasanan tulee olla vähintään 10 merkkiä pitkä",
-          "pattern": "Salasanan tulee sisältää ainakin yksi iso kirjain, pieni kirjain, numero ja erikoismerkki",
-          "required": "Anna uusi salasana!"
+      "submitButton" : "Päivitä salasana"
+    },
+    "setUpdateStatus" : {
+      "update" : {
+        "fail" : "Käyttäjän salasanan päivitys epäonnistui",
+        "ok" : "Käyttäjän salasana päivitetty. Jatkaaksesi sinun tulee kirjautua uudelleen sisään."
+      }
+    },
+    "updateStatus" : {
+      "fail" : {
+        "text" : "Salasanan päivitys epäonnistui!"
+      },
+      "ok" : {
+        "button" : "Kirjaudu ulos",
+        "text" : "Salasanan päivitys onnistui!"
+      }
+    }
+  },
+  "PasswordFields" : {
+    "form" : {
+      "confirmPassword" : {
+        "label" : "Vahvista uusi salasana",
+        "rules" : {
+          "required" : "Ole hyvä ja syötä uusi salasana toistamiseen!",
+          "validator" : "Uusi salasana ei täsmää!"
+        }
+      },
+      "newPassword" : {
+        "label" : "Uusi salasana",
+        "rules" : {
+          "min" : "Salasanan tulee olla vähintään 10 merkkiä pitkä",
+          "pattern" : "Salasanan tulee sisältää ainakin yksi iso kirjain, pieni kirjain, numero ja erikoismerkki",
+          "required" : "Anna uusi salasana!"
         }
       }
     }
   },
-  "PasswordRules": {
-    "rule": {
-      "1": "Iso kirjain, A-Ö",
-      "2": "Pieni kirjain, a-ö",
-      "3": "Numero, 0-9",
-      "4": "Erikoismerkki, esim. !@#$%^&amp;*_-"
+  "PasswordRules" : {
+    "rule" : {
+      "1" : "Iso kirjain, A-Ö",
+      "2" : "Pieni kirjain, a-ö",
+      "3" : "Numero, 0-9",
+      "4" : "Erikoismerkki, esim. !@#$%^&amp;*_-"
     },
-    "text": "Salasanan tulee olla vähintään 10 merkkiä pitkä ja sen täytyy sisältää ainakin yhden kustakin seuraavasta:"
+    "text" : "Salasanan tulee olla vähintään 10 merkkiä pitkä ja sen täytyy sisältää ainakin yhden kustakin seuraavasta:"
   },
-  "PastEvents": {
-    "title": "Menneet tapahtumat"
+  "PastEvents" : {
+    "title" : "Menneet tapahtumat"
   },
-  "Register": {
-    "fail": {
-      "message": "Rekisteröinti epäonnistui!"
+  "Register" : {
+    "fail" : {
+      "message" : "Rekisteröinti epäonnistui!"
     },
-    "form": {
-      "confirm": {
-        "label": "Salasana uudelleen:",
-        "rules": {
-          "nomatch": "Annetut salasanat eivät täsmää!",
-          "required": "Ole hyvä ja varmista salasanasi!"
+    "form" : {
+      "confirm" : {
+        "label" : "Salasana uudelleen:",
+        "rules" : {
+          "nomatch" : "Annetut salasanat eivät täsmää!",
+          "required" : "Ole hyvä ja varmista salasanasi!"
         }
       },
-      "password": {
-        "label": "Salasana:",
-        "rules": {
-          "min": "Salasanan tulee olla vähintään 10 merkkiä pitkä",
-          "pattern": "Salasanan tulee sisältää ainakin yksi iso kirjain, pieni kirjain, numero ja erikoismerkki",
-          "required": "Ole hyvä ja syötä salasana!"
+      "password" : {
+        "label" : "Salasana:",
+        "rules" : {
+          "min" : "Salasanan tulee olla vähintään 10 merkkiä pitkä",
+          "pattern" : "Salasanan tulee sisältää ainakin yksi iso kirjain, pieni kirjain, numero ja erikoismerkki",
+          "required" : "Ole hyvä ja syötä salasana!"
         },
-        "tooltip": "Salasanan tulee olla vähintään 10 merkkiä pitkä, sisältää ainakin yksi iso kirjain, pieni kirjain, numero ja erikoismerkki"
+        "tooltip" : "Salasanan tulee olla vähintään 10 merkkiä pitkä, sisältää ainakin yksi iso kirjain, pieni kirjain, numero ja erikoismerkki"
       },
-      "submitButton": "Rekisteröidy",
-      "terms": {
-        "accept": "Hyväksyn käyttöehdot",
-        "button": "käyttöehdot",
-        "reject": "En hyväksy käyttöehtoja",
-        "text": "Lue ja hyväksy",
-        "title": "Käyttöehdot"
+      "submitButton" : "Rekisteröidy",
+      "terms" : {
+        "accept" : "Hyväksyn käyttöehdot",
+        "button" : "käyttöehdot",
+        "reject" : "En hyväksy käyttöehtoja",
+        "text" : "Lue ja hyväksy",
+        "title" : "Käyttöehdot"
       },
-      "title": "Rekisteröidy"
+      "title" : "Rekisteröidy"
     },
-    "success": {
-      "message": "Rekisteröinti onnistui! Ennen kuin suljet tämän ikkunan, tarkasta sähköpostisi. Olemme lähettäneet rekisteröimääsi osoitteeseen vahvistuviesti jonka linkistä aktivoit tilisi. Muista myös tarkastaa roskapostikansiosta."
+    "success" : {
+      "message" : "Rekisteröinti onnistui! Ennen kuin suljet tämän ikkunan, tarkasta sähköpostisi. Olemme lähettäneet rekisteröimääsi osoitteeseen vahvistuviesti jonka linkistä aktivoit tilisi. Muista myös tarkastaa roskapostikansiosta."
     }
   },
-  "Registration": {
-    "title": {
-      "invalid": "Rekisteröinti epäonnistui, vahvistuslinkki on vanhentunut",
-      "ok": "Tunnuksen vahvistus onnistui, voit nyt kirjautua sisään tunnuksellasi ja salasanalla."
+  "Registration" : {
+    "title" : {
+      "invalid" : "Rekisteröinti epäonnistui, vahvistuslinkki on vanhentunut",
+      "ok" : "Tunnuksen vahvistus onnistui, voit nyt kirjautua sisään tunnuksellasi ja salasanalla."
     }
   },
-  "ReportEvent": {
-    "table": {
-      "diveCount": "Sukellusmäärä",
-      "eventDateTime": "Päivämäärä",
-      "organizerName": "Tapahtumajärjestäjä",
-      "participantCount": "Sukeltajamäärä"
+  "ReportEvent" : {
+    "table" : {
+      "diveCount" : "Sukellusmäärä",
+      "eventDateTime" : "Päivämäärä",
+      "organizerName" : "Tapahtumajärjestäjä",
+      "participantCount" : "Sukeltajamäärä"
     }
   },
-  "ReportEvents": {
-    "title": "Tapahtumaraportit"
+  "ReportEvents" : {
+    "title" : "Tapahtumaraportit"
   },
-  "ResendRegistrationEmail": {
-    "text": {
-      "fail": "Vahvistusviestin lähettäminen epäonnistui. Sinun tulee rekisteröityä uudelleen. Jos ongelma jatkuu, ota yhteyttä ylläpitoon",
-      "notReceived": "Mikäli et saanut vahvistusviestiä, voit lähettää sen uudelleen painamalla allaolevaa nappia."
+  "ResendRegistrationEmail" : {
+    "text" : {
+      "fail" : "Vahvistusviestin lähettäminen epäonnistui. Sinun tulee rekisteröityä uudelleen. Jos ongelma jatkuu, ota yhteyttä ylläpitoon",
+      "notReceived" : "Mikäli et saanut vahvistusviestiä, voit lähettää sen uudelleen painamalla allaolevaa nappia."
     }
   },
-  "SetDives": {
-    "noDives": "Ei sukelluksia",
-    "table": {
-      "action": "Action",
-      "diveCount": "Sukelluksia",
-      "name": "Sukeltaja"
+  "SetDives" : {
+    "noDives" : "Ei sukelluksia",
+    "table" : {
+      "action" : "Action",
+      "diveCount" : "Sukelluksia",
+      "name" : "Sukeltaja"
     }
   },
-  "ShowCertificateCard": {
-    "card": {
-      "certificateId": "Luokitustunnus",
-      "certification": "Sukellusluokitus",
-      "date": "Sukellusluokituksen päiväys",
-      "diverId": "Sukeltajatunnus",
-      "organization": "Luokitusjärjestö",
-      "photocopy": "Luokituskortin kopio",
-      "title": "Luokitus: ",
-      "upload-photo": "Lataa kuva"
+  "ShowCertificateCard" : {
+    "card" : {
+      "certificateId" : "Luokitustunnus",
+      "certification" : "Sukellusluokitus",
+      "date" : "Sukellusluokituksen päiväys",
+      "diverId" : "Sukeltajatunnus",
+      "organization" : "Luokitusjärjestö",
+      "photocopy" : "Luokituskortin kopio",
+      "title" : "Luokitus: ",
+      "upload-photo" : "Lataa kuva"
     }
   },
-  "StatisticsMain": {
-    "reports": "Raportit",
-    "yearlyStats": "Vuositilastot"
+  "StatisticsMain" : {
+    "reports" : "Raportit",
+    "yearlyStats" : "Vuositilastot"
   },
-  "StatsOrganizers": {
-    "stats": {
-      "title": "Tapahtumajärjestäjät"
+  "StatsOrganizers" : {
+    "stats" : {
+      "title" : "Tapahtumajärjestäjät"
     }
   },
-  "StatsPayments": {
-    "stats": {
-      "title": "Maksut"
+  "StatsPayments" : {
+    "stats" : {
+      "title" : "Maksut"
     }
   },
-  "StatsYearlyDives": {
-    "table": {
-      "diveCount": "Sukellusmäärä",
-      "position": "Sija",
-      "userName": "Nimi"
+  "StatsYearlyDives" : {
+    "table" : {
+      "diveCount" : "Sukellusmäärä",
+      "position" : "Sija",
+      "userName" : "Nimi"
     },
-    "title": "Sukellusten vuositilasto"
+    "title" : "Sukellusten vuositilasto"
   },
-  "StatsYearlyEvents": {
-    "stats": {
-      "title": "Tapahtumat vuositasolla"
+  "StatsYearlyEvents" : {
+    "stats" : {
+      "title" : "Tapahtumat vuositasolla"
     }
   },
-  "StatsYearlyRegistrations": {
-    "stats": {
-      "title": "Jäsenrekisteröinnit vuositasolla"
+  "StatsYearlyRegistrations" : {
+    "stats" : {
+      "title" : "Jäsenrekisteröinnit vuositasolla"
     }
   },
-  "User": {
-    "button": {
-      "acceptTerms": "Lue ja hyväksy käyttöehdot",
-      "anonymizeAccount": "Anonymisoi tiedot",
-      "lockAccount": "Lukitse tili"
+  "User" : {
+    "button" : {
+      "acceptTerms" : "Lue ja hyväksy käyttöehdot",
+      "anonymizeAccount" : "Anonymisoi tiedot",
+      "lockAccount" : "Lukitse tili"
     },
-    "form": {
-      "payments": {
-        "label": "Maksut"
+    "form" : {
+      "payments" : {
+        "label" : "Maksut"
       },
-      "privacy": {
-        "label": "Hyväksynyt käyttöehdot"
+      "privacy" : {
+        "label" : "Hyväksynyt käyttöehdot"
       },
-      "roles": {
-        "label": "Roolit"
+      "roles" : {
+        "label" : "Roolit"
       },
-      "status": {
-        "label": "Status"
+      "status" : {
+        "label" : "Status"
       }
     },
-    "requestAnonymization": {
-      "confirm": "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki henkilökohtaiset tiedot jotka olet syöttänyt järjestelmästä. Tämän jälkeen voit luoda uuden käyttäjätunnuksen ja rekisteröityä uudelleen portaaliin."
+    "requestAnonymization" : {
+      "confirm" : "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki henkilökohtaiset tiedot jotka olet syöttänyt järjestelmästä. Tämän jälkeen voit luoda uuden käyttäjätunnuksen ja rekisteröityä uudelleen portaaliin."
     },
-    "requestLocking": {
-      "confirm": "Haluatko varmasti lukita tilin? Tilin tiedot säilyvät, mutta ylläpidon on avattava tilisi jotta voit kirjautua järjestelmään uudelleen."
+    "requestLocking" : {
+      "confirm" : "Haluatko varmasti lukita tilin? Tilin tiedot säilyvät, mutta ylläpidon on avattava tilisi jotta voit kirjautua järjestelmään uudelleen."
     },
-    "title": "jäsentiedot",
-    "update": {
-      "fail": "Käyttäjätietojen päivitys epäonnistui",
-      "ok": "Käyttäjätiedot päivitetty"
+    "title" : "jäsentiedot",
+    "update" : {
+      "fail" : "Käyttäjätietojen päivitys epäonnistui",
+      "ok" : "Käyttäjätiedot päivitetty"
     },
-    "updateStatus": {
-      "fail": "Käyttäjän tietojen päivitys epäonnistui",
-      "ok": "Käyttäjän tiedot päivitetty"
+    "updateStatus" : {
+      "fail" : "Käyttäjän tietojen päivitys epäonnistui",
+      "ok" : "Käyttäjän tiedot päivitetty"
     }
   },
-  "UserDetails": {
-    "table": {
-      "diveCount": "Sukellusmäärä:",
-      "email": "Sähköposti:",
-      "nextOfKin": "Lähiomaisen yhteystiedot:",
-      "payments": "Maksut:",
-      "phonenumber": "Puhelinnumero:",
-      "registered": "Rekisteröitynyt:"
+  "UserDetails" : {
+    "table" : {
+      "diveCount" : "Sukellusmäärä:",
+      "email" : "Sähköposti:",
+      "nextOfKin" : "Lähiomaisen yhteystiedot:",
+      "payments" : "Maksut:",
+      "phonenumber" : "Puhelinnumero:",
+      "registered" : "Rekisteröitynyt:"
     }
   },
-  "UserEvents": {
-    "profile-certificates-panel": {
-      "header": "Sukellusluokitukset"
+  "UserEvents" : {
+    "email-subscription-panel" : {
+      "header" : "Sähköpostitilaukset"
     },
-    "email-subscription-panel": {
-      "header": "Sähköpostitilaukset"
+    "future-panel" : {
+      "header" : "Tulevat tapahtumat"
     },
-    "future-panel": {
-      "header": "Tulevat tapahtumat"
+    "past-panel" : {
+      "header" : "Menneet tapahtumat"
     },
-    "past-panel": {
-      "header": "Menneet tapahtumat"
+    "profile-certificates-panel" : {
+      "header" : "Sukellusluokitukset"
     }
   },
-  "UserFields": {
-    "form": {
-      "firstName": {
-        "label": "Etunimi",
-        "placeholder": "Etunimi",
-        "rules": {
-          "min": "Etunimen tulee olla vähintään 2 merkkiä pitkä",
-          "pattern": "Etunimen tulee sisältää vain kirjaimia välillä a-ö sekä väliviiva",
-          "required": "Etunimi on vaadittu kenttä"
+  "UserFields" : {
+    "form" : {
+      "firstName" : {
+        "label" : "Etunimi",
+        "placeholder" : "Etunimi",
+        "rules" : {
+          "min" : "Etunimen tulee olla vähintään 2 merkkiä pitkä",
+          "pattern" : "Etunimen tulee sisältää vain kirjaimia välillä a-ö sekä väliviiva",
+          "required" : "Etunimi on vaadittu kenttä"
         },
-        "tooltip": "Vaadittu kenttä"
+        "tooltip" : "Vaadittu kenttä"
       },
-      "language": {
-        "label": "Kielivalinta",
-        "rules": {
-          "required": "Ole hyvä, ja valitse kieli"
+      "language" : {
+        "label" : "Kielivalinta",
+        "rules" : {
+          "required" : "Ole hyvä, ja valitse kieli"
         },
-        "tooltip": "Millä kielellä haluat asioida, vaihtoehtoina on suomi, ruotsi, englanti tai saksa"
+        "tooltip" : "Millä kielellä haluat asioida, vaihtoehtoina on suomi, ruotsi, englanti tai saksa"
       },
-      "lastName": {
-        "label": "Sukunimi",
-        "placeholder": "Sukunimi",
-        "rules": {
-          "min": "Sukunimen tulee olla vähintään 1 merkkiä pitkä",
-          "pattern": "Sukunimen tulee sisältää vain kirjaimia välillä a-ö sekä väliviiva",
-          "required": "Sukunimi on vaadittu kenttä"
+      "lastName" : {
+        "label" : "Sukunimi",
+        "placeholder" : "Sukunimi",
+        "rules" : {
+          "min" : "Sukunimen tulee olla vähintään 1 merkkiä pitkä",
+          "pattern" : "Sukunimen tulee sisältää vain kirjaimia välillä a-ö sekä väliviiva",
+          "required" : "Sukunimi on vaadittu kenttä"
         },
-        "tooltip": "Vaadittu kenttä"
+        "tooltip" : "Vaadittu kenttä"
       },
-      "nextOfKin": {
-        "label": "Lähiomainen:",
-        "placeholder": "Lähiomaisen nimi ja puhelinnumero",
-        "tooltip": "Lähiomainen, tarvitaan hätätilanteessa. Sekä nimi että puhelinnumero"
+      "nextOfKin" : {
+        "label" : "Lähiomainen:",
+        "placeholder" : "Lähiomaisen nimi ja puhelinnumero",
+        "tooltip" : "Lähiomainen, tarvitaan hätätilanteessa. Sekä nimi että puhelinnumero"
       },
-      "phoneNumber": {
-        "placeholder": "Puhelinnumero:",
-        "rules": {
-          "min": "Oletko varma että puhelinnumerosi on oikein?",
-          "pattern": "Puhelinnumeron tulee sisältää vain numeroita",
-          "required": "Ole hyvä ja syötä puhelinnumero!"
+      "phoneNumber" : {
+        "placeholder" : "Puhelinnumero:",
+        "rules" : {
+          "min" : "Oletko varma että puhelinnumerosi on oikein?",
+          "pattern" : "Puhelinnumeron tulee sisältää vain numeroita",
+          "required" : "Ole hyvä ja syötä puhelinnumero!"
         },
-        "tooltip": "Puhelinnumeron tulee olla muodossa +358123456789"
+        "tooltip" : "Puhelinnumeron tulee olla muodossa +358123456789"
       },
-      "privacy": {
-        "label": "Piilota yhteystiedot",
-        "tooltip": "Sähköposti ja puhelinnumero ei näy muille jäsenille. Vain rivijäsen voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
+      "privacy" : {
+        "label" : "Piilota yhteystiedot",
+        "tooltip" : "Sähköposti ja puhelinnumero ei näy muille jäsenille. Vain rivijäsen voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
       },
-      "userId": {
-        "label": "Jäsennumero"
+      "userId" : {
+        "label" : "Jäsennumero"
       },
-      "username": {
-        "label": "Käyttäjätunnus",
-        "placeholder": "Sähköposti",
-        "rules": {
-          "email": "Ei ole kelvollinen sähköpostiosoite!",
-          "required": "Ole hyvä ja syötä sähköpostiosoite!"
+      "username" : {
+        "label" : "Käyttäjätunnus",
+        "placeholder" : "Sähköposti",
+        "rules" : {
+          "email" : "Ei ole kelvollinen sähköpostiosoite!",
+          "required" : "Ole hyvä ja syötä sähköpostiosoite!"
         },
-        "tooltip": "Käyttäjätunnuksena käytetään toimiva sähköpostiosoite"
+        "tooltip" : "Käyttäjätunnuksena käytetään toimiva sähköpostiosoite"
       }
+    }
+  },
+  "common" : {
+    "button" : {
+      "add" : "Lisää",
+      "back" : "Takaisin",
+      "close" : "Sulje",
+      "delete" : "Poista",
+      "held" : "Pidetty",
+      "login" : "Kirjaudu sisään",
+      "logout" : "Kirjaudu ulos",
+      "no" : "Ei",
+      "open" : "Avaa",
+      "reset" : "Palauta",
+      "save" : "Tallenna",
+      "send" : "Lähetä",
+      "update" : "Päivitä",
+      "yes" : "Kyllä"
+    },
+    "dive-event" : {
+      "status" : {
+        "cancelled" : "Peruutettu",
+        "drafted" : "Luonnos",
+        "held" : "Pidetty",
+        "published" : "Julkaistu"
+      }
+    },
+    "email-subscription-type" : {
+      "EVENT" : {
+        "label" : "Tapahtumat",
+        "tooltip" : "Saat sähköpostiviestin kun uusi tapahtuma luodaan tai olemassaolevaa muutetaan"
+      },
+      "PAGE" : {
+        "label" : "Sivut",
+        "tooltip" : "Saat sähköpostiviestin kun tehdään muutos sivuihin tai uusi sivu lisätään"
+      }
+    },
+    "pages" : {
+      "status" : {
+        "deleted" : "Poistettu",
+        "drafted" : "Luonnos",
+        "published" : "Julkaistu"
+      }
+    },
+    "payment" : {
+      "type" : {
+        "oneTime" : "Kerta",
+        "period" : "Kausi"
+      }
+    },
+    "roles" : {
+      "administrator" : "Ylläpitäjä",
+      "anonymous" : "Anonyymi",
+      "organizer" : "Tapahtumajärjestäjä",
+      "user" : "Jäsen"
+    },
+    "spinner" : {
+      "loading" : "Ladataan..."
+    },
+    "userStatus" : {
+      "active" : "Aktiivinen",
+      "anonymized" : "Anonyymisoitu",
+      "locked" : "Lukittu",
+      "registered" : "Rekisteröity"
+    }
+  },
+  "nav" : {
+    "action" : {
+      "changePassword" : "Vaihda salasana",
+      "login" : "Kirjaudu sisään",
+      "logout" : "Kirjaudu ulos",
+      "profile" : "Profiili",
+      "register" : "Rekisteröidy"
+    },
+    "administration" : {
+      "audits" : "Auditointi",
+      "blocked-dates" : "Päivämäärän estäminen",
+      "download" : "Lataa",
+      "files" : "Tiedostot",
+      "members" : "Jäsenet",
+      "payments" : "Maksut",
+      "readFirst" : "Lue ensin",
+      "stats" : "Tilastot",
+      "title" : "Ylläpito"
+    },
+    "events" : {
+      "add" : "Lisää tapahtuma",
+      "new" : "Tapahtumat",
+      "past" : "Menneet tapahtumat",
+      "title" : "Tapahtumat",
+      "yearlyStats" : "Vuositilastot"
+    },
+    "pageManagement" : {
+      "pages" : "Sivut",
+      "title" : "Sivuhallinta"
     }
   }
 }

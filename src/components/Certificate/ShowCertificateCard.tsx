@@ -1,10 +1,11 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { CertificateResponse } from "../../models/responses";
-import { Button, Card, Col, message, Row, Space, Upload, UploadProps } from "antd";
+import { Button, Card, Col, message, Row, Space, Spin, Upload, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { useSession } from "../../session";
 import { useState } from "react";
 import { ProtectedImage } from "../main";
+import { fileTransferAPI } from "../../services";
 
 interface ShowCertificateCardProps {
     certificate: CertificateResponse;
@@ -12,13 +13,15 @@ interface ShowCertificateCardProps {
 }
 
 export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertificateCardProps) {
-    const { t } = useTranslation();
-    const { userSession } = useSession();
+    const {t} = useTranslation();
+    const {userSession} = useSession();
     const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificatePhotoUrl);
+    const [refreshKey, setRefreshKey] = useState<number>(0);
+    const [loading, setLoading] = useState<boolean>(false);
 
     const uploadProps: UploadProps = {
         name: "uploadFile",
-        action: `${import.meta.env.VITE_APP_API_URL}` + "/files/upload/certificates/" + certificate.id,
+        action: `${import.meta.env.VITE_APP_API_URL}` + "/files/certificates/" + certificate.id,
         headers: {
             authorization: "Bearer " + userSession?.accessToken,
         },
@@ -28,13 +31,15 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
             }
             if (info.file.status === "done") {
                 const uploadedUrl = info.file.response.url;
-                setCertificatePhotoUrl(uploadedUrl); // Update state to trigger re-render
+                setCertificatePhotoUrl(uploadedUrl);
+                setRefreshKey((prevKey) => prevKey + 1);
                 message.success(`${info.file.name} file uploaded successfully`);
             } else if (info.file.status === "error") {
                 message.error(`${info.file.name} file upload failed.`);
             }
         },
-        showUploadList: false
+        showUploadList: false,
+        accept: "image/png, image/jpeg, image/jpg",
     };
 
     function showExtras() {
@@ -48,7 +53,7 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
                             {t("common.button.delete")}
                         </Button>
                         <Upload {...uploadProps}>
-                            <Button icon={<UploadOutlined />}>
+                            <Button icon={<UploadOutlined/>}>
                                 {t("ShowCertificateCard.card.upload-photo")}
                             </Button>
                         </Upload>
@@ -59,17 +64,37 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
         return <></>;
     }
 
+    function removeCertificatePhoto() {
+        setLoading(true);
+        fileTransferAPI.removeCertificateFile(certificate.id)
+                .then(() => {
+                    message.success(t("ShowCertificateCard.card.remove-photo-success"));
+                    setCertificatePhotoUrl(null);
+                    setRefreshKey((prevKey) => prevKey + 1);
+                })
+                .catch((error) => {
+                    console.error("Error removing certificate photo:", error);
+                    message.error(t("ShowCertificateCard.card.remove-photo-fail"));
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+    }
+
     // Function to show the certificate photocopy or upload button
     function renderCertificatePhoto() {
         if (certificatePhotoUrl) {
-            console.log("We have an image URL: ", certificatePhotoUrl);
             return (
                     <ProtectedImage
+                            key={"cert-photo-" + refreshKey}
                             imageUrl={certificatePhotoUrl}
-                            style={{width: "200"}}
+                            style={{width: "250px"}}
                             alt={t("ShowCertificateCard.card.certificatePhoto")}
+                            onRemove={removeCertificatePhoto}
                     />
             );
+        } else {
+            return null;
         }
     }
 
@@ -77,7 +102,7 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
             <Card
                     key={certificate.id}
                     title={t("ShowCertificateCard.card.title") + certificate.certificateName}
-                    style={{ backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 600 }}
+                    style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 600}}
                     extra={showExtras()}
             >
                 <Row gutter={16}>
@@ -92,7 +117,9 @@ export function ShowCertificateCard({certificate, deleteCertificate}: ShowCertif
 
                     {/* Right Column: Certificate photocopy or upload button */}
                     <Col span={12}>
-                        {renderCertificatePhoto()}
+                        <Spin spinning={loading}>
+                            {renderCertificatePhoto()}
+                        </Spin>
                     </Col>
                 </Row>
             </Card>
