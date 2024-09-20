@@ -9,7 +9,6 @@ class DownloadAPI {
     constructor() {
         this.axiosInstance = Axios.create({baseURL: `${import.meta.env.VITE_APP_API_URL}`});
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-
     }
 
     public async downloadCertificates(): Promise<DownloadCertificateResponse[]> {

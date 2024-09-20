@@ -97,6 +97,10 @@ export function NavigationBar() {
                                                              type="button">{t("nav.administration.audits")}</NavLink>
                                                 </li>
                                                 <li>
+                                                    <NavLink to="/administration/files" className="dropdown-item"
+                                                             type="button">{t("nav.administration.files")}</NavLink>
+                                                </li>
+                                                <li>
                                                     <NavLink to="/administration/download" className="dropdown-item"
                                                              type="button">{t("nav.administration.download")}</NavLink>
                                                 </li>

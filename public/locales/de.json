@@ -1,1090 +1,1157 @@
 {
-  "AcceptTerms": {
-    "button": {
-      "acceptTerms": "Nutzungsbedingungen akzeptieren"
+  "AcceptTerms" : {
+    "button" : {
+      "acceptTerms" : "Nutzungsbedingungen akzeptieren"
     },
-    "error": {
-      "alert": "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie den Support."
+    "error" : {
+      "alert" : "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie den Support."
     },
-    "rejectTerms": "Nutzungsbedingungen ablehnen"
+    "rejectTerms" : "Nutzungsbedingungen ablehnen"
   },
-  "AdminAudit": {
-    "header": "Audit-Logs"
-  },
-  "AdminMain": {
-    "header": "Verwaltung",
-    "memberHeader": "Mitglieder",
-    "memberText": "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
-    "paymentHeader": "Zahlungen",
-    "paymentText": "Anzeige der aktuellen Zahlungen, Möglichkeit zur Annullierung der Jahresgebühren und Hinzufügen von Zahlungsinformationen für Mitglieder",
-    "statsHeader": "Statistiken",
-    "statsText1": "Jahresstatistiken für Veranstaltungen, Mitgliederregistrierungen, Veranstaltungsorganisatoren und Zahlungen",
-    "statsText2": "Hier finden Sie auch halbjährliche Ereignisberichte.",
-    "text": "Verwaltungsseiten. Seien Sie vorsichtig."
-  },
-  "AdminOrgAdminPaymentListPanel": {
-    "table": {
-      "expirationtDate": "Ablaufdatum",
-      "name": "Name",
-      "paymentCount": "Anzahl",
-      "paymentDate": "Zahlungsdatum"
+  "AddPayments" : {
+    "form" : {
+      "button" : "Zahlungen speichern",
+      "name" : {
+        "label" : "Mitglieder",
+        "placeholder" : "Mitglieder hinzufügen"
+      },
+      "paymentCount" : {
+        "label" : "Anzahl der Einmalzahlungen"
+      },
+      "paymentType" : {
+        "label" : "Zahlungsart"
+      }
+    },
+    "onFinish" : {
+      "fail" : "Aktualisierung der Zahlungsinformationen der Benutzer fehlgeschlagen",
+      "ok" : "Zahlungsinformationen der Benutzer aktualisiert"
+    },
+    "status" : {
+      "buttonOk" : "Aktualisierte Daten herunterladen",
+      "tryAgain" : "Erneut versuchen"
+    },
+    "types" : {
+      "oneTime" : "Einmalzahlung",
+      "period" : "Periodische Zahlung"
     }
   },
-  "AdminOrgUser": {
-    "form": {
-      "button": {
-        "reset": "Zurücksetzen",
-        "sendPasswordEmail": "Passwort-E-Mail senden",
-        "update": "Daten aktualisieren"
-      },
-      "roles": {
-        "administrator": "Administrator",
-        "label": "Rollen",
-        "member": "Mitglied",
-        "organizer": "Veranstaltungsorganisator"
-      },
-      "status": {
-        "label": "Status",
-        "rule1": "Status ist ein Pflichtfeld",
-        "tooltip": "Benutzerstatus"
-      }
-    },
-    "sendPasswordEmail": {
-      "fail": "Senden des Passwortänderungslinks fehlgeschlagen",
-      "ok": "Passwortänderungslink wurde per E-Mail gesendet"
-    },
-    "updateUser": {
-      "confirmAnonymize": "Möchten Sie wirklich die Anonymisierung Ihrer Daten beantragen? Dies löscht alle persönlichen Daten, die Sie im System eingegeben haben. Diese Änderung kann nicht rückgängig gemacht werden.",
-      "confirmOrganizer": "Die Hinzufügung der Rolle als Veranstaltungsorganisator hebt den Datenschutz auf. Möchten Sie fortfahren?",
-      "fail": "Aktualisierung der Benutzerdaten fehlgeschlagen",
-      "ok": "Benutzerdaten wurden aktualisiert"
+  "AdminAudit" : {
+    "header" : "Audit-Logs"
+  },
+  "AdminMain" : {
+    "header" : "Verwaltung",
+    "memberHeader" : "Mitglieder",
+    "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
+    "paymentHeader" : "Zahlungen",
+    "paymentText" : "Anzeige der aktuellen Zahlungen, Möglichkeit zur Annullierung der Jahresgebühren und Hinzufügen von Zahlungsinformationen für Mitglieder",
+    "statsHeader" : "Statistiken",
+    "statsText1" : "Jahresstatistiken für Veranstaltungen, Mitgliederregistrierungen, Veranstaltungsorganisatoren und Zahlungen",
+    "statsText2" : "Hier finden Sie auch halbjährliche Ereignisberichte.",
+    "text" : "Verwaltungsseiten. Seien Sie vorsichtig."
+  },
+  "AdminOrgAdminPaymentListPanel" : {
+    "table" : {
+      "expirationtDate" : "Ablaufdatum",
+      "name" : "Name",
+      "paymentCount" : "Anzahl",
+      "paymentDate" : "Zahlungsdatum"
     }
   },
-  "AdminOrgUsers": {
-    "invalidateTermAgreements": {
-      "confirm": "Sind Sie sicher, dass alle Mitglieder die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
-      "fail": "Die Bedingungen konnten nicht für ungültig erklärt werden",
-      "ok": "Die Bedingungen wurden erfolgreich für ungültig erklärt"
-    },
-    "search": {
-      "placeholder": "Mitglieder durchsuchen",
-      "spinText": "Suche nach Mitgliedern..."
-    },
-    "table": {
-      "action": {
-        "button": "Aktualisieren",
-        "title": "Aktualisieren"
+  "AdminOrgUser" : {
+    "form" : {
+      "button" : {
+        "reset" : "Zurücksetzen",
+        "sendPasswordEmail" : "Passwort-E-Mail senden",
+        "update" : "Daten aktualisieren"
       },
-      "firstName": "Vorname",
-      "lastName": "Nachname",
-      "login": "Benutzername",
-      "paymentStatus": "Mitgliedsbeitrag",
-      "role": {
-        "title": "Rollen"
+      "roles" : {
+        "administrator" : "Administrator",
+        "label" : "Rollen",
+        "member" : "Mitglied",
+        "organizer" : "Veranstaltungsorganisator"
       },
-      "status": "Status"
-    },
-    "terms": {
-      "resetButton": "Neue Zustimmung zu Nutzungsbedingungen",
-      "resetDivider": "Zurücksetzen der Nutzungsbedingungen"
-    },
-    "title": "Mitglieder"
-  },
-  "AdminPayments": {
-    "activeDivider": "Aktive Zahlungen",
-    "addPaymentsDivider": "Zahlungen hinzufügen",
-    "confirmInvalidate": "Sind Sie sicher, dass alle Jahresgebühren annulliert werden sollen? Diese Änderung kann nicht rückgängig gemacht werden.",
-    "yearlyResetButton": "Jahresgebühren annullieren",
-    "yearlyResetDivider": "Annullierung der Jahresgebühren"
-  },
-  "AddPayments": {
-    "form": {
-      "button": "Zahlungen speichern",
-      "name": {
-        "label": "Mitglieder",
-        "placeholder": "Mitglieder hinzufügen"
-      },
-      "paymentCount": {
-        "label": "Anzahl der Einmalzahlungen"
-      },
-      "paymentType": {
-        "label": "Zahlungsart"
+      "status" : {
+        "label" : "Status",
+        "rule1" : "Status ist ein Pflichtfeld",
+        "tooltip" : "Benutzerstatus"
       }
     },
-    "onFinish": {
-      "fail": "Aktualisierung der Zahlungsinformationen der Benutzer fehlgeschlagen",
-      "ok": "Zahlungsinformationen der Benutzer aktualisiert"
+    "sendPasswordEmail" : {
+      "fail" : "Senden des Passwortänderungslinks fehlgeschlagen",
+      "ok" : "Passwortänderungslink wurde per E-Mail gesendet"
     },
-    "status": {
-      "buttonOk": "Aktualisierte Daten herunterladen",
-      "tryAgain": "Erneut versuchen"
-    },
-    "types": {
-      "oneTime": "Einmalzahlung",
-      "period": "Periodische Zahlung"
+    "updateUser" : {
+      "confirmAnonymize" : "Möchten Sie wirklich die Anonymisierung Ihrer Daten beantragen? Dies löscht alle persönlichen Daten, die Sie im System eingegeben haben. Diese Änderung kann nicht rückgängig gemacht werden.",
+      "confirmOrganizer" : "Die Hinzufügung der Rolle als Veranstaltungsorganisator hebt den Datenschutz auf. Möchten Sie fortfahren?",
+      "fail" : "Aktualisierung der Benutzerdaten fehlgeschlagen",
+      "ok" : "Benutzerdaten wurden aktualisiert"
     }
   },
-  "ListPayments": {
-    "oneTime": "Einmalzahlungen",
-    "period": "Periodische Zahlungen",
-    "unknown": "Unbekannt"
+  "AdminOrgUsers" : {
+    "invalidateTermAgreements" : {
+      "confirm" : "Sind Sie sicher, dass alle Mitglieder die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
+      "fail" : "Die Bedingungen konnten nicht für ungültig erklärt werden",
+      "ok" : "Die Bedingungen wurden erfolgreich für ungültig erklärt"
+    },
+    "search" : {
+      "placeholder" : "Mitglieder durchsuchen",
+      "spinText" : "Suche nach Mitgliedern..."
+    },
+    "table" : {
+      "action" : {
+        "button" : "Aktualisieren",
+        "title" : "Aktualisieren"
+      },
+      "firstName" : "Vorname",
+      "lastName" : "Nachname",
+      "login" : "Benutzername",
+      "paymentStatus" : "Mitgliedsbeitrag",
+      "role" : {
+        "title" : "Rollen"
+      },
+      "status" : "Status"
+    },
+    "terms" : {
+      "resetButton" : "Neue Zustimmung zu Nutzungsbedingungen",
+      "resetDivider" : "Zurücksetzen der Nutzungsbedingungen"
+    },
+    "title" : "Mitglieder"
   },
-  "AuditEvents": {
-    "filter": {
-      "userName": "Benutzername",
-      "traceId": "Spur-ID",
-      "source": "Quelle",
-      "address": "IP-Adresse",
-      "message": "Nachricht"
-    },
-    "search": {
-      "placeholder": "Suchen..."
-    },
-    "table": {
-      "address": "IP-Adresse",
-      "createdAt": "Erstellungsdatum",
-      "level": "Ebene",
-      "message": "Nachricht",
-      "source": "Quelle",
-      "traceId": "Spur-ID",
-      "userName": "Benutzername"
-    },
-    "title": "Audit-Ereignisse"
+  "AdminPayments" : {
+    "activeDivider" : "Aktive Zahlungen",
+    "addPaymentsDivider" : "Zahlungen hinzufügen",
+    "confirmInvalidate" : "Sind Sie sicher, dass alle Jahresgebühren annulliert werden sollen? Diese Änderung kann nicht rückgängig gemacht werden.",
+    "yearlyResetButton" : "Jahresgebühren annullieren",
+    "yearlyResetDivider" : "Annullierung der Jahresgebühren"
   },
-  "BlockedDates": {
-    "form": {
-      "date": {
-        "rule": "Datum ist ein Pflichtfeld"
+  "AdminUploads" : {
+    "avatar" : {
+      "tab-title" : "Avatar-Dateien"
+    },
+    "certificate" : {
+      "certificate-id" : "Zertifikat ID",
+      "tab-title" : "Zertifikatsdateien"
+    },
+    "common-file-column-title" : {
+      "actions" : "Aktionen",
+      "created-at" : "Erstellt am",
+      "creator" : "Ersteller",
+      "download-link" : "Download-Link",
+      "filename" : "Dateiname",
+      "filesize" : "Dateigröße",
+      "view" : "Ansehen"
+    },
+    "dive-file" : {
+      "dive-group-id" : "Tauchgruppen-ID",
+      "event-id" : "Ereignis-ID",
+      "status" : "Status",
+      "tab-title" : "Tauchdateien"
+    },
+    "document" : {
+      "delete" : {
+        "fail" : "Löschen des Dokuments fehlgeschlagen",
+        "successful" : "Dokument erfolgreich gelöscht"
+      },
+      "status" : "Status",
+      "tab-title" : "Dokumentdateien",
+      "upload" : {
+        "button" : "Neues Dokument hochladen",
+        "fail" : "Dokument-Upload fehlgeschlagen",
+        "successful" : "Dokument erfolgreich hochgeladen"
       }
     },
-    "list": {
-      "confirm": "Sind Sie sicher, dass Sie das gesperrte Datum entfernen möchten?"
+    "overview" : {
+      "avatar-content" : "<b>Hinweis! Diese Funktion ist noch nicht aktiviert.</b> Avatare sind Bilder, die das Benutzerprofil darstellen. Sie können vom Benutzer selbst hochgeladen und verwaltet werden. Das Avatarbild wird im Benutzerprofil und in der Benutzerliste angezeigt. Alle authentifizierten Benutzer können das Avatarbild sehen. Nur der Benutzer, dem das Avatar gehört, kann das Avatarbild löschen.",
+      "avatar-title" : "Avatare",
+      "certificate-content" : "Zertifikate sind Fotokopien von Tauchzertifikaten, die vom Benutzer hochgeladen werden und dazu dienen, nachzuweisen, dass der Benutzer einen Kurs absolviert hat. Die Zertifikatsdatei kann nur vom Benutzer, der sie hochgeladen hat, sowie von Organisatoren und Administratoren eingesehen werden. Nur der Benutzer, dem das Zertifikat gehört, kann die Zertifikatskopie löschen.",
+      "certificate-title" : "Zertifikate",
+      "dive-file-content" : "<b>Hinweis! Diese Funktion ist noch nicht aktiviert.</b> Tauchdateien sind Dateien, die von Benutzern hochgeladen werden, wenn sie eine Tauchgruppe für ein bestimmtes Tauchevent gebildet haben. Hauptsächlich handelt es sich bei den Tauchdateien um Tauchpläne, aber sie können auch andere relevante Dokumentationen enthalten. Die Tauchdateien können von allen authentifizierten Benutzern eingesehen werden. Nur Mitglieder der Tauchgruppe können die Tauchdatei löschen.",
+      "dive-file-title" : "Tauchdateien",
+      "document-content" : "Dokumente sind Nicht-Bilddateien, die die Organisation mit den Benutzern teilen möchte. Die Dokumente können nur von Administratoren hochgeladen werden und sind für alle authentifizierten Benutzer sichtbar. Derzeit wird nur das PDF-Format unterstützt. Das Hochladen erfolgt über die Registerkarte „Dokumentdateien“, und sobald die Datei hochgeladen ist, wird sie in der Liste auf derselben Registerkarte angezeigt, aus der der Administrator dann den Link kopieren kann, um ihn in Seiten einzubetten. Nur Administratoren können Dokumente löschen.",
+      "document-title" : "Dokumente",
+      "overview-content-1" : "Hier können Sie alle hochgeladenen Dateien verschiedener Typen einsehen: Avatar-, Zertifikat-, Tauch-, Dokument- und Seitendateien. Für all diese Typen können Sie auch neue Dokumentdateien hochladen.",
+      "overview-content-2" : "Jede Liste enthält auch den Download-Link für die Datei, beachten Sie jedoch, dass es Einschränkungen gibt, wer die Dateien sehen kann. Z. B. kann die Zertifikatsdatei nur vom Benutzer angesehen werden, der sie hochgeladen hat, sowie von Organisatoren und Administratoren.",
+      "overview-title" : "Übersicht der Dateitypen",
+      "page-file-content" : "Seitendateien sind ausgewählte Bildtypen, die beim Bearbeiten einer bestimmten Sprachversion einer Seite mithilfe der Seiteneditor-Bild-Upload-Funktion hochgeladen werden. Beachten Sie, dass das hochgeladene Bild die Sichtbarkeit der Seite erbt. Wenn die Seite für den Benutzer nicht sichtbar ist, ist auch das Bild nicht sichtbar. Jeder Organisator oder Administrator, der die Seite, auf der sich das Bild befindet, bearbeiten kann, kann verlinkte Bilder entfernen.",
+      "page-file-title" : "Seitendateien",
+      "tab-title" : "Übersicht",
+      "type-content" : "Verschiedene Dateitypen stehen für unterschiedliche Zwecke zur Verfügung. Die folgenden Dateitypen können hochgeladen werden:",
+      "type-title" : "Verschiedene Dateitypen"
     },
-    "load": {
-      "fail": "Fehler beim Laden der gesperrten Daten"
-    },
-    "popup": {
-      "add-fail": "Das Hinzufügen des gesperrten Datums ist fehlgeschlagen",
-      "add-success": "Gesperrtes Datum erfolgreich hinzugefügt",
-      "remove-fail": "Das Entfernen des gesperrten Datums ist fehlgeschlagen",
-      "remove-success": "Gesperrtes Datum erfolgreich entfernt"
-    },
-    "title": "Datumsblockierung"
-  },
-  "Certificates": {
-    "deleteCertificate": {
-      "confirm": "Sind Sie sicher, dass Sie die Klassifizierung löschen möchten? \""
-    },
-    "panel": {
-      "addButton": "Neue Klassifizierung hinzufügen",
-      "text": "Der Benutzer hat die folgenden Tauchzertifikate erhalten:",
-      "title": "Tauchzertifikate"
+    "page-file" : {
+      "language" : "Sprache",
+      "page-id" : "Seiten-ID",
+      "status" : "Status",
+      "tab-title" : "Seitendateien"
     }
   },
-  "common": {
-    "button": {
-      "add": "Hinzufügen",
-      "back": "Zurück",
-      "close": "Schließen",
-      "delete": "Löschen",
-      "held": "Gehalten",
-      "login": "Anmelden",
-      "logout": "Abmelden",
-      "no": "Nein",
-      "open": "Öffnen",
-      "reset": "Zurücksetzen",
-      "save": "Speichern",
-      "send": "Senden",
-      "update": "Bearbeiten",
-      "yes": "Ja"
+  "AuditEvents" : {
+    "filter" : {
+      "address" : "IP-Adresse",
+      "message" : "Nachricht",
+      "source" : "Quelle",
+      "traceId" : "Spur-ID",
+      "userName" : "Benutzername"
     },
-    "dive-event": {
-      "status": {
-        "cancelled": "Abgesagt",
-        "drafted": "Entworfen",
-        "held": "Gehalten",
-        "published": "Veröffentlicht"
+    "search" : {
+      "placeholder" : "Suchen..."
+    },
+    "table" : {
+      "address" : "IP-Adresse",
+      "createdAt" : "Erstellungsdatum",
+      "level" : "Ebene",
+      "message" : "Nachricht",
+      "source" : "Quelle",
+      "traceId" : "Spur-ID",
+      "userName" : "Benutzername"
+    },
+    "title" : "Audit-Ereignisse"
+  },
+  "BlockedDates" : {
+    "form" : {
+      "date" : {
+        "rule" : "Datum ist ein Pflichtfeld"
       }
     },
-    "email-subscription-type": {
-      "EVENT": {
-        "label": "Tauchveranstaltungen",
-        "tooltip": "Erhalten Sie eine E-Mail-Benachrichtigung, wenn es Änderungen bei Tauchveranstaltungen gibt"
-      },
-      "PAGE": {
-        "label": "Seiten",
-        "tooltip": "Erhalten Sie eine E-Mail-Benachrichtigung, wenn es Änderungen bei Seiten gibt"
-      }
+    "list" : {
+      "confirm" : "Sind Sie sicher, dass Sie das gesperrte Datum entfernen möchten?"
     },
-    "pages": {
-      "status": {
-        "drafted": "Entworfen",
-        "deleted": "Versteckt",
-        "published": "Veröffentlicht"
-      }
+    "load" : {
+      "fail" : "Fehler beim Laden der gesperrten Daten"
     },
-    "payment": {
-      "type": {
-        "oneTime": "Einmal",
-        "period": "Saisong"
-      }
+    "popup" : {
+      "add-fail" : "Das Hinzufügen des gesperrten Datums ist fehlgeschlagen",
+      "add-success" : "Gesperrtes Datum erfolgreich hinzugefügt",
+      "remove-fail" : "Das Entfernen des gesperrten Datums ist fehlgeschlagen",
+      "remove-success" : "Gesperrtes Datum erfolgreich entfernt"
     },
-    "roles": {
-      "administrator": "Administrator",
-      "anonymous": "Anonym",
-      "organizer": "Veranstaltungsorganisator",
-      "user": "Mitglied"
+    "title" : "Datumsblockierung"
+  },
+  "Certificates" : {
+    "deleteCertificate" : {
+      "confirm" : "Sind Sie sicher, dass Sie die Klassifizierung löschen möchten? \""
     },
-    "spinner": {
-      "loading": "Laden..."
-    },
-    "userStatus": {
-      "active": "Aktiv",
-      "anonymized": "Anonymisiert",
-      "locked": "Gesperrt",
-      "registered": "Registriert"
+    "panel" : {
+      "addButton" : "Neue Klassifizierung hinzufügen",
+      "text" : "Der Benutzer hat die folgenden Tauchzertifikate erhalten:",
+      "title" : "Tauchzertifikate"
     }
   },
-  "DownloadData": {
-    "certificateLabel": "Zertifikate",
-    "choose": "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
-    "description": "Hier können Sie verschiedene Datensätze im CSV-Format herunterladen.",
-    "diveLabel": "Tauchgänge",
-    "downloadPrompt": "Klicken Sie auf den Link, um die Datei herunterzuladen: ",
-    "diveEventLabel": "Veranstaltungen",
-    "gdprWarning": "Beachten Sie, dass einige der Downloads persönliche Informationen enthalten können, die der DSGVO unterliegen. Bitte behandeln Sie die Daten mit Sorgfalt und teilen Sie sie nicht mit unbefugten Dritten. Entfernen Sie die Dateien, wenn sie nicht mehr benötigt werden.",
-    "header": "Daten herunterladen",
-    "memberLabel": "Mitglieder",
-    "paymentLabel": "Zahlungen",
-    "rowCount": "Zeilenanzahl:  {{count}}"
+  "DownloadData" : {
+    "certificateLabel" : "Zertifikate",
+    "choose" : "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
+    "description" : "Hier können Sie verschiedene Datensätze im CSV-Format herunterladen.",
+    "diveEventLabel" : "Veranstaltungen",
+    "diveLabel" : "Tauchgänge",
+    "downloadPrompt" : "Klicken Sie auf den Link, um die Datei herunterzuladen: ",
+    "gdprWarning" : "Beachten Sie, dass einige der Downloads persönliche Informationen enthalten können, die der DSGVO unterliegen. Bitte behandeln Sie die Daten mit Sorgfalt und teilen Sie sie nicht mit unbefugten Dritten. Entfernen Sie die Dateien, wenn sie nicht mehr benötigt werden.",
+    "header" : "Daten herunterladen",
+    "memberLabel" : "Mitglieder",
+    "paymentLabel" : "Zahlungen",
+    "rowCount" : "Zeilenanzahl:  {{count}}"
   },
-  "EditCertificate": {
-    "form": {
-      "button": {
-        "add": "Klassifizierung hinzufügen",
-        "update": "Klassifizierung bearbeiten"
+  "EditCertificate" : {
+    "form" : {
+      "button" : {
+        "add" : "Klassifizierung hinzufügen",
+        "update" : "Klassifizierung bearbeiten"
       },
-      "certificateId": {
-        "label": "Zertifikatskennung",
-        "placeholder": "Zertifikatskennung",
-        "rules": {
-          "min": "Zertifikatskennung ist zu kurz",
-          "validator": "Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld"
+      "certificateId" : {
+        "label" : "Zertifikatskennung",
+        "placeholder" : "Zertifikatskennung",
+        "rules" : {
+          "min" : "Zertifikatskennung ist zu kurz",
+          "validator" : "Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld"
         },
-        "tooltip": "Entweder Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld. Wenn sie auf der Zertifizierungskarte fehlen, verwenden Sie 000-000 als Zertifikatskennung."
+        "tooltip" : "Entweder Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld. Wenn sie auf der Zertifizierungskarte fehlen, verwenden Sie 000-000 als Zertifikatskennung."
       },
-      "certificateName": {
-        "label": "Klassifizierung",
-        "placeholder": "Name der Klassifizierung",
-        "rules": {
-          "min": "Name der Klassifizierung ist zu kurz",
-          "required": "Klassifizierung ist ein Pflichtfeld"
+      "certificateName" : {
+        "label" : "Klassifizierung",
+        "placeholder" : "Name der Klassifizierung",
+        "rules" : {
+          "min" : "Name der Klassifizierung ist zu kurz",
+          "required" : "Klassifizierung ist ein Pflichtfeld"
         },
-        "tooltip": "Name der Klassifizierung, in Englisch, z. B. Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master oder andere"
+        "tooltip" : "Name der Klassifizierung, in Englisch, z. B. Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master oder andere"
       },
-      "certificationDate": {
-        "label": "Zertifikatsdatum",
-        "placeholder": "Zertifikatsdatum (im Format JJJJ-MM-TT)",
-        "rules": {
-          "max": "Datum ist zu lang",
-          "min": "Datum ist zu kurz",
-          "pattern": "Das Datum muss im Format JJJJ-MM-TT sein"
+      "certificationDate" : {
+        "label" : "Zertifikatsdatum",
+        "placeholder" : "Zertifikatsdatum (im Format JJJJ-MM-TT)",
+        "rules" : {
+          "max" : "Datum ist zu lang",
+          "min" : "Datum ist zu kurz",
+          "pattern" : "Das Datum muss im Format JJJJ-MM-TT sein"
         }
       },
-      "diverId": {
-        "label": "Tauchernummer",
-        "placeholder": "Tauchernummer",
-        "rules": {
-          "min": "Tauchernummer ist zu kurz",
-          "validator": "Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld"
+      "diverId" : {
+        "label" : "Tauchernummer",
+        "placeholder" : "Tauchernummer",
+        "rules" : {
+          "min" : "Tauchernummer ist zu kurz",
+          "validator" : "Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld"
         },
-        "tooltip": "Entweder Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld. Wenn sie auf der Zertifizierungskarte fehlen, verwenden Sie 000-000 als Zertifikatskennung."
+        "tooltip" : "Entweder Zertifikatskennung oder Tauchernummer ist ein Pflichtfeld. Wenn sie auf der Zertifizierungskarte fehlen, verwenden Sie 000-000 als Zertifikatskennung."
       },
-      "organization": {
-        "label": "Zertifizierungsorganisation",
-        "placeholder": "Name der Zertifizierungsorganisation",
-        "rules": {
-          "min": "Name der Zertifizierungsorganisation ist zu kurz",
-          "required": "Zertifizierungsorganisation ist ein Pflichtfeld"
+      "organization" : {
+        "label" : "Zertifizierungsorganisation",
+        "placeholder" : "Name der Zertifizierungsorganisation",
+        "rules" : {
+          "min" : "Name der Zertifizierungsorganisation ist zu kurz",
+          "required" : "Zertifizierungsorganisation ist ein Pflichtfeld"
         },
-        "tooltip": "Name der Zertifizierungsorganisation, z. B. PADI, SSI, CMAS, DSAT, DSAC, NAUI oder andere"
+        "tooltip" : "Name der Zertifizierungsorganisation, z. B. PADI, SSI, CMAS, DSAT, DSAC, NAUI oder andere"
       },
-      "title": "Zertifikatsinformationen",
-      "updateCertificate": {
-        "add": {
-          "fail": "Hinzufügen der Zertifikatsinformation fehlgeschlagen",
-          "ok": "Zertifikatsinformation hinzugefügt"
+      "title" : "Zertifikatsinformationen",
+      "updateCertificate" : {
+        "add" : {
+          "fail" : "Hinzufügen der Zertifikatsinformation fehlgeschlagen",
+          "ok" : "Zertifikatsinformation hinzugefügt"
         },
-        "update": {
-          "fail": "Aktualisierung der Zertifikatsinformationen fehlgeschlagen",
-          "ok": "Zertifikatsinformationen aktualisiert"
+        "update" : {
+          "fail" : "Aktualisierung der Zertifikatsinformationen fehlgeschlagen",
+          "ok" : "Zertifikatsinformationen aktualisiert"
         }
       }
     }
   },
-  "EditEvent": {
-    "eventTypes": {
-      "cave": "Höhle",
-      "caveOpen": "Höhle / Offen",
-      "dive": "Tauchen",
-      "open": "Offen",
-      "other": "Andere (z.B. Blockierende Buchung)",
-      "surface": "Nur Oberflächenaktivität"
+  "EditEvent" : {
+    "eventTypes" : {
+      "cave" : "Höhle",
+      "caveOpen" : "Höhle / Offen",
+      "dive" : "Tauchen",
+      "open" : "Offen",
+      "other" : "Andere (z.B. Blockierende Buchung)",
+      "surface" : "Nur Oberflächenaktivität"
     },
-    "form": {
-      "button": {
-        "updateDives": "Aktualisiere Tauchgänge"
+    "form" : {
+      "button" : {
+        "updateDives" : "Aktualisiere Tauchgänge"
       },
-      "description": {
-        "label": "Beschreibung des Ereignisses",
-        "placeholder": "Beschreibung des Ereignisses",
-        "rules": {
-          "max": "Maximale Länge der Ereignisbeschreibung beträgt 15000 Zeichen",
-          "min": "Ereignisbeschreibung ist zu kurz",
-          "required": "Ereignisbeschreibung ist ein Pflichtfeld"
+      "description" : {
+        "label" : "Beschreibung des Ereignisses",
+        "placeholder" : "Beschreibung des Ereignisses",
+        "rules" : {
+          "max" : "Maximale Länge der Ereignisbeschreibung beträgt 15000 Zeichen",
+          "min" : "Ereignisbeschreibung ist zu kurz",
+          "required" : "Ereignisbeschreibung ist ein Pflichtfeld"
         },
-        "tooltip": "Beschreibung des Ereignisses. Was wird bei diesem Ereignis unternommen?"
+        "tooltip" : "Beschreibung des Ereignisses. Was wird bei diesem Ereignis unternommen?"
       },
-      "eventDuration": {
-        "label": "Ereignisdauer (Stunden)",
-        "tooltip": "Ereignisdauer in Stunden"
+      "eventDuration" : {
+        "label" : "Ereignisdauer (Stunden)",
+        "tooltip" : "Ereignisdauer in Stunden"
       },
-      "maxDepth": {
-        "label": "Maximale Tiefe (m)",
-        "rules": {
-          "maxParticipants": "Die maximale Teilnehmeranzahl des Ereignisses darf nicht kleiner sein als die aktuelle Teilnehmeranzahl."
+      "maxDepth" : {
+        "label" : "Maximale Tiefe (m)",
+        "rules" : {
+          "maxParticipants" : "Die maximale Teilnehmeranzahl des Ereignisses darf nicht kleiner sein als die aktuelle Teilnehmeranzahl."
         },
-        "tooltip": "Tauchdauer in Minuten"
+        "tooltip" : "Tauchdauer in Minuten"
       },
-      "maxDuration": {
-        "label": "Tauchdauer (Minuten)",
-        "tooltip": "Tauchdauer in Minuten"
+      "maxDuration" : {
+        "label" : "Tauchdauer (Minuten)",
+        "tooltip" : "Tauchdauer in Minuten"
       },
-      "maxParticipants": {
-        "label": "Maximale Teilnehmeranzahl",
-        "tooltip": "Maximale Teilnehmeranzahl, der Veranstalter wird mitgezählt"
+      "maxParticipants" : {
+        "label" : "Maximale Teilnehmeranzahl",
+        "tooltip" : "Maximale Teilnehmeranzahl, der Veranstalter wird mitgezählt"
       },
-      "organizerId": {
-        "label": "Veranstalter",
-        "rules": {
-          "required": "Veranstalter ist ein Pflichtfeld"
+      "organizerId" : {
+        "label" : "Veranstalter",
+        "rules" : {
+          "required" : "Veranstalter ist ein Pflichtfeld"
         },
-        "tooltip": "Veranstalter des Tauchereignisses"
+        "tooltip" : "Veranstalter des Tauchereignisses"
       },
-      "participants": {
-        "label": "Teilnehmer",
-        "placeholder": "Teilnehmer hinzufügen",
-        "tooltip": "Mitglieder, die an dem Ereignis teilnehmen"
+      "participants" : {
+        "label" : "Teilnehmer",
+        "placeholder" : "Teilnehmer hinzufügen",
+        "tooltip" : "Mitglieder, die an dem Ereignis teilnehmen"
       },
-      "status": {
-        "label": "Status des Tauchereignisses",
-        "tooltip": "Entworfen Status wird den Mitgliedern noch nicht angezeigt. Veröffentlicht Status ist für alle Mitglieder sichtbar, ebenso wie gehalten, das für vergangene Ereignisse gilt. Abgesagt Status wird den Mitgliedern nicht angezeigt.",
-        "rules": {
-          "required": "Status ist ein Pflichtfeld"
-        }
-      },
-      "startTime": {
-        "label": "Startzeit",
-        "rules": {
-          "required": "Startzeit ist ein Pflichtfeld",
-          "validator": "Das Datum muss mindestens 30 Minuten in der Zukunft liegen!"
+      "startTime" : {
+        "label" : "Startzeit",
+        "rules" : {
+          "required" : "Startzeit ist ein Pflichtfeld",
+          "validator" : "Das Datum muss mindestens 30 Minuten in der Zukunft liegen!"
         },
-        "tooltip": "Startzeit des Ereignisses"
+        "tooltip" : "Startzeit des Ereignisses"
       },
-      "submitButton": {
-        "add": "Ereignis hinzufügen",
-        "update": "Ereignis bearbeiten"
-      },
-      "title": {
-        "label": "Ereignisname",
-        "placeholder": "Ereignisname",
-        "rules": {
-          "min": "Ereignisname ist zu kurz",
-          "required": "Ereignisname ist ein Pflichtfeld"
+      "status" : {
+        "label" : "Status des Tauchereignisses",
+        "rules" : {
+          "required" : "Status ist ein Pflichtfeld"
         },
-        "tooltip": "Kurzer Name, z.B. 'Walpurgistauch'"
+        "tooltip" : "Entworfen Status wird den Mitgliedern noch nicht angezeigt. Veröffentlicht Status ist für alle Mitglieder sichtbar, ebenso wie gehalten, das für vergangene Ereignisse gilt. Abgesagt Status wird den Mitgliedern nicht angezeigt."
       },
-      "type": {
-        "label": "Typ",
-        "rules": {
-          "required": "Typ ist ein Pflichtfeld"
+      "submitButton" : {
+        "add" : "Ereignis hinzufügen",
+        "update" : "Ereignis bearbeiten"
+      },
+      "title" : {
+        "label" : "Ereignisname",
+        "placeholder" : "Ereignisname",
+        "rules" : {
+          "min" : "Ereignisname ist zu kurz",
+          "required" : "Ereignisname ist ein Pflichtfeld"
         },
-        "tooltip": "Art des Tauchereignisses"
+        "tooltip" : "Kurzer Name, z.B. 'Walpurgistauch'"
+      },
+      "type" : {
+        "label" : "Typ",
+        "rules" : {
+          "required" : "Typ ist ein Pflichtfeld"
+        },
+        "tooltip" : "Art des Tauchereignisses"
       }
     },
-    "oldEvent": {
-      "alertText": "Das Ereignis ist bereits abgeschlossen und kann nicht mehr bearbeitet werden."
+    "oldEvent" : {
+      "alertText" : "Das Ereignis ist bereits abgeschlossen und kann nicht mehr bearbeitet werden."
     },
-    "onFinish": {
-      "addStatusFail": "Ereignis hinzufügen fehlgeschlagen",
-      "addStatusOk": "Ereignis hinzugefügt",
-      "updateStatusFail": "Aktualisierung der Ereignisinformationen fehlgeschlagen",
-      "updateStatusFailMaxParticipant": "Die maximale Teilnehmeranzahl darf nicht kleiner sein als die aktuelle Teilnehmeranzahl",
-      "updateStatusOk": "Ereignisinformationen aktualisiert"
+    "onFinish" : {
+      "addStatusFail" : "Ereignis hinzufügen fehlgeschlagen",
+      "addStatusOk" : "Ereignis hinzugefügt",
+      "updateStatusFail" : "Aktualisierung der Ereignisinformationen fehlgeschlagen",
+      "updateStatusFailMaxParticipant" : "Die maximale Teilnehmeranzahl darf nicht kleiner sein als die aktuelle Teilnehmeranzahl",
+      "updateStatusOk" : "Ereignisinformationen aktualisiert"
     },
-    "title": "Ereignisinformationen"
+    "title" : "Ereignisinformationen"
   },
-  "EditPage": {
-    "form": {
-      "button": {
-        "addPermission": "Berechtigung hinzufügen",
-        "create": "Neue Seite erstellen",
-        "update": "Seite bearbeiten"
+  "EditPage" : {
+    "description" : "Hinweis! Beim Erstellen einer neuen Seite müssen Sie diese zuerst speichern, bevor Sie Bilder hinzufügen können.",
+    "form" : {
+      "button" : {
+        "addPermission" : "Berechtigung hinzufügen",
+        "create" : "Neue Seite erstellen",
+        "update" : "Seite bearbeiten"
       },
-      "divider": {
-        "languages": "Sprachversionen",
-        "metadata": "Metadaten",
-        "permissions": "Berechtigungen"
+      "divider" : {
+        "languages" : "Sprachversionen",
+        "metadata" : "Metadaten",
+        "permissions" : "Berechtigungen"
       },
-      "metadata": {
-        "createdAt": "Erstellt am",
-        "creator": "Ersteller",
-        "modifiedAt": "Zuletzt aktualisiert am",
-        "modifier": "Zuletzt bearbeitet von"
+      "metadata" : {
+        "createdAt" : "Erstellt am",
+        "creator" : "Ersteller",
+        "modifiedAt" : "Zuletzt aktualisiert am",
+        "modifier" : "Zuletzt bearbeitet von"
       },
-      "pageGroupId": {
-        "label": "Seitengruppe",
-        "placeholder": "Gruppe auswählen, zu der die Seite gehört",
-        "rules": {
-          "required": "Seitengruppe ist ein Pflichtfeld"
-        },
-        "tooltip": "Die Seitengruppe, zu der die Seite gehört"
-      },
-      "page-versions": {
-        "body": {
-          "label": "Text",
-          "rules": {
-            "min": "Der Inhalt der Seite darf nicht leer sein"
+      "page-versions" : {
+        "body" : {
+          "label" : "Text",
+          "rules" : {
+            "min" : "Der Inhalt der Seite darf nicht leer sein"
           }
         },
-        "ingress": {
-          "label": "Einführung",
-          "placeholder": "Einführungstext"
+        "ingress" : {
+          "label" : "Einführung",
+          "placeholder" : "Einführungstext"
         },
-        "title": {
-          "label": "Titel",
-          "placeholder": "Titeltext",
-          "rules": {
-            "min": "Der Titel muss mindestens 2 Zeichen lang sein",
-            "required": "Titel ist ein Pflichtfeld"
+        "title" : {
+          "label" : "Titel",
+          "placeholder" : "Titeltext",
+          "rules" : {
+            "min" : "Der Titel muss mindestens 2 Zeichen lang sein",
+            "required" : "Titel ist ein Pflichtfeld"
           }
         }
       },
-      "rolePermissions": {
-        "readPermission": {
-          "label": "Leseberechtigungen",
-          "rules": {
-            "leastReadRequired": "Mindestens Leseberechtigungen müssen ausgewählt sein",
-            "required": "Leseberechtigung ist ein Pflichtfeld",
-            "writeRequiresRead": "Schreibberechtigungen erfordern Leseberechtigungen"
+      "pageGroupId" : {
+        "label" : "Seitengruppe",
+        "placeholder" : "Gruppe auswählen, zu der die Seite gehört",
+        "rules" : {
+          "required" : "Seitengruppe ist ein Pflichtfeld"
+        },
+        "tooltip" : "Die Seitengruppe, zu der die Seite gehört"
+      },
+      "rolePermissions" : {
+        "readPermission" : {
+          "label" : "Leseberechtigungen",
+          "rules" : {
+            "leastReadRequired" : "Mindestens Leseberechtigungen müssen ausgewählt sein",
+            "required" : "Leseberechtigung ist ein Pflichtfeld",
+            "writeRequiresRead" : "Schreibberechtigungen erfordern Leseberechtigungen"
           },
-          "tooltip": "Berechtigung, die Seite zu sehen"
+          "tooltip" : "Berechtigung, die Seite zu sehen"
         },
-        "role": {
-          "label": "Rolle",
-          "rules": {
-            "noDuplicates": "Es dürfen keine doppelten Rollen ausgewählt werden",
-            "required": "Rolle ist ein Pflichtfeld"
+        "role" : {
+          "label" : "Rolle",
+          "rules" : {
+            "noDuplicates" : "Es dürfen keine doppelten Rollen ausgewählt werden",
+            "required" : "Rolle ist ein Pflichtfeld"
           },
-          "tooltip": "Rolle, der Berechtigungen gewährt werden. Anonym bedeutet, dass die Seite für alle öffentlich ist."
+          "tooltip" : "Rolle, der Berechtigungen gewährt werden. Anonym bedeutet, dass die Seite für alle öffentlich ist."
         },
-        "writePermission": {
-          "label": "Schreibberechtigungen",
-          "tooltip": "Berechtigung, die Seite zu bearbeiten. Ein anonymer Benutzer kann die Seite niemals bearbeiten."
+        "writePermission" : {
+          "label" : "Schreibberechtigungen",
+          "tooltip" : "Berechtigung, die Seite zu bearbeiten. Ein anonymer Benutzer kann die Seite niemals bearbeiten."
         }
       },
-      "status": {
-        "label": "Seitenstatus",
-        "rules": {
-          "required": "Status ist ein Pflichtfeld"
+      "status" : {
+        "label" : "Seitenstatus",
+        "rules" : {
+          "required" : "Status ist ein Pflichtfeld"
         },
-        "tooltip": "Seitenstatus. Entworfen wird verwendet, wenn die Seite noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seiteninhalt veraltet ist und nicht mehr angezeigt werden soll."
+        "tooltip" : "Seitenstatus. Entworfen wird verwendet, wenn die Seite noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seiteninhalt veraltet ist und nicht mehr angezeigt werden soll."
       }
     },
-    "onFinish": {
-      "create": {
-        "fail": "Erstellen der Seite fehlgeschlagen",
-        "ok": "Seite erstellt"
+    "onFinish" : {
+      "create" : {
+        "fail" : "Erstellen der Seite fehlgeschlagen",
+        "ok" : "Seite erstellt"
       },
-      "update": {
-        "fail": "Aktualisierung der Seite fehlgeschlagen",
-        "ok": "Seite bearbeiten"
+      "update" : {
+        "fail" : "Aktualisierung der Seite fehlgeschlagen",
+        "ok" : "Seite bearbeiten"
       }
     },
-    "title": {
-      "new": "Neue Seite",
-      "update": "Seite bearbeiten"
+    "title" : {
+      "new" : "Neue Seite",
+      "update" : "Seite bearbeiten"
     }
   },
-  "EditPageGroup": {
-    "form": {
-      "button": {
-        "create": "Neue Seitengruppe erstellen",
-        "update": "Gruppe bearbeiten"
+  "EditPageGroup" : {
+    "form" : {
+      "button" : {
+        "create" : "Neue Seitengruppe erstellen",
+        "update" : "Gruppe bearbeiten"
       },
-      "divider": {
-        "languages": "Sprachversionen"
+      "divider" : {
+        "languages" : "Sprachversionen"
       },
-      "pageGroupVersions": {
-        "label": "Titel",
-        "rules": {
-          "min": "Der Titel muss mindestens 2 Zeichen lang sein",
-          "required": "Titel ist ein Pflichtfeld"
+      "pageGroupVersions" : {
+        "label" : "Titel",
+        "rules" : {
+          "min" : "Der Titel muss mindestens 2 Zeichen lang sein",
+          "required" : "Titel ist ein Pflichtfeld"
         },
-        "tooltip": "Titel der Seitengruppe, mindestens 2 Zeichen lang"
+        "tooltip" : "Titel der Seitengruppe, mindestens 2 Zeichen lang"
       },
-      "status": {
-        "label": "Seitengruppestatus",
-        "rules": {
-          "required": "Status ist ein Pflichtfeld"
+      "status" : {
+        "label" : "Seitengruppestatus",
+        "rules" : {
+          "required" : "Status ist ein Pflichtfeld"
         },
-        "tooltip": "Seitensgruppetatus. Entworfen wird verwendet, wenn die Seitegruppe noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seitegruppe veraltet ist und nicht mehr angezeigt werden soll."
+        "tooltip" : "Seitensgruppetatus. Entworfen wird verwendet, wenn die Seitegruppe noch bearbeitet wird und nicht angezeigt werden soll. Öffentlich ist für alle sichtbar. Gelöscht dient dazu, anzugeben, dass der Seitegruppe veraltet ist und nicht mehr angezeigt werden soll."
       }
     },
-    "onFinish": {
-      "create": {
-        "fail": "Erstellen der Seitengruppe fehlgeschlagen",
-        "ok": "Seitengruppe erstellt"
+    "onFinish" : {
+      "create" : {
+        "fail" : "Erstellen der Seitengruppe fehlgeschlagen",
+        "ok" : "Seitengruppe erstellt"
       },
-      "update": {
-        "fail": "Aktualisierung der Seitengruppe fehlgeschlagen",
-        "ok": "Seitengruppe bearbeiten"
+      "update" : {
+        "fail" : "Aktualisierung der Seitengruppe fehlgeschlagen",
+        "ok" : "Seitengruppe bearbeiten"
       }
     }
   },
-  "EmailSubscriptionCard":{
-    "header": "E-Mail erhalten, für:"
+  "EmailSubscriptionCard" : {
+    "header" : "E-Mail erhalten, für:"
   },
-  "Event": {
-    "subscribe": {
-      "button": "Am Ereignis teilnehmen"
+  "Event" : {
+    "subscribe" : {
+      "button" : "Am Ereignis teilnehmen"
     },
-    "unsubscribe": {
-      "button": "Entferne dich von der Ereignis"
+    "unsubscribe" : {
+      "button" : "Entferne dich von der Ereignis"
     }
   },
-  "EventDetails": {
-    "description": {
-      "title": "Ereignisbeschreibung"
+  "EventDetails" : {
+    "description" : {
+      "title" : "Ereignisbeschreibung"
     },
-    "link": {
-      "tooltip": "Ereignis öffnen"
+    "link" : {
+      "tooltip" : "Ereignis öffnen"
     },
-    "participants": {
-      "title": "Teilnehmer"
-    },
-    "participantTable": {
-      "eventDiveCount": "Tauchanzahl",
-      "name": "Name",
-      "payments": "Zahlungsstatus",
-      "paymentType": {
-        "oneTime": "Einmalige Zahlung",
-        "period": "Periodische Zahlung",
-        "unknown": "Unbekannt"
-      }
-    },
-    "table": {
-      "maxDepth": "Maximale Tiefe, m",
-      "maxDuration": "Maximale Dauer, min",
-      "organizer": "Veranstalter",
-      "participants": "Teilnehmer",
-      "phoneNumber": "Telefonnummer",
-      "startTime": "Zeitpunkt",
-      "type": "Typ"
-    },
-    "title": "Ereignis"
-  },
-  "Events": {
-    "ongoing": {
-      "title": "Laufende Veranstaltungen"
-    },
-    "results": {
-      "error": "Daten laden fehlgeschlagen: ",
-      "noEvents": "Keine bevorstehenden Veranstaltungen."
-    },
-    "search": {
-      "placeholder": "Veranstaltungen suchen"
-    },
-    "table": {
-      "maxDepth": "Maximale Tiefe, m",
-      "maxDuration": "Maximale Dauer, min",
-      "organizer": "Veranstalter",
-      "participants": "Teilnehmer",
-      "startTime": "Startzeit",
-      "title": "Beschreibung",
-      "type": "Art"
-    },
-    "upcoming": {
-      "title": "Bevorstehende Veranstaltungen"
-    }
-  },
-  "FormatPayments": {
-    "noValid": "Keine gültigen Zahlungsinformationen.",
-    "singlePayment": "Einmalzahlung",
-    "unknownPayment": "Unbekannter Zahlungstyp",
-    "unknownPaymentContact": "Kontaktiere den Administrator",
-    "unknownPaymentPlease": "Bitte",
-    "yearlyPayment": "Jahresgebühr (endet am"
-  },
-  "Login": {
-    "form": {
-      "button": {
-        "forgotPassword": "Passwort vergessen?"
+    "participantTable" : {
+      "eventDiveCount" : "Tauchanzahl",
+      "name" : "Name",
+      "paymentType" : {
+        "oneTime" : "Einmalige Zahlung",
+        "period" : "Periodische Zahlung",
+        "unknown" : "Unbekannt"
       },
-      "password": {
-        "label": "Passwort:",
-        "rules": {
-          "required": "Bitte gib dein Passwort ein!"
+      "payments" : "Zahlungsstatus"
+    },
+    "participants" : {
+      "title" : "Teilnehmer"
+    },
+    "table" : {
+      "maxDepth" : "Maximale Tiefe, m",
+      "maxDuration" : "Maximale Dauer, min",
+      "organizer" : "Veranstalter",
+      "participants" : "Teilnehmer",
+      "phoneNumber" : "Telefonnummer",
+      "startTime" : "Zeitpunkt",
+      "type" : "Typ"
+    },
+    "title" : "Ereignis"
+  },
+  "Events" : {
+    "ongoing" : {
+      "title" : "Laufende Veranstaltungen"
+    },
+    "results" : {
+      "error" : "Daten laden fehlgeschlagen: ",
+      "noEvents" : "Keine bevorstehenden Veranstaltungen."
+    },
+    "search" : {
+      "placeholder" : "Veranstaltungen suchen"
+    },
+    "table" : {
+      "maxDepth" : "Maximale Tiefe, m",
+      "maxDuration" : "Maximale Dauer, min",
+      "organizer" : "Veranstalter",
+      "participants" : "Teilnehmer",
+      "startTime" : "Startzeit",
+      "title" : "Beschreibung",
+      "type" : "Art"
+    },
+    "upcoming" : {
+      "title" : "Bevorstehende Veranstaltungen"
+    }
+  },
+  "FormatPayments" : {
+    "noValid" : "Keine gültigen Zahlungsinformationen.",
+    "singlePayment" : "Einmalzahlung",
+    "unknownPayment" : "Unbekannter Zahlungstyp",
+    "unknownPaymentContact" : "Kontaktiere den Administrator",
+    "unknownPaymentPlease" : "Bitte",
+    "yearlyPayment" : "Jahresgebühr (endet am"
+  },
+  "ListPayments" : {
+    "oneTime" : "Einmalzahlungen",
+    "period" : "Periodische Zahlungen",
+    "unknown" : "Unbekannt"
+  },
+  "Login" : {
+    "form" : {
+      "button" : {
+        "forgotPassword" : "Passwort vergessen?"
+      },
+      "password" : {
+        "label" : "Passwort:",
+        "rules" : {
+          "required" : "Bitte gib dein Passwort ein!"
         }
       },
-      "username": {
-        "label": "Benutzername/E-Mail:",
-        "rules": {
-          "email": "Ungültige E-Mail-Adresse!",
-          "required": "Bitte gib deine E-Mail-Adresse ein!"
-        }
-      }
-    },
-    "updateStatus": {
-      "loginFail": "Anmeldung fehlgeschlagen!"
-    }
-  },
-  "LostPassword": {
-    "form": {
-      "submitButton": "Senden",
-      "email": {
-        "label": "Benutzername/E-Mail:",
-        "placeholder": "someone@example.com",
-        "rules": {
-          "email": "Ungültige E-Mail-Adresse!",
-          "required": "Bitte gib deine E-Mail-Adresse ein!"
+      "username" : {
+        "label" : "Benutzername/E-Mail:",
+        "rules" : {
+          "email" : "Ungültige E-Mail-Adresse!",
+          "required" : "Bitte gib deine E-Mail-Adresse ein!"
         }
       }
     },
-    "setStatus": {
-      "update": {
-        "fail": "Passwort-Wiederherstellungs-E-Mail-Versand fehlgeschlagen",
-        "ok": "Passwort-Wiederherstellungs-E-Mail erfolgreich versandt"
-      }
-    },
-    "text": {
-      "bottom": "Wenn das Problem weiterhin besteht, kontaktiere den Administrator.",
-      "top": "Wenn du dein Passwort verloren hast, kannst du einen Link zur Passwortänderung an deine E-Mail-Adresse senden (maximal 3 Mal)."
-    },
-    "updateStatus": {
-      "fail": {
-        "button": "Zurück zur erneuten Versandseite",
-        "text": "Versand des Änderungslinks fehlgeschlagen, bitte warte einen Moment und versuche es später erneut."
-      },
-      "ok": {
-        "button": "Zurück zur Anmeldeseite",
-        "text": "Änderungslink erneut versandt."
-      }
+    "updateStatus" : {
+      "loginFail" : "Anmeldung fehlgeschlagen!"
     }
   },
-  "nav": {
-    "action": {
-      "changePassword": "Passwort ändern",
-      "login": "Anmelden",
-      "logout": "Abmelden",
-      "profile": "Profil",
-      "register": "Registrieren"
-    },
-    "administration": {
-      "audits": "Audits",
-      "blocked-dates": "Datumsblockierung",
-      "download": "Herunterladen",
-      "members": "Mitglieder",
-      "payments": "Zahlungen",
-      "readFirst": "Zuerst lesen",
-      "stats": "Statistiken",
-      "title": "Verwaltung"
-    },
-    "events": {
-      "add": "Veranstaltung hinzufügen",
-      "new": "Veranstaltungen",
-      "past": "Vergangene Veranstaltungen",
-      "title": "Veranstaltungen",
-      "yearlyStats": "Jahresstatistiken"
-    },
-    "pageManagement": {
-      "pages": "Seiten",
-      "title": "Seitenverwaltung"
-    }
-  },
-  "NewPassword": {
-    "setUpdateStatus": {
-      "update": {
-        "fail": "Aktualisierung des Benutzerpassworts fehlgeschlagen",
-        "ok": "Benutzerpasswort erfolgreich aktualisiert"
-      }
-    },
-    "title": "Neues Passwort",
-    "updateStatus": {
-      "fail": {
-        "button": "Bitte kontaktiere den Administrator.",
-        "text": "Aktualisierung des Passworts fehlgeschlagen!"
-      },
-      "ok": {
-        "button": "Du kannst dich jetzt anmelden.",
-        "text": "Passwort erfolgreich aktualisiert!"
-      }
-    }
-  },
-  "OngoingEvents": {
-    "results": {
-      "noEvents": "Keine laufenden Veranstaltungen."
-    },
-    "search": {
-      "placeholder": "Suche Veranstaltungen"
-    },
-    "table": {
-      "maxDepth": "Maximale Tiefe, m",
-      "maxDuration": "Maximale Dauer, min",
-      "organizer": "Veranstalter",
-      "participants": "Teilnehmer",
-      "startTime": "Startzeit",
-      "title": "Beschreibung",
-      "type": "Art"
-    }
-  },
-  "Page": {
-    "fields": {
-      "created": "Erstellt: ",
-      "updated": "Aktualisiert: "
-    }
-  },
-  "PageGroups": {
-    "button": {
-      "addGroup": "Gruppe hinzufügen",
-      "addPage": "Seite hinzufügen",
-      "updatePage": "Seiten bearbeiten"
-    },
-    "deletePath": {
-      "confirm": {
-        "1": "Seite wirklich schließen ",
-        "2": "HINWEIS: Durch das Schließen der Seitengruppe werden auch alle zugehörigen Seiten und deren Sprachversionen geschlossen."
-      }
-    },
-    "table": {
-      "languageVersions": "Sprachversionen",
-      "pageCount": "Seitenanzahl",
-      "status": "Status",
-      "title": "Gruppenname"
-    },
-    "title": "Seitengruppen",
-    "updateStatus": {
-      "removed": "Gruppe gelöscht"
-    }
-  },
-  "Pages": {
-    "title": "Seitengruppenverwaltung",
-    "alert": {
-      "noPages": "In dieser Gruppe gibt es keine Seiten."
-    },
-    "button": {
-      "addPage": "Seite hinzufügen"
-    },
-    "closePage": {
-      "confirm": "Seite wirklich löschen "
-    },
-    "table": {
-      "createdAt": "Erstellt",
-      "languageVersions": "Sprachversionen",
-      "modifiedAt": "Aktualisiert",
-      "rolePermissions": "Rollen",
-      "status": "Status",
-      "title": "Seite"
-    },
-    "updateStatus": {
-      "ok": "Seite gelöscht",
-      "fail": "Löschen der Seite fehlgeschlagen, bitte kontaktieren Sie den Support, wenn das Problem weiterhin besteht."
-    }
-  },
-  "Password": {
-    "form": {
-      "oldPassword": {
-        "label": "Aktuelles Passwort",
-        "rules": {
-          "required": "Bitte gib dein aktuelles Passwort ein!"
+  "LostPassword" : {
+    "form" : {
+      "email" : {
+        "label" : "Benutzername/E-Mail:",
+        "placeholder" : "someone@example.com",
+        "rules" : {
+          "email" : "Ungültige E-Mail-Adresse!",
+          "required" : "Bitte gib deine E-Mail-Adresse ein!"
         }
       },
-      "submitButton": "Passwort aktualisieren"
+      "submitButton" : "Senden"
     },
-    "setUpdateStatus": {
-      "update": {
-        "fail": "Aktualisierung des Benutzerpassworts fehlgeschlagen",
-        "ok": "Aktualisierung des Benutzerpassworts erfolgreich. Du musst dich jetzt erneut anmelden."
+    "setStatus" : {
+      "update" : {
+        "fail" : "Passwort-Wiederherstellungs-E-Mail-Versand fehlgeschlagen",
+        "ok" : "Passwort-Wiederherstellungs-E-Mail erfolgreich versandt"
       }
     },
-    "updateStatus": {
-      "fail": {
-        "text": "Aktualisierung des Passworts fehlgeschlagen!"
+    "text" : {
+      "bottom" : "Wenn das Problem weiterhin besteht, kontaktiere den Administrator.",
+      "top" : "Wenn du dein Passwort verloren hast, kannst du einen Link zur Passwortänderung an deine E-Mail-Adresse senden (maximal 3 Mal)."
+    },
+    "updateStatus" : {
+      "fail" : {
+        "button" : "Zurück zur erneuten Versandseite",
+        "text" : "Versand des Änderungslinks fehlgeschlagen, bitte warte einen Moment und versuche es später erneut."
       },
-      "ok": {
-        "button": "Abmelden",
-        "text": "Passwort erfolgreich aktualisiert!"
+      "ok" : {
+        "button" : "Zurück zur Anmeldeseite",
+        "text" : "Änderungslink erneut versandt."
       }
     }
   },
-  "PasswordFields": {
-    "form": {
-      "confirmPassword": {
-        "label": "Neues Passwort bestätigen",
-        "rules": {
-          "required": "Bitte bestätige das neue Passwort!",
-          "validator": "Die neuen Passwörter stimmen nicht überein!"
+  "NewPassword" : {
+    "setUpdateStatus" : {
+      "update" : {
+        "fail" : "Aktualisierung des Benutzerpassworts fehlgeschlagen",
+        "ok" : "Benutzerpasswort erfolgreich aktualisiert"
+      }
+    },
+    "title" : "Neues Passwort",
+    "updateStatus" : {
+      "fail" : {
+        "button" : "Bitte kontaktiere den Administrator.",
+        "text" : "Aktualisierung des Passworts fehlgeschlagen!"
+      },
+      "ok" : {
+        "button" : "Du kannst dich jetzt anmelden.",
+        "text" : "Passwort erfolgreich aktualisiert!"
+      }
+    }
+  },
+  "OngoingEvents" : {
+    "results" : {
+      "noEvents" : "Keine laufenden Veranstaltungen."
+    },
+    "search" : {
+      "placeholder" : "Suche Veranstaltungen"
+    },
+    "table" : {
+      "maxDepth" : "Maximale Tiefe, m",
+      "maxDuration" : "Maximale Dauer, min",
+      "organizer" : "Veranstalter",
+      "participants" : "Teilnehmer",
+      "startTime" : "Startzeit",
+      "title" : "Beschreibung",
+      "type" : "Art"
+    }
+  },
+  "Page" : {
+    "fields" : {
+      "created" : "Erstellt: ",
+      "updated" : "Aktualisiert: "
+    }
+  },
+  "PageGroups" : {
+    "button" : {
+      "addGroup" : "Gruppe hinzufügen",
+      "addPage" : "Seite hinzufügen",
+      "updatePage" : "Seiten bearbeiten"
+    },
+    "deletePath" : {
+      "confirm" : {
+        "1" : "Seite wirklich schließen ",
+        "2" : "HINWEIS: Durch das Schließen der Seitengruppe werden auch alle zugehörigen Seiten und deren Sprachversionen geschlossen."
+      }
+    },
+    "table" : {
+      "languageVersions" : "Sprachversionen",
+      "pageCount" : "Seitenanzahl",
+      "status" : "Status",
+      "title" : "Gruppenname"
+    },
+    "title" : "Seitengruppen",
+    "updateStatus" : {
+      "removed" : "Gruppe gelöscht"
+    }
+  },
+  "Pages" : {
+    "alert" : {
+      "noPages" : "In dieser Gruppe gibt es keine Seiten."
+    },
+    "button" : {
+      "addPage" : "Seite hinzufügen"
+    },
+    "closePage" : {
+      "confirm" : "Seite wirklich löschen "
+    },
+    "table" : {
+      "createdAt" : "Erstellt",
+      "languageVersions" : "Sprachversionen",
+      "modifiedAt" : "Aktualisiert",
+      "rolePermissions" : "Rollen",
+      "status" : "Status",
+      "title" : "Seite"
+    },
+    "title" : "Seitengruppenverwaltung",
+    "updateStatus" : {
+      "fail" : "Löschen der Seite fehlgeschlagen, bitte kontaktieren Sie den Support, wenn das Problem weiterhin besteht.",
+      "ok" : "Seite gelöscht"
+    }
+  },
+  "Password" : {
+    "form" : {
+      "oldPassword" : {
+        "label" : "Aktuelles Passwort",
+        "rules" : {
+          "required" : "Bitte gib dein aktuelles Passwort ein!"
         }
       },
-      "newPassword": {
-        "label": "Neues Passwort",
-        "rules": {
-          "min": "Das Passwort muss mindestens 10 Zeichen lang sein",
-          "pattern": "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
-          "required": "Bitte gib ein neues Passwort ein!"
+      "submitButton" : "Passwort aktualisieren"
+    },
+    "setUpdateStatus" : {
+      "update" : {
+        "fail" : "Aktualisierung des Benutzerpassworts fehlgeschlagen",
+        "ok" : "Aktualisierung des Benutzerpassworts erfolgreich. Du musst dich jetzt erneut anmelden."
+      }
+    },
+    "updateStatus" : {
+      "fail" : {
+        "text" : "Aktualisierung des Passworts fehlgeschlagen!"
+      },
+      "ok" : {
+        "button" : "Abmelden",
+        "text" : "Passwort erfolgreich aktualisiert!"
+      }
+    }
+  },
+  "PasswordFields" : {
+    "form" : {
+      "confirmPassword" : {
+        "label" : "Neues Passwort bestätigen",
+        "rules" : {
+          "required" : "Bitte bestätige das neue Passwort!",
+          "validator" : "Die neuen Passwörter stimmen nicht überein!"
+        }
+      },
+      "newPassword" : {
+        "label" : "Neues Passwort",
+        "rules" : {
+          "min" : "Das Passwort muss mindestens 10 Zeichen lang sein",
+          "pattern" : "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
+          "required" : "Bitte gib ein neues Passwort ein!"
         }
       }
     }
   },
-  "PasswordRules": {
-    "rule": {
-      "1": "Großbuchstabe, A-Ö",
-      "2": "Kleinbuchstabe, a-ö",
-      "3": "Zahl, 0-9",
-      "4": "Sonderzeichen, z. B. !@#$%^&amp;*_-"
+  "PasswordRules" : {
+    "rule" : {
+      "1" : "Großbuchstabe, A-Ö",
+      "2" : "Kleinbuchstabe, a-ö",
+      "3" : "Zahl, 0-9",
+      "4" : "Sonderzeichen, z. B. !@#$%^&amp;*_-"
     },
-    "text": "Das Passwort muss mindestens 10 Zeichen lang sein und muss mindestens eines der folgenden enthalten:"
+    "text" : "Das Passwort muss mindestens 10 Zeichen lang sein und muss mindestens eines der folgenden enthalten:"
   },
-  "PastEvents": {
-    "title": "Vergangene Veranstaltungen"
+  "PastEvents" : {
+    "title" : "Vergangene Veranstaltungen"
   },
-  "Register": {
-    "fail": {
-      "message": "Registrierung fehlgeschlagen!"
+  "Register" : {
+    "fail" : {
+      "message" : "Registrierung fehlgeschlagen!"
     },
-    "form": {
-      "confirm": {
-        "label": "Passwort erneut eingeben:",
-        "rules": {
-          "nomatch": "Die eingegebenen Passwörter stimmen nicht überein!",
-          "required": "Bitte bestätige dein Passwort!"
+    "form" : {
+      "confirm" : {
+        "label" : "Passwort erneut eingeben:",
+        "rules" : {
+          "nomatch" : "Die eingegebenen Passwörter stimmen nicht überein!",
+          "required" : "Bitte bestätige dein Passwort!"
         }
       },
-      "password": {
-        "label": "Passwort:",
-        "rules": {
-          "min": "Das Passwort muss mindestens 10 Zeichen lang sein",
-          "pattern": "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
-          "required": "Bitte gib ein Passwort ein!"
+      "password" : {
+        "label" : "Passwort:",
+        "rules" : {
+          "min" : "Das Passwort muss mindestens 10 Zeichen lang sein",
+          "pattern" : "Das Passwort muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten",
+          "required" : "Bitte gib ein Passwort ein!"
         },
-        "tooltip": "Das Passwort muss mindestens 10 Zeichen lang sein und muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten"
+        "tooltip" : "Das Passwort muss mindestens 10 Zeichen lang sein und muss mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten"
       },
-      "submitButton": "Registrieren",
-      "terms": {
-        "accept": "Ich akzeptiere die Nutzungsbedingungen",
-        "button": "Nutzungsbedingungen",
-        "reject": "Ich akzeptiere die Nutzungsbedingungen nicht",
-        "text": "Lesen und akzeptieren Sie",
-        "title": "Nutzungsbedingungen"
+      "submitButton" : "Registrieren",
+      "terms" : {
+        "accept" : "Ich akzeptiere die Nutzungsbedingungen",
+        "button" : "Nutzungsbedingungen",
+        "reject" : "Ich akzeptiere die Nutzungsbedingungen nicht",
+        "text" : "Lesen und akzeptieren Sie",
+        "title" : "Nutzungsbedingungen"
       },
-      "title": "Registrierung"
+      "title" : "Registrierung"
     },
-    "success": {
-      "message": "Registrierung erfolgreich abgeschlossen! Bitte überprüfen Sie Ihre E-Mails, bevor Sie dieses Fenster schließen. Wir haben eine Bestätigungsnachricht an Ihre registrierte E-Mail-Adresse gesendet. Bitte überprüfen Sie auch Ihren Spam-Ordner."
+    "success" : {
+      "message" : "Registrierung erfolgreich abgeschlossen! Bitte überprüfen Sie Ihre E-Mails, bevor Sie dieses Fenster schließen. Wir haben eine Bestätigungsnachricht an Ihre registrierte E-Mail-Adresse gesendet. Bitte überprüfen Sie auch Ihren Spam-Ordner."
     }
   },
-  "Registration": {
-    "title": {
-      "invalid": "Registrierung fehlgeschlagen, Bestätigungslink ist abgelaufen",
-      "ok": "Bestätigung des Kontos erfolgreich, Sie können sich jetzt mit Ihrer Benutzer-ID und Ihrem Passwort anmelden."
+  "Registration" : {
+    "title" : {
+      "invalid" : "Registrierung fehlgeschlagen, Bestätigungslink ist abgelaufen",
+      "ok" : "Bestätigung des Kontos erfolgreich, Sie können sich jetzt mit Ihrer Benutzer-ID und Ihrem Passwort anmelden."
     }
   },
-  "ReportEvent": {
-    "table": {
-      "diveCount": "Tauchanzahl",
-      "eventDateTime": "Datum",
-      "organizerName": "Veranstaltername",
-      "participantCount": "Teilnehmerzahl"
+  "ReportEvent" : {
+    "table" : {
+      "diveCount" : "Tauchanzahl",
+      "eventDateTime" : "Datum",
+      "organizerName" : "Veranstaltername",
+      "participantCount" : "Teilnehmerzahl"
     }
   },
-  "ReportEvents": {
-    "title": "Veranstaltungsberichte"
+  "ReportEvents" : {
+    "title" : "Veranstaltungsberichte"
   },
-  "ResendRegistrationEmail": {
-    "text": {
-      "fail": "Die erneute Sendung der Registrierungs-E-Mail ist fehlgeschlagen. Sie müssen sich erneut registrieren. Wenn das Problem weiterhin besteht, kontaktieren Sie den Support.",
-      "notReceived": "Falls Sie die Bestätigungs-E-Mail nicht erhalten haben, können Sie sie erneut senden, indem Sie den untenstehenden Button drücken."
+  "ResendRegistrationEmail" : {
+    "text" : {
+      "fail" : "Die erneute Sendung der Registrierungs-E-Mail ist fehlgeschlagen. Sie müssen sich erneut registrieren. Wenn das Problem weiterhin besteht, kontaktieren Sie den Support.",
+      "notReceived" : "Falls Sie die Bestätigungs-E-Mail nicht erhalten haben, können Sie sie erneut senden, indem Sie den untenstehenden Button drücken."
     }
   },
-  "SetDives": {
-    "noDives": "Keine Tauchgänge",
-    "table": {
-      "action": "Aktion",
-      "diveCount": "Tauchanzahl",
-      "name": "Tauchername"
+  "SetDives" : {
+    "noDives" : "Keine Tauchgänge",
+    "table" : {
+      "action" : "Aktion",
+      "diveCount" : "Tauchanzahl",
+      "name" : "Tauchername"
     }
   },
-  "ShowCertificateCard": {
-    "card": {
-      "certificateId": "Zertifikats-ID",
-      "certification": "Tauchzertifizierung",
-      "date": "Zertifizierungsdatum",
-      "diverId": "Taucher-ID",
-      "organization": "Zertifizierungsstelle",
-      "title": "Zertifikat: "
+  "ShowCertificateCard" : {
+    "card" : {
+      "certificateId" : "Zertifikats-ID",
+      "certification" : "Tauchzertifizierung",
+      "date" : "Zertifizierungsdatum",
+      "diverId" : "Taucher-ID",
+      "organization" : "Zertifizierungsstelle",
+      "photocopy" : "Zertifikatskopie",
+      "title" : "Zertifikat: ",
+      "upload-photo" : "Zertifikat hochladen",
+      "upload-photo-tooltip": "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt.",
+      "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist."
     }
   },
-  "StatisticsMain": {
-    "reports": "Berichte",
-    "yearlyStats": "Jahresstatistiken"
+  "StatisticsMain" : {
+    "reports" : "Berichte",
+    "yearlyStats" : "Jahresstatistiken"
   },
-  "StatsOrganizers": {
-    "stats": {
-      "title": "Veranstalter"
+  "StatsOrganizers" : {
+    "stats" : {
+      "title" : "Veranstalter"
     }
   },
-  "StatsPayments": {
-    "stats": {
-      "title": "Zahlungen"
+  "StatsPayments" : {
+    "stats" : {
+      "title" : "Zahlungen"
     }
   },
-  "StatsYearlyDives": {
-    "table": {
-      "diveCount": "Tauchanzahl",
-      "position": "Position",
-      "userName": "Name"
+  "StatsYearlyDives" : {
+    "table" : {
+      "diveCount" : "Tauchanzahl",
+      "position" : "Position",
+      "userName" : "Name"
     },
-    "title": "Jahresstatistik der Tauchgänge"
+    "title" : "Jahresstatistik der Tauchgänge"
   },
-  "StatsYearlyEvents": {
-    "stats": {
-      "title": "Veranstaltungen pro Jahr"
+  "StatsYearlyEvents" : {
+    "stats" : {
+      "title" : "Veranstaltungen pro Jahr"
     }
   },
-  "StatsYearlyRegistrations": {
-    "stats": {
-      "title": "Mitgliederregistrierungen pro Jahr"
+  "StatsYearlyRegistrations" : {
+    "stats" : {
+      "title" : "Mitgliederregistrierungen pro Jahr"
     }
   },
-  "User": {
-    "button": {
-      "acceptTerms": "Nutzungsbedingungen lesen und akzeptieren",
-      "anonymizeAccount": "Daten anonymisieren",
-      "lockAccount": "Konto sperren"
+  "User" : {
+    "button" : {
+      "acceptTerms" : "Nutzungsbedingungen lesen und akzeptieren",
+      "anonymizeAccount" : "Daten anonymisieren",
+      "lockAccount" : "Konto sperren"
     },
-    "form": {
-      "payments": {
-        "label": "Zahlungen"
+    "form" : {
+      "payments" : {
+        "label" : "Zahlungen"
       },
-      "privacy": {
-        "label": "Nutzungsbedingungen akzeptiert"
+      "privacy" : {
+        "label" : "Nutzungsbedingungen akzeptiert"
       },
-      "roles": {
-        "label": "Rollen"
+      "roles" : {
+        "label" : "Rollen"
       },
-      "status": {
-        "label": "Status"
+      "status" : {
+        "label" : "Status"
       }
     },
-    "requestAnonymization": {
-      "confirm": "Möchten Sie wirklich eine Anonymisierung der Daten anfordern? Dadurch werden alle persönlichen Daten, die Sie in das System eingegeben haben, gelöscht. Danach können Sie sich mit einem neuen Benutzernamen registrieren."
+    "requestAnonymization" : {
+      "confirm" : "Möchten Sie wirklich eine Anonymisierung der Daten anfordern? Dadurch werden alle persönlichen Daten, die Sie in das System eingegeben haben, gelöscht. Danach können Sie sich mit einem neuen Benutzernamen registrieren."
     },
-    "requestLocking": {
-      "confirm": "Möchten Sie Ihr Konto wirklich sperren? Ihre Kontoinformationen werden gespeichert, aber die Freigabe durch den Support ist erforderlich, um sich erneut im System anzumelden."
+    "requestLocking" : {
+      "confirm" : "Möchten Sie Ihr Konto wirklich sperren? Ihre Kontoinformationen werden gespeichert, aber die Freigabe durch den Support ist erforderlich, um sich erneut im System anzumelden."
     },
-    "title": "Benutzerinformationen",
-    "update": {
-      "fail": "Aktualisierung der Benutzerinformationen fehlgeschlagen",
-      "ok": "Benutzerinformationen aktualisiert"
+    "title" : "Benutzerinformationen",
+    "update" : {
+      "fail" : "Aktualisierung der Benutzerinformationen fehlgeschlagen",
+      "ok" : "Benutzerinformationen aktualisiert"
     },
-    "updateStatus": {
-      "fail": "Aktualisierung der Benutzerdaten fehlgeschlagen",
-      "ok": "Benutzerdaten erfolgreich aktualisiert"
+    "updateStatus" : {
+      "fail" : "Aktualisierung der Benutzerdaten fehlgeschlagen",
+      "ok" : "Benutzerdaten erfolgreich aktualisiert"
     }
   },
-  "UserDetails": {
-    "table": {
-      "diveCount": "Tauchanzahl:",
-      "email": "E-Mail:",
-      "nextOfKin": "Kontaktperson:",
-      "payments": "Zahlungen:",
-      "phonenumber": "Telefonnummer:",
-      "registered": "Registriert am:"
+  "UserDetails" : {
+    "table" : {
+      "diveCount" : "Tauchanzahl:",
+      "email" : "E-Mail:",
+      "nextOfKin" : "Kontaktperson:",
+      "payments" : "Zahlungen:",
+      "phonenumber" : "Telefonnummer:",
+      "registered" : "Registriert am:"
     }
   },
-  "UserEvents": {
-    "profile-certificates-panel": {
-      "header": "Tauchzertifikate"
+  "UserEvents" : {
+    "email-subscription-panel" : {
+      "header" : "E-Mail-Abonnement"
     },
-    "email-subscription-panel": {
-      "header": "E-Mail-Abonnement"
+    "future-panel" : {
+      "header" : "Kommende Veranstaltungen"
     },
-    "future-panel": {
-      "header": "Kommende Veranstaltungen"
+    "past-panel" : {
+      "header" : "Vergangene Veranstaltungen"
     },
-    "past-panel": {
-      "header": "Vergangene Veranstaltungen"
+    "profile-certificates-panel" : {
+      "header" : "Tauchzertifikate"
     }
   },
-  "UserFields": {
-    "form": {
-      "firstName": {
-        "label": "Vorname",
-        "placeholder": "Vorname",
-        "rules": {
-          "min": "Der Vorname muss mindestens 2 Zeichen lang sein",
-          "pattern": "Der Vorname darf nur Buchstaben von a-ö und Bindestriche enthalten",
-          "required": "Der Vorname ist ein Pflichtfeld"
+  "UserFields" : {
+    "form" : {
+      "firstName" : {
+        "label" : "Vorname",
+        "placeholder" : "Vorname",
+        "rules" : {
+          "min" : "Der Vorname muss mindestens 2 Zeichen lang sein",
+          "pattern" : "Der Vorname darf nur Buchstaben von a-ö und Bindestriche enthalten",
+          "required" : "Der Vorname ist ein Pflichtfeld"
         },
-        "tooltip": "Pflichtfeld"
+        "tooltip" : "Pflichtfeld"
       },
-      "language": {
-        "label": "Sprachauswahl",
-        "rules": {
-          "required": "Bitte wählen Sie eine Sprache aus"
+      "language" : {
+        "label" : "Sprachauswahl",
+        "rules" : {
+          "required" : "Bitte wählen Sie eine Sprache aus"
         },
-        "tooltip": "In welcher Sprache möchten Sie kommunizieren? Die Optionen sind Finnisch, Schwedisch, Englisch oder Deutsch"
+        "tooltip" : "In welcher Sprache möchten Sie kommunizieren? Die Optionen sind Finnisch, Schwedisch, Englisch oder Deutsch"
       },
-      "lastName": {
-        "label": "Nachname",
-        "placeholder": "Nachname",
-        "rules": {
-          "min": "Der Nachname muss mindestens 1 Zeichen lang sein",
-          "pattern": "Der Nachname darf nur Buchstaben von a-ö und Bindestriche enthalten",
-          "required": "Der Nachname ist ein Pflichtfeld"
+      "lastName" : {
+        "label" : "Nachname",
+        "placeholder" : "Nachname",
+        "rules" : {
+          "min" : "Der Nachname muss mindestens 1 Zeichen lang sein",
+          "pattern" : "Der Nachname darf nur Buchstaben von a-ö und Bindestriche enthalten",
+          "required" : "Der Nachname ist ein Pflichtfeld"
         },
-        "tooltip": "Pflichtfeld"
+        "tooltip" : "Pflichtfeld"
       },
-      "nextOfKin": {
-        "label": "Kontaktperson:",
-        "placeholder": "Name und Telefonnummer der Kontaktperson",
-        "tooltip": "Kontaktperson, die im Notfall benötigt wird. Bitte geben Sie sowohl den Namen als auch die Telefonnummer an."
+      "nextOfKin" : {
+        "label" : "Kontaktperson:",
+        "placeholder" : "Name und Telefonnummer der Kontaktperson",
+        "tooltip" : "Kontaktperson, die im Notfall benötigt wird. Bitte geben Sie sowohl den Namen als auch die Telefonnummer an."
       },
-      "phoneNumber": {
-        "placeholder": "Telefonnummer:",
-        "rules": {
-          "min": "Sind Sie sicher, dass Ihre Telefonnummer korrekt ist?",
-          "pattern": "Die Telefonnummer darf nur Zahlen enthalten",
-          "required": "Bitte geben Sie Ihre Telefonnummer ein!"
+      "phoneNumber" : {
+        "placeholder" : "Telefonnummer:",
+        "rules" : {
+          "min" : "Sind Sie sicher, dass Ihre Telefonnummer korrekt ist?",
+          "pattern" : "Die Telefonnummer darf nur Zahlen enthalten",
+          "required" : "Bitte geben Sie Ihre Telefonnummer ein!"
         },
-        "tooltip": "Die Telefonnummer sollte im Format +358123456789 sein"
+        "tooltip" : "Die Telefonnummer sollte im Format +358123456789 sein"
       },
-      "privacy": {
-        "label": "Kontaktdaten verbergen",
-        "tooltip": "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur Standardmitglieder können ihre Daten verbergen. Der Name des Veranstalters ist immer sichtbar."
+      "privacy" : {
+        "label" : "Kontaktdaten verbergen",
+        "tooltip" : "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur Standardmitglieder können ihre Daten verbergen. Der Name des Veranstalters ist immer sichtbar."
       },
-      "userId": {
-        "label": "Benutzer-ID"
+      "userId" : {
+        "label" : "Benutzer-ID"
       },
-      "username": {
-        "label": "Benutzername",
-        "placeholder": "E-Mail",
-        "rules": {
-          "email": "Dies ist keine gültige E-Mail-Adresse!",
-          "required": "Bitte geben Sie eine E-Mail-Adresse ein!"
+      "username" : {
+        "label" : "Benutzername",
+        "placeholder" : "E-Mail",
+        "rules" : {
+          "email" : "Dies ist keine gültige E-Mail-Adresse!",
+          "required" : "Bitte geben Sie eine E-Mail-Adresse ein!"
         },
-        "tooltip": "Die E-Mail-Adresse wird als Benutzername verwendet"
+        "tooltip" : "Die E-Mail-Adresse wird als Benutzername verwendet"
       }
+    }
+  },
+  "common" : {
+    "button" : {
+      "add" : "Hinzufügen",
+      "back" : "Zurück",
+      "close" : "Schließen",
+      "delete" : "Löschen",
+      "held" : "Gehalten",
+      "login" : "Anmelden",
+      "logout" : "Abmelden",
+      "no" : "Nein",
+      "open" : "Öffnen",
+      "reset" : "Zurücksetzen",
+      "save" : "Speichern",
+      "send" : "Senden",
+      "update" : "Bearbeiten",
+      "yes" : "Ja"
+    },
+    "dive-event" : {
+      "status" : {
+        "cancelled" : "Abgesagt",
+        "drafted" : "Entworfen",
+        "held" : "Gehalten",
+        "published" : "Veröffentlicht"
+      }
+    },
+    "email-subscription-type" : {
+      "EVENT" : {
+        "label" : "Tauchveranstaltungen",
+        "tooltip" : "Erhalten Sie eine E-Mail-Benachrichtigung, wenn es Änderungen bei Tauchveranstaltungen gibt"
+      },
+      "PAGE" : {
+        "label" : "Seiten",
+        "tooltip" : "Erhalten Sie eine E-Mail-Benachrichtigung, wenn es Änderungen bei Seiten gibt"
+      }
+    },
+    "pages" : {
+      "status" : {
+        "deleted" : "Versteckt",
+        "drafted" : "Entworfen",
+        "published" : "Veröffentlicht"
+      }
+    },
+    "payment" : {
+      "type" : {
+        "oneTime" : "Einmal",
+        "period" : "Saisong"
+      }
+    },
+    "roles" : {
+      "administrator" : "Administrator",
+      "anonymous" : "Anonym",
+      "organizer" : "Veranstaltungsorganisator",
+      "user" : "Mitglied"
+    },
+    "spinner" : {
+      "loading" : "Laden..."
+    },
+    "userStatus" : {
+      "active" : "Aktiv",
+      "anonymized" : "Anonymisiert",
+      "locked" : "Gesperrt",
+      "registered" : "Registriert"
+    }
+  },
+  "nav" : {
+    "action" : {
+      "changePassword" : "Passwort ändern",
+      "login" : "Anmelden",
+      "logout" : "Abmelden",
+      "profile" : "Profil",
+      "register" : "Registrieren"
+    },
+    "administration" : {
+      "audits" : "Audits",
+      "blocked-dates" : "Datumsblockierung",
+      "download" : "Herunterladen",
+      "files" : "Dateien",
+      "members" : "Mitglieder",
+      "payments" : "Zahlungen",
+      "readFirst" : "Zuerst lesen",
+      "stats" : "Statistiken",
+      "title" : "Verwaltung"
+    },
+    "events" : {
+      "add" : "Veranstaltung hinzufügen",
+      "new" : "Veranstaltungen",
+      "past" : "Vergangene Veranstaltungen",
+      "title" : "Veranstaltungen",
+      "yearlyStats" : "Jahresstatistiken"
+    },
+    "pageManagement" : {
+      "pages" : "Seiten",
+      "title" : "Seitenverwaltung"
     }
   }
 }

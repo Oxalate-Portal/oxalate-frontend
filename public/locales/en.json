@@ -1,769 +1,737 @@
 {
-  "AcceptTerms": {
-    "button": {
-      "acceptTerms": "Accept terms"
+  "AcceptTerms" : {
+    "button" : {
+      "acceptTerms" : "Accept terms"
     },
-    "error": {
-      "alert": "Something went wrong, please contact the administrator."
+    "error" : {
+      "alert" : "Something went wrong, please contact the administrator."
     },
-    "rejectTerms": "Reject terms"
+    "rejectTerms" : "Reject terms"
   },
-  "AdminAudit": {
-    "header": "Audit logs"
-  },
-  "AdminMain": {
-    "header": "Administration",
-    "memberHeader": "Members",
-    "memberText": "User data management, including assigning different roles and sending password update messages.",
-    "paymentHeader": "Payments",
-    "paymentText": "View current payments, void annual payments, and add payment information to members.",
-    "statsHeader": "Statistics",
-    "statsText1": "Yearly event, member registration, event organizers, and payment statistics.",
-    "statsText2": "Also includes semi-annual event reports.",
-    "text": "Administration pages. Proceed with caution."
-  },
-  "AdminOrgAdminPaymentListPanel": {
-    "table": {
-      "expirationtDate": "Expiration date",
-      "name": "Name",
-      "paymentCount": "Count",
-      "paymentDate": "Payment date"
+  "AddPayments" : {
+    "form" : {
+      "button" : "Save payments",
+      "name" : {
+        "label" : "Members",
+        "placeholder" : "Add members"
+      },
+      "paymentCount" : {
+        "label" : "One-time payment count"
+      },
+      "paymentType" : {
+        "label" : "Payment type"
+      }
+    },
+    "onFinish" : {
+      "fail" : "Failed to update user payment information",
+      "ok" : "User payment information updated"
+    },
+    "status" : {
+      "buttonOk" : "Refresh profile data",
+      "tryAgain" : "Try again"
+    },
+    "types" : {
+      "oneTime" : "One-time payment",
+      "period" : "Yearly payment"
     }
   },
-  "AdminOrgUser": {
-    "form": {
-      "button": {
-        "reset": "Reset",
-        "sendPasswordEmail": "Send password email",
-        "update": "Update information"
-      },
-      "roles": {
-        "administrator": "Administrator",
-        "label": "Roles",
-        "member": "Member",
-        "organizer": "Event organizer"
-      },
-      "status": {
-        "label": "Status",
-        "rule1": "Status is a required field",
-        "tooltip": "User's status"
-      }
-    },
-    "sendPasswordEmail": {
-      "fail": "Failed to send the password reset link",
-      "ok": "Password reset link sent to the email"
-    },
-    "updateUser": {
-      "confirmAnonymize": "Are you sure you want to request data anonymization? This will remove all personal data entered by the user into the system. This change cannot be undone.",
-      "confirmOrganizer": "Adding the role of Event Organizer will disable privacy protection. Do you want to proceed?",
-      "fail": "Failed to update user data",
-      "ok": "User data updated"
+  "AdminAudit" : {
+    "header" : "Audit logs"
+  },
+  "AdminMain" : {
+    "header" : "Administration",
+    "memberHeader" : "Members",
+    "memberText" : "User data management, including assigning different roles and sending password update messages.",
+    "paymentHeader" : "Payments",
+    "paymentText" : "View current payments, void annual payments, and add payment information to members.",
+    "statsHeader" : "Statistics",
+    "statsText1" : "Yearly event, member registration, event organizers, and payment statistics.",
+    "statsText2" : "Also includes semi-annual event reports.",
+    "text" : "Administration pages. Proceed with caution."
+  },
+  "AdminOrgAdminPaymentListPanel" : {
+    "table" : {
+      "expirationtDate" : "Expiration date",
+      "name" : "Name",
+      "paymentCount" : "Count",
+      "paymentDate" : "Payment date"
     }
   },
-  "AdminOrgUsers": {
-    "invalidateTermAgreements": {
-      "confirm": "Are you sure all members must re-accept the terms? This change cannot be undone.",
-      "fail": "Failed to invalidate the terms agreements",
-      "ok": "Successfully invalidated the terms agreements"
-    },
-    "search": {
-      "placeholder": "Search members",
-      "spinText": "Searching for members..."
-    },
-    "table": {
-      "action": {
-        "button": "Update",
-        "title": "Update"
+  "AdminOrgUser" : {
+    "form" : {
+      "button" : {
+        "reset" : "Reset",
+        "sendPasswordEmail" : "Send password email",
+        "update" : "Update information"
       },
-      "firstName": "First name",
-      "lastName": "Last name",
-      "login": "Username",
-      "paymentStatus": "Membership fee",
-      "role": {
-        "title": "Roles"
+      "roles" : {
+        "administrator" : "Administrator",
+        "label" : "Roles",
+        "member" : "Member",
+        "organizer" : "Event organizer"
       },
-      "status": "Status"
-    },
-    "terms": {
-      "resetButton": "Reset terms acceptance",
-      "resetDivider": "Terms reset"
-    },
-    "title": "Members"
-  },
-  "AdminPayments": {
-    "activeDivider": "Active payments",
-    "addPaymentsDivider": "Add payments",
-    "confirmInvalidate": "Are you sure you want to void all annual payments? This change cannot be undone.",
-    "yearlyResetButton": "Void annual payments",
-    "yearlyResetDivider": "Annual payments void"
-  },
-  "AddPayments": {
-    "form": {
-      "button": "Save payments",
-      "name": {
-        "label": "Members",
-        "placeholder": "Add members"
-      },
-      "paymentCount": {
-        "label": "One-time payment count"
-      },
-      "paymentType": {
-        "label": "Payment type"
+      "status" : {
+        "label" : "Status",
+        "rule1" : "Status is a required field",
+        "tooltip" : "User's status"
       }
     },
-    "onFinish": {
-      "fail": "Failed to update user payment information",
-      "ok": "User payment information updated"
+    "sendPasswordEmail" : {
+      "fail" : "Failed to send the password reset link",
+      "ok" : "Password reset link sent to the email"
     },
-    "status": {
-      "buttonOk": "Refresh profile data",
-      "tryAgain": "Try again"
-    },
-    "types": {
-      "oneTime": "One-time payment",
-      "period": "Yearly payment"
+    "updateUser" : {
+      "confirmAnonymize" : "Are you sure you want to request data anonymization? This will remove all personal data entered by the user into the system. This change cannot be undone.",
+      "confirmOrganizer" : "Adding the role of Event Organizer will disable privacy protection. Do you want to proceed?",
+      "fail" : "Failed to update user data",
+      "ok" : "User data updated"
     }
   },
-  "ListPayments": {
-    "oneTime": "One-time payments",
-    "period": "Yearly payments",
-    "unknown": "Unknown"
+  "AdminOrgUsers" : {
+    "invalidateTermAgreements" : {
+      "confirm" : "Are you sure all members must re-accept the terms? This change cannot be undone.",
+      "fail" : "Failed to invalidate the terms agreements",
+      "ok" : "Successfully invalidated the terms agreements"
+    },
+    "search" : {
+      "placeholder" : "Search members",
+      "spinText" : "Searching for members..."
+    },
+    "table" : {
+      "action" : {
+        "button" : "Update",
+        "title" : "Update"
+      },
+      "firstName" : "First name",
+      "lastName" : "Last name",
+      "login" : "Username",
+      "paymentStatus" : "Membership fee",
+      "role" : {
+        "title" : "Roles"
+      },
+      "status" : "Status"
+    },
+    "terms" : {
+      "resetButton" : "Reset terms acceptance",
+      "resetDivider" : "Terms reset"
+    },
+    "title" : "Members"
   },
-  "AuditEvents": {
-    "filter": {
-      "userName": "Username",
-      "traceId": "Trace ID",
-      "source": "Source",
-      "address": "IP Address",
-      "message": "Message"
-    },
-    "search": {
-      "placeholder": "Search..."
-    },
-    "table": {
-      "address": "IP address",
-      "createdAt": "Timestamp",
-      "level": "Level",
-      "message": "Message",
-      "source": "Source",
-      "traceId": "Trace ID",
-      "userName": "Name"
-    },
-    "title": "Audit events"
+  "AdminPayments" : {
+    "activeDivider" : "Active payments",
+    "addPaymentsDivider" : "Add payments",
+    "confirmInvalidate" : "Are you sure you want to void all annual payments? This change cannot be undone.",
+    "yearlyResetButton" : "Void annual payments",
+    "yearlyResetDivider" : "Annual payments void"
   },
-  "BlockedDates": {
-    "form": {
-      "date": {
-        "rule": "Date is a required field"
+  "AdminUploads" : {
+    "avatar" : {
+      "tab-title" : "Avatar Files"
+    },
+    "certificate" : {
+      "certificate-id" : "Certificate ID",
+      "tab-title" : "Certificate Files"
+    },
+    "common-file-column-title" : {
+      "actions" : "Actions",
+      "created-at" : "Created at",
+      "creator" : "Creator",
+      "download-link" : "Download link",
+      "filename" : "File Name",
+      "filesize" : "File Size",
+      "view" : "View"
+    },
+    "dive-file" : {
+      "dive-group-id" : "Dive Group ID",
+      "event-id" : "Event ID",
+      "status" : "Status",
+      "tab-title" : "Dive Files"
+    },
+    "document" : {
+      "delete" : {
+        "fail" : "Failed to delete the document",
+        "successful" : "Document deleted successfully"
+      },
+      "status" : "Status",
+      "tab-title" : "Document Files",
+      "upload" : {
+        "button" : "Upload new document",
+        "fail" : "document upload failed",
+        "successful" : "document uploaded successfully"
       }
     },
-    "list": {
-      "confirm": "Are you sure you want to remove the blocked date?"
+    "overview" : {
+      "avatar-content" : "<b>Note! This feature is not yet enabled.</b> Avatars are images representing the user profile. They can be uploaded and managed by the user themselves. The avatar image is displayed in the user profile and in the user list. All authenticated users can view the avatar image. Only the user to whom the avatar belongs can delete the avatar image.",
+      "avatar-title" : "Avatars",
+      "certificate-content" : "Certificates are photocopy images of dive certificate cards that are uploaded by the user and are used to prove that the user has completed a course. The certificate file can only be viewed by the user who uploaded it as well as organizers and admins. Only the user to which the certificate belongs can delete the certificate photo copy.",
+      "certificate-title" : "Certificates",
+      "dive-file-content" : "<b>Note! This feature is not yet enabled.</b> Dive files are files that are uploaded by the users as they've formed a dive group for a specific dive event. Primarily the dive files are dive plans, but may include other relevant documentation required for the dive. The dive files can be viewed by all authenticated users. Only the dive group members can delete the dive file.",
+      "dive-file-title" : "Dive files",
+      "document-content" : "Documents are non-image files that the organization wants to share with the users. The documents can be uploaded by the admins only and can be viewed by all authenticated users. Currently the only document format supported is PDF. The upload is done through the document files tab, and once the file is uploaded, it will be shown in the list on the same tab, from which the admin can then copy the link to be embedded in pages. Only admins can delete documents.",
+      "document-title" : "Documents",
+      "overview-content-1" : "Here you can view all the uploaded file of different types, Avatar, Certificate, Dive, Document, and Page files. Of all of these you can also upload new document files.",
+      "overview-content-2" : "Each least also contains the download link for the file, but beware that restrictions on who can view the files exist. E.g. the certificate file can only be viewed by the user who uploaded it as well as organizers and admins.",
+      "overview-title" : "File Types Overview",
+      "page-file-content" : "Page files are selected type of images which are uploaded when editing a specific language version of a page using the page editor upload image-functionality. Note that the uploaded image inherits the visibility of the page, so if the page is not visible to the user, the image is not visible either. Any organizer or admin who can edit the page in which the image is located, can remove linked images.",
+      "page-file-title" : "Page files",
+      "tab-title" : "Overview",
+      "type-content" : "Different types of upload files are available for different purposes. The following are the types of files that can be uploaded:",
+      "type-title" : "Different types of upload files"
     },
-    "load": {
-      "fail": "Failed to load blocked dates"
-    },
-    "popup": {
-      "add-fail": "Failed to add the blocked date",
-      "add-success": "Blocked date added successfully",
-      "remove-fail": "Failed to remove the blocked date",
-      "remove-success": "Blocked date removed successfully"
-    },
-    "title": "Date blocking"
-  },
-  "Certificates": {
-    "deleteCertificate": {
-      "confirm": "Are you sure you want to delete the classification \""
-    },
-    "panel": {
-      "addButton": "Add a new certificate",
-      "text": "The member has completed the following dive certifications:",
-      "title": "Dive certifications"
+    "page-file" : {
+      "language" : "Language",
+      "page-id" : "Page ID",
+      "status" : "Status",
+      "tab-title" : "Page Files"
     }
   },
-  "common": {
-    "button": {
-      "add": "Add",
-      "back": "Back",
-      "close": "Close",
-      "delete": "Delete",
-      "held": "Held",
-      "login": "Log In",
-      "logout": "Log Out",
-      "no": "No",
-      "open": "Open",
-      "reset": "Reset",
-      "save": "Save",
-      "send": "Send",
-      "update": "Update",
-      "yes": "Yes"
+  "AuditEvents" : {
+    "filter" : {
+      "address" : "IP Address",
+      "message" : "Message",
+      "source" : "Source",
+      "traceId" : "Trace ID",
+      "userName" : "Username"
     },
-    "dive-event": {
-      "status": {
-        "cancelled": "Cancelled",
-        "drafted": "Drafted",
-        "held": "Held",
-        "published": "Published"
+    "search" : {
+      "placeholder" : "Search..."
+    },
+    "table" : {
+      "address" : "IP address",
+      "createdAt" : "Timestamp",
+      "level" : "Level",
+      "message" : "Message",
+      "source" : "Source",
+      "traceId" : "Trace ID",
+      "userName" : "Name"
+    },
+    "title" : "Audit events"
+  },
+  "BlockedDates" : {
+    "form" : {
+      "date" : {
+        "rule" : "Date is a required field"
       }
     },
-    "email-subscription-type": {
-      "EVENT": {
-        "label" : "Dive events",
-        "tooltip" : "Receive email notification when there are changes to dive events"
-      },
-      "PAGE": {
-        "label": "Site pages",
-        "tooltip": "Receive email notification when there are changes to site pages"
-      }
+    "list" : {
+      "confirm" : "Are you sure you want to remove the blocked date?"
     },
-    "pages": {
-      "status": {
-        "drafted": "Drafted",
-        "deleted": "Deleted",
-        "published": "Published"
-      }
+    "load" : {
+      "fail" : "Failed to load blocked dates"
     },
-    "payment": {
-      "type": {
-        "oneTime": "One time",
-        "period": "Season"
-      }
+    "popup" : {
+      "add-fail" : "Failed to add the blocked date",
+      "add-success" : "Blocked date added successfully",
+      "remove-fail" : "Failed to remove the blocked date",
+      "remove-success" : "Blocked date removed successfully"
     },
-    "roles": {
-      "administrator": "Administrator",
-      "anonymous": "Anonymous",
-      "organizer": "Event Organizer",
-      "user": "Member"
+    "title" : "Date blocking"
+  },
+  "Certificates" : {
+    "deleteCertificate" : {
+      "confirm" : "Are you sure you want to delete the classification \""
     },
-    "spinner": {
-      "loading": "Loading..."
-    },
-    "userStatus": {
-      "active": "Active",
-      "anonymized": "Anonymized",
-      "locked": "Locked",
-      "registered": "Registered"
+    "panel" : {
+      "addButton" : "Add a new certificate",
+      "text" : "The member has completed the following dive certifications:",
+      "title" : "Dive certifications"
     }
   },
-  "DownloadData": {
-    "certificateLabel": "Certificates",
-    "choose": "Choose one of the following to download:",
-    "description": "Here you can download various datasets in CSV-format.",
-    "diveLabel": "Dives",
-    "downloadPrompt": "Download here: ",
-    "diveEventLabel": "Events",
-    "gdprWarning": "Be aware that some of the downloads may contain personal information which is governed by the GDPR. Please handle the data with care and do not share it with unauthorized parties. Remove the files when they are no longer needed.",
-    "header": "Download data",
-    "memberLabel": "Members",
-    "paymentLabel": "Payments",
-    "rowCount": "Number of rows:  {{count}}"
+  "DownloadData" : {
+    "certificateLabel" : "Certificates",
+    "choose" : "Choose one of the following to download:",
+    "description" : "Here you can download various datasets in CSV-format.",
+    "diveEventLabel" : "Events",
+    "diveLabel" : "Dives",
+    "downloadPrompt" : "Download here: ",
+    "gdprWarning" : "Be aware that some of the downloads may contain personal information which is governed by the GDPR. Please handle the data with care and do not share it with unauthorized parties. Remove the files when they are no longer needed.",
+    "header" : "Download data",
+    "memberLabel" : "Members",
+    "paymentLabel" : "Payments",
+    "rowCount" : "Number of rows:  {{count}}"
   },
-  "EditCertificate": {
-    "form": {
-      "button": {
-        "add": "Add certification",
-        "update": "Update certification"
+  "EditCertificate" : {
+    "form" : {
+      "button" : {
+        "add" : "Add certification",
+        "update" : "Update certification"
       },
-      "certificateId": {
-        "label": "Certificate ID",
-        "placeholder": "Certificate ID",
-        "rules": {
-          "min": "Certificate ID is too short",
-          "validator": "Certificate or diver ID is a required field"
+      "certificateId" : {
+        "label" : "Certificate ID",
+        "placeholder" : "Certificate ID",
+        "rules" : {
+          "min" : "Certificate ID is too short",
+          "validator" : "Certificate or diver ID is a required field"
         },
-        "tooltip": "Either Certificate ID or diver ID is a required field. If neither is on the certification card, add 000-000 as the classification ID."
+        "tooltip" : "Either Certificate ID or diver ID is a required field. If neither is on the certification card, add 000-000 as the classification ID."
       },
-      "certificateName": {
-        "label": "Certificate name",
-        "placeholder": "Certificate name",
-        "rules": {
-          "min": "Certificate name is too short",
-          "required": "Certificate name is a required field"
+      "certificateName" : {
+        "label" : "Certificate name",
+        "placeholder" : "Certificate name",
+        "rules" : {
+          "min" : "Certificate name is too short",
+          "required" : "Certificate name is a required field"
         },
-        "tooltip": "Certificate name in English, e.g., Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master, or other"
+        "tooltip" : "Certificate name in English, e.g., Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master, or other"
       },
-      "certificationDate": {
-        "label": "Certification Date",
-        "placeholder": "Certification Date (in YYYY-MM-DD format)",
-        "rules": {
-          "max": "Date is too long",
-          "min": "Date is too short",
-          "pattern": "Date must be in the format YYYY-MM-DD"
+      "certificationDate" : {
+        "label" : "Certification Date",
+        "placeholder" : "Certification Date (in YYYY-MM-DD format)",
+        "rules" : {
+          "max" : "Date is too long",
+          "min" : "Date is too short",
+          "pattern" : "Date must be in the format YYYY-MM-DD"
         }
       },
-      "diverId": {
-        "label": "Diver ID",
-        "placeholder": "Diver ID",
-        "rules": {
-          "min": "Diver ID is too short",
-          "validator": "Certificate or diver ID is a required field"
+      "diverId" : {
+        "label" : "Diver ID",
+        "placeholder" : "Diver ID",
+        "rules" : {
+          "min" : "Diver ID is too short",
+          "validator" : "Certificate or diver ID is a required field"
         },
-        "tooltip": "Either Certificate ID or diver ID is a required field. If neither is on the certification card, add 000-000 as the certificate ID."
+        "tooltip" : "Either Certificate ID or diver ID is a required field. If neither is on the certification card, add 000-000 as the certificate ID."
       },
-      "organization": {
-        "label": "Dive organization",
-        "placeholder": "Dive organization Name",
-        "rules": {
-          "min": "Dive organization name is too short",
-          "required": "Dive organization is a required field"
+      "organization" : {
+        "label" : "Dive organization",
+        "placeholder" : "Dive organization Name",
+        "rules" : {
+          "min" : "Dive organization name is too short",
+          "required" : "Dive organization is a required field"
         },
-        "tooltip": "Dive organization name, e.g., PADI, SSI, CMAS, DSAT, DSAC, NAUI, or other"
+        "tooltip" : "Dive organization name, e.g., PADI, SSI, CMAS, DSAT, DSAC, NAUI, or other"
       }
     },
-    "title": "Certification information",
-    "updateCertificate": {
-      "add": {
-        "fail": "Failed to add certification information",
-        "ok": "Certification information added"
+    "title" : "Certification information",
+    "updateCertificate" : {
+      "add" : {
+        "fail" : "Failed to add certification information",
+        "ok" : "Certification information added"
       },
-      "update": {
-        "fail": "Failed to update certification information",
-        "ok": "Certification information updated"
+      "update" : {
+        "fail" : "Failed to update certification information",
+        "ok" : "Certification information updated"
       }
     }
   },
-  "EditEvent": {
-    "eventTypes": {
-      "cave": "Cave",
-      "caveOpen": "Cave / Open water",
-      "dive": "Dive",
-      "open": "Open water",
-      "other": "Other (e.g., blocked reservation)",
-      "surface": "Surface activities only"
+  "EditEvent" : {
+    "eventTypes" : {
+      "cave" : "Cave",
+      "caveOpen" : "Cave / Open water",
+      "dive" : "Dive",
+      "open" : "Open water",
+      "other" : "Other (e.g., blocked reservation)",
+      "surface" : "Surface activities only"
     },
-    "form": {
-      "button": {
-        "updateDives": "Update dive counts"
+    "form" : {
+      "button" : {
+        "updateDives" : "Update dive counts"
       },
-      "description": {
-        "label": "Event description",
-        "placeholder": "Event description",
-        "rules": {
-          "max": "Maximum character limit for event description is 15000",
-          "min": "Event description is too short",
-          "required": "Event description is a required field"
+      "description" : {
+        "label" : "Event description",
+        "placeholder" : "Event description",
+        "rules" : {
+          "max" : "Maximum character limit for event description is 15000",
+          "min" : "Event description is too short",
+          "required" : "Event description is a required field"
         },
-        "tooltip": "Description of the event. What will happen during the event?"
+        "tooltip" : "Description of the event. What will happen during the event?"
       },
-      "eventDuration": {
-        "label": "Event duration (h)",
-        "tooltip": "Event duration in hours"
+      "eventDuration" : {
+        "label" : "Event duration (h)",
+        "tooltip" : "Event duration in hours"
       },
-      "maxDepth": {
-        "label": "Maximum depth (m)",
-        "rules": {
-          "maxParticipants": "The maximum number of participants cannot be smaller than the current number of participants."
+      "maxDepth" : {
+        "label" : "Maximum depth (m)",
+        "rules" : {
+          "maxParticipants" : "The maximum number of participants cannot be smaller than the current number of participants."
         },
-        "tooltip": "Dive duration in minutes"
+        "tooltip" : "Dive duration in minutes"
       },
-      "maxDuration": {
-        "label": "Dive duration (min)",
-        "tooltip": "Dive duration in minutes"
+      "maxDuration" : {
+        "label" : "Dive duration (min)",
+        "tooltip" : "Dive duration in minutes"
       },
-      "maxParticipants": {
-        "label": "Maximum participants",
-        "tooltip": "Maximum number of participants, including the event organizer"
+      "maxParticipants" : {
+        "label" : "Maximum participants",
+        "tooltip" : "Maximum number of participants, including the event organizer"
       },
-      "organizerId": {
-        "label": "Event organizer",
-        "rules": {
-          "required": "Event organizer is a required field"
+      "organizerId" : {
+        "label" : "Event organizer",
+        "rules" : {
+          "required" : "Event organizer is a required field"
         },
-        "tooltip": "Organizer of the diving event"
+        "tooltip" : "Organizer of the diving event"
       },
-      "participants": {
-        "label": "Participants",
-        "placeholder": "Add participants",
-        "tooltip": "Members participating in the event"
+      "participants" : {
+        "label" : "Participants",
+        "placeholder" : "Add participants",
+        "tooltip" : "Members participating in the event"
       },
-      "status": {
-        "label": "Dive event status",
-        "tooltip": "Drafted status is not yet shown to members. Published status is visible to all members as is held which is for events in the past. Cancelled status is not shown to members.",
-        "rules": {
+      "startTime" : {
+        "label" : "Start time",
+        "rules" : {
+          "required" : "Start time is a required field",
+          "validator" : "The date must be at least 30 minutes in the future!"
+        },
+        "tooltip" : "Start time"
+      },
+      "status" : {
+        "label" : "Dive event status",
+        "rules" : {
           "required" : "Status is a required field"
-        }
-      },
-      "startTime": {
-        "label": "Start time",
-        "rules": {
-          "required": "Start time is a required field",
-          "validator": "The date must be at least 30 minutes in the future!"
         },
-        "tooltip": "Start time"
+        "tooltip" : "Drafted status is not yet shown to members. Published status is visible to all members as is held which is for events in the past. Cancelled status is not shown to members."
       },
-      "submitButton": {
-        "add": "Add event",
-        "update": "Update event"
+      "submitButton" : {
+        "add" : "Add event",
+        "update" : "Update event"
       },
-      "title": {
-        "label": "Event name",
-        "placeholder": "Event name",
-        "rules": {
-          "min": "Event name is too short",
-          "required": "Event name is a required field"
+      "title" : {
+        "label" : "Event name",
+        "placeholder" : "Event name",
+        "rules" : {
+          "min" : "Event name is too short",
+          "required" : "Event name is a required field"
         },
-        "tooltip": "Short name, e.g., \"Walpurgis dive\""
+        "tooltip" : "Short name, e.g., \"Walpurgis dive\""
       },
-      "type": {
-        "label": "Type",
-        "rules": {
-          "required": "Type is a required field"
+      "type" : {
+        "label" : "Type",
+        "rules" : {
+          "required" : "Type is a required field"
         },
-        "tooltip": "Type of diving event"
+        "tooltip" : "Type of diving event"
       }
     },
-    "oldEvent": {
-      "alertText": "The event has already ended, and it can no longer be edited"
+    "oldEvent" : {
+      "alertText" : "The event has already ended, and it can no longer be edited"
     },
-    "onFinish": {
-      "addStatusFail": "Failed to add the event",
-      "addStatusOk": "Event added",
-      "updateStatusFail": "Failed to update event information",
-      "updateStatusFailMaxParticipant": "The maximum number of participants cannot be smaller than the current number of participants",
-      "updateStatusOk": "Event information updated"
+    "onFinish" : {
+      "addStatusFail" : "Failed to add the event",
+      "addStatusOk" : "Event added",
+      "updateStatusFail" : "Failed to update event information",
+      "updateStatusFailMaxParticipant" : "The maximum number of participants cannot be smaller than the current number of participants",
+      "updateStatusOk" : "Event information updated"
     },
-    "title": "Event information"
+    "title" : "Event information"
   },
-  "EditPage": {
-    "form": {
-      "button": {
-        "addPermission": "Add permission",
-        "create": "Create new page",
-        "update": "Update page"
+  "EditPage" : {
+    "description" : "Note! When creating a new page, you need to first save it before you can add any images.",
+    "form" : {
+      "button" : {
+        "addPermission" : "Add permission",
+        "create" : "Create new page",
+        "update" : "Update page"
       },
-      "divider": {
-        "languages": "Language versions",
-        "metadata": "Metadata",
-        "permissions": "Permissions"
+      "divider" : {
+        "languages" : "Language versions",
+        "metadata" : "Metadata",
+        "permissions" : "Permissions"
       },
-      "metadata": {
-        "createdAt": "Creation time",
-        "creator": "Creator",
-        "modifiedAt": "Last modified",
-        "modifier": "Last modified by"
+      "metadata" : {
+        "createdAt" : "Creation time",
+        "creator" : "Creator",
+        "modifiedAt" : "Last modified",
+        "modifier" : "Last modified by"
       },
-      "pageGroupId": {
-        "label": "Page group",
-        "placeholder": "Select the group to which the page belongs",
-        "rules": {
-          "required": "Page group is a required field"
-        },
-        "tooltip": "The page group to which the page belongs"
-      },
-      "page-versions": {
-        "body": {
-          "label": "Text",
-          "rules": {
-            "min": "Page content cannot be empty"
+      "page-versions" : {
+        "body" : {
+          "label" : "Text",
+          "rules" : {
+            "min" : "Page content cannot be empty"
           }
         },
-        "ingress": {
-          "label": "Ingress",
-          "placeholder": "Ingress text"
+        "ingress" : {
+          "label" : "Ingress",
+          "placeholder" : "Ingress text"
         },
-        "title": {
-          "label": "Title",
-          "placeholder": "Title text",
-          "rules": {
-            "min": "Title must be at least 2 characters long",
-            "required": "Title is a required field"
+        "title" : {
+          "label" : "Title",
+          "placeholder" : "Title text",
+          "rules" : {
+            "min" : "Title must be at least 2 characters long",
+            "required" : "Title is a required field"
           }
         }
       },
-      "rolePermissions": {
-        "readPermission": {
-          "label": "Read permissions",
-          "rules": {
-            "leastReadRequired": "At least Read permission must be selected",
-            "required": "Read permission is a required field",
-            "writeRequiresRead": "Write permissions require Read permissions"
+      "pageGroupId" : {
+        "label" : "Page group",
+        "placeholder" : "Select the group to which the page belongs",
+        "rules" : {
+          "required" : "Page group is a required field"
+        },
+        "tooltip" : "The page group to which the page belongs"
+      },
+      "rolePermissions" : {
+        "readPermission" : {
+          "label" : "Read permissions",
+          "rules" : {
+            "leastReadRequired" : "At least Read permission must be selected",
+            "required" : "Read permission is a required field",
+            "writeRequiresRead" : "Write permissions require Read permissions"
           },
-          "tooltip": "Permission to view the page"
+          "tooltip" : "Permission to view the page"
         },
-        "role": {
-          "label": "Role",
-          "rules": {
-            "noDuplicates": "There can't be duplicate entries for the same role",
-            "required": "Role is a required field"
+        "role" : {
+          "label" : "Role",
+          "rules" : {
+            "noDuplicates" : "There can't be duplicate entries for the same role",
+            "required" : "Role is a required field"
           },
-          "tooltip": "Role to which permission is granted. Anonymous means the page is visible to everyone browsing the site"
+          "tooltip" : "Role to which permission is granted. Anonymous means the page is visible to everyone browsing the site"
         },
-        "writePermission": {
-          "label": "Write permissions",
-          "tooltip": "Permission to edit the page. Anonymous users can never edit the page."
+        "writePermission" : {
+          "label" : "Write permissions",
+          "tooltip" : "Permission to edit the page. Anonymous users can never edit the page."
         }
       },
-      "status": {
-        "label": "Page status",
-        "rules": {
-          "required": "Status is a required field"
+      "status" : {
+        "label" : "Page status",
+        "rules" : {
+          "required" : "Status is a required field"
         },
-        "tooltip": "Page status. Drafted can be used when the page is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page is outdated and should no longer be displayed."
+        "tooltip" : "Page status. Drafted can be used when the page is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page is outdated and should no longer be displayed."
       }
     },
-    "onFinish": {
-      "create": {
-        "fail": "Failed to create the page",
-        "ok": "Page created"
+    "onFinish" : {
+      "create" : {
+        "fail" : "Failed to create the page",
+        "ok" : "Page created"
       },
-      "update": {
-        "fail": "Failed to update the page",
-        "ok": "Page updated"
+      "update" : {
+        "fail" : "Failed to update the page",
+        "ok" : "Page updated"
       }
     },
-    "title": {
-      "new": "New page",
-      "update": "Update page"
+    "title" : {
+      "new" : "New page",
+      "update" : "Update page"
     }
   },
-  "EditPageGroup": {
-    "form": {
-      "button": {
-        "create": "Create new page group",
-        "update": "Update group"
+  "EditPageGroup" : {
+    "form" : {
+      "button" : {
+        "create" : "Create new page group",
+        "update" : "Update group"
       },
-      "divider": {
-        "languages": "Language versions"
+      "divider" : {
+        "languages" : "Language versions"
       },
-      "pageGroupVersions": {
-        "label": "Title",
-        "rules": {
-          "min": "Title must be at least 2 characters long",
-          "required": "Title is a required field"
+      "pageGroupVersions" : {
+        "label" : "Title",
+        "rules" : {
+          "min" : "Title must be at least 2 characters long",
+          "required" : "Title is a required field"
         },
-        "tooltip": "Page group title, at least 2 characters long"
+        "tooltip" : "Page group title, at least 2 characters long"
       },
-      "status": {
-        "label": "Page group status",
-        "rules": {
-          "required": "Status is a required field"
+      "status" : {
+        "label" : "Page group status",
+        "rules" : {
+          "required" : "Status is a required field"
         },
-        "tooltip": "Page group status. Drafted can be used when the page group is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page group is outdated and should no longer be displayed."
+        "tooltip" : "Page group status. Drafted can be used when the page group is still under editing and shouldn't be shown. Public is visible to everyone. Deleted indicates that the content of the page group is outdated and should no longer be displayed."
       }
     },
-    "onFinish": {
-      "create": {
-        "fail": "Failed to create the page group",
-        "ok": "Page group created"
+    "onFinish" : {
+      "create" : {
+        "fail" : "Failed to create the page group",
+        "ok" : "Page group created"
       },
-      "update": {
-        "fail": "Failed to update the page group",
-        "ok": "Page group updated"
+      "update" : {
+        "fail" : "Failed to update the page group",
+        "ok" : "Page group updated"
       }
     }
   },
-  "EmailSubscriptionCard":{
-    "header": "Email Receive email notification when:"
+  "EmailSubscriptionCard" : {
+    "header" : "Email Receive email notification when:"
   },
-  "Event": {
-    "subscribe": {
-      "button": "Participate in event"
+  "Event" : {
+    "subscribe" : {
+      "button" : "Participate in event"
     },
-    "unsubscribe": {
-      "button": "Remove yourself from event"
+    "unsubscribe" : {
+      "button" : "Remove yourself from event"
     }
   },
-  "EventDetails": {
-    "description": {
-      "title": "Event description"
+  "EventDetails" : {
+    "description" : {
+      "title" : "Event description"
     },
-    "link": {
-      "tooltip": "Open event"
+    "link" : {
+      "tooltip" : "Open event"
     },
-    "participants": {
-      "title": "Participants"
-    },
-    "participantTable": {
-      "eventDiveCount": "Dive count",
-      "name": "Name",
-      "payments": "Payment status",
-      "paymentType": {
-        "oneTime": "One-time payment",
-        "period": "Yearly payment",
-        "unknown": "Unknown"
-      }
-    },
-    "table": {
-      "maxDepth": "Maximum depth, m",
-      "maxDuration": "Maximum time, min",
-      "organizer": "Organizer",
-      "participants": "Participants",
-      "phoneNumber": "Phone number",
-      "startTime": "Start time",
-      "type": "Type"
-    },
-    "title": "Event"
-  },
-  "Events": {
-    "ongoing": {
-      "title": "Ongoing events"
-    },
-    "results": {
-      "error": "Failed to load data: ",
-      "noEvents": "No upcoming events."
-    },
-    "search": {
-      "placeholder": "Search events"
-    },
-    "table": {
-      "maxDepth": "Maximum depth, m",
-      "maxDuration": "Maximum time, min",
-      "organizer": "Organizer",
-      "participants": "Participants",
-      "startTime": "Start time",
-      "title": "Description",
-      "type": "Type"
-    },
-    "upcoming": {
-      "title": "Upcoming events"
-    }
-  },
-  "FormatPayments": {
-    "noValid": "No valid payment information.",
-    "singlePayment": "one-time payment",
-    "unknownPayment": "Unknown payment type",
-    "unknownPaymentContact": "contact support",
-    "unknownPaymentPlease": "Please",
-    "yearlyPayment": "Annual payment (expires"
-  },
-  "Login": {
-    "form": {
-      "button": {
-        "forgotPassword": "Forgot your password?"
+    "participantTable" : {
+      "eventDiveCount" : "Dive count",
+      "name" : "Name",
+      "paymentType" : {
+        "oneTime" : "One-time payment",
+        "period" : "Yearly payment",
+        "unknown" : "Unknown"
       },
-      "password": {
-        "label": "Password:",
-        "rules": {
-          "required": "Please enter your password!"
+      "payments" : "Payment status"
+    },
+    "participants" : {
+      "title" : "Participants"
+    },
+    "table" : {
+      "maxDepth" : "Maximum depth, m",
+      "maxDuration" : "Maximum time, min",
+      "organizer" : "Organizer",
+      "participants" : "Participants",
+      "phoneNumber" : "Phone number",
+      "startTime" : "Start time",
+      "type" : "Type"
+    },
+    "title" : "Event"
+  },
+  "Events" : {
+    "ongoing" : {
+      "title" : "Ongoing events"
+    },
+    "results" : {
+      "error" : "Failed to load data: ",
+      "noEvents" : "No upcoming events."
+    },
+    "search" : {
+      "placeholder" : "Search events"
+    },
+    "table" : {
+      "maxDepth" : "Maximum depth, m",
+      "maxDuration" : "Maximum time, min",
+      "organizer" : "Organizer",
+      "participants" : "Participants",
+      "startTime" : "Start time",
+      "title" : "Description",
+      "type" : "Type"
+    },
+    "upcoming" : {
+      "title" : "Upcoming events"
+    }
+  },
+  "FormatPayments" : {
+    "noValid" : "No valid payment information.",
+    "singlePayment" : "one-time payment",
+    "unknownPayment" : "Unknown payment type",
+    "unknownPaymentContact" : "contact support",
+    "unknownPaymentPlease" : "Please",
+    "yearlyPayment" : "Annual payment (expires"
+  },
+  "ListPayments" : {
+    "oneTime" : "One-time payments",
+    "period" : "Yearly payments",
+    "unknown" : "Unknown"
+  },
+  "Login" : {
+    "form" : {
+      "button" : {
+        "forgotPassword" : "Forgot your password?"
+      },
+      "password" : {
+        "label" : "Password:",
+        "rules" : {
+          "required" : "Please enter your password!"
         }
       },
-      "username": {
-        "label": "Username/Email:",
-        "rules": {
-          "email": "Not a valid email address!",
-          "required": "Please enter your email address!"
-        }
-      }
-    },
-    "updateStatus": {
-      "loginFail": "Login failed!"
-    }
-  },
-  "LostPassword": {
-    "form": {
-      "submitButton": "Send",
-      "email": {
-        "label": "Username/Email:",
-        "placeholder": "someone@example.com",
-        "rules": {
-          "email": "Not a valid email address!",
-          "required": "Please enter your email address!"
+      "username" : {
+        "label" : "Username/Email:",
+        "rules" : {
+          "email" : "Not a valid email address!",
+          "required" : "Please enter your email address!"
         }
       }
     },
-    "setStatus": {
-      "update": {
-        "fail": "Failed to send password reset email",
-        "ok": "Password reset email sent successfully"
-      }
-    },
-    "text": {
-      "bottom": "If the problem persists, please contact support.",
-      "top": "If you've lost your password, you can send a password reset link to your email (up to 3 times)."
-    },
-    "updateStatus": {
-      "fail": {
-        "button": "Return to resend page",
-        "text": "Failed to send the reset link, please wait and try again later."
+    "updateStatus" : {
+      "loginFail" : "Login failed!"
+    }
+  },
+  "LostPassword" : {
+    "form" : {
+      "email" : {
+        "label" : "Username/Email:",
+        "placeholder" : "someone@example.com",
+        "rules" : {
+          "email" : "Not a valid email address!",
+          "required" : "Please enter your email address!"
+        }
       },
-      "ok": {
-        "button": "Back to login page",
-        "text": "Reset link sent again."
-      }
-    }
-  },
-  "nav": {
-    "action": {
-      "changePassword": "Change Password",
-      "login": "Log In",
-      "logout": "Log Out",
-      "profile": "Profile",
-      "register": "Register"
+      "submitButton" : "Send"
     },
-    "administration": {
-      "audits": "Audits",
-      "blocked-dates": "Date blocking",
-      "download": "Download",
-      "members": "Members",
-      "payments": "Payments",
-      "readFirst": "Read first",
-      "stats": "Statistics",
-      "title": "Administration"
-    },
-    "events": {
-      "add": "Add event",
-      "new": "Events",
-      "past": "Past events",
-      "title": "Events",
-      "yearlyStats": "Yearly statistics"
-    },
-    "pageManagement": {
-      "pages": "Pages",
-      "title": "Page management"
-    }
-  },
-  "NewPassword": {
-    "setUpdateStatus": {
-      "update": {
-        "fail": "Failed to update user's password",
-        "ok": "User's password updated"
+    "setStatus" : {
+      "update" : {
+        "fail" : "Failed to send password reset email",
+        "ok" : "Password reset email sent successfully"
       }
     },
-    "title": "New password",
-    "updateStatus": {
-      "fail": {
-        "button": "Please contact support.",
-        "text": "Failed to update the password!"
+    "text" : {
+      "bottom" : "If the problem persists, please contact support.",
+      "top" : "If you've lost your password, you can send a password reset link to your email (up to 3 times)."
+    },
+    "updateStatus" : {
+      "fail" : {
+        "button" : "Return to resend page",
+        "text" : "Failed to send the reset link, please wait and try again later."
       },
-      "ok": {
-        "button": "You can log in now.",
-        "text": "Password updated successfully!"
+      "ok" : {
+        "button" : "Back to login page",
+        "text" : "Reset link sent again."
       }
     }
   },
-  "OngoingEvents": {
-    "results": {
-      "noEvents": "No ongoing events."
+  "NewPassword" : {
+    "setUpdateStatus" : {
+      "update" : {
+        "fail" : "Failed to update user's password",
+        "ok" : "User's password updated"
+      }
     },
-    "search": {
-      "placeholder": "Search events"
-    },
-    "table": {
-      "maxDepth": "Maximum depth, m",
-      "maxDuration": "Maximum time, min",
-      "organizer": "Organizer",
-      "participants": "Participants",
-      "startTime": "Start time",
-      "title": "Description",
-      "type": "Type"
+    "title" : "New password",
+    "updateStatus" : {
+      "fail" : {
+        "button" : "Please contact support.",
+        "text" : "Failed to update the password!"
+      },
+      "ok" : {
+        "button" : "You can log in now.",
+        "text" : "Password updated successfully!"
+      }
     }
   },
-  "Page": {
-    "fields": {
-      "created": "Created: ",
-      "updated": "Updated: "
+  "OngoingEvents" : {
+    "results" : {
+      "noEvents" : "No ongoing events."
+    },
+    "search" : {
+      "placeholder" : "Search events"
+    },
+    "table" : {
+      "maxDepth" : "Maximum depth, m",
+      "maxDuration" : "Maximum time, min",
+      "organizer" : "Organizer",
+      "participants" : "Participants",
+      "startTime" : "Start time",
+      "title" : "Description",
+      "type" : "Type"
     }
   },
-  "PageGroups": {
-    "button": {
-      "addGroup": "Add page group",
-      "addPage": "Add page",
-      "updatePage": "Update pages"
+  "Page" : {
+    "fields" : {
+      "created" : "Created: ",
+      "updated" : "Updated: "
+    }
+  },
+  "PageGroups" : {
+    "button" : {
+      "addGroup" : "Add page group",
+      "addPage" : "Add page",
+      "updatePage" : "Update pages"
     },
-    "deletePath": {
-      "confirm": {
-        "1": "Close page group ",
-        "2": "NOTE: Closing the page group will also close all associated pages and their language versions."
+    "deletePath" : {
+      "confirm" : {
+        "1" : "Close page group ",
+        "2" : "NOTE: Closing the page group will also close all associated pages and their language versions."
       }
     },
     "table" : {
@@ -777,314 +745,413 @@
       "removed" : "Page group removed"
     }
   },
-  "Pages": {
-    "title": "page group management",
-    "alert": {
-      "noPages": "No pages in this page group"
+  "Pages" : {
+    "alert" : {
+      "noPages" : "No pages in this page group"
     },
-    "button": {
-      "addPage": "Add page"
+    "button" : {
+      "addPage" : "Add page"
     },
-    "closePage": {
-      "confirm": "Close page "
+    "closePage" : {
+      "confirm" : "Close page "
     },
-    "table": {
-      "createdAt": "Created",
-      "languageVersions": "Language versions",
-      "modifiedAt": "Modified",
-      "rolePermissions": "Roles",
+    "table" : {
+      "createdAt" : "Created",
+      "languageVersions" : "Language versions",
+      "modifiedAt" : "Modified",
+      "rolePermissions" : "Roles",
       "status" : "Status",
-      "title": "Page"
+      "title" : "Page"
     },
-    "updateStatus": {
-      "ok": "Page deleted",
-        "fail": "Failed to delete the page, please contact support if this persists."
+    "title" : "page group management",
+    "updateStatus" : {
+      "fail" : "Failed to delete the page, please contact support if this persists.",
+      "ok" : "Page deleted"
     }
   },
-  "Password": {
-    "form": {
-      "oldPassword": {
-        "label": "Current password",
-        "rules": {
-          "required": "Please enter your current password!"
+  "Password" : {
+    "form" : {
+      "oldPassword" : {
+        "label" : "Current password",
+        "rules" : {
+          "required" : "Please enter your current password!"
         }
       },
-      "submitButton": "Update password"
+      "submitButton" : "Update password"
     },
-    "setUpdateStatus": {
-      "update": {
-        "fail": "Failed to update user's password",
-        "ok": "User's password updated. To continue, you need to log in again."
+    "setUpdateStatus" : {
+      "update" : {
+        "fail" : "Failed to update user's password",
+        "ok" : "User's password updated. To continue, you need to log in again."
       }
     },
-    "updateStatus": {
-      "fail": {
-        "text": "Failed to update the password!"
+    "updateStatus" : {
+      "fail" : {
+        "text" : "Failed to update the password!"
       },
-      "ok": {
-        "button": "Log out",
-        "text": "Password updated successfully!"
+      "ok" : {
+        "button" : "Log out",
+        "text" : "Password updated successfully!"
       }
     }
   },
-  "PasswordFields": {
-    "form": {
-      "confirmPassword": {
-        "label": "Confirm new password",
-        "rules": {
-          "required": "Please enter the new password again!",
-          "validator": "New password doesn't match!"
+  "PasswordFields" : {
+    "form" : {
+      "confirmPassword" : {
+        "label" : "Confirm new password",
+        "rules" : {
+          "required" : "Please enter the new password again!",
+          "validator" : "New password doesn't match!"
         }
       },
-      "newPassword": {
-        "label": "New password",
-        "rules": {
-          "min": "Password must be at least 10 characters long",
-          "pattern": "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
-          "required": "Enter a new password!"
+      "newPassword" : {
+        "label" : "New password",
+        "rules" : {
+          "min" : "Password must be at least 10 characters long",
+          "pattern" : "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
+          "required" : "Enter a new password!"
         }
       }
     }
   },
-  "PasswordRules": {
-    "rule": {
-      "1": "Uppercase letter, A-Ö",
-      "2": "Lowercase letter, a-ö",
-      "3": "Number, 0-9",
-      "4": "Special character, e.g., !@#$%^&*_-"
+  "PasswordRules" : {
+    "rule" : {
+      "1" : "Uppercase letter, A-Ö",
+      "2" : "Lowercase letter, a-ö",
+      "3" : "Number, 0-9",
+      "4" : "Special character, e.g., !@#$%^&*_-"
     },
-    "text": "Password must be at least 10 characters long and include at least one of each of the following:"
+    "text" : "Password must be at least 10 characters long and include at least one of each of the following:"
   },
-  "PastEvents": {
-    "title": "Past events"
+  "PastEvents" : {
+    "title" : "Past events"
   },
-  "Register": {
-    "fail": {
-      "message": "Registration failed!"
+  "Register" : {
+    "fail" : {
+      "message" : "Registration failed!"
     },
-    "form": {
-      "confirm": {
-        "label": "Confirm password:",
-        "rules": {
-          "nomatch": "The entered passwords do not match!",
-          "required": "Please confirm your password!"
+    "form" : {
+      "confirm" : {
+        "label" : "Confirm password:",
+        "rules" : {
+          "nomatch" : "The entered passwords do not match!",
+          "required" : "Please confirm your password!"
         }
       },
-      "password": {
-        "label": "Password:",
-        "rules": {
-          "min": "Password must be at least 10 characters long",
-          "pattern": "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
-          "required": "Please enter a password!"
+      "password" : {
+        "label" : "Password:",
+        "rules" : {
+          "min" : "Password must be at least 10 characters long",
+          "pattern" : "Password must include at least one uppercase letter, one lowercase letter, one number, and one special character",
+          "required" : "Please enter a password!"
         },
-        "tooltip": "Password must be at least 10 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character"
+        "tooltip" : "Password must be at least 10 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character"
       },
-      "submitButton": "Register",
-      "terms": {
-        "accept": "I accept the terms and conditions",
-        "button": "terms and conditions",
-        "reject": "I do not accept the terms and conditions",
-        "text": "Read and accept",
-        "title": "Terms and conditions"
+      "submitButton" : "Register",
+      "terms" : {
+        "accept" : "I accept the terms and conditions",
+        "button" : "terms and conditions",
+        "reject" : "I do not accept the terms and conditions",
+        "text" : "Read and accept",
+        "title" : "Terms and conditions"
       },
-      "title": "Register"
+      "title" : "Register"
     },
-    "success": {
-      "message": "Registration successful! Before you close this window, please check your email. We've sent a confirmation email to the address you registered with. Also, check your spam folder."
+    "success" : {
+      "message" : "Registration successful! Before you close this window, please check your email. We've sent a confirmation email to the address you registered with. Also, check your spam folder."
     }
   },
-  "Registration": {
-    "title": {
-      "invalid": "Registration failed, the confirmation link has expired",
-      "ok": "Account confirmation successful. You can now log in with your username and password."
+  "Registration" : {
+    "title" : {
+      "invalid" : "Registration failed, the confirmation link has expired",
+      "ok" : "Account confirmation successful. You can now log in with your username and password."
     }
   },
-  "ReportEvent": {
-    "table": {
-      "diveCount": "Dive count",
-      "eventDateTime": "Date",
-      "organizerName": "Event organizer",
-      "participantCount": "Diver count"
+  "ReportEvent" : {
+    "table" : {
+      "diveCount" : "Dive count",
+      "eventDateTime" : "Date",
+      "organizerName" : "Event organizer",
+      "participantCount" : "Diver count"
     }
   },
-  "ReportEvents": {
-    "title": "Event reports"
+  "ReportEvents" : {
+    "title" : "Event reports"
   },
-  "ResendRegistrationEmail": {
-    "text": {
-      "fail": "Failed to resend confirmation email. You need to register again. If the issue persists, please contact the administration.",
-      "notReceived": "If you haven't received the confirmation email, you can resend it by clicking the button below."
+  "ResendRegistrationEmail" : {
+    "text" : {
+      "fail" : "Failed to resend confirmation email. You need to register again. If the issue persists, please contact the administration.",
+      "notReceived" : "If you haven't received the confirmation email, you can resend it by clicking the button below."
     }
   },
-  "SetDives": {
-    "noDives": "No dives",
-    "table": {
-      "action": "Action",
-      "diveCount": "Dives",
-      "name": "Diver"
+  "SetDives" : {
+    "noDives" : "No dives",
+    "table" : {
+      "action" : "Action",
+      "diveCount" : "Dives",
+      "name" : "Diver"
     }
   },
-  "ShowCertificateCard": {
-    "card": {
-      "certificateId": "Certification ID",
-      "certification": "Diver certification",
-      "date": "Certification date",
-      "diverId": "Diver ID",
-      "organization": "Certification organization",
-      "title": "Certification: "
+  "ShowCertificateCard" : {
+    "card" : {
+      "certificateId" : "Certification ID",
+      "certification" : "Diver certification",
+      "date" : "Certification date",
+      "diverId" : "Diver ID",
+      "organization" : "Certification organization",
+      "photocopy" : "Certification photocopy",
+      "title" : "Certification: ",
+      "upload-photo" : "Upload certificate",
+      "upload-photo-tooltip" : "Upload a photocopy of your certificate, max. 1MB in size. Uploading a second file will overwrite the first one. Only JPEG and PNG files are allowed.",
+      "upload-photo-size-too-big" : "File size is too big, max 1MB allowed"
     }
   },
-  "StatisticsMain": {
-    "reports": "Reports",
-    "yearlyStats": "Yearly statistics"
+  "StatisticsMain" : {
+    "reports" : "Reports",
+    "yearlyStats" : "Yearly statistics"
   },
-  "StatsOrganizers": {
-    "stats": {
-      "title": "Event organizers"
+  "StatsOrganizers" : {
+    "stats" : {
+      "title" : "Event organizers"
     }
   },
-  "StatsPayments": {
-    "stats": {
-      "title": "Payments"
+  "StatsPayments" : {
+    "stats" : {
+      "title" : "Payments"
     }
   },
-  "StatsYearlyDives": {
-    "table": {
-      "diveCount": "Dive count",
-      "position": "Position",
-      "userName": "Name"
+  "StatsYearlyDives" : {
+    "table" : {
+      "diveCount" : "Dive count",
+      "position" : "Position",
+      "userName" : "Name"
     },
-    "title": "Yearly dive statistics"
+    "title" : "Yearly dive statistics"
   },
-  "StatsYearlyEvents": {
-    "stats": {
-      "title": "Events on a yearly basis"
+  "StatsYearlyEvents" : {
+    "stats" : {
+      "title" : "Events on a yearly basis"
     }
   },
-  "StatsYearlyRegistrations": {
-    "stats": {
-      "title": "Member registrations on a yearly basis"
+  "StatsYearlyRegistrations" : {
+    "stats" : {
+      "title" : "Member registrations on a yearly basis"
     }
   },
-  "User": {
-    "button": {
-      "acceptTerms": "Read and accept terms",
-      "anonymizeAccount": "Anonymize data",
-      "lockAccount": "Lock account"
+  "User" : {
+    "button" : {
+      "acceptTerms" : "Read and accept terms",
+      "anonymizeAccount" : "Anonymize data",
+      "lockAccount" : "Lock account"
     },
-    "form": {
-      "payments": {
-        "label": "Payments"
+    "form" : {
+      "payments" : {
+        "label" : "Payments"
       },
-      "privacy": {
-        "label": "Accepted terms"
+      "privacy" : {
+        "label" : "Accepted terms"
       },
-      "roles": {
-        "label": "Roles"
+      "roles" : {
+        "label" : "Roles"
       },
-      "status": {
-        "label": "Status"
+      "status" : {
+        "label" : "Status"
       }
     },
-    "requestAnonymization": {
-      "confirm": "Are you sure you want to request data anonymization? This will remove all personal information you've entered into the system. Afterward, you can create a new user account and re-register on the portal."
+    "requestAnonymization" : {
+      "confirm" : "Are you sure you want to request data anonymization? This will remove all personal information you've entered into the system. Afterward, you can create a new user account and re-register on the portal."
     },
-    "requestLocking": {
-      "confirm": "Are you sure you want to lock the account? Account details will be preserved, but the administration needs to unlock your account for you to log in again."
+    "requestLocking" : {
+      "confirm" : "Are you sure you want to lock the account? Account details will be preserved, but the administration needs to unlock your account for you to log in again."
     },
-    "title": "member information",
-    "update": {
-      "fail": "Failed to update user's information",
-      "ok": "User information updated"
+    "title" : "member information",
+    "update" : {
+      "fail" : "Failed to update user's information",
+      "ok" : "User information updated"
     },
-    "updateStatus": {
-      "fail": "Failed to update user's information",
-      "ok": "User information updated"
+    "updateStatus" : {
+      "fail" : "Failed to update user's information",
+      "ok" : "User information updated"
     }
   },
-  "UserDetails": {
-    "table": {
-      "diveCount": "Dive count:",
-      "email": "Email:",
-      "nextOfKin": "Next of kin:",
-      "payments": "Payments:",
-      "phonenumber": "Phone number:",
-      "registered": "Registered:"
+  "UserDetails" : {
+    "table" : {
+      "diveCount" : "Dive count:",
+      "email" : "Email:",
+      "nextOfKin" : "Next of kin:",
+      "payments" : "Payments:",
+      "phonenumber" : "Phone number:",
+      "registered" : "Registered:"
     }
   },
-  "UserEvents": {
-    "profile-certificates-panel": {
-      "header": "Dive certifications"
+  "UserEvents" : {
+    "email-subscription-panel" : {
+      "header" : "Email subscriptions"
     },
-    "email-subscription-panel": {
-      "header": "Email subscriptions"
+    "future-panel" : {
+      "header" : "Upcoming events"
     },
-    "future-panel": {
-      "header": "Upcoming events"
+    "past-panel" : {
+      "header" : "Past events"
     },
-    "past-panel": {
-      "header": "Past events"
+    "profile-certificates-panel" : {
+      "header" : "Dive certifications"
     }
   },
-  "UserFields": {
-    "form": {
-      "firstName": {
-        "label": "First name",
-        "placeholder": "First name",
-        "rules": {
-          "min": "First name must be at least 2 characters long",
-          "pattern": "First name should contain only letters from a-ö and hyphen",
-          "required": "First name is a required field"
+  "UserFields" : {
+    "form" : {
+      "firstName" : {
+        "label" : "First name",
+        "placeholder" : "First name",
+        "rules" : {
+          "min" : "First name must be at least 2 characters long",
+          "pattern" : "First name should contain only letters from a-ö and hyphen",
+          "required" : "First name is a required field"
         },
-        "tooltip": "Required field"
+        "tooltip" : "Required field"
       },
-      "language": {
-        "label": "Language selection",
-        "rules": {
-          "required": "Please select a language"
+      "language" : {
+        "label" : "Language selection",
+        "rules" : {
+          "required" : "Please select a language"
         },
-        "tooltip": "In which language would you like to conduct your business? Options are Finnish, Swedish, English, or German"
+        "tooltip" : "In which language would you like to conduct your business? Options are Finnish, Swedish, English, or German"
       },
-      "lastName": {
-        "label": "Last name",
-        "placeholder": "Last name",
-        "rules": {
-          "min": "Last name must be at least 1 character long",
-          "pattern": "Last name should contain only letters from a-ö and hyphen",
-          "required": "Last name is a required field"
+      "lastName" : {
+        "label" : "Last name",
+        "placeholder" : "Last name",
+        "rules" : {
+          "min" : "Last name must be at least 1 character long",
+          "pattern" : "Last name should contain only letters from a-ö and hyphen",
+          "required" : "Last name is a required field"
         },
-        "tooltip": "Required field"
+        "tooltip" : "Required field"
       },
-      "nextOfKin": {
-        "label": "Next of kin:",
-        "placeholder": "Next of kin name and phone number",
-        "tooltip": "Next of kin, required in case of emergency. Both name and phone number"
+      "nextOfKin" : {
+        "label" : "Next of kin:",
+        "placeholder" : "Next of kin name and phone number",
+        "tooltip" : "Next of kin, required in case of emergency. Both name and phone number"
       },
-      "phoneNumber": {
-        "placeholder": "Phone number:",
-        "rules": {
-          "min": "Are you sure your phone number is correct?",
-          "pattern": "Phone number should only contain numbers",
-          "required": "Please enter a phone number!"
+      "phoneNumber" : {
+        "placeholder" : "Phone number:",
+        "rules" : {
+          "min" : "Are you sure your phone number is correct?",
+          "pattern" : "Phone number should only contain numbers",
+          "required" : "Please enter a phone number!"
         },
-        "tooltip": "Phone number should be in the format +358123456789"
+        "tooltip" : "Phone number should be in the format +358123456789"
       },
-      "privacy": {
-        "label": "Hide contact details",
-        "tooltip": "Email and phone number won't be visible to other members. Only full members can hide their information. Event organizer's name is always visible."
+      "privacy" : {
+        "label" : "Hide contact details",
+        "tooltip" : "Email and phone number won't be visible to other members. Only full members can hide their information. Event organizer's name is always visible."
       },
-      "userId": {
-        "label": "Member ID"
+      "userId" : {
+        "label" : "Member ID"
       },
-      "username": {
-        "label": "Username",
-        "placeholder": "Email",
-        "rules": {
-          "email": "Not a valid email address!",
-          "required": "Please enter an email address!"
+      "username" : {
+        "label" : "Username",
+        "placeholder" : "Email",
+        "rules" : {
+          "email" : "Not a valid email address!",
+          "required" : "Please enter an email address!"
         },
-        "tooltip": "A functional email address is used as the username"
+        "tooltip" : "A functional email address is used as the username"
       }
+    }
+  },
+  "common" : {
+    "button" : {
+      "add" : "Add",
+      "back" : "Back",
+      "close" : "Close",
+      "delete" : "Delete",
+      "held" : "Held",
+      "login" : "Log In",
+      "logout" : "Log Out",
+      "no" : "No",
+      "open" : "Open",
+      "reset" : "Reset",
+      "save" : "Save",
+      "send" : "Send",
+      "update" : "Update",
+      "yes" : "Yes"
+    },
+    "dive-event" : {
+      "status" : {
+        "cancelled" : "Cancelled",
+        "drafted" : "Drafted",
+        "held" : "Held",
+        "published" : "Published"
+      }
+    },
+    "email-subscription-type" : {
+      "EVENT" : {
+        "label" : "Dive events",
+        "tooltip" : "Receive email notification when there are changes to dive events"
+      },
+      "PAGE" : {
+        "label" : "Site pages",
+        "tooltip" : "Receive email notification when there are changes to site pages"
+      }
+    },
+    "pages" : {
+      "status" : {
+        "deleted" : "Deleted",
+        "drafted" : "Drafted",
+        "published" : "Published"
+      }
+    },
+    "payment" : {
+      "type" : {
+        "oneTime" : "One time",
+        "period" : "Season"
+      }
+    },
+    "roles" : {
+      "administrator" : "Administrator",
+      "anonymous" : "Anonymous",
+      "organizer" : "Event Organizer",
+      "user" : "Member"
+    },
+    "spinner" : {
+      "loading" : "Loading..."
+    },
+    "userStatus" : {
+      "active" : "Active",
+      "anonymized" : "Anonymized",
+      "locked" : "Locked",
+      "registered" : "Registered"
+    }
+  },
+  "nav" : {
+    "action" : {
+      "changePassword" : "Change Password",
+      "login" : "Log In",
+      "logout" : "Log Out",
+      "profile" : "Profile",
+      "register" : "Register"
+    },
+    "administration" : {
+      "audits" : "Audits",
+      "blocked-dates" : "Date blocking",
+      "download" : "Download",
+      "files" : "Files",
+      "members" : "Members",
+      "payments" : "Payments",
+      "readFirst" : "Read first",
+      "stats" : "Statistics",
+      "title" : "Administration"
+    },
+    "events" : {
+      "add" : "Add event",
+      "new" : "Events",
+      "past" : "Past events",
+      "title" : "Events",
+      "yearlyStats" : "Yearly statistics"
+    },
+    "pageManagement" : {
+      "pages" : "Pages",
+      "title" : "Page management"
     }
   }
 }
