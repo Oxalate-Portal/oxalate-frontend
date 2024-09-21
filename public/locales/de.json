@@ -826,6 +826,79 @@
   "PastEvents" : {
     "title" : "Vergangene Veranstaltungen"
   },
+  "PortalConfigurations" : {
+    "configuration" : "Konfiguration",
+    "current-setting" : "Aktuelle Einstellung",
+    "default-value" : "Standardwert",
+    "general" : {
+      "org-name" : {
+        "label" : "Organisationsname",
+        "tooltip" : "Name der Organisation"
+      },
+      "default-language" : {
+        "label" : "Standardsprache",
+        "tooltip" : "Standardsprache des Portals, ISO-639-Format"
+      }
+    },
+    "email" : {
+      "org-email" : {
+        "label" : "Organisations-E-Mail",
+        "tooltip" : "E-Mail-Adresse der Organisation"
+      },
+      "support-email" : {
+        "label" : "Support-E-Mail",
+        "tooltip" : "Support-E-Mail-Adresse"
+      },
+      "system-email" : {
+        "label" : "System-E-Mail",
+        "tooltip" : "System-E-Mail-Adresse, üblicherweise eine No-Reply-Adresse"
+      },
+      "email-enabled" : {
+        "label" : "E-Mail Aktiviert",
+        "tooltip" : "Ob das Senden von E-Mails standardmäßig aktiviert ist"
+      },
+      "email-notifications" : {
+        "label" : "E-Mail-Benachrichtigungen",
+        "tooltip" : "Welche E-Mail-Benachrichtigungen gesendet werden"
+      }
+    },
+    "payment" : {
+      "start-month" : {
+        "label" : "Startmonat",
+        "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
+      },
+      "event-require-payment" : {
+        "label" : "Veranstaltung Erfordert Zahlung",
+        "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
+      },
+      "enabled-payment-methods" : {
+        "label" : "Zugelassene Zahlungsmethoden",
+        "tooltip" : "Welche Arten von Zahlungen erlaubt sind"
+      }
+    },
+    "frontend" : {
+      "max-event-length" : {
+        "label" : "Maximale Veranstaltungsdauer",
+        "tooltip" : "Maximale Dauer einer Veranstaltung in Stunden"
+      },
+      "max-length-length" : {
+        "label" : "Maximale Tauchdauer",
+        "tooltip" : "Maximale Dauer eines Tauchgangs in Minuten"
+      },
+      "max-participants" : {
+        "label" : "Maximale Teilnehmerzahl",
+        "tooltip" : "Maximale Anzahl gleichzeitiger Teilnehmer"
+      },
+      "max-depth" : {
+        "label" : "Maximale Tiefe",
+        "tooltip" : "Maximale Tiefe der Tauchgänge"
+      },
+      "types-of-event" : {
+        "label" : "Veranstaltungstypen",
+        "tooltip" : "Arten von zulässigen Tauchgängen"
+      }
+    }
+  },
   "Register" : {
     "fail" : {
       "message" : "Registrierung fehlgeschlagen!"
@@ -902,7 +975,7 @@
       "photocopy" : "Zertifikatskopie",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
-      "upload-photo-tooltip": "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt.",
+      "upload-photo-tooltip" : "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt.",
       "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist."
     }
   },
