@@ -106,7 +106,7 @@ export function NavigationBar() {
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/portal-configuration" className="dropdown-item"
-                                                             type="button">{t("nav.administration.portalConfig")}</NavLink>
+                                                             type="button">{t("nav.administration.portal-configuration")}</NavLink>
                                                 </li>
                                             </ul>
                                         </div>

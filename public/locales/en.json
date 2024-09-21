@@ -827,9 +827,15 @@
     "title" : "Past events"
   },
   "PortalConfigurations" : {
+    "title" : "Portal configuration",
+    "description" : "Here you can configure the portal settings. Please note that the settings are stored immediately, but require a server reload to take effect.",
+    "button" : {
+      "reload" : "Reload server"
+    },
     "configuration" : "Configuration",
     "current-setting" : "Current setting",
     "default-value" : "Default value",
+    "must-be-set" : "Must be set",
     "general" : {
       "org-name" : {
         "label" : "Organization Name",
@@ -1211,6 +1217,7 @@
       "files" : "Files",
       "members" : "Members",
       "payments" : "Payments",
+      "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
       "stats" : "Statistics",
       "title" : "Administration"

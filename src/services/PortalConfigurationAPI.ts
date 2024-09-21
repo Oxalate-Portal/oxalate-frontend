@@ -1,9 +1,7 @@
 import Axios, {AxiosInstance} from "axios";
 import {SessionVO} from "../models";
-import {PortalConfigurationResponse} from "../models/responses";
-import {PortalConfigurationStatusResponse} from "../models/responses/PortalConfigurationStatusResponse";
-import {FrontendConfigurationResponse} from "../models/responses/FrontendConfigurationResponse";
-import {PortalConfigurationRequest} from "../models/requests/PortalConfigurationRequest";
+import {FrontendConfigurationResponse, PortalConfigurationResponse, PortalConfigurationStatusResponse} from "../models/responses";
+import {PortalConfigurationRequest} from "../models/requests";
 
 class PortalConfigurationAPI {
     private axiosInstance: AxiosInstance;
@@ -34,7 +32,7 @@ class PortalConfigurationAPI {
 
     public async reloadPortalConfiguration(): Promise<PortalConfigurationStatusResponse> {
         this.setAuthorizationHeader();
-        const response = await this.axiosInstance.post("/reload");
+        const response = await this.axiosInstance.get("/reload");
         return response.data;
     }
 

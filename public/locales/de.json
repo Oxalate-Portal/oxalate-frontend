@@ -827,9 +827,15 @@
     "title" : "Vergangene Veranstaltungen"
   },
   "PortalConfigurations" : {
+    "title" : "Portal-Konfiguration",
+    "description" : "Hier können Sie die Konfiguration des Portals ändern. Bitte beachten Sie, dass einige Änderungen Auswirkungen auf die Benutzererfahrung haben können.",
+    "button" : {
+      "reload" : "Konfiguration neu laden"
+    },
     "configuration" : "Konfiguration",
     "current-setting" : "Aktuelle Einstellung",
     "default-value" : "Standardwert",
+    "must-be-set" : "muss gesetzt werden",
     "general" : {
       "org-name" : {
         "label" : "Organisationsname",
@@ -1211,6 +1217,7 @@
       "files" : "Dateien",
       "members" : "Mitglieder",
       "payments" : "Zahlungen",
+      "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
       "stats" : "Statistiken",
       "title" : "Verwaltung"

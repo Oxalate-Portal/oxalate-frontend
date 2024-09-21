@@ -827,9 +827,15 @@
     "title" : "Tidigare evenemang"
   },
   "PortalConfigurations" : {
+    "title" : "Portal konfiguration",
+    "description" : "Här kan du konfigurera portalens inställningar. Observera att inställningar kräver att servern laddas om för att de ska träda i kraft.",
+    "button" : {
+      "reload" : "Ladda om servern"
+    },
     "configuration" : "Konfiguration",
     "current-setting" : "Aktuellt värde",
     "default-value" : "Standardvärde",
+    "must-be-set" : "Måste sättas",
     "general" : {
       "org-name" : {
         "label" : "Organisationsnamn",
@@ -1203,6 +1209,7 @@
       "files" : "Filer",
       "members" : "Medlemmar",
       "payments" : "Betalningar",
+      "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",
       "stats" : "Statistik",
       "title" : "Administration"

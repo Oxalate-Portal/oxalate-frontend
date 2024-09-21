@@ -827,9 +827,15 @@
     "title" : "Menneet tapahtumat"
   },
   "PortalConfigurations" : {
+    "title" : "Portaalin asetukset",
+    "description" : "Täältä voit muokata portaalin asetuksia. Huomioi, että muutokset vaativat asetusten uudelleenlataamisen tullakeseen voimaan.",
+    "button" : {
+      "reload" : "Lataa asetukset palvelimella"
+    },
     "configuration" : "Asetus",
     "current-setting" : "Nykyinen asetus",
     "default-value" : "Oletusarvo",
+    "must-be-set" : "Pakollinen asetus",
     "general" : {
       "org-name" : {
         "label" : "Organisaation Nimi",
@@ -1211,6 +1217,7 @@
       "files" : "Tiedostot",
       "members" : "Jäsenet",
       "payments" : "Maksut",
+      "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
       "stats" : "Tilastot",
       "title" : "Ylläpito"
