@@ -14,6 +14,7 @@ import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
 import { Payments } from "./components/Payment";
 import { EditCertificate } from "./components/Certificate";
 import { AdminUploads } from "./components/Administration/FileManagement";
+import { PortalConfigurations } from "./components/Administration/PortalConfigurations";
 
 function App() {
     const {darkAlgorithm} = theme;
@@ -57,6 +58,7 @@ function App() {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
                             <Route path="/administration/blocked-dates" element={<AdminRoute><BlockedDates/></AdminRoute>}/>
+                            <Route path="/administration/portal-configuration" element={<AdminRoute><PortalConfigurations/></AdminRoute>}/>
                             <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
