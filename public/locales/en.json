@@ -839,6 +839,10 @@
         "label" : "Enable email",
         "tooltip" : "Whether the email sending is enabled by default"
       },
+      "email-notification-retries" : {
+        "label" : "Email notification retries",
+        "tooltip" : "How many times the sending of email notification is retried"
+      },
       "email-notifications" : {
         "label" : "Email notifications",
         "tooltip" : "Which email notifications are sent"

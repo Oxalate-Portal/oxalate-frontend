@@ -839,6 +839,10 @@
         "label" : "E-post aktiverad",
         "tooltip" : "Om e-postutskick är aktiverat som standard"
       },
+      "email-notification-retries" : {
+        "label" : "Antal e-postnotifikationsförsök",
+        "tooltip" : "Antal försök att skicka e-postmeddelanden"
+      },
       "email-notifications" : {
         "label" : "E-postnotifikationer",
         "tooltip" : "Vilka e-postmeddelanden som skickas"

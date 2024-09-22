@@ -839,6 +839,10 @@
         "label" : "E-Mail aktiviert",
         "tooltip" : "Ob das Senden von E-Mails standardmäßig aktiviert ist"
       },
+      "email-notification-retries" : {
+        "label" : "E-Mail-Benachrichtigungs-Wiederholungen",
+        "tooltip" : "Anzahl der Wiederholungen, wenn das Senden von E-Mails fehlschlägt"
+      },
       "email-notifications" : {
         "label" : "E-Mail-Benachrichtigungen",
         "tooltip" : "Welche E-Mail-Benachrichtigungen gesendet werden"

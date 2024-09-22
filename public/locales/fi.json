@@ -839,6 +839,10 @@
         "label" : "Sähköposti käytössä",
         "tooltip" : "Onko sähköpostien lähetys oletuksena käytössä"
       },
+      "email-notification-retries" : {
+        "label" : "Sähköposti-ilmoitusten uudelleenyritykset",
+        "tooltip" : "Kuinka monta kertaa sähköposti-ilmoitusta yritetään lähettää"
+      },
       "email-notifications" : {
         "label" : "Sähköposti-ilmoitukset",
         "tooltip" : "Mitkä sähköposti-ilmoitukset lähetetään"
