@@ -96,6 +96,36 @@ export function EditDiveEvent() {
             return marks;
         }
 
+        function setCommonValues(dates: Date[], portalConfiguration: FrontendConfigurationResponse[]): void {
+            setBlockedDates(dates);
+            // Find max-depth from portalConfiguration array and set it to state
+            const maxDepth = findConfigurationValue(portalConfiguration, "max-depth");
+            setMaxDepth(maxDepth);
+            setDepthMarks(getMarks(10, maxDepth, 10, "m"));
+
+            const maxDiveLength = findConfigurationValue(portalConfiguration, "max-dive-length");
+            setMaxDiveLength(maxDiveLength);
+            setDiveLengthMarks(getMarks(30, maxDiveLength, 60, " min"));
+
+            const minEventLength = findConfigurationValue(portalConfiguration, "min-event-length");
+            const maxEventLength = findConfigurationValue(portalConfiguration, "max-event-length");
+            setMinEventLength(minEventLength);
+            setMaxEventLength(maxEventLength);
+            setEventDurationMarks(getMarks(minEventLength, maxEventLength, 2, "h"));
+
+            const minParticipants = findConfigurationValue(portalConfiguration, "min-participants");
+            const maxParticipants = findConfigurationValue(portalConfiguration, "max-participants");
+            setMinParticipants(minParticipants);
+            setMaxParticipants(maxParticipants);
+            setParticipantsMarks(getMarks(minParticipants, maxParticipants, 5, ""));
+
+            const eventTypes: string[] = findConfigurationArray(portalConfiguration, "types-of-event");
+            eventTypes.sort();
+            setEventTypes(eventTypes.map((type) => {
+                return {value: type, label: t("EditEvent.eventTypes." + type)};
+            }));
+        }
+
         setLoading(true);
         let tmpDiveEventId = 0;
 
@@ -109,15 +139,15 @@ export function EditDiveEvent() {
                 diveEventAPI.findById(tmpDiveEventId, null),
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER),
-                blockedDatesAPI.findAll()
+                blockedDatesAPI.findAll(),
+                portalConfigurationAPI.getFrontendConfiguration()
             ])
-                    .then(([eventResponse, organizerResponses,
-                               participantResponses, blockedDatesResponses]) => {
+                    .then(([eventResponse, organizerResponses, participantResponses, blockedDatesResponses, portalConfiguration]) => {
                         setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
                         populateOrganizerList(organizerResponses);
                         populateParticipantList(participantResponses);
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
-                        setBlockedDates(dates);
+                        setCommonValues(dates, portalConfiguration);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -152,33 +182,7 @@ export function EditDiveEvent() {
                                 }
                         );
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
-                        setBlockedDates(dates);
-                        // Find max-depth from portalConfiguration array and set it to state
-                        const maxDepth = findConfigurationValue(portalConfiguration, "max-depth");
-                        setMaxDepth(maxDepth);
-                        setDepthMarks(getMarks(10, maxDepth, 10, "m"));
-
-                        const maxDiveLength = findConfigurationValue(portalConfiguration, "max-dive-length");
-                        setMaxDiveLength(maxDiveLength);
-                        setDiveLengthMarks(getMarks(30, maxDiveLength, 60, " min"));
-
-                        const minEventLength = findConfigurationValue(portalConfiguration, "min-event-length");
-                        const maxEventLength = findConfigurationValue(portalConfiguration, "max-event-length");
-                        setMinEventLength(minEventLength);
-                        setMaxEventLength(maxEventLength);
-                        setEventDurationMarks(getMarks(minEventLength, maxEventLength, 2, "h"));
-
-                        const minParticipants = findConfigurationValue(portalConfiguration, "min-participants");
-                        const maxParticipants = findConfigurationValue(portalConfiguration, "max-participants");
-                        setMinParticipants(minParticipants);
-                        setMaxParticipants(maxParticipants);
-                        setParticipantsMarks(getMarks(minParticipants, maxParticipants, 5, ""));
-
-                        const eventTypes: string[] = findConfigurationArray(portalConfiguration, "types-of-event");
-                        eventTypes.sort();
-                        setEventTypes(eventTypes.map((type) => {
-                            return {value: type, label: t("EditEvent.eventTypes." + type)};
-                        }));
+                        setCommonValues(dates, portalConfiguration);
                     })
                     .catch((error) => {
                         console.error(error);
