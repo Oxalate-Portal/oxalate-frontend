@@ -5,12 +5,12 @@ import { portalConfigurationAPI } from "../../services";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
 
-const {Text} = Typography;
+const { Text } = Typography;
 
 export function PortalConfigurations() {
     const [portalConfigurations, setPortalConfigurations] = useState<PortalConfigurationResponse[]>([]);
     const [loading, setLoading] = useState(true);
-    const {t} = useTranslation();
+    const { t } = useTranslation();
 
     const groupedConfigurations = portalConfigurations.reduce((acc, config) => {
         acc[config.groupKey] = acc[config.groupKey] || [];
@@ -31,7 +31,7 @@ export function PortalConfigurations() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, []);
+    }, [t]);
 
     function validateEmail(value: string): boolean {
         return !value || /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
@@ -45,8 +45,7 @@ export function PortalConfigurations() {
                     config.value = config.value === "true";
                 }
 
-                if ((config.type === "string" || config.type === "email")
-                        && config.value === "") {
+                if ((config.type === "string" || config.type === "email") && config.value === "") {
                     config.value = null;
                 }
 
@@ -79,13 +78,15 @@ export function PortalConfigurations() {
                                 setLoading(false);
                             });
                 }
-            }, [portalConfigurations, t, reloadConfiguration]);
+            },
+            [portalConfigurations, t]
+    );
 
     // Debounced update for string values
     const debouncedUpdate = useCallback(debounce(handleUpdate, 1000), [handleUpdate]);
 
     function renderEditor(config: PortalConfigurationResponse) {
-        const {valueType, settingKey, runtimeValue, defaultValue} = config;
+        const { valueType, settingKey, runtimeValue, defaultValue } = config;
 
         let selectedValue = defaultValue;
 
@@ -96,25 +97,16 @@ export function PortalConfigurations() {
         const required = config.requiredRuntime && runtimeValue === null;
 
         switch (valueType) {
-            case "email":
+            case "array":
+                const options = defaultValue.split(",");
+                const selectedValues = selectedValue.split(",");
                 return (
                         <>
-                            <Input
-                                    value={selectedValue}
+                            <Checkbox.Group
+                                    options={options}
                                     key={valueType + "-" + config.id}
-                                    onChange={(e) => debouncedUpdate({type: config.valueType, id: config.id, value: e.target.value})}
-                            />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
-                        </>
-                );
-
-            case "string":
-                return (
-                        <>
-                            <Input
-                                    defaultValue={selectedValue}
-                                    key={valueType + "-" + config.id}
-                                    onChange={(e) => debouncedUpdate({type: config.valueType, id: config.id, value: e.target.value})}
+                                    value={selectedValues}
+                                    onChange={(checkedValues) => handleUpdate({ type: config.valueType, id: config.id, value: checkedValues.join(",") })}
                             />
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
@@ -128,7 +120,19 @@ export function PortalConfigurations() {
                                     unCheckedChildren={t("common.button.no")}
                                     checked={selectedValue === "true"}
                                     key={valueType + "-" + config.id}
-                                    onChange={(checked) => handleUpdate({type: config.valueType, id: config.id, value: checked ? "true" : "false"})}
+                                    onChange={(checked) => handleUpdate({ type: config.valueType, id: config.id, value: checked ? "true" : "false" })}
+                            />
+                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                        </>
+                );
+
+            case "email":
+                return (
+                        <>
+                            <Input
+                                    value={selectedValue}
+                                    key={valueType + "-" + config.id}
+                                    onChange={(e) => debouncedUpdate({ type: config.valueType, id: config.id, value: e.target.value })}
                             />
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
@@ -140,22 +144,19 @@ export function PortalConfigurations() {
                             <InputNumber
                                     value={Number(selectedValue)}
                                     key={valueType + "-" + config.id}
-                                    onChange={(value) => handleUpdate({type: config.valueType, id: config.id, value: value?.toString()})}
+                                    onChange={(value) => debouncedUpdate({ type: config.valueType, id: config.id, value: value?.toString() })}
                             />
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );
 
-            case "array":
-                const options = defaultValue.split(",");
-                const selectedValues = selectedValue.split(",");
+            case "string":
                 return (
                         <>
-                            <Checkbox.Group
-                                    options={options}
+                            <Input
+                                    defaultValue={selectedValue}
                                     key={valueType + "-" + config.id}
-                                    value={selectedValues}
-                                    onChange={(checkedValues) => handleUpdate({type: config.valueType, id: config.id, value: checkedValues.join(",")})}
+                                    onChange={(e) => debouncedUpdate({ type: config.valueType, id: config.id, value: e.target.value })}
                             />
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
@@ -198,11 +199,11 @@ export function PortalConfigurations() {
                     <Button onClick={() => reloadConfiguration()}>{t("PortalConfigurations.button.reload")}</Button>
                     <Spin spinning={loading}>
                         <div>
-                            {!loading && Object.keys(groupedConfigurations).map(groupKey => (
+                            {!loading && Object.entries(groupedConfigurations).map(([groupKey, configs]) => (
                                     <div key={groupKey}>
                                         <Divider orientation="left">{capitalizeFirstLetter(groupKey)}</Divider>
                                         <Row gutter={16}
-                                             style={{marginBottom: "16px", backgroundColor: "rgba(0, 0, 0, 0.75)", padding: "8px", borderRadius: "4px"}}>
+                                             style={{ marginBottom: "16px", backgroundColor: "rgba(0, 0, 0, 0.75)", padding: "8px", borderRadius: "4px" }}>
                                             <Col span={6}>
                                                 <Text strong>{t("PortalConfigurations.configuration")}</Text>
                                             </Col>
@@ -213,24 +214,25 @@ export function PortalConfigurations() {
                                                 <Text strong>{t("PortalConfigurations.current-setting")}</Text>
                                             </Col>
                                         </Row>
-                                        {groupedConfigurations[groupKey].map(config => (
-                                                <div key={config.id} style={{marginBottom: "16px"}}>
-                                                    <Row gutter={16}>
-                                                        <Col span={6}>
-                                                            <Tooltip
-                                                                    title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
-                                                                <Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Text>
-                                                            </Tooltip>
-                                                        </Col>
-                                                        <Col span={6}>
-                                                            <Text>{config.defaultValue}</Text>
-                                                        </Col>
-                                                        <Col span={6}>
-                                                            {renderEditor(config)}
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                        ))}
+                                        {configs
+                                                .sort((a, b) => a.settingKey.localeCompare(b.settingKey)) // Sort the settingKeys alphabetically
+                                                .map(config => (
+                                                        <div key={config.id} style={{ marginBottom: "16px" }}>
+                                                            <Row gutter={16}>
+                                                                <Col span={6}>
+                                                                    <Tooltip title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
+                                                                        <Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Text>
+                                                                    </Tooltip>
+                                                                </Col>
+                                                                <Col span={6}>
+                                                                    <Text>{config.defaultValue}</Text>
+                                                                </Col>
+                                                                <Col span={6}>
+                                                                    {renderEditor(config)}
+                                                                </Col>
+                                                            </Row>
+                                                        </div>
+                                                ))}
                                     </div>
                             ))}
                         </div>
