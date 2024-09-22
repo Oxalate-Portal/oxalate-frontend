@@ -316,11 +316,11 @@
   },
   "EditEvent" : {
     "eventTypes" : {
+      "boat" : "Tauchen vom Boot",
       "cave" : "Höhle",
       "current" : "Strömung",
       "open-and-cave" : "Offen / Höhle",
       "open-water" : "Offen",
-      "boat" : "Tauchen vom Boot",
       "surface" : "Nur Oberflächenaktivität"
     },
     "form" : {
@@ -827,26 +827,22 @@
     "title" : "Vergangene Veranstaltungen"
   },
   "PortalConfigurations" : {
-    "title" : "Portal-Konfiguration",
-    "description" : "Hier können Sie die Konfiguration des Portals ändern. Bitte beachten Sie, dass einige Änderungen Auswirkungen auf die Benutzererfahrung haben können.",
     "button" : {
       "reload" : "Konfiguration neu laden"
     },
     "configuration" : "Konfiguration",
     "current-setting" : "Aktuelle Einstellung",
     "default-value" : "Standardwert",
-    "must-be-set" : "muss gesetzt werden",
-    "general" : {
-      "org-name" : {
-        "label" : "Organisationsname",
-        "tooltip" : "Name der Organisation"
-      },
-      "default-language" : {
-        "label" : "Standardsprache",
-        "tooltip" : "Standardsprache des Portals, ISO-639-Format"
-      }
-    },
+    "description" : "Hier können Sie die Konfiguration des Portals ändern. Bitte beachten Sie, dass einige Änderungen Auswirkungen auf die Benutzererfahrung haben können.",
     "email" : {
+      "email-enabled" : {
+        "label" : "E-Mail aktiviert",
+        "tooltip" : "Ob das Senden von E-Mails standardmäßig aktiviert ist"
+      },
+      "email-notifications" : {
+        "label" : "E-Mail-Benachrichtigungen",
+        "tooltip" : "Welche E-Mail-Benachrichtigungen gesendet werden"
+      },
       "org-email" : {
         "label" : "Organisations-E-Mail",
         "tooltip" : "E-Mail-Adresse der Organisation"
@@ -858,60 +854,64 @@
       "system-email" : {
         "label" : "System-E-Mail",
         "tooltip" : "System-E-Mail-Adresse, üblicherweise eine No-Reply-Adresse"
-      },
-      "email-enabled" : {
-        "label" : "E-Mail aktiviert",
-        "tooltip" : "Ob das Senden von E-Mails standardmäßig aktiviert ist"
-      },
-      "email-notifications" : {
-        "label" : "E-Mail-Benachrichtigungen",
-        "tooltip" : "Welche E-Mail-Benachrichtigungen gesendet werden"
-      }
-    },
-    "payment" : {
-      "start-month" : {
-        "label" : "Startmonat",
-        "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
-      },
-      "event-require-payment" : {
-        "label" : "Veranstaltung erfordert Zahlung",
-        "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
-      },
-      "enabled-payment-methods" : {
-        "label" : "Zugelassene Zahlungsmethoden",
-        "tooltip" : "Welche Arten von Zahlungen erlaubt sind"
       }
     },
     "frontend" : {
-      "max-event-length" : {
-        "label" : "Maximale Veranstaltungsdauer",
-        "tooltip" : "Maximale Dauer einer Veranstaltung in Stunden"
-      },
-      "min-event-length" : {
-        "label" : "Minimale Veranstaltungsdauer",
-        "tooltip" : "Minimale Dauer einer Veranstaltung in Stunden"
+      "max-depth" : {
+        "label" : "Maximale Tiefe",
+        "tooltip" : "Maximale Tiefe der Tauchgänge"
       },
       "max-dive-length" : {
         "label" : "Maximale Tauchdauer",
         "tooltip" : "Maximale Dauer eines Tauchgangs in Minuten"
       },
+      "max-event-length" : {
+        "label" : "Maximale Veranstaltungsdauer",
+        "tooltip" : "Maximale Dauer einer Veranstaltung in Stunden"
+      },
       "max-participants" : {
         "label" : "Maximale Teilnehmerzahl",
         "tooltip" : "Maximale Anzahl gleichzeitiger Teilnehmer"
+      },
+      "min-event-length" : {
+        "label" : "Minimale Veranstaltungsdauer",
+        "tooltip" : "Minimale Dauer einer Veranstaltung in Stunden"
       },
       "min-participants" : {
         "label" : "Minimale Teilnehmerzahl",
         "tooltip" : "Minimale Anzahl gleichzeitiger Teilnehmer, wann man noch ein Ereignis erstellen kann"
       },
-      "max-depth" : {
-        "label" : "Maximale Tiefe",
-        "tooltip" : "Maximale Tiefe der Tauchgänge"
-      },
       "types-of-event" : {
         "label" : "Veranstaltungstypen",
         "tooltip" : "Arten von zulässigen Tauchgängen"
       }
-    }
+    },
+    "general" : {
+      "default-language" : {
+        "label" : "Standardsprache",
+        "tooltip" : "Standardsprache des Portals, ISO-639-Format"
+      },
+      "org-name" : {
+        "label" : "Organisationsname",
+        "tooltip" : "Name der Organisation"
+      }
+    },
+    "must-be-set" : "muss gesetzt werden",
+    "payment" : {
+      "enabled-payment-methods" : {
+        "label" : "Zugelassene Zahlungsmethoden",
+        "tooltip" : "Welche Arten von Zahlungen erlaubt sind"
+      },
+      "event-require-payment" : {
+        "label" : "Veranstaltung erfordert Zahlung",
+        "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
+      },
+      "start-month" : {
+        "label" : "Startmonat",
+        "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
+      }
+    },
+    "title" : "Portal-Konfiguration"
   },
   "Register" : {
     "fail" : {
@@ -989,8 +989,8 @@
       "photocopy" : "Zertifikatskopie",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
-      "upload-photo-tooltip" : "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt.",
-      "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist."
+      "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist.",
+      "upload-photo-tooltip" : "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt."
     }
   },
   "StatisticsMain" : {
