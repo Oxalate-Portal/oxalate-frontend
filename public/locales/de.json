@@ -317,10 +317,10 @@
   "EditEvent" : {
     "eventTypes" : {
       "cave" : "Höhle",
-      "caveOpen" : "Höhle / Offen",
-      "dive" : "Tauchen",
-      "open" : "Offen",
-      "other" : "Andere (z.B. Blockierende Buchung)",
+      "current" : "Strömung",
+      "open-and-cave" : "Offen / Höhle",
+      "open-water" : "Offen",
+      "boat" : "Tauchen vom Boot",
       "surface" : "Nur Oberflächenaktivität"
     },
     "form" : {
@@ -860,7 +860,7 @@
         "tooltip" : "System-E-Mail-Adresse, üblicherweise eine No-Reply-Adresse"
       },
       "email-enabled" : {
-        "label" : "E-Mail Aktiviert",
+        "label" : "E-Mail aktiviert",
         "tooltip" : "Ob das Senden von E-Mails standardmäßig aktiviert ist"
       },
       "email-notifications" : {
@@ -874,7 +874,7 @@
         "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
       },
       "event-require-payment" : {
-        "label" : "Veranstaltung Erfordert Zahlung",
+        "label" : "Veranstaltung erfordert Zahlung",
         "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
       },
       "enabled-payment-methods" : {
@@ -887,13 +887,21 @@
         "label" : "Maximale Veranstaltungsdauer",
         "tooltip" : "Maximale Dauer einer Veranstaltung in Stunden"
       },
-      "max-length-length" : {
+      "min-event-length" : {
+        "label" : "Minimale Veranstaltungsdauer",
+        "tooltip" : "Minimale Dauer einer Veranstaltung in Stunden"
+      },
+      "max-dive-length" : {
         "label" : "Maximale Tauchdauer",
         "tooltip" : "Maximale Dauer eines Tauchgangs in Minuten"
       },
       "max-participants" : {
         "label" : "Maximale Teilnehmerzahl",
         "tooltip" : "Maximale Anzahl gleichzeitiger Teilnehmer"
+      },
+      "min-participants" : {
+        "label" : "Minimale Teilnehmerzahl",
+        "tooltip" : "Minimale Anzahl gleichzeitiger Teilnehmer, wann man noch ein Ereignis erstellen kann"
       },
       "max-depth" : {
         "label" : "Maximale Tiefe",

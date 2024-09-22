@@ -317,10 +317,10 @@
   "EditEvent" : {
     "eventTypes" : {
       "cave" : "Cave",
-      "caveOpen" : "Cave / Open water",
-      "dive" : "Dive",
-      "open" : "Open water",
-      "other" : "Other (e.g., blocked reservation)",
+      "current" : "Current",
+      "open-and-cave" : "Open water / Cave",
+      "open-water" : "Open water",
+      "boat" : "Diving from boat",
       "surface" : "Surface activities only"
     },
     "form" : {
@@ -838,70 +838,78 @@
     "must-be-set" : "Must be set",
     "general" : {
       "org-name" : {
-        "label" : "Organization Name",
+        "label" : "Organization name",
         "tooltip" : "Name of the organization"
       },
       "default-language" : {
-        "label" : "Default Language",
+        "label" : "Default language",
         "tooltip" : "Default language for the portal, ISO-639 format"
       }
     },
     "email" : {
       "org-email" : {
-        "label" : "Organization Email",
+        "label" : "Organization email",
         "tooltip" : "Organization email address"
       },
       "support-email" : {
-        "label" : "Support Email",
+        "label" : "Support email",
         "tooltip" : "Support email address"
       },
       "system-email" : {
-        "label" : "System Email",
+        "label" : "System email",
         "tooltip" : "System email address, usually a no-reply address"
       },
       "email-enabled" : {
-        "label" : "Enable Email",
+        "label" : "Enable email",
         "tooltip" : "Whether the email sending is enabled by default"
       },
       "email-notifications" : {
-        "label" : "Email Notifications",
+        "label" : "Email notifications",
         "tooltip" : "Which email notifications are sent"
       }
     },
     "payment" : {
       "start-month" : {
-        "label" : "Start Month",
+        "label" : "Start month",
         "tooltip" : "Which month will the period payment start, 1 = January"
       },
       "event-require-payment" : {
-        "label" : "Event Requires Payment",
+        "label" : "Event requires payment",
         "tooltip" : "Does a diver have to have a valid payment to be able to join a dive event"
       },
       "enabled-payment-methods" : {
-        "label" : "Enabled Payment Methods",
+        "label" : "Enabled payment methods",
         "tooltip" : "What type of payments are allowed"
       }
     },
     "frontend" : {
       "max-event-length" : {
-        "label" : "Max Event Length",
+        "label" : "Max event length",
         "tooltip" : "Maximum length of an event, in hours"
       },
-      "max-length-length" : {
-        "label" : "Max Dive Length",
+      "min-event-length" : {
+        "label" : "Minimum event length",
+        "tooltip" : "Minimum length of an event, in hours"
+      },
+      "max-dive-length" : {
+        "label" : "Maximum dive length",
         "tooltip" : "Maximum length of a dive, in minutes"
       },
       "max-participants" : {
-        "label" : "Max Participants",
+        "label" : "Maximum participants",
         "tooltip" : "Maximum number of simultaneous participants"
       },
+      "min-participants" : {
+        "label" : "Minimum participants",
+        "tooltip" : "Minimum number of simultaneous participants, below this the event is cancelled"
+      },
       "max-depth" : {
-        "label" : "Max Depth",
+        "label" : "Max depth",
         "tooltip" : "Maximum depth of dives"
       },
       "types-of-event" : {
-        "label" : "Types of Event",
-        "tooltip" : "Types of dives allowed"
+        "label" : "Types of events",
+        "tooltip" : "Which types of dive events are allowed"
       }
     }
   },

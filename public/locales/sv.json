@@ -317,10 +317,10 @@
   "EditEvent" : {
     "eventTypes" : {
       "cave" : "Grottdykning",
-      "caveOpen" : "Grottdykning / Öppen dykning",
-      "dive" : "Dykning",
-      "open" : "Öppen dykning",
-      "other" : "Annat (t.ex. blockad bokning)",
+      "current" : "Strömdykning",
+      "open-and-cave" : "Öppen dykning / Grottdykning",
+      "open-water" : "Öppen dykning",
+      "boat" : "Dykning från båt",
       "surface" : "Endast yta"
     },
     "form" : {
@@ -860,7 +860,7 @@
         "tooltip" : "Systemets e-postadress, oftast en ingen-svara-adress"
       },
       "email-enabled" : {
-        "label" : "E-post Aktiverad",
+        "label" : "E-post aktiverad",
         "tooltip" : "Om e-postutskick är aktiverat som standard"
       },
       "email-notifications" : {
@@ -874,30 +874,38 @@
         "tooltip" : "Vilken månad periodbetalningen startar, 1 = Januari"
       },
       "event-require-payment" : {
-        "label" : "Event Kräver Betalning",
+        "label" : "Event kräver betalning",
         "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevenemang"
       },
       "enabled-payment-methods" : {
-        "label" : "Tillåtna Betalningsmetoder",
+        "label" : "Tillåtna betalningsmetoder",
         "tooltip" : "Vilka betalningstyper som är tillåtna"
       }
     },
     "frontend" : {
       "max-event-length" : {
-        "label" : "Maximal Eventlängd",
-        "tooltip" : "Maximal längd på ett event, i timmar"
+        "label" : "Maximal evenemanglängd",
+        "tooltip" : "Maximal längd på ett dyk-evenemang, i timmar"
       },
-      "max-length-length" : {
-        "label" : "Maximal Dykningstid",
+      "min-event-length" : {
+        "label" : "Minimal evenemanglängd",
+        "tooltip" : "Minimal längd på ett dyk-evenemang, i timmar"
+      },
+      "max-dive-length" : {
+        "label" : "Maximal dykningstid",
         "tooltip" : "Maximal tid för ett dyk, i minuter"
       },
       "max-participants" : {
-        "label" : "Maximalt Antal Deltagare",
+        "label" : "Maximalt antal deltagare",
         "tooltip" : "Maximalt antal samtidiga deltagare"
       },
+      "min-participants" : {
+        "label" : "Minimala antal deltagare",
+        "tooltip" : "Minimala antal samtidiga deltagare som krävs för att ett evenemang ska kunna genomföras"
+      },
       "max-depth" : {
-        "label" : "Maximalt Djup",
-        "tooltip" : "Maximalt djup för dykningar"
+        "label" : "Maximala djupet",
+        "tooltip" : "Maximala djupet för dykningar"
       },
       "types-of-event" : {
         "label" : "Evenemangstyper",

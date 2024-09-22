@@ -317,10 +317,10 @@
   "EditEvent" : {
     "eventTypes" : {
       "cave" : "Luola",
-      "caveOpen" : "Luola / Avo",
-      "dive" : "Sukellus",
-      "open" : "Avo",
-      "other" : "Muu (esim. blokkaava varaus)",
+      "current" : "Virta",
+      "open-and-cave" : "Avo / Luola",
+      "open-water" : "Avo",
+      "boat" : "Sukellusta veneestä",
       "surface" : "Vain pintatoimintaa"
     },
     "form" : {
@@ -838,7 +838,7 @@
     "must-be-set" : "Pakollinen asetus",
     "general" : {
       "org-name" : {
-        "label" : "Organisaation Nimi",
+        "label" : "Organisaation nimi",
         "tooltip" : "Organisaation nimi"
       },
       "default-language" : {
@@ -856,11 +856,11 @@
         "tooltip" : "Tukisähköpostiosoite"
       },
       "system-email" : {
-        "label" : "Järjestelmän Sähköposti",
+        "label" : "Järjestelmän sähköposti",
         "tooltip" : "Järjestelmän sähköpostiosoite, yleensä ei-vastausosoite"
       },
       "email-enabled" : {
-        "label" : "Sähköposti Käytössä",
+        "label" : "Sähköposti käytössä",
         "tooltip" : "Onko sähköpostien lähetys oletuksena käytössä"
       },
       "email-notifications" : {
@@ -874,26 +874,34 @@
         "tooltip" : "Missä kuussa ajanjakson maksut alkavat, 1 = Tammikuu"
       },
       "event-require-payment" : {
-        "label" : "Tapahtuma Vaatii Maksun",
+        "label" : "Tapahtuma vaatii maksun",
         "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu osallistuakseen tapahtumaan"
       },
       "enabled-payment-methods" : {
-        "label" : "Sallitut Maksutavat",
+        "label" : "Sallitut maksutavat",
         "tooltip" : "Millaiset maksutavat ovat sallittuja"
       }
     },
     "frontend" : {
       "max-event-length" : {
-        "label" : "Tapahtuman Maksimipituus",
+        "label" : "Tapahtuman maksimipituus",
         "tooltip" : "Tapahtuman maksimipituus tunneissa"
       },
-      "max-length-length" : {
-        "label" : "Sukelluksen Maksimipituus",
+      "min-event-length" : {
+        "label" : "Tapahtuman vähittäispituus",
+        "tooltip" : "Tapahtuman vähittäispituus tunneissa"
+      },
+      "max-dive-length" : {
+        "label" : "Sukelluksen maksimipituus",
         "tooltip" : "Sukelluksen maksimipituus minuutteina"
       },
       "max-participants" : {
         "label" : "Maksimiosallistujat",
         "tooltip" : "Samanaikaisten osallistujien maksimimäärä"
+      },
+      "min-participants" : {
+        "label" : "Minimiosallistujat",
+        "tooltip" : "Samanaikaisten osallistujien minimimäärä, joka on vaadittu tapahtuman järjestämiseksi"
       },
       "max-depth" : {
         "label" : "Maksimisukellussyvyys",
