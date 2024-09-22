@@ -56,6 +56,7 @@ export function PortalConfigurations() {
                 }
 
                 const updatedConfig = portalConfigurations.find((c) => c.id === config.id);
+
                 if (updatedConfig) {
                     updatedConfig.runtimeValue = config.value;
 
@@ -66,28 +67,28 @@ export function PortalConfigurations() {
                         value: config.value,
                     })
                             .then(() => {
-                                message.success(t("Configuration updated successfully"));
+                                message.success(t("PortalConfigurations.update-ok"));
+                                reloadConfiguration();
                             })
                             .catch((error) => {
                                 console.error("Error updating configuration:", error);
-                                message.error(t("Error updating configuration"));
+                                message.error(t("PortalConfigurations.update-fail"));
                             })
                             .finally(() => {
                                 setPortalConfigurations([...portalConfigurations]);
                                 setLoading(false);
                             });
                 }
-            },
-            [portalConfigurations, t]
-    );
+            }, [portalConfigurations, t, reloadConfiguration]);
 
     // Debounced update for string values
     const debouncedUpdate = useCallback(debounce(handleUpdate, 1000), [handleUpdate]);
 
     function renderEditor(config: PortalConfigurationResponse) {
-        const {valueType, runtimeValue, defaultValue} = config;
+        const {valueType, settingKey, runtimeValue, defaultValue} = config;
 
         let selectedValue = defaultValue;
+
         if (runtimeValue !== null && runtimeValue.length > 0) {
             selectedValue = runtimeValue;
         }
@@ -170,11 +171,11 @@ export function PortalConfigurations() {
     }
 
     function reloadConfiguration() {
-        console.log("Reloading configuration");
         setLoading(true);
         portalConfigurationAPI.reloadPortalConfiguration()
                 .then((result) => {
-                    if (result.success) {
+                    if (result.length > 0) {
+                        setPortalConfigurations(result);
                         message.success(t("PortalConfigurations.configuration-reloaded"));
                     } else {
                         message.error(t("PortalConfigurations.configuration-reload-failed"));

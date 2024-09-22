@@ -831,6 +831,8 @@
       "reload" : "Ladda om servern"
     },
     "configuration" : "Konfiguration",
+    "configuration-reloaded" : "Konfigurationen har laddats om",
+    "configuration-reload-failed" : "Misslyckades med att ladda om konfigurationen",
     "current-setting" : "Aktuellt värde",
     "default-value" : "Standardvärde",
     "description" : "Här kan du konfigurera portalens inställningar. Observera att inställningar kräver att servern laddas om för att de ska träda i kraft.",
@@ -915,7 +917,9 @@
         "tooltip" : "Vilken månad periodbetalningen startar, 1 = Januari"
       }
     },
-    "title" : "Portal konfiguration"
+    "title" : "Portal konfiguration",
+    "update-fail" : "Misslyckades med att uppdatera konfigurationen",
+    "update-ok" : "Konfigurationen uppdaterad"
   },
   "Register" : {
     "fail" : {

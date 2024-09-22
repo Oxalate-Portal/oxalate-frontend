@@ -831,6 +831,8 @@
       "reload" : "Lataa asetukset palvelimella"
     },
     "configuration" : "Asetus",
+    "configuration-reloaded" : "Asennukset ladattu palvelimelta",
+    "configuration-reload-failed" : "Asetusten lataaminen epäonnistui",
     "current-setting" : "Nykyinen asetus",
     "default-value" : "Oletusarvo",
     "description" : "Täältä voit muokata portaalin asetuksia. Huomioi, että muutokset vaativat asetusten uudelleenlataamisen tullakeseen voimaan.",
@@ -915,7 +917,9 @@
         "tooltip" : "Missä kuussa ajanjakson maksut alkavat, 1 = Tammikuu"
       }
     },
-    "title" : "Portaalin asetukset"
+    "title" : "Portaalin asetukset",
+    "update-fail" : "Asetusten päivitys epäonnistui",
+    "update-ok" : "Asetukset päivitetty"
   },
   "Register" : {
     "fail" : {

@@ -831,6 +831,8 @@
       "reload" : "Reload server"
     },
     "configuration" : "Configuration",
+    "configuration-reloaded" : "Configuration reloaded",
+    "configuration-reload-failed" : "Failed to reload configuration",
     "current-setting" : "Current setting",
     "default-value" : "Default value",
     "description" : "Here you can configure the portal settings. Please note that the settings are stored immediately, but require a server reload to take effect.",
@@ -915,7 +917,9 @@
         "tooltip" : "Which month will the period payment start, 1 = January"
       }
     },
-    "title" : "Portal configuration"
+    "title" : "Portal configuration",
+    "update-fail" : "Failed to update configuration",
+    "update-ok" : "Configuration updated successfully"
   },
   "Register" : {
     "fail" : {

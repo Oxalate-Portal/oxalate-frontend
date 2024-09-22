@@ -831,6 +831,8 @@
       "reload" : "Konfiguration neu laden"
     },
     "configuration" : "Konfiguration",
+    "configuration-reloaded" : "Konfiguration neu geladen",
+    "configuration-reload-failed" : "Konfiguration konnte nicht neu geladen werden",
     "current-setting" : "Aktuelle Einstellung",
     "default-value" : "Standardwert",
     "description" : "Hier können Sie die Konfiguration des Portals ändern. Bitte beachten Sie, dass einige Änderungen Auswirkungen auf die Benutzererfahrung haben können.",
@@ -915,7 +917,9 @@
         "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
       }
     },
-    "title" : "Portal-Konfiguration"
+    "title" : "Portal-Konfiguration",
+    "update-fail" : "Konfiguration konnte nicht aktualisiert werden",
+    "update-ok" : "Konfiguration erfolgreich aktualisiert"
   },
   "Register" : {
     "fail" : {
