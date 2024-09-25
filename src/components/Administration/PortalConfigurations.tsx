@@ -130,7 +130,7 @@ export function PortalConfigurations() {
                 return (
                         <>
                             <Input
-                                    value={selectedValue}
+                                    defaultValue={selectedValue}
                                     key={valueType + "-" + config.id}
                                     onChange={(e) => debouncedUpdate({ type: config.valueType, id: config.id, value: e.target.value })}
                             />
