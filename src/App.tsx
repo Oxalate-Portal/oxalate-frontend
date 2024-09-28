@@ -1,24 +1,24 @@
 import React from "react";
 import "./App.css";
-import { ConfigProvider, theme } from "antd";
-import { AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession } from "./session";
+import {ConfigProvider, theme} from "antd";
+import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { Register, Registration } from "./components/Register";
-import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
-import { AcceptTerms, Home, LoginWithCaptcha, NavigationBar, OxalateFooter } from "./components/main";
-import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
-import { AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData } from "./components/Administration";
-import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
-import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
-import { Payments } from "./components/Payment";
-import { EditCertificate } from "./components/Certificate";
-import { AdminUploads } from "./components/Administration/FileManagement";
-import { PortalConfigurations } from "./components/Administration/PortalConfigurations";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Register, Registration} from "./components/Register";
+import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
+import {AcceptTerms, Home, LoginWithCaptcha, NavigationBar, OxalateFooter} from "./components/main";
+import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
+import {AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
+import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
+import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
+import {Payments} from "./components/Payment";
+import {EditCertificate} from "./components/Certificate";
+import {AdminUploads} from "./components/Administration/FileManagement";
+import {PortalConfigurations} from "./components/Administration/PortalConfigurations";
 
 function App() {
     const {darkAlgorithm} = theme;
-    const {userSession, getSessionLanguage, logoutUser} = useSession();
+    const {userSession, getSessionLanguage, organizationName, logoutUser} = useSession();
     const sessionLanguage = getSessionLanguage();
 
     if (sessionLanguage !== undefined && sessionLanguage !== i18next.language) {
@@ -47,6 +47,9 @@ function App() {
                 </div>
         );
     }
+
+    // Set the title of the page to that of the organization name.
+    document.title = organizationName;
 
     return (
             <div className="app-container bg-light">

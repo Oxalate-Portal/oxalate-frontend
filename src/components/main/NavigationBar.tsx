@@ -1,18 +1,18 @@
 /// <reference types="vite-plugin-svgr/client" />
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
-import { NavLink } from "react-router-dom";
-import { Tooltip } from "antd";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {NavLink} from "react-router-dom";
+import {Tooltip} from "antd";
 import i18next from "i18next";
-import { useEffect, useState } from "react";
-import { checkRoles, LanguageUtil } from "../../helpers";
-import { PageGroupResponse } from "../../models/responses";
-import { RoleEnum } from "../../models";
-import { pageAPI } from "../../services";
+import {useEffect, useState} from "react";
+import {checkRoles, LanguageUtil} from "../../helpers";
+import {PageGroupResponse} from "../../models/responses";
+import {RoleEnum} from "../../models";
+import {pageAPI} from "../../services";
 import Logo from "../../portal_logo.svg?react";
 
 export function NavigationBar() {
-    const {userSession, logoutUser, getSessionLanguage, setSessionLanguage} = useSession();
+    const {userSession, logoutUser, getSessionLanguage, organizationName, setSessionLanguage} = useSession();
 
     const {t} = useTranslation();
     const [navigationElements, setNavigationElements] = useState<PageGroupResponse[]>([]);
@@ -20,15 +20,17 @@ export function NavigationBar() {
     useEffect(() => {
         const fetchPaths = async () => {
             const language = getSessionLanguage();
-
-            const navElements = await pageAPI.getNavigationItems(language);
-
-            if (navElements) {
-                setNavigationElements(JSON.parse(JSON.stringify(navElements)));
-            }
+            pageAPI.getNavigationItems(language)
+                    .then(navElements => {
+                        setNavigationElements(JSON.parse(JSON.stringify(navElements)));
+                        window.addEventListener("reloadNavigationEvent", fetchPaths);
+                    })
+                    .catch(e => {
+                        console.error("Failed to load navigation items: " + e);
+                    })
+                    .finally(() => {
+                    });
         };
-
-        window.addEventListener("reloadNavigationEvent", fetchPaths);
 
         fetchPaths().catch(console.error);
 
@@ -40,14 +42,19 @@ export function NavigationBar() {
     function switchLanguage(language: string) {
         setSessionLanguage(language);
         window.dispatchEvent(new Event("reloadNavigationEvent"));
-        i18next.changeLanguage(language).then().catch(e => console.error("Failed to load language: " + language + ", error: " + e));
+
+        i18next.changeLanguage(language)
+                .then()
+                .catch(e => {
+                    console.error("Failed to load language: " + language + ", error: " + e)
+                });
     }
 
     return (
             <nav className="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
                 <div className="container-fluid">
                     <div className="mx-auto order-0">
-                        <Tooltip title={import.meta.env.VITE_APP_OXALATE_PAGE_TITLE}>
+                        <Tooltip title={organizationName}>
                             <div style={{width: "156px", height: "64px", marginRight: "20px"}}>
                                 <NavLink to={"/"}><Logo
                                         style={{width: "100%", height: "100%"}}
