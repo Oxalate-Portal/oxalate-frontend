@@ -1,12 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { ActionResultEnum, LoginStatus, SessionVO } from "../models";
-import { LoginRequest } from "../models/requests";
-import { authAPI } from "../services";
+import {createContext, useContext, useEffect, useState} from "react";
+import {ActionResultEnum, LoginStatus, SessionVO} from "../models";
+import {LoginRequest} from "../models/requests";
+import {authAPI, portalConfigurationAPI} from "../services";
 
 // Define the type for the session context
 interface SessionContextType {
     userSession: SessionVO | null;
     sessionLanguage: string;
+    organizationName: string;
     getSessionLanguage: () => string;
     setSessionLanguage: (language: string) => void;
     loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
@@ -18,7 +19,8 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export function SessionProvider({children}: any) {
     const [user, setUser] = useState<SessionVO | null>(null);
-    const [language, setLanguage] = useState<string>("fi");
+    const [language, setLanguage] = useState<string>("en");
+    const [organizationName, setOrganizationName] = useState<string>("Oxalate Portal");
     const [isLoading, setIsLoading] = useState<boolean>(true); // New state to track loading
 
     const userKey: string = "user";
@@ -37,6 +39,16 @@ export function SessionProvider({children}: any) {
 
         if (languageData) {
             setLanguage(languageData);
+        } else {
+            portalConfigurationAPI.getFrontendConfiguration()
+                    .then((configurations) => {
+                        setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
+                        const languageConfig = configurations.find((config) => config.key === "default-language");
+
+                        if (languageConfig) {
+                            setLanguage(languageConfig.value);
+                        }
+                    });
         }
 
         setIsLoading(false);
@@ -66,9 +78,18 @@ export function SessionProvider({children}: any) {
 
     // Function to handle logout
     const logoutUser = () => {
-        setUser(null);
-        localStorage.removeItem(userKey);
-        authAPI.logout();
+        authAPI.logout()
+                .then(() => {
+                    console.debug("User logged out");
+                })
+                .catch((error) => {
+                    console.error("Failed to log out user", error);
+                })
+                .finally(() => {
+                    setUser(null);
+                    localStorage.removeItem(userKey);
+                    window.location.href = "/";
+                });
     };
 
     const setSessionLanguage = (language: string) => {
@@ -92,6 +113,7 @@ export function SessionProvider({children}: any) {
     const contextValue: SessionContextType = {
         userSession: user,
         sessionLanguage: language,
+        organizationName: organizationName,
         getSessionLanguage,
         setSessionLanguage,
         loginUser,

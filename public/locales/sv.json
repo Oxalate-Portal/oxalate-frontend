@@ -863,6 +863,10 @@
       }
     },
     "frontend" : {
+      "max-certificates" : {
+        "label" : "Certifikat (max)",
+        "tooltip" : "Maximalt antal certifikat som en medlem kan registrera"
+      },
       "max-depth" : {
         "label" : "Maximala djupet",
         "tooltip" : "Maximala djupet för dykningar"
@@ -896,6 +900,10 @@
       "default-language" : {
         "label" : "Standardspråk",
         "tooltip" : "Standardspråk för portalen, ISO-639-format"
+      },
+      "enabled-language" : {
+        "label" : "Tillåtna språk",
+        "tooltip" : "Vilka språk som är tillåtna på portalen"
       },
       "org-name" : {
         "label" : "Organisationsnamn",

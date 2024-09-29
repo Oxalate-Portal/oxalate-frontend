@@ -863,6 +863,10 @@
       }
     },
     "frontend" : {
+      "max-certificates" : {
+        "label" : "Max certificates",
+        "tooltip" : "Maximum number of certificates a user can register"
+      },
       "max-depth" : {
         "label" : "Max depth",
         "tooltip" : "Maximum depth of dives"
@@ -896,6 +900,10 @@
       "default-language" : {
         "label" : "Default language",
         "tooltip" : "Default language for the portal, ISO-639 format"
+      },
+      "enabled-language" : {
+        "label" : "Enabled languages",
+        "tooltip" : "Which languages are enabled"
       },
       "org-name" : {
         "label" : "Organization name",
