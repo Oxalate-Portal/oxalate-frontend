@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Checkbox, Col, Divider, Input, InputNumber, message, Row, Space, Spin, Switch, Tooltip, Typography } from "antd";
-import { PortalConfigurationResponse } from "../../models/responses";
-import { portalConfigurationAPI } from "../../services";
-import { useTranslation } from "react-i18next";
-import { debounce } from "lodash";
+import React, {useCallback, useEffect, useState} from "react";
+import {Button, Checkbox, Col, Divider, Input, InputNumber, message, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
+import {PortalConfigurationResponse} from "../../models/responses";
+import {portalConfigurationAPI} from "../../services";
+import {useTranslation} from "react-i18next";
+import {debounce} from "lodash";
 
 const { Text } = Typography;
 
@@ -86,7 +86,7 @@ export function PortalConfigurations() {
     const debouncedUpdate = useCallback(debounce(handleUpdate, 1000), [handleUpdate]);
 
     function renderEditor(config: PortalConfigurationResponse) {
-        const { valueType, settingKey, runtimeValue, defaultValue } = config;
+        const { valueType, runtimeValue, defaultValue } = config;
 
         let selectedValue = defaultValue;
 
@@ -130,7 +130,7 @@ export function PortalConfigurations() {
                 return (
                         <>
                             <Input
-                                    value={selectedValue}
+                                    defaultValue={selectedValue}
                                     key={valueType + "-" + config.id}
                                     onChange={(e) => debouncedUpdate({ type: config.valueType, id: config.id, value: e.target.value })}
                             />

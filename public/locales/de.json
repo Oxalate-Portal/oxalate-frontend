@@ -863,6 +863,10 @@
       }
     },
     "frontend" : {
+      "max-certificates" : {
+        "label" : "Maximale Anzahl von Zertifikaten",
+        "tooltip" : "Maximale Anzahl von einem Benutzer erhaltenen Zertifikaten"
+         },
       "max-depth" : {
         "label" : "Maximale Tiefe",
         "tooltip" : "Maximale Tiefe der Tauchgänge"
@@ -896,6 +900,10 @@
       "default-language" : {
         "label" : "Standardsprache",
         "tooltip" : "Standardsprache des Portals, ISO-639-Format"
+      },
+      "enabled-language" : {
+        "label" : "Aktivierte Sprachen",
+        "tooltip" : "Welche Sprachen im Portal aktiviert sind"
       },
       "org-name" : {
         "label" : "Organisationsname",

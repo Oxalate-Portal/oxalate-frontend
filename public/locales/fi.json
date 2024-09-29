@@ -863,6 +863,10 @@
       }
     },
     "frontend" : {
+      "max-certificates" : {
+        "label" : "Luokitukset (max)",
+        "tooltip" : "Maksimimäärä luokituksia, joita yksi sukeltaja voi rekisteröidä"
+      },
       "max-depth" : {
         "label" : "Maksimisukellussyvyys",
         "tooltip" : "Sukellusten maksimisyvyys"
@@ -896,6 +900,10 @@
       "default-language" : {
         "label" : "Oletuskieli",
         "tooltip" : "Portaalin oletuskieli, ISO-639-muodossa"
+      },
+      "enabled-language" : {
+        "label" : "Käytössä olevat kielet",
+        "tooltip" : "Käytössä olevat kielet, ISO-639-muodossa"
       },
       "org-name" : {
         "label" : "Organisaation nimi",
