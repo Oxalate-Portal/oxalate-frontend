@@ -908,6 +908,10 @@
       "org-name" : {
         "label" : "Organisationsname",
         "tooltip" : "Name der Organisation"
+      },
+      "top-divers-list-size" : {
+        "label" : "Top-Taucher-Listengröße",
+        "tooltip" : "Anzahl der in der Top-Taucher-Liste angezeigten Taucher"
       }
     },
     "must-be-set" : "muss gesetzt werden",
@@ -1029,7 +1033,8 @@
       "position" : "Position",
       "userName" : "Name"
     },
-    "title" : "Jahresstatistik der Tauchgänge"
+    "title-1" : "Top-",
+    "title-2" : " Jahresstatistik der Tauchgänge"
   },
   "StatsYearlyEvents" : {
     "stats" : {

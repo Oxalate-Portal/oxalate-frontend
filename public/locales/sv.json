@@ -908,6 +908,10 @@
       "org-name" : {
         "label" : "Organisationsnamn",
         "tooltip" : "Namn på organisationen"
+      },
+      "top-divers-list-size" : {
+        "label" : "Topplista dykare",
+        "tooltip" : "Antal dykare som visas på topplistan"
       }
     },
     "must-be-set" : "Måste sättas",
@@ -1021,7 +1025,8 @@
       "position" : "Position",
       "userName" : "Namn"
     },
-    "title" : "Årsstatistik för dyk"
+    "title-1" : "Top-",
+    "title-2" : " årsstatistik för dyk"
   },
   "StatsYearlyEvents" : {
     "stats" : {

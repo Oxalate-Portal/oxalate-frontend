@@ -908,6 +908,10 @@
       "org-name" : {
         "label" : "Organization name",
         "tooltip" : "Name of the organization"
+      },
+      "top-divers-list-size" : {
+        "label" : "Top divers list size",
+        "tooltip" : "What is the count of top divers (counted by dives)"
       }
     },
     "must-be-set" : "Must be set",
@@ -1029,7 +1033,8 @@
       "position" : "Position",
       "userName" : "Name"
     },
-    "title" : "Yearly dive statistics"
+    "title-1" : "Top-",
+    "title-2" : " yearly dive statistics"
   },
   "StatsYearlyEvents" : {
     "stats" : {

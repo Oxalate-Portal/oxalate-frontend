@@ -908,7 +908,10 @@
       "org-name" : {
         "label" : "Organisaation nimi",
         "tooltip" : "Organisaation nimi"
-      }
+      },
+      "top-divers-list-size" : {
+        "label" : "Sukeltajalista koko",
+        "tooltip" : "Kuinka monta sukeltajaa näytetään top-listassa."
     },
     "must-be-set" : "Pakollinen asetus",
     "payment" : {
@@ -1029,7 +1032,8 @@
       "position" : "Sija",
       "userName" : "Nimi"
     },
-    "title" : "Sukellusten vuositilasto"
+    "title-1" : "Top-",
+    "title-2" : " sukellusten vuositilasto"
   },
   "StatsYearlyEvents" : {
     "stats" : {
