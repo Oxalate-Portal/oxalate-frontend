@@ -1093,16 +1093,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Sähköpostitilaukset"
+      "header" : "Sähköpostitilaukset",
+      "tooltip" : "Valitse mitä sähköposteja haluat vastaanottaa"
     },
     "future-panel" : {
-      "header" : "Tulevat tapahtumat"
+      "header" : "Tulevat tapahtumat",
+      "tooltip" : "Tulevat tapahtumat, joihin olet ilmoittautunut"
     },
     "past-panel" : {
-      "header" : "Menneet tapahtumat"
+      "header" : "Menneet tapahtumat",
+      "tooltip" : "Menneet tapahtumat, joihin olet osallistunut"
     },
     "profile-certificates-panel" : {
-      "header" : "Sukellusluokitukset"
+      "header" : "Sukellusluokitukset",
+      "tooltip" : "Sukellusluokitukset, enintään "
     }
   },
   "UserFields" : {

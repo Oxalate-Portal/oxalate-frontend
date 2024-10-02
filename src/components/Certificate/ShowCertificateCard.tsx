@@ -116,7 +116,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
             <Card
                     key={certificate.id}
                     title={t("ShowCertificateCard.card.title") + certificate.certificateName}
-                    style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 600}}
+                    style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 800}}
                     extra={showExtras()}
             >
                 <Row gutter={16}>

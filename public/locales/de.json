@@ -1094,16 +1094,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "E-Mail-Abonnement"
+      "header" : "E-Mail-Abonnement",
+      "tooltip" : "Wählen Sie, welche Benachrichtigungen Sie erhalten möchten"
     },
     "future-panel" : {
-      "header" : "Kommende Veranstaltungen"
+      "header" : "Kommende Veranstaltungen",
+      "tooltip" : "Kommende Veranstaltungen, an denen Sie teilnehmen"
     },
     "past-panel" : {
-      "header" : "Vergangene Veranstaltungen"
+      "header" : "Vergangene Veranstaltungen",
+      "tooltip" : "Vergangene Veranstaltungen, an denen Sie teilgenommen haben"
     },
     "profile-certificates-panel" : {
-      "header" : "Tauchzertifikate"
+      "header" : "Tauchzertifikate",
+      "tooltip" : "Ihre Tauchzertifikate, die maximum ist "
     }
   },
   "UserFields" : {

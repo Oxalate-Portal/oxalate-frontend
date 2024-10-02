@@ -1086,16 +1086,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "E-postprenumerationer"
+      "header" : "E-postprenumerationer",
+      "tooltip" : "Välj vilka e-postmeddelanden du vill prenumerera på"
     },
     "future-panel" : {
-      "header" : "Kommande evenemang"
+      "header" : "Kommande evenemang",
+      "tooltip" : "Evenemang som du har anmält dig till"
     },
     "past-panel" : {
-      "header" : "Tidigare evenemang"
+      "header" : "Tidigare evenemang",
+      "tooltip" : "Evenemang som du har deltagit i"
     },
     "profile-certificates-panel" : {
-      "header" : "Dykcertifikat"
+      "header" : "Dykcertifikat",
+      "tooltip" : "Dykcertifikat som du har registrerat, max "
     }
   },
   "UserFields" : {

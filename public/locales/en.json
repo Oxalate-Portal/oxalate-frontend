@@ -1094,16 +1094,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Email subscriptions"
+      "header" : "Email subscriptions",
+      "tooltip" : "Select the types of email notifications you want to receive"
     },
     "future-panel" : {
-      "header" : "Upcoming events"
+      "header" : "Upcoming events",
+      "tooltip" : "Future events you have signed up for"
     },
     "past-panel" : {
-      "header" : "Past events"
+      "header" : "Past events",
+      "tooltip" : "Past events you have participated in"
     },
     "profile-certificates-panel" : {
-      "header" : "Dive certifications"
+      "header" : "Dive certifications",
+      "tooltip" : "Your dive certifications, max "
     }
   },
   "UserFields" : {
