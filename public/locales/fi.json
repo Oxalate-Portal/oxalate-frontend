@@ -912,6 +912,7 @@
       "top-divers-list-size" : {
         "label" : "Sukeltajalista koko",
         "tooltip" : "Kuinka monta sukeltajaa näytetään top-listassa."
+      }
     },
     "must-be-set" : "Pakollinen asetus",
     "payment" : {
