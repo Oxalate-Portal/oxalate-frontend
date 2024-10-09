@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { RoleEnum } from "../../models";
-import { Button, Space, Table } from "antd";
+import { Button, Space, Spin, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { checkRoles, formatDateTime } from "../../helpers";
 import { Link } from "react-router-dom";
@@ -144,26 +144,29 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                 })
                 .catch((error: any) => {
                     console.error("Failed to fetch events for type: " + diveEventType, error);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
-        setLoading(false);
     }, [diveEventType]);
 
     return (
             <>
                 <h4>{title}</h4>
-
-                {!loading && diveEvents && diveEvents.length > 0 && <Table
-                        dataSource={diveEvents}
-                        rowKey={"id"}
-                        columns={diveEventColumns}
-                        pagination={{
-                            defaultPageSize: 5,
-                            hideOnSinglePage: false,
-                            showSizeChanger: true,
-                            showQuickJumper: true,
-                            total: diveEvents.length,
-                            pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
-                        }}/>}
+                <Spin spinning={loading}>
+                    {!loading && diveEvents && diveEvents.length > 0 && <Table
+                            dataSource={diveEvents}
+                            rowKey={"id"}
+                            columns={diveEventColumns}
+                            pagination={{
+                                defaultPageSize: 5,
+                                hideOnSinglePage: false,
+                                showSizeChanger: true,
+                                showQuickJumper: true,
+                                total: diveEvents.length,
+                                pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
+                            }}/>}
+                </Spin>
             </>
     );
 }
