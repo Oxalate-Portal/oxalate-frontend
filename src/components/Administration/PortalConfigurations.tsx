@@ -38,7 +38,6 @@ export function PortalConfigurations() {
     }
 
     function handleUpdate(configId: number) {
-        console.log("handleUpdate called with configId", configId);
         const config = portalConfigurations.find((c) => c.id === configId);
 
         if (!config) {
@@ -47,10 +46,8 @@ export function PortalConfigurations() {
         }
 
         const valueType = config.valueType;
-        console.log("Found config", config);
 
         const value = modifiedValues[configId];
-        console.log("Found value", value);
 
         config.runtimeValue = value;
 
@@ -58,8 +55,6 @@ export function PortalConfigurations() {
             message.error(t("PortalConfigurations.invalid-email"));
             return;
         }
-
-        console.log("Updated configuration", config);
 
         setLoading(true);
 
@@ -90,7 +85,6 @@ export function PortalConfigurations() {
 
         function handleChange(newValue: any) {
             setModifiedValues((prev) => ({...prev, [config.id]: newValue}));
-            console.log("ModifiedValues:", modifiedValues);
         }
 
         switch (valueType) {
