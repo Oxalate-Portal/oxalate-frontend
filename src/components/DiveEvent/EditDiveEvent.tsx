@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
-import { BlockedDateResponse, DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { blockedDatesAPI, diveEventAPI, portalConfigurationAPI, userAPI } from "../../services";
+import { BlockedDateResponse, DiveEventResponse, DiveEventUserResponse, FrontendConfigurationResponse } from "../../models/responses";
 import { DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { useTranslation } from "react-i18next";
 import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
@@ -28,19 +28,18 @@ export function EditDiveEvent() {
 
     const [submitButtonText, setSubmitButtonText] = useState(t("EditEvent.form.submitButton.update"));
 
-    const eventDurationMarks = {1: "1h", 6: "6h", 12: "12h", 24: "24h"};
-    const maxDurationMarks = {30: "30 min", 60: "60 min", 120: "120 min", 180: "180 min", 240: "240 min"};
-    const maxDepthMarks = {10: "10m", 30: "30m", 60: "60m", 90: "90m", 120: "120m", 180: "180m"};
-    const maxParticipantsMarks = {4: "4", 8: "8", 12: "12", 16: "16", 20: "20", 24: "24", 30: "30"};
+    const [maxDepth, setMaxDepth] = useState<number>(60);
+    const [maxDiveLength, setMaxDiveLength] = useState<number>(120);
+    const [minParticipants, setMinParticipants] = useState<number>(2);
+    const [maxParticipants, setMaxParticipants] = useState<number>(20);
+    const [minEventLength, setMinEventLength] = useState<number>(1);
+    const [maxEventLength, setMaxEventLength] = useState<number>(6);
+    const [eventTypes, setEventTypes] = useState<{value: string, label: string}[]>([]);
 
-    const eventTypes = [
-        {value: "DIVE", label: t("EditEvent.eventTypes.dive")},
-        {value: "Luola", label: t("EditEvent.eventTypes.cave")},
-        {value: "Luola / Avo", label: t("EditEvent.eventTypes.caveOpen")},
-        {value: "Avo", label: t("EditEvent.eventTypes.open")},
-        {value: "Vain pintatoimintaa", label: t("EditEvent.eventTypes.surface")},
-        {value: "Muu", label: t("EditEvent.eventTypes.other")}
-    ];
+    const [eventDurationMarks, setEventDurationMarks] = useState<{[key: number]: string}>({});
+    const [diveLengthMarks, setDiveLengthMarks] = useState<{[key: number]: string}>({});
+    const [depthMarks, setDepthMarks] = useState<{[key: number]: string}>({});
+    const [participantsMarks, setParticipantsMarks] = useState<{[key: number]: string}>({});
 
     const statusOptions: OptionItemVO[] = [
         {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
@@ -70,6 +69,63 @@ export function EditDiveEvent() {
             setParticipantOptions(participantList);
         }
 
+        function findConfigurationValue(configurations: FrontendConfigurationResponse[], key: string): number {
+            const config = configurations.find((item) => item.key === key);
+            return config !== undefined ? parseInt(config.value) : 0;
+        }
+
+        function findConfigurationArray(configurations: FrontendConfigurationResponse[], key: string): string[] {
+            if (configurations === undefined || configurations.length === 0) {
+                return [];
+            }
+
+            const config = configurations.find((item) => item.key === key);
+
+            if (config === undefined || config === null) {
+                return [];
+            }
+
+            return config.value.split(",").sort((a, b) => a.localeCompare(b));
+        }
+
+        function getMarks(min: number, max: number, step: number, suffix: string): {[key: number]: string} {
+            let marks: {[key: number]: string} = {};
+            for (let i = min; i <= max; i += step) {
+                marks[i] = i.toString()+suffix;
+            }
+            return marks;
+        }
+
+        function setCommonValues(dates: Date[], portalConfiguration: FrontendConfigurationResponse[]): void {
+            setBlockedDates(dates);
+            // Find max-depth from portalConfiguration array and set it to state
+            const maxDepth = findConfigurationValue(portalConfiguration, "max-depth");
+            setMaxDepth(maxDepth);
+            setDepthMarks(getMarks(10, maxDepth, 10, "m"));
+
+            const maxDiveLength = findConfigurationValue(portalConfiguration, "max-dive-length");
+            setMaxDiveLength(maxDiveLength);
+            setDiveLengthMarks(getMarks(30, maxDiveLength, 60, " min"));
+
+            const minEventLength = findConfigurationValue(portalConfiguration, "min-event-length");
+            const maxEventLength = findConfigurationValue(portalConfiguration, "max-event-length");
+            setMinEventLength(minEventLength);
+            setMaxEventLength(maxEventLength);
+            setEventDurationMarks(getMarks(minEventLength, maxEventLength, 2, "h"));
+
+            const minParticipants = findConfigurationValue(portalConfiguration, "min-participants");
+            const maxParticipants = findConfigurationValue(portalConfiguration, "max-participants");
+            setMinParticipants(minParticipants);
+            setMaxParticipants(maxParticipants);
+            setParticipantsMarks(getMarks(minParticipants, maxParticipants, 5, ""));
+
+            const eventTypes: string[] = findConfigurationArray(portalConfiguration, "types-of-event");
+            eventTypes.sort();
+            setEventTypes(eventTypes.map((type) => {
+                return {value: type, label: t("EditEvent.eventTypes." + type)};
+            }));
+        }
+
         setLoading(true);
         let tmpDiveEventId = 0;
 
@@ -83,15 +139,15 @@ export function EditDiveEvent() {
                 diveEventAPI.findById(tmpDiveEventId, null),
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER),
-                blockedDatesAPI.findAll()
+                blockedDatesAPI.findAll(),
+                portalConfigurationAPI.getFrontendConfiguration()
             ])
-                    .then(([eventResponse, organizerResponses,
-                               participantResponses, blockedDatesResponses]) => {
+                    .then(([eventResponse, organizerResponses, participantResponses, blockedDatesResponses, portalConfiguration]) => {
                         setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
                         populateOrganizerList(organizerResponses);
                         populateParticipantList(participantResponses);
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
-                        setBlockedDates(dates);
+                        setCommonValues(dates, portalConfiguration);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -103,9 +159,10 @@ export function EditDiveEvent() {
             Promise.all([
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER),
-                blockedDatesAPI.findAll()
+                blockedDatesAPI.findAll(),
+                portalConfigurationAPI.getFrontendConfiguration()
             ])
-                    .then(([organizerResponse, participantResponse, blockedDatesResponses]) => {
+                    .then(([organizerResponse, participantResponse, blockedDatesResponses, portalConfiguration]) => {
                         populateOrganizerList(organizerResponse);
                         populateParticipantList(participantResponse);
                         setDiveEvent(
@@ -125,9 +182,7 @@ export function EditDiveEvent() {
                                 }
                         );
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
-                        setBlockedDates(dates);
-
-                        setLoading(false);
+                        setCommonValues(dates, portalConfiguration);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -162,7 +217,21 @@ export function EditDiveEvent() {
         const selectedParticipants = diveEventForm.getFieldValue("participants");
 
         // Ensure that the input value is not less than the number of selected participants
-        if (value < selectedParticipants.length) {
+        if (value < (selectedParticipants.length + 1)) {
+            return Promise.reject(t("EditEvent.form.maxDepth.rules.maxParticipants"));
+        }
+
+        return Promise.resolve();
+    }
+
+    function validateSelectedParticipants(_: any, value: number): Promise<void> {
+        // Get the selected participant IDs
+        const selectedParticipants = diveEventForm.getFieldValue("participants");
+        // Get the set maxParticipants value
+        const setMaxParticipants = diveEventForm.getFieldValue("maxParticipants");
+        // Ensure that the input value is not less than the number of selected participants
+
+        if (selectedParticipants.length >= setMaxParticipants) {
             return Promise.reject(t("EditEvent.form.maxDepth.rules.maxParticipants"));
         }
 
@@ -367,19 +436,19 @@ export function EditDiveEvent() {
                                required={true}
                                label={t("EditEvent.form.eventDuration.label")}
                                tooltip={t("EditEvent.form.eventDuration.tooltip")}>
-                        <Slider min={1} max={24} step={1} marks={eventDurationMarks}/>
+                        <Slider min={minEventLength} max={maxEventLength} step={1} marks={eventDurationMarks}/>
                     </Form.Item>
                     <Form.Item name={"maxDuration"}
                                required={true}
                                label={t("EditEvent.form.maxDuration.label")}
                                tooltip={t("EditEvent.form.maxDuration.tooltip")}>
-                        <Slider min={30} max={240} step={10} marks={maxDurationMarks}/>
+                        <Slider min={30} max={maxDiveLength} step={10} marks={diveLengthMarks}/>
                     </Form.Item>
                     <Form.Item name={"maxDepth"}
                                required={true}
                                label={t("EditEvent.form.maxDepth.label")}
                                tooltip={t("EditEvent.form.maxDepth.tooltip")}>
-                        <Slider min={10} max={180} step={5} marks={maxDepthMarks}/>
+                        <Slider min={10} max={maxDepth} step={5} marks={depthMarks}/>
                     </Form.Item>
                     <Form.Item name={"maxParticipants"}
                                required={true}
@@ -389,7 +458,7 @@ export function EditDiveEvent() {
                                    {validator: validateMaxParticipants}
                                ]}
                     >
-                        <Slider min={3} max={29} step={1} marks={maxParticipantsMarks}/>
+                        <Slider min={minParticipants} max={maxParticipants} step={1} marks={participantsMarks}/>
                     </Form.Item>
                     <Form.Item name={"status"}
                                required={true}
@@ -408,6 +477,9 @@ export function EditDiveEvent() {
                     <Form.Item name={"participants"}
                                label={t("EditEvent.form.participants.label")}
                                tooltip={t("EditEvent.form.participants.tooltip")}
+                               rules={[
+                                   {validator: validateSelectedParticipants},
+                               ]}
                     >
                         <Select
                                 mode="multiple"

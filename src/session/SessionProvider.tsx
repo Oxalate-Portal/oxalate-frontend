@@ -1,12 +1,14 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ActionResultEnum, LoginStatus, SessionVO } from "../models";
 import { LoginRequest } from "../models/requests";
-import { authAPI } from "../services";
+import { authAPI, portalConfigurationAPI } from "../services";
+import { FrontendConfigurationResponse } from "../models/responses";
 
 // Define the type for the session context
 interface SessionContextType {
     userSession: SessionVO | null;
     sessionLanguage: string;
+    organizationName: string;
     getSessionLanguage: () => string;
     setSessionLanguage: (language: string) => void;
     loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
@@ -18,28 +20,48 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export function SessionProvider({children}: any) {
     const [user, setUser] = useState<SessionVO | null>(null);
-    const [language, setLanguage] = useState<string>("fi");
-    const [isLoading, setIsLoading] = useState<boolean>(true); // New state to track loading
+    const [language, setLanguage] = useState<string>("en");
+    const [organizationName, setOrganizationName] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true); // New state to track loading
+    const [frontendConfiguration, setFrontendConfiguration] = useState<FrontendConfigurationResponse[]>([]);
 
     const userKey: string = "user";
     const languageKey: string = "language";
 
     // Check if user data exists in local storage on initial load
     useEffect(() => {
-        setIsLoading(true);
+        setLoading(true);
         const userData = localStorage.getItem(userKey);
 
         if (userData) {
             setUser(JSON.parse(userData));
         }
 
-        const languageData = localStorage.getItem(languageKey);
+        portalConfigurationAPI.getFrontendConfiguration()
+                .then((configurations: FrontendConfigurationResponse[]) => {
+                    setFrontendConfiguration(configurations);
+                    console.log("Configurations", configurations);
+                    const languageData = localStorage.getItem(languageKey);
 
-        if (languageData) {
-            setLanguage(languageData);
-        }
+                    if (languageData) {
+                        setLanguage(languageData);
+                    } else {
+                        const languageConfig = configurations.find((config) => config.key === "default-language");
 
-        setIsLoading(false);
+                        if (languageConfig) {
+                            setLanguage(languageConfig.value);
+                            localStorage.setItem(languageKey, languageConfig.value);
+                        }
+                    }
+
+                    if (organizationName === "") {
+                        setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
+                    }
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+
     }, [userKey, languageKey]);
 
     // Function to handle login
@@ -66,9 +88,18 @@ export function SessionProvider({children}: any) {
 
     // Function to handle logout
     const logoutUser = () => {
-        setUser(null);
-        localStorage.removeItem(userKey);
-        authAPI.logout();
+        authAPI.logout()
+                .then(() => {
+                    console.debug("User logged out");
+                })
+                .catch((error) => {
+                    console.error("Failed to log out user", error);
+                })
+                .finally(() => {
+                    setUser(null);
+                    localStorage.removeItem(userKey);
+                    window.location.href = "/";
+                });
     };
 
     const setSessionLanguage = (language: string) => {
@@ -85,13 +116,14 @@ export function SessionProvider({children}: any) {
         setUser(sessionVO);
     };
 
-    if (isLoading) {
+    if (loading) {
         return <div>Loading...</div>;
     }
 
     const contextValue: SessionContextType = {
         userSession: user,
         sessionLanguage: language,
+        organizationName: organizationName,
         getSessionLanguage,
         setSessionLanguage,
         loginUser,

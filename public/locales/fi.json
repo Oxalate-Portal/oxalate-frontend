@@ -316,11 +316,11 @@
   },
   "EditEvent" : {
     "eventTypes" : {
+      "boat" : "Sukellusta veneestä",
       "cave" : "Luola",
-      "caveOpen" : "Luola / Avo",
-      "dive" : "Sukellus",
-      "open" : "Avo",
-      "other" : "Muu (esim. blokkaava varaus)",
+      "current" : "Virta",
+      "open-and-cave" : "Avo / Luola",
+      "open-water" : "Avo",
       "surface" : "Vain pintatoimintaa"
     },
     "form" : {
@@ -826,6 +826,113 @@
   "PastEvents" : {
     "title" : "Menneet tapahtumat"
   },
+  "PortalConfigurations" : {
+    "button" : {
+      "reload" : "Lataa asetukset palvelimella"
+    },
+    "configuration" : "Asetus",
+    "configuration-reloaded" : "Asennukset ladattu palvelimelta",
+    "configuration-reload-failed" : "Asetusten lataaminen epäonnistui",
+    "current-setting" : "Nykyinen asetus",
+    "default-value" : "Oletusarvo",
+    "description" : "Täältä voit muokata portaalin asetuksia. Huomioi, että muutokset vaativat asetusten uudelleenlataamisen tullakeseen voimaan.",
+    "email" : {
+      "email-enabled" : {
+        "label" : "Sähköposti käytössä",
+        "tooltip" : "Onko sähköpostien lähetys oletuksena käytössä"
+      },
+      "email-notification-retries" : {
+        "label" : "Sähköposti-ilmoitusten uudelleenyritykset",
+        "tooltip" : "Kuinka monta kertaa sähköposti-ilmoitusta yritetään lähettää"
+      },
+      "email-notifications" : {
+        "label" : "Sähköposti-ilmoitukset",
+        "tooltip" : "Mitkä sähköposti-ilmoitukset lähetetään"
+      },
+      "org-email" : {
+        "label" : "Organisaation Sähköposti",
+        "tooltip" : "Organisaation sähköpostiosoite"
+      },
+      "support-email" : {
+        "label" : "Tukisähköposti",
+        "tooltip" : "Tukisähköpostiosoite"
+      },
+      "system-email" : {
+        "label" : "Järjestelmän sähköposti",
+        "tooltip" : "Järjestelmän sähköpostiosoite, yleensä ei-vastausosoite"
+      }
+    },
+    "frontend" : {
+      "max-certificates" : {
+        "label" : "Luokitukset (max)",
+        "tooltip" : "Maksimimäärä luokituksia, joita yksi sukeltaja voi rekisteröidä"
+      },
+      "max-depth" : {
+        "label" : "Maksimisukellussyvyys",
+        "tooltip" : "Sukellusten maksimisyvyys"
+      },
+      "max-dive-length" : {
+        "label" : "Sukelluksen maksimipituus",
+        "tooltip" : "Sukelluksen maksimipituus minuutteina"
+      },
+      "max-event-length" : {
+        "label" : "Tapahtuman maksimipituus",
+        "tooltip" : "Tapahtuman maksimipituus tunneissa"
+      },
+      "max-participants" : {
+        "label" : "Maksimiosallistujat",
+        "tooltip" : "Samanaikaisten osallistujien maksimimäärä"
+      },
+      "min-event-length" : {
+        "label" : "Tapahtuman vähittäispituus",
+        "tooltip" : "Tapahtuman vähittäispituus tunneissa"
+      },
+      "min-participants" : {
+        "label" : "Minimiosallistujat",
+        "tooltip" : "Samanaikaisten osallistujien minimimäärä, joka on vaadittu tapahtuman järjestämiseksi"
+      },
+      "types-of-event" : {
+        "label" : "Tapahtumatyypit",
+        "tooltip" : "Sallittujen sukellusten tyypit"
+      }
+    },
+    "general" : {
+      "default-language" : {
+        "label" : "Oletuskieli",
+        "tooltip" : "Portaalin oletuskieli, ISO-639-muodossa"
+      },
+      "enabled-language" : {
+        "label" : "Käytössä olevat kielet",
+        "tooltip" : "Käytössä olevat kielet, ISO-639-muodossa"
+      },
+      "org-name" : {
+        "label" : "Organisaation nimi",
+        "tooltip" : "Organisaation nimi"
+      },
+      "top-divers-list-size" : {
+        "label" : "Sukeltajalista koko",
+        "tooltip" : "Kuinka monta sukeltajaa näytetään top-listassa."
+      }
+    },
+    "must-be-set" : "Pakollinen asetus",
+    "payment" : {
+      "enabled-payment-methods" : {
+        "label" : "Sallitut maksutavat",
+        "tooltip" : "Millaiset maksutavat ovat sallittuja"
+      },
+      "event-require-payment" : {
+        "label" : "Tapahtuma vaatii maksun",
+        "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu osallistuakseen tapahtumaan"
+      },
+      "start-month" : {
+        "label" : "Aloituskuukausi",
+        "tooltip" : "Missä kuussa ajanjakson maksut alkavat, 1 = Tammikuu"
+      }
+    },
+    "title" : "Portaalin asetukset",
+    "update-fail" : "Asetusten päivitys epäonnistui",
+    "update-ok" : "Asetukset päivitetty"
+  },
   "Register" : {
     "fail" : {
       "message" : "Rekisteröinti epäonnistui!"
@@ -902,8 +1009,8 @@
       "photocopy" : "Luokituskortin kopio",
       "title" : "Luokitus: ",
       "upload-photo" : "Lataa luokituskortti",
-      "upload-photo-tooltip": "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu.",
-      "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt."
+      "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt.",
+      "upload-photo-tooltip" : "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu."
     }
   },
   "StatisticsMain" : {
@@ -926,7 +1033,8 @@
       "position" : "Sija",
       "userName" : "Nimi"
     },
-    "title" : "Sukellusten vuositilasto"
+    "title-1" : "Top-",
+    "title-2" : " sukellusten vuositilasto"
   },
   "StatsYearlyEvents" : {
     "stats" : {
@@ -986,16 +1094,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Sähköpostitilaukset"
+      "header" : "Sähköpostitilaukset",
+      "tooltip" : "Valitse mitä sähköposteja haluat vastaanottaa"
     },
     "future-panel" : {
-      "header" : "Tulevat tapahtumat"
+      "header" : "Tulevat tapahtumat",
+      "tooltip" : "Tulevat tapahtumat, joihin olet ilmoittautunut"
     },
     "past-panel" : {
-      "header" : "Menneet tapahtumat"
+      "header" : "Menneet tapahtumat",
+      "tooltip" : "Menneet tapahtumat, joihin olet osallistunut"
     },
     "profile-certificates-panel" : {
-      "header" : "Sukellusluokitukset"
+      "header" : "Sukellusluokitukset",
+      "tooltip" : "Sukellusluokitukset, enintään "
     }
   },
   "UserFields" : {
@@ -1138,6 +1250,7 @@
       "files" : "Tiedostot",
       "members" : "Jäsenet",
       "payments" : "Maksut",
+      "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
       "stats" : "Tilastot",
       "title" : "Ylläpito"

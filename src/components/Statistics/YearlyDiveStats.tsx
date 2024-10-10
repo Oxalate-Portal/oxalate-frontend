@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { statsAPI } from "../../services/StatsAPI";
-import { DiverListItemResponse, YearlyDiversListResponse } from "../../models/responses";
+import { DiverListItemResponse, FrontendConfigurationResponse, YearlyDiversListResponse } from "../../models/responses";
 import { Collapse, CollapseProps, Spin, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
-
-const {Panel} = Collapse;
+import { portalConfigurationAPI } from "../../services";
 
 export function YearlyDiveStats() {
     const [loading, setLoading] = useState(true);
     const [yearlyDiveData, setYearlyDiveData] = useState<YearlyDiversListResponse[]>([]);
+    const [topListSize, setTopListSize] = useState<number>(100);
     const {t} = useTranslation();
     const [collapseItems, setCollapseItems] = useState<CollapseProps["items"]>([]);
 
@@ -34,10 +34,11 @@ export function YearlyDiveStats() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            statsAPI.getYearlyDiverList()
-                    .then(response => {
-                        setYearlyDiveData(response);
-                        const items = response.map(yearlyData => ({
+            Promise.all([statsAPI.getYearlyDiverList(),
+            portalConfigurationAPI.getFrontendConfiguration()])
+                    .then(([statsRespond, portalConfig]) => {
+                        setYearlyDiveData(statsRespond);
+                        const items = statsRespond.map(yearlyData => ({
                             key: yearlyData.year + "-divedata-table",
                             label: yearlyData.year,
                             children: <Table dataSource={yearlyData.divers}
@@ -53,6 +54,11 @@ export function YearlyDiveStats() {
                                              rowKey={"id" + yearlyData.year}/>
                         }));
                         setCollapseItems(items);
+
+                        const topDiverListConfig: FrontendConfigurationResponse | undefined = portalConfig.find(config => config.key === "top-divers-list-size");
+                        if (topDiverListConfig !== undefined) {
+                            setTopListSize(parseInt(topDiverListConfig.value));
+                        }
                     })
                     .catch((error) => {
                         console.error(error);
@@ -67,7 +73,7 @@ export function YearlyDiveStats() {
 
     return (
             <div className={"darkDiv"}>
-                <h5>{t("StatsYearlyDives.title")}</h5>
+                <h5>{t("StatsYearlyDives.title-1") + topListSize + t("StatsYearlyDives.title-2")}</h5>
 
                 <Spin spinning={loading}>
                     {!loading && yearlyDiveData.length > 0 && <Collapse items={collapseItems}/>}

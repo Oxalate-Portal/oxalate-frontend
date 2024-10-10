@@ -316,11 +316,11 @@
   },
   "EditEvent" : {
     "eventTypes" : {
+      "boat" : "Dykning från båt",
       "cave" : "Grottdykning",
-      "caveOpen" : "Grottdykning / Öppen dykning",
-      "dive" : "Dykning",
-      "open" : "Öppen dykning",
-      "other" : "Annat (t.ex. blockad bokning)",
+      "current" : "Strömdykning",
+      "open-and-cave" : "Öppen dykning / Grottdykning",
+      "open-water" : "Öppen dykning",
       "surface" : "Endast yta"
     },
     "form" : {
@@ -826,6 +826,113 @@
   "PastEvents" : {
     "title" : "Tidigare evenemang"
   },
+  "PortalConfigurations" : {
+    "button" : {
+      "reload" : "Ladda om servern"
+    },
+    "configuration" : "Konfiguration",
+    "configuration-reloaded" : "Konfigurationen har laddats om",
+    "configuration-reload-failed" : "Misslyckades med att ladda om konfigurationen",
+    "current-setting" : "Aktuellt värde",
+    "default-value" : "Standardvärde",
+    "description" : "Här kan du konfigurera portalens inställningar. Observera att inställningar kräver att servern laddas om för att de ska träda i kraft.",
+    "email" : {
+      "email-enabled" : {
+        "label" : "E-post aktiverad",
+        "tooltip" : "Om e-postutskick är aktiverat som standard"
+      },
+      "email-notification-retries" : {
+        "label" : "Antal e-postnotifikationsförsök",
+        "tooltip" : "Antal försök att skicka e-postmeddelanden"
+      },
+      "email-notifications" : {
+        "label" : "E-postnotifikationer",
+        "tooltip" : "Vilka e-postmeddelanden som skickas"
+      },
+      "org-email" : {
+        "label" : "Organisations-E-post",
+        "tooltip" : "Organisationens e-postadress"
+      },
+      "support-email" : {
+        "label" : "Support-E-post",
+        "tooltip" : "Supportens e-postadress"
+      },
+      "system-email" : {
+        "label" : "System-E-post",
+        "tooltip" : "Systemets e-postadress, oftast en ingen-svara-adress"
+      }
+    },
+    "frontend" : {
+      "max-certificates" : {
+        "label" : "Certifikat (max)",
+        "tooltip" : "Maximalt antal certifikat som en medlem kan registrera"
+      },
+      "max-depth" : {
+        "label" : "Maximala djupet",
+        "tooltip" : "Maximala djupet för dykningar"
+      },
+      "max-dive-length" : {
+        "label" : "Maximal dykningstid",
+        "tooltip" : "Maximal tid för ett dyk, i minuter"
+      },
+      "max-event-length" : {
+        "label" : "Maximal evenemanglängd",
+        "tooltip" : "Maximal längd på ett dyk-evenemang, i timmar"
+      },
+      "max-participants" : {
+        "label" : "Maximalt antal deltagare",
+        "tooltip" : "Maximalt antal samtidiga deltagare"
+      },
+      "min-event-length" : {
+        "label" : "Minimal evenemanglängd",
+        "tooltip" : "Minimal längd på ett dyk-evenemang, i timmar"
+      },
+      "min-participants" : {
+        "label" : "Minimala antal deltagare",
+        "tooltip" : "Minimala antal samtidiga deltagare som krävs för att ett evenemang ska kunna genomföras"
+      },
+      "types-of-event" : {
+        "label" : "Evenemangstyper",
+        "tooltip" : "Tillåtna typer av dykningar"
+      }
+    },
+    "general" : {
+      "default-language" : {
+        "label" : "Standardspråk",
+        "tooltip" : "Standardspråk för portalen, ISO-639-format"
+      },
+      "enabled-language" : {
+        "label" : "Tillåtna språk",
+        "tooltip" : "Vilka språk som är tillåtna på portalen"
+      },
+      "org-name" : {
+        "label" : "Organisationsnamn",
+        "tooltip" : "Namn på organisationen"
+      },
+      "top-divers-list-size" : {
+        "label" : "Topplista dykare",
+        "tooltip" : "Antal dykare som visas på topplistan"
+      }
+    },
+    "must-be-set" : "Måste sättas",
+    "payment" : {
+      "enabled-payment-methods" : {
+        "label" : "Tillåtna betalningsmetoder",
+        "tooltip" : "Vilka betalningstyper som är tillåtna"
+      },
+      "event-require-payment" : {
+        "label" : "Event kräver betalning",
+        "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevenemang"
+      },
+      "start-month" : {
+        "label" : "Startmånad",
+        "tooltip" : "Vilken månad periodbetalningen startar, 1 = Januari"
+      }
+    },
+    "title" : "Portal konfiguration",
+    "update-fail" : "Misslyckades med att uppdatera konfigurationen",
+    "update-ok" : "Konfigurationen uppdaterad"
+  },
   "Register" : {
     "fail" : {
       "message" : "Registrering misslyckades!"
@@ -894,8 +1001,8 @@
       "photocopy" : "Kopia av dykcertifikat",
       "title" : "Certifikat: ",
       "upload-photo" : "Ladda dykcertificat",
-      "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna.",
-      "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet."
+      "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
+      "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
     }
   },
   "StatisticsMain" : {
@@ -918,7 +1025,8 @@
       "position" : "Position",
       "userName" : "Namn"
     },
-    "title" : "Årsstatistik för dyk"
+    "title-1" : "Top-",
+    "title-2" : " årsstatistik för dyk"
   },
   "StatsYearlyEvents" : {
     "stats" : {
@@ -978,16 +1086,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "E-postprenumerationer"
+      "header" : "E-postprenumerationer",
+      "tooltip" : "Välj vilka e-postmeddelanden du vill prenumerera på"
     },
     "future-panel" : {
-      "header" : "Kommande evenemang"
+      "header" : "Kommande evenemang",
+      "tooltip" : "Evenemang som du har anmält dig till"
     },
     "past-panel" : {
-      "header" : "Tidigare evenemang"
+      "header" : "Tidigare evenemang",
+      "tooltip" : "Evenemang som du har deltagit i"
     },
     "profile-certificates-panel" : {
-      "header" : "Dykcertifikat"
+      "header" : "Dykcertifikat",
+      "tooltip" : "Dykcertifikat som du har registrerat, max "
     }
   },
   "UserFields" : {
@@ -1130,6 +1242,7 @@
       "files" : "Filer",
       "members" : "Medlemmar",
       "payments" : "Betalningar",
+      "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",
       "stats" : "Statistik",
       "title" : "Administration"

@@ -8,7 +8,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
     public async updateUserStatus(userId: number, status: UserStatusEnum): Promise<UserResponse> {
         this.setAuthorizationHeader()
-        const response = await this.axiosInstance.post<UserResponse>("/" + userId + "/status", {status: status});
+        const response = await this.axiosInstance.put<UserResponse>("/" + userId + "/status", {status: status});
         return response.data;
     }
 

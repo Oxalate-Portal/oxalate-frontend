@@ -316,11 +316,11 @@
   },
   "EditEvent" : {
     "eventTypes" : {
+      "boat" : "Tauchen vom Boot",
       "cave" : "Höhle",
-      "caveOpen" : "Höhle / Offen",
-      "dive" : "Tauchen",
-      "open" : "Offen",
-      "other" : "Andere (z.B. Blockierende Buchung)",
+      "current" : "Strömung",
+      "open-and-cave" : "Offen / Höhle",
+      "open-water" : "Offen",
       "surface" : "Nur Oberflächenaktivität"
     },
     "form" : {
@@ -826,6 +826,113 @@
   "PastEvents" : {
     "title" : "Vergangene Veranstaltungen"
   },
+  "PortalConfigurations" : {
+    "button" : {
+      "reload" : "Konfiguration neu laden"
+    },
+    "configuration" : "Konfiguration",
+    "configuration-reloaded" : "Konfiguration neu geladen",
+    "configuration-reload-failed" : "Konfiguration konnte nicht neu geladen werden",
+    "current-setting" : "Aktuelle Einstellung",
+    "default-value" : "Standardwert",
+    "description" : "Hier können Sie die Konfiguration des Portals ändern. Bitte beachten Sie, dass einige Änderungen Auswirkungen auf die Benutzererfahrung haben können.",
+    "email" : {
+      "email-enabled" : {
+        "label" : "E-Mail aktiviert",
+        "tooltip" : "Ob das Senden von E-Mails standardmäßig aktiviert ist"
+      },
+      "email-notification-retries" : {
+        "label" : "E-Mail-Benachrichtigungs-Wiederholungen",
+        "tooltip" : "Anzahl der Wiederholungen, wenn das Senden von E-Mails fehlschlägt"
+      },
+      "email-notifications" : {
+        "label" : "E-Mail-Benachrichtigungen",
+        "tooltip" : "Welche E-Mail-Benachrichtigungen gesendet werden"
+      },
+      "org-email" : {
+        "label" : "Organisations-E-Mail",
+        "tooltip" : "E-Mail-Adresse der Organisation"
+      },
+      "support-email" : {
+        "label" : "Support-E-Mail",
+        "tooltip" : "Support-E-Mail-Adresse"
+      },
+      "system-email" : {
+        "label" : "System-E-Mail",
+        "tooltip" : "System-E-Mail-Adresse, üblicherweise eine No-Reply-Adresse"
+      }
+    },
+    "frontend" : {
+      "max-certificates" : {
+        "label" : "Maximale Anzahl von Zertifikaten",
+        "tooltip" : "Maximale Anzahl von einem Benutzer erhaltenen Zertifikaten"
+         },
+      "max-depth" : {
+        "label" : "Maximale Tiefe",
+        "tooltip" : "Maximale Tiefe der Tauchgänge"
+      },
+      "max-dive-length" : {
+        "label" : "Maximale Tauchdauer",
+        "tooltip" : "Maximale Dauer eines Tauchgangs in Minuten"
+      },
+      "max-event-length" : {
+        "label" : "Maximale Veranstaltungsdauer",
+        "tooltip" : "Maximale Dauer einer Veranstaltung in Stunden"
+      },
+      "max-participants" : {
+        "label" : "Maximale Teilnehmerzahl",
+        "tooltip" : "Maximale Anzahl gleichzeitiger Teilnehmer"
+      },
+      "min-event-length" : {
+        "label" : "Minimale Veranstaltungsdauer",
+        "tooltip" : "Minimale Dauer einer Veranstaltung in Stunden"
+      },
+      "min-participants" : {
+        "label" : "Minimale Teilnehmerzahl",
+        "tooltip" : "Minimale Anzahl gleichzeitiger Teilnehmer, wann man noch ein Ereignis erstellen kann"
+      },
+      "types-of-event" : {
+        "label" : "Veranstaltungstypen",
+        "tooltip" : "Arten von zulässigen Tauchgängen"
+      }
+    },
+    "general" : {
+      "default-language" : {
+        "label" : "Standardsprache",
+        "tooltip" : "Standardsprache des Portals, ISO-639-Format"
+      },
+      "enabled-language" : {
+        "label" : "Aktivierte Sprachen",
+        "tooltip" : "Welche Sprachen im Portal aktiviert sind"
+      },
+      "org-name" : {
+        "label" : "Organisationsname",
+        "tooltip" : "Name der Organisation"
+      },
+      "top-divers-list-size" : {
+        "label" : "Top-Taucher-Listengröße",
+        "tooltip" : "Anzahl der in der Top-Taucher-Liste angezeigten Taucher"
+      }
+    },
+    "must-be-set" : "muss gesetzt werden",
+    "payment" : {
+      "enabled-payment-methods" : {
+        "label" : "Zugelassene Zahlungsmethoden",
+        "tooltip" : "Welche Arten von Zahlungen erlaubt sind"
+      },
+      "event-require-payment" : {
+        "label" : "Veranstaltung erfordert Zahlung",
+        "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
+      },
+      "start-month" : {
+        "label" : "Startmonat",
+        "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
+      }
+    },
+    "title" : "Portal-Konfiguration",
+    "update-fail" : "Konfiguration konnte nicht aktualisiert werden",
+    "update-ok" : "Konfiguration erfolgreich aktualisiert"
+  },
   "Register" : {
     "fail" : {
       "message" : "Registrierung fehlgeschlagen!"
@@ -902,8 +1009,8 @@
       "photocopy" : "Zertifikatskopie",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
-      "upload-photo-tooltip": "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt.",
-      "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist."
+      "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist.",
+      "upload-photo-tooltip" : "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt."
     }
   },
   "StatisticsMain" : {
@@ -926,7 +1033,8 @@
       "position" : "Position",
       "userName" : "Name"
     },
-    "title" : "Jahresstatistik der Tauchgänge"
+    "title-1" : "Top-",
+    "title-2" : " Jahresstatistik der Tauchgänge"
   },
   "StatsYearlyEvents" : {
     "stats" : {
@@ -986,16 +1094,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "E-Mail-Abonnement"
+      "header" : "E-Mail-Abonnement",
+      "tooltip" : "Wählen Sie, welche Benachrichtigungen Sie erhalten möchten"
     },
     "future-panel" : {
-      "header" : "Kommende Veranstaltungen"
+      "header" : "Kommende Veranstaltungen",
+      "tooltip" : "Kommende Veranstaltungen, an denen Sie teilnehmen"
     },
     "past-panel" : {
-      "header" : "Vergangene Veranstaltungen"
+      "header" : "Vergangene Veranstaltungen",
+      "tooltip" : "Vergangene Veranstaltungen, an denen Sie teilgenommen haben"
     },
     "profile-certificates-panel" : {
-      "header" : "Tauchzertifikate"
+      "header" : "Tauchzertifikate",
+      "tooltip" : "Ihre Tauchzertifikate, die maximum ist "
     }
   },
   "UserFields" : {
@@ -1138,6 +1250,7 @@
       "files" : "Dateien",
       "members" : "Mitglieder",
       "payments" : "Zahlungen",
+      "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
       "stats" : "Statistiken",
       "title" : "Verwaltung"

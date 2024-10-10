@@ -8,4 +8,5 @@ export {fileTransferAPI} from './FileTransferAPI';
 export {pageAPI} from './PageAPI';
 export {pageGroupMgmtAPI} from './PageGroupMgmtAPI';
 export {pageMgmtAPI} from './PageMgmtAPI';
+export {portalConfigurationAPI} from './PortalConfigurationAPI';
 export {userAPI} from './UserAPI';

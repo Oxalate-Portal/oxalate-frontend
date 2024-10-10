@@ -316,11 +316,11 @@
   },
   "EditEvent" : {
     "eventTypes" : {
+      "boat" : "Diving from boat",
       "cave" : "Cave",
-      "caveOpen" : "Cave / Open water",
-      "dive" : "Dive",
-      "open" : "Open water",
-      "other" : "Other (e.g., blocked reservation)",
+      "current" : "Current",
+      "open-and-cave" : "Open water / Cave",
+      "open-water" : "Open water",
       "surface" : "Surface activities only"
     },
     "form" : {
@@ -826,6 +826,113 @@
   "PastEvents" : {
     "title" : "Past events"
   },
+  "PortalConfigurations" : {
+    "button" : {
+      "reload" : "Reload server"
+    },
+    "configuration" : "Configuration",
+    "configuration-reloaded" : "Configuration reloaded",
+    "configuration-reload-failed" : "Failed to reload configuration",
+    "current-setting" : "Current setting",
+    "default-value" : "Default value",
+    "description" : "Here you can configure the portal settings. Please note that the settings are stored immediately, but require a server reload to take effect.",
+    "email" : {
+      "email-enabled" : {
+        "label" : "Enable email",
+        "tooltip" : "Whether the email sending is enabled by default"
+      },
+      "email-notification-retries" : {
+        "label" : "Email notification retries",
+        "tooltip" : "How many times the sending of email notification is retried"
+      },
+      "email-notifications" : {
+        "label" : "Email notifications",
+        "tooltip" : "Which email notifications are sent"
+      },
+      "org-email" : {
+        "label" : "Organization email",
+        "tooltip" : "Organization email address"
+      },
+      "support-email" : {
+        "label" : "Support email",
+        "tooltip" : "Support email address"
+      },
+      "system-email" : {
+        "label" : "System email",
+        "tooltip" : "System email address, usually a no-reply address"
+      }
+    },
+    "frontend" : {
+      "max-certificates" : {
+        "label" : "Max certificates",
+        "tooltip" : "Maximum number of certificates a user can register"
+      },
+      "max-depth" : {
+        "label" : "Max depth",
+        "tooltip" : "Maximum depth of dives"
+      },
+      "max-dive-length" : {
+        "label" : "Maximum dive length",
+        "tooltip" : "Maximum length of a dive, in minutes"
+      },
+      "max-event-length" : {
+        "label" : "Max event length",
+        "tooltip" : "Maximum length of an event, in hours"
+      },
+      "max-participants" : {
+        "label" : "Maximum participants",
+        "tooltip" : "Maximum number of simultaneous participants"
+      },
+      "min-event-length" : {
+        "label" : "Minimum event length",
+        "tooltip" : "Minimum length of an event, in hours"
+      },
+      "min-participants" : {
+        "label" : "Minimum participants",
+        "tooltip" : "Minimum number of simultaneous participants, below this the event is cancelled"
+      },
+      "types-of-event" : {
+        "label" : "Types of events",
+        "tooltip" : "Which types of dive events are allowed"
+      }
+    },
+    "general" : {
+      "default-language" : {
+        "label" : "Default language",
+        "tooltip" : "Default language for the portal, ISO-639 format"
+      },
+      "enabled-language" : {
+        "label" : "Enabled languages",
+        "tooltip" : "Which languages are enabled"
+      },
+      "org-name" : {
+        "label" : "Organization name",
+        "tooltip" : "Name of the organization"
+      },
+      "top-divers-list-size" : {
+        "label" : "Top divers list size",
+        "tooltip" : "What is the count of top divers (counted by dives)"
+      }
+    },
+    "must-be-set" : "Must be set",
+    "payment" : {
+      "enabled-payment-methods" : {
+        "label" : "Enabled payment methods",
+        "tooltip" : "What type of payments are allowed"
+      },
+      "event-require-payment" : {
+        "label" : "Event requires payment",
+        "tooltip" : "Does a diver have to have a valid payment to be able to join a dive event"
+      },
+      "start-month" : {
+        "label" : "Start month",
+        "tooltip" : "Which month will the period payment start, 1 = January"
+      }
+    },
+    "title" : "Portal configuration",
+    "update-fail" : "Failed to update configuration",
+    "update-ok" : "Configuration updated successfully"
+  },
   "Register" : {
     "fail" : {
       "message" : "Registration failed!"
@@ -902,8 +1009,8 @@
       "photocopy" : "Certification photocopy",
       "title" : "Certification: ",
       "upload-photo" : "Upload certificate",
-      "upload-photo-tooltip" : "Upload a photocopy of your certificate, max. 1MB in size. Uploading a second file will overwrite the first one. Only JPEG and PNG files are allowed.",
-      "upload-photo-size-too-big" : "File size is too big, max 1MB allowed"
+      "upload-photo-size-too-big" : "File size is too big, max 1MB allowed",
+      "upload-photo-tooltip" : "Upload a photocopy of your certificate, max. 1MB in size. Uploading a second file will overwrite the first one. Only JPEG and PNG files are allowed."
     }
   },
   "StatisticsMain" : {
@@ -926,7 +1033,8 @@
       "position" : "Position",
       "userName" : "Name"
     },
-    "title" : "Yearly dive statistics"
+    "title-1" : "Top-",
+    "title-2" : " yearly dive statistics"
   },
   "StatsYearlyEvents" : {
     "stats" : {
@@ -986,16 +1094,20 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Email subscriptions"
+      "header" : "Email subscriptions",
+      "tooltip" : "Select the types of email notifications you want to receive"
     },
     "future-panel" : {
-      "header" : "Upcoming events"
+      "header" : "Upcoming events",
+      "tooltip" : "Future events you have signed up for"
     },
     "past-panel" : {
-      "header" : "Past events"
+      "header" : "Past events",
+      "tooltip" : "Past events you have participated in"
     },
     "profile-certificates-panel" : {
-      "header" : "Dive certifications"
+      "header" : "Dive certifications",
+      "tooltip" : "Your dive certifications, max "
     }
   },
   "UserFields" : {
@@ -1138,6 +1250,7 @@
       "files" : "Files",
       "members" : "Members",
       "payments" : "Payments",
+      "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
       "stats" : "Statistics",
       "title" : "Administration"

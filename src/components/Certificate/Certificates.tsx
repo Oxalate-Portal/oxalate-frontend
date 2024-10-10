@@ -1,9 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { CertificateResponse } from "../../models/responses";
-import { Button, Space } from "antd";
-import { ShowCertificateCard } from "./ShowCertificateCard";
-import { certificateAPI } from "../../services/CertificateAPI";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {CertificateResponse, FrontendConfigurationResponse} from "../../models/responses";
+import {Button, Space} from "antd";
+import {ShowCertificateCard} from "./ShowCertificateCard";
+import {certificateAPI} from "../../services/CertificateAPI";
+import {portalConfigurationAPI} from "../../services";
 
 interface CertificatesProps {
     userId: number,
@@ -12,17 +13,26 @@ interface CertificatesProps {
 
 export function Certificates({userId, viewOnly}: CertificatesProps) {
     const [certificates, setCertificates] = useState<CertificateResponse[]>([]);
+    const [maxCertificates, setMaxCertificates] = useState<number>(0);
     const {t} = useTranslation();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
-        certificateAPI.findAllByUserId(userId)
-                .then(response => {
-                    setCertificates(response);
+        Promise.all([
+            certificateAPI.findAllByUserId(userId),
+            portalConfigurationAPI.getFrontendConfiguration()
+        ])
+                .then(([certificateResponse, frontendConfigResponse]) => {
+                    setCertificates(certificateResponse);
+
+                    const maxCertificatesConfig: FrontendConfigurationResponse | undefined = frontendConfigResponse.find(config => config.key === "max-certificates");
+                    if (maxCertificatesConfig !== undefined) {
+                        setMaxCertificates(parseInt(maxCertificatesConfig.value));
+                    }
                 })
                 .catch(error => {
-                    console.error("Certificate fetch error: " + error);
+                    console.error("Certificate or frontend config fetch error: " + error);
                 })
                 .finally(() => {
                     setLoading(false);
@@ -58,7 +68,9 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                                              viewOnly={viewOnly}
                         />
                 )}
-                {!viewOnly && <Button type={"primary"} href={"/users/certificates/0"}>{t("Certificates.panel.addButton")}</Button>}
+                {!viewOnly
+                        && certificates.length < maxCertificates
+                        && <Button type={"primary"} href={"/users/certificates/0"}>{t("Certificates.panel.addButton")}</Button>}
             </Space>
     );
 }

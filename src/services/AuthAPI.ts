@@ -14,7 +14,7 @@ class AuthAPI {
         });
     }
 
-    async login(user: LoginRequest) {
+    async login(user: LoginRequest): Promise<SessionVO> {
         const response = await this.axiosInstance
             .post<SessionVO>("/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
 
@@ -31,8 +31,8 @@ class AuthAPI {
         return response.data;
     }
 
-    logout() {
-        // We could add here call to backend to end session
+    async logout(): Promise<any> {
+        return await this.axiosInstance.get<void>("/logout");
     }
 
     async register(registrationData: RegistrationVO): Promise<RegistrationResponse> {
