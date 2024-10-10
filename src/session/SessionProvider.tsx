@@ -1,7 +1,8 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {ActionResultEnum, LoginStatus, SessionVO} from "../models";
-import {LoginRequest} from "../models/requests";
-import {authAPI, portalConfigurationAPI} from "../services";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ActionResultEnum, LoginStatus, SessionVO } from "../models";
+import { LoginRequest } from "../models/requests";
+import { authAPI, portalConfigurationAPI } from "../services";
+import { FrontendConfigurationResponse } from "../models/responses";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -20,38 +21,47 @@ const SessionContext = createContext<SessionContextType | undefined>(undefined);
 export function SessionProvider({children}: any) {
     const [user, setUser] = useState<SessionVO | null>(null);
     const [language, setLanguage] = useState<string>("en");
-    const [organizationName, setOrganizationName] = useState<string>("Oxalate Portal");
-    const [isLoading, setIsLoading] = useState<boolean>(true); // New state to track loading
+    const [organizationName, setOrganizationName] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true); // New state to track loading
+    const [frontendConfiguration, setFrontendConfiguration] = useState<FrontendConfigurationResponse[]>([]);
 
     const userKey: string = "user";
     const languageKey: string = "language";
 
     // Check if user data exists in local storage on initial load
     useEffect(() => {
-        setIsLoading(true);
+        setLoading(true);
         const userData = localStorage.getItem(userKey);
 
         if (userData) {
             setUser(JSON.parse(userData));
         }
 
-        const languageData = localStorage.getItem(languageKey);
+        portalConfigurationAPI.getFrontendConfiguration()
+                .then((configurations: FrontendConfigurationResponse[]) => {
+                    setFrontendConfiguration(configurations);
+                    console.log("Configurations", configurations);
+                    const languageData = localStorage.getItem(languageKey);
 
-        if (languageData) {
-            setLanguage(languageData);
-        } else {
-            portalConfigurationAPI.getFrontendConfiguration()
-                    .then((configurations) => {
-                        setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
+                    if (languageData) {
+                        setLanguage(languageData);
+                    } else {
                         const languageConfig = configurations.find((config) => config.key === "default-language");
 
                         if (languageConfig) {
                             setLanguage(languageConfig.value);
+                            localStorage.setItem(languageKey, languageConfig.value);
                         }
-                    });
-        }
+                    }
 
-        setIsLoading(false);
+                    if (organizationName === "") {
+                        setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
+                    }
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+
     }, [userKey, languageKey]);
 
     // Function to handle login
@@ -106,7 +116,7 @@ export function SessionProvider({children}: any) {
         setUser(sessionVO);
     };
 
-    if (isLoading) {
+    if (loading) {
         return <div>Loading...</div>;
     }
 
