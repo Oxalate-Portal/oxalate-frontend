@@ -14,7 +14,7 @@
     "@types/react-csv" : "^1.1.10",
     "@types/react-dom" : "^18.3.1",
     "@types/react-highlight-words" : "^0.20.0",
-    "@vitejs/plugin-react" : "^4.3.2",
+    "@vitejs/plugin-react" : "^4.3.3",
     "antd" : "^5.21.2",
     "axios" : "^1.7.7",
     "ckeditor5" : "^43.2.0",
