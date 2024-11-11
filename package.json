@@ -3,7 +3,7 @@
   "version" : "0.1.0",
   "private" : true,
   "dependencies" : {
-    "@ant-design/charts" : "^2.1.0",
+    "@ant-design/charts" : "^2.2.3",
     "@ant-design/icons" : "^5.3.7",
     "@ckeditor/ckeditor5-react" : "^9.3.1",
     "@testing-library/jest-dom" : "^6.6.2",
