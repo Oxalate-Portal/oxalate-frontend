@@ -15,7 +15,7 @@
     "@types/react-dom" : "^18.3.1",
     "@types/react-highlight-words" : "^0.20.0",
     "@vitejs/plugin-react" : "^4.3.3",
-    "antd" : "^5.21.5",
+    "antd" : "^5.22.2",
     "axios" : "^1.7.7",
     "ckeditor5" : "^43.2.0",
     "dayjs" : "^1.11.10",
