@@ -17,7 +17,7 @@
     "@vitejs/plugin-react" : "^4.3.3",
     "antd" : "^5.22.2",
     "axios" : "^1.7.7",
-    "ckeditor5" : "^43.2.0",
+    "ckeditor5" : "^43.3.1",
     "dayjs" : "^1.11.10",
     "dompurify" : "^3.1.7",
     "env-cmd" : "^10.1.0",
