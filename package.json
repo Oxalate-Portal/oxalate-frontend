@@ -30,7 +30,7 @@
     "react-google-recaptcha-v3" : "^1.10.1",
     "react-highlight-words" : "^0.20.0",
     "react-i18next" : "^15.1.1",
-    "react-router-dom" : "^6.27.0",
+    "react-router-dom" : "^7.0.1",
     "translation-check" : "^1.1.0",
     "typescript" : "^5.4.5",
     "vite" : "^5.4.10",
