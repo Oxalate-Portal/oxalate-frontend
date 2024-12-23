@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { ActionResultEnum, LoginStatus, SessionVO } from "../models";
-import { LoginRequest } from "../models/requests";
-import { authAPI, portalConfigurationAPI } from "../services";
-import { FrontendConfigurationResponse } from "../models/responses";
+import {createContext, useContext, useEffect, useState} from "react";
+import {ActionResultEnum, LoginStatus, SessionVO} from "../models";
+import {LoginRequest} from "../models/requests";
+import {authAPI, portalConfigurationAPI} from "../services";
+import {FrontendConfigurationResponse} from "../models/responses";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -40,7 +40,6 @@ export function SessionProvider({children}: any) {
         portalConfigurationAPI.getFrontendConfiguration()
                 .then((configurations: FrontendConfigurationResponse[]) => {
                     setFrontendConfiguration(configurations);
-                    console.log("Configurations", configurations);
                     const languageData = localStorage.getItem(languageKey);
 
                     if (languageData) {
