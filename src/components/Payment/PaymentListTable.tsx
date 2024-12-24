@@ -1,9 +1,9 @@
-import { PaymentVO } from "../../models/PaymentVO";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { formatDateTime } from "../../helpers";
-import { Collapse, Table } from "antd";
-import { type ColumnsType } from "antd/es/table";
+import {PaymentVO} from "../../models/PaymentVO";
+import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
+import {formatDateTime} from "../../helpers";
+import {Collapse, Table} from "antd";
+import {type ColumnsType} from "antd/es/table";
 
 interface PaymentListPanelProps {
     payments: PaymentVO[],
@@ -38,7 +38,7 @@ export function PaymentListTable({payments, keyName}: PaymentListPanelProps) {
             title: t("AdminOrgAdminPaymentListPanel.table.paymentDate"),
             dataIndex: "createdAt",
             key: "createdAt",
-            sorter: (a: PaymentVO, b: PaymentVO) => (a.createdAt.getTime() - b.createdAt.getTime()),
+            sorter: (a: PaymentVO, b: PaymentVO) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()),
             sortDirections: ["descend", "ascend"],
             render: (_: any, record: PaymentVO) => {
                 return (<>{formatDateTime(record.createdAt)}</>);
