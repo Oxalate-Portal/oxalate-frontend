@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { RoleEnum } from "../../models";
-import { Button, Space, Spin, Table } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { checkRoles, formatDateTime } from "../../helpers";
-import { Link } from "react-router-dom";
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
-import { diveEventAPI } from "../../services";
-import { DiveEventResponse } from "../../models/responses";
+import {useEffect, useState} from "react";
+import {RoleEnum} from "../../models";
+import {Button, Space, Spin, Table} from "antd";
+import type {ColumnsType} from "antd/es/table";
+import {checkRoles, formatDateTime} from "../../helpers";
+import {Link} from "react-router-dom";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {diveEventAPI} from "../../services";
+import {DiveEventResponse} from "../../models/responses";
 
 interface DiveEventsTableProps {
     diveEventType: string,
@@ -25,7 +25,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t("Events.table.startTime"),
             dataIndex: "startTime",
             key: "startTime",
-            sorter: (a: DiveEventResponse, b: DiveEventResponse) => (a.startTime.getTime() - b.startTime.getTime()),
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => (new Date(a.startTime).getTime() - new Date(b.startTime).getTime()),
             sortDirections: ["descend", "ascend"],
             render: (text: string, record: DiveEventResponse) => {
                 return (<>{formatDateTime(new Date(record.startTime))}</>);
