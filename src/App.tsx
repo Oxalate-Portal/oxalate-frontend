@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import {ConfigProvider, theme} from "antd";
 import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";
@@ -15,11 +15,23 @@ import {Payments} from "./components/Payment";
 import {EditCertificate} from "./components/Certificate";
 import {AdminUploads} from "./components/Administration/FileManagement";
 import {PortalConfigurations} from "./components/Administration/PortalConfigurations";
+import dayjs from "dayjs";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+dayjs.extend(customParseFormat);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 function App() {
     const {darkAlgorithm} = theme;
-    const {userSession, getSessionLanguage, organizationName, logoutUser} = useSession();
+    const {userSession, getSessionLanguage, organizationName, logoutUser, getPortalTimezone} = useSession();
     const sessionLanguage = getSessionLanguage();
+
+    useEffect(() => {
+        dayjs.tz.setDefault(getPortalTimezone());
+    }, [getPortalTimezone]);
 
     if (sessionLanguage !== undefined && sessionLanguage !== i18next.language) {
         i18next.changeLanguage(getSessionLanguage());

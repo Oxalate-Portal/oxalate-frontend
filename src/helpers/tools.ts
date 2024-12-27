@@ -1,5 +1,6 @@
 // Copied from https://bobbyhadz.com/blog/javascript-format-date-yyyy-mm-dd-hh-mm-ss
 
+import dayjs, {Dayjs} from "dayjs";
 import {RoleEnum, SessionVO} from "../models";
 import {PageGroupResponse, RolePermissionResponse} from "../models/responses";
 
@@ -118,6 +119,22 @@ function localToUTCDate(date: Date): Date {
     return new Date(Date.UTC(year, month, day));
 }
 
+function localToUTCDatetime(date: Dayjs, timeZone: string): Dayjs {
+    console.log("localToUTCDatetime: " + date.toISOString());
+    // Step 1: Deconstruct the date object into components
+    const year = date.year();
+    const month = String(date.month() + 1).padStart(2, "0"); // Months are 0-indexed
+    const day = String(date.date()).padStart(2, "0");
+    const hours = String(date.hour()).padStart(2, "0");
+    const minutes = String(date.minute()).padStart(2, "0");
+
+    // Step 2: Create a timezone-less datetime string
+    const timezoneLessDatetime: string = `${year}-${month}-${day}T${hours}:${minutes}`;
+    console.log("timezoneLessDatetime: " + timezoneLessDatetime);
+    // Step 3: Use dayjs.tz() to interpret it in the desired timezone
+    return dayjs.tz(timezoneLessDatetime, timeZone);
+}
+
 export {
     formatDateTime,
     formatDateTimeWithMs,
@@ -126,5 +143,6 @@ export {
     getPageTitleByLanguage,
     getHighestRole,
     isAllowedToEditPage,
-    localToUTCDate
+    localToUTCDate,
+    localToUTCDatetime
 };

@@ -2,12 +2,13 @@ import {useEffect, useState} from "react";
 import {RoleEnum} from "../../models";
 import {Button, Space, Spin, Table} from "antd";
 import type {ColumnsType} from "antd/es/table";
-import {checkRoles, formatDateTime} from "../../helpers";
+import {checkRoles} from "../../helpers";
 import {Link} from "react-router-dom";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {diveEventAPI} from "../../services";
 import {DiveEventResponse} from "../../models/responses";
+import dayjs from "dayjs";
 
 interface DiveEventsTableProps {
     diveEventType: string,
@@ -15,7 +16,7 @@ interface DiveEventsTableProps {
 }
 
 export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
-    const {userSession} = useSession();
+    const {userSession, getPortalTimezone} = useSession();
     const {t} = useTranslation();
     const [diveEvents, setDiveEvents] = useState<DiveEventResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -25,10 +26,10 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t("Events.table.startTime"),
             dataIndex: "startTime",
             key: "startTime",
-            sorter: (a: DiveEventResponse, b: DiveEventResponse) => (new Date(a.startTime).getTime() - new Date(b.startTime).getTime()),
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => (new Date(a.startTime.toDate()).getTime() - new Date(b.startTime.toDate()).getTime()),
             sortDirections: ["descend", "ascend"],
             render: (text: string, record: DiveEventResponse) => {
-                return (<>{formatDateTime(new Date(record.startTime))}</>);
+                return (<div>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</div>);
             }
         },
         {

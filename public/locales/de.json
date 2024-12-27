@@ -369,7 +369,7 @@
         "tooltip" : "Mitglieder, die an dem Ereignis teilnehmen"
       },
       "startTime" : {
-        "label" : "Startzeit",
+        "label" : "Startzeit, beachten Sie, dass diese in der Zeitzone des Standorts liegt.",
         "rules" : {
           "required" : "Startzeit ist ein Pflichtfeld",
           "validator" : "Das Datum muss mindestens 30 Minuten in der Zukunft liegen!"
@@ -909,6 +909,10 @@
         "label" : "Organisationsname",
         "tooltip" : "Name der Organisation"
       },
+      "timezone": {
+        "label": "Zeitzone",
+        "tooltip": "Zeitzone des Portals"
+      },
       "top-divers-list-size" : {
         "label" : "Top-Taucher-Listengröße",
         "tooltip" : "Anzahl der in der Top-Taucher-Liste angezeigten Taucher"
@@ -1044,6 +1048,11 @@
   "StatsYearlyRegistrations" : {
     "stats" : {
       "title" : "Mitgliederregistrierungen pro Jahr"
+    }
+  },
+  "TimezoneSelector" : {
+    "select" : {
+      "placeholder" : "Zeitzone auswählen"
     }
   },
   "User" : {

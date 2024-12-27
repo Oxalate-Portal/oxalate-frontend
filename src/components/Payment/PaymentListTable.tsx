@@ -2,15 +2,13 @@ import {PaymentVO} from "../../models/PaymentVO";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {formatDateTime} from "../../helpers";
-import {Collapse, Table} from "antd";
+import {Table} from "antd";
 import {type ColumnsType} from "antd/es/table";
 
 interface PaymentListPanelProps {
     payments: PaymentVO[],
     keyName: string
 }
-
-const {Panel} = Collapse;
 
 export function PaymentListTable({payments, keyName}: PaymentListPanelProps) {
     const {t} = useTranslation();
