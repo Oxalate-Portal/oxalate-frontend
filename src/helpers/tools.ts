@@ -120,7 +120,6 @@ function localToUTCDate(date: Date): Date {
 }
 
 function localToUTCDatetime(date: Dayjs, timeZone: string): Dayjs {
-    console.log("localToUTCDatetime: " + date.toISOString());
     // Step 1: Deconstruct the date object into components
     const year = date.year();
     const month = String(date.month() + 1).padStart(2, "0"); // Months are 0-indexed
@@ -130,7 +129,6 @@ function localToUTCDatetime(date: Dayjs, timeZone: string): Dayjs {
 
     // Step 2: Create a timezone-less datetime string
     const timezoneLessDatetime: string = `${year}-${month}-${day}T${hours}:${minutes}`;
-    console.log("timezoneLessDatetime: " + timezoneLessDatetime);
     // Step 3: Use dayjs.tz() to interpret it in the desired timezone
     return dayjs.tz(timezoneLessDatetime, timeZone);
 }

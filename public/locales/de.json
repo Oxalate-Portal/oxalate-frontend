@@ -210,7 +210,14 @@
   "BlockedDates" : {
     "form" : {
       "date" : {
+        "label" : "Datum",
+        "placeholder" : "Datum wahle",
         "rule" : "Datum ist ein Pflichtfeld"
+      },
+      "reason" : {
+        "label" : "Grund",
+        "placeholder" : "Warum ist das Datum gesperrt?",
+        "rule" : "Grund ist ein Pflichtfeld"
       }
     },
     "list" : {
