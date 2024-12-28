@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Button, DatePicker, Form, List, message, Popconfirm, Spin } from "antd";
-import { BlockedDateResponse } from "../../models/responses";
-import { BlockedDateRequest } from "../../models/requests";
-import dayjs, { Dayjs } from "dayjs";
-import { blockedDatesAPI } from "../../services";
-import { useTranslation } from "react-i18next";
-import { localToUTCDate } from "../../helpers";
+import React, {useEffect, useState} from "react";
+import {Button, DatePicker, Form, Input, List, message, Popconfirm, Spin} from "antd";
+import {BlockedDateResponse} from "../../models/responses";
+import {BlockedDateRequest} from "../../models/requests";
+import dayjs, {Dayjs} from "dayjs";
+import {blockedDatesAPI} from "../../services";
+import {useTranslation} from "react-i18next";
+import {localToUTCDate} from "../../helpers";
 
 const {Item} = Form;
+const { TextArea } = Input;
 
 function BlockedDates() {
     const [loading, setLoading] = useState<boolean>(true);
     const [blockedDates, setBlockedDates] = useState<BlockedDateResponse[]>([]);
     const [currentlyBlockedDates, setCurrentlyBlockedDates] = useState<Date[]>([]);
     const {t} = useTranslation();
+    const [form] = Form.useForm();
 
     useEffect(() => {
         loadBlockedDates();
@@ -36,7 +38,7 @@ function BlockedDates() {
                 });
     }
 
-    async function handleAddBlockedDate(values: { blockedDate: Date }) {
+    async function addBlockedDate(values: { blockedDate: Date, blockedReason: string }) {
         // Ensure blockedDate is a Date object
         const selectedDate = new Date(values.blockedDate);
         // We need to convert the given date to UTC since it has the time part as well and is in local timezone which may shift the selected date as
@@ -45,6 +47,7 @@ function BlockedDates() {
 
         const request: BlockedDateRequest = {
             blockedDate: blockedDate,
+            reason: values.blockedReason
         };
 
         setLoading(true);
@@ -53,6 +56,7 @@ function BlockedDates() {
                 .then(() => {
                     message.success(t("BlockedDates.popup.add-success"));
                     loadBlockedDates();
+                    form.resetFields();
                 })
                 .catch(() => {
                     message.error(t("BlockedDates.popup.add-fail"));
@@ -92,7 +96,7 @@ function BlockedDates() {
                             dataSource={blockedDates}
                             renderItem={(item: BlockedDateResponse) => (
                                     <List.Item key={item.id}>
-                                        {dayjs(item.blockedDate).format("YYYY-MM-DD")}
+                                        {dayjs(item.blockedDate).format("YYYY-MM-DD")} {item.creatorName} {item.reason}
                                         <Popconfirm
                                                 title={t("BlockedDates.list.confirm")}
                                                 onConfirm={() => handleRemoveBlockedDate(item.id)}
@@ -107,15 +111,24 @@ function BlockedDates() {
                             )}
                             style={{marginBottom: "16px"}}
                     />
-                    <Form onFinish={handleAddBlockedDate} layout="inline">
-                        <Item
-                                name="blockedDate"
-                                rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
+                    <Form onFinish={addBlockedDate} layout={"vertical"} form={form}>
+                        <Item label={t("BlockedDates.form.date.label")}
+                              name="blockedDate"
+                              rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
                         >
                             <DatePicker
                                     format="YYYY-MM-DD"
+                                    placeholder={t("BlockedDates.form.date.placeholder")}
                                     disabledDate={disabledDate}
                             />
+                        </Item>
+                        <Item label={t("BlockedDates.form.reason.label")}
+                              name={"blockedReason"}
+                              rules={[{required: true, message: t("BlockedDates.form.reason.rule")}]}>
+                            <TextArea
+                                    placeholder={t("BlockedDates.form.reason.placeholder")}
+                                    rows={2}
+                                    style={{width: "600px"}}/>
                         </Item>
                         <Item>
                             <Button type="primary" htmlType="submit">
@@ -127,4 +140,4 @@ function BlockedDates() {
             </div>);
 }
 
-export { BlockedDates };
+export {BlockedDates};

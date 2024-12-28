@@ -210,7 +210,14 @@
   "BlockedDates" : {
     "form" : {
       "date" : {
+        "label" : "Päivämäärä",
+        "placeholder" : "Valitse päivämäärä",
         "rule" : "Päivämäärä on pakollinen kenttä"
+      },
+      "reason" : {
+        "label" : "Syy",
+        "placeholder" : "Miksi päivä on estetty",
+        "rule" : "Estämisen syy on pakollinen kenttä"
       }
     },
     "list" : {

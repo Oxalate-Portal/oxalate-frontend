@@ -210,8 +210,16 @@
   "BlockedDates" : {
     "form" : {
       "date" : {
+        "label" : "Datum",
+        "placeholder" : "Välj datum",
         "rule" : "Datum är ett obligatoriskt fält"
+      },
+      "reason" : {
+        "label" : "Orsak",
+        "placeholder" : "Orsak värför datumet är blockerat",
+        "rule" : "Orsaken är ett obligatoriskt fält"
       }
+
     },
     "list" : {
       "confirm" : "Är du säker på att du vill ta bort det blockerade datumet?"

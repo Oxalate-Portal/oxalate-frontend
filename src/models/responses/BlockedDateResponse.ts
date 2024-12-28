@@ -2,5 +2,6 @@ export interface BlockedDateResponse {
     id: number;
     blockedDate: Date;
     createdAt: Date;
-    creator: number;
+    creatorName: string;
+    reason: string;
 }

@@ -210,7 +210,14 @@
   "BlockedDates" : {
     "form" : {
       "date" : {
+        "label" : "Date",
+        "placeholder" : "Select Date",
         "rule" : "Date is a required field"
+      },
+      "reason" : {
+        "label" : "Reason",
+        "placeholder" : "Reason for blocking the date",
+        "rule" : "Reason is a required field"
       }
     },
     "list" : {
