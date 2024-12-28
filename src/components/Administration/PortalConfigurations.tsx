@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Col, Divider, Input, InputNumber, message, Row, Space, Spin, Switch, Tooltip, Typography } from "antd";
-import { PortalConfigurationResponse } from "../../models/responses";
-import { portalConfigurationAPI } from "../../services";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState} from "react";
+import {Button, Checkbox, Col, Divider, Input, InputNumber, message, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
+import {PortalConfigurationResponse} from "../../models/responses";
+import {portalConfigurationAPI} from "../../services";
+import {useTranslation} from "react-i18next";
+import {TimezoneSelector} from "./TimezoneSelector";
 
 const {Text} = Typography;
 
@@ -144,6 +145,14 @@ export function PortalConfigurations() {
                                     value={currentValue}
                                     onChange={(e) => handleChange(e.target.value)}
                             />
+                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                        </>
+                );
+
+            case "timezone":
+                return (
+                        <>
+                            <TimezoneSelector selectedValue={currentValue} onChange={(e) => handleChange(e.target.value)}/>
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );

@@ -8,5 +8,6 @@ export {
     getPageTitleByLanguage,
     getHighestRole,
     isAllowedToEditPage,
-    localToUTCDate
+    localToUTCDate,
+    localToUTCDatetime
 } from "./tools";

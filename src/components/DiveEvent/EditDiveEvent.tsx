@@ -1,17 +1,16 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { blockedDatesAPI, diveEventAPI, portalConfigurationAPI, userAPI } from "../../services";
-import { BlockedDateResponse, DiveEventResponse, DiveEventUserResponse, FrontendConfigurationResponse } from "../../models/responses";
-import { DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { useTranslation } from "react-i18next";
-import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
-import dayjs, { Dayjs } from "dayjs";
-import { SubmitResult } from "../main";
+import {useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {blockedDatesAPI, diveEventAPI, portalConfigurationAPI, userAPI} from "../../services";
+import {BlockedDateResponse, DiveEventResponse, DiveEventUserResponse, FrontendConfigurationResponse} from "../../models/responses";
+import {DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {useTranslation} from "react-i18next";
+import {Alert, Button, DatePicker, Form, Input, Select, Slider, Space} from "antd";
+import dayjs, {Dayjs} from "dayjs";
+import {SubmitResult} from "../main";
 import TextArea from "antd/es/input/TextArea";
-import { DiveEventRequest } from "../../models/requests";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-
-dayjs.extend(customParseFormat);
+import {DiveEventRequest} from "../../models/requests";
+import {useSession} from "../../session";
+import {localToUTCDatetime} from "../../helpers";
 
 export function EditDiveEvent() {
     const {paramId} = useParams();
@@ -34,12 +33,14 @@ export function EditDiveEvent() {
     const [maxParticipants, setMaxParticipants] = useState<number>(20);
     const [minEventLength, setMinEventLength] = useState<number>(1);
     const [maxEventLength, setMaxEventLength] = useState<number>(6);
-    const [eventTypes, setEventTypes] = useState<{value: string, label: string}[]>([]);
+    const [eventTypes, setEventTypes] = useState<{ value: string, label: string }[]>([]);
 
-    const [eventDurationMarks, setEventDurationMarks] = useState<{[key: number]: string}>({});
-    const [diveLengthMarks, setDiveLengthMarks] = useState<{[key: number]: string}>({});
-    const [depthMarks, setDepthMarks] = useState<{[key: number]: string}>({});
-    const [participantsMarks, setParticipantsMarks] = useState<{[key: number]: string}>({});
+    const [eventDurationMarks, setEventDurationMarks] = useState<{ [key: number]: string }>({});
+    const [diveLengthMarks, setDiveLengthMarks] = useState<{ [key: number]: string }>({});
+    const [depthMarks, setDepthMarks] = useState<{ [key: number]: string }>({});
+    const [participantsMarks, setParticipantsMarks] = useState<{ [key: number]: string }>({});
+
+    const {getPortalTimezone} = useSession();
 
     const statusOptions: OptionItemVO[] = [
         {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
@@ -88,10 +89,10 @@ export function EditDiveEvent() {
             return config.value.split(",").sort((a, b) => a.localeCompare(b));
         }
 
-        function getMarks(min: number, max: number, step: number, suffix: string): {[key: number]: string} {
-            let marks: {[key: number]: string} = {};
+        function getMarks(min: number, max: number, step: number, suffix: string): { [key: number]: string } {
+            let marks: { [key: number]: string } = {};
             for (let i = min; i <= max; i += step) {
-                marks[i] = i.toString()+suffix;
+                marks[i] = i.toString() + suffix;
             }
             return marks;
         }
@@ -171,7 +172,7 @@ export function EditDiveEvent() {
                                     title: "",
                                     description: "",
                                     type: "",
-                                    startTime: nextEventTime().toDate(),
+                                    startTime: nextEventTime(),
                                     eventDuration: 6,
                                     maxDuration: 120,
                                     maxDepth: 60,
@@ -240,6 +241,10 @@ export function EditDiveEvent() {
 
     function onFinish(submitValues: DiveEventRequest) {
         setLoading(true);
+        // Zero the seconds and milliseconds
+        submitValues.startTime = dayjs(submitValues.startTime).second(0).millisecond(0);
+        // Shift the datetime to the configured timezone
+        submitValues.startTime = localToUTCDatetime(submitValues.startTime, getPortalTimezone());
         // Check also that the new maxParticipants value is not lower than the current number of participants
         if (submitValues.maxParticipants < submitValues.participants.length) {
             setUpdateStatus({
@@ -290,6 +295,7 @@ export function EditDiveEvent() {
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                     });
         }
+
         setLoading(false);
     }
 

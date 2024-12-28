@@ -9,8 +9,10 @@ interface SessionContextType {
     userSession: SessionVO | null;
     sessionLanguage: string;
     organizationName: string;
+    portalTimezone: string;
     getSessionLanguage: () => string;
     setSessionLanguage: (language: string) => void;
+    getPortalTimezone: () => string;
     loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
     logoutUser: () => void;
     refreshUserSession: (sessionVO: SessionVO) => void;
@@ -22,6 +24,7 @@ export function SessionProvider({children}: any) {
     const [user, setUser] = useState<SessionVO | null>(null);
     const [language, setLanguage] = useState<string>("en");
     const [organizationName, setOrganizationName] = useState<string>("");
+    const [portalTimezone, setPortalTimezone] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true); // New state to track loading
     const [frontendConfiguration, setFrontendConfiguration] = useState<FrontendConfigurationResponse[]>([]);
 
@@ -55,6 +58,10 @@ export function SessionProvider({children}: any) {
 
                     if (organizationName === "") {
                         setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
+                    }
+
+                    if (portalTimezone === "") {
+                        setPortalTimezone(configurations.find((config) => config.key === "timezone")?.value || "UTC");
                     }
                 })
                 .finally(() => {
@@ -110,6 +117,10 @@ export function SessionProvider({children}: any) {
         return language;
     };
 
+    const getPortalTimezone = () => {
+        return portalTimezone;
+    }
+
     const refreshUserSession = (sessionVO: SessionVO): void => {
         localStorage.setItem(userKey, JSON.stringify(sessionVO));
         setUser(sessionVO);
@@ -123,8 +134,10 @@ export function SessionProvider({children}: any) {
         userSession: user,
         sessionLanguage: language,
         organizationName: organizationName,
+        portalTimezone: portalTimezone,
         getSessionLanguage,
         setSessionLanguage,
+        getPortalTimezone,
         loginUser,
         logoutUser,
         refreshUserSession

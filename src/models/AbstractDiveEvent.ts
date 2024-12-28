@@ -1,3 +1,4 @@
+import {Dayjs} from "dayjs";
 import {DiveEventStatusEnum} from "./DiveEventStatusEnum";
 
 export interface AbstractDiveEvent {
@@ -5,7 +6,7 @@ export interface AbstractDiveEvent {
     type: string;
     title: string;
     description: string;
-    startTime: Date;
+    startTime: Dayjs;
     eventDuration: number;
     maxDuration: number;
     maxDepth: number;

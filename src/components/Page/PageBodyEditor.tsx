@@ -1,4 +1,4 @@
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {CKEditor} from "@ckeditor/ckeditor5-react";
 import {
     Alignment,
     Bold,
@@ -29,8 +29,8 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import "./ckeditor_dark_theme.css";
-import { CKUploadAdapter } from "../../services";
-import { SessionVO } from "../../models";
+import {CKUploadAdapter} from "../../services";
+import {SessionVO} from "../../models";
 
 interface PageBodyEditorProps {
     value: string,
@@ -62,6 +62,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
                     editor={ClassicEditor}
                     onChange={contentUpdated}
                     config={{
+                        licenseKey: "GPL",
                         plugins: [Alignment, Bold, FindAndReplace, Italic, Heading, Image, ImageCaption, ImageResize, ImageSizeAttributes, ImageStyle, ImageTextAlternative, ImageToolbar,
                             ImageUpload, Indent, IndentBlock, Link, LinkImage, List, Paragraph, PasteFromOffice, SourceEditing, Table, TableToolbar,
                             TextTransformation, Undo],

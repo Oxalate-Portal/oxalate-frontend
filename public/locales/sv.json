@@ -369,7 +369,7 @@
         "tooltip" : "Medlemmar som deltar i evenemanget"
       },
       "startTime" : {
-        "label" : "Starttid",
+        "label" : "Starttid, observera att detta är i platsens tidszon.",
         "rules" : {
           "required" : "Starttid är ett obligatoriskt fält",
           "validator" : "Datumet måste vara minst 30 minuter framåt i tiden!"
@@ -909,6 +909,10 @@
         "label" : "Organisationsnamn",
         "tooltip" : "Namn på organisationen"
       },
+      "timezone": {
+        "label": "Tidzon",
+        "tooltip": "Tidzon som används av portalen för att visa tider"
+      },
       "top-divers-list-size" : {
         "label" : "Topplista dykare",
         "tooltip" : "Antal dykare som visas på topplistan"
@@ -1036,6 +1040,11 @@
   "StatsYearlyRegistrations" : {
     "stats" : {
       "title" : "Registreringar per år"
+    }
+  },
+  "TimezoneSelector" : {
+    "select" : {
+      "placeholder" : "Välj tidzon"
     }
   },
   "User" : {

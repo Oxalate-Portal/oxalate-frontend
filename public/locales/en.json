@@ -369,7 +369,7 @@
         "tooltip" : "Members participating in the event"
       },
       "startTime" : {
-        "label" : "Start time",
+        "label" : "Start time, note that this is in the timezone of the location",
         "rules" : {
           "required" : "Start time is a required field",
           "validator" : "The date must be at least 30 minutes in the future!"
@@ -909,6 +909,10 @@
         "label" : "Organization name",
         "tooltip" : "Name of the organization"
       },
+      "timezone": {
+        "label": "Timezone",
+        "tooltip": "Timezone used to display dates and times"
+      },
       "top-divers-list-size" : {
         "label" : "Top divers list size",
         "tooltip" : "What is the count of top divers (counted by dives)"
@@ -1044,6 +1048,11 @@
   "StatsYearlyRegistrations" : {
     "stats" : {
       "title" : "Member registrations on a yearly basis"
+    }
+  },
+  "TimezoneSelector" : {
+    "select" : {
+      "placeholder" : "Select timezone"
     }
   },
   "User" : {

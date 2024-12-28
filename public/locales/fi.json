@@ -369,7 +369,7 @@
         "tooltip" : "Tapahtumaan osallistuvat jäsenet"
       },
       "startTime" : {
-        "label" : "Aloitusaika",
+        "label" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä.",
         "rules" : {
           "required" : "Aloitusaika on vaadittu kenttä",
           "validator" : "Päivämäärän täytyy olla vähintään 30min tulevaisuudessa!"
@@ -909,6 +909,10 @@
         "label" : "Organisaation nimi",
         "tooltip" : "Organisaation nimi"
       },
+      "timezone": {
+        "label": "Aikavyöhyke",
+        "tooltip": "Portaalin aikavyöhyke jossa kaikki ajat näytetään"
+      },
       "top-divers-list-size" : {
         "label" : "Sukeltajalista koko",
         "tooltip" : "Kuinka monta sukeltajaa näytetään top-listassa."
@@ -1044,6 +1048,11 @@
   "StatsYearlyRegistrations" : {
     "stats" : {
       "title" : "Jäsenrekisteröinnit vuositasolla"
+    }
+  },
+  "TimezoneSelector" : {
+    "select" : {
+      "placeholder" : "Valitse aikavyöhyke"
     }
   },
   "User" : {
