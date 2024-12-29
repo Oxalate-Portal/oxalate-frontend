@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {RoleEnum} from "../../models";
-import {Button, Space, Spin, Table} from "antd";
+import {DiveTypeEnum, RoleEnum} from "../../models";
+import {Button, Space, Spin, Table, Tag} from "antd";
 import type {ColumnsType} from "antd/es/table";
 import {checkRoles} from "../../helpers";
 import {Link} from "react-router-dom";
@@ -68,7 +68,46 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             dataIndex: "type",
             key: "type",
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.type.localeCompare(b.type),
-            sortDirections: ["descend", "ascend"]
+            sortDirections: ["descend", "ascend"],
+            render: (_, record: DiveEventResponse) => {
+                let color: string;
+                let labelText: string;
+
+                switch (record.type) {
+                    case DiveTypeEnum.BOAT:
+                        color = "yellow";
+                        labelText = t("EditEvent.eventTypes.boat");
+                        break;
+                    case DiveTypeEnum.CAVE:
+                        color = "blue";
+                        labelText = t("EditEvent.eventTypes.cave");
+                        break;
+                    case DiveTypeEnum.CURRENT:
+                        color = "violet";
+                        labelText = t("EditEvent.eventTypes.current");
+                        break;
+                    case DiveTypeEnum.OPEN_AND_CAVE:
+                        color = "green";
+                        labelText = t("EditEvent.eventTypes.open-and-cave");
+                        break;
+                    case DiveTypeEnum.OPEN_WATER:
+                        color = "marine";
+                        labelText = t("EditEvent.eventTypes.open-water");
+                        break;
+                    case DiveTypeEnum.SURFACE:
+                        color = "white";
+                        labelText = t("EditEvent.eventTypes.surface");
+                        break;
+                    default:
+                        color = "red";
+                        labelText = t("EventDetails.participantTable.paymentType.unknown");
+                }
+
+                return (
+                        <Tag color={color} key={"divetype-" + record.id}>
+                            {labelText}
+                        </Tag>);
+            }
         },
         {
             title: t("Events.table.organizer"),

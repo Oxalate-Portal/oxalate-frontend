@@ -21,6 +21,7 @@ export type {UpdateStatusVO} from "./UpdateStatusVO";
 export {AuditLevelEnum} from "./AuditLevelEnum";
 export {ActionResultEnum} from "./ActionResultEnum";
 export {DiveEventStatusEnum} from "./DiveEventStatusEnum";
+export {DiveTypeEnum} from "./DiveTypeEnum";
 export {EmailNotificationTypeEnum} from "./EmailNotificationTypeEnum";
 export {PageStatusEnum} from "./PageStatusEnum";
 export {PaymentTypeEnum} from "./PaymentTypeEnum";
