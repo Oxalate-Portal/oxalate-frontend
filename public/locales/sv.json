@@ -572,6 +572,7 @@
       "tooltip" : "Öppna evenemanget"
     },
     "participantTable" : {
+      "createdAt" : "Registrerad",
       "eventDiveCount" : "Antal dykningar",
       "name" : "Namn",
       "paymentType" : {

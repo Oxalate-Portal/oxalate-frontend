@@ -571,6 +571,7 @@
       "tooltip" : "Avaa tapahtuma"
     },
     "participantTable" : {
+      "createdAt" : "Ilmoittautumisaika",
       "eventDiveCount" : "Sukellusmäärä",
       "name" : "Nimi",
       "paymentType" : {

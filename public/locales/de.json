@@ -571,6 +571,7 @@
       "tooltip" : "Ereignis öffnen"
     },
     "participantTable" : {
+      "createdAt" : "Registriert am",
       "eventDiveCount" : "Tauchanzahl",
       "name" : "Name",
       "paymentType" : {

@@ -571,6 +571,7 @@
       "tooltip" : "Open event"
     },
     "participantTable" : {
+      "createdAt" : "Registration time",
       "eventDiveCount" : "Dive count",
       "name" : "Name",
       "paymentType" : {
