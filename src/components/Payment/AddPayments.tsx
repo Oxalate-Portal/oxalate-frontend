@@ -1,13 +1,13 @@
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { Button, Form, InputNumber, Select, Space, Spin } from "antd";
-import { useEffect, useState } from "react";
-import { PaymentTypeEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { userAPI } from "../../services";
-import { DiveEventUserResponse } from "../../models/responses";
-import { SubmitResult } from "../main";
-import { paymentAPI } from "../../services/PaymentAPI";
-import { PaymentRequest } from "../../models/requests";
+import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
+import {Button, Form, InputNumber, Select, Space, Spin} from "antd";
+import {useEffect, useState} from "react";
+import {PaymentTypeEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {userAPI} from "../../services";
+import {DiveEventUserResponse} from "../../models/responses";
+import {SubmitResult} from "../main";
+import {paymentAPI} from "../../services/PaymentAPI";
+import {PaymentRequest} from "../../models/requests";
 
 export function AddPayments() {
     const navigate = useNavigate();
@@ -24,7 +24,6 @@ export function AddPayments() {
         {id: PaymentTypeEnum.ONE_TIME, name: t("AddPayments.types.oneTime")},
         {id: PaymentTypeEnum.PERIOD, name: t("AddPayments.types.period")}
     ];
-
 
     useEffect(() => {
         setLoading(true);
@@ -96,7 +95,7 @@ export function AddPayments() {
                         form={paymentForm}
                         initialValues={{
                             userIdList: [],
-                            paymentType: "PERIOD",
+                            paymentType: PaymentTypeEnum.PERIOD,
                             paymentCount: 1,
                         }}
                         labelCol={{span: 8}}
@@ -146,9 +145,9 @@ export function AddPayments() {
                     </Form.Item>
                     <Form.Item name={"paymentCount"}
                                key={"paymentCount"}
-                               style={(paymentType !== "ONE_TIME") ? {display: "none"} : {}}
+                               style={(paymentType !== PaymentTypeEnum.ONE_TIME) ? {display: "none"} : {}}
                                label={t("AddPayments.form.paymentCount.label")}
-                               required={paymentType === "ONE_TIME"}
+                               required={paymentType === PaymentTypeEnum.ONE_TIME}
                     >
                         <InputNumber min={1}/>
                     </Form.Item>

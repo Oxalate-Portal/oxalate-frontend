@@ -244,6 +244,12 @@
       "title" : "Tauchzertifikate"
     }
   },
+  "ChronoUnitEnum" : {
+    "days" : "Tag",
+    "weeks" : "Woche",
+    "months" : "Monat",
+    "years" : "Jahr"
+  },
   "DownloadData" : {
     "certificateLabel" : "Zertifikate",
     "choose" : "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
@@ -688,6 +694,12 @@
       }
     }
   },
+  "MembershipType" : {
+    "disabled" : "Deaktiviert",
+    "perpetual" : "Unbefristet",
+    "periodical" : "Periodisch",
+    "durational" : "Zeitlich befristet"
+  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -834,6 +846,11 @@
   "PastEvents" : {
     "title" : "Vergangene Veranstaltungen"
   },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Deaktiviert",
+    "durational" : "Zeitlich begrenzt",
+    "periodical" : "Periodisch"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Konfiguration neu laden"
@@ -868,13 +885,14 @@
       "system-email" : {
         "label" : "System-E-Mail",
         "tooltip" : "System-E-Mail-Adresse, üblicherweise eine No-Reply-Adresse"
-      }
+      },
+      "title" : "E-Mail-Einstellungen"
     },
     "frontend" : {
       "max-certificates" : {
         "label" : "Maximale Anzahl von Zertifikaten",
         "tooltip" : "Maximale Anzahl von einem Benutzer erhaltenen Zertifikaten"
-         },
+      },
       "max-depth" : {
         "label" : "Maximale Tiefe",
         "tooltip" : "Maximale Tiefe der Tauchgänge"
@@ -899,6 +917,7 @@
         "label" : "Minimale Teilnehmerzahl",
         "tooltip" : "Minimale Anzahl gleichzeitiger Teilnehmer, wann man noch ein Ereignis erstellen kann"
       },
+      "title" : "Frontend-Einstellungen",
       "types-of-event" : {
         "label" : "Veranstaltungstypen",
         "tooltip" : "Arten von zulässigen Tauchgängen"
@@ -917,29 +936,66 @@
         "label" : "Organisationsname",
         "tooltip" : "Name der Organisation"
       },
-      "timezone": {
-        "label": "Zeitzone",
-        "tooltip": "Zeitzone des Portals"
+      "timezone" : {
+        "label" : "Zeitzone",
+        "tooltip" : "Zeitzone des Portals"
       },
+      "title" : "Allgemeine Einstellungen",
       "top-divers-list-size" : {
         "label" : "Top-Taucher-Listengröße",
         "tooltip" : "Anzahl der in der Top-Taucher-Liste angezeigten Taucher"
       }
     },
+    "membership" : {
+      "membership-period-length" : {
+        "label" : "Mitgliedschaftsdauer",
+        "tooltip" : "Dauer der Mitgliedschaftsperiode oder Laufzeit. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedschaftstyp periodisch oder zeitlich begrenzt ist."
+      },
+      "membership-period-start-point" : {
+        "label" : "Startpunkt der Mitgliedschaftsperiode",
+        "tooltip" : "Wann beginnt die Mitgliedschaftsperiode. Dies bezieht sich auf den Periodentyp. Genauer gesagt: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Wochentag."
+      },
+      "membership-period-unit" : {
+        "label" : "Einheit der Mitgliedschaftsdauer",
+        "tooltip" : "Einheit der Mitgliedschaftsdauer. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedstyp periodisch oder zeitlich begrenzt ist."
+      },
+      "membership-type" : {
+        "label" : "Mitgliedschaftstyp",
+        "tooltip" : "Art der Mitgliedschaft. Periodisch bedeutet, dass die Mitgliedschaft für einen bestimmten Zeitraum gültig ist, z. B. das aktuelle Jahr oder den aktuellen Monat. Zeitlich befristet bedeutet, dass sie für einen bestimmten Zeitraum ab jetzt gültig ist."
+      },
+      "title" : "Mitgliedschaftseinstellungen"
+    },
     "must-be-set" : "muss gesetzt werden",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Zugelassene Zahlungsmethoden",
-        "tooltip" : "Welche Arten von Zahlungen erlaubt sind"
-      },
       "event-require-payment" : {
-        "label" : "Veranstaltung erfordert Zahlung",
+        "label" : "Ereignis erfordert Zahlung",
         "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
       },
-      "start-month" : {
-        "label" : "Startmonat",
-        "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
-      }
+      "payment-enabled" : {
+        "label" : "Zahlungssystem aktivieren",
+        "tooltip" : "Ob das Zahlungssystem standardmäßig aktiviert ist"
+      },
+      "payment-period-length": {
+        "label": "Zahlungszeitraum-Länge",
+        "tooltip": "Länge des Zahlungszeitraums oder der Dauer. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedschaftstyp periodisch oder zeitlich begrenzt ist."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Typ der periodischen Zahlungsmethode",
+        "tooltip" : "Art der Zahlungsmethode für periodische Zahlungen. Periodisch bedeutet, dass die Zahlung für den angegebenen laufenden Zeitraum gültig ist, z. B. das aktuelle Jahr, der Monat oder die Woche ab dem angegebenen Startpunkt. Zeitlich begrenzt bedeutet, dass sie für einen bestimmten Zeitraum nach vorne gültig ist."
+      },
+      "periodical-payment-method-unit": {
+        "label": "Einheit der periodischen Zahlungsmethode",
+        "tooltip": "Einheit der periodischen Zahlungsmethode. Beachten Sie, dass dies nur verwendet wird, wenn die Zahlungsmethode periodisch ist."
+      },
+      "period-start-point" : {
+        "label" : "Startpunkt der Zahlungsperiode",
+        "tooltip" : "Wann beginnt die Zahlungsperiode. Dies steht in Bezug auf den Periodentyp. Die spezifische Beziehung lautet: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Tag der Woche, Tag -> Tag des Jahr."
+      },
+      "single-payment-enabled" : {
+        "label" : "Einzelzahlung aktivieren",
+        "tooltip" : "Ob die Einzelzahlung pro Ereignis standardmäßig aktiviert ist"
+      },
+      "title" : "Zahlungseinstellungen"
     },
     "title" : "Portal-Konfiguration",
     "update-fail" : "Konfiguration konnte nicht aktualisiert werden",

@@ -1,0 +1,6 @@
+export enum MembershipTypeEnum {
+    DISABLED = "DISABLED",
+    PERPETUAL = "PERPETUAL",
+    PERIODICAL = "PERIODICAL",
+    DURATIONAL = "DURATIONAL"
+}

@@ -244,6 +244,12 @@
       "title" : "Dive certifications"
     }
   },
+  "ChronoUnitEnum" : {
+    "days" : "Day",
+    "weeks" : "Week",
+    "months" : "Month",
+    "years" : "Year"
+  },
   "DownloadData" : {
     "certificateLabel" : "Certificates",
     "choose" : "Choose one of the following to download:",
@@ -688,6 +694,12 @@
       }
     }
   },
+  "MembershipType" : {
+    "disabled" : "Disabled",
+    "perpetual" : "Perpetual",
+    "periodical" : "Periodical",
+    "durational" : "Durational"
+  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -834,6 +846,11 @@
   "PastEvents" : {
     "title" : "Past events"
   },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Disabled",
+    "durational" : "Durational",
+    "periodical" : "Periodical"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Reload server"
@@ -868,7 +885,8 @@
       "system-email" : {
         "label" : "System email",
         "tooltip" : "System email address, usually a no-reply address"
-      }
+      },
+      "title" : "Email settings"
     },
     "frontend" : {
       "max-certificates" : {
@@ -902,7 +920,8 @@
       "types-of-event" : {
         "label" : "Types of events",
         "tooltip" : "Which types of dive events are allowed"
-      }
+      },
+      "title" : "Frontend settings"
     },
     "general" : {
       "default-language" : {
@@ -917,29 +936,66 @@
         "label" : "Organization name",
         "tooltip" : "Name of the organization"
       },
-      "timezone": {
-        "label": "Timezone",
-        "tooltip": "Timezone used to display dates and times"
+      "timezone" : {
+        "label" : "Timezone",
+        "tooltip" : "Timezone used to display dates and times"
       },
       "top-divers-list-size" : {
         "label" : "Top divers list size",
         "tooltip" : "What is the count of top divers (counted by dives)"
-      }
+      },
+      "title" : "General settings"
+    },
+    "membership" : {
+      "membership-period-length" : {
+        "label" : "Membership period length",
+        "tooltip" : "Length of the membership period or duration. Note that this is only used if the membership type is periodical or durational."
+      },
+      "membership-period-start-point" : {
+        "label" : "Membership period start point",
+        "tooltip" : "When does the membership period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week."
+      },
+      "membership-period-unit" : {
+        "label" : "Membership period length unit",
+        "tooltip" : "Membership period length unit. Note that this is only used if the membership type is periodical or durational."
+      },
+      "membership-type" : {
+        "label" : "Membership type",
+        "tooltip" : "Type of membership. Periodical means that the membership is valid for a certain period, e.g., the current year or month. Durational means that it is valid for a given time period forward."
+      },
+      "title" : "Membership settings"
     },
     "must-be-set" : "Must be set",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Enabled payment methods",
-        "tooltip" : "What type of payments are allowed"
-      },
       "event-require-payment" : {
         "label" : "Event requires payment",
         "tooltip" : "Does a diver have to have a valid payment to be able to join a dive event"
       },
-      "start-month" : {
-        "label" : "Start month",
-        "tooltip" : "Which month will the period payment start, 1 = January"
-      }
+      "payment-enabled" : {
+        "label" : "Enable payment",
+        "tooltip" : "Whether the payment system is enabled by default"
+      },
+      "payment-period-length" : {
+        "label" : "Payment period length",
+        "tooltip" : "Length of the payment period or duration. Note that this is only used if the membership type is periodical or durational."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Periodical payment method type",
+        "tooltip" : "Type of payment method for periodical payments. Periodical means that the payment valid for the given ongoing period, e.g., the current year, month or week at the given start point. Durational means that it is valid for a given time period forward."
+      },
+      "periodical-payment-method-unit" : {
+        "label" : "Periodical payment method unit",
+        "tooltip" : "Periodical payment method unit. Note that this is only used if the payment method type is periodical."
+      },
+      "period-start-point" : {
+        "label" : "Payment period start point",
+        "tooltip" : "When does the payment period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week, day -> day of the year."
+      },
+      "single-payment-enabled" : {
+        "label" : "Enable single payment",
+        "tooltip" : "Whether the single payment per event is enabled by default"
+      },
+      "title" : "Payment settings"
     },
     "title" : "Portal configuration",
     "update-fail" : "Failed to update configuration",

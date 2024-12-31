@@ -219,7 +219,6 @@
         "placeholder" : "Orsak värför datumet är blockerat",
         "rule" : "Orsaken är ett obligatoriskt fält"
       }
-
     },
     "list" : {
       "confirm" : "Är du säker på att du vill ta bort det blockerade datumet?"
@@ -244,6 +243,12 @@
       "text" : "Medlemmen har uppnått följande dykcertifikat:",
       "title" : "Dykcertifikat"
     }
+  },
+  "ChronoUnitEnum" : {
+    "days" : "Dag",
+    "weeks" : "Vecka",
+    "months" : "Månad",
+    "years" : "År"
   },
   "DownloadData" : {
     "certificateLabel" : "Certifikat",
@@ -689,6 +694,12 @@
       }
     }
   },
+  "MembershipType" : {
+    "disabled" : "Icke i bruk",
+    "perpetual" : "Permanent",
+    "periodical" : "Periodisk",
+    "durational" : "Tidsbegränsad"
+  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -835,6 +846,11 @@
   "PastEvents" : {
     "title" : "Tidigare evenemang"
   },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Icke i bruk",
+    "durational" : "Tidsbegränsad",
+    "periodical" : "Periodisk"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Ladda om servern"
@@ -869,7 +885,8 @@
       "system-email" : {
         "label" : "System-E-post",
         "tooltip" : "Systemets e-postadress, oftast en ingen-svara-adress"
-      }
+      },
+      "title" : "E-postinställningar"
     },
     "frontend" : {
       "max-certificates" : {
@@ -900,6 +917,7 @@
         "label" : "Minimala antal deltagare",
         "tooltip" : "Minimala antal samtidiga deltagare som krävs för att ett evenemang ska kunna genomföras"
       },
+      "title" : "Frontend-inställningar",
       "types-of-event" : {
         "label" : "Evenemangstyper",
         "tooltip" : "Tillåtna typer av dykningar"
@@ -918,29 +936,66 @@
         "label" : "Organisationsnamn",
         "tooltip" : "Namn på organisationen"
       },
-      "timezone": {
-        "label": "Tidzon",
-        "tooltip": "Tidzon som används av portalen för att visa tider"
+      "timezone" : {
+        "label" : "Tidzon",
+        "tooltip" : "Tidzon som används av portalen för att visa tider"
       },
+      "title" : "Allmänna inställningar",
       "top-divers-list-size" : {
         "label" : "Topplista dykare",
         "tooltip" : "Antal dykare som visas på topplistan"
       }
     },
+    "membership" : {
+      "membership-period-length" : {
+        "label" : "Medlemskapsperiodens längd",
+        "tooltip" : "Längden på medlemskapsperioden eller varaktigheten. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
+      },
+      "membership-period-start-point" : {
+        "label" : "Startpunkt för medlemskapsperiod",
+        "tooltip" : "När börjar medlemskapsperioden. Detta är i förhållande till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag."
+      },
+      "membership-period-unit" : {
+        "label" : "Enhet för medlemskapsperiodens längd",
+        "tooltip" : "Enhet för medlemskapsperiodens längd. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
+      },
+      "membership-type" : {
+        "label" : "Medlemskapstyp",
+        "tooltip" : "Typ av medlemskap. Periodisk innebär att medlemskapet är giltigt under en viss period, t.ex. innevarande år eller månad. Tidsbegränsad innebär att det är giltigt under en angiven tidsperiod framåt."
+      },
+      "title" : "Medlemskapsinställningar"
+    },
     "must-be-set" : "Måste sättas",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Tillåtna betalningsmetoder",
-        "tooltip" : "Vilka betalningstyper som är tillåtna"
-      },
       "event-require-payment" : {
         "label" : "Event kräver betalning",
-        "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevenemang"
+        "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevent"
       },
-      "start-month" : {
-        "label" : "Startmånad",
-        "tooltip" : "Vilken månad periodbetalningen startar, 1 = Januari"
-      }
+      "payment-enabled" : {
+        "label" : "Aktivera betalningssystem",
+        "tooltip" : "Om betalningssystemet är aktiverat som standard"
+      },
+      "payment-period-length": {
+        "label": "Betalningsperiodens längd",
+        "tooltip": "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om medlemstypen är periodisk eller tidsbegränsad."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Typ av periodisk betalningsmetod",
+        "tooltip" : "Typ av betalningsmetod för periodiska betalningar. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. det aktuella året, månaden eller veckan från den angivna startpunkten. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
+      },
+      "periodical-payment-method-unit": {
+        "label": "Enhet för periodisk betalningsmetod",
+        "tooltip": "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
+      },
+      "period-start-point" : {
+        "label" : "Startpunkt för betalningsperiod",
+        "tooltip" : "När betalningsperioden börjar. Detta är relaterat till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag, dag -> dagen i året."
+      },
+      "single-payment-enabled" : {
+        "label" : "Aktivera engångsbetalning",
+        "tooltip" : "Om engångsbetalning per evenemang är aktiverad som standard"
+      },
+      "title" : "Betalningsinställningar"
     },
     "title" : "Portal konfiguration",
     "update-fail" : "Misslyckades med att uppdatera konfigurationen",

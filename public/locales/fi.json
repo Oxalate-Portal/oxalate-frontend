@@ -244,6 +244,12 @@
       "title" : "Sukellusluokitukset"
     }
   },
+  "ChronoUnitEnum" : {
+    "days" : "Päivä",
+    "weeks" : "Viikko",
+    "months" : "Kuukausi",
+    "years" : "Vuosi"
+  },
   "DownloadData" : {
     "certificateLabel" : "Luokitukset",
     "choose" : "Valitse yksi seuraavista ladattavaksi:",
@@ -688,6 +694,12 @@
       }
     }
   },
+  "MembershipType" : {
+    "disabled" : "Pois käytöstä",
+    "perpetual" : "Pysyvä",
+    "periodical" : "Jaksottainen",
+    "durational" : "Määräaikainen"
+  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -834,6 +846,11 @@
   "PastEvents" : {
     "title" : "Menneet tapahtumat"
   },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Ei käytössä",
+    "durational" : "Määräaikainen",
+    "periodical" : "Jaksottainen"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Lataa asetukset palvelimella"
@@ -868,7 +885,8 @@
       "system-email" : {
         "label" : "Järjestelmän sähköposti",
         "tooltip" : "Järjestelmän sähköpostiosoite, yleensä ei-vastausosoite"
-      }
+      },
+      "title" : "Sähköpostiasetukset"
     },
     "frontend" : {
       "max-certificates" : {
@@ -899,6 +917,7 @@
         "label" : "Minimiosallistujat",
         "tooltip" : "Samanaikaisten osallistujien minimimäärä, joka on vaadittu tapahtuman järjestämiseksi"
       },
+      "title" : "Käyttöliittymän asetukset",
       "types-of-event" : {
         "label" : "Tapahtumatyypit",
         "tooltip" : "Sallittujen sukellusten tyypit"
@@ -917,29 +936,66 @@
         "label" : "Organisaation nimi",
         "tooltip" : "Organisaation nimi"
       },
-      "timezone": {
-        "label": "Aikavyöhyke",
-        "tooltip": "Portaalin aikavyöhyke jossa kaikki ajat näytetään"
+      "timezone" : {
+        "label" : "Aikavyöhyke",
+        "tooltip" : "Portaalin aikavyöhyke jossa kaikki ajat näytetään"
       },
+      "title" : "Yleiset asetukset",
       "top-divers-list-size" : {
         "label" : "Sukeltajalista koko",
         "tooltip" : "Kuinka monta sukeltajaa näytetään top-listassa."
       }
     },
+    "membership" : {
+      "membership-period-length" : {
+        "label" : "Jäsenkauden pituus",
+        "tooltip" : "Jäsenkauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on jaksottainen tai määräaikainen."
+      },
+      "membership-period-start-point" : {
+        "label" : "Jäsenkauden aloituspiste",
+        "tooltip" : "Milloin jäsenkausi alkaa. Tämä liittyy kauden tyyppiin. Tarkemmin sanottuna suhde on: Vuosi -> kuukausi, Kuukausi -> kuukauden päivä, Viikko -> viikonpäivä."
+      },
+      "membership-period-unit" : {
+        "label" : "Jäsenkauden pituuden yksikkö",
+        "tooltip" : "Jäsenkauden pituuden yksikkö. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on jaksottainen tai määräaikainen."
+      },
+      "membership-type" : {
+        "label" : "Jäsenyyden tyyppi",
+        "tooltip" : "Jäsenyyden tyyppi. Jaksottainen tarkoittaa, että jäsenyys on voimassa tietyn ajanjakson, esim. kuluvan vuoden tai kuukauden. Määräaikainen tarkoittaa, että jäsenyys on voimassa tietyn ajanjakson eteenpäin."
+      },
+      "title" : "Jäsenyysasetukset"
+    },
     "must-be-set" : "Pakollinen asetus",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Sallitut maksutavat",
-        "tooltip" : "Millaiset maksutavat ovat sallittuja"
-      },
       "event-require-payment" : {
         "label" : "Tapahtuma vaatii maksun",
-        "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu osallistuakseen tapahtumaan"
+        "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu, jotta hän voi osallistua sukellustapahtumaan"
       },
-      "start-month" : {
-        "label" : "Aloituskuukausi",
-        "tooltip" : "Missä kuussa ajanjakson maksut alkavat, 1 = Tammikuu"
-      }
+      "payment-enabled" : {
+        "label" : "Ota maksujärjestelmä käyttöön",
+        "tooltip" : "Onko maksujärjestelmä oletuksena käytössä"
+      },
+      "payment-period-length": {
+        "label": "Maksukauden pituus",
+        "tooltip": "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on toistuva tai kestollinen."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Jaksottaisen maksutavan tyyppi",
+        "tooltip" : "Jaksottaisten maksujen maksutavan tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
+      },
+      "periodical-payment-method-unit": {
+        "label": "Toistuvan maksutavan yksikkö",
+        "tooltip": "Toistuvan maksutavan yksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
+      },
+      "period-start-point" : {
+        "label" : "Maksujakson aloituspiste",
+        "tooltip" : "Milloin maksujakso alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
+      },
+      "single-payment-enabled" : {
+        "label" : "Ota yksittäinen maksu käyttöön",
+        "tooltip" : "Onko tapahtumakohtainen yksittäinen maksu oletuksena käytössä"
+      },
+      "title" : "Maksuasetukset"
     },
     "title" : "Portaalin asetukset",
     "update-fail" : "Asetusten päivitys epäonnistui",

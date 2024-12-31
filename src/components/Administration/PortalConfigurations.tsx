@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Button, Checkbox, Col, Divider, Input, InputNumber, message, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
+import {Button, Checkbox, Col, Divider, Input, InputNumber, message, Radio, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
 import {PortalConfigurationResponse} from "../../models/responses";
 import {portalConfigurationAPI} from "../../services";
 import {useTranslation} from "react-i18next";
 import {TimezoneSelector} from "./TimezoneSelector";
+import {ChronoUnitEnum, MembershipTypeEnum, PeriodicalPaymentTypeEnum} from "../../models";
 
 const {Text} = Typography;
 
@@ -81,7 +82,7 @@ export function PortalConfigurations() {
     function renderEditor(config: PortalConfigurationResponse) {
         const {valueType, runtimeValue, defaultValue} = config;
 
-        const currentValue = modifiedValues[config.id] !== undefined ? modifiedValues[config.id] : runtimeValue ?? defaultValue;
+        let currentValue = modifiedValues[config.id] !== undefined ? modifiedValues[config.id] : runtimeValue ?? defaultValue;
         const required = config.requiredRuntime && currentValue === null;
 
         function handleChange(newValue: any) {
@@ -157,6 +158,61 @@ export function PortalConfigurations() {
                         </>
                 );
 
+            case "enum":
+                let enumOptions: { label: string, value: string }[] = [];
+
+                if (config.settingKey === "membership-type") {
+                    enumOptions = Object.values(MembershipTypeEnum).map((type) => ({
+                        label: t("MembershipType." + type.toLowerCase()),
+                        value: type.toString(),
+                    }));
+
+                    if (currentValue === config.defaultValue) {
+                        currentValue = Object.values(MembershipTypeEnum)[0];
+                    }
+                } else if (config.settingKey === "membership-period-unit") {
+                    enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
+                        label: t("ChronoUnitEnum." + type.toLowerCase()),
+                        value: type.toString(),
+                    }));
+
+                    if (currentValue === config.defaultValue) {
+                        currentValue = Object.values(ChronoUnitEnum)[0];
+                    }
+                } else if (config.settingKey === "periodical-payment-method-type") {
+                    enumOptions = Object.values(PeriodicalPaymentTypeEnum).map((type) => ({
+                        label: t("PeriodicalPaymentType." + type.toLowerCase()),
+                        value: type.toString(),
+                    }));
+
+                    console.log("currentValue", currentValue);
+                    console.log("config.defaultValue", config.defaultValue);
+                    if (currentValue === config.defaultValue) {
+                        currentValue = Object.values(PeriodicalPaymentTypeEnum)[0];
+                    }
+                } else if (config.settingKey === "periodical-payment-method-unit") {
+                    enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
+                        label: t("ChronoUnitEnum." + type.toLowerCase()),
+                        value: type.toString(),
+                    }));
+
+                    if (currentValue === config.defaultValue) {
+                        currentValue = Object.values(ChronoUnitEnum)[0];
+                    }
+                } else {
+                    console.error("Unknown enum setting key:", config.settingKey);
+                }
+
+                return (
+                        <>
+                            <Radio.Group options={enumOptions}
+                                         value={currentValue}
+                                         onChange={(e) => handleChange(e.target.value)}
+                            />
+                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                        </>
+                );
+
             default:
                 return null;
         }
@@ -192,7 +248,7 @@ export function PortalConfigurations() {
                         <div>
                             {!loading && Object.entries(groupedConfigurations).map(([groupKey, configs]) => (
                                     <div key={groupKey}>
-                                        <Divider orientation="left">{groupKey}</Divider>
+                                        <Divider orientation="left">{t("PortalConfigurations." + groupKey + ".title")}</Divider>
                                         {configs.sort((a, b) => a.settingKey.localeCompare(b.settingKey)).map(config => (
                                                 <div key={config.id} style={{marginBottom: "16px"}}>
                                                     <Row gutter={16}>
