@@ -5,6 +5,7 @@ export {CKUploadAdapter} from './CKUploadAdapter';
 export {diveEventAPI} from './DiveEventAPI';
 export {downloadAPI} from './DownloadAPI';
 export {fileTransferAPI} from './FileTransferAPI';
+export {membershipAPI} from './MembershipAPI';
 export {pageAPI} from './PageAPI';
 export {pageGroupMgmtAPI} from './PageGroupMgmtAPI';
 export {pageMgmtAPI} from './PageMgmtAPI';

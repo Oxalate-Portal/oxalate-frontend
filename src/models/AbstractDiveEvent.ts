@@ -1,9 +1,10 @@
 import {Dayjs} from "dayjs";
 import {DiveEventStatusEnum} from "./DiveEventStatusEnum";
+import {DiveTypeEnum} from "./DiveTypeEnum";
 
 export interface AbstractDiveEvent {
     id: number;
-    type: string;
+    type: DiveTypeEnum;
     title: string;
     description: string;
     startTime: Dayjs;

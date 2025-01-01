@@ -2,7 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {blockedDatesAPI, diveEventAPI, portalConfigurationAPI, userAPI} from "../../services";
 import {BlockedDateResponse, DiveEventResponse, DiveEventUserResponse, FrontendConfigurationResponse} from "../../models/responses";
-import {DiveEventStatusEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Alert, Button, DatePicker, Form, Input, Select, Slider, Space} from "antd";
 import dayjs, {Dayjs} from "dayjs";
@@ -171,7 +171,7 @@ export function EditDiveEvent() {
                                     id: 0,
                                     title: "",
                                     description: "",
-                                    type: "",
+                                    type: DiveTypeEnum.SURFACE,
                                     startTime: nextEventTime(),
                                     eventDuration: 6,
                                     maxDuration: 120,

@@ -998,7 +998,7 @@
         "label" : "Periodical payment method unit",
         "tooltip" : "Periodical payment method unit. Note that this is only used if the payment method type is periodical."
       },
-      "period-start-point" : {
+      "payment-period-start-point" : {
         "label" : "Payment period start point",
         "tooltip" : "When does the payment period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week, day -> day of the year."
       },

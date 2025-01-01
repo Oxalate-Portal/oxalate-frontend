@@ -24,6 +24,7 @@ export {ChronoUnitEnum} from "./ChronoUnitEnum";
 export {DiveEventStatusEnum} from "./DiveEventStatusEnum";
 export {DiveTypeEnum} from "./DiveTypeEnum";
 export {EmailNotificationTypeEnum} from "./EmailNotificationTypeEnum";
+export {MembershipStatusEnum} from "./MembershipStatusEnum";
 export {MembershipTypeEnum} from "./MembershipTypeEnum";
 export {PageStatusEnum} from "./PageStatusEnum";
 export {PaymentTypeEnum} from "./PaymentTypeEnum";

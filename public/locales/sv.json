@@ -998,7 +998,7 @@
         "label" : "Enhet för periodisk betalningsmetod",
         "tooltip" : "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
       },
-      "period-start-point" : {
+      "payment-period-start-point" : {
         "label" : "Startpunkt för betalningsperiod",
         "tooltip" : "När betalningsperioden börjar. Detta är relaterat till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag, dag -> dagen i året."
       },

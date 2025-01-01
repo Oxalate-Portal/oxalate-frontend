@@ -998,7 +998,7 @@
         "label" : "Toistuvan maksutavan yksikkö",
         "tooltip" : "Toistuvan maksutavan yksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
       },
-      "period-start-point" : {
+      "payment-period-start-point" : {
         "label" : "Maksujakson aloituspiste",
         "tooltip" : "Milloin maksujakso alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
       },

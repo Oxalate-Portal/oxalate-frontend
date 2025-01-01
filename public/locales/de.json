@@ -998,7 +998,7 @@
         "label" : "Einheit der periodischen Zahlungsmethode",
         "tooltip" : "Einheit der periodischen Zahlungsmethode. Beachten Sie, dass dies nur verwendet wird, wenn die Zahlungsmethode periodisch ist."
       },
-      "period-start-point" : {
+      "payment-period-start-point" : {
         "label" : "Startpunkt der Zahlungsperiode",
         "tooltip" : "Wann beginnt die Zahlungsperiode. Dies steht in Bezug auf den Periodentyp. Die spezifische Beziehung lautet: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Tag der Woche, Tag -> Tag des Jahr."
       },
