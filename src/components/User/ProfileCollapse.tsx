@@ -1,14 +1,14 @@
-import { Collapse, Spin, Tooltip } from "antd";
-import { ItemType } from "rc-collapse/es/interface";
-import { Certificates } from "../Certificate";
-import { UserEventList } from "./UserEventList";
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { DiveEventListItemResponse, FrontendConfigurationResponse } from "../../models/responses";
-import { diveEventAPI, portalConfigurationAPI } from "../../services";
+import {Collapse, Spin, Tooltip} from "antd";
+import {ItemType} from "rc-collapse/es/interface";
+import {Certificates} from "../Certificate";
+import {UserEventList} from "./UserEventList";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {DiveEventListItemResponse, FrontendConfigurationResponse} from "../../models/responses";
+import {diveEventAPI, portalConfigurationAPI} from "../../services";
 import dayjs from "dayjs";
-import { EmailSubscriptionCard } from "./EmailSubscriptionCard";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import {EmailSubscriptionCard} from "./EmailSubscriptionCard";
+import {QuestionCircleOutlined} from "@ant-design/icons";
 
 interface ProfileCollapseProps {
     userId: number,
@@ -87,7 +87,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
 
     return (
             <Spin spinning={loading}>
-                {!loading && <Collapse items={profileItems}/>}
+                {!loading && <Collapse items={profileItems} key={"profileCollaps"}/>}
             </Spin>
     );
 }

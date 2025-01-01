@@ -626,12 +626,19 @@
     }
   },
   "FormatPayments" : {
-    "noValid" : "Ei voimassa olevia maksutietoja.",
-    "singlePayment" : "kertamaksua",
+    "noValid" : "Ei voimassa olevia maksuja.",
     "unknownPayment" : "Tuntematon maksutyyppi",
-    "unknownPaymentContact" : "ota yhteyttä ylläpitoon",
-    "unknownPaymentPlease" : "Ole hyvä ja",
-    "yearlyPayment" : "Vuosimaksu (päättyy"
+    "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja.",
+    "unknownPaymentContact" : "Ota yhteyttä tukeen",
+    "table" : {
+      "id" : "Tunnus",
+      "paymentType" : "Maksutyyppi",
+      "paymentCount" : "Maksujen lukumäärä",
+      "startDate" : "Aloituspäivämäärä",
+      "expirationDate" : "Päättymispäivämäärä",
+      "singlePayment" : "Kertamaksu",
+      "yearlyPayment" : "Vuosimaksu"
+    }
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",
@@ -975,21 +982,21 @@
         "label" : "Ota maksujärjestelmä käyttöön",
         "tooltip" : "Onko maksujärjestelmä oletuksena käytössä"
       },
-      "payment-period-length": {
-        "label": "Maksukauden pituus",
-        "tooltip": "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on toistuva tai kestollinen."
+      "payment-period-length" : {
+        "label" : "Maksukauden pituus",
+        "tooltip" : "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on toistuva tai kestollinen."
       },
-      "payment-period-start": {
-        "label": "Maksukauden aloituspiste",
-        "tooltip": "Milloin maksukausi alkoi. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
+      "payment-period-start" : {
+        "label" : "Maksukauden aloituspiste",
+        "tooltip" : "Milloin maksukausi alkoi. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
       },
       "periodical-payment-method-type" : {
         "label" : "Kausimaksun tyyppi",
         "tooltip" : "Kausimaksujen tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
       },
-      "periodical-payment-method-unit": {
-        "label": "Toistuvan maksutavan yksikkö",
-        "tooltip": "Toistuvan maksutavan yksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
+      "periodical-payment-method-unit" : {
+        "label" : "Toistuvan maksutavan yksikkö",
+        "tooltip" : "Toistuvan maksutavan yksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
       },
       "period-start-point" : {
         "label" : "Maksujakson aloituspiste",

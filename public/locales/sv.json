@@ -626,12 +626,19 @@
     }
   },
   "FormatPayments" : {
-    "noValid" : "Inga giltiga betalningsuppgifter.",
-    "singlePayment" : "engångsbetalning",
+    "noValid" : "Inga giltiga betalningar tillgängliga.",
     "unknownPayment" : "Okänd betalningstyp",
-    "unknownPaymentContact" : "kontakta administratören",
-    "unknownPaymentPlease" : "Var god",
-    "yearlyPayment" : "Årsavgift (upphör"
+    "unknownPaymentPlease" : "Kontakta supporten för mer information.",
+    "unknownPaymentContact" : "Kontakta supporten",
+    "table" : {
+      "id" : "ID",
+      "paymentType" : "Betalningstyp",
+      "paymentCount" : "Antal betalningar",
+      "startDate" : "Startdatum",
+      "expirationDate" : "Slutdatum",
+      "singlePayment" : "Engångsbetalning",
+      "yearlyPayment" : "Årlig betalning"
+    }
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",
@@ -975,21 +982,21 @@
         "label" : "Aktivera betalningssystem",
         "tooltip" : "Om betalningssystemet är aktiverat som standard"
       },
-      "payment-period-length": {
-        "label": "Betalningsperiodens längd",
-        "tooltip": "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om medlemstypen är periodisk eller tidsbegränsad."
+      "payment-period-length" : {
+        "label" : "Betalningsperiodens längd",
+        "tooltip" : "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om medlemstypen är periodisk eller tidsbegränsad."
       },
-      "payment-period-start": {
-        "label": "Startpunkt för betalningsperioden",
-        "tooltip": "När började betalningsperioden. Detta avgör hur perioderna beräknas. Observera att ändring av detta värde kan ogiltigförklara alla aktiva periodiska betalningar. Detta påverkar inte tidsbegränsade betalningar."
+      "payment-period-start" : {
+        "label" : "Startpunkt för betalningsperioden",
+        "tooltip" : "När började betalningsperioden. Detta avgör hur perioderna beräknas. Observera att ändring av detta värde kan ogiltigförklara alla aktiva periodiska betalningar. Detta påverkar inte tidsbegränsade betalningar."
       },
       "periodical-payment-method-type" : {
         "label" : "Typ av periodisk betalningsmetod",
         "tooltip" : "Typ av betalningsmetod för periodiska betalningar. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. det aktuella året, månaden eller veckan från den angivna startpunkten. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
       },
-      "periodical-payment-method-unit": {
-        "label": "Enhet för periodisk betalningsmetod",
-        "tooltip": "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
+      "periodical-payment-method-unit" : {
+        "label" : "Enhet för periodisk betalningsmetod",
+        "tooltip" : "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
       },
       "period-start-point" : {
         "label" : "Startpunkt för betalningsperiod",

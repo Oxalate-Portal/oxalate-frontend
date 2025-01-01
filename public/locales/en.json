@@ -626,12 +626,19 @@
     }
   },
   "FormatPayments" : {
-    "noValid" : "No valid payment information.",
-    "singlePayment" : "one-time payment",
-    "unknownPayment" : "Unknown payment type",
-    "unknownPaymentContact" : "contact support",
-    "unknownPaymentPlease" : "Please",
-    "yearlyPayment" : "Annual payment (expires"
+    "noValid" : "No valid payments available.",
+    "unknownPayment" : "Unknown Payment Type",
+    "unknownPaymentPlease" : "Please contact support for more information.",
+    "unknownPaymentContact" : "Contact Support",
+    "table" : {
+      "id" : "ID",
+      "paymentType" : "Payment Type",
+      "paymentCount" : "Payment Count",
+      "startDate" : "Start Date",
+      "expirationDate" : "Expiration Date",
+      "singlePayment" : "One-Time Payment",
+      "yearlyPayment" : "Yearly Payment"
+    }
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
