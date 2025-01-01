@@ -979,9 +979,13 @@
         "label": "Maksukauden pituus",
         "tooltip": "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on toistuva tai kestollinen."
       },
+      "payment-period-start": {
+        "label": "Maksukauden aloituspiste",
+        "tooltip": "Milloin maksukausi alkoi. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
+      },
       "periodical-payment-method-type" : {
-        "label" : "Jaksottaisen maksutavan tyyppi",
-        "tooltip" : "Jaksottaisten maksujen maksutavan tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
+        "label" : "Kausimaksun tyyppi",
+        "tooltip" : "Kausimaksujen tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
       },
       "periodical-payment-method-unit": {
         "label": "Toistuvan maksutavan yksikkö",

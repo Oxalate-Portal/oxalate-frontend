@@ -979,6 +979,10 @@
         "label" : "Payment period length",
         "tooltip" : "Length of the payment period or duration. Note that this is only used if the membership type is periodical or durational."
       },
+      "payment-period-start" : {
+        "label" : "Payment period start point",
+        "tooltip" : "When did the payment period start. This will determine how the periods are calculated. Note that changing this value may expire all active periodical payments. This has no effect on the durational payments."
+      },
       "periodical-payment-method-type" : {
         "label" : "Periodical payment method type",
         "tooltip" : "Type of payment method for periodical payments. Periodical means that the payment valid for the given ongoing period, e.g., the current year, month or week at the given start point. Durational means that it is valid for a given time period forward."

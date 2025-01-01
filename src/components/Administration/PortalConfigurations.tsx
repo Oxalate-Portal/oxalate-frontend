@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Button, Checkbox, Col, Divider, Input, InputNumber, message, Radio, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
+import {Button, Checkbox, Col, DatePicker, Divider, Input, InputNumber, message, Radio, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
 import {PortalConfigurationResponse} from "../../models/responses";
 import {portalConfigurationAPI} from "../../services";
 import {useTranslation} from "react-i18next";
 import {TimezoneSelector} from "./TimezoneSelector";
 import {ChronoUnitEnum, MembershipTypeEnum, PeriodicalPaymentTypeEnum} from "../../models";
+import dayjs from "dayjs";
 
 const {Text} = Typography;
 
@@ -116,7 +117,16 @@ export function PortalConfigurations() {
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );
+            case "date":
+                const currentDate = currentValue ? dayjs(currentValue) : dayjs();
 
+                return (
+                        <>
+                            <DatePicker value={currentDate}
+                                        onChange={(date) => handleChange(dayjs(date).format("YYYY-MM-DD"))}
+                            />
+                        </>
+                );
             case "email":
                 return (
                         <>
@@ -185,8 +195,6 @@ export function PortalConfigurations() {
                         value: type.toString(),
                     }));
 
-                    console.log("currentValue", currentValue);
-                    console.log("config.defaultValue", config.defaultValue);
                     if (currentValue === config.defaultValue) {
                         currentValue = Object.values(PeriodicalPaymentTypeEnum)[0];
                     }

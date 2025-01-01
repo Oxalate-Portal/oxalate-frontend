@@ -979,6 +979,10 @@
         "label": "Betalningsperiodens längd",
         "tooltip": "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om medlemstypen är periodisk eller tidsbegränsad."
       },
+      "payment-period-start": {
+        "label": "Startpunkt för betalningsperioden",
+        "tooltip": "När började betalningsperioden. Detta avgör hur perioderna beräknas. Observera att ändring av detta värde kan ogiltigförklara alla aktiva periodiska betalningar. Detta påverkar inte tidsbegränsade betalningar."
+      },
       "periodical-payment-method-type" : {
         "label" : "Typ av periodisk betalningsmetod",
         "tooltip" : "Typ av betalningsmetod för periodiska betalningar. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. det aktuella året, månaden eller veckan från den angivna startpunkten. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
