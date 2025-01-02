@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import { Select, Space, Spin } from "antd";
-import { diveEventAPI, downloadAPI, userAPI } from "../../services";
-import { useState } from "react";
-import { CSVLink } from "react-csv";
-import { DownloadOutlined } from "@ant-design/icons";
+import {useTranslation} from "react-i18next";
+import {Select, Space, Spin} from "antd";
+import {diveEventAPI, downloadAPI, userAPI} from "../../services";
+import {useState} from "react";
+import {CSVLink} from "react-csv";
+import {DownloadOutlined} from "@ant-design/icons";
 
 enum DownloadTypeEnum {
     CERTIFICATE = "CERTIFICATE",
@@ -19,7 +19,7 @@ function DownloadData() {
         {label: t("DownloadData.certificateLabel"), value: DownloadTypeEnum.CERTIFICATE},
         {label: t("DownloadData.diveLabel"), value: DownloadTypeEnum.DIVE},
         {label: t("DownloadData.diveEventLabel"), value: DownloadTypeEnum.DIVE_EVENT},
-        {label: t("DownloadData.memberLabel"), value: DownloadTypeEnum.MEMBER},
+        {label: t("DownloadData.userLabel"), value: DownloadTypeEnum.MEMBER},
         {label: t("DownloadData.paymentLabel"), value: DownloadTypeEnum.PAYMENT}
     ];
 

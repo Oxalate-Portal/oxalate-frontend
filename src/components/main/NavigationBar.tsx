@@ -85,7 +85,7 @@ export function NavigationBar() {
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/users" className="dropdown-item"
-                                                             type="button">{t("nav.administration.members")}</NavLink>
+                                                             type="button">{t("nav.administration.users")}</NavLink>
                                                 </li>
                                                 <li>
                                                     <NavLink to="/administration/payments" className="dropdown-item"

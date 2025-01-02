@@ -12,8 +12,8 @@
     "form" : {
       "button" : "Spara betalningar",
       "name" : {
-        "label" : "Medlemmar",
-        "placeholder" : "Lägg till medlemmar"
+        "label" : "Användare",
+        "placeholder" : "Lägg till användare"
       },
       "paymentCount" : {
         "label" : "Antal engångsbetalningar"
@@ -40,13 +40,13 @@
   },
   "AdminMain" : {
     "header" : "Administration",
-    "memberHeader" : "Medlemmar",
+    "userHeader" : "Användare",
     "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden",
     "paymentHeader" : "Betalningar",
-    "paymentText" : "Visa nuvarande betalningar, möjlighet att avbryta årsavgifter och lägga till betalningsinformation för medlemmar",
+    "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
     "statsHeader" : "Statistik",
-    "statsText1" : "Årsstatistik för händelser, medlemsregistrering, evenemangsarrangörer och betalningar",
-    "statsText2" : "Här finns även halvårsrapporter för evenemang",
+    "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
+    "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
     "text" : "Administrativa sidor. Var försiktig"
   },
   "AdminOrgAdminPaymentListPanel" : {
@@ -67,7 +67,7 @@
       "roles" : {
         "administrator" : "Administratör",
         "label" : "Roller",
-        "member" : "Medlem",
+        "user" : "Användare",
         "organizer" : "Evenemangsarrangör"
       },
       "status" : {
@@ -81,7 +81,7 @@
       "ok" : "Lösenordsåterställningslänk skickad till e-postadressen"
     },
     "updateUser" : {
-      "confirmAnonymize" : "Är du säker på att du vill begära anonymisering av uppgifter? Detta kommer att ta bort all användarens personlig information som har angetts i systemet. Denna åtgärd kan inte ångras.",
+      "confirmAnonymize" : "Är du säker på att du vill begära anonymisering? Detta kommer att ta bort all personlig data som användaren har angett i systemet. Denna ändring kan inte ångras.",
       "confirmOrganizer" : "Att lägga till rollen som evenemangsarrangör kommer att inaktivera integritetsskyddet. Vill du fortsätta?",
       "fail" : "Misslyckades med att uppdatera användarens information",
       "ok" : "Användarens information uppdaterad"
@@ -89,13 +89,13 @@
   },
   "AdminOrgUsers" : {
     "invalidateTermAgreements" : {
-      "confirm" : "Är du säker på att alla medlemmar måste godkänna användarvillkoren igen? Denna åtgärd kan inte återkallas.",
+      "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
       "fail" : "Det gick inte att ogiltigförklara användarvillkoren",
       "ok" : "Användarvillkoren ogiltigförklarades framgångsrikt"
     },
     "search" : {
-      "placeholder" : "Sök medlemmar",
-      "spinText" : "Söker medlemmar..."
+      "placeholder" : "Sök användare",
+      "spinText" : "Söker användare..."
     },
     "table" : {
       "action" : {
@@ -105,7 +105,7 @@
       "firstName" : "Förnamn",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
-      "paymentStatus" : "Medlemskaps avgift",
+      "paymentStatus" : "Betalningar",
       "role" : {
         "title" : "Roller"
       },
@@ -115,7 +115,7 @@
       "resetButton" : "Återställ användarvillkor",
       "resetDivider" : "Återställ användarvillkor"
     },
-    "title" : "Medlemmar"
+    "title" : "Användare"
   },
   "AdminPayments" : {
     "activeDivider" : "Aktiva betalningar",
@@ -240,7 +240,7 @@
     },
     "panel" : {
       "addButton" : "Lägg till nytt certifikat",
-      "text" : "Medlemmen har uppnått följande dykcertifikat:",
+      "text" : "Användaren har slutfört följande dykcertifieringar:",
       "title" : "Dykcertifikat"
     }
   },
@@ -259,7 +259,7 @@
     "downloadPrompt" : "Klicka på länken för att ladda ner data: ",
     "gdprWarning" : "Var medveten om att vissa nedladdningar kan innehålla personlig information som regleras av GDPR. Hantera data med omsorg och dela den inte med obehöriga parter. Ta bort filerna när de inte längre behövs.",
     "header" : "Ladda ner data",
-    "memberLabel" : "Medlemmar",
+    "userLabel" : "Användarw",
     "paymentLabel" : "Betalningar",
     "rowCount" : "Antal rader: {{count}}"
   },
@@ -379,7 +379,7 @@
       "participants" : {
         "label" : "Deltagare",
         "placeholder" : "Lägg till deltagare",
-        "tooltip" : "Medlemmar som deltar i evenemanget"
+        "tooltip" : "Deltagare i evenemanget"
       },
       "startTime" : {
         "label" : "Starttid, observera att detta är i platsens tidszon.",
@@ -394,7 +394,7 @@
         "rules" : {
           "required" : "Status är ett obligatoriskt fält"
         },
-        "tooltip" : "Utkast status visas inte ännu för medlemmar. Publicerad status är synlig för alla medlemmar, likaså hållits som är för händelser i det förflutna. Avbokat status visas inte för medlemmar."
+        "tooltip" : "Utkaststatus är ännu inte synlig för användare. Publicerad status är synlig för alla användare, liksom hållen, som är för tidigare händelser. Avbruten status är inte synlig för användare."
       },
       "submitButton" : {
         "add" : "Lägg till evenemang",
@@ -984,7 +984,7 @@
       },
       "payment-period-length" : {
         "label" : "Betalningsperiodens längd",
-        "tooltip" : "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om medlemstypen är periodisk eller tidsbegränsad."
+        "tooltip" : "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om betalningstypen är återkommande eller tidsbegränsad."
       },
       "payment-period-start" : {
         "label" : "Startpunkt för betalningsperioden",
@@ -1033,10 +1033,18 @@
         },
         "tooltip" : "Lösenordet måste vara minst 10 tecken långt och måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken"
       },
-      "submitButton" : "Registrera"
+      "submitButton" : "Registrera",
+      "terms" : {
+        "accept" : "Jag accepterar villkoren",
+        "button" : "villkor",
+        "reject" : "Jag accepterar inte villkoren",
+        "text" : "Läs och acceptera",
+        "title" : "Villkor"
+      },
+      "title" : "Registrera"
     },
     "success" : {
-      "message" : "Registreringen lyckades! Innan du stänger detta fönster, kontrollera din e-post. Vi har skickat en bekräftelse med en länk för att aktivera ditt konto. Kom ihåg att kontrollera din skräppostmapp också."
+      "message" : "Registreringen lyckades! Innan du stänger detta fönster, vänligen kontrollera din e-post. Vi har skickat ett bekräftelsemail till den adress du registrerade dig med. Kontrollera även din skräppostmapp."
     }
   },
   "Registration" : {
@@ -1114,7 +1122,7 @@
   },
   "StatsYearlyRegistrations" : {
     "stats" : {
-      "title" : "Registreringar per år"
+      "title" : "Användarregistreringar per år"
     }
   },
   "TimezoneSelector" : {
@@ -1148,7 +1156,7 @@
     "requestLocking" : {
       "confirm" : "Vill du verkligen låsa kontot? Kontoinformationen bevaras, men administratören måste öppna ditt konto för att du ska kunna logga in i systemet igen."
     },
-    "title" : "Medlemsinformation",
+    "title" : "Användarinformation",
     "update" : {
       "fail" : "Misslyckades med att uppdatera användarens information",
       "ok" : "Användarinformation uppdaterad"
@@ -1231,10 +1239,10 @@
       },
       "privacy" : {
         "label" : "Dölj kontaktinformation",
-        "tooltip" : "E-post och telefonnummer visas inte för andra medlemmar. Endast radmedlemmar kan dölja sina uppgifter. Evenemangsarrangörens namn är alltid synligt."
+        "tooltip" : "E-post och telefonnummer är inte synliga för andra medlemmar. Endast användaren kan dölja sin information. Arrangörens namn är alltid synligt."
       },
       "userId" : {
-        "label" : "Medlemsnummer"
+        "label" : "Användar-ID"
       },
       "username" : {
         "label" : "Användarnamn",
@@ -1299,7 +1307,7 @@
       "administrator" : "Administratör",
       "anonymous" : "Anonym",
       "organizer" : "Evenemangsarrangör",
-      "user" : "Medlem"
+      "user" : "Användare"
     },
     "spinner" : {
       "loading" : "Laddar..."
@@ -1324,7 +1332,7 @@
       "blocked-dates" : "Datumsblockering",
       "download" : "Laddan ner",
       "files" : "Filer",
-      "members" : "Medlemmar",
+      "users" : "Användare",
       "payments" : "Betalningar",
       "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",

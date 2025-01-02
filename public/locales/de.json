@@ -12,8 +12,8 @@
     "form" : {
       "button" : "Zahlungen speichern",
       "name" : {
-        "label" : "Mitglieder",
-        "placeholder" : "Mitglieder hinzufügen"
+        "label" : "Benutzer",
+        "placeholder" : "Benutzer hinzufügen"
       },
       "paymentCount" : {
         "label" : "Anzahl der Einmalzahlungen"
@@ -40,13 +40,13 @@
   },
   "AdminMain" : {
     "header" : "Verwaltung",
-    "memberHeader" : "Mitglieder",
+    "userHeader" : "Benutzer",
     "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
     "paymentHeader" : "Zahlungen",
-    "paymentText" : "Anzeige der aktuellen Zahlungen, Möglichkeit zur Annullierung der Jahresgebühren und Hinzufügen von Zahlungsinformationen für Mitglieder",
+    "paymentText" : "Ansicht der aktuellen Zahlungen, Möglichkeit zur Ungültigmachung von Jahreszahlungen und Hinzufügung von Zahlungsinformationen zu Benutzern",
     "statsHeader" : "Statistiken",
-    "statsText1" : "Jahresstatistiken für Veranstaltungen, Mitgliederregistrierungen, Veranstaltungsorganisatoren und Zahlungen",
-    "statsText2" : "Hier finden Sie auch halbjährliche Ereignisberichte.",
+    "statsText1" : "Jährliche Veranstaltungs-, Benutzerregistrierungs-, Mitgliederregistrierungs- (falls verwendet), Veranstaltungsorganisatoren- und Zahlungsstatistiken",
+    "statsText2" : "Hier finden Sie auch halbjährliche Veranstaltungsberichte",
     "text" : "Verwaltungsseiten. Seien Sie vorsichtig."
   },
   "AdminOrgAdminPaymentListPanel" : {
@@ -67,7 +67,7 @@
       "roles" : {
         "administrator" : "Administrator",
         "label" : "Rollen",
-        "member" : "Mitglied",
+        "user" : "Benutzer",
         "organizer" : "Veranstaltungsorganisator"
       },
       "status" : {
@@ -81,7 +81,7 @@
       "ok" : "Passwortänderungslink wurde per E-Mail gesendet"
     },
     "updateUser" : {
-      "confirmAnonymize" : "Möchten Sie wirklich die Anonymisierung Ihrer Daten beantragen? Dies löscht alle persönlichen Daten, die Sie im System eingegeben haben. Diese Änderung kann nicht rückgängig gemacht werden.",
+      "confirmAnonymize" : "Sind Sie sicher, dass Sie die Anonymisierung anfordern möchten? Dadurch werden alle persönlichen Daten entfernt, die der Benutzer in das System eingegeben hat. Diese Änderung kann nicht rückgängig gemacht werden.",
       "confirmOrganizer" : "Die Hinzufügung der Rolle als Veranstaltungsorganisator hebt den Datenschutz auf. Möchten Sie fortfahren?",
       "fail" : "Aktualisierung der Benutzerdaten fehlgeschlagen",
       "ok" : "Benutzerdaten wurden aktualisiert"
@@ -89,13 +89,13 @@
   },
   "AdminOrgUsers" : {
     "invalidateTermAgreements" : {
-      "confirm" : "Sind Sie sicher, dass alle Mitglieder die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
+      "confirm" : "Sind Sie sicher, dass alle Benutzer die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
       "fail" : "Die Bedingungen konnten nicht für ungültig erklärt werden",
       "ok" : "Die Bedingungen wurden erfolgreich für ungültig erklärt"
     },
     "search" : {
-      "placeholder" : "Mitglieder durchsuchen",
-      "spinText" : "Suche nach Mitgliedern..."
+      "placeholder" : "Benutzer suchen",
+      "spinText" : "Benutzer werden gesucht..."
     },
     "table" : {
       "action" : {
@@ -105,7 +105,7 @@
       "firstName" : "Vorname",
       "lastName" : "Nachname",
       "login" : "Benutzername",
-      "paymentStatus" : "Mitgliedsbeitrag",
+      "paymentStatus" : "Zahlungen",
       "role" : {
         "title" : "Rollen"
       },
@@ -115,7 +115,7 @@
       "resetButton" : "Neue Zustimmung zu Nutzungsbedingungen",
       "resetDivider" : "Zurücksetzen der Nutzungsbedingungen"
     },
-    "title" : "Mitglieder"
+    "title" : "Benutzer"
   },
   "AdminPayments" : {
     "activeDivider" : "Aktive Zahlungen",
@@ -259,7 +259,7 @@
     "downloadPrompt" : "Klicken Sie auf den Link, um die Datei herunterzuladen: ",
     "gdprWarning" : "Beachten Sie, dass einige der Downloads persönliche Informationen enthalten können, die der DSGVO unterliegen. Bitte behandeln Sie die Daten mit Sorgfalt und teilen Sie sie nicht mit unbefugten Dritten. Entfernen Sie die Dateien, wenn sie nicht mehr benötigt werden.",
     "header" : "Daten herunterladen",
-    "memberLabel" : "Mitglieder",
+    "userLabel" : "Benutzer",
     "paymentLabel" : "Zahlungen",
     "rowCount" : "Zeilenanzahl:  {{count}}"
   },
@@ -379,7 +379,7 @@
       "participants" : {
         "label" : "Teilnehmer",
         "placeholder" : "Teilnehmer hinzufügen",
-        "tooltip" : "Mitglieder, die an dem Ereignis teilnehmen"
+        "tooltip" : "Teilnehmer an der Veranstaltung"
       },
       "startTime" : {
         "label" : "Startzeit, beachten Sie, dass diese in der Zeitzone des Standorts liegt.",
@@ -394,7 +394,7 @@
         "rules" : {
           "required" : "Status ist ein Pflichtfeld"
         },
-        "tooltip" : "Entworfen Status wird den Mitgliedern noch nicht angezeigt. Veröffentlicht Status ist für alle Mitglieder sichtbar, ebenso wie gehalten, das für vergangene Ereignisse gilt. Abgesagt Status wird den Mitgliedern nicht angezeigt."
+        "tooltip" : "Der Entwurfsstatus ist für Benutzer noch nicht sichtbar. Der veröffentlichte Status ist für alle Benutzer sichtbar, ebenso wie der gehaltene, der für vergangene Ereignisse gilt. Der abgebrochene Status ist für Benutzer nicht sichtbar."
       },
       "submitButton" : {
         "add" : "Ereignis hinzufügen",
@@ -984,7 +984,7 @@
       },
       "payment-period-length" : {
         "label" : "Zahlungszeitraum-Länge",
-        "tooltip" : "Länge des Zahlungszeitraums oder der Dauer. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedschaftstyp periodisch oder zeitlich begrenzt ist."
+        "tooltip" : "Die Länge des Zahlungszeitraums oder der Dauer. Beachten Sie, dass dies nur verwendet wird, wenn der Zahlungstyp wiederkehrend oder befristet ist."
       },
       "payment-period-start" : {
         "label" : "Startpunkt des Zahlungszeitraums",
@@ -1122,7 +1122,7 @@
   },
   "StatsYearlyRegistrations" : {
     "stats" : {
-      "title" : "Mitgliederregistrierungen pro Jahr"
+      "title" : "Benutzerregistrierungen nach Jahr"
     }
   },
   "TimezoneSelector" : {
@@ -1239,7 +1239,7 @@
       },
       "privacy" : {
         "label" : "Kontaktdaten verbergen",
-        "tooltip" : "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur Standardmitglieder können ihre Daten verbergen. Der Name des Veranstalters ist immer sichtbar."
+        "tooltip" : "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur der Benutzer kann seine Informationen verbergen. Der Name des Veranstalters ist immer sichtbar."
       },
       "userId" : {
         "label" : "Benutzer-ID"
@@ -1307,7 +1307,7 @@
       "administrator" : "Administrator",
       "anonymous" : "Anonym",
       "organizer" : "Veranstaltungsorganisator",
-      "user" : "Mitglied"
+      "user" : "Benutzer"
     },
     "spinner" : {
       "loading" : "Laden..."
@@ -1332,7 +1332,7 @@
       "blocked-dates" : "Datumsblockierung",
       "download" : "Herunterladen",
       "files" : "Dateien",
-      "members" : "Mitglieder",
+      "users" : "Benutzer",
       "payments" : "Zahlungen",
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",

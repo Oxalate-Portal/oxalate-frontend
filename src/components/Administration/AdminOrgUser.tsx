@@ -1,14 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { SyntheticEvent, useEffect, useState } from "react";
-import { ResultEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
-import { useTranslation } from "react-i18next";
-import { authAPI, userAPI } from "../../services";
-import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
-import { Button, Checkbox, Col, Form, Input, Row, Select, Space, Spin } from "antd";
-import { UserFields } from "../User";
-import { checkRoles } from "../../helpers";
-import { UserRequest } from "../../models/requests";
-import { SubmitResult } from "../main";
+import {useNavigate, useParams} from "react-router-dom";
+import {SyntheticEvent, useEffect, useState} from "react";
+import {ResultEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum} from "../../models";
+import {useTranslation} from "react-i18next";
+import {authAPI, userAPI} from "../../services";
+import {AdminUserResponse} from "../../models/responses/AdminUserResponse";
+import {Button, Checkbox, Col, Form, Input, Row, Select, Space, Spin} from "antd";
+import {UserFields} from "../User";
+import {checkRoles} from "../../helpers";
+import {UserRequest} from "../../models/requests";
+import {SubmitResult} from "../main";
 
 export function AdminOrgUser() {
     const {paramId} = useParams();
@@ -192,7 +192,7 @@ export function AdminOrgUser() {
                             <Checkbox.Group style={{width: "100%"}}>
                                 <Row>
                                     <Col span={6}>
-                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}}>{t("AdminOrgUser.form.roles.member")}</Checkbox>
+                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}}>{t("AdminOrgUser.form.roles.user")}</Checkbox>
                                     </Col>
                                     <Col span={12}>
                                         <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}}>{t("AdminOrgUser.form.roles.organizer")}</Checkbox>

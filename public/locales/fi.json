@@ -12,8 +12,8 @@
     "form" : {
       "button" : "Talleta maksut",
       "name" : {
-        "label" : "Jäsenet",
-        "placeholder" : "Lisää jäseniä"
+        "label" : "Käyttäjät",
+        "placeholder" : "Lisää käyttäjiä"
       },
       "paymentCount" : {
         "label" : "Kertamaksujen määrä"
@@ -40,12 +40,12 @@
   },
   "AdminMain" : {
     "header" : "Ylläpito",
-    "memberHeader" : "Jäsenet",
+    "userHeader" : "Käyttäjät",
     "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
     "paymentHeader" : "Maksut",
-    "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto jäsenille",
+    "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto käyttäjille",
     "statsHeader" : "Tilastot",
-    "statsText1" : "Vuositason tapahtuma-, jäsenrekisteröinti- tapahtumajärjestäjien sekä maksutilastot",
+    "statsText1" : "Vuositason tapahtuma-, käyttäjärekisteröinti- jäsenrekisteröinti- (jos käytössä) tapahtumajärjestäjien sekä maksutilastot",
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
     "text" : "Ylläpito-sivut. Ole varovainen"
   },
@@ -67,7 +67,7 @@
       "roles" : {
         "administrator" : "Ylläpitäjä",
         "label" : "Roolit",
-        "member" : "Jäsen",
+        "user" : "Käyttäjä",
         "organizer" : "Tapahtumajärjestäjä"
       },
       "status" : {
@@ -81,7 +81,7 @@
       "ok" : "Salasanan vaihtolinkki lähetetty sähköpostiin"
     },
     "updateUser" : {
-      "confirmAnonymize" : "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki jäsenen henkilökohtaiset tiedot jotka hän on syöttänyt järjestelmään. Tätä muutosta ei voi perua.",
+      "confirmAnonymize" : "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki käyttäjän henkilökohtaiset tiedot jotka hän on syöttänyt järjestelmään. Tätä muutosta ei voi perua.",
       "confirmOrganizer" : "Tapahtumajärjestäjän roolin lisääminen poistaa yksityisyyden suojan käytöstä. Haluatko jatkaa?",
       "fail" : "Käyttäjän tietojen päivitys epäonnistui",
       "ok" : "Käyttäjän tiedot päivitetty"
@@ -89,13 +89,13 @@
   },
   "AdminOrgUsers" : {
     "invalidateTermAgreements" : {
-      "confirm" : "Oletko varma että kaikkien jäsenten täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
+      "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
       "fail" : "Ei onnistuttu mitätöimään käyttöehtoja",
       "ok" : "Käyttöehdot mitätöitiin onnistuneesti"
     },
     "search" : {
-      "placeholder" : "Hae jäseniä",
-      "spinText" : "Haetaan jäseniä..."
+      "placeholder" : "Hae käyttäjiä",
+      "spinText" : "Haetaan käyttäjiä..."
     },
     "table" : {
       "action" : {
@@ -105,7 +105,7 @@
       "firstName" : "Etunimi",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
-      "paymentStatus" : "Jäsenmaksu",
+      "paymentStatus" : "Maksut",
       "role" : {
         "title" : "Roolit"
       },
@@ -115,7 +115,7 @@
       "resetButton" : "Uusi käyttöehtohyväksyminen",
       "resetDivider" : "Käyttöehtojen nollaus"
     },
-    "title" : "Jäsenet"
+    "title" : "Käyttäjät"
   },
   "AdminPayments" : {
     "activeDivider" : "Voimassaolevat maksut",
@@ -240,7 +240,7 @@
     },
     "panel" : {
       "addButton" : "Lisää uusi luokitus",
-      "text" : "Jäsen on suorittanut seuraavat sukellusluokitukset:",
+      "text" : "Käyttäjä on suorittanut seuraavat sukellusluokitukset:",
       "title" : "Sukellusluokitukset"
     }
   },
@@ -259,7 +259,7 @@
     "downloadPrompt" : "Lataa tästä: ",
     "gdprWarning" : "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
     "header" : "Lataa tietoja",
-    "memberLabel" : "Jäsenet",
+    "userLabel" : "Käyttäjät",
     "paymentLabel" : "Maksut",
     "rowCount" : "Rivien määrä:  {{count}}"
   },
@@ -379,7 +379,7 @@
       "participants" : {
         "label" : "Osallistujat",
         "placeholder" : "Add participants",
-        "tooltip" : "Tapahtumaan osallistuvat jäsenet"
+        "tooltip" : "Tapahtumaan osallistuvat sukeltajat"
       },
       "startTime" : {
         "label" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä.",
@@ -394,7 +394,7 @@
         "rules" : {
           "required" : "Tila on pakollinen kenttä"
         },
-        "tooltip" : "Luonnos-tila ei ole vielä näkyvissä jäsenille. Julkaistu-tila on näkyvissä kaikille jäsenille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä jäsenille."
+        "tooltip" : "Luonnos-tila ei ole vielä näkyvissä käyttäjille. Julkaistu-tila on näkyvissä kaikille käyttäjille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä käyttäjille."
       },
       "submitButton" : {
         "add" : "Lisää tapahtuma",
@@ -984,7 +984,7 @@
       },
       "payment-period-length" : {
         "label" : "Maksukauden pituus",
-        "tooltip" : "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on toistuva tai kestollinen."
+        "tooltip" : "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos maksutyyppi on toistuva tai kestollinen."
       },
       "payment-period-start" : {
         "label" : "Maksukauden aloituspiste",
@@ -1122,7 +1122,7 @@
   },
   "StatsYearlyRegistrations" : {
     "stats" : {
-      "title" : "Jäsenrekisteröinnit vuositasolla"
+      "title" : "Käyttäjärekisteröinnit vuositasolla"
     }
   },
   "TimezoneSelector" : {
@@ -1156,7 +1156,7 @@
     "requestLocking" : {
       "confirm" : "Haluatko varmasti lukita tilin? Tilin tiedot säilyvät, mutta ylläpidon on avattava tilisi jotta voit kirjautua järjestelmään uudelleen."
     },
-    "title" : "jäsentiedot",
+    "title" : "Käyttäjätiedot",
     "update" : {
       "fail" : "Käyttäjätietojen päivitys epäonnistui",
       "ok" : "Käyttäjätiedot päivitetty"
@@ -1239,10 +1239,10 @@
       },
       "privacy" : {
         "label" : "Piilota yhteystiedot",
-        "tooltip" : "Sähköposti ja puhelinnumero ei näy muille jäsenille. Vain rivijäsen voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
+        "tooltip" : "Sähköposti ja puhelinnumero ei näy muille käyttäjille. Vain käyttäjä voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
       },
       "userId" : {
-        "label" : "Jäsennumero"
+        "label" : "käyttäjätunniste"
       },
       "username" : {
         "label" : "Käyttäjätunnus",
@@ -1307,7 +1307,7 @@
       "administrator" : "Ylläpitäjä",
       "anonymous" : "Anonyymi",
       "organizer" : "Tapahtumajärjestäjä",
-      "user" : "Jäsen"
+      "user" : "Käyttäjä"
     },
     "spinner" : {
       "loading" : "Ladataan..."
@@ -1332,7 +1332,7 @@
       "blocked-dates" : "Päivämäärän estäminen",
       "download" : "Lataa",
       "files" : "Tiedostot",
-      "members" : "Jäsenet",
+      "users" : "Käyttäjät",
       "payments" : "Maksut",
       "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
