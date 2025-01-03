@@ -954,9 +954,17 @@
       }
     },
     "membership" : {
+      "event-require-membership": {
+        "label": "Tapahtuma vaatii jäsenyyden",
+        "tooltip": "Onko sukeltajalla oltava voimassa oleva jäsenyys osallistuakseen sukellustapahtumaan"
+      },
       "membership-period-length" : {
         "label" : "Jäsenkauden pituus",
         "tooltip" : "Jäsenkauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on jaksottainen tai määräaikainen."
+      },
+      "membership-period-start": {
+        "label": "Jäsenyyskauden alkamispäivä",
+        "tooltip": "Milloin jäsenyyskauden laskenta alkoi. Tätä käytetään vain jaksottaisessa kausityypissä. Sen avulla kausi kohdistetaan nykyiseen päivämäärään"
       },
       "membership-period-start-point" : {
         "label" : "Jäsenkauden aloituspiste",
@@ -1319,7 +1327,7 @@
       "registered" : "Rekisteröity"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Vaihda salasana",
       "login" : "Kirjaudu sisään",
@@ -1332,12 +1340,13 @@
       "blocked-dates" : "Päivämäärän estäminen",
       "download" : "Lataa",
       "files" : "Tiedostot",
-      "users" : "Käyttäjät",
+      "members" : "Jäsenet",
       "payments" : "Maksut",
       "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
       "stats" : "Tilastot",
-      "title" : "Ylläpito"
+      "title" : "Ylläpito",
+      "users" : "Käyttäjät"
     },
     "events" : {
       "add" : "Lisää tapahtuma",

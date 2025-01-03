@@ -954,9 +954,17 @@
       }
     },
     "membership" : {
+      "event-require-membership": {
+        "label": "Evenemang kräver medlemskap",
+        "tooltip": "Måste en dykare ha ett giltigt medlemskap för att kunna delta i ett dykevenemang"
+      },
       "membership-period-length" : {
         "label" : "Medlemskapsperiodens längd",
         "tooltip" : "Längden på medlemskapsperioden eller varaktigheten. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
+      },
+      "membership-period-start": {
+        "label": "Medlemskapsperiodens startdatum",
+        "tooltip": "När började räkningen av medlemskapsperioden. Detta används endast för periodisk typ. Det används för att anpassa perioden till dagens datum"
       },
       "membership-period-start-point" : {
         "label" : "Startpunkt för medlemskapsperiod",
@@ -1319,7 +1327,7 @@
       "registered" : "Registrerad"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Ändra lösenord",
       "login" : "Logga in",
@@ -1332,12 +1340,13 @@
       "blocked-dates" : "Datumsblockering",
       "download" : "Laddan ner",
       "files" : "Filer",
-      "users" : "Användare",
+      "members" : "Medlemmar",
       "payments" : "Betalningar",
       "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",
       "stats" : "Statistik",
-      "title" : "Administration"
+      "title" : "Administration",
+      "users" : "Användare"
     },
     "events" : {
       "add" : "Lägg till evenemang",

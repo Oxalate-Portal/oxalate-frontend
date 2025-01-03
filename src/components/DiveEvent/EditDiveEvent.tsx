@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {blockedDatesAPI, diveEventAPI, portalConfigurationAPI, userAPI} from "../../services";
-import {BlockedDateResponse, DiveEventResponse, DiveEventUserResponse, FrontendConfigurationResponse} from "../../models/responses";
+import {blockedDatesAPI, diveEventAPI, userAPI} from "../../services";
+import {BlockedDateResponse, DiveEventResponse, DiveEventUserResponse} from "../../models/responses";
 import {DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Alert, Button, DatePicker, Form, Input, Select, Slider, Space} from "antd";
@@ -40,7 +40,7 @@ export function EditDiveEvent() {
     const [depthMarks, setDepthMarks] = useState<{ [key: number]: string }>({});
     const [participantsMarks, setParticipantsMarks] = useState<{ [key: number]: string }>({});
 
-    const {getPortalTimezone} = useSession();
+    const {getPortalTimezone, getFrontendConfigurationValue} = useSession();
 
     const statusOptions: OptionItemVO[] = [
         {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
@@ -70,25 +70,6 @@ export function EditDiveEvent() {
             setParticipantOptions(participantList);
         }
 
-        function findConfigurationValue(configurations: FrontendConfigurationResponse[], key: string): number {
-            const config = configurations.find((item) => item.key === key);
-            return config !== undefined ? parseInt(config.value) : 0;
-        }
-
-        function findConfigurationArray(configurations: FrontendConfigurationResponse[], key: string): string[] {
-            if (configurations === undefined || configurations.length === 0) {
-                return [];
-            }
-
-            const config = configurations.find((item) => item.key === key);
-
-            if (config === undefined || config === null) {
-                return [];
-            }
-
-            return config.value.split(",").sort((a, b) => a.localeCompare(b));
-        }
-
         function getMarks(min: number, max: number, step: number, suffix: string): { [key: number]: string } {
             let marks: { [key: number]: string } = {};
             for (let i = min; i <= max; i += step) {
@@ -97,30 +78,29 @@ export function EditDiveEvent() {
             return marks;
         }
 
-        function setCommonValues(dates: Date[], portalConfiguration: FrontendConfigurationResponse[]): void {
-            setBlockedDates(dates);
+        function setFrontendValues(): void {
             // Find max-depth from portalConfiguration array and set it to state
-            const maxDepth = findConfigurationValue(portalConfiguration, "max-depth");
+            const maxDepth = parseInt(getFrontendConfigurationValue("max-depth"));
             setMaxDepth(maxDepth);
             setDepthMarks(getMarks(10, maxDepth, 10, "m"));
 
-            const maxDiveLength = findConfigurationValue(portalConfiguration, "max-dive-length");
+            const maxDiveLength = parseInt(getFrontendConfigurationValue("max-dive-length"));
             setMaxDiveLength(maxDiveLength);
             setDiveLengthMarks(getMarks(30, maxDiveLength, 60, " min"));
 
-            const minEventLength = findConfigurationValue(portalConfiguration, "min-event-length");
-            const maxEventLength = findConfigurationValue(portalConfiguration, "max-event-length");
+            const minEventLength = parseInt(getFrontendConfigurationValue("min-event-length"));
+            const maxEventLength = parseInt(getFrontendConfigurationValue("max-event-length"));
             setMinEventLength(minEventLength);
             setMaxEventLength(maxEventLength);
             setEventDurationMarks(getMarks(minEventLength, maxEventLength, 2, "h"));
 
-            const minParticipants = findConfigurationValue(portalConfiguration, "min-participants");
-            const maxParticipants = findConfigurationValue(portalConfiguration, "max-participants");
+            const minParticipants = parseInt(getFrontendConfigurationValue("min-participants"));
+            const maxParticipants = parseInt(getFrontendConfigurationValue("max-participants"));
             setMinParticipants(minParticipants);
             setMaxParticipants(maxParticipants);
             setParticipantsMarks(getMarks(minParticipants, maxParticipants, 5, ""));
 
-            const eventTypes: string[] = findConfigurationArray(portalConfiguration, "types-of-event");
+            const eventTypes: string[] = getFrontendConfigurationValue("types-of-event").split(",");
             eventTypes.sort();
             setEventTypes(eventTypes.map((type) => {
                 return {value: type, label: t("EditEvent.eventTypes." + type)};
@@ -128,6 +108,7 @@ export function EditDiveEvent() {
         }
 
         setLoading(true);
+        setFrontendValues();
         let tmpDiveEventId = 0;
 
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
@@ -140,15 +121,14 @@ export function EditDiveEvent() {
                 diveEventAPI.findById(tmpDiveEventId, null),
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER),
-                blockedDatesAPI.findAll(),
-                portalConfigurationAPI.getFrontendConfiguration()
+                blockedDatesAPI.findAll()
             ])
-                    .then(([eventResponse, organizerResponses, participantResponses, blockedDatesResponses, portalConfiguration]) => {
+                    .then(([eventResponse, organizerResponses, participantResponses, blockedDatesResponses]) => {
                         setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
                         populateOrganizerList(organizerResponses);
                         populateParticipantList(participantResponses);
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
-                        setCommonValues(dates, portalConfiguration);
+                        setBlockedDates(dates);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -160,10 +140,8 @@ export function EditDiveEvent() {
             Promise.all([
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER),
-                blockedDatesAPI.findAll(),
-                portalConfigurationAPI.getFrontendConfiguration()
-            ])
-                    .then(([organizerResponse, participantResponse, blockedDatesResponses, portalConfiguration]) => {
+                blockedDatesAPI.findAll()            ])
+                    .then(([organizerResponse, participantResponse, blockedDatesResponses]) => {
                         populateOrganizerList(organizerResponse);
                         populateParticipantList(participantResponse);
                         setDiveEvent(
@@ -183,7 +161,7 @@ export function EditDiveEvent() {
                                 }
                         );
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
-                        setCommonValues(dates, portalConfiguration);
+                        setBlockedDates(dates);
                     })
                     .catch((error) => {
                         console.error(error);
@@ -193,7 +171,7 @@ export function EditDiveEvent() {
                     });
             setSubmitButtonText(t("EditEvent.form.submitButton.add"));
         }
-    }, [paramId, t]);
+    }, [paramId, t, getFrontendConfigurationValue]);
 
     function disabledDate(current: Dayjs): boolean {
         return current && (blockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));

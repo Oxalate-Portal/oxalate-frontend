@@ -29,6 +29,7 @@ export {MembershipTypeEnum} from "./MembershipTypeEnum";
 export {PageStatusEnum} from "./PageStatusEnum";
 export {PaymentTypeEnum} from "./PaymentTypeEnum";
 export {PeriodicalPaymentTypeEnum} from "./PeriodicalPaymentTypeEnum";
+export {PortalConfigGroupEnum} from "./PortalConfigGroupEnum";
 export {ResultEnum} from "./ResultEnum";
 export {RoleEnum} from "./RoleEnum";
 export {UpdateStatusEnum} from "./UpdateStatusEnum";

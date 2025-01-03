@@ -954,9 +954,17 @@
       }
     },
     "membership" : {
+      "event-require-membership": {
+        "label": "Veranstaltung erfordert Mitgliedschaft",
+        "tooltip": "Muss ein Taucher eine gültige Mitgliedschaft haben, um an einer Tauchveranstaltung teilnehmen zu können"
+      },
       "membership-period-length" : {
         "label" : "Mitgliedschaftsdauer",
         "tooltip" : "Dauer der Mitgliedschaftsperiode oder Laufzeit. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedschaftstyp periodisch oder zeitlich begrenzt ist."
+      },
+      "membership-period-start": {
+        "label": "Startdatum der Mitgliedschaftsperiode",
+        "tooltip": "Wann begann die Zählung der Mitgliedschaftsperiode. Dies wird nur für den periodischen Typ verwendet. Es dient dazu, die Periode mit dem aktuellen Datum abzugleichen"
       },
       "membership-period-start-point" : {
         "label" : "Startpunkt der Mitgliedschaftsperiode",
@@ -1319,7 +1327,7 @@
       "registered" : "Registriert"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Passwort ändern",
       "login" : "Anmelden",
@@ -1332,12 +1340,13 @@
       "blocked-dates" : "Datumsblockierung",
       "download" : "Herunterladen",
       "files" : "Dateien",
-      "users" : "Benutzer",
+      "members" : "Mitglieder",
       "payments" : "Zahlungen",
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
       "stats" : "Statistiken",
-      "title" : "Verwaltung"
+      "title" : "Verwaltung",
+      "users" : "Benutzer"
     },
     "events" : {
       "add" : "Veranstaltung hinzufügen",

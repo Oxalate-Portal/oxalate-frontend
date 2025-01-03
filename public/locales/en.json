@@ -954,9 +954,17 @@
       "title" : "General settings"
     },
     "membership" : {
+      "event-require-membership" : {
+        "label" : "Event requires membership",
+        "tooltip" : "Does a diver have a valid membership to be able to join a dive event"
+      },
       "membership-period-length" : {
         "label" : "Membership period length",
         "tooltip" : "Length of the membership period or duration. Note that this is only used if the membership type is periodical or durational."
+      },
+      "membership-period-start" : {
+        "label" : "Membership period start date",
+        "tooltip" : "When did the membership period counting start. This is only used periodical type. It is used to align the period to the current date"
       },
       "membership-period-start-point" : {
         "label" : "Membership period start point",
@@ -1319,7 +1327,7 @@
       "registered" : "Registered"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Change Password",
       "login" : "Log In",
@@ -1332,12 +1340,13 @@
       "blocked-dates" : "Date blocking",
       "download" : "Download",
       "files" : "Files",
-      "users" : "Users",
+      "members" : "Members",
       "payments" : "Payments",
       "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
       "stats" : "Statistics",
-      "title" : "Administration"
+      "title" : "Administration",
+      "users" : "Users"
     },
     "events" : {
       "add" : "Add event",

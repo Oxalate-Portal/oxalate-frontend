@@ -1,10 +1,10 @@
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {CertificateResponse, FrontendConfigurationResponse} from "../../models/responses";
+import {CertificateResponse} from "../../models/responses";
 import {Button, Space} from "antd";
 import {ShowCertificateCard} from "./ShowCertificateCard";
 import {certificateAPI} from "../../services/CertificateAPI";
-import {portalConfigurationAPI} from "../../services";
+import {useSession} from "../../session";
 
 interface CertificatesProps {
     userId: number,
@@ -16,20 +16,17 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     const [maxCertificates, setMaxCertificates] = useState<number>(0);
     const {t} = useTranslation();
     const [loading, setLoading] = useState(true);
+    const {getFrontendConfigurationValue} = useSession();
 
     useEffect(() => {
         setLoading(true);
-        Promise.all([
-            certificateAPI.findAllByUserId(userId),
-            portalConfigurationAPI.getFrontendConfiguration()
-        ])
-                .then(([certificateResponse, frontendConfigResponse]) => {
-                    setCertificates(certificateResponse);
+        setMaxCertificates(parseInt(getFrontendConfigurationValue("max-certificates")));
 
-                    const maxCertificatesConfig: FrontendConfigurationResponse | undefined = frontendConfigResponse.find(config => config.key === "max-certificates");
-                    if (maxCertificatesConfig !== undefined) {
-                        setMaxCertificates(parseInt(maxCertificatesConfig.value));
-                    }
+        Promise.all([
+            certificateAPI.findAllByUserId(userId)
+        ])
+                .then(([certificateResponse]) => {
+                    setCertificates(certificateResponse);
                 })
                 .catch(error => {
                     console.error("Certificate or frontend config fetch error: " + error);
@@ -37,7 +34,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [userId]);
+    }, [userId, getFrontendConfigurationValue]);
 
     function deleteCertificate(certificateObject: CertificateResponse) {
         if (viewOnly) {

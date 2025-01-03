@@ -72,7 +72,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             render: (_, record: DiveEventResponse) => {
                 let color: string;
                 let labelText: string;
-                console.log("Event type:", record.type);
+
                 switch (record.type) {
                     case DiveTypeEnum.BOAT:
                         color = "yellow";
