@@ -29,6 +29,7 @@ export function SessionProvider({children}: any) {
     const [portalTimezone, setPortalTimezone] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true); // New state to track loading
     const [portalConfiguration, setPortalConfiguration] = useState<PortalConfigurationResponse[]>([]);
+    const [frontendConfiguration, setFrontendConfiguration] = useState<FrontendConfigurationResponse[]>([]);
 
     const userKey: string = "user";
     const languageKey: string = "language";
@@ -53,6 +54,7 @@ export function SessionProvider({children}: any) {
 
         portalConfigurationAPI.getFrontendConfiguration()
                 .then((configurations: FrontendConfigurationResponse[]) => {
+                    setFrontendConfiguration(configurations);
                     const languageData = localStorage.getItem(languageKey);
 
                     if (languageData) {
@@ -154,7 +156,7 @@ export function SessionProvider({children}: any) {
     }
 
     const getFrontendConfigurationValue = (key: string): string => {
-        return getPortalConfigurationValue(PortalConfigGroupEnum.FRONTEND, key);
+        return frontendConfiguration.find((config) => config.key === key)?.value || "";
     }
 
     const getPortalConfigurationValue = (groupKey: PortalConfigGroupEnum, settingKey: string): string => {

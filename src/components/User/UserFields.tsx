@@ -1,9 +1,21 @@
-import { Form, Input, Select, Switch } from "antd";
-import { useTranslation } from "react-i18next";
-import { LanguageUtil } from "../../helpers";
+import {Form, Input, Select, Switch} from "antd";
+import {useTranslation} from "react-i18next";
+import {LanguageUtil} from "../../helpers";
+import {useEffect, useState} from "react";
+import {useSession} from "../../session";
 
 export function UserFields(props: { userId: number; username: string | null; isOrganizer: boolean; }) {
     const {t} = useTranslation();
+    const {getFrontendConfigurationValue} = useSession();
+    const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
+
+
+    useEffect(() => {
+        const languageList = getFrontendConfigurationValue("enabled-language").split(",");
+        setSupportedLanguages(languageList.map(lang => {
+            return {label: LanguageUtil.getLabelByValue(lang), value: lang};
+        }));
+    }, []);
 
     return (
             <>
@@ -114,7 +126,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                                    message: t("UserFields.form.language.rules.required")
                                }
                            ]}>
-                    <Select options={LanguageUtil.getLanguages()}/>
+                    <Select options={supportedLanguages}/>
                 </Form.Item>
             </>
     );

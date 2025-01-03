@@ -12,12 +12,13 @@ import {pageAPI} from "../../services";
 import Logo from "../../portal_logo.svg?react";
 
 export function NavigationBar() {
-    const {userSession, logoutUser, getSessionLanguage, organizationName, setSessionLanguage, getPortalConfigurationValue} = useSession();
+    const {userSession, logoutUser, getSessionLanguage, organizationName, setSessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue} = useSession();
     const [membershipType, setMembershipType] = useState<MembershipTypeEnum>(MembershipTypeEnum.DISABLED);
 
     const {t} = useTranslation();
     const [navigationElements, setNavigationElements] = useState<PageGroupResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
 
     useEffect(() => {
         const fetchPaths = async () => {
@@ -44,10 +45,15 @@ export function NavigationBar() {
             setMembershipType(membershipTypeString.toUpperCase() as MembershipTypeEnum);
         }
 
+        const languageList = getFrontendConfigurationValue("enabled-language").split(",");
+        setSupportedLanguages(languageList.map(lang => {
+            return {label: LanguageUtil.getLabelByValue(lang), value: lang};
+        }));
+
         return () => {
             window.removeEventListener("reloadNavigationEvent", fetchPaths);
         };
-    }, [userSession, getSessionLanguage, getPortalConfigurationValue]);
+    }, [userSession, getSessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
 
     function switchLanguage(language: string) {
         setSessionLanguage(language);
@@ -217,7 +223,7 @@ export function NavigationBar() {
                                             {getSessionLanguage() === undefined ? "Valitse kieli 🌐" : LanguageUtil.getLabelByValue(getSessionLanguage())}
                                         </button>
                                         <ul className="dropdown-menu dropdown-menu-end">
-                                            {LanguageUtil.getLanguages().map(lang => {
+                                            {supportedLanguages.map(lang => {
                                                 return (
                                                         <li
                                                                 key={lang.value}
