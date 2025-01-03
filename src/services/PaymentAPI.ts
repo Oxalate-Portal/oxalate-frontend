@@ -15,6 +15,12 @@ class PaymentAPI extends AbstractAPI<PaymentRequest, PaymentResponse> {
         const response = await this.axiosInstance.get<void>('/reset');
         return response.status === 200;
     }
+
+    async findByUserId(userId: number): Promise<PaymentStatusResponse> {
+        this.setAuthorizationHeader();
+        const response = await this.axiosInstance.get<PaymentStatusResponse>('/user/' + userId);
+        return response.data;
+    }
 }
 
 export const paymentAPI = new PaymentAPI('/payments');

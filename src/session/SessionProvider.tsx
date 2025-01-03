@@ -28,7 +28,6 @@ export function SessionProvider({children}: any) {
     const [organizationName, setOrganizationName] = useState<string>("");
     const [portalTimezone, setPortalTimezone] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true); // New state to track loading
-    const [frontendConfiguration, setFrontendConfiguration] = useState<FrontendConfigurationResponse[]>([]);
     const [portalConfiguration, setPortalConfiguration] = useState<PortalConfigurationResponse[]>([]);
 
     const userKey: string = "user";
@@ -54,7 +53,6 @@ export function SessionProvider({children}: any) {
 
         portalConfigurationAPI.getFrontendConfiguration()
                 .then((configurations: FrontendConfigurationResponse[]) => {
-                    setFrontendConfiguration(configurations);
                     const languageData = localStorage.getItem(languageKey);
 
                     if (languageData) {
@@ -160,31 +158,22 @@ export function SessionProvider({children}: any) {
     }
 
     const getPortalConfigurationValue = (groupKey: PortalConfigGroupEnum, settingKey: string): string => {
-        console.log("Searching for groupKey: " + groupKey + " and settingKey: " + settingKey);
-
         const config = portalConfiguration.find((config) => {
             return config.groupKey === groupKey.valueOf() && config.settingKey === settingKey;
         });
 
-        console.log("Found config: ", config);
-
         if (config === undefined) {
-            console.log("Returning empty string as config was not found");
             return "";
         }
 
         if (config.runtimeValue === null) {
             if (config.valueType === "enum") {
-                const enumFirstValue = config.defaultValue.split(",")[0];
-                console.log("Returning default enum value: ", enumFirstValue);
-                return enumFirstValue;
+                return config.defaultValue.split(",")[0];
             }
 
-            console.log("Returning default value: ", config.defaultValue);
             return config.defaultValue;
         }
 
-        console.log("Returning runtime value: ", config.runtimeValue);
         return config.runtimeValue;
     }
 
