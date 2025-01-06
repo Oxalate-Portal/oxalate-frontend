@@ -8,6 +8,30 @@
     },
     "rejectTerms" : "Nutzungsbedingungen ablehnen"
   },
+  "AddMemberships": {
+    "types": {
+      "regular": "Regulär",
+      "premium": "Premium"
+    },
+    "errorGetUsers": "Benutzer konnten nicht abgerufen werden",
+    "onFinish": {
+      "ok": "Mitgliedschaft erfolgreich hinzugefügt",
+      "fail": "Fehler beim Hinzufügen der Mitgliedschaft: "
+    },
+    "form": {
+      "name": {
+        "label": "Benutzername",
+        "placeholder": "Benutzer auswählen"
+      },
+      "membershipType": {
+        "label": "Mitgliedschaftstyp"
+      },
+      "membershipDuration": {
+        "label": "Mitgliedschaftsdauer (Monate)"
+      },
+      "button": "Mitgliedschaft hinzufügen"
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Zahlungen speichern",
@@ -48,6 +72,21 @@
     "statsText1" : "Jährliche Veranstaltungs-, Benutzerregistrierungs-, Mitgliederregistrierungs- (falls verwendet), Veranstaltungsorganisatoren- und Zahlungsstatistiken",
     "statsText2" : "Hier finden Sie auch halbjährliche Veranstaltungsberichte",
     "text" : "Verwaltungsseiten. Seien Sie vorsichtig."
+  },
+  "AdminMembers": {
+    "title": "Mitgliedschaftsverwaltung",
+    "table": {
+      "userId": "Benutzer-ID",
+      "username": "Benutzername",
+      "status": "Status",
+      "type": "Typ",
+      "createdAt": "Erstellt am",
+      "expiresAt": "Läuft ab am",
+      "actions": {
+        "title": "Aktion",
+        "edit": "Bearbeiten"
+      }
+    }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
@@ -701,7 +740,12 @@
       }
     }
   },
-  "MembershipType" : {
+  "MembershipStatusEnum": {
+    "active": "Aktiv",
+    "expired": "Abgelaufen",
+    "cancelled": "Storniert"
+  },
+  "MembershipTypeEnum": {
     "disabled" : "Deaktiviert",
     "perpetual" : "Unbefristet",
     "periodical" : "Periodisch",

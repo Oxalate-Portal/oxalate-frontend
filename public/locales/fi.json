@@ -8,6 +8,30 @@
     },
     "rejectTerms" : "En hyväksy ehtoja"
   },
+  "AddMemberships": {
+    "types": {
+      "regular": "Tavallinen",
+      "premium": "Premium"
+    },
+    "errorGetUsers": "Käyttäjien hakeminen epäonnistui",
+    "onFinish": {
+      "ok": "Jäsenyys lisätty onnistuneesti",
+      "fail": "Jäsenyyden lisääminen epäonnistui: "
+    },
+    "form": {
+      "name": {
+        "label": "Käyttäjän nimi",
+        "placeholder": "Valitse käyttäjät"
+      },
+      "membershipType": {
+        "label": "Jäsenyyden tyyppi"
+      },
+      "membershipDuration": {
+        "label": "Jäsenyyden kesto (kuukautta)"
+      },
+      "button": "Lisää jäsenyys"
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Talleta maksut",
@@ -48,6 +72,21 @@
     "statsText1" : "Vuositason tapahtuma-, käyttäjärekisteröinti- jäsenrekisteröinti- (jos käytössä) tapahtumajärjestäjien sekä maksutilastot",
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
     "text" : "Ylläpito-sivut. Ole varovainen"
+  },
+  "AdminMembers": {
+    "title": "Jäsenyyden hallinta",
+    "table": {
+      "userId": "Käyttäjän ID",
+      "username": "Käyttäjänimi",
+      "status": "Tila",
+      "type": "Tyyppi",
+      "createdAt": "Luotu",
+      "expiresAt": "Vanhenee",
+      "actions": {
+        "title": "Toiminto",
+        "edit": "Muokkaa"
+      }
+    }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
@@ -701,7 +740,12 @@
       }
     }
   },
-  "MembershipType" : {
+  "MembershipStatusEnum": {
+    "active": "Aktiivinen",
+    "expired": "Vanhentunut",
+    "cancelled": "Peruutettu"
+  },
+  "MembershipTypeEnum": {
     "disabled" : "Pois käytöstä",
     "perpetual" : "Pysyvä",
     "periodical" : "Jaksottainen",

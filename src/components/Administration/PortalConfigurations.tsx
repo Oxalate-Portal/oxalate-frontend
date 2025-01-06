@@ -173,7 +173,7 @@ export function PortalConfigurations() {
 
                 if (config.settingKey === "membership-type") {
                     enumOptions = Object.values(MembershipTypeEnum).map((type) => ({
-                        label: t("MembershipType." + type.toLowerCase()),
+                        label: t("MembershipTypeEnum." + type.toLowerCase()),
                         value: type.toString(),
                     }));
 

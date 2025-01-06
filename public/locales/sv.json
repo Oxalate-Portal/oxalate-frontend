@@ -8,6 +8,30 @@
     },
     "rejectTerms" : "Avvisa villkoren"
   },
+  "AddMemberships": {
+    "types": {
+      "regular": "Regulär",
+      "premium": "Premium"
+    },
+    "errorGetUsers": "Misslyckades med att hämta användare",
+    "onFinish": {
+      "ok": "Medlemskap tillagt framgångsrikt",
+      "fail": "Misslyckades med att lägga till medlemskap: "
+    },
+    "form": {
+      "name": {
+        "label": "Användarnamn",
+        "placeholder": "Välj användare"
+      },
+      "membershipType": {
+        "label": "Medlemstyp"
+      },
+      "membershipDuration": {
+        "label": "Medlemskapslängd (månader)"
+      },
+      "button": "Lägg till medlemskap"
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Spara betalningar",
@@ -48,6 +72,21 @@
     "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
     "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
     "text" : "Administrativa sidor. Var försiktig"
+  },
+  "AdminMembers": {
+    "title": "Medlemskapshantering",
+    "table": {
+      "userId": "Användar-ID",
+      "username": "Användarnamn",
+      "status": "Status",
+      "type": "Typ",
+      "createdAt": "Skapad",
+      "expiresAt": "Utgår",
+      "actions": {
+        "title": "Åtgärd",
+        "edit": "Redigera"
+      }
+    }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
@@ -701,7 +740,12 @@
       }
     }
   },
-  "MembershipType" : {
+  "MembershipStatusEnum": {
+    "active": "Aktiv",
+    "expired": "Utgånget",
+    "cancelled": "Avbruten"
+  },
+  "MembershipTypeEnum": {
     "disabled" : "Icke i bruk",
     "perpetual" : "Permanent",
     "periodical" : "Periodisk",

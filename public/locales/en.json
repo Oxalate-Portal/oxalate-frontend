@@ -8,6 +8,30 @@
     },
     "rejectTerms" : "Reject terms"
   },
+  "AddMemberships": {
+    "types": {
+      "regular": "Regular",
+      "premium": "Premium"
+    },
+    "errorGetUsers": "Failed to get users",
+    "onFinish": {
+      "ok": "Membership added successfully",
+      "fail": "Failed to add membership: "
+    },
+    "form": {
+      "name": {
+        "label": "User Name",
+        "placeholder": "Select users"
+      },
+      "membershipType": {
+        "label": "Membership Type"
+      },
+      "membershipDuration": {
+        "label": "Membership Duration (months)"
+      },
+      "button": "Add Membership"
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Save payments",
@@ -48,6 +72,21 @@
     "statsText1" : "Annual event, user registration, member registration (if used), event organizer, and payment statistics",
     "statsText2" : "Here you can also find semi-annual event reports",
     "text" : "Administration pages. Proceed with caution."
+  },
+  "AdminMembers": {
+    "title": "Membership management",
+    "table": {
+      "userId": "User ID",
+      "username": "Username",
+      "status": "Status",
+      "type": "Type",
+      "createdAt": "Created At",
+      "expiresAt": "Expires At",
+      "actions": {
+        "title": "action",
+        "edit": "Edit"
+      }
+    }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
@@ -701,7 +740,12 @@
       }
     }
   },
-  "MembershipType" : {
+  "MembershipStatusEnum": {
+    "active": "Active",
+    "expired": "Expired",
+    "cancelled": "Cancelled"
+  },
+  "MembershipTypeEnum" : {
     "disabled" : "Disabled",
     "perpetual" : "Perpetual",
     "periodical" : "Periodical",
