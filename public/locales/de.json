@@ -1192,8 +1192,10 @@
       "payments" : {
         "label" : "Zahlungen"
       },
-      "privacy" : {
-        "label" : "Nutzungsbedingungen akzeptiert"
+      "terms" : {
+        "false": "Hat die Bedingungen nicht akzeptiert",
+        "label" : "Nutzungsbedingungen",
+        "true": "Hat die Bedingungen akzeptiert"
       },
       "roles" : {
         "label" : "Rollen"

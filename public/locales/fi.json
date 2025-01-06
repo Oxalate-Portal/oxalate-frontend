@@ -1192,10 +1192,11 @@
       "payments" : {
         "label" : "Maksut"
       },
-      "privacy" : {
-        "label" : "Hyväksynyt käyttöehdot"
-      },
-      "roles" : {
+      "terms" : {
+        "false": "Ei ole hyväksynyt ehtoja",
+        "label" : "Käyttöehdot",
+        "true": "On hyväksynyt ehdot"
+      },      "roles" : {
         "label" : "Roolit"
       },
       "status" : {

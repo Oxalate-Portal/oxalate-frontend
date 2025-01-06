@@ -8,7 +8,7 @@ import {Register, Registration} from "./components/Register";
 import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
 import {AcceptTerms, Home, LoginWithCaptcha, NavigationBar, OxalateFooter} from "./components/main";
 import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
-import {AdminMain, AdminMembers, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
+import {AdminMain, AdminMembership, AdminMemberships, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
 import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
 import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
 import {Payments} from "./components/Payment";
@@ -84,7 +84,8 @@ function App() {
                             <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
-                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members" element={<AdminRoute><AdminMembers/></AdminRoute>}/>}
+                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
+                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>

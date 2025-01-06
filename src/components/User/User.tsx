@@ -27,6 +27,7 @@ export function User() {
 
                 userAPI.findById(userSession?.id, null)
                         .then((response) => {
+                            console.log("User data fetched:", response);
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                         })
                         .catch((error) => {
@@ -187,8 +188,8 @@ export function User() {
                         <Form.Item label={t("User.form.status.label")} key={"status"}>
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>
-                        <Form.Item label={t("User.form.privacy.label")} key={"privacy"}>
-                            <span className="ant-form-text">{workUser.privacy}</span>
+                        <Form.Item label={t("User.form.terms.label")} key={"terms"}>
+                            <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true"): t("User.form.terms.false")}</span>
                         </Form.Item>
                         <Form.Item name={"roles"} label={t("User.form.roles.label")} key={"roles"}>
                             <Checkbox.Group style={{width: "100%"}}>
@@ -204,6 +205,9 @@ export function User() {
                                     </Col>
                                 </Row>
                             </Checkbox.Group>
+                        </Form.Item>
+                        <Form.Item label={t("User.form.membership.label")} key={"membership"}>
+                            <span className="ant-form-text">{workUser.memberships.length}</span>
                         </Form.Item>
                         <Form.Item name={"payments"} label={t("User.form.payments.label")} key={"payments"}>
                             <FormatPayments userData={workUser} key={"payments-format"}/>

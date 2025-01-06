@@ -8,6 +8,12 @@ class MembershipAPI extends AbstractAPI<MembershipRequest, MembershipResponse> {
         const response = await this.axiosInstance.get<MembershipResponse[]>("/user/" + userId);
         return response.data;
     }
+
+    public async findByMemberId(membershipId: number): Promise<MembershipResponse> {
+        this.setAuthorizationHeader();
+        const response = await this.axiosInstance.get<MembershipResponse>("/" + membershipId);
+        return response.data;
+    }
 }
 
 export const membershipAPI = new MembershipAPI("/memberships");

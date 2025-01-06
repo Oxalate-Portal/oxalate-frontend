@@ -1,39 +1,42 @@
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
-import {Button, Form, Select, Space, Spin} from "antd";
+import {Button, Form, message, Select, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
 import {MembershipStatusEnum, MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
 import {membershipAPI, userAPI} from "../../services";
-import {DiveEventUserResponse} from "../../models/responses";
+import {DiveEventUserResponse, MembershipResponse} from "../../models/responses";
 import {SubmitResult} from "../main";
 import {MembershipRequest} from "../../models/requests";
 import {useSession} from "../../session";
 
-export function AddMemberships() {
+interface AddMembershipsProps {
+    membershipList: MembershipResponse[];
+    onMembershipAdded: () => void;
+}
+
+export function AddMemberships({membershipList, onMembershipAdded}: AddMembershipsProps) {
     const navigate = useNavigate();
-    const {getPortalConfigurationValue} = useSession()
+    const {getPortalConfigurationValue} = useSession();
 
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
 
-    if(membershipType === MembershipTypeEnum.DISABLED) {
-        return <SubmitResult updateStatus={{status: UpdateStatusEnum.FAIL, message: "Membership is disabled"}} navigate={navigate}/>
+    if (membershipType === MembershipTypeEnum.DISABLED) {
+        return <SubmitResult updateStatus={{status: UpdateStatusEnum.FAIL, message: "Membership is disabled"}} navigate={navigate}/>;
     }
 
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<DiveEventUserResponse[]>([]);
     const [selectedUsers, setSelectedUsers] = useState<DiveEventUserResponse[]>([]);
-    const filteredOptions = users.filter((o) => !selectedUsers.includes(o));
+    const filteredOptions = users.filter((o) => !selectedUsers.includes(o) && !membershipList.some(m => m.userId === o.id));
     const [membershipForm] = Form.useForm();
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
 
     useEffect(() => {
         setLoading(true);
-        Promise.all([
-            userAPI.findByRole(RoleEnum.ROLE_USER)
-        ])
-                .then(([userResponses]) => {
+        userAPI.findByRole(RoleEnum.ROLE_USER)
+                .then((userResponses) => {
                     setUsers(userResponses);
                 })
                 .catch((error) => {
@@ -46,15 +49,7 @@ export function AddMemberships() {
     }, [t]);
 
     function updateSelectedUsers(value: DiveEventUserResponse[]) {
-        let tmpArray: DiveEventUserResponse[] = [];
-
-        for (let i = 0; i < value.length; i++) {
-            if (value[i] !== undefined) {
-                tmpArray.push(value[i]);
-            }
-        }
-
-        setSelectedUsers(tmpArray);
+        setSelectedUsers(value);
     }
 
     function onFinish(values: { userIdList: number[], type: MembershipTypeEnum, membershipDuration: number }) {
@@ -67,25 +62,26 @@ export function AddMemberships() {
             type: membershipType
         };
 
-        for (let i = 0; i < values.userIdList.length; i++) {
-            postData.userId = values.userIdList[i];
+        const promises = values.userIdList.map(userId => {
+            postData.userId = userId;
+            return membershipAPI.create(postData);
+        });
 
-            membershipAPI.create(postData)
-                    .then(() => {
-                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AddMemberships.onFinish.ok")});
-                    })
-                    .catch(e => {
-                        console.error("Failed to update user membership information, error: " + e.message);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AddMemberships.onFinish.fail") + e.message});
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
-        }
-    }
-
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
+        Promise.all(promises)
+                .then(() => {
+                    onMembershipAdded();
+                    message.success(t("AddMemberships.onFinish.ok"));
+                })
+                .catch(e => {
+                    console.error("Failed to update user membership information, error: " + e.message);
+                    message.error(t("AddMemberships.onFinish.fail") + " " + e.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                    // Empty the list of selected users as well as the form
+                    membershipForm.resetFields();
+                    setSelectedUsers([]);
+                });
     }
 
     return (
@@ -96,15 +92,10 @@ export function AddMemberships() {
                         labelCol={{span: 8}}
                         name="membership_form"
                         onFinish={onFinish}
-                        style={{
-                            maxWidth: 1000,
-                        }}
+                        style={{maxWidth: 1000}}
                         wrapperCol={{span: 16}}
                 >
-                    <Form.Item name={"userIdList"}
-                               key={"userIdList"}
-                               label={t("AddMemberships.form.name.label")}
-                               required={true}>
+                    <Form.Item name={"userIdList"} key={"userIdList"} label={t("AddMemberships.form.name.label")} required={true}>
                         <Select
                                 fieldNames={{label: "name", value: "id"}}
                                 labelInValue={false}
@@ -112,27 +103,18 @@ export function AddMemberships() {
                                 onChange={updateSelectedUsers}
                                 optionFilterProp={"name"}
                                 optionLabelProp={"name"}
-                                options={filteredOptions.map((item) => (
-                                        {
-                                            id: item.id,
-                                            name: item.name,
-                                        }
-                                ))}
+                                options={filteredOptions.map((item) => ({id: item.id, name: item.name}))}
                                 placeholder={t("AddMemberships.form.name.placeholder")}
                                 showSearch={true}
-                                style={{
-                                    width: "100%",
-                                }}
+                                style={{width: "100%"}}
                                 value={users}
                         />
                     </Form.Item>
 
                     <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                        <Button
-                                type={"primary"}
-                                htmlType={"submit"}
-                                disabled={loading}
-                        >{t("AddMemberships.form.button")}</Button>
+                        <Button type={"primary"} htmlType={"submit"} disabled={loading}>
+                            {t("AddMemberships.form.button")}
+                        </Button>
                     </Space>
                 </Form>
             </Spin>

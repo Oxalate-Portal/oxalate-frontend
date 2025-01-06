@@ -1192,8 +1192,10 @@
       "payments" : {
         "label" : "Betalningar"
       },
-      "privacy" : {
-        "label" : "Har accepterat användarvillkoren"
+      "terms" : {
+        "false": "Har inte accepterat villkoren",
+        "label" : "Användarvillkoren",
+        "true": "Har accepterat villkoren"
       },
       "roles" : {
         "label" : "Roller"

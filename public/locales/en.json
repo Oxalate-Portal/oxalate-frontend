@@ -1192,8 +1192,10 @@
       "payments" : {
         "label" : "Payments"
       },
-      "privacy" : {
-        "label" : "Accepted terms"
+      "terms" : {
+        "false": "Has not accepted terms and conditions",
+        "label" : "Terms and conditions",
+        "true": "Has accepted terms and conditions"
       },
       "roles" : {
         "label" : "Roles"
