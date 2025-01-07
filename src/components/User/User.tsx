@@ -4,7 +4,7 @@ import { Button, Checkbox, Col, Form, Input, Row, Space, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 import { checkRoles } from "../../helpers";
 import { useNavigate } from "react-router-dom";
-import { FormatPayments, FormMemberships, ProfileCollapse, UserFields } from "./index";
+import { FormMemberships, FormPayments, ProfileCollapse, UserFields } from "./index";
 import { RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
 import { UserResponse } from "../../models/responses";
 import { UserRequest } from "../../models/requests";
@@ -220,7 +220,7 @@ export function User() {
                                    key={"payments"}
                                    tooltip={t("User.form.payments.tooltip")}
                         >
-                            <FormatPayments userData={workUser} key={"payments-format"}/>
+                            <FormPayments userData={workUser} key={"payments-format"}/>
                         </Form.Item>
                         <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}} key={"button-space"}>
                             <Button

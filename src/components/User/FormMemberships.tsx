@@ -77,11 +77,24 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             title: t("FormMemberships.table.created-at"),
             dataIndex: 'createdAt',
             key: 'membership-createdAt',
+            render: (date: Date, record: MembershipResponse) => {
+                return (<>
+                    {dayjs(date).format("YYYY-MM-DD HH:mm")}
+                </>)
+            }
         },
         {
             title: t("FormMemberships.table.expires-at"),
             dataIndex: 'expiresAt',
             key: 'expiresAt',
+            render: (date: Date, record: MembershipResponse) => {
+                return (
+                        <>
+                            {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
+                                    ? dayjs(date).format("YYYY-MM-DD HH:mm")
+                                    : "-"}
+                        </>)
+            }
         },
     ];
 

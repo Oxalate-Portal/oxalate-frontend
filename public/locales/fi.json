@@ -37,7 +37,7 @@
         "placeholder" : "Lisää käyttäjiä"
       },
       "paymentCount" : {
-        "label" : "Kertamaksujen määrä"
+        "label" : "Määrä"
       },
       "paymentType" : {
         "label" : "Maksutyyppi"
@@ -78,7 +78,7 @@
       "status" : "Tila",
       "type" : "Tyyppi",
       "createdAt" : "Luotu",
-      "expiresAt" : "Vanhenee",
+      "expiresAt" : "Päättymisaika",
       "actions" : {
         "title" : "Toiminto",
         "edit" : "Muokkaa"
@@ -661,28 +661,28 @@
       "title" : "Tulevat tapahtumat"
     }
   },
-  "FormMemberships" : {
-    "table" : {
-      "id" : "ID",
-      "type" : "Tyyppi",
-      "status" : "Tila",
-      "created-at" : "Luotu",
-      "expires-at" : "Vanhenee"
-    }
-  },
   "FormatPayments" : {
     "noValid" : "Ei voimassa olevia maksuja.",
     "unknownPayment" : "Tuntematon maksutyyppi",
     "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja.",
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
     "table" : {
-      "id" : "Tunnus",
+      "id" : "ID",
       "paymentType" : "Maksutyyppi",
-      "paymentCount" : "Maksujen lukumäärä",
-      "startDate" : "Aloituspäivämäärä",
-      "expirationDate" : "Päättymispäivämäärä",
+      "paymentCount" : "Määrä",
+      "startDate" : "Luotu",
+      "expirationDate" : "Päättymisaika",
       "singlePayment" : "Kertamaksu",
       "periodPayment" : "Kausimaksu"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Tyyppi",
+      "status" : "Tila",
+      "created-at" : "Luotu",
+      "expires-at" : "Päättymisaika"
     }
   },
   "ListPayments" : {

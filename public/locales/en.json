@@ -37,7 +37,7 @@
         "placeholder" : "Add users"
       },
       "paymentCount" : {
-        "label" : "One-time payment count"
+        "label" : "Count"
       },
       "paymentType" : {
         "label" : "Payment type"
@@ -77,8 +77,8 @@
       "username" : "Username",
       "status" : "Status",
       "type" : "Type",
-      "createdAt" : "Created At",
-      "expiresAt" : "Expires At",
+      "createdAt" : "Created",
+      "expiresAt" : "Expiration time",
       "actions" : {
         "title" : "action",
         "edit" : "Edit"
@@ -170,7 +170,7 @@
     },
     "common-file-column-title" : {
       "actions" : "Actions",
-      "created-at" : "Created at",
+      "created-at" : "Created",
       "creator" : "Creator",
       "download-link" : "Download link",
       "filename" : "File Name",
@@ -661,15 +661,6 @@
       "title" : "Upcoming events"
     }
   },
-  "FormMemberships" : {
-    "table" : {
-      "id" : "ID",
-      "type" : "Type",
-      "status" : "Status",
-      "created-at" : "Created At",
-      "expires-at" : "Expires At"
-    }
-  },
   "FormatPayments" : {
     "noValid" : "No valid payments available.",
     "unknownPayment" : "Unknown Payment Type",
@@ -678,11 +669,20 @@
     "table" : {
       "id" : "ID",
       "paymentType" : "Payment Type",
-      "paymentCount" : "Payment Count",
-      "startDate" : "Start Date",
-      "expirationDate" : "Expiration Date",
+      "paymentCount" : "Count",
+      "startDate" : "Created",
+      "expirationDate" : "Expiration time",
       "singlePayment" : "One-Time Payment",
       "periodPayment" : "Period Payment"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Type",
+      "status" : "Status",
+      "created-at" : "Created",
+      "expires-at" : "Expiration time"
     }
   },
   "ListPayments" : {

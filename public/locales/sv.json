@@ -37,7 +37,7 @@
         "placeholder" : "Lägg till användare"
       },
       "paymentCount" : {
-        "label" : "Antal engångsbetalningar"
+        "label" : "Antal"
       },
       "paymentType" : {
         "label" : "Betaltyp"
@@ -78,7 +78,7 @@
       "status" : "Status",
       "type" : "Typ",
       "createdAt" : "Skapad",
-      "expiresAt" : "Utgår",
+      "expiresAt" : "Utgångstid",
       "actions" : {
         "title" : "Åtgärd",
         "edit" : "Redigera"
@@ -669,9 +669,9 @@
     "table" : {
       "id" : "ID",
       "paymentType" : "Betalningstyp",
-      "paymentCount" : "Antal betalningar",
-      "startDate" : "Startdatum",
-      "expirationDate" : "Slutdatum",
+      "paymentCount" : "Antal",
+      "startDate" : "Skapad",
+      "expirationDate" : "Utgångstid",
       "singlePayment" : "Engångsbetalning",
       "periodPayment" : "Period betalning"
     }
@@ -682,7 +682,7 @@
       "type" : "Typ",
       "status" : "Status",
       "created-at" : "Skapad",
-      "expires-at" : "Utgår"
+      "expires-at" : "Utgångstid"
     }
   },
   "ListPayments" : {

@@ -10,7 +10,7 @@ interface FormatPaymentsProps {
     userData: UserResponse | undefined;
 }
 
-export function FormatPayments(props: FormatPaymentsProps) {
+export function FormPayments(props: FormatPaymentsProps) {
     const {t} = useTranslation();
 
     if (!props.userData || !props.userData.payments || props.userData.payments.length === 0) {
@@ -60,11 +60,9 @@ export function FormatPayments(props: FormatPaymentsProps) {
             key: "createdAt",
             render: (date: Date, record: PaymentResponse) => {
                 return (<>
-                    {record.paymentType === PaymentTypeEnum.PERIOD
-                            ? dayjs(date).format("YYYY-MM-DD")
-                            : "-"}
+                    {dayjs(date).format("YYYY-MM-DD HH:mm")}
                 </>)
-            },
+            }
         },
         {
             title: t("FormatPayments.table.expirationDate"),
@@ -74,7 +72,7 @@ export function FormatPayments(props: FormatPaymentsProps) {
                 return (
                     <>
                         {record.paymentType === PaymentTypeEnum.PERIOD
-                                ? dayjs(date).format("YYYY-MM-DD")
+                                ? dayjs(date).format("YYYY-MM-DD HH:mm")
                                 : "-"}
                     </>)
             }

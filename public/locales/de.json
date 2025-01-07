@@ -37,7 +37,7 @@
         "placeholder" : "Benutzer hinzufügen"
       },
       "paymentCount" : {
-        "label" : "Anzahl der Einmalzahlungen"
+        "label" : "Anzahl"
       },
       "paymentType" : {
         "label" : "Zahlungsart"
@@ -78,7 +78,7 @@
       "status" : "Status",
       "type" : "Typ",
       "createdAt" : "Erstellt am",
-      "expiresAt" : "Läuft ab am",
+      "expiresAt" : "Ablaufzeit",
       "actions" : {
         "title" : "Aktion",
         "edit" : "Bearbeiten"
@@ -661,15 +661,6 @@
       "title" : "Bevorstehende Veranstaltungen"
     }
   },
-  "FormMemberships" : {
-    "table" : {
-      "id" : "ID",
-      "type" : "Typ",
-      "status" : "Status",
-      "created-at" : "Erstellt am",
-      "expires-at" : "Läuft ab am"
-    }
-  },
   "FormatPayments" : {
     "noValid" : "Keine gültigen Zahlungen verfügbar.",
     "unknownPayment" : "Unbekannter Zahlungstyp",
@@ -678,11 +669,20 @@
     "table" : {
       "id" : "ID",
       "paymentType" : "Zahlungstyp",
-      "paymentCount" : "Anzahl der Zahlungen",
-      "startDate" : "Startdatum",
-      "expirationDate" : "Ablaufdatum",
+      "paymentCount" : "Anzahl",
+      "startDate" : "Erstellt am",
+      "expirationDate" : "Ablaufzeit",
       "singlePayment" : "Einmalzahlung",
       "periodPayment" : "Periodische Zahlung"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Typ",
+      "status" : "Status",
+      "created-at" : "Erstellt am",
+      "expires-at" : "Ablaufzeit"
     }
   },
   "ListPayments" : {
@@ -833,7 +833,7 @@
       "confirm" : "Seite wirklich löschen "
     },
     "table" : {
-      "createdAt" : "Erstellt",
+      "createdAt" : "Erstellt am",
       "languageVersions" : "Sprachversionen",
       "modifiedAt" : "Aktualisiert",
       "rolePermissions" : "Rollen",
