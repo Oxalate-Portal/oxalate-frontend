@@ -1,9 +1,9 @@
 import React from "react";
-import {Table, Tag} from "antd";
-import {Link} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {PaymentResponse, UserResponse} from "../../models/responses";
-import {PaymentTypeEnum} from "../../models";
+import { Table, Tag } from "antd";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { PaymentResponse, UserResponse } from "../../models/responses";
+import { PaymentTypeEnum } from "../../models";
 import dayjs from "dayjs";
 
 interface FormatPaymentsProps {
@@ -35,7 +35,7 @@ export function FormatPayments(props: FormatPaymentsProps) {
                     return <Tag color="blue">{t("FormatPayments.table.singlePayment")}</Tag>;
                 }
                 if (type === PaymentTypeEnum.PERIOD) {
-                    return <Tag color="green">{t("FormatPayments.table.yearlyPayment")}</Tag>;
+                    return <Tag color="green">{t("FormatPayments.table.periodPayment")}</Tag>;
                 }
                 return (
                         <>

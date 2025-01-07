@@ -8,28 +8,25 @@
     },
     "rejectTerms" : "Nutzungsbedingungen ablehnen"
   },
-  "AddMemberships": {
-    "types": {
-      "regular": "Regulär",
-      "premium": "Premium"
+  "AddMemberships" : {
+    "disabled" : "Mitgliedschaft ist deaktiviert",
+    "errorGetUsers" : "Benutzer konnten nicht abgerufen werden",
+    "form" : {
+      "name" : {
+        "label" : "Benutzername",
+        "placeholder" : "Benutzer auswählen"
+      },
+      "membershipType" : {
+        "label" : "Mitgliedschaftstyp"
+      },
+      "membershipDuration" : {
+        "label" : "Mitgliedschaftsdauer (Monate)"
+      },
+      "button" : "Mitgliedschaft hinzufügen"
     },
-    "errorGetUsers": "Benutzer konnten nicht abgerufen werden",
-    "onFinish": {
-      "ok": "Mitgliedschaft erfolgreich hinzugefügt",
-      "fail": "Fehler beim Hinzufügen der Mitgliedschaft: "
-    },
-    "form": {
-      "name": {
-        "label": "Benutzername",
-        "placeholder": "Benutzer auswählen"
-      },
-      "membershipType": {
-        "label": "Mitgliedschaftstyp"
-      },
-      "membershipDuration": {
-        "label": "Mitgliedschaftsdauer (Monate)"
-      },
-      "button": "Mitgliedschaft hinzufügen"
+    "onFinish" : {
+      "ok" : "Mitgliedschaft erfolgreich hinzugefügt",
+      "fail" : "Fehler beim Hinzufügen der Mitgliedschaft: "
     }
   },
   "AddPayments" : {
@@ -73,24 +70,24 @@
     "statsText2" : "Hier finden Sie auch halbjährliche Veranstaltungsberichte",
     "text" : "Verwaltungsseiten. Seien Sie vorsichtig."
   },
-  "AdminMembers": {
-    "title": "Mitgliedschaftsverwaltung",
-    "table": {
-      "userId": "Benutzer-ID",
-      "username": "Benutzername",
-      "status": "Status",
-      "type": "Typ",
-      "createdAt": "Erstellt am",
-      "expiresAt": "Läuft ab am",
-      "actions": {
-        "title": "Aktion",
-        "edit": "Bearbeiten"
+  "AdminMembers" : {
+    "title" : "Mitgliedschaftsverwaltung",
+    "table" : {
+      "userId" : "Benutzer-ID",
+      "username" : "Benutzername",
+      "status" : "Status",
+      "type" : "Typ",
+      "createdAt" : "Erstellt am",
+      "expiresAt" : "Läuft ab am",
+      "actions" : {
+        "title" : "Aktion",
+        "edit" : "Bearbeiten"
       }
     }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Ablaufdatum",
+      "expirationDate" : "Ablaufzeit",
       "name" : "Name",
       "paymentCount" : "Anzahl",
       "paymentDate" : "Zahlungsdatum"
@@ -664,6 +661,15 @@
       "title" : "Bevorstehende Veranstaltungen"
     }
   },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Typ",
+      "status" : "Status",
+      "created-at" : "Erstellt am",
+      "expires-at" : "Läuft ab am"
+    }
+  },
   "FormatPayments" : {
     "noValid" : "Keine gültigen Zahlungen verfügbar.",
     "unknownPayment" : "Unbekannter Zahlungstyp",
@@ -676,7 +682,7 @@
       "startDate" : "Startdatum",
       "expirationDate" : "Ablaufdatum",
       "singlePayment" : "Einmalzahlung",
-      "yearlyPayment" : "Jährliche Zahlung"
+      "periodPayment" : "Periodische Zahlung"
     }
   },
   "ListPayments" : {
@@ -740,12 +746,12 @@
       }
     }
   },
-  "MembershipStatusEnum": {
-    "active": "Aktiv",
-    "expired": "Abgelaufen",
-    "cancelled": "Storniert"
+  "MembershipStatusEnum" : {
+    "active" : "Aktiv",
+    "expired" : "Abgelaufen",
+    "cancelled" : "Storniert"
   },
-  "MembershipTypeEnum": {
+  "MembershipTypeEnum" : {
     "disabled" : "Deaktiviert",
     "perpetual" : "Unbefristet",
     "periodical" : "Periodisch",
@@ -998,17 +1004,17 @@
       }
     },
     "membership" : {
-      "event-require-membership": {
-        "label": "Veranstaltung erfordert Mitgliedschaft",
-        "tooltip": "Muss ein Taucher eine gültige Mitgliedschaft haben, um an einer Tauchveranstaltung teilnehmen zu können"
+      "event-require-membership" : {
+        "label" : "Veranstaltung erfordert Mitgliedschaft",
+        "tooltip" : "Muss ein Taucher eine gültige Mitgliedschaft haben, um an einer Tauchveranstaltung teilnehmen zu können"
       },
       "membership-period-length" : {
         "label" : "Mitgliedschaftsdauer",
         "tooltip" : "Dauer der Mitgliedschaftsperiode oder Laufzeit. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedschaftstyp periodisch oder zeitlich begrenzt ist."
       },
-      "membership-period-start": {
-        "label": "Startdatum der Mitgliedschaftsperiode",
-        "tooltip": "Wann begann die Zählung der Mitgliedschaftsperiode. Dies wird nur für den periodischen Typ verwendet. Es dient dazu, die Periode mit dem aktuellen Datum abzugleichen"
+      "membership-period-start" : {
+        "label" : "Startdatum der Mitgliedschaftsperiode",
+        "tooltip" : "Wann begann die Zählung der Mitgliedschaftsperiode. Dies wird nur für den periodischen Typ verwendet. Es dient dazu, die Periode mit dem aktuellen Datum abzugleichen"
       },
       "membership-period-start-point" : {
         "label" : "Startpunkt der Mitgliedschaftsperiode",
@@ -1189,19 +1195,26 @@
       "lockAccount" : "Konto sperren"
     },
     "form" : {
-      "payments" : {
-        "label" : "Zahlungen"
+      "membership" : {
+        "label" : "Mitgliedschaft",
+        "none" : "Keine Mitgliedschaft",
+        "tooltip" : "Mitgliedschaften von neu nach alt aufgelistet"
       },
-      "terms" : {
-        "false": "Hat die Bedingungen nicht akzeptiert",
-        "label" : "Nutzungsbedingungen",
-        "true": "Hat die Bedingungen akzeptiert"
+      "payments" : {
+        "label" : "Zahlungen",
+        "tooltip" : "Zahlungen von neu nach alt aufgelistet"
       },
       "roles" : {
-        "label" : "Rollen"
+        "label" : "Rollen",
+        "tooltip" : "Rollen des Benutzers"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Hat die Bedingungen nicht akzeptiert",
+        "label" : "Nutzungsbedingungen",
+        "true" : "Hat die Bedingungen akzeptiert"
       }
     },
     "requestAnonymization" : {
@@ -1354,7 +1367,7 @@
     "payment" : {
       "type" : {
         "oneTime" : "Einmal",
-        "period" : "Saisong"
+        "period" : "Periodische"
       }
     },
     "roles" : {

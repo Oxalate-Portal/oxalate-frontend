@@ -8,28 +8,25 @@
     },
     "rejectTerms" : "En hyväksy ehtoja"
   },
-  "AddMemberships": {
-    "types": {
-      "regular": "Tavallinen",
-      "premium": "Premium"
+  "AddMemberships" : {
+    "disabled" : "Jäsenyys ei ole käytössä",
+    "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
+    "form" : {
+      "name" : {
+        "label" : "Käyttäjän nimi",
+        "placeholder" : "Valitse käyttäjät"
+      },
+      "membershipType" : {
+        "label" : "Jäsenyyden tyyppi"
+      },
+      "membershipDuration" : {
+        "label" : "Jäsenyyden kesto (kuukautta)"
+      },
+      "button" : "Lisää jäsenyys"
     },
-    "errorGetUsers": "Käyttäjien hakeminen epäonnistui",
-    "onFinish": {
-      "ok": "Jäsenyys lisätty onnistuneesti",
-      "fail": "Jäsenyyden lisääminen epäonnistui: "
-    },
-    "form": {
-      "name": {
-        "label": "Käyttäjän nimi",
-        "placeholder": "Valitse käyttäjät"
-      },
-      "membershipType": {
-        "label": "Jäsenyyden tyyppi"
-      },
-      "membershipDuration": {
-        "label": "Jäsenyyden kesto (kuukautta)"
-      },
-      "button": "Lisää jäsenyys"
+    "onFinish" : {
+      "ok" : "Jäsenyys lisätty onnistuneesti",
+      "fail" : "Jäsenyyden lisääminen epäonnistui: "
     }
   },
   "AddPayments" : {
@@ -73,24 +70,24 @@
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
     "text" : "Ylläpito-sivut. Ole varovainen"
   },
-  "AdminMembers": {
-    "title": "Jäsenyyden hallinta",
-    "table": {
-      "userId": "Käyttäjän ID",
-      "username": "Käyttäjänimi",
-      "status": "Tila",
-      "type": "Tyyppi",
-      "createdAt": "Luotu",
-      "expiresAt": "Vanhenee",
-      "actions": {
-        "title": "Toiminto",
-        "edit": "Muokkaa"
+  "AdminMembers" : {
+    "title" : "Jäsenyyden hallinta",
+    "table" : {
+      "userId" : "Käyttäjän ID",
+      "username" : "Käyttäjänimi",
+      "status" : "Tila",
+      "type" : "Tyyppi",
+      "createdAt" : "Luotu",
+      "expiresAt" : "Vanhenee",
+      "actions" : {
+        "title" : "Toiminto",
+        "edit" : "Muokkaa"
       }
     }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Päättymispäivä",
+      "expirationDate" : "Päättymisaika",
       "name" : "Nimi",
       "paymentCount" : "Määrä",
       "paymentDate" : "Maksupäiväys"
@@ -664,6 +661,15 @@
       "title" : "Tulevat tapahtumat"
     }
   },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Tyyppi",
+      "status" : "Tila",
+      "created-at" : "Luotu",
+      "expires-at" : "Vanhenee"
+    }
+  },
   "FormatPayments" : {
     "noValid" : "Ei voimassa olevia maksuja.",
     "unknownPayment" : "Tuntematon maksutyyppi",
@@ -676,7 +682,7 @@
       "startDate" : "Aloituspäivämäärä",
       "expirationDate" : "Päättymispäivämäärä",
       "singlePayment" : "Kertamaksu",
-      "yearlyPayment" : "Vuosimaksu"
+      "periodPayment" : "Kausimaksu"
     }
   },
   "ListPayments" : {
@@ -740,12 +746,12 @@
       }
     }
   },
-  "MembershipStatusEnum": {
-    "active": "Aktiivinen",
-    "expired": "Vanhentunut",
-    "cancelled": "Peruutettu"
+  "MembershipStatusEnum" : {
+    "active" : "Aktiivinen",
+    "expired" : "Vanhentunut",
+    "cancelled" : "Peruutettu"
   },
-  "MembershipTypeEnum": {
+  "MembershipTypeEnum" : {
     "disabled" : "Pois käytöstä",
     "perpetual" : "Pysyvä",
     "periodical" : "Jaksottainen",
@@ -998,17 +1004,17 @@
       }
     },
     "membership" : {
-      "event-require-membership": {
-        "label": "Tapahtuma vaatii jäsenyyden",
-        "tooltip": "Onko sukeltajalla oltava voimassa oleva jäsenyys osallistuakseen sukellustapahtumaan"
+      "event-require-membership" : {
+        "label" : "Tapahtuma vaatii jäsenyyden",
+        "tooltip" : "Onko sukeltajalla oltava voimassa oleva jäsenyys osallistuakseen sukellustapahtumaan"
       },
       "membership-period-length" : {
         "label" : "Jäsenkauden pituus",
         "tooltip" : "Jäsenkauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on jaksottainen tai määräaikainen."
       },
-      "membership-period-start": {
-        "label": "Jäsenyyskauden alkamispäivä",
-        "tooltip": "Milloin jäsenyyskauden laskenta alkoi. Tätä käytetään vain jaksottaisessa kausityypissä. Sen avulla kausi kohdistetaan nykyiseen päivämäärään"
+      "membership-period-start" : {
+        "label" : "Jäsenyyskauden alkamispäivä",
+        "tooltip" : "Milloin jäsenyyskauden laskenta alkoi. Tätä käytetään vain jaksottaisessa kausityypissä. Sen avulla kausi kohdistetaan nykyiseen päivämäärään"
       },
       "membership-period-start-point" : {
         "label" : "Jäsenkauden aloituspiste",
@@ -1189,18 +1195,26 @@
       "lockAccount" : "Lukitse tili"
     },
     "form" : {
-      "payments" : {
-        "label" : "Maksut"
+      "membership" : {
+        "label" : "Jäsenyys",
+        "none" : "Ei jäsenyyttä",
+        "tooltip" : "Jäsenyydet listattu uusimmasta vanhimpaan"
       },
-      "terms" : {
-        "false": "Ei ole hyväksynyt ehtoja",
-        "label" : "Käyttöehdot",
-        "true": "On hyväksynyt ehdot"
-      },      "roles" : {
-        "label" : "Roolit"
+      "payments" : {
+        "label" : "Maksut",
+        "tooltip" : "Maksut listattu uusimmasta vanhimpaan"
+      },
+      "roles" : {
+        "label" : "Roolit",
+        "tooltip" : "Käyttäjän roolit"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Ei ole hyväksynyt ehtoja",
+        "label" : "Käyttöehdot",
+        "true" : "On hyväksynyt ehdot"
       }
     },
     "requestAnonymization" : {

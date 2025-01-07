@@ -1,13 +1,13 @@
-import {MembershipStatusEnum, MembershipTypeEnum} from "../../models";
-import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {Space, Table, Tag} from "antd";
-import {membershipAPI} from "../../services";
-import {MembershipResponse} from "../../models/responses";
-import {ColumnsType} from "antd/es/table";
+import { MembershipStatusEnum, MembershipTypeEnum } from "../../models";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Space, Table, Tag } from "antd";
+import { membershipAPI } from "../../services";
+import { MembershipResponse } from "../../models/responses";
+import { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
-import {AddMemberships} from "./AddMemberships";
+import { AddMemberships } from "./AddMemberships";
 
 export function AdminMemberships() {
     const [membershipList, setMembershipList] = useState<MembershipResponse[]>([]);

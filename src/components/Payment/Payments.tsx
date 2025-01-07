@@ -11,7 +11,7 @@ export function Payments() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(false);
 
-    function invalidateYearlyPayments() {
+    function invalidatePeriodicalPayments() {
         if (window.confirm(t("AdminPayments.confirmInvalidate"))) {
             setLoading(true);
             paymentAPI.resetAllPeriodicPayments()
@@ -34,7 +34,7 @@ export function Payments() {
                     <ListPayments/>
                     <Divider orientation="left">{t("AdminPayments.yearlyResetDivider")}</Divider>
                     <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                        <Button danger={true} type={"primary"} onClick={() => invalidateYearlyPayments()}>{t("AdminPayments.yearlyResetButton")}</Button>
+                        <Button danger={true} type={"primary"} onClick={() => invalidatePeriodicalPayments()}>{t("AdminPayments.yearlyResetButton")}</Button>
                     </Space>
                     <Divider orientation="left">{t("AdminPayments.addPaymentsDivider")}</Divider>
                     <AddPayments/>

@@ -8,28 +8,25 @@
     },
     "rejectTerms" : "Reject terms"
   },
-  "AddMemberships": {
-    "types": {
-      "regular": "Regular",
-      "premium": "Premium"
+  "AddMemberships" : {
+    "disabled" : "Membership is disabled",
+    "errorGetUsers" : "Failed to get users",
+    "form" : {
+      "name" : {
+        "label" : "User Name",
+        "placeholder" : "Select users"
+      },
+      "membershipType" : {
+        "label" : "Membership Type"
+      },
+      "membershipDuration" : {
+        "label" : "Membership Duration (months)"
+      },
+      "button" : "Add Membership"
     },
-    "errorGetUsers": "Failed to get users",
-    "onFinish": {
-      "ok": "Membership added successfully",
-      "fail": "Failed to add membership: "
-    },
-    "form": {
-      "name": {
-        "label": "User Name",
-        "placeholder": "Select users"
-      },
-      "membershipType": {
-        "label": "Membership Type"
-      },
-      "membershipDuration": {
-        "label": "Membership Duration (months)"
-      },
-      "button": "Add Membership"
+    "onFinish" : {
+      "ok" : "Membership added successfully",
+      "fail" : "Failed to add membership: "
     }
   },
   "AddPayments" : {
@@ -56,7 +53,7 @@
     },
     "types" : {
       "oneTime" : "One-time payment",
-      "period" : "Yearly payment"
+      "period" : "Periodical payment"
     }
   },
   "AdminAudit" : {
@@ -73,24 +70,24 @@
     "statsText2" : "Here you can also find semi-annual event reports",
     "text" : "Administration pages. Proceed with caution."
   },
-  "AdminMembers": {
-    "title": "Membership management",
-    "table": {
-      "userId": "User ID",
-      "username": "Username",
-      "status": "Status",
-      "type": "Type",
-      "createdAt": "Created At",
-      "expiresAt": "Expires At",
-      "actions": {
-        "title": "action",
-        "edit": "Edit"
+  "AdminMembers" : {
+    "title" : "Membership management",
+    "table" : {
+      "userId" : "User ID",
+      "username" : "Username",
+      "status" : "Status",
+      "type" : "Type",
+      "createdAt" : "Created At",
+      "expiresAt" : "Expires At",
+      "actions" : {
+        "title" : "action",
+        "edit" : "Edit"
       }
     }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Expiration date",
+      "expirationDate" : "Expiration time",
       "name" : "Name",
       "paymentCount" : "Count",
       "paymentDate" : "Payment date"
@@ -621,7 +618,7 @@
       "name" : "Name",
       "paymentType" : {
         "oneTime" : "One-time payment",
-        "period" : "Yearly payment",
+        "period" : "Periodical payment",
         "unknown" : "Unknown"
       },
       "payments" : "Payment status"
@@ -664,6 +661,15 @@
       "title" : "Upcoming events"
     }
   },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Type",
+      "status" : "Status",
+      "created-at" : "Created At",
+      "expires-at" : "Expires At"
+    }
+  },
   "FormatPayments" : {
     "noValid" : "No valid payments available.",
     "unknownPayment" : "Unknown Payment Type",
@@ -676,12 +682,12 @@
       "startDate" : "Start Date",
       "expirationDate" : "Expiration Date",
       "singlePayment" : "One-Time Payment",
-      "yearlyPayment" : "Yearly Payment"
+      "periodPayment" : "Period Payment"
     }
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
-    "period" : "Yearly payments",
+    "period" : "Periodical payments",
     "unknown" : "Unknown"
   },
   "Login" : {
@@ -740,10 +746,10 @@
       }
     }
   },
-  "MembershipStatusEnum": {
-    "active": "Active",
-    "expired": "Expired",
-    "cancelled": "Cancelled"
+  "MembershipStatusEnum" : {
+    "active" : "Active",
+    "expired" : "Expired",
+    "cancelled" : "Cancelled"
   },
   "MembershipTypeEnum" : {
     "disabled" : "Disabled",
@@ -1189,19 +1195,26 @@
       "lockAccount" : "Lock account"
     },
     "form" : {
-      "payments" : {
-        "label" : "Payments"
+      "membership" : {
+        "label" : "Membership",
+        "none" : "No membership",
+        "tooltip" : "Memberships listed from newest to oldest"
       },
-      "terms" : {
-        "false": "Has not accepted terms and conditions",
-        "label" : "Terms and conditions",
-        "true": "Has accepted terms and conditions"
+      "payments" : {
+        "label" : "Payments",
+        "tooltip" : "Payments listed from newest to oldest"
       },
       "roles" : {
-        "label" : "Roles"
+        "label" : "Roles",
+        "tooltip" : "User assigned roles"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Has not accepted terms and conditions",
+        "label" : "Terms and conditions",
+        "true" : "Has accepted terms and conditions"
       }
     },
     "requestAnonymization" : {
@@ -1354,7 +1367,7 @@
     "payment" : {
       "type" : {
         "oneTime" : "One time",
-        "period" : "Season"
+        "period" : "Periodical"
       }
     },
     "roles" : {

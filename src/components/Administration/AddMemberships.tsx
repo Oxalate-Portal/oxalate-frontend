@@ -1,13 +1,11 @@
-import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
-import {Button, Form, message, Select, Space, Spin} from "antd";
-import {useEffect, useState} from "react";
-import {MembershipStatusEnum, MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {membershipAPI, userAPI} from "../../services";
-import {DiveEventUserResponse, MembershipResponse} from "../../models/responses";
-import {SubmitResult} from "../main";
-import {MembershipRequest} from "../../models/requests";
-import {useSession} from "../../session";
+import { useTranslation } from "react-i18next";
+import { Button, Form, message, Select, Space, Spin } from "antd";
+import { useEffect, useState } from "react";
+import { MembershipStatusEnum, MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
+import { membershipAPI, userAPI } from "../../services";
+import { DiveEventUserResponse, MembershipResponse } from "../../models/responses";
+import { MembershipRequest } from "../../models/requests";
+import { useSession } from "../../session";
 
 interface AddMembershipsProps {
     membershipList: MembershipResponse[];
@@ -15,23 +13,21 @@ interface AddMembershipsProps {
 }
 
 export function AddMemberships({membershipList, onMembershipAdded}: AddMembershipsProps) {
-    const navigate = useNavigate();
+    const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
 
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
 
     if (membershipType === MembershipTypeEnum.DISABLED) {
-        return <SubmitResult updateStatus={{status: UpdateStatusEnum.FAIL, message: "Membership is disabled"}} navigate={navigate}/>;
+        return <span>{t("AddMemberships.disabled")}</span>;
     }
 
-    const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<DiveEventUserResponse[]>([]);
     const [selectedUsers, setSelectedUsers] = useState<DiveEventUserResponse[]>([]);
     const filteredOptions = users.filter((o) => !selectedUsers.includes(o) && !membershipList.some(m => m.userId === o.id));
     const [membershipForm] = Form.useForm();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
 
     useEffect(() => {
         setLoading(true);
@@ -41,7 +37,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                 })
                 .catch((error) => {
                     console.error("Failed to get users:", error);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AddMemberships.errorGetUsers")});
+                    message.error(t("AddMemberships.errorGetUsers"));
                 })
                 .finally(() => {
                     setLoading(false);

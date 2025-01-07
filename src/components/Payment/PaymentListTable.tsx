@@ -1,9 +1,9 @@
-import {PaymentVO} from "../../models/PaymentVO";
-import {useTranslation} from "react-i18next";
-import {Link} from "react-router-dom";
-import {formatDateTime} from "../../helpers";
-import {Table} from "antd";
-import {type ColumnsType} from "antd/es/table";
+import { PaymentVO } from "../../models/PaymentVO";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { Table } from "antd";
+import { type ColumnsType } from "antd/es/table";
+import dayjs from "dayjs";
 
 interface PaymentListPanelProps {
     payments: PaymentVO[],
@@ -39,16 +39,16 @@ export function PaymentListTable({payments, keyName}: PaymentListPanelProps) {
             sorter: (a: PaymentVO, b: PaymentVO) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()),
             sortDirections: ["descend", "ascend"],
             render: (_: any, record: PaymentVO) => {
-                return (<>{formatDateTime(record.createdAt)}</>);
+                return (<>{dayjs(record.createdAt).format("YYYY-MM-DD HH:mm")}</>);
             }
         },
         {
-            title: t("AdminOrgAdminPaymentListPanel.table.expirationtDate"),
+            title: t("AdminOrgAdminPaymentListPanel.table.expirationDate"),
             dataIndex: "expiresAt",
             key: "expiresAt",
             render: (_: any, record: PaymentVO) => {
                 if (record.paymentCount === null) {
-                    return (<>{formatDateTime(record.expiresAt)}</>);
+                    return (<>{dayjs(record.expiresAt).format("YYYY-MM-DD HH:mm")}</>);
                 } else {
                     return (<>-</>);
                 }

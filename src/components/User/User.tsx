@@ -1,15 +1,15 @@
-import {useSession} from "../../session";
-import {useEffect, useState} from "react";
-import {Button, Checkbox, Col, Form, Input, Row, Space, Spin} from "antd";
-import {useTranslation} from "react-i18next";
-import {checkRoles} from "../../helpers";
-import {useNavigate} from "react-router-dom";
-import {FormatPayments, ProfileCollapse, UserFields} from "./index";
-import {RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum} from "../../models";
-import {UserResponse} from "../../models/responses";
-import {UserRequest} from "../../models/requests";
-import {SubmitResult} from "../main";
-import {userAPI} from "../../services";
+import { useSession } from "../../session";
+import { useEffect, useState } from "react";
+import { Button, Checkbox, Col, Form, Input, Row, Space, Spin } from "antd";
+import { useTranslation } from "react-i18next";
+import { checkRoles } from "../../helpers";
+import { useNavigate } from "react-router-dom";
+import { FormatPayments, FormMemberships, ProfileCollapse, UserFields } from "./index";
+import { RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
+import { UserResponse } from "../../models/responses";
+import { UserRequest } from "../../models/requests";
+import { SubmitResult } from "../main";
+import { userAPI } from "../../services";
 
 export function User() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
@@ -27,7 +27,6 @@ export function User() {
 
                 userAPI.findById(userSession?.id, null)
                         .then((response) => {
-                            console.log("User data fetched:", response);
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                         })
                         .catch((error) => {
@@ -152,7 +151,7 @@ export function User() {
                             key={"user-info"}
                             labelCol={{span: 8}}
                             wrapperCol={{span: 12}}
-                            style={{maxWidth: 800}}
+                            style={{maxWidth: 900}}
                             initialValues={{
                                 id: workUser.id,
                                 username: workUser.username,
@@ -191,7 +190,11 @@ export function User() {
                         <Form.Item label={t("User.form.terms.label")} key={"terms"}>
                             <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true"): t("User.form.terms.false")}</span>
                         </Form.Item>
-                        <Form.Item name={"roles"} label={t("User.form.roles.label")} key={"roles"}>
+                        <Form.Item name={"roles"}
+                                   label={t("User.form.roles.label")}
+                                   key={"roles"}
+                                   tooltip={t("User.form.roles.tooltip")}
+                        >
                             <Checkbox.Group style={{width: "100%"}}>
                                 <Row key={"roles-row"}>
                                     <Col span={6} key={"roles-col-user"}>{/* These checkboxes are supposed to be disabled and are meant just for viewing */}
@@ -206,10 +209,17 @@ export function User() {
                                 </Row>
                             </Checkbox.Group>
                         </Form.Item>
-                        <Form.Item label={t("User.form.membership.label")} key={"membership"}>
-                            <span className="ant-form-text">{workUser.memberships.length}</span>
+                        <Form.Item label={t("User.form.membership.label")}
+                                   key={"membership"}
+                                   tooltip={t("User.form.membership.tooltip")}
+                        >
+                            {workUser.memberships.length > 0 ? <FormMemberships membershipList={workUser.memberships} key={"membership-form"}/> : <span>{t("User.form.membership.none")}</span>}
                         </Form.Item>
-                        <Form.Item name={"payments"} label={t("User.form.payments.label")} key={"payments"}>
+                        <Form.Item name={"payments"}
+                                   label={t("User.form.payments.label")}
+                                   key={"payments"}
+                                   tooltip={t("User.form.payments.tooltip")}
+                        >
                             <FormatPayments userData={workUser} key={"payments-format"}/>
                         </Form.Item>
                         <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}} key={"button-space"}>

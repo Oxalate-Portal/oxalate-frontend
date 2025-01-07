@@ -8,28 +8,25 @@
     },
     "rejectTerms" : "Avvisa villkoren"
   },
-  "AddMemberships": {
-    "types": {
-      "regular": "Regulär",
-      "premium": "Premium"
+  "AddMemberships" : {
+    "disabled" : "Medlemskap är inte i bruk",
+    "errorGetUsers" : "Misslyckades med att hämta användare",
+    "form" : {
+      "name" : {
+        "label" : "Användarnamn",
+        "placeholder" : "Välj användare"
+      },
+      "membershipType" : {
+        "label" : "Medlemstyp"
+      },
+      "membershipDuration" : {
+        "label" : "Medlemskapslängd (månader)"
+      },
+      "button" : "Lägg till medlemskap"
     },
-    "errorGetUsers": "Misslyckades med att hämta användare",
-    "onFinish": {
-      "ok": "Medlemskap tillagt framgångsrikt",
-      "fail": "Misslyckades med att lägga till medlemskap: "
-    },
-    "form": {
-      "name": {
-        "label": "Användarnamn",
-        "placeholder": "Välj användare"
-      },
-      "membershipType": {
-        "label": "Medlemstyp"
-      },
-      "membershipDuration": {
-        "label": "Medlemskapslängd (månader)"
-      },
-      "button": "Lägg till medlemskap"
+    "onFinish" : {
+      "ok" : "Medlemskap tillagt framgångsrikt",
+      "fail" : "Misslyckades med att lägga till medlemskap: "
     }
   },
   "AddPayments" : {
@@ -73,24 +70,24 @@
     "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
     "text" : "Administrativa sidor. Var försiktig"
   },
-  "AdminMembers": {
-    "title": "Medlemskapshantering",
-    "table": {
-      "userId": "Användar-ID",
-      "username": "Användarnamn",
-      "status": "Status",
-      "type": "Typ",
-      "createdAt": "Skapad",
-      "expiresAt": "Utgår",
-      "actions": {
-        "title": "Åtgärd",
-        "edit": "Redigera"
+  "AdminMembers" : {
+    "title" : "Medlemskapshantering",
+    "table" : {
+      "userId" : "Användar-ID",
+      "username" : "Användarnamn",
+      "status" : "Status",
+      "type" : "Typ",
+      "createdAt" : "Skapad",
+      "expiresAt" : "Utgår",
+      "actions" : {
+        "title" : "Åtgärd",
+        "edit" : "Redigera"
       }
     }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Utgångsdatum",
+      "expirationDate" : "Utgångstid",
       "name" : "Namn",
       "paymentCount" : "Antal",
       "paymentDate" : "Betalningsdatum"
@@ -621,7 +618,7 @@
       "name" : "Namn",
       "paymentType" : {
         "oneTime" : "Engångsbetalning",
-        "period" : "Säsongsbetalning",
+        "period" : "Periodisk betalning",
         "unknown" : "Okänt"
       },
       "payments" : "Betalningssituation"
@@ -676,7 +673,16 @@
       "startDate" : "Startdatum",
       "expirationDate" : "Slutdatum",
       "singlePayment" : "Engångsbetalning",
-      "yearlyPayment" : "Årlig betalning"
+      "periodPayment" : "Period betalning"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Typ",
+      "status" : "Status",
+      "created-at" : "Skapad",
+      "expires-at" : "Utgår"
     }
   },
   "ListPayments" : {
@@ -740,12 +746,12 @@
       }
     }
   },
-  "MembershipStatusEnum": {
-    "active": "Aktiv",
-    "expired": "Utgånget",
-    "cancelled": "Avbruten"
+  "MembershipStatusEnum" : {
+    "active" : "Aktiv",
+    "expired" : "Utgånget",
+    "cancelled" : "Avbruten"
   },
-  "MembershipTypeEnum": {
+  "MembershipTypeEnum" : {
     "disabled" : "Icke i bruk",
     "perpetual" : "Permanent",
     "periodical" : "Periodisk",
@@ -998,17 +1004,17 @@
       }
     },
     "membership" : {
-      "event-require-membership": {
-        "label": "Evenemang kräver medlemskap",
-        "tooltip": "Måste en dykare ha ett giltigt medlemskap för att kunna delta i ett dykevenemang"
+      "event-require-membership" : {
+        "label" : "Evenemang kräver medlemskap",
+        "tooltip" : "Måste en dykare ha ett giltigt medlemskap för att kunna delta i ett dykevenemang"
       },
       "membership-period-length" : {
         "label" : "Medlemskapsperiodens längd",
         "tooltip" : "Längden på medlemskapsperioden eller varaktigheten. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
       },
-      "membership-period-start": {
-        "label": "Medlemskapsperiodens startdatum",
-        "tooltip": "När började räkningen av medlemskapsperioden. Detta används endast för periodisk typ. Det används för att anpassa perioden till dagens datum"
+      "membership-period-start" : {
+        "label" : "Medlemskapsperiodens startdatum",
+        "tooltip" : "När började räkningen av medlemskapsperioden. Detta används endast för periodisk typ. Det används för att anpassa perioden till dagens datum"
       },
       "membership-period-start-point" : {
         "label" : "Startpunkt för medlemskapsperiod",
@@ -1189,19 +1195,26 @@
       "lockAccount" : "Lås kontot"
     },
     "form" : {
-      "payments" : {
-        "label" : "Betalningar"
+      "membership" : {
+        "label" : "Medlemskap",
+        "none" : "Inget medlemskap",
+        "tooltip" : "Medlemskap listade från nyast till äldst"
       },
-      "terms" : {
-        "false": "Har inte accepterat villkoren",
-        "label" : "Användarvillkoren",
-        "true": "Har accepterat villkoren"
+      "payments" : {
+        "label" : "Betalningar",
+        "tooltip" : "Betalningar listade från nyaste till äldsta"
       },
       "roles" : {
-        "label" : "Roller"
+        "label" : "Roller",
+        "tooltip" : "Användarens roller"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Har inte accepterat villkoren",
+        "label" : "Användarvillkoren",
+        "true" : "Har accepterat villkoren"
       }
     },
     "requestAnonymization" : {
@@ -1354,7 +1367,7 @@
     "payment" : {
       "type" : {
         "oneTime" : "Engångs",
-        "period" : "Sesångs"
+        "period" : "Periodisk"
       }
     },
     "roles" : {

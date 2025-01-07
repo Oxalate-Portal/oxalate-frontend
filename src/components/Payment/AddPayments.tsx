@@ -1,23 +1,19 @@
-import {useTranslation} from "react-i18next";
-import {useNavigate} from "react-router-dom";
-import {Button, Form, InputNumber, Select, Space, Spin} from "antd";
-import {useEffect, useState} from "react";
-import {PaymentTypeEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {userAPI} from "../../services";
-import {DiveEventUserResponse} from "../../models/responses";
-import {SubmitResult} from "../main";
-import {paymentAPI} from "../../services/PaymentAPI";
-import {PaymentRequest} from "../../models/requests";
+import { useTranslation } from "react-i18next";
+import { Button, Form, InputNumber, message, Select, Space, Spin } from "antd";
+import { useEffect, useState } from "react";
+import { PaymentTypeEnum, RoleEnum } from "../../models";
+import { userAPI } from "../../services";
+import { DiveEventUserResponse } from "../../models/responses";
+import { paymentAPI } from "../../services/PaymentAPI";
+import { PaymentRequest } from "../../models/requests";
 
 export function AddPayments() {
-    const navigate = useNavigate();
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<DiveEventUserResponse[]>([]);
     const [selectedUsers, setSelectedUsers] = useState<DiveEventUserResponse[]>([]);
     const filteredOptions = users.filter((o) => !selectedUsers.includes(o));
     const [paymentForm] = Form.useForm();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [paymentType, setPaymentType] = useState<PaymentTypeEnum>(PaymentTypeEnum.PERIOD);
 
     const paymentTypes = [
@@ -27,13 +23,35 @@ export function AddPayments() {
 
     useEffect(() => {
         setLoading(true);
-        userAPI.findByRole(RoleEnum.ROLE_USER)
-                .then((result) => {
-                    setUsers(result);
+        Promise.all([
+            userAPI.findByRole(RoleEnum.ROLE_USER),
+                paymentAPI.getAllActivePaymentStatus()
+        ])
+                .then(([userList, paymentList]) => {
+                    // Go trough the list of payments and collect the users that have a periodical payment
+                    let periodicalUsers: number[] = [];
+
+                    for (let i = 0; i < paymentList.length; i++) {
+                        let paymentListItem = paymentList[i];
+                        let userId = paymentListItem.userId;
+
+                        for (let j = 0; j < paymentListItem.payments.length; j++) {
+                            let payment = paymentListItem.payments[j];
+                            if (payment.paymentType === PaymentTypeEnum.PERIOD) {
+                                periodicalUsers.push(userId);
+                                break;
+                            }
+                        }
+
+                        // Next we need to filter out the users that already have a periodical payment
+                        userList = userList.filter((user) => !periodicalUsers.includes(user.id));
+                        setUsers(userList);
+                    }
+
                 })
                 .catch((error) => {
                     console.error("Failed to get users:", error);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminPayments.errorGetUsers")});
+                    message.error(t("AdminPayments.errorGetUsers"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -73,20 +91,16 @@ export function AddPayments() {
 
             paymentAPI.create(postData)
                     .then(() => {
-                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AddPayments.onFinish.ok")});
+                        message.success(t("AddPayments.onFinish.ok"));
                     })
                     .catch(e => {
                         console.error("Failed to update user payment information, error: " + e.message);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AddPayments.onFinish.fail") + e.message});
+                        message.success(t("AddPayments.onFinish.fail"));
                     })
                     .finally(() => {
                         setLoading(false);
                     });
         }
-    }
-
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
     }
 
     return (
