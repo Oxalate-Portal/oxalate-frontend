@@ -7,7 +7,11 @@ import { DiveEventUserResponse } from "../../models/responses";
 import { paymentAPI } from "../../services/PaymentAPI";
 import { PaymentRequest } from "../../models/requests";
 
-export function AddPayments() {
+interface AddPaymentsProps {
+    fetchPayments: () => void;
+}
+
+export function AddPayments({fetchPayments}: AddPaymentsProps) {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<DiveEventUserResponse[]>([]);
@@ -25,7 +29,7 @@ export function AddPayments() {
         setLoading(true);
         Promise.all([
             userAPI.findByRole(RoleEnum.ROLE_USER),
-                paymentAPI.getAllActivePaymentStatus()
+            paymentAPI.getAllActivePaymentStatus()
         ])
                 .then(([userList, paymentList]) => {
                     // Go trough the list of payments and collect the users that have a periodical payment
@@ -92,6 +96,7 @@ export function AddPayments() {
             paymentAPI.create(postData)
                     .then(() => {
                         message.success(t("AddPayments.onFinish.ok"));
+                        fetchPayments(); // Refresh the payment lists
                     })
                     .catch(e => {
                         console.error("Failed to update user payment information, error: " + e.message);
