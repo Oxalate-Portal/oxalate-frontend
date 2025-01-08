@@ -99,7 +99,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                                 onChange={updateSelectedUsers}
                                 optionFilterProp={"name"}
                                 optionLabelProp={"name"}
-                                options={filteredOptions.map((item) => ({id: item.id, name: item.name}))}
+                                options={filteredOptions.map((item) => ({id: item.id, name: item.name + " (" + item.id + ")"}))}
                                 placeholder={t("AddMemberships.form.name.placeholder")}
                                 showSearch={true}
                                 style={{width: "100%"}}

@@ -139,7 +139,7 @@ export function AddPayments({fetchPayments}: AddPaymentsProps) {
                                 options={filteredOptions.map((item) => (
                                         {
                                             id: item.id,
-                                            name: item.name,
+                                            name: item.name + " (" + item.id + ")",
                                         }
                                 ))}
                                 placeholder={t("AddPayments.form.name.placeholder")}
