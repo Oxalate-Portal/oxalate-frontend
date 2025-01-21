@@ -1,33 +1,26 @@
-import { PaymentVO } from "../../models/PaymentVO";
 import { Collapse, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 import { PaymentListTable } from "./PaymentListTable";
+import { PaymentTypeEnum } from "../../models";
 
-interface ListPaymentsProps {
-    periodPayments: PaymentVO[],
-    oneTimePayments: PaymentVO[],
-    unknownPayments: PaymentVO[]
-}
-
-export function ListPayments({ periodPayments, oneTimePayments, unknownPayments }: ListPaymentsProps) {
+export function ListPayments() {
     const {t} = useTranslation();
 
     const paymentItems = [
         {
             key: "one-time-payments",
-            label: t("ListPayments.oneTime"),
-            children: <PaymentListTable payments={oneTimePayments} keyName={"one_time"} key={"one_time"}/>
+            label: t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME),
+            children: <PaymentListTable paymentType={PaymentTypeEnum.ONE_TIME}
+                                        keyName={"one_time"}
+                                        key={"one_time"}/>
         },
         {
             key: "period-payments",
-            label: t("ListPayments.period"),
-            children: <PaymentListTable payments={periodPayments} keyName={"period"} key={"period"}/>
-        },
-        {
-            key: "unknown-payments",
-            label: t("ListPayments.unknown"),
-            children: <PaymentListTable payments={unknownPayments} keyName={"unknown"} key={"unknown"}/>
-        },
+            label: t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD),
+            children: <PaymentListTable paymentType={PaymentTypeEnum.PERIOD}
+                                        keyName={"period"}
+                                        key={"period"}/>
+        }
     ];
 
     return (

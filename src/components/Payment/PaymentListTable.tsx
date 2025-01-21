@@ -1,25 +1,113 @@
-import { PaymentVO } from "../../models/PaymentVO";
+import { PaymentTypeEnum, PaymentVO } from "../../models";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Table } from "antd";
+import { Spin, Table, Tag } from "antd";
 import { type ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { paymentAPI } from "../../services";
+import { PaymentRequest } from "../../models/requests";
+import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
 
 interface PaymentListPanelProps {
-    payments: PaymentVO[],
-    keyName: string
+    paymentType: PaymentTypeEnum;
+    keyName: string;
 }
 
-export function PaymentListTable({payments, keyName}: PaymentListPanelProps) {
+export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [payments, setPayments] = useState<PaymentVO[]>([]);
     const {t} = useTranslation();
+
+
+    useEffect(() => {
+        function fetchPayments() {
+            setLoading(true);
+
+            paymentAPI.getAllActivePaymentStatusWithPaymentType(paymentType)
+                    .then((result) => {
+                        // Convert the PaymentStatusResponse to PaymentVO
+                        const payments: PaymentVO[] = result.map((payment) => {
+                            return {
+                                id: payment.payments[0].id,
+                                userId: payment.userId,
+                                name: payment.name,
+                                createdAt: payment.payments[0].createdAt,
+                                expiresAt: payment.payments[0].expiresAt,
+                                paymentCount: payment.payments[0].paymentCount,
+                                paymentType: payment.payments[0].paymentType,
+                            };
+                        });
+                        setPayments(payments);
+                        console.log("Setting payments to:", payments);
+                        window.addEventListener("updatePaymentList-" + paymentType, fetchPayments);
+                    })
+                    .catch((error) => {
+                        console.error("Failed to get payments:", error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+        }
+
+        fetchPayments();
+
+        return () => {
+            window.removeEventListener("updatePaymentList-" + paymentType, fetchPayments);
+        };
+    }, [paymentType]);
+
+    function updateCount(record: PaymentVO, change: number) {
+        setLoading(true);
+        record.paymentCount += change;
+
+        const paymentRequest: PaymentRequest = {
+            id: record.id,
+            userId: record.userId,
+            paymentType: record.paymentType,
+            paymentCount: record.paymentCount,
+        };
+
+        paymentAPI.update(paymentRequest)
+                .then(() => {
+                    window.dispatchEvent(new Event("updatePaymentList-" + record.paymentType));
+                })
+                .catch((error) => {
+                    console.error("Failed to increase payment count:", error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+    }
 
     const columns: ColumnsType<PaymentVO> = [
         {
             title: "#",
-            dataIndex: "userId",
-            key: "userId",
+            dataIndex: "id",
+            key: "id"
+        },
+        {
+            title: "Type",
+            dataIndex: "paymentType",
+            key: "paymentType",
             render: (_: any, record: PaymentVO) => {
-                return (<Link to={"/users/" + record.userId + "/show"}>{record.userId}</Link>);
+                let color = "";
+                let paymentTypeLabel = "";
+
+                if (record.paymentType === PaymentTypeEnum.PERIOD) {
+                    color = "green";
+                    paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
+                }
+                if (record.paymentType === PaymentTypeEnum.ONE_TIME) {
+                    color = "blue";
+                    paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
+                }
+
+                return (
+                        <Tag color={color} key={"payment-" + record.paymentType}>
+                            {paymentTypeLabel}
+                        </Tag>
+                );
             }
         },
         {
@@ -29,18 +117,23 @@ export function PaymentListTable({payments, keyName}: PaymentListPanelProps) {
             sorter: (a: PaymentVO, b: PaymentVO) => a.name.localeCompare(b.name),
             sortDirections: ["descend", "ascend"],
             render: (_: any, record: PaymentVO) => {
-                return (<Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>);
-            }
+                return (
+                        <Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>
+                );
+            },
         },
         {
             title: t("AdminOrgAdminPaymentListPanel.table.paymentDate"),
             dataIndex: "createdAt",
             key: "createdAt",
-            sorter: (a: PaymentVO, b: PaymentVO) => (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()),
+            sorter: (a: PaymentVO, b: PaymentVO) =>
+                    new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
             sortDirections: ["descend", "ascend"],
             render: (_: any, record: PaymentVO) => {
-                return (<>{dayjs(record.createdAt).format("YYYY-MM-DD HH:mm")}</>);
-            }
+                return (
+                        <>{dayjs(record.createdAt).format("YYYY-MM-DD HH:mm")}</>
+                );
+            },
         },
         {
             title: t("AdminOrgAdminPaymentListPanel.table.expirationDate"),
@@ -48,31 +141,65 @@ export function PaymentListTable({payments, keyName}: PaymentListPanelProps) {
             key: "expiresAt",
             render: (_: any, record: PaymentVO) => {
                 if (record.paymentCount === null) {
-                    return (<>{dayjs(record.expiresAt).format("YYYY-MM-DD HH:mm")}</>);
+                    return (
+                            <>{dayjs(record.expiresAt).format("YYYY-MM-DD HH:mm")}</>
+                    );
                 } else {
-                    return (<>-</>);
+                    return <>-</>;
                 }
-            }
+            },
         },
         {
             title: t("AdminOrgAdminPaymentListPanel.table.paymentCount"),
             dataIndex: "paymentCount",
             key: "paymentCount",
             render: (_: any, record: PaymentVO) => {
-                if (record.paymentCount === null) {
-                    return (<>-</>);
+                if (
+                        record.paymentCount === null ||
+                        record.paymentType !== PaymentTypeEnum.ONE_TIME
+                ) {
+                    return <>-</>;
                 } else {
-                    return (<>{record.paymentCount}</>);
+                    return (
+                            <>
+                                <span style={{marginRight: 8}}>{record.paymentCount}</span>
+                                <button
+                                        style={{
+                                            marginRight: 4,
+                                            cursor: "pointer",
+                                            border: "none",
+                                            background: "transparent",
+                                            color: "green",
+                                        }}
+                                        onClick={() => updateCount(record, 1)}
+                                >
+                                    <PlusCircleOutlined style={{fontSize: "18px"}}/>
+                                </button>
+                                {(record.paymentCount > 0) && <button
+                                        style={{
+                                            cursor: "pointer",
+                                            border: "none",
+                                            background: "transparent",
+                                            color: "red",
+                                        }}
+                                        onClick={() => updateCount(record, -1)}
+                                >
+                                    <MinusCircleOutlined style={{fontSize: "18px"}}/>
+                                </button>}
+                            </>
+                    );
                 }
-            }
+            },
         },
     ];
 
     return (
-            <Table
-                    columns={columns}
-                    dataSource={payments}
-                    rowKey={record => keyName + "-payment-" + record.userId}
-            />
-    );
+            <Spin spinning={loading}>
+                {!loading && <Table columns={columns}
+                                    dataSource={payments}
+                                    rowKey={(record) =>
+                                            keyName + "-payment-" + record.userId
+                                    }
+                />}
+            </Spin>);
 }

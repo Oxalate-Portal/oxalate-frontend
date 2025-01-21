@@ -1,13 +1,13 @@
-import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
-import {useSession} from "../../session";
-import {DiveEventResponse, DiveEventUserResponse} from "../../models/responses";
-import {checkRoles} from "../../helpers";
-import {Link} from "react-router-dom";
-import {DiveTypeEnum, PaymentTypeEnum, RoleEnum} from "../../models";
-import {Space, Spin, Table, Tag, Tooltip} from "antd";
-import {LinkOutlined} from "@ant-design/icons";
-import type {ColumnsType} from "antd/es/table";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { useSession } from "../../session";
+import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { checkRoles } from "../../helpers";
+import { Link } from "react-router-dom";
+import { DiveTypeEnum, PaymentTypeEnum, RoleEnum } from "../../models";
+import { Space, Spin, Table, Tag, Tooltip } from "antd";
+import { LinkOutlined } from "@ant-design/icons";
+import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
 
 interface DiveEventDetailsProps {
@@ -88,7 +88,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                         break;
                     default:
                         color = "red";
-                        labelText = t("EventDetails.participantTable.paymentType.unknown");
+                        labelText = t("EditEvent.eventTypes.unknown");
                 }
 
                 return (
@@ -185,11 +185,11 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                 switch (payment.paymentType) {
                                     case PaymentTypeEnum.PERIOD:
                                         color = "green";
-                                        labelText = t("EventDetails.participantTable.paymentType.period");
+                                        labelText = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
                                         break;
                                     case PaymentTypeEnum.ONE_TIME:
                                         color = "blue";
-                                        labelText = t("EventDetails.participantTable.paymentType.oneTime");
+                                        labelText = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
                                         break;
                                     default:
                                         color = "red";

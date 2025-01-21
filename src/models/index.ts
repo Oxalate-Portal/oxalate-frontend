@@ -12,6 +12,7 @@ export type {DiveEventVO} from "./DiveEventVO";
 export type {LoginStatus} from "./LoginStatus";
 export type {OptionItemVO} from "./OptionItemVO";
 export type {Pageable} from "./Pageable";
+export type {PaymentVO} from "./PaymentVO";
 export type {RegistrationVO} from "./RegistrationVO";
 export type {SessionVO} from "./SessionVO";
 export type {Sort} from "./Sort";

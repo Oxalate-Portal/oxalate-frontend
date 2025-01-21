@@ -370,7 +370,8 @@
       "current" : "Strömdykning",
       "open-and-cave" : "Öppen dykning / Grottdykning",
       "open-water" : "Öppen dykning",
-      "surface" : "Endast yta"
+      "surface" : "Endast yta",
+      "unknown" : "Okänd"
     },
     "form" : {
       "button" : {
@@ -618,8 +619,7 @@
       "name" : "Namn",
       "paymentType" : {
         "oneTime" : "Engångsbetalning",
-        "period" : "Periodisk betalning",
-        "unknown" : "Okänt"
+        "period" : "Periodisk betalning"
       },
       "payments" : "Betalningssituation"
     },
@@ -687,8 +687,7 @@
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",
-    "period" : "Periodiska betalningar",
-    "unknown" : "Okända"
+    "period" : "Periodiska betalningar"
   },
   "Login" : {
     "form" : {
@@ -902,6 +901,10 @@
   },
   "PastEvents" : {
     "title" : "Tidigare evenemang"
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Engångs",
+    "PERIOD" : "Period"
   },
   "PeriodicalPaymentType" : {
     "disabled" : "Icke i bruk",

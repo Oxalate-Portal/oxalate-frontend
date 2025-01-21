@@ -1,12 +1,12 @@
-import {useEffect, useState} from "react";
-import {AdminUserResponse} from "../../models/responses/AdminUserResponse";
-import {Link, useNavigate} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {Button, Divider, Input, Space, Spin, Table, Tag} from "antd";
-import {PaymentTypeEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {userAPI} from "../../services";
-import {SubmitResult} from "../main";
-import type {ColumnsType} from "antd/es/table";
+import { useEffect, useState } from "react";
+import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
+import { Link, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { Button, Divider, Input, Space, Spin, Table, Tag } from "antd";
+import { PaymentTypeEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { userAPI } from "../../services";
+import { SubmitResult } from "../main";
+import type { ColumnsType } from "antd/es/table";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
@@ -111,11 +111,11 @@ export function AdminOrgUsers() {
 
                             if (payment.paymentType === PaymentTypeEnum.PERIOD) {
                                 color = "green";
-                                paymentTypeLabel = t("common.payment.type.period");
+                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
                             }
                             if (payment.paymentType === PaymentTypeEnum.ONE_TIME) {
                                 color = "blue";
-                                paymentTypeLabel = t("common.payment.type.oneTime");
+                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
                             }
 
                             return (
@@ -125,7 +125,7 @@ export function AdminOrgUsers() {
                             );
                         })}
                     </>
-            ),
+            )
         },
         {
             title: t("AdminOrgUsers.table.action.title"),

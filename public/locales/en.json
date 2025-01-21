@@ -370,7 +370,8 @@
       "current" : "Current",
       "open-and-cave" : "Open water / Cave",
       "open-water" : "Open water",
-      "surface" : "Surface activities only"
+      "surface" : "Surface activities only",
+      "unknown" : "Unknown"
     },
     "form" : {
       "button" : {
@@ -618,8 +619,7 @@
       "name" : "Name",
       "paymentType" : {
         "oneTime" : "One-time payment",
-        "period" : "Periodical payment",
-        "unknown" : "Unknown"
+        "period" : "Periodical payment"
       },
       "payments" : "Payment status"
     },
@@ -687,8 +687,7 @@
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
-    "period" : "Periodical payments",
-    "unknown" : "Unknown"
+    "period" : "Periodical payments"
   },
   "Login" : {
     "form" : {
@@ -902,6 +901,10 @@
   },
   "PastEvents" : {
     "title" : "Past events"
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "One-time",
+    "PERIOD" : "Periodical"
   },
   "PeriodicalPaymentType" : {
     "disabled" : "Disabled",

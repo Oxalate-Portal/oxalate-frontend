@@ -370,7 +370,8 @@
       "current" : "Virta",
       "open-and-cave" : "Avo / Luola",
       "open-water" : "Avo",
-      "surface" : "Vain pintatoimintaa"
+      "surface" : "Vain pintatoimintaa",
+      "unknown" : "Tuntematon"
     },
     "form" : {
       "button" : {
@@ -618,8 +619,7 @@
       "name" : "Nimi",
       "paymentType" : {
         "oneTime" : "Kertamaksu",
-        "period" : "Kausimaksu",
-        "unknown" : "Tuntematon"
+        "period" : "Kausimaksu"
       },
       "payments" : "Maksutilanne"
     },
@@ -687,8 +687,7 @@
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",
-    "period" : "Kausimaksut",
-    "unknown" : "Tuntemattomat"
+    "period" : "Kausimaksut"
   },
   "Login" : {
     "form" : {
@@ -902,6 +901,10 @@
   },
   "PastEvents" : {
     "title" : "Menneet tapahtumat"
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Kerta",
+    "PERIOD" : "Kausi"
   },
   "PeriodicalPaymentType" : {
     "disabled" : "Ei käytössä",

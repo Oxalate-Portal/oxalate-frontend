@@ -9,5 +9,6 @@ export {membershipAPI} from './MembershipAPI';
 export {pageAPI} from './PageAPI';
 export {pageGroupMgmtAPI} from './PageGroupMgmtAPI';
 export {pageMgmtAPI} from './PageMgmtAPI';
+export {paymentAPI} from './PaymentAPI';
 export {portalConfigurationAPI} from './PortalConfigurationAPI';
 export {userAPI} from './UserAPI';
