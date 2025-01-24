@@ -2,12 +2,13 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSession } from "../../session";
 import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
-import { checkRoles, formatDateTime } from "../../helpers";
+import { checkRoles } from "../../helpers";
 import { Link } from "react-router-dom";
-import { PaymentTypeEnum, RoleEnum } from "../../models";
+import { DiveTypeEnum, PaymentTypeEnum, RoleEnum } from "../../models";
 import { Space, Spin, Table, Tag, Tooltip } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
+import dayjs from "dayjs";
 
 interface DiveEventDetailsProps {
     eventInfo: DiveEventResponse | null;
@@ -15,21 +16,21 @@ interface DiveEventDetailsProps {
 
 export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
     const [loading, setLoading] = useState(true);
-    const {userSession} = useSession();
+    const {userSession, getPortalTimezone} = useSession();
     const {t} = useTranslation();
 
     const columns: ColumnsType<DiveEventResponse> = [
         {
             title: "#",
             dataIndex: "id",
-            key: "id"
+            key: "eventId"
         },
         {
             title: t("EventDetails.table.startTime"),
             dataIndex: "startTime",
             key: "startTime",
             render: (text: string, record: DiveEventResponse) => {
-                return (<>{formatDateTime(new Date(record.startTime))}</>);
+                return (<>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
             }
         },
         {
@@ -56,6 +57,45 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.type"),
             dataIndex: "type",
             key: "type",
+            render: (_, record: DiveEventResponse) => {
+                let color: string;
+                let labelText: string;
+
+                switch (record.type) {
+                    case DiveTypeEnum.BOAT:
+                        color = "yellow";
+                        labelText = t("EditEvent.eventTypes.boat");
+                        break;
+                    case DiveTypeEnum.CAVE:
+                        color = "blue";
+                        labelText = t("EditEvent.eventTypes.cave");
+                        break;
+                    case DiveTypeEnum.CURRENT:
+                        color = "violet";
+                        labelText = t("EditEvent.eventTypes.current");
+                        break;
+                    case DiveTypeEnum.OPEN_AND_CAVE:
+                        color = "green";
+                        labelText = t("EditEvent.eventTypes.open-and-cave");
+                        break;
+                    case DiveTypeEnum.OPEN_WATER:
+                        color = "marine";
+                        labelText = t("EditEvent.eventTypes.open-water");
+                        break;
+                    case DiveTypeEnum.SURFACE:
+                        color = "white";
+                        labelText = t("EditEvent.eventTypes.surface");
+                        break;
+                    default:
+                        color = "red";
+                        labelText = t("EditEvent.eventTypes.unknown");
+                }
+
+                return (
+                        <Tag color={color} key={"divetype-" + record.id}>
+                            {labelText}
+                        </Tag>);
+            }
         },
         {
             title: t("EventDetails.table.organizer"),
@@ -93,7 +133,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.id - b.id,
             render: (text: string, record: DiveEventUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={"/users/" + record.id + "/show"}>{record.id}</Link>);
+                    return (<Link to={"/users/" + record.id + "/show"} key={"user-id-link-" + record.id}>{record.id}</Link>);
                 }
 
                 return (<>{record.id}</>);
@@ -106,7 +146,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.name.localeCompare(b.name),
             render: (text: string, record: DiveEventUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={"/users/" + record.id + "/show"}>{record.name}</Link>);
+                    return (<Link to={"/users/" + record.id + "/show"}key={"user-name-" + record.id}>{record.name}</Link>);
                 }
 
                 return (<>{record.name}</>);
@@ -117,7 +157,17 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: "eventDiveCount",
             key: "eventDiveCount",
             sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.eventDiveCount - b.eventDiveCount,
+        },
+        {
+            title: t("EventDetails.participantTable.createdAt"),
+            dataIndex: "createdAt",
+            key: "createdAt",
+            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            render: (text: string, record: DiveEventUserResponse) => {
+                return (<>{dayjs(record.createdAt).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm:ss.SSS")}</>);
+            }
         }
+
     ];
 
     if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
@@ -135,11 +185,11 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                 switch (payment.paymentType) {
                                     case PaymentTypeEnum.PERIOD:
                                         color = "green";
-                                        labelText = t("EventDetails.participantTable.paymentType.period");
+                                        labelText = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
                                         break;
                                     case PaymentTypeEnum.ONE_TIME:
                                         color = "blue";
-                                        labelText = t("EventDetails.participantTable.paymentType.oneTime");
+                                        labelText = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
                                         break;
                                     default:
                                         color = "red";
@@ -147,7 +197,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                 }
 
                                 return (
-                                        <Tag color={color} key={payment.id}>
+                                        <Tag color={color} key={"payment-" + payment.userId + "-" + payment.id}>
                                             {labelText}
                                         </Tag>);
                             })}
@@ -164,11 +214,11 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         }
     }, [eventInfo]);
 
-    return (<Spin spinning={loading}>
+    return (<Spin spinning={loading} key={"event-spinner"}>
                 {eventInfo &&
-                        <Space direction={"vertical"} size={12}>
+                        <Space direction={"vertical"} size={12} key={"event-space"}>
                             <h5 key={"eventmain-" + eventInfo.id}>{t("EventDetails.title")}: {eventInfo.title}
-                                <Link to={"/events/" + eventInfo.id + "/show"} key={"link-" + eventInfo.id}>
+                                <Link to={"/events/" + eventInfo.id + "/show"} key={"event-link-" + eventInfo.id}>
                                     <Tooltip title={t("EventDetails.link.tooltip")} key={"tooltip-" + eventInfo.id}>
                                         <LinkOutlined key={"linkout" + eventInfo.id}/>
                                     </Tooltip>
@@ -190,6 +240,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                    dataSource={eventInfo.participants}
                                    pagination={false}
                                    key={"parts" + eventInfo.id}
+                                   rowKey={(record) => "participant-row-" + record.id}
                             />
                         </Space>}
             </Spin>

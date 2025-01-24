@@ -11,6 +11,7 @@ export type {EventPeriodReportResponse} from "./EventPeriodReportResponse";
 export type {EventReportResponse} from "./EventReportResponse";
 export type {FrontendConfigurationResponse} from "./FrontendConfigurationResponse";
 export type {GenericMessageResponse} from "./GenericMessageResponse";
+export type {MembershipResponse} from "./MembershipResponse";
 export type {MultiYearValueResponse} from "./MultiYearValueResponse";
 export type {PageGroupResponse} from "./PageGroupResponse";
 export type {PageGroupVersionResponse} from "./PageGroupVersionResponse";

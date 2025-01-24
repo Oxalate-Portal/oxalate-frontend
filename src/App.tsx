@@ -8,7 +8,7 @@ import {Register, Registration} from "./components/Register";
 import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
 import {AcceptTerms, Home, LoginWithCaptcha, NavigationBar, OxalateFooter} from "./components/main";
 import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
-import {AdminMain, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
+import {AdminMain, AdminMembership, AdminMemberships, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
 import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
 import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
 import {Payments} from "./components/Payment";
@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -26,8 +27,9 @@ dayjs.extend(timezone);
 
 function App() {
     const {darkAlgorithm} = theme;
-    const {userSession, getSessionLanguage, organizationName, logoutUser, getPortalTimezone} = useSession();
+    const {userSession, getSessionLanguage, organizationName, logoutUser, getPortalTimezone, getPortalConfigurationValue} = useSession();
     const sessionLanguage = getSessionLanguage();
+    let membershipType = MembershipTypeEnum.DISABLED;
 
     useEffect(() => {
         dayjs.tz.setDefault(getPortalTimezone());
@@ -35,6 +37,11 @@ function App() {
 
     if (sessionLanguage !== undefined && sessionLanguage !== i18next.language) {
         i18next.changeLanguage(getSessionLanguage());
+    }
+
+    if (userSession) {
+        const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
+        membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
     }
 
     // If the user is logged in, but they have not accepted the terms and conditions, then redirect them to the terms and conditions page. The user
@@ -77,6 +84,8 @@ function App() {
                             <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
+                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
+                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>

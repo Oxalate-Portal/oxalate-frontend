@@ -3,7 +3,7 @@ import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button, Divider, Input, Space, Spin, Table, Tag } from "antd";
-import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { PaymentTypeEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { userAPI } from "../../services";
 import { SubmitResult } from "../main";
 import type { ColumnsType } from "antd/es/table";
@@ -109,13 +109,13 @@ export function AdminOrgUsers() {
                             let color = "";
                             let paymentTypeLabel = "";
 
-                            if (payment.paymentType === "PERIOD") {
+                            if (payment.paymentType === PaymentTypeEnum.PERIOD) {
                                 color = "green";
-                                paymentTypeLabel = t("common.payment.type.period");
+                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
                             }
-                            if (payment.paymentType === "ONE_TIME") {
+                            if (payment.paymentType === PaymentTypeEnum.ONE_TIME) {
                                 color = "blue";
-                                paymentTypeLabel = t("common.payment.type.oneTime");
+                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
                             }
 
                             return (
@@ -125,7 +125,7 @@ export function AdminOrgUsers() {
                             );
                         })}
                     </>
-            ),
+            )
         },
         {
             title: t("AdminOrgUsers.table.action.title"),
@@ -166,6 +166,7 @@ export function AdminOrgUsers() {
                     })
                     .catch(e => {
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUsers.invalidateTermAgreements.fail")});
+                        console.error("Failed to reset term agreements, error: " + e.message);
                     })
                     .finally(() => {
                         setLoading(false);

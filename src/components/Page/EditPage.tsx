@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {OptionItemVO, PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
 import {useSession} from "../../session";
-import {getHighestRole, getPageGroupTitleByLanguage, LanguageUtil} from "../../helpers";
+import {getHighestRole, getPageGroupTitleByLanguage} from "../../helpers";
 import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Alert, Button, Checkbox, Divider, Form, Input, Select, Space} from "antd";
@@ -14,9 +14,10 @@ import {PageBodyEditor} from "./PageBodyEditor";
 
 export function EditPage() {
     const {paramId} = useParams();
-    const {userSession, sessionLanguage} = useSession();
+    const {userSession, sessionLanguage, getFrontendConfigurationValue} = useSession();
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const languageList = getFrontendConfigurationValue("enabled-language").split(",");
 
     const [pageId, setPageId] = useState<number>(0);
     const [pageGroupOptions, setPageGroupOptions] = useState<OptionItemVO[]>([]);
@@ -43,10 +44,10 @@ export function EditPage() {
             id: 0,
             pageGroupId: tmpPageGroupId,
             status: PageStatusEnum.DRAFTED,
-            pageVersions: LanguageUtil.languages.map((language) => ({
+            pageVersions: languageList.map((language) => ({
                 id: 0,
                 pageId: 0,
-                language: language.value,
+                language: language,
                 title: "",
                 ingress: "",
                 body: ""
@@ -126,11 +127,11 @@ export function EditPage() {
                 pageGroupMgmtAPI.findAll(),
                 pageMgmtAPI.findById(tmpPageId, null)
             ])
-                    .then((data) => {
-                        // Page group selection box data
-                        populatePageGroups(data[0]);
-                        // Page data
-                        setPageData(data[1]);
+                    .then(([pageGroups, pageResponse]) => {
+                        populatePageGroups(pageGroups);
+                        // Filter the page versions to match the enabled languages
+                        pageResponse.pageVersions = pageResponse.pageVersions.filter((pageVersion) => languageList.includes(pageVersion.language));
+                        setPageData(pageResponse);
                     })
                     .catch((error) => {
                         console.error(error);

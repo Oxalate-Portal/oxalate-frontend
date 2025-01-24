@@ -8,15 +8,36 @@
     },
     "rejectTerms" : "Nutzungsbedingungen ablehnen"
   },
+  "AddMemberships" : {
+    "disabled" : "Mitgliedschaft ist deaktiviert",
+    "errorGetUsers" : "Benutzer konnten nicht abgerufen werden",
+    "form" : {
+      "name" : {
+        "label" : "Benutzername",
+        "placeholder" : "Benutzer auswählen"
+      },
+      "membershipType" : {
+        "label" : "Mitgliedschaftstyp"
+      },
+      "membershipDuration" : {
+        "label" : "Mitgliedschaftsdauer (Monate)"
+      },
+      "button" : "Mitgliedschaft hinzufügen"
+    },
+    "onFinish" : {
+      "ok" : "Mitgliedschaft erfolgreich hinzugefügt",
+      "fail" : "Fehler beim Hinzufügen der Mitgliedschaft: "
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Zahlungen speichern",
       "name" : {
-        "label" : "Mitglieder",
-        "placeholder" : "Mitglieder hinzufügen"
+        "label" : "Benutzer",
+        "placeholder" : "Benutzer hinzufügen"
       },
       "paymentCount" : {
-        "label" : "Anzahl der Einmalzahlungen"
+        "label" : "Anzahl"
       },
       "paymentType" : {
         "label" : "Zahlungsart"
@@ -40,18 +61,33 @@
   },
   "AdminMain" : {
     "header" : "Verwaltung",
-    "memberHeader" : "Mitglieder",
+    "userHeader" : "Benutzer",
     "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
     "paymentHeader" : "Zahlungen",
-    "paymentText" : "Anzeige der aktuellen Zahlungen, Möglichkeit zur Annullierung der Jahresgebühren und Hinzufügen von Zahlungsinformationen für Mitglieder",
+    "paymentText" : "Ansicht der aktuellen Zahlungen, Möglichkeit zur Ungültigmachung von Jahreszahlungen und Hinzufügung von Zahlungsinformationen zu Benutzern",
     "statsHeader" : "Statistiken",
-    "statsText1" : "Jahresstatistiken für Veranstaltungen, Mitgliederregistrierungen, Veranstaltungsorganisatoren und Zahlungen",
-    "statsText2" : "Hier finden Sie auch halbjährliche Ereignisberichte.",
+    "statsText1" : "Jährliche Veranstaltungs-, Benutzerregistrierungs-, Mitgliederregistrierungs- (falls verwendet), Veranstaltungsorganisatoren- und Zahlungsstatistiken",
+    "statsText2" : "Hier finden Sie auch halbjährliche Veranstaltungsberichte",
     "text" : "Verwaltungsseiten. Seien Sie vorsichtig."
+  },
+  "AdminMembers" : {
+    "title" : "Mitgliedschaftsverwaltung",
+    "table" : {
+      "userId" : "Benutzer-ID",
+      "username" : "Benutzername",
+      "status" : "Status",
+      "type" : "Typ",
+      "createdAt" : "Erstellt am",
+      "expiresAt" : "Ablaufzeit",
+      "actions" : {
+        "title" : "Aktion",
+        "edit" : "Bearbeiten"
+      }
+    }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Ablaufdatum",
+      "expirationDate" : "Ablaufzeit",
       "name" : "Name",
       "paymentCount" : "Anzahl",
       "paymentDate" : "Zahlungsdatum"
@@ -67,7 +103,7 @@
       "roles" : {
         "administrator" : "Administrator",
         "label" : "Rollen",
-        "member" : "Mitglied",
+        "user" : "Benutzer",
         "organizer" : "Veranstaltungsorganisator"
       },
       "status" : {
@@ -81,7 +117,7 @@
       "ok" : "Passwortänderungslink wurde per E-Mail gesendet"
     },
     "updateUser" : {
-      "confirmAnonymize" : "Möchten Sie wirklich die Anonymisierung Ihrer Daten beantragen? Dies löscht alle persönlichen Daten, die Sie im System eingegeben haben. Diese Änderung kann nicht rückgängig gemacht werden.",
+      "confirmAnonymize" : "Sind Sie sicher, dass Sie die Anonymisierung anfordern möchten? Dadurch werden alle persönlichen Daten entfernt, die der Benutzer in das System eingegeben hat. Diese Änderung kann nicht rückgängig gemacht werden.",
       "confirmOrganizer" : "Die Hinzufügung der Rolle als Veranstaltungsorganisator hebt den Datenschutz auf. Möchten Sie fortfahren?",
       "fail" : "Aktualisierung der Benutzerdaten fehlgeschlagen",
       "ok" : "Benutzerdaten wurden aktualisiert"
@@ -89,13 +125,13 @@
   },
   "AdminOrgUsers" : {
     "invalidateTermAgreements" : {
-      "confirm" : "Sind Sie sicher, dass alle Mitglieder die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
+      "confirm" : "Sind Sie sicher, dass alle Benutzer die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
       "fail" : "Die Bedingungen konnten nicht für ungültig erklärt werden",
       "ok" : "Die Bedingungen wurden erfolgreich für ungültig erklärt"
     },
     "search" : {
-      "placeholder" : "Mitglieder durchsuchen",
-      "spinText" : "Suche nach Mitgliedern..."
+      "placeholder" : "Benutzer suchen",
+      "spinText" : "Benutzer werden gesucht..."
     },
     "table" : {
       "action" : {
@@ -105,7 +141,7 @@
       "firstName" : "Vorname",
       "lastName" : "Nachname",
       "login" : "Benutzername",
-      "paymentStatus" : "Mitgliedsbeitrag",
+      "paymentStatus" : "Zahlungen",
       "role" : {
         "title" : "Rollen"
       },
@@ -115,7 +151,7 @@
       "resetButton" : "Neue Zustimmung zu Nutzungsbedingungen",
       "resetDivider" : "Zurücksetzen der Nutzungsbedingungen"
     },
-    "title" : "Mitglieder"
+    "title" : "Benutzer"
   },
   "AdminPayments" : {
     "activeDivider" : "Aktive Zahlungen",
@@ -244,6 +280,12 @@
       "title" : "Tauchzertifikate"
     }
   },
+  "ChronoUnitEnum" : {
+    "days" : "Tag",
+    "weeks" : "Woche",
+    "months" : "Monat",
+    "years" : "Jahr"
+  },
   "DownloadData" : {
     "certificateLabel" : "Zertifikate",
     "choose" : "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
@@ -253,7 +295,7 @@
     "downloadPrompt" : "Klicken Sie auf den Link, um die Datei herunterzuladen: ",
     "gdprWarning" : "Beachten Sie, dass einige der Downloads persönliche Informationen enthalten können, die der DSGVO unterliegen. Bitte behandeln Sie die Daten mit Sorgfalt und teilen Sie sie nicht mit unbefugten Dritten. Entfernen Sie die Dateien, wenn sie nicht mehr benötigt werden.",
     "header" : "Daten herunterladen",
-    "memberLabel" : "Mitglieder",
+    "userLabel" : "Benutzer",
     "paymentLabel" : "Zahlungen",
     "rowCount" : "Zeilenanzahl:  {{count}}"
   },
@@ -328,7 +370,8 @@
       "current" : "Strömung",
       "open-and-cave" : "Offen / Höhle",
       "open-water" : "Offen",
-      "surface" : "Nur Oberflächenaktivität"
+      "surface" : "Nur Oberflächenaktivität",
+      "unknown" : "Unbekannt"
     },
     "form" : {
       "button" : {
@@ -373,7 +416,7 @@
       "participants" : {
         "label" : "Teilnehmer",
         "placeholder" : "Teilnehmer hinzufügen",
-        "tooltip" : "Mitglieder, die an dem Ereignis teilnehmen"
+        "tooltip" : "Teilnehmer an der Veranstaltung"
       },
       "startTime" : {
         "label" : "Startzeit, beachten Sie, dass diese in der Zeitzone des Standorts liegt.",
@@ -388,7 +431,7 @@
         "rules" : {
           "required" : "Status ist ein Pflichtfeld"
         },
-        "tooltip" : "Entworfen Status wird den Mitgliedern noch nicht angezeigt. Veröffentlicht Status ist für alle Mitglieder sichtbar, ebenso wie gehalten, das für vergangene Ereignisse gilt. Abgesagt Status wird den Mitgliedern nicht angezeigt."
+        "tooltip" : "Der Entwurfsstatus ist für Benutzer noch nicht sichtbar. Der veröffentlichte Status ist für alle Benutzer sichtbar, ebenso wie der gehaltene, der für vergangene Ereignisse gilt. Der abgebrochene Status ist für Benutzer nicht sichtbar."
       },
       "submitButton" : {
         "add" : "Ereignis hinzufügen",
@@ -571,12 +614,12 @@
       "tooltip" : "Ereignis öffnen"
     },
     "participantTable" : {
+      "createdAt" : "Registriert am",
       "eventDiveCount" : "Tauchanzahl",
       "name" : "Name",
       "paymentType" : {
         "oneTime" : "Einmalige Zahlung",
-        "period" : "Periodische Zahlung",
-        "unknown" : "Unbekannt"
+        "period" : "Periodische Zahlung"
       },
       "payments" : "Zahlungsstatus"
     },
@@ -619,17 +662,32 @@
     }
   },
   "FormatPayments" : {
-    "noValid" : "Keine gültigen Zahlungsinformationen.",
-    "singlePayment" : "Einmalzahlung",
+    "noValid" : "Keine gültigen Zahlungen verfügbar.",
     "unknownPayment" : "Unbekannter Zahlungstyp",
-    "unknownPaymentContact" : "Kontaktiere den Administrator",
-    "unknownPaymentPlease" : "Bitte",
-    "yearlyPayment" : "Jahresgebühr (endet am"
+    "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen.",
+    "unknownPaymentContact" : "Support kontaktieren",
+    "table" : {
+      "id" : "ID",
+      "paymentType" : "Zahlungstyp",
+      "paymentCount" : "Anzahl",
+      "startDate" : "Erstellt am",
+      "expirationDate" : "Ablaufzeit",
+      "singlePayment" : "Einmalzahlung",
+      "periodPayment" : "Periodische Zahlung"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Typ",
+      "status" : "Status",
+      "created-at" : "Erstellt am",
+      "expires-at" : "Ablaufzeit"
+    }
   },
   "ListPayments" : {
     "oneTime" : "Einmalzahlungen",
-    "period" : "Periodische Zahlungen",
-    "unknown" : "Unbekannt"
+    "period" : "Periodische Zahlungen"
   },
   "Login" : {
     "form" : {
@@ -686,6 +744,17 @@
         "text" : "Änderungslink erneut versandt."
       }
     }
+  },
+  "MembershipStatusEnum" : {
+    "active" : "Aktiv",
+    "expired" : "Abgelaufen",
+    "cancelled" : "Storniert"
+  },
+  "MembershipTypeEnum" : {
+    "disabled" : "Deaktiviert",
+    "perpetual" : "Unbefristet",
+    "periodical" : "Periodisch",
+    "durational" : "Zeitlich befristet"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -763,7 +832,7 @@
       "confirm" : "Seite wirklich löschen "
     },
     "table" : {
-      "createdAt" : "Erstellt",
+      "createdAt" : "Erstellt am",
       "languageVersions" : "Sprachversionen",
       "modifiedAt" : "Aktualisiert",
       "rolePermissions" : "Rollen",
@@ -833,6 +902,15 @@
   "PastEvents" : {
     "title" : "Vergangene Veranstaltungen"
   },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Einmal",
+    "PERIOD" : "Periodische"
+  },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Deaktiviert",
+    "durational" : "Zeitlich begrenzt",
+    "periodical" : "Periodisch"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Konfiguration neu laden"
@@ -867,13 +945,14 @@
       "system-email" : {
         "label" : "System-E-Mail",
         "tooltip" : "System-E-Mail-Adresse, üblicherweise eine No-Reply-Adresse"
-      }
+      },
+      "title" : "E-Mail-Einstellungen"
     },
     "frontend" : {
       "max-certificates" : {
         "label" : "Maximale Anzahl von Zertifikaten",
         "tooltip" : "Maximale Anzahl von einem Benutzer erhaltenen Zertifikaten"
-         },
+      },
       "max-depth" : {
         "label" : "Maximale Tiefe",
         "tooltip" : "Maximale Tiefe der Tauchgänge"
@@ -898,6 +977,7 @@
         "label" : "Minimale Teilnehmerzahl",
         "tooltip" : "Minimale Anzahl gleichzeitiger Teilnehmer, wann man noch ein Ereignis erstellen kann"
       },
+      "title" : "Frontend-Einstellungen",
       "types-of-event" : {
         "label" : "Veranstaltungstypen",
         "tooltip" : "Arten von zulässigen Tauchgängen"
@@ -916,29 +996,78 @@
         "label" : "Organisationsname",
         "tooltip" : "Name der Organisation"
       },
-      "timezone": {
-        "label": "Zeitzone",
-        "tooltip": "Zeitzone des Portals"
+      "timezone" : {
+        "label" : "Zeitzone",
+        "tooltip" : "Zeitzone des Portals"
       },
+      "title" : "Allgemeine Einstellungen",
       "top-divers-list-size" : {
         "label" : "Top-Taucher-Listengröße",
         "tooltip" : "Anzahl der in der Top-Taucher-Liste angezeigten Taucher"
       }
     },
+    "membership" : {
+      "event-require-membership" : {
+        "label" : "Veranstaltung erfordert Mitgliedschaft",
+        "tooltip" : "Muss ein Taucher eine gültige Mitgliedschaft haben, um an einer Tauchveranstaltung teilnehmen zu können"
+      },
+      "membership-period-length" : {
+        "label" : "Mitgliedschaftsdauer",
+        "tooltip" : "Dauer der Mitgliedschaftsperiode oder Laufzeit. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedschaftstyp periodisch oder zeitlich begrenzt ist."
+      },
+      "membership-period-start" : {
+        "label" : "Startdatum der Mitgliedschaftsperiode",
+        "tooltip" : "Wann begann die Zählung der Mitgliedschaftsperiode. Dies wird nur für den periodischen Typ verwendet. Es dient dazu, die Periode mit dem aktuellen Datum abzugleichen"
+      },
+      "membership-period-start-point" : {
+        "label" : "Startpunkt der Mitgliedschaftsperiode",
+        "tooltip" : "Wann beginnt die Mitgliedschaftsperiode. Dies bezieht sich auf den Periodentyp. Genauer gesagt: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Wochentag."
+      },
+      "membership-period-unit" : {
+        "label" : "Einheit der Mitgliedschaftsdauer",
+        "tooltip" : "Einheit der Mitgliedschaftsdauer. Beachten Sie, dass dies nur verwendet wird, wenn der Mitgliedstyp periodisch oder zeitlich begrenzt ist."
+      },
+      "membership-type" : {
+        "label" : "Mitgliedschaftstyp",
+        "tooltip" : "Art der Mitgliedschaft. Periodisch bedeutet, dass die Mitgliedschaft für einen bestimmten Zeitraum gültig ist, z. B. das aktuelle Jahr oder den aktuellen Monat. Zeitlich befristet bedeutet, dass sie für einen bestimmten Zeitraum ab jetzt gültig ist."
+      },
+      "title" : "Mitgliedschaftseinstellungen"
+    },
     "must-be-set" : "muss gesetzt werden",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Zugelassene Zahlungsmethoden",
-        "tooltip" : "Welche Arten von Zahlungen erlaubt sind"
-      },
       "event-require-payment" : {
-        "label" : "Veranstaltung erfordert Zahlung",
+        "label" : "Ereignis erfordert Zahlung",
         "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
       },
-      "start-month" : {
-        "label" : "Startmonat",
-        "tooltip" : "In welchem Monat die Periodenzahlung beginnt, 1 = Januar"
-      }
+      "payment-enabled" : {
+        "label" : "Zahlungssystem aktivieren",
+        "tooltip" : "Ob das Zahlungssystem standardmäßig aktiviert ist"
+      },
+      "payment-period-length" : {
+        "label" : "Zahlungszeitraum-Länge",
+        "tooltip" : "Die Länge des Zahlungszeitraums oder der Dauer. Beachten Sie, dass dies nur verwendet wird, wenn der Zahlungstyp wiederkehrend oder befristet ist."
+      },
+      "payment-period-start" : {
+        "label" : "Startpunkt des Zahlungszeitraums",
+        "tooltip" : "Wann begann der Zahlungszeitraum. Dies bestimmt, wie die Zeiträume berechnet werden. Beachten Sie, dass die Änderung dieses Wertes alle aktiven periodischen Zahlungen ungültig machen kann. Dies hat keine Auswirkungen auf zeitlich begrenzte Zahlungen."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Typ der periodischen Zahlungsmethode",
+        "tooltip" : "Art der Zahlungsmethode für periodische Zahlungen. Periodisch bedeutet, dass die Zahlung für den angegebenen laufenden Zeitraum gültig ist, z. B. das aktuelle Jahr, der Monat oder die Woche ab dem angegebenen Startpunkt. Zeitlich begrenzt bedeutet, dass sie für einen bestimmten Zeitraum nach vorne gültig ist."
+      },
+      "periodical-payment-method-unit" : {
+        "label" : "Einheit der periodischen Zahlungsmethode",
+        "tooltip" : "Einheit der periodischen Zahlungsmethode. Beachten Sie, dass dies nur verwendet wird, wenn die Zahlungsmethode periodisch ist."
+      },
+      "payment-period-start-point" : {
+        "label" : "Startpunkt der Zahlungsperiode",
+        "tooltip" : "Wann beginnt die Zahlungsperiode. Dies steht in Bezug auf den Periodentyp. Die spezifische Beziehung lautet: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Tag der Woche, Tag -> Tag des Jahr."
+      },
+      "single-payment-enabled" : {
+        "label" : "Einzelzahlung aktivieren",
+        "tooltip" : "Ob die Einzelzahlung pro Ereignis standardmäßig aktiviert ist"
+      },
+      "title" : "Zahlungseinstellungen"
     },
     "title" : "Portal-Konfiguration",
     "update-fail" : "Konfiguration konnte nicht aktualisiert werden",
@@ -1054,7 +1183,7 @@
   },
   "StatsYearlyRegistrations" : {
     "stats" : {
-      "title" : "Mitgliederregistrierungen pro Jahr"
+      "title" : "Benutzerregistrierungen nach Jahr"
     }
   },
   "TimezoneSelector" : {
@@ -1069,17 +1198,26 @@
       "lockAccount" : "Konto sperren"
     },
     "form" : {
-      "payments" : {
-        "label" : "Zahlungen"
+      "membership" : {
+        "label" : "Mitgliedschaft",
+        "none" : "Keine Mitgliedschaft",
+        "tooltip" : "Mitgliedschaften von neu nach alt aufgelistet"
       },
-      "privacy" : {
-        "label" : "Nutzungsbedingungen akzeptiert"
+      "payments" : {
+        "label" : "Zahlungen",
+        "tooltip" : "Zahlungen von neu nach alt aufgelistet"
       },
       "roles" : {
-        "label" : "Rollen"
+        "label" : "Rollen",
+        "tooltip" : "Rollen des Benutzers"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Hat die Bedingungen nicht akzeptiert",
+        "label" : "Nutzungsbedingungen",
+        "true" : "Hat die Bedingungen akzeptiert"
       }
     },
     "requestAnonymization" : {
@@ -1171,7 +1309,7 @@
       },
       "privacy" : {
         "label" : "Kontaktdaten verbergen",
-        "tooltip" : "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur Standardmitglieder können ihre Daten verbergen. Der Name des Veranstalters ist immer sichtbar."
+        "tooltip" : "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur der Benutzer kann seine Informationen verbergen. Der Name des Veranstalters ist immer sichtbar."
       },
       "userId" : {
         "label" : "Benutzer-ID"
@@ -1232,14 +1370,14 @@
     "payment" : {
       "type" : {
         "oneTime" : "Einmal",
-        "period" : "Saisong"
+        "period" : "Periodische"
       }
     },
     "roles" : {
       "administrator" : "Administrator",
       "anonymous" : "Anonym",
       "organizer" : "Veranstaltungsorganisator",
-      "user" : "Mitglied"
+      "user" : "Benutzer"
     },
     "spinner" : {
       "loading" : "Laden..."
@@ -1251,7 +1389,7 @@
       "registered" : "Registriert"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Passwort ändern",
       "login" : "Anmelden",
@@ -1269,7 +1407,8 @@
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
       "stats" : "Statistiken",
-      "title" : "Verwaltung"
+      "title" : "Verwaltung",
+      "users" : "Benutzer"
     },
     "events" : {
       "add" : "Veranstaltung hinzufügen",

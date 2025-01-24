@@ -8,15 +8,36 @@
     },
     "rejectTerms" : "Reject terms"
   },
+  "AddMemberships" : {
+    "disabled" : "Membership is disabled",
+    "errorGetUsers" : "Failed to get users",
+    "form" : {
+      "name" : {
+        "label" : "User Name",
+        "placeholder" : "Select users"
+      },
+      "membershipType" : {
+        "label" : "Membership Type"
+      },
+      "membershipDuration" : {
+        "label" : "Membership Duration (months)"
+      },
+      "button" : "Add Membership"
+    },
+    "onFinish" : {
+      "ok" : "Membership added successfully",
+      "fail" : "Failed to add membership: "
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Save payments",
       "name" : {
-        "label" : "Members",
-        "placeholder" : "Add members"
+        "label" : "Users",
+        "placeholder" : "Add users"
       },
       "paymentCount" : {
-        "label" : "One-time payment count"
+        "label" : "Count"
       },
       "paymentType" : {
         "label" : "Payment type"
@@ -32,7 +53,7 @@
     },
     "types" : {
       "oneTime" : "One-time payment",
-      "period" : "Yearly payment"
+      "period" : "Periodical payment"
     }
   },
   "AdminAudit" : {
@@ -40,18 +61,33 @@
   },
   "AdminMain" : {
     "header" : "Administration",
-    "memberHeader" : "Members",
+    "userHeader" : "Users",
     "memberText" : "User data management, including assigning different roles and sending password update messages.",
     "paymentHeader" : "Payments",
-    "paymentText" : "View current payments, void annual payments, and add payment information to members.",
+    "paymentText" : "View of current payments, possibility to invalidate annual payments and add payment information to users",
     "statsHeader" : "Statistics",
-    "statsText1" : "Yearly event, member registration, event organizers, and payment statistics.",
-    "statsText2" : "Also includes semi-annual event reports.",
+    "statsText1" : "Annual event, user registration, member registration (if used), event organizer, and payment statistics",
+    "statsText2" : "Here you can also find semi-annual event reports",
     "text" : "Administration pages. Proceed with caution."
+  },
+  "AdminMembers" : {
+    "title" : "Membership management",
+    "table" : {
+      "userId" : "User ID",
+      "username" : "Username",
+      "status" : "Status",
+      "type" : "Type",
+      "createdAt" : "Created",
+      "expiresAt" : "Expiration time",
+      "actions" : {
+        "title" : "action",
+        "edit" : "Edit"
+      }
+    }
   },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Expiration date",
+      "expirationDate" : "Expiration time",
       "name" : "Name",
       "paymentCount" : "Count",
       "paymentDate" : "Payment date"
@@ -67,7 +103,7 @@
       "roles" : {
         "administrator" : "Administrator",
         "label" : "Roles",
-        "member" : "Member",
+        "user" : "User",
         "organizer" : "Event organizer"
       },
       "status" : {
@@ -81,7 +117,7 @@
       "ok" : "Password reset link sent to the email"
     },
     "updateUser" : {
-      "confirmAnonymize" : "Are you sure you want to request data anonymization? This will remove all personal data entered by the user into the system. This change cannot be undone.",
+      "confirmAnonymize" : "Are you sure you want to request anonymization? This will remove all personal data the user has entered into the system. This change cannot be undone.",
       "confirmOrganizer" : "Adding the role of Event Organizer will disable privacy protection. Do you want to proceed?",
       "fail" : "Failed to update user data",
       "ok" : "User data updated"
@@ -89,13 +125,13 @@
   },
   "AdminOrgUsers" : {
     "invalidateTermAgreements" : {
-      "confirm" : "Are you sure all members must re-accept the terms? This change cannot be undone.",
+      "confirm" : "Are you sure that all users need to re-accept the terms of use? This change cannot be undone.",
       "fail" : "Failed to invalidate the terms agreements",
       "ok" : "Successfully invalidated the terms agreements"
     },
     "search" : {
-      "placeholder" : "Search members",
-      "spinText" : "Searching for members..."
+      "placeholder" : "Search users",
+      "spinText" : "Searching users..."
     },
     "table" : {
       "action" : {
@@ -105,7 +141,7 @@
       "firstName" : "First name",
       "lastName" : "Last name",
       "login" : "Username",
-      "paymentStatus" : "Membership fee",
+      "paymentStatus" : "Payments",
       "role" : {
         "title" : "Roles"
       },
@@ -115,7 +151,7 @@
       "resetButton" : "Reset terms acceptance",
       "resetDivider" : "Terms reset"
     },
-    "title" : "Members"
+    "title" : "Users"
   },
   "AdminPayments" : {
     "activeDivider" : "Active payments",
@@ -134,7 +170,7 @@
     },
     "common-file-column-title" : {
       "actions" : "Actions",
-      "created-at" : "Created at",
+      "created-at" : "Created",
       "creator" : "Creator",
       "download-link" : "Download link",
       "filename" : "File Name",
@@ -240,9 +276,15 @@
     },
     "panel" : {
       "addButton" : "Add a new certificate",
-      "text" : "The member has completed the following dive certifications:",
+      "text" : "The user has completed the following diving certifications:",
       "title" : "Dive certifications"
     }
+  },
+  "ChronoUnitEnum" : {
+    "days" : "Day",
+    "weeks" : "Week",
+    "months" : "Month",
+    "years" : "Year"
   },
   "DownloadData" : {
     "certificateLabel" : "Certificates",
@@ -253,7 +295,7 @@
     "downloadPrompt" : "Download here: ",
     "gdprWarning" : "Be aware that some of the downloads may contain personal information which is governed by the GDPR. Please handle the data with care and do not share it with unauthorized parties. Remove the files when they are no longer needed.",
     "header" : "Download data",
-    "memberLabel" : "Members",
+    "userLabel" : "Users",
     "paymentLabel" : "Payments",
     "rowCount" : "Number of rows:  {{count}}"
   },
@@ -328,7 +370,8 @@
       "current" : "Current",
       "open-and-cave" : "Open water / Cave",
       "open-water" : "Open water",
-      "surface" : "Surface activities only"
+      "surface" : "Surface activities only",
+      "unknown" : "Unknown"
     },
     "form" : {
       "button" : {
@@ -373,7 +416,7 @@
       "participants" : {
         "label" : "Participants",
         "placeholder" : "Add participants",
-        "tooltip" : "Members participating in the event"
+        "tooltip" : "Participants in the event"
       },
       "startTime" : {
         "label" : "Start time, note that this is in the timezone of the location",
@@ -388,7 +431,7 @@
         "rules" : {
           "required" : "Status is a required field"
         },
-        "tooltip" : "Drafted status is not yet shown to members. Published status is visible to all members as is held which is for events in the past. Cancelled status is not shown to members."
+        "tooltip" : "Draft status is not yet visible to users. Published status is visible to all users, as well as held, which is for past events. Cancelled status is not visible to users."
       },
       "submitButton" : {
         "add" : "Add event",
@@ -571,12 +614,12 @@
       "tooltip" : "Open event"
     },
     "participantTable" : {
+      "createdAt" : "Registration time",
       "eventDiveCount" : "Dive count",
       "name" : "Name",
       "paymentType" : {
         "oneTime" : "One-time payment",
-        "period" : "Yearly payment",
-        "unknown" : "Unknown"
+        "period" : "Periodical payment"
       },
       "payments" : "Payment status"
     },
@@ -619,17 +662,32 @@
     }
   },
   "FormatPayments" : {
-    "noValid" : "No valid payment information.",
-    "singlePayment" : "one-time payment",
-    "unknownPayment" : "Unknown payment type",
-    "unknownPaymentContact" : "contact support",
-    "unknownPaymentPlease" : "Please",
-    "yearlyPayment" : "Annual payment (expires"
+    "noValid" : "No valid payments available.",
+    "unknownPayment" : "Unknown Payment Type",
+    "unknownPaymentPlease" : "Please contact support for more information.",
+    "unknownPaymentContact" : "Contact Support",
+    "table" : {
+      "id" : "ID",
+      "paymentType" : "Payment Type",
+      "paymentCount" : "Count",
+      "startDate" : "Created",
+      "expirationDate" : "Expiration time",
+      "singlePayment" : "One-Time Payment",
+      "periodPayment" : "Period Payment"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Type",
+      "status" : "Status",
+      "created-at" : "Created",
+      "expires-at" : "Expiration time"
+    }
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
-    "period" : "Yearly payments",
-    "unknown" : "Unknown"
+    "period" : "Periodical payments"
   },
   "Login" : {
     "form" : {
@@ -686,6 +744,17 @@
         "text" : "Reset link sent again."
       }
     }
+  },
+  "MembershipStatusEnum" : {
+    "active" : "Active",
+    "expired" : "Expired",
+    "cancelled" : "Cancelled"
+  },
+  "MembershipTypeEnum" : {
+    "disabled" : "Disabled",
+    "perpetual" : "Perpetual",
+    "periodical" : "Periodical",
+    "durational" : "Durational"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -833,6 +902,15 @@
   "PastEvents" : {
     "title" : "Past events"
   },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "One-time",
+    "PERIOD" : "Periodical"
+  },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Disabled",
+    "durational" : "Durational",
+    "periodical" : "Periodical"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Reload server"
@@ -867,7 +945,8 @@
       "system-email" : {
         "label" : "System email",
         "tooltip" : "System email address, usually a no-reply address"
-      }
+      },
+      "title" : "Email settings"
     },
     "frontend" : {
       "max-certificates" : {
@@ -901,7 +980,8 @@
       "types-of-event" : {
         "label" : "Types of events",
         "tooltip" : "Which types of dive events are allowed"
-      }
+      },
+      "title" : "Frontend settings"
     },
     "general" : {
       "default-language" : {
@@ -916,29 +996,78 @@
         "label" : "Organization name",
         "tooltip" : "Name of the organization"
       },
-      "timezone": {
-        "label": "Timezone",
-        "tooltip": "Timezone used to display dates and times"
+      "timezone" : {
+        "label" : "Timezone",
+        "tooltip" : "Timezone used to display dates and times"
       },
       "top-divers-list-size" : {
         "label" : "Top divers list size",
         "tooltip" : "What is the count of top divers (counted by dives)"
-      }
+      },
+      "title" : "General settings"
+    },
+    "membership" : {
+      "event-require-membership" : {
+        "label" : "Event requires membership",
+        "tooltip" : "Does a diver have a valid membership to be able to join a dive event"
+      },
+      "membership-period-length" : {
+        "label" : "Membership period length",
+        "tooltip" : "Length of the membership period or duration. Note that this is only used if the membership type is periodical or durational."
+      },
+      "membership-period-start" : {
+        "label" : "Membership period start date",
+        "tooltip" : "When did the membership period counting start. This is only used periodical type. It is used to align the period to the current date"
+      },
+      "membership-period-start-point" : {
+        "label" : "Membership period start point",
+        "tooltip" : "When does the membership period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week."
+      },
+      "membership-period-unit" : {
+        "label" : "Membership period length unit",
+        "tooltip" : "Membership period length unit. Note that this is only used if the membership type is periodical or durational."
+      },
+      "membership-type" : {
+        "label" : "Membership type",
+        "tooltip" : "Type of membership. Periodical means that the membership is valid for a certain period, e.g., the current year or month. Durational means that it is valid for a given time period forward."
+      },
+      "title" : "Membership settings"
     },
     "must-be-set" : "Must be set",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Enabled payment methods",
-        "tooltip" : "What type of payments are allowed"
-      },
       "event-require-payment" : {
         "label" : "Event requires payment",
         "tooltip" : "Does a diver have to have a valid payment to be able to join a dive event"
       },
-      "start-month" : {
-        "label" : "Start month",
-        "tooltip" : "Which month will the period payment start, 1 = January"
-      }
+      "payment-enabled" : {
+        "label" : "Enable payment",
+        "tooltip" : "Whether the payment system is enabled by default"
+      },
+      "payment-period-length" : {
+        "label" : "Payment period length",
+        "tooltip" : "The length of the payment period or duration. Note that this is only used if the payment type is recurring or durational."
+      },
+      "payment-period-start" : {
+        "label" : "Payment period start point",
+        "tooltip" : "When did the payment period start. This will determine how the periods are calculated. Note that changing this value may expire all active periodical payments. This has no effect on the durational payments."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Periodical payment method type",
+        "tooltip" : "Type of payment method for periodical payments. Periodical means that the payment valid for the given ongoing period, e.g., the current year, month or week at the given start point. Durational means that it is valid for a given time period forward."
+      },
+      "periodical-payment-method-unit" : {
+        "label" : "Periodical payment method unit",
+        "tooltip" : "Periodical payment method unit. Note that this is only used if the payment method type is periodical."
+      },
+      "payment-period-start-point" : {
+        "label" : "Payment period start point",
+        "tooltip" : "When does the payment period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week, day -> day of the year."
+      },
+      "single-payment-enabled" : {
+        "label" : "Enable single payment",
+        "tooltip" : "Whether the single payment per event is enabled by default"
+      },
+      "title" : "Payment settings"
     },
     "title" : "Portal configuration",
     "update-fail" : "Failed to update configuration",
@@ -1054,7 +1183,7 @@
   },
   "StatsYearlyRegistrations" : {
     "stats" : {
-      "title" : "Member registrations on a yearly basis"
+      "title" : "User registrations by year"
     }
   },
   "TimezoneSelector" : {
@@ -1069,17 +1198,26 @@
       "lockAccount" : "Lock account"
     },
     "form" : {
-      "payments" : {
-        "label" : "Payments"
+      "membership" : {
+        "label" : "Membership",
+        "none" : "No membership",
+        "tooltip" : "Memberships listed from newest to oldest"
       },
-      "privacy" : {
-        "label" : "Accepted terms"
+      "payments" : {
+        "label" : "Payments",
+        "tooltip" : "Payments listed from newest to oldest"
       },
       "roles" : {
-        "label" : "Roles"
+        "label" : "Roles",
+        "tooltip" : "User assigned roles"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Has not accepted terms and conditions",
+        "label" : "Terms and conditions",
+        "true" : "Has accepted terms and conditions"
       }
     },
     "requestAnonymization" : {
@@ -1088,7 +1226,7 @@
     "requestLocking" : {
       "confirm" : "Are you sure you want to lock the account? Account details will be preserved, but the administration needs to unlock your account for you to log in again."
     },
-    "title" : "member information",
+    "title" : "User information",
     "update" : {
       "fail" : "Failed to update user's information",
       "ok" : "User information updated"
@@ -1171,10 +1309,10 @@
       },
       "privacy" : {
         "label" : "Hide contact details",
-        "tooltip" : "Email and phone number won't be visible to other members. Only full members can hide their information. Event organizer's name is always visible."
+        "tooltip" : "Email and phone number won't be visible to other members. Only the user can hide their information. The event organizer's name is always visible."
       },
       "userId" : {
-        "label" : "Member ID"
+        "label" : "User ID"
       },
       "username" : {
         "label" : "Username",
@@ -1232,14 +1370,14 @@
     "payment" : {
       "type" : {
         "oneTime" : "One time",
-        "period" : "Season"
+        "period" : "Periodical"
       }
     },
     "roles" : {
       "administrator" : "Administrator",
       "anonymous" : "Anonymous",
       "organizer" : "Event Organizer",
-      "user" : "Member"
+      "user" : "User"
     },
     "spinner" : {
       "loading" : "Loading..."
@@ -1251,7 +1389,7 @@
       "registered" : "Registered"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Change Password",
       "login" : "Log In",
@@ -1269,7 +1407,8 @@
       "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
       "stats" : "Statistics",
-      "title" : "Administration"
+      "title" : "Administration",
+      "users" : "Users"
     },
     "events" : {
       "add" : "Add event",

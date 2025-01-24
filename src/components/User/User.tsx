@@ -4,7 +4,7 @@ import { Button, Checkbox, Col, Form, Input, Row, Space, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 import { checkRoles } from "../../helpers";
 import { useNavigate } from "react-router-dom";
-import { FormatPayments, ProfileCollapse, UserFields } from "./index";
+import { FormMemberships, FormPayments, ProfileCollapse, UserFields } from "./index";
 import { RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
 import { UserResponse } from "../../models/responses";
 import { UserRequest } from "../../models/requests";
@@ -147,10 +147,11 @@ export function User() {
                 <Spin spinning={loading}>
                     {workUser && workUser.id > 0 && <Form
                             form={userForm}
-                            name="user-info"
+                            name={"user-info"}
+                            key={"user-info"}
                             labelCol={{span: 8}}
                             wrapperCol={{span: 12}}
-                            style={{maxWidth: 800}}
+                            style={{maxWidth: 900}}
                             initialValues={{
                                 id: workUser.id,
                                 username: workUser.username,
@@ -170,72 +171,94 @@ export function User() {
                             autoComplete="off"
                     >
                         <Form.Item name={"id"}
-                                   label="ID"
+                                   label={"ID"}
+                                   key={"id"}
                                    style={{display: "none"}}>
                             <Input type="text"/>
                         </Form.Item>
                         <Form.Item name={"username"}
-                                   label="ID"
+                                   label={"username"}
+                                   key={"username"}
                                    style={{display: "none"}}>
                             <Input type="text"/>
                         </Form.Item>
                         {userSession && workUser && <UserFields userId={workUser.id} username={workUser.username}
-                                                                isOrganizer={checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER])}/>}
-                        <Form.Item label={t("User.form.status.label")}>
+                                                                isOrganizer={checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER])} key={"userFields"}/>}
+                        <Form.Item label={t("User.form.status.label")} key={"status"}>
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>
-                        <Form.Item label={t("User.form.privacy.label")}>
-                            <span className="ant-form-text">{workUser.privacy}</span>
+                        <Form.Item label={t("User.form.terms.label")} key={"terms"}>
+                            <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true"): t("User.form.terms.false")}</span>
                         </Form.Item>
-                        <Form.Item name={"roles"} label={t("User.form.roles.label")}>
+                        <Form.Item name={"roles"}
+                                   label={t("User.form.roles.label")}
+                                   key={"roles"}
+                                   tooltip={t("User.form.roles.tooltip")}
+                        >
                             <Checkbox.Group style={{width: "100%"}}>
-                                <Row>
-                                    <Col span={6}>{/* These checkboxes are supposed to be disabled and are meant just for viewing */}
+                                <Row key={"roles-row"}>
+                                    <Col span={6} key={"roles-col-user"}>{/* These checkboxes are supposed to be disabled and are meant just for viewing */}
                                         <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}} disabled>{t("common.roles.user")}</Checkbox>
                                     </Col>
-                                    <Col span={12}>
+                                    <Col span={12} key={"roles-col-organizer"}>
                                         <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}} disabled>{t("common.roles.organizer")}</Checkbox>
                                     </Col>
-                                    <Col span={6}>
+                                    <Col span={6} key={"roles-col-admin"}>
                                         <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}} disabled>{t("common.roles.administrator")}</Checkbox>
                                     </Col>
                                 </Row>
                             </Checkbox.Group>
                         </Form.Item>
-                        <Form.Item name={"payments"} label={t("User.form.payments.label")}>
-                            <FormatPayments userData={workUser}/>
+                        <Form.Item label={t("User.form.membership.label")}
+                                   key={"membership"}
+                                   tooltip={t("User.form.membership.tooltip")}
+                        >
+                            {workUser.memberships.length > 0 ? <FormMemberships membershipList={workUser.memberships} key={"membership-form"}/> : <span>{t("User.form.membership.none")}</span>}
                         </Form.Item>
-                        <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                        <Form.Item name={"payments"}
+                                   label={t("User.form.payments.label")}
+                                   key={"payments"}
+                                   tooltip={t("User.form.payments.tooltip")}
+                        >
+                            <FormPayments userData={workUser} key={"payments-format"}/>
+                        </Form.Item>
+                        <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}} key={"button-space"}>
                             <Button
                                     type={"primary"}
                                     htmlType={"submit"}
                                     disabled={loading}
+                                    key={"submit-button"}
                             >{t("common.button.update")}</Button>
                             <Button
                                     type={"default"}
                                     htmlType={"reset"}
                                     disabled={loading}
+                                    key={"reset-button"}
                             >{t("common.button.reset")}</Button>
                             {!workUser.approvedTerms && <Button
                                     type={"default"}
                                     href={"/"}
                                     disabled={loading}
+                                    key={"terms-button"}
                             >{t("User.button.acceptTerms")}</Button>}
                             <Button
                                     type={"dashed"}
                                     danger onClick={requestLocking}
                                     disabled={loading}
+                                    key={"lock-button"}
                             >{t("User.button.lockAccount")}</Button>
                             <Button
                                     type={"primary"}
                                     danger onClick={requestAnonymization}
                                     disabled={loading}
+                                    key={"anonymize-button"}
                             >{t("User.button.anonymizeAccount")}</Button>
                             {!workUser.approvedTerms && <Button
                                     danger={true}
                                     type={"dashed"} onClick={logoutUser}
                                     href={"/"}
                                     disabled={loading}
+                                    key={"logout-button"}
                             >{t("common.button.logout")}</Button>}
                         </Space>
                     </Form>}

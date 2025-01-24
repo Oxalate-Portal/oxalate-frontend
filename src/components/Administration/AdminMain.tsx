@@ -1,5 +1,5 @@
-import { Space } from "antd";
-import { useTranslation } from "react-i18next";
+import {Space} from "antd";
+import {useTranslation} from "react-i18next";
 
 export function AdminMain() {
     const {t} = useTranslation();
@@ -11,7 +11,7 @@ export function AdminMain() {
 
                     <p>{t("AdminMain.text")}.</p>
 
-                    <h5>{t("AdminMain.memberHeader")}:</h5>
+                    <h5>{t("AdminMain.userHeader")}:</h5>
 
                     <p>{t("AdminMain.memberText")}.</p>
 

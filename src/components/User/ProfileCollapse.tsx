@@ -1,14 +1,15 @@
-import { Collapse, Spin, Tooltip } from "antd";
-import { ItemType } from "rc-collapse/es/interface";
-import { Certificates } from "../Certificate";
-import { UserEventList } from "./UserEventList";
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { DiveEventListItemResponse, FrontendConfigurationResponse } from "../../models/responses";
-import { diveEventAPI, portalConfigurationAPI } from "../../services";
+import {Collapse, Spin, Tooltip} from "antd";
+import {ItemType} from "rc-collapse/es/interface";
+import {Certificates} from "../Certificate";
+import {UserEventList} from "./UserEventList";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {DiveEventListItemResponse} from "../../models/responses";
+import {diveEventAPI} from "../../services";
 import dayjs from "dayjs";
-import { EmailSubscriptionCard } from "./EmailSubscriptionCard";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import {EmailSubscriptionCard} from "./EmailSubscriptionCard";
+import {QuestionCircleOutlined} from "@ant-design/icons";
+import {useSession} from "../../session";
 
 interface ProfileCollapseProps {
     userId: number,
@@ -21,6 +22,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
     const [pastEvents, setPastEvents] = useState<DiveEventListItemResponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [maxCertificates, setMaxCertificates] = useState<number>(0);
+    const {getFrontendConfigurationValue} = useSession();
 
     const profileItems: ItemType[] = [
         {
@@ -54,9 +56,10 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
         if (userId > 0) {
             // const diveEventAPI = new DiveEventAPI.DiveEventAPI("/events");
 
-            Promise.all([diveEventAPI.findAllDiveEventListItemsByUser(userId),
-                portalConfigurationAPI.getFrontendConfiguration()])
-                    .then(([diveResponses, frontendConfigResponse]) => {
+            Promise.all([
+                    diveEventAPI.findAllDiveEventListItemsByUser(userId)
+            ])
+                    .then(([diveResponses]) => {
                         let oldEvents: DiveEventListItemResponse[] = [];
                         let newEvents: DiveEventListItemResponse[] = [];
 
@@ -70,12 +73,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
 
                         setUpcomingEvents(newEvents);
                         setPastEvents(oldEvents);
-
-                        const maxCertificatesConfig: FrontendConfigurationResponse | undefined = frontendConfigResponse.find(config => config.key === "max-certificates");
-                        if (maxCertificatesConfig !== undefined) {
-                            setMaxCertificates(parseInt(maxCertificatesConfig.value));
-                        }
-
+                        setMaxCertificates(parseInt(getFrontendConfigurationValue("max-certificates")));
                     }).catch(error => {
                         console.error(error);
                     })
@@ -83,11 +81,11 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
                         setLoading(false);
                     });
         }
-    }, [userId]);
+    }, [userId, getFrontendConfigurationValue]);
 
     return (
             <Spin spinning={loading}>
-                {!loading && <Collapse items={profileItems}/>}
+                {!loading && <Collapse items={profileItems} key={"profileCollaps"}/>}
             </Spin>
     );
 }

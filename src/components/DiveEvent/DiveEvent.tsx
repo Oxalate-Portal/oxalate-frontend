@@ -1,19 +1,20 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
-import { diveEventAPI } from "../../services";
-import { DiveEventResponse } from "../../models/responses";
-import { DiveEventDetails } from "./DiveEventDetails";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {diveEventAPI, membershipAPI} from "../../services";
+import {DiveEventResponse, MembershipResponse, PaymentStatusResponse} from "../../models/responses";
+import {DiveEventDetails} from "./DiveEventDetails";
 import dayjs from "dayjs";
-import { SessionVO } from "../../models";
-import { Spin } from "antd";
+import {PaymentTypeEnum, PortalConfigGroupEnum, SessionVO} from "../../models";
+import {Spin} from "antd";
+import {paymentAPI} from "../../services/PaymentAPI";
 
 export function DiveEvent() {
     const {paramId} = useParams();
     const [diveEventId, setDiveEventId] = useState<number>(0);
     const [diveEvent, setDiveEvent] = useState<DiveEventResponse | null>(null);
-    const {userSession} = useSession();
+    const {userSession, getPortalConfigurationValue} = useSession();
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [canSubscribe, setCanSubscribe] = useState(false);
@@ -49,7 +50,7 @@ export function DiveEvent() {
     }, [paramId]);
 
     useEffect(() => {
-        function isUserAllowedToParticipate(userSession: SessionVO | null, diveEvent: DiveEventResponse): boolean {
+        async function isUserAllowedToParticipate(userSession: SessionVO | null, diveEvent: DiveEventResponse): Promise<boolean> {
             if (!userSession) {
                 return false;
             }
@@ -58,7 +59,52 @@ export function DiveEvent() {
             const isUserTheOrganizer = diveEvent.organizer?.id === currentUser;
             const isUserAlreadyInEvent = isUserParticipating(userSession, diveEvent);
             const isEventFull = diveEvent.participants?.length >= diveEvent.maxParticipants;
-            return !isUserTheOrganizer && !isUserAlreadyInEvent && !isEventFull && userSession.approvedTerms;
+            // If any of these are true, the user should not be able to subscribe
+            if (isUserTheOrganizer || isUserAlreadyInEvent || isEventFull) {
+                return false;
+            }
+
+            // Next we do more heavy checks to see if the user is allowed to participate
+            // Check if the event requires valid payment
+            if (getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true") {
+                try {
+                    const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
+
+                    if (paymentStatusResponse.payments.length === 0) {
+                        return false;
+                    }
+
+                    // If there are no one-time payments, we need to make sure the periodical payment is valid when the event takes place
+                    const oneTimePayments = paymentStatusResponse.payments.filter(payment => payment.paymentType === PaymentTypeEnum.ONE_TIME);
+
+                    if (oneTimePayments.length === 0) {
+                        const periodicalPayments = paymentStatusResponse.payments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIOD);
+                        const validPeriodicalPayment = periodicalPayments.find(payment => !dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime)));
+
+                        if (!validPeriodicalPayment) {
+                            return false;
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    return false;
+                }
+            }
+
+            if (getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true") {
+                try {
+                    const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
+
+                    if (activeMembership.length === 0) {
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         function isUserParticipating(userSession: SessionVO | null, diveEvent: DiveEventResponse): boolean {
@@ -78,7 +124,10 @@ export function DiveEvent() {
                 return;
             }
 
-            setCanSubscribe(isUserAllowedToParticipate(userSession, diveEvent));
+            isUserAllowedToParticipate(userSession, diveEvent)
+                    .then((canSubscribe: boolean) => {
+                        setCanSubscribe(canSubscribe);
+                    });
             setSubscribing(isUserParticipating(userSession, diveEvent));
         }
     }, [userSession, diveEvent]);

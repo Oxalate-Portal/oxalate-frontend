@@ -1,5 +1,6 @@
 export {Certificates} from '../Certificate/Certificates';
-export {FormatPayments} from './FormatPayments';
+export {FormMemberships} from './FormMemberships';
+export {FormPayments} from './FormPayments';
 export {LostPassword} from './LostPassword';
 export {NewPassword} from './NewPassword';
 export {Password} from './Password';

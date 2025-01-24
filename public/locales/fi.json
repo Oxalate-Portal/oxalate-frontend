@@ -8,15 +8,36 @@
     },
     "rejectTerms" : "En hyväksy ehtoja"
   },
+  "AddMemberships" : {
+    "disabled" : "Jäsenyys ei ole käytössä",
+    "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
+    "form" : {
+      "name" : {
+        "label" : "Käyttäjän nimi",
+        "placeholder" : "Valitse käyttäjät"
+      },
+      "membershipType" : {
+        "label" : "Jäsenyyden tyyppi"
+      },
+      "membershipDuration" : {
+        "label" : "Jäsenyyden kesto (kuukautta)"
+      },
+      "button" : "Lisää jäsenyys"
+    },
+    "onFinish" : {
+      "ok" : "Jäsenyys lisätty onnistuneesti",
+      "fail" : "Jäsenyyden lisääminen epäonnistui: "
+    }
+  },
   "AddPayments" : {
     "form" : {
       "button" : "Talleta maksut",
       "name" : {
-        "label" : "Jäsenet",
-        "placeholder" : "Lisää jäseniä"
+        "label" : "Käyttäjät",
+        "placeholder" : "Lisää käyttäjiä"
       },
       "paymentCount" : {
-        "label" : "Kertamaksujen määrä"
+        "label" : "Määrä"
       },
       "paymentType" : {
         "label" : "Maksutyyppi"
@@ -40,18 +61,33 @@
   },
   "AdminMain" : {
     "header" : "Ylläpito",
-    "memberHeader" : "Jäsenet",
+    "userHeader" : "Käyttäjät",
     "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
     "paymentHeader" : "Maksut",
-    "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto jäsenille",
+    "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto käyttäjille",
     "statsHeader" : "Tilastot",
-    "statsText1" : "Vuositason tapahtuma-, jäsenrekisteröinti- tapahtumajärjestäjien sekä maksutilastot",
+    "statsText1" : "Vuositason tapahtuma-, käyttäjärekisteröinti- jäsenrekisteröinti- (jos käytössä) tapahtumajärjestäjien sekä maksutilastot",
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
     "text" : "Ylläpito-sivut. Ole varovainen"
   },
+  "AdminMembers" : {
+    "title" : "Jäsenyyden hallinta",
+    "table" : {
+      "userId" : "Käyttäjän ID",
+      "username" : "Käyttäjänimi",
+      "status" : "Tila",
+      "type" : "Tyyppi",
+      "createdAt" : "Luotu",
+      "expiresAt" : "Päättymisaika",
+      "actions" : {
+        "title" : "Toiminto",
+        "edit" : "Muokkaa"
+      }
+    }
+  },
   "AdminOrgAdminPaymentListPanel" : {
     "table" : {
-      "expirationtDate" : "Päättymispäivä",
+      "expirationDate" : "Päättymisaika",
       "name" : "Nimi",
       "paymentCount" : "Määrä",
       "paymentDate" : "Maksupäiväys"
@@ -67,7 +103,7 @@
       "roles" : {
         "administrator" : "Ylläpitäjä",
         "label" : "Roolit",
-        "member" : "Jäsen",
+        "user" : "Käyttäjä",
         "organizer" : "Tapahtumajärjestäjä"
       },
       "status" : {
@@ -81,7 +117,7 @@
       "ok" : "Salasanan vaihtolinkki lähetetty sähköpostiin"
     },
     "updateUser" : {
-      "confirmAnonymize" : "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki jäsenen henkilökohtaiset tiedot jotka hän on syöttänyt järjestelmään. Tätä muutosta ei voi perua.",
+      "confirmAnonymize" : "Haluatko varmasti pyytää tietojen anonymisointia? Tämä poistaa kaikki käyttäjän henkilökohtaiset tiedot jotka hän on syöttänyt järjestelmään. Tätä muutosta ei voi perua.",
       "confirmOrganizer" : "Tapahtumajärjestäjän roolin lisääminen poistaa yksityisyyden suojan käytöstä. Haluatko jatkaa?",
       "fail" : "Käyttäjän tietojen päivitys epäonnistui",
       "ok" : "Käyttäjän tiedot päivitetty"
@@ -89,13 +125,13 @@
   },
   "AdminOrgUsers" : {
     "invalidateTermAgreements" : {
-      "confirm" : "Oletko varma että kaikkien jäsenten täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
+      "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
       "fail" : "Ei onnistuttu mitätöimään käyttöehtoja",
       "ok" : "Käyttöehdot mitätöitiin onnistuneesti"
     },
     "search" : {
-      "placeholder" : "Hae jäseniä",
-      "spinText" : "Haetaan jäseniä..."
+      "placeholder" : "Hae käyttäjiä",
+      "spinText" : "Haetaan käyttäjiä..."
     },
     "table" : {
       "action" : {
@@ -105,7 +141,7 @@
       "firstName" : "Etunimi",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
-      "paymentStatus" : "Jäsenmaksu",
+      "paymentStatus" : "Maksut",
       "role" : {
         "title" : "Roolit"
       },
@@ -115,7 +151,7 @@
       "resetButton" : "Uusi käyttöehtohyväksyminen",
       "resetDivider" : "Käyttöehtojen nollaus"
     },
-    "title" : "Jäsenet"
+    "title" : "Käyttäjät"
   },
   "AdminPayments" : {
     "activeDivider" : "Voimassaolevat maksut",
@@ -240,9 +276,15 @@
     },
     "panel" : {
       "addButton" : "Lisää uusi luokitus",
-      "text" : "Jäsen on suorittanut seuraavat sukellusluokitukset:",
+      "text" : "Käyttäjä on suorittanut seuraavat sukellusluokitukset:",
       "title" : "Sukellusluokitukset"
     }
+  },
+  "ChronoUnitEnum" : {
+    "days" : "Päivä",
+    "weeks" : "Viikko",
+    "months" : "Kuukausi",
+    "years" : "Vuosi"
   },
   "DownloadData" : {
     "certificateLabel" : "Luokitukset",
@@ -253,7 +295,7 @@
     "downloadPrompt" : "Lataa tästä: ",
     "gdprWarning" : "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
     "header" : "Lataa tietoja",
-    "memberLabel" : "Jäsenet",
+    "userLabel" : "Käyttäjät",
     "paymentLabel" : "Maksut",
     "rowCount" : "Rivien määrä:  {{count}}"
   },
@@ -328,7 +370,8 @@
       "current" : "Virta",
       "open-and-cave" : "Avo / Luola",
       "open-water" : "Avo",
-      "surface" : "Vain pintatoimintaa"
+      "surface" : "Vain pintatoimintaa",
+      "unknown" : "Tuntematon"
     },
     "form" : {
       "button" : {
@@ -373,7 +416,7 @@
       "participants" : {
         "label" : "Osallistujat",
         "placeholder" : "Add participants",
-        "tooltip" : "Tapahtumaan osallistuvat jäsenet"
+        "tooltip" : "Tapahtumaan osallistuvat sukeltajat"
       },
       "startTime" : {
         "label" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä.",
@@ -388,7 +431,7 @@
         "rules" : {
           "required" : "Tila on pakollinen kenttä"
         },
-        "tooltip" : "Luonnos-tila ei ole vielä näkyvissä jäsenille. Julkaistu-tila on näkyvissä kaikille jäsenille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä jäsenille."
+        "tooltip" : "Luonnos-tila ei ole vielä näkyvissä käyttäjille. Julkaistu-tila on näkyvissä kaikille käyttäjille, samoin kuin pidetty, joka on menneille tapahtumille. Peruuntunut-tila ei ole näkyvissä käyttäjille."
       },
       "submitButton" : {
         "add" : "Lisää tapahtuma",
@@ -571,12 +614,12 @@
       "tooltip" : "Avaa tapahtuma"
     },
     "participantTable" : {
+      "createdAt" : "Ilmoittautumisaika",
       "eventDiveCount" : "Sukellusmäärä",
       "name" : "Nimi",
       "paymentType" : {
         "oneTime" : "Kertamaksu",
-        "period" : "Kausimaksu",
-        "unknown" : "Tuntematon"
+        "period" : "Kausimaksu"
       },
       "payments" : "Maksutilanne"
     },
@@ -619,17 +662,32 @@
     }
   },
   "FormatPayments" : {
-    "noValid" : "Ei voimassa olevia maksutietoja.",
-    "singlePayment" : "kertamaksua",
+    "noValid" : "Ei voimassa olevia maksuja.",
     "unknownPayment" : "Tuntematon maksutyyppi",
-    "unknownPaymentContact" : "ota yhteyttä ylläpitoon",
-    "unknownPaymentPlease" : "Ole hyvä ja",
-    "yearlyPayment" : "Vuosimaksu (päättyy"
+    "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja.",
+    "unknownPaymentContact" : "Ota yhteyttä tukeen",
+    "table" : {
+      "id" : "ID",
+      "paymentType" : "Maksutyyppi",
+      "paymentCount" : "Määrä",
+      "startDate" : "Luotu",
+      "expirationDate" : "Päättymisaika",
+      "singlePayment" : "Kertamaksu",
+      "periodPayment" : "Kausimaksu"
+    }
+  },
+  "FormMemberships" : {
+    "table" : {
+      "id" : "ID",
+      "type" : "Tyyppi",
+      "status" : "Tila",
+      "created-at" : "Luotu",
+      "expires-at" : "Päättymisaika"
+    }
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",
-    "period" : "Kausimaksut",
-    "unknown" : "Tuntemattomat"
+    "period" : "Kausimaksut"
   },
   "Login" : {
     "form" : {
@@ -686,6 +744,17 @@
         "text" : "Vaihtolinkki lähetetty uudelleen."
       }
     }
+  },
+  "MembershipStatusEnum" : {
+    "active" : "Aktiivinen",
+    "expired" : "Vanhentunut",
+    "cancelled" : "Peruutettu"
+  },
+  "MembershipTypeEnum" : {
+    "disabled" : "Pois käytöstä",
+    "perpetual" : "Pysyvä",
+    "periodical" : "Jaksottainen",
+    "durational" : "Määräaikainen"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -833,6 +902,15 @@
   "PastEvents" : {
     "title" : "Menneet tapahtumat"
   },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Kerta",
+    "PERIOD" : "Kausi"
+  },
+  "PeriodicalPaymentType" : {
+    "disabled" : "Ei käytössä",
+    "durational" : "Määräaikainen",
+    "periodical" : "Jaksottainen"
+  },
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Lataa asetukset palvelimella"
@@ -867,7 +945,8 @@
       "system-email" : {
         "label" : "Järjestelmän sähköposti",
         "tooltip" : "Järjestelmän sähköpostiosoite, yleensä ei-vastausosoite"
-      }
+      },
+      "title" : "Sähköpostiasetukset"
     },
     "frontend" : {
       "max-certificates" : {
@@ -898,6 +977,7 @@
         "label" : "Minimiosallistujat",
         "tooltip" : "Samanaikaisten osallistujien minimimäärä, joka on vaadittu tapahtuman järjestämiseksi"
       },
+      "title" : "Käyttöliittymän asetukset",
       "types-of-event" : {
         "label" : "Tapahtumatyypit",
         "tooltip" : "Sallittujen sukellusten tyypit"
@@ -916,29 +996,78 @@
         "label" : "Organisaation nimi",
         "tooltip" : "Organisaation nimi"
       },
-      "timezone": {
-        "label": "Aikavyöhyke",
-        "tooltip": "Portaalin aikavyöhyke jossa kaikki ajat näytetään"
+      "timezone" : {
+        "label" : "Aikavyöhyke",
+        "tooltip" : "Portaalin aikavyöhyke jossa kaikki ajat näytetään"
       },
+      "title" : "Yleiset asetukset",
       "top-divers-list-size" : {
         "label" : "Sukeltajalista koko",
         "tooltip" : "Kuinka monta sukeltajaa näytetään top-listassa."
       }
     },
+    "membership" : {
+      "event-require-membership" : {
+        "label" : "Tapahtuma vaatii jäsenyyden",
+        "tooltip" : "Onko sukeltajalla oltava voimassa oleva jäsenyys osallistuakseen sukellustapahtumaan"
+      },
+      "membership-period-length" : {
+        "label" : "Jäsenkauden pituus",
+        "tooltip" : "Jäsenkauden tai keston pituus. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on jaksottainen tai määräaikainen."
+      },
+      "membership-period-start" : {
+        "label" : "Jäsenyyskauden alkamispäivä",
+        "tooltip" : "Milloin jäsenyyskauden laskenta alkoi. Tätä käytetään vain jaksottaisessa kausityypissä. Sen avulla kausi kohdistetaan nykyiseen päivämäärään"
+      },
+      "membership-period-start-point" : {
+        "label" : "Jäsenkauden aloituspiste",
+        "tooltip" : "Milloin jäsenkausi alkaa. Tämä liittyy kauden tyyppiin. Tarkemmin sanottuna suhde on: Vuosi -> kuukausi, Kuukausi -> kuukauden päivä, Viikko -> viikonpäivä."
+      },
+      "membership-period-unit" : {
+        "label" : "Jäsenkauden pituuden yksikkö",
+        "tooltip" : "Jäsenkauden pituuden yksikkö. Huomaa, että tätä käytetään vain, jos jäsenyyden tyyppi on jaksottainen tai määräaikainen."
+      },
+      "membership-type" : {
+        "label" : "Jäsenyyden tyyppi",
+        "tooltip" : "Jäsenyyden tyyppi. Jaksottainen tarkoittaa, että jäsenyys on voimassa tietyn ajanjakson, esim. kuluvan vuoden tai kuukauden. Määräaikainen tarkoittaa, että jäsenyys on voimassa tietyn ajanjakson eteenpäin."
+      },
+      "title" : "Jäsenyysasetukset"
+    },
     "must-be-set" : "Pakollinen asetus",
     "payment" : {
-      "enabled-payment-methods" : {
-        "label" : "Sallitut maksutavat",
-        "tooltip" : "Millaiset maksutavat ovat sallittuja"
-      },
       "event-require-payment" : {
         "label" : "Tapahtuma vaatii maksun",
-        "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu osallistuakseen tapahtumaan"
+        "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu, jotta hän voi osallistua sukellustapahtumaan"
       },
-      "start-month" : {
-        "label" : "Aloituskuukausi",
-        "tooltip" : "Missä kuussa ajanjakson maksut alkavat, 1 = Tammikuu"
-      }
+      "payment-enabled" : {
+        "label" : "Ota maksujärjestelmä käyttöön",
+        "tooltip" : "Onko maksujärjestelmä oletuksena käytössä"
+      },
+      "payment-period-length" : {
+        "label" : "Maksukauden pituus",
+        "tooltip" : "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos maksutyyppi on toistuva tai kestollinen."
+      },
+      "payment-period-start" : {
+        "label" : "Maksukauden aloituspiste",
+        "tooltip" : "Milloin maksukausi alkoi. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
+      },
+      "periodical-payment-method-type" : {
+        "label" : "Kausimaksun tyyppi",
+        "tooltip" : "Kausimaksujen tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
+      },
+      "periodical-payment-method-unit" : {
+        "label" : "Toistuvan maksutavan yksikkö",
+        "tooltip" : "Toistuvan maksutavan yksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
+      },
+      "payment-period-start-point" : {
+        "label" : "Maksujakson aloituspiste",
+        "tooltip" : "Milloin maksujakso alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
+      },
+      "single-payment-enabled" : {
+        "label" : "Ota yksittäinen maksu käyttöön",
+        "tooltip" : "Onko tapahtumakohtainen yksittäinen maksu oletuksena käytössä"
+      },
+      "title" : "Maksuasetukset"
     },
     "title" : "Portaalin asetukset",
     "update-fail" : "Asetusten päivitys epäonnistui",
@@ -1054,7 +1183,7 @@
   },
   "StatsYearlyRegistrations" : {
     "stats" : {
-      "title" : "Jäsenrekisteröinnit vuositasolla"
+      "title" : "Käyttäjärekisteröinnit vuositasolla"
     }
   },
   "TimezoneSelector" : {
@@ -1069,17 +1198,26 @@
       "lockAccount" : "Lukitse tili"
     },
     "form" : {
-      "payments" : {
-        "label" : "Maksut"
+      "membership" : {
+        "label" : "Jäsenyys",
+        "none" : "Ei jäsenyyttä",
+        "tooltip" : "Jäsenyydet listattu uusimmasta vanhimpaan"
       },
-      "privacy" : {
-        "label" : "Hyväksynyt käyttöehdot"
+      "payments" : {
+        "label" : "Maksut",
+        "tooltip" : "Maksut listattu uusimmasta vanhimpaan"
       },
       "roles" : {
-        "label" : "Roolit"
+        "label" : "Roolit",
+        "tooltip" : "Käyttäjän roolit"
       },
       "status" : {
         "label" : "Status"
+      },
+      "terms" : {
+        "false" : "Ei ole hyväksynyt ehtoja",
+        "label" : "Käyttöehdot",
+        "true" : "On hyväksynyt ehdot"
       }
     },
     "requestAnonymization" : {
@@ -1088,7 +1226,7 @@
     "requestLocking" : {
       "confirm" : "Haluatko varmasti lukita tilin? Tilin tiedot säilyvät, mutta ylläpidon on avattava tilisi jotta voit kirjautua järjestelmään uudelleen."
     },
-    "title" : "jäsentiedot",
+    "title" : "Käyttäjätiedot",
     "update" : {
       "fail" : "Käyttäjätietojen päivitys epäonnistui",
       "ok" : "Käyttäjätiedot päivitetty"
@@ -1171,10 +1309,10 @@
       },
       "privacy" : {
         "label" : "Piilota yhteystiedot",
-        "tooltip" : "Sähköposti ja puhelinnumero ei näy muille jäsenille. Vain rivijäsen voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
+        "tooltip" : "Sähköposti ja puhelinnumero ei näy muille käyttäjille. Vain käyttäjä voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
       },
       "userId" : {
-        "label" : "Jäsennumero"
+        "label" : "käyttäjätunniste"
       },
       "username" : {
         "label" : "Käyttäjätunnus",
@@ -1239,7 +1377,7 @@
       "administrator" : "Ylläpitäjä",
       "anonymous" : "Anonyymi",
       "organizer" : "Tapahtumajärjestäjä",
-      "user" : "Jäsen"
+      "user" : "Käyttäjä"
     },
     "spinner" : {
       "loading" : "Ladataan..."
@@ -1251,7 +1389,7 @@
       "registered" : "Rekisteröity"
     }
   },
-  "nav" : {
+  "NavigationBar" : {
     "action" : {
       "changePassword" : "Vaihda salasana",
       "login" : "Kirjaudu sisään",
@@ -1269,7 +1407,8 @@
       "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
       "stats" : "Tilastot",
-      "title" : "Ylläpito"
+      "title" : "Ylläpito",
+      "users" : "Käyttäjät"
     },
     "events" : {
       "add" : "Lisää tapahtuma",

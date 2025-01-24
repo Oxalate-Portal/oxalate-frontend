@@ -1,13 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { PageGroupResponse } from "../../models/responses";
-import { OptionItemVO, PageStatusEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { Button, Divider, Form, Input, Select, Spin } from "antd";
-import { pageGroupMgmtAPI } from "../../services";
-import { SubmitResult } from "../main";
-import { LanguageUtil } from "../../helpers";
-import { PageGroupRequest } from "../../models/requests";
+import {useNavigate, useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {PageGroupResponse} from "../../models/responses";
+import {OptionItemVO, PageStatusEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {Button, Divider, Form, Input, Select, Spin} from "antd";
+import {pageGroupMgmtAPI} from "../../services";
+import {SubmitResult} from "../main";
+import {PageGroupRequest} from "../../models/requests";
+import {useSession} from "../../session";
 
 export function EditPageGroup() {
     const {paramId} = useParams();
@@ -19,13 +19,16 @@ export function EditPageGroup() {
     const [sendButtonText, setSendButtonText] = useState(t("EditPageGroup.form.button.update"));
     const [pageGroupForm] = Form.useForm();
     const navigate = useNavigate();
+    const {getFrontendConfigurationValue} = useSession();
+
+    const languageList = getFrontendConfigurationValue("enabled-language").split(",");
 
     const [pageGroup, setPageGroup] = useState<PageGroupResponse>({
         id: 0,
-        pageGroupVersions: LanguageUtil.languages.map((language) => ({
+        pageGroupVersions: languageList.map((language) => ({
             id: 0,
             pageGroupId: 0,
-            language: language.value,
+            language: language,
             title: "",
         })),
         status: PageStatusEnum.DRAFTED,
@@ -40,7 +43,7 @@ export function EditPageGroup() {
 
     useEffect(() => {
         if (paramId?.length === 0) {
-            console.error("Invalid dive event id:", paramId);
+            console.error("Invalid page group id:", paramId);
             return;
         }
 
@@ -54,6 +57,8 @@ export function EditPageGroup() {
             setLoading(true);
             pageGroupMgmtAPI.findById(tmpPageGroupId, null)
                     .then(response => {
+                        // Filter the page group versions to only include the languages that are enabled in the frontend
+                        response.pageGroupVersions = response.pageGroupVersions.filter(pg => languageList.includes(pg.language));
                         setPageGroup(response);
                     })
                     .catch(error => {

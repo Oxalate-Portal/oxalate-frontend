@@ -6,7 +6,7 @@ export class LanguageUtil {
         {label: "Deutsch 🇩🇪", value: "de"},
     ];
 
-    static getLabelByValue(value: string): string | undefined {
+    static getLabelByValue(value: string): string {
         const language = this.languages.find((lang) => lang.value === value);
         return language ? language.label : "Valitse kieli 🌐";
     }

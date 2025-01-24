@@ -6,6 +6,7 @@ export type {EmailNotificationSubscriptionRequest} from './EmailNotificationSubs
 export type {EmailRequest} from './EmailRequest';
 export type {LoginRequest} from './LoginRequest';
 export type {LostPasswordRequest} from './LostPasswordRequest';
+export type {MembershipRequest} from './MembershipRequest';
 export type {PageGroupRequest} from './PageGroupRequest';
 export type {PageRequest} from './PageRequest';
 export type {PasswordResetRequest} from './PasswordResetRequest';

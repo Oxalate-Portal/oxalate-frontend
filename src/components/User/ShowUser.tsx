@@ -6,7 +6,7 @@ import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { SubmitResult } from "../main";
 import { useTranslation } from "react-i18next";
 import { UserResponse } from "../../models/responses";
-import { FormatPayments } from "./FormatPayments";
+import { FormPayments } from "./FormPayments";
 import { formatDateTime } from "../../helpers";
 import { ProfileCollapse } from "./ProfileCollapse";
 
@@ -85,7 +85,7 @@ export function ShowUser() {
                 <Spin spinning={loading}>
                     {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
                     {userData && t("UserDetails.table.payments")}
-                    {userData && <FormatPayments userData={userData}/>}
+                    {userData && <FormPayments userData={userData}/>}
                     {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
                     {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
                 </Spin>

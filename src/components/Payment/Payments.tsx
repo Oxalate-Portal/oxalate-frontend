@@ -1,22 +1,26 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { Button, Divider, Space, Spin } from "antd";
 import { ListPayments } from "./ListPayments";
 import { AddPayments } from "./AddPayments";
-import { paymentAPI } from "../../services/PaymentAPI";
+import { paymentAPI } from "../../services";
 import { useState } from "react";
+import { PaymentTypeEnum } from "../../models";
 
 export function Payments() {
-    const navigate = useNavigate();
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(false);
 
-    function invalidateYearlyPayments() {
+    function invalidatePeriodicalPayments() {
         if (window.confirm(t("AdminPayments.confirmInvalidate"))) {
             setLoading(true);
             paymentAPI.resetAllPeriodicPayments()
                     .then((result) => {
-                        navigate(0);
+                        if (result) {
+                            const event = new CustomEvent("paymentListUpdated", {
+                                detail: {paymentType: PaymentTypeEnum.PERIOD},
+                            });
+                            window.dispatchEvent(event);
+                        }
                     })
                     .catch((error) => {
                         console.error("Failed to reset payments:", error);
@@ -34,10 +38,11 @@ export function Payments() {
                     <ListPayments/>
                     <Divider orientation="left">{t("AdminPayments.yearlyResetDivider")}</Divider>
                     <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                        <Button danger={true} type={"primary"} onClick={() => invalidateYearlyPayments()}>{t("AdminPayments.yearlyResetButton")}</Button>
+                        <Button danger={true} type={"primary"} onClick={() => invalidatePeriodicalPayments()}>{t("AdminPayments.yearlyResetButton")}</Button>
                     </Space>
                     <Divider orientation="left">{t("AdminPayments.addPaymentsDivider")}</Divider>
                     <AddPayments/>
                 </Spin>
-            </div>);
+            </div>
+    );
 }

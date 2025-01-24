@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { statsAPI } from "../../services/StatsAPI";
-import { DiverListItemResponse, FrontendConfigurationResponse, YearlyDiversListResponse } from "../../models/responses";
-import { Collapse, CollapseProps, Spin, Table } from "antd";
-import { ColumnsType } from "antd/es/table";
-import { portalConfigurationAPI } from "../../services";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import {statsAPI} from "../../services/StatsAPI";
+import {DiverListItemResponse, YearlyDiversListResponse} from "../../models/responses";
+import {Collapse, CollapseProps, Spin, Table} from "antd";
+import {ColumnsType} from "antd/es/table";
+import {useSession} from "../../session";
+import {PortalConfigGroupEnum} from "../../models";
 
 export function YearlyDiveStats() {
     const [loading, setLoading] = useState(true);
@@ -12,6 +13,7 @@ export function YearlyDiveStats() {
     const [topListSize, setTopListSize] = useState<number>(100);
     const {t} = useTranslation();
     const [collapseItems, setCollapseItems] = useState<CollapseProps["items"]>([]);
+    const {getPortalConfigurationValue} = useSession();
 
     const columns: ColumnsType<DiverListItemResponse> = [
         {
@@ -34,9 +36,10 @@ export function YearlyDiveStats() {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            Promise.all([statsAPI.getYearlyDiverList(),
-            portalConfigurationAPI.getFrontendConfiguration()])
-                    .then(([statsRespond, portalConfig]) => {
+            Promise.all([
+                statsAPI.getYearlyDiverList()
+            ])
+                    .then(([statsRespond]) => {
                         setYearlyDiveData(statsRespond);
                         const items = statsRespond.map(yearlyData => ({
                             key: yearlyData.year + "-divedata-table",
@@ -51,14 +54,11 @@ export function YearlyDiveStats() {
                                                  pageSizeOptions: ["5", "10", "20", "30", "50"]
                                              }}
                                              key={"table" + yearlyData.year}
-                                             rowKey={"id" + yearlyData.year}/>
+                                             rowKey={(record) => `${yearlyData.year}-diver-${record.userId}`}/>
                         }));
                         setCollapseItems(items);
 
-                        const topDiverListConfig: FrontendConfigurationResponse | undefined = portalConfig.find(config => config.key === "top-divers-list-size");
-                        if (topDiverListConfig !== undefined) {
-                            setTopListSize(parseInt(topDiverListConfig.value));
-                        }
+                        setTopListSize(parseInt(getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "top-divers-list-size")));
                     })
                     .catch((error) => {
                         console.error(error);

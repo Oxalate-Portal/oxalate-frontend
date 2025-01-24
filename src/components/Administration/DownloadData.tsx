@@ -19,7 +19,7 @@ function DownloadData() {
         {label: t("DownloadData.certificateLabel"), value: DownloadTypeEnum.CERTIFICATE},
         {label: t("DownloadData.diveLabel"), value: DownloadTypeEnum.DIVE},
         {label: t("DownloadData.diveEventLabel"), value: DownloadTypeEnum.DIVE_EVENT},
-        {label: t("DownloadData.memberLabel"), value: DownloadTypeEnum.MEMBER},
+        {label: t("DownloadData.userLabel"), value: DownloadTypeEnum.MEMBER},
         {label: t("DownloadData.paymentLabel"), value: DownloadTypeEnum.PAYMENT}
     ];
 
@@ -96,7 +96,7 @@ function DownloadData() {
                     {label: "Member name", key: "name"},
                     {label: "Payment count", key: "paymentCount"},
                     {label: "Payment type", key: "paymentType"},
-                    {label: "Created at", key: "createdAt"}
+                    {label: "Created", key: "createdAt"}
                 ]);
                 downloadData(() => downloadAPI.downloadPayments(), "payments");
                 break;
