@@ -1,14 +1,14 @@
 /// <reference types="vite-plugin-svgr/client" />
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {NavLink} from "react-router-dom";
-import {Tooltip} from "antd";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
+import { Tooltip } from "antd";
 import i18next from "i18next";
-import {useEffect, useState} from "react";
-import {checkRoles, LanguageUtil} from "../../helpers";
-import {PageGroupResponse} from "../../models/responses";
-import {MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum} from "../../models";
-import {pageAPI} from "../../services";
+import { useEffect, useState } from "react";
+import { checkRoles, LanguageUtil } from "../../helpers";
+import { PageGroupResponse } from "../../models/responses";
+import { MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
+import { pageAPI } from "../../services";
 import Logo from "../../portal_logo.svg?react";
 
 export function NavigationBar() {
@@ -206,10 +206,23 @@ export function NavigationBar() {
                                                         })}
                                                     </ul>
                                                 </div>
-
                                             </li>
                                     );
                                 })}
+                                {userSession &&
+                                        <li className="nav-item active">
+                                            <div className="dropdown">
+                                                <button className="nav-item nav-link dropdown-toggle"
+                                                        data-bs-toggle="dropdown"
+                                                        aria-expanded="false">{t("NavigationBar.forum.title")}</button>
+                                                <ul className="dropdown-menu">
+                                                    <li>
+                                                        <NavLink to={"/forum"} className="dropdown-item"
+                                                                 type="button">{t("NavigationBar.forum.link")}</NavLink>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>}
                             </ul>
                         </div>
                         <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
