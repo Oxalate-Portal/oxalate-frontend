@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {DiveEventUserResponse, UserResponse} from "../models/responses";
+import {ListUserResponse, UserResponse} from "../models/responses";
 import {RoleEnum, UserStatusEnum} from "../models";
 import {UserRequest} from "../models/requests";
 import {AdminUserResponse} from "../models/responses/AdminUserResponse";
@@ -18,9 +18,9 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
         return response.status === 200;
     }
 
-    public async findByRole(role: RoleEnum): Promise<DiveEventUserResponse[]> {
+    public async findByRole(role: RoleEnum): Promise<ListUserResponse[]> {
         this.setAuthorizationHeader()
-        const response = await this.axiosInstance.get<DiveEventUserResponse[]>("/role/" + role);
+        const response = await this.axiosInstance.get<ListUserResponse[]>("/role/" + role);
         return response.data;
     }
 

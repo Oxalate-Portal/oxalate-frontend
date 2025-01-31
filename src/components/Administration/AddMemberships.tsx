@@ -3,7 +3,7 @@ import { Button, Form, message, Select, Space, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { MembershipStatusEnum, MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
 import { membershipAPI, userAPI } from "../../services";
-import { DiveEventUserResponse, MembershipResponse } from "../../models/responses";
+import { ListUserResponse, MembershipResponse } from "../../models/responses";
 import { MembershipRequest } from "../../models/requests";
 import { useSession } from "../../session";
 
@@ -24,8 +24,8 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
     }
 
     const [loading, setLoading] = useState<boolean>(true);
-    const [users, setUsers] = useState<DiveEventUserResponse[]>([]);
-    const [selectedUsers, setSelectedUsers] = useState<DiveEventUserResponse[]>([]);
+    const [users, setUsers] = useState<ListUserResponse[]>([]);
+    const [selectedUsers, setSelectedUsers] = useState<ListUserResponse[]>([]);
     const filteredOptions = users.filter((o) => !selectedUsers.includes(o) && !membershipList.some(m => m.userId === o.id));
     const [membershipForm] = Form.useForm();
 
@@ -33,6 +33,8 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
         setLoading(true);
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
+                    // Do not add users that already have a membership
+                    userResponses = userResponses.filter(user => !user.membershipActive);
                     setUsers(userResponses);
                 })
                 .catch((error) => {
@@ -44,7 +46,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                 });
     }, [t]);
 
-    function updateSelectedUsers(value: DiveEventUserResponse[]) {
+    function updateSelectedUsers(value: ListUserResponse[]) {
         setSelectedUsers(value);
     }
 

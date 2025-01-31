@@ -4,7 +4,7 @@ export type {CertificateResponse} from "./CertificateResponse";
 export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
 export type {DiveEventListResponse} from "./DiveEventListResponse";
 export type {DiveEventResponse} from "./DiveEventResponse";
-export type {DiveEventUserResponse} from "./DiveEventUserResponse";
+export type {ListUserResponse} from "./ListUserResponse";
 export type {DiverListItemResponse} from "./DiverListItemResponse";
 export type {EmailNotificationSubscriptionResponse} from "./EmailNotificationSubscriptionResponse";
 export type {EventPeriodReportResponse} from "./EventPeriodReportResponse";

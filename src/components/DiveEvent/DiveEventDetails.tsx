@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSession } from "../../session";
-import { DiveEventResponse, DiveEventUserResponse } from "../../models/responses";
+import { DiveEventResponse, ListUserResponse } from "../../models/responses";
 import { checkRoles } from "../../helpers";
 import { Link } from "react-router-dom";
 import { DiveTypeEnum, PaymentTypeEnum, RoleEnum } from "../../models";
@@ -125,13 +125,13 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         }
     ];
 
-    let participantColumns: ColumnsType<DiveEventUserResponse> = [
+    let participantColumns: ColumnsType<ListUserResponse> = [
         {
             title: "#",
             dataIndex: "id",
             key: "id",
-            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.id - b.id,
-            render: (text: string, record: DiveEventUserResponse) => {
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.id - b.id,
+            render: (text: string, record: ListUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={"/users/" + record.id + "/show"} key={"user-id-link-" + record.id}>{record.id}</Link>);
                 }
@@ -143,8 +143,8 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.participantTable.name"),
             dataIndex: "name",
             key: "name",
-            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.name.localeCompare(b.name),
-            render: (text: string, record: DiveEventUserResponse) => {
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.name.localeCompare(b.name),
+            render: (text: string, record: ListUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={"/users/" + record.id + "/show"}key={"user-name-" + record.id}>{record.name}</Link>);
                 }
@@ -156,15 +156,15 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.participantTable.eventDiveCount"),
             dataIndex: "eventDiveCount",
             key: "eventDiveCount",
-            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => a.eventDiveCount - b.eventDiveCount,
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.eventDiveCount - b.eventDiveCount,
         },
         {
             title: t("EventDetails.participantTable.createdAt"),
             dataIndex: "createdAt",
             key: "createdAt",
-            sorter: (a: DiveEventUserResponse, b: DiveEventUserResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
-            render: (text: string, record: DiveEventUserResponse) => {
-                return (<>{dayjs(record.createdAt).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm:ss.SSS")}</>);
+            sorter: (a: ListUserResponse, b: ListUserResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            render: (text: string, record: ListUserResponse) => {
+                return (<>{dayjs(record.createdAt).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
             }
         }
 

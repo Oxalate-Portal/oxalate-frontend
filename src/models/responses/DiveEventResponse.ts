@@ -1,8 +1,8 @@
 import {UserResponse} from "./UserResponse";
-import {DiveEventUserResponse} from "./DiveEventUserResponse";
+import {ListUserResponse} from "./ListUserResponse";
 import {AbstractDiveEvent} from "../AbstractDiveEvent";
 
 export interface DiveEventResponse extends AbstractDiveEvent {
     organizer: UserResponse | null;
-    participants: DiveEventUserResponse[];
+    participants: ListUserResponse[];
 }

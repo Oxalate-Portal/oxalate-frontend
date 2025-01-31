@@ -1,16 +1,16 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {blockedDatesAPI, diveEventAPI, userAPI} from "../../services";
-import {BlockedDateResponse, DiveEventResponse, DiveEventUserResponse} from "../../models/responses";
-import {DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {useTranslation} from "react-i18next";
-import {Alert, Button, DatePicker, Form, Input, Select, Slider, Space} from "antd";
-import dayjs, {Dayjs} from "dayjs";
-import {SubmitResult} from "../main";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
+import { BlockedDateResponse, DiveEventResponse, ListUserResponse } from "../../models/responses";
+import { DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, PortalConfigGroupEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { useTranslation } from "react-i18next";
+import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
+import dayjs, { Dayjs } from "dayjs";
+import { SubmitResult } from "../main";
 import TextArea from "antd/es/input/TextArea";
-import {DiveEventRequest} from "../../models/requests";
-import {useSession} from "../../session";
-import {localToUTCDatetime} from "../../helpers";
+import { DiveEventRequest } from "../../models/requests";
+import { useSession } from "../../session";
+import { localToUTCDatetime } from "../../helpers";
 
 export function EditDiveEvent() {
     const {paramId} = useParams();
@@ -40,7 +40,7 @@ export function EditDiveEvent() {
     const [depthMarks, setDepthMarks] = useState<{ [key: number]: string }>({});
     const [participantsMarks, setParticipantsMarks] = useState<{ [key: number]: string }>({});
 
-    const {getPortalTimezone, getFrontendConfigurationValue} = useSession();
+    const {getPortalTimezone, getFrontendConfigurationValue, getPortalConfigurationValue} = useSession();
 
     const statusOptions: OptionItemVO[] = [
         {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
@@ -52,7 +52,7 @@ export function EditDiveEvent() {
     const [diveEventForm] = Form.useForm();
 
     useEffect(() => {
-        function populateOrganizerList(organizers: DiveEventUserResponse[]): void {
+        function populateOrganizerList(organizers: ListUserResponse[]): void {
             let organizerList = [];
 
             for (let i = 0; i < organizers.length; i++) {
@@ -61,12 +61,20 @@ export function EditDiveEvent() {
             setOrganizerOptions(organizerList);
         }
 
-        function populateParticipantList(users: DiveEventUserResponse[]): void {
+        function populateParticipantList(users: ListUserResponse[]): void {
             let participantList = [];
+            const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
+            const requiresActivePayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
 
             for (let i = 0; i < users.length; i++) {
-                participantList.push({value: users[i].id, label: users[i].name});
+                if ((requiresMembership && !users[i].membershipActive)
+                || (requiresActivePayment && users[i].payments.length === 0)) {
+                    continue;
+                }
+
+                participantList.push({value: users[i].id, label: users[i].name + " (" + users[i].id + ")"});
             }
+
             setParticipantOptions(participantList);
         }
 
@@ -140,7 +148,8 @@ export function EditDiveEvent() {
             Promise.all([
                 userAPI.findByRole(RoleEnum.ROLE_ORGANIZER),
                 userAPI.findByRole(RoleEnum.ROLE_USER),
-                blockedDatesAPI.findAll()            ])
+                blockedDatesAPI.findAll()
+            ])
                     .then(([organizerResponse, participantResponse, blockedDatesResponses]) => {
                         populateOrganizerList(organizerResponse);
                         populateParticipantList(participantResponse);
@@ -171,7 +180,7 @@ export function EditDiveEvent() {
                     });
             setSubmitButtonText(t("EditEvent.form.submitButton.add"));
         }
-    }, [paramId, t, getFrontendConfigurationValue]);
+    }, [paramId, t, getFrontendConfigurationValue, getPortalConfigurationValue]);
 
     function disabledDate(current: Dayjs): boolean {
         return current && (blockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
@@ -470,6 +479,9 @@ export function EditDiveEvent() {
                                 options={participantOptions}
                                 placeholder={t("EditEvent.form.participants.placeholder")}
                                 showSearch={true}
+                                filterOption={(input, option) =>
+                                        option?.label.toLowerCase().includes(input.toLowerCase()) ?? false
+                                }
                                 style={{
                                     width: "100%"
                                 }}
