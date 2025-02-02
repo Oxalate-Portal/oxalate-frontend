@@ -1,14 +1,13 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {diveEventAPI, membershipAPI} from "../../services";
-import {DiveEventResponse, MembershipResponse, PaymentStatusResponse} from "../../models/responses";
-import {DiveEventDetails} from "./DiveEventDetails";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { diveEventAPI, membershipAPI, paymentAPI } from "../../services";
+import { DiveEventResponse, MembershipResponse, PaymentStatusResponse } from "../../models/responses";
+import { DiveEventDetails } from "./DiveEventDetails";
 import dayjs from "dayjs";
-import {PaymentTypeEnum, PortalConfigGroupEnum, SessionVO} from "../../models";
-import {Spin} from "antd";
-import {paymentAPI} from "../../services/PaymentAPI";
+import { PaymentTypeEnum, PortalConfigGroupEnum, SessionVO } from "../../models";
+import { Spin } from "antd";
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -19,7 +18,7 @@ export function DiveEvent() {
     const [loading, setLoading] = useState<boolean>(true);
     const [canSubscribe, setCanSubscribe] = useState(false);
     const [subscribing, setSubscribing] = useState(false);
-
+    const [canUnsubscribe, setCanUnsubscribe] = useState(false);
     useEffect(() => {
         if (paramId?.length === 0) {
             console.error("Invalid dive event id:", paramId);
@@ -123,6 +122,10 @@ export function DiveEvent() {
                 setSubscribing(false);
                 return;
             }
+            // Diver can only unsubscribe before the event starts
+            if (dayjs().isBefore(dayjs(diveEvent.startTime))) {
+                setCanUnsubscribe(true);
+            }
 
             isUserAllowedToParticipate(userSession, diveEvent)
                     .then((canSubscribe: boolean) => {
@@ -170,7 +173,7 @@ export function DiveEvent() {
                                 </div>
                             </div>
                     }
-                    {subscribing &&
+                    {subscribing && canUnsubscribe &&
                             <div className="row pt-5">
                                 <div>
                                     <button
