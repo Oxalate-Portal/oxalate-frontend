@@ -85,7 +85,7 @@
       }
     }
   },
-  "AdminOrgAdminPaymentListPanel" : {
+  "PaymentListTable" : {
     "table" : {
       "expirationDate" : "Utgångstid",
       "name" : "Namn",
@@ -157,8 +157,9 @@
     "activeDivider" : "Aktiva betalningar",
     "addPaymentsDivider" : "Lägg till betalningar",
     "confirmInvalidate" : "Är du säker på att du vill ogiltigförklara alla årsbetalningar? Denna åtgärd kan inte ångras.",
-    "yearlyResetButton" : "Ogiltigförklara årsbetalningar",
-    "yearlyResetDivider" : "Ogiltigförklara årsbetalningar"
+    "reset-one-time-button" : "Ogilförklara engångsbetalningar",
+    "reset-periodical-button" : "Ogiltigförklara periodbetalningar",
+    "yearlyResetDivider" : "Ogiltigförklara betalningar"
   },
   "AdminUploads" : {
     "avatar" : {
@@ -367,6 +368,7 @@
     "eventTypes" : {
       "boat" : "Dykning från båt",
       "cave" : "Grottdykning",
+      "course": "Kurs",
       "current" : "Strömdykning",
       "open-and-cave" : "Öppen dykning / Grottdykning",
       "open-water" : "Öppen dykning",
@@ -906,10 +908,11 @@
     "ONE_TIME" : "Engångs",
     "PERIOD" : "Period"
   },
-  "PeriodicalPaymentType" : {
+  "PaymentExpirationType" : {
     "disabled" : "Icke i bruk",
     "durational" : "Tidsbegränsad",
-    "periodical" : "Periodisk"
+    "periodical" : "Periodisk",
+    "perpetual" : "Permanent"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1038,6 +1041,18 @@
       "event-require-payment" : {
         "label" : "Event kräver betalning",
         "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevent"
+      },
+      "one-time-expiration-length" : {
+        "label" : "Engångs giltighetstid",
+        "tooltip" : "Längden på engångsbetalningsperioden eller varaktigheten i antal engångs giltighetsenheter. Observera att detta endast används om betalningstypen är tidsbegränsad."
+      },
+      "one-time-expiration-type" : {
+        "label" : "Engångs giltighetstyp",
+        "tooltip" : "Engångs giltighetstyp. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. innevarande år, månad eller vecka från angiven startpunkt. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
+      },
+      "one-time-expiration-unit" : {
+        "label" : "Engångs giltighetsenhet",
+        "tooltip" : "Engångs giltighetsenhet. Observera att detta endast används om betalningstypen är tidsbegränsad."
       },
       "payment-enabled" : {
         "label" : "Aktivera betalningssystem",

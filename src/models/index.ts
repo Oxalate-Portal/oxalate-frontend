@@ -29,7 +29,7 @@ export {MembershipStatusEnum} from "./MembershipStatusEnum";
 export {MembershipTypeEnum} from "./MembershipTypeEnum";
 export {PageStatusEnum} from "./PageStatusEnum";
 export {PaymentTypeEnum} from "./PaymentTypeEnum";
-export {PeriodicalPaymentTypeEnum} from "./PeriodicalPaymentTypeEnum";
+export {PaymentExpirationTypeEnum} from "./PaymentExpirationTypeEnum";
 export {PortalConfigGroupEnum} from "./PortalConfigGroupEnum";
 export {ResultEnum} from "./ResultEnum";
 export {RoleEnum} from "./RoleEnum";

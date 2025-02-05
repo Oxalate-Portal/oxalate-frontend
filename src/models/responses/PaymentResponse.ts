@@ -7,4 +7,5 @@ export interface PaymentResponse {
     paymentCount: number;
     createdAt: Date;
     expiresAt: Date;
+    boundEvents: number[];
 }

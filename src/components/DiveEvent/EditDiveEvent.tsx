@@ -2,7 +2,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
 import { BlockedDateResponse, DiveEventResponse, ListUserResponse } from "../../models/responses";
-import { DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, PortalConfigGroupEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import {
+    DiveEventStatusEnum,
+    DiveTypeEnum,
+    OptionItemVO,
+    PaymentTypeEnum,
+    PortalConfigGroupEnum,
+    RoleEnum,
+    UpdateStatusEnum,
+    UpdateStatusVO
+} from "../../models";
 import { useTranslation } from "react-i18next";
 import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
 import dayjs, { Dayjs } from "dayjs";
@@ -61,14 +70,39 @@ export function EditDiveEvent() {
             setOrganizerOptions(organizerList);
         }
 
-        function populateParticipantList(users: ListUserResponse[]): void {
+        function populateParticipantList(users: ListUserResponse[], thisEventId: number): void {
             let participantList = [];
             const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
             const requiresActivePayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
 
             for (let i = 0; i < users.length; i++) {
+                console.log("Payments for user " + users[i].id + ":", users[i].payments);
                 if ((requiresMembership && !users[i].membershipActive)
-                || (requiresActivePayment && users[i].payments.length === 0)) {
+                        || (requiresActivePayment && users[i].payments.length === 0)) {
+                    continue;
+                }
+
+                // Next check of the list of payments of the users are all expired or empty
+                let hasValidPayment = false;
+
+                for (let j = 0; j < users[i].payments.length; j++) {
+                    const payment = users[i].payments[j];
+                    // If the user has an active periodical payment
+                    if (payment.paymentType === PaymentTypeEnum.PERIOD
+                            && dayjs(payment.expiresAt).isAfter(dayjs())) {
+                        hasValidPayment = true;
+                        break;
+                    } else if (payment.paymentType === PaymentTypeEnum.ONE_TIME
+                            && (dayjs(payment.expiresAt).isAfter(dayjs())
+                                    || payment.expiresAt === null)
+                            && (payment.paymentCount > 0
+                                    || payment.boundEvents.includes(thisEventId))) {
+                        hasValidPayment = true;
+                        break;
+                    }
+                }
+
+                if (!hasValidPayment) {
                     continue;
                 }
 
@@ -134,7 +168,7 @@ export function EditDiveEvent() {
                     .then(([eventResponse, organizerResponses, participantResponses, blockedDatesResponses]) => {
                         setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
                         populateOrganizerList(organizerResponses);
-                        populateParticipantList(participantResponses);
+                        populateParticipantList(participantResponses, tmpDiveEventId);
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
                         setBlockedDates(dates);
                     })
@@ -152,7 +186,7 @@ export function EditDiveEvent() {
             ])
                     .then(([organizerResponse, participantResponse, blockedDatesResponses]) => {
                         populateOrganizerList(organizerResponse);
-                        populateParticipantList(participantResponse);
+                        populateParticipantList(participantResponse, tmpDiveEventId);
                         setDiveEvent(
                                 {
                                     id: 0,
