@@ -85,7 +85,7 @@
       }
     }
   },
-  "AdminOrgAdminPaymentListPanel" : {
+  "PaymentListTable" : {
     "table" : {
       "expirationDate" : "Päättymisaika",
       "name" : "Nimi",
@@ -157,8 +157,9 @@
     "activeDivider" : "Voimassaolevat maksut",
     "addPaymentsDivider" : "Lisää maksuja",
     "confirmInvalidate" : "Haluatko varmasti mitätöidä kaikki vuosimaksut? Tätä muutosta ei voi perua.",
-    "yearlyResetButton" : "Mitätöi vuosimaksut",
-    "yearlyResetDivider" : "Vuosimaksun mitätöinti"
+    "reset-one-time-button" : "Mitätöi kertamaksut",
+    "reset-periodical-button" : "Mitätöi kausimaksut",
+    "yearlyResetDivider" : "Maksujen mitätöinti"
   },
   "AdminUploads" : {
     "avatar" : {
@@ -367,6 +368,7 @@
     "eventTypes" : {
       "boat" : "Sukellusta veneestä",
       "cave" : "Luola",
+      "course" : "Kurssi",
       "current" : "Virta",
       "open-and-cave" : "Avo / Luola",
       "open-water" : "Avo",
@@ -906,10 +908,11 @@
     "ONE_TIME" : "Kerta",
     "PERIOD" : "Kausi"
   },
-  "PeriodicalPaymentType" : {
+  "PaymentExpirationType" : {
     "disabled" : "Ei käytössä",
     "durational" : "Määräaikainen",
-    "periodical" : "Jaksottainen"
+    "periodical" : "Jaksottainen",
+    "perpetual" : "Ikuinen"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1039,6 +1042,18 @@
         "label" : "Tapahtuma vaatii maksun",
         "tooltip" : "Onko sukeltajalla oltava voimassa oleva maksu, jotta hän voi osallistua sukellustapahtumaan"
       },
+      "one-time-expiration-length" : {
+        "label" : "Kertamaksun voimassaolopituus",
+        "tooltip" : "Kertamaksun voimassaolopituus. Huomaa, että tätä käytetään vain, jos kertamaksun voimassaolo on rajoitettu."
+      },
+      "one-time-expiration-type" : {
+        "label" : "Kertamaksun voimassaolotyyppi",
+        "tooltip" : "Kertamaksun rajoitus. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
+      },
+      "one-time-expiration-unit" : {
+        "label" : "Kertamaksun voimassaoloyksikkö",
+        "tooltip" : "Kertamaksun voimassaoloyksikkö. Huomaa, että tätä käytetään vain, jos kertamaksun voimassaolo on rajoitettu."
+      },
       "payment-enabled" : {
         "label" : "Ota maksujärjestelmä käyttöön",
         "tooltip" : "Onko maksujärjestelmä oletuksena käytössä"
@@ -1048,20 +1063,20 @@
         "tooltip" : "Maksukauden tai keston pituus. Huomaa, että tätä käytetään vain, jos maksutyyppi on toistuva tai kestollinen."
       },
       "payment-period-start" : {
-        "label" : "Maksukauden aloituspiste",
-        "tooltip" : "Milloin maksukausi alkoi. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
+        "label" : "Kausimaksun aloituspiste",
+        "tooltip" : "Milloin kausimaksu astui voimaan. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
       },
       "periodical-payment-method-type" : {
         "label" : "Kausimaksun tyyppi",
         "tooltip" : "Kausimaksujen tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
       },
       "periodical-payment-method-unit" : {
-        "label" : "Toistuvan maksutavan yksikkö",
-        "tooltip" : "Toistuvan maksutavan yksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
+        "label" : "Kausimaksun aikayksikkö",
+        "tooltip" : "Kausimaksun aikayksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
       },
       "payment-period-start-point" : {
-        "label" : "Maksujakson aloituspiste",
-        "tooltip" : "Milloin maksujakso alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
+        "label" : "Kausimaksun aloituspiste",
+        "tooltip" : "Milloin kausimaksu alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
       },
       "single-payment-enabled" : {
         "label" : "Ota yksittäinen maksu käyttöön",

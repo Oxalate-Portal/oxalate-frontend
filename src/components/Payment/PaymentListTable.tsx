@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { paymentAPI } from "../../services";
 import { PaymentRequest } from "../../models/requests";
 import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { PaymentResponse } from "../../models/responses";
 
 interface PaymentListPanelProps {
     paymentType: PaymentTypeEnum;
@@ -36,10 +37,10 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                 expiresAt: payment.payments[0].expiresAt,
                                 paymentCount: payment.payments[0].paymentCount,
                                 paymentType: payment.payments[0].paymentType,
+                                boundEvents: payment.payments[0].boundEvents
                             };
                         });
                         setPayments(payments);
-                        console.log("Setting payments to:", payments);
                         window.addEventListener("updatePaymentList-" + paymentType, fetchPayments);
                     })
                     .catch((error) => {
@@ -111,7 +112,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             }
         },
         {
-            title: t("AdminOrgAdminPaymentListPanel.table.name"),
+            title: t("PaymentListTable.table.name"),
             dataIndex: "name",
             key: "name",
             sorter: (a: PaymentVO, b: PaymentVO) => a.name.localeCompare(b.name),
@@ -123,7 +124,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             },
         },
         {
-            title: t("AdminOrgAdminPaymentListPanel.table.paymentDate"),
+            title: t("PaymentListTable.table.paymentDate"),
             dataIndex: "createdAt",
             key: "createdAt",
             sorter: (a: PaymentVO, b: PaymentVO) =>
@@ -136,21 +137,20 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             },
         },
         {
-            title: t("AdminOrgAdminPaymentListPanel.table.expirationDate"),
+            title: t("PaymentListTable.table.expirationDate"),
             dataIndex: "expiresAt",
             key: "expiresAt",
-            render: (_: any, record: PaymentVO) => {
-                if (record.paymentCount === null) {
-                    return (
-                            <>{dayjs(record.expiresAt).format("YYYY-MM-DD HH:mm")}</>
-                    );
-                } else {
-                    return <>-</>;
-                }
+            render: (date: Date, record: PaymentResponse) => {
+                return (
+                        <>
+                            {record.expiresAt !== null
+                                    ? dayjs(date).format("YYYY-MM-DD HH:mm")
+                                    : "-"}
+                        </>)
             },
         },
         {
-            title: t("AdminOrgAdminPaymentListPanel.table.paymentCount"),
+            title: t("PaymentListTable.table.paymentCount"),
             dataIndex: "paymentCount",
             key: "paymentCount",
             render: (_: any, record: PaymentVO) => {

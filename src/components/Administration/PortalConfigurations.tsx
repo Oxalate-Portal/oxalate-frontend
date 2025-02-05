@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from "react";
-import {Button, Checkbox, Col, DatePicker, Divider, Input, InputNumber, message, Radio, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
-import {PortalConfigurationResponse} from "../../models/responses";
-import {portalConfigurationAPI} from "../../services";
-import {useTranslation} from "react-i18next";
-import {TimezoneSelector} from "./TimezoneSelector";
-import {ChronoUnitEnum, MembershipTypeEnum, PeriodicalPaymentTypeEnum} from "../../models";
+import React, { useEffect, useState } from "react";
+import { Button, Checkbox, Col, DatePicker, Divider, Input, InputNumber, message, Radio, Row, Space, Spin, Switch, Tooltip, Typography } from "antd";
+import { PortalConfigurationResponse } from "../../models/responses";
+import { portalConfigurationAPI } from "../../services";
+import { useTranslation } from "react-i18next";
+import { TimezoneSelector } from "./TimezoneSelector";
+import { ChronoUnitEnum, MembershipTypeEnum, PaymentExpirationTypeEnum } from "../../models";
 import dayjs from "dayjs";
 
 const {Text} = Typography;
@@ -189,16 +189,18 @@ export function PortalConfigurations() {
                     if (currentValue === config.defaultValue) {
                         currentValue = Object.values(ChronoUnitEnum)[0];
                     }
-                } else if (config.settingKey === "periodical-payment-method-type") {
-                    enumOptions = Object.values(PeriodicalPaymentTypeEnum).map((type) => ({
-                        label: t("PeriodicalPaymentType." + type.toLowerCase()),
+                } else if ((config.settingKey === "periodical-payment-method-type")
+                        || (config.settingKey === "one-time-expiration-type")) {
+                    enumOptions = Object.values(PaymentExpirationTypeEnum).map((type) => ({
+                        label: t("PaymentExpirationType." + type.toLowerCase()),
                         value: type.toString(),
                     }));
 
                     if (currentValue === config.defaultValue) {
-                        currentValue = Object.values(PeriodicalPaymentTypeEnum)[0];
+                        currentValue = Object.values(PaymentExpirationTypeEnum)[0];
                     }
-                } else if (config.settingKey === "periodical-payment-method-unit") {
+                } else if (config.settingKey === "periodical-payment-method-unit"
+                        || config.settingKey === "one-time-expiration-unit") {
                     enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
                         label: t("ChronoUnitEnum." + type.toLowerCase()),
                         value: type.toString(),

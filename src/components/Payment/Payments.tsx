@@ -4,16 +4,18 @@ import { ListPayments } from "./ListPayments";
 import { AddPayments } from "./AddPayments";
 import { paymentAPI } from "../../services";
 import { useState } from "react";
-import { PaymentTypeEnum } from "../../models";
+import { PaymentTypeEnum, PortalConfigGroupEnum } from "../../models";
+import { useSession } from "../../session";
 
 export function Payments() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(false);
+    const {getPortalConfigurationValue} = useSession();
 
-    function invalidatePeriodicalPayments() {
+    function invalidatePayments(type: PaymentTypeEnum) {
         if (window.confirm(t("AdminPayments.confirmInvalidate"))) {
             setLoading(true);
-            paymentAPI.resetAllPeriodicPayments()
+            paymentAPI.resetAllPayments(type)
                     .then((result) => {
                         if (result) {
                             const event = new CustomEvent("paymentListUpdated", {
@@ -38,7 +40,11 @@ export function Payments() {
                     <ListPayments/>
                     <Divider orientation="left">{t("AdminPayments.yearlyResetDivider")}</Divider>
                     <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                        <Button danger={true} type={"primary"} onClick={() => invalidatePeriodicalPayments()}>{t("AdminPayments.yearlyResetButton")}</Button>
+                        <Button danger={true} type={"primary"}
+                                onClick={() => invalidatePayments(PaymentTypeEnum.PERIOD)}>{t("AdminPayments.reset-periodical-button")}</Button>
+                        {getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "single-payment-enabled") === "true" &&
+                                <Button danger={true} type={"primary"}
+                                        onClick={() => invalidatePayments(PaymentTypeEnum.ONE_TIME)}>{t("AdminPayments.reset-one-time-button")}</Button>}
                     </Space>
                     <Divider orientation="left">{t("AdminPayments.addPaymentsDivider")}</Divider>
                     <AddPayments/>
