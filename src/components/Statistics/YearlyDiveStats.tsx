@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
-import {useTranslation} from "react-i18next";
-import {statsAPI} from "../../services/StatsAPI";
-import {DiverListItemResponse, YearlyDiversListResponse} from "../../models/responses";
-import {Collapse, CollapseProps, Spin, Table} from "antd";
-import {ColumnsType} from "antd/es/table";
-import {useSession} from "../../session";
-import {PortalConfigGroupEnum} from "../../models";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { statsAPI } from "../../services";
+import { DiverListItemResponse, YearlyDiversListResponse } from "../../models/responses";
+import { Collapse, CollapseProps, Spin, Table } from "antd";
+import { ColumnsType } from "antd/es/table";
+import { useSession } from "../../session";
+import { PortalConfigGroupEnum } from "../../models";
 
 export function YearlyDiveStats() {
     const [loading, setLoading] = useState(true);

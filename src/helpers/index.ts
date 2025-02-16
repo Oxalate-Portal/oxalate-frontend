@@ -1,4 +1,3 @@
-export {authHeader} from "./authHeader";
 export {LanguageUtil} from "./LanguageUtil";
 export {
     formatDateTime,

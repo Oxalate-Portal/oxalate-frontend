@@ -1,8 +1,8 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {ActionResultEnum, LoginStatus, PortalConfigGroupEnum, SessionVO} from "../models";
-import {LoginRequest} from "../models/requests";
-import {authAPI, portalConfigurationAPI} from "../services";
-import {FrontendConfigurationResponse, PortalConfigurationResponse} from "../models/responses";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ActionResultEnum, LoginStatus, PortalConfigGroupEnum, SessionVO } from "../models";
+import { LoginRequest } from "../models/requests";
+import { authAPI, portalConfigurationAPI } from "../services";
+import { FrontendConfigurationResponse, PortalConfigurationResponse } from "../models/responses";
 
 // Define the type for the session context
 interface SessionContextType {
@@ -82,7 +82,7 @@ export function SessionProvider({children}: any) {
 
     }, [userKey, languageKey, organizationName, portalTimezone]);
 
-// Function to fetch portal configurations
+    // Function to fetch portal configurations
     const fetchPortalConfigurations = async (): Promise<ActionResultEnum> => {
         try {
             const configurations: PortalConfigurationResponse[] = await portalConfigurationAPI.findAllPortalConfigurations();
@@ -94,7 +94,7 @@ export function SessionProvider({children}: any) {
         }
     };
 
-// Function to handle user login
+    // Function to handle user login
     const loginUser = async (loginRequest: LoginRequest): Promise<LoginStatus> => {
         try {
             const sessionVO = await authAPI.login(loginRequest);

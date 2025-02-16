@@ -1,21 +1,18 @@
 /**
- * Created because the moronic maintainers of CKFinder are incapable of adding user-defined header in their upload adapter.
+ * Modified adapter which includes the pageId and language in the upload request
  */
 
 export class CKUploadAdapter {
     private loader: any;
     private url: string;
-    private token: string;
     private language: string;
     private pageId: number;
-
     private xhr: XMLHttpRequest | null = null;
 
-    constructor(loader: any, language: string, pageId: number, token: string, url: string) {
+    constructor(loader: any, language: string, pageId: number, url: string) {
         this.loader = loader;
         this.language = language;
         this.pageId = pageId;
-        this.token = token;
         this.url = url;
     }
 
@@ -34,21 +31,21 @@ export class CKUploadAdapter {
     }
 
     private _initRequest(): void {
-        const xhr = this.xhr = new XMLHttpRequest();
+        const xhr = (this.xhr = new XMLHttpRequest());
 
-        // Create an instance of URLSearchParams
+        // Create query parameters
         const params = new URLSearchParams({
             language: this.language,
-            pageId: this.pageId.toString(),  // Convert pageId to string if it's a number
+            pageId: this.pageId.toString(),
         });
 
-        // Append the parameters to the base URL
+        // Append parameters to URL
         const urlWithParams = `${this.url}?${params.toString()}`;
 
         xhr.open("POST", urlWithParams, true);
         xhr.responseType = "json";
 
-        xhr.setRequestHeader("Authorization", "Bearer " + this.token);
+        xhr.withCredentials = true;
     }
 
     private _initListeners(resolve: (value: { default: string }) => void, reject: (reason?: any) => void): void {
@@ -65,11 +62,7 @@ export class CKUploadAdapter {
                 return reject(response && response.error ? response.error.message : genericErrorText);
             }
 
-            // If the upload is successful, resolve the upload promise with an object containing
-            // at least the "default" URL, pointing to the image on the server.
-            resolve({
-                default: response.url
-            });
+            resolve({default: response.url});
         });
 
         if (xhr.upload) {
@@ -84,7 +77,6 @@ export class CKUploadAdapter {
 
     private async _sendRequest(): Promise<void> {
         const data = new FormData();
-        // Resolve the file promise before appending
         const file = await this.loader.file;
 
         data.append("uploadFile", file);

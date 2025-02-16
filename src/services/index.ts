@@ -1,9 +1,11 @@
 export {auditAPI} from './AuditAPI';
 export {authAPI} from './AuthAPI';
 export {blockedDatesAPI} from './BlockedDatesAPI';
+export {certificateAPI} from './CertificateAPI';
 export {CKUploadAdapter} from './CKUploadAdapter';
 export {diveEventAPI} from './DiveEventAPI';
 export {downloadAPI} from './DownloadAPI';
+export {emailNotificationSubscriptionAPI} from './EmailNotificationSubscriptionAPI';
 export {fileTransferAPI} from './FileTransferAPI';
 export {membershipAPI} from './MembershipAPI';
 export {pageAPI} from './PageAPI';
@@ -11,4 +13,5 @@ export {pageGroupMgmtAPI} from './PageGroupMgmtAPI';
 export {pageMgmtAPI} from './PageMgmtAPI';
 export {paymentAPI} from './PaymentAPI';
 export {portalConfigurationAPI} from './PortalConfigurationAPI';
+export {statsAPI} from './StatsAPI';
 export {userAPI} from './UserAPI';
