@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { Collapse, CollapseProps, Spin } from "antd";
-import { statsAPI } from "../../services/StatsAPI";
+import { statsAPI } from "../../services";
 import { EventPeriodReportResponse } from "../../models/responses";
 import { BiannualEventReportTable } from "./BiannualEventReportTable";
 

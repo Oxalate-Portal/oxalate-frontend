@@ -76,7 +76,6 @@ export function EditDiveEvent() {
             const requiresActivePayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
 
             for (let i = 0; i < users.length; i++) {
-                console.log("Payments for user " + users[i].id + ":", users[i].payments);
                 if ((requiresMembership && !users[i].membershipActive)
                         || (requiresActivePayment && users[i].payments.length === 0)) {
                     continue;
