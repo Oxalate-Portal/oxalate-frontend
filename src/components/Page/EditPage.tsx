@@ -1,16 +1,16 @@
-import {useTranslation} from "react-i18next";
-import {OptionItemVO, PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {useSession} from "../../session";
-import {getHighestRole, getPageGroupTitleByLanguage} from "../../helpers";
-import {useEffect, useState} from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {Alert, Button, Checkbox, Divider, Form, Input, Select, Space} from "antd";
-import {PageGroupResponse, PageResponse, RolePermissionResponse} from "../../models/responses";
-import {pageGroupMgmtAPI, pageMgmtAPI} from "../../services";
-import {SubmitResult} from "../main";
-import {PageRequest} from "../../models/requests";
+import { useTranslation } from "react-i18next";
+import { OptionItemVO, PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { useSession } from "../../session";
+import { getHighestRole, getPageGroupTitleByLanguage } from "../../helpers";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Alert, Button, Checkbox, Divider, Form, Input, Select, Space } from "antd";
+import { PageGroupResponse, PageResponse, RolePermissionResponse } from "../../models/responses";
+import { pageGroupMgmtAPI, pageMgmtAPI } from "../../services";
+import { SubmitResult } from "../main";
+import { PageRequest } from "../../models/requests";
 import dayjs from "dayjs";
-import {PageBodyEditor} from "./PageBodyEditor";
+import { PageBodyEditor } from "./PageBodyEditor";
 
 export function EditPage() {
     const {paramId} = useParams();
@@ -259,7 +259,7 @@ export function EditPage() {
 
     // We use this to get back from success/fail update
     if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
+        return <SubmitResult updateStatus={updateStatus} navigate={navigate} path={"/administration/page-groups/" + pageData.pageGroupId + "/pages"}/>;
     }
 
     return (

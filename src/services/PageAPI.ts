@@ -4,7 +4,6 @@ import {PageRequest} from "../models/requests";
 
 class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
     async getNavigationItems(language: string): Promise<PageGroupResponse[] | void> {
-        this.setAuthorizationHeader();
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         const response = await this.axiosInstance.get("/navigation-elements?language=" + language);
 

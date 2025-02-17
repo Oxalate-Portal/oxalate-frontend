@@ -21,9 +21,7 @@ export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOn
         const fetchImage = async () => {
             try {
                 const response = await axios.get(imageUrl, {
-                    headers: {
-                        Authorization: "Bearer " + userSession?.accessToken,
-                    },
+                    withCredentials: true,
                     responseType: "blob", // Important to get the response as a Blob (binary data)
                 });
 

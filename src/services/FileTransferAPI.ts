@@ -1,5 +1,4 @@
 import Axios, {AxiosInstance, AxiosResponse} from "axios";
-import {SessionVO} from "../models";
 import type {GetProp, UploadFile, UploadProps} from "antd";
 import {FileRemovalResponse} from "../models/responses/FileRemovalResponse";
 import {AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models/responses/filetransfers";
@@ -22,14 +21,16 @@ class FileTransferAPI {
     private static  readonly PAGE_FILE_PATH: string = "/page-files";
 
     constructor() {
-        this.axiosInstance = Axios.create({baseURL: this.baseUrl});
-        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
+        this.axiosInstance = Axios.create({
+            baseURL: this.baseUrl,
+            withCredentials: true,
+            headers: {"Content-Type": "application/json;charset=utf-8"}
+        });
     }
 
     /* ==== Avatar file ==== */
 
     public async findAllAvatarFiles(): Promise<AvatarFileResponse[]> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.get<AvatarFileResponse[]>(FileTransferAPI.AVATAR_PATH);
         return response.data;
     }
@@ -46,7 +47,6 @@ class FileTransferAPI {
     /* ==== Certificate file ==== */
 
     public async findAllCertificateFiles(): Promise<CertificateFileResponse[]> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.get<CertificateFileResponse[]>(FileTransferAPI.CERTIFICATE_PATH);
         return response.data;
     }
@@ -67,7 +67,6 @@ class FileTransferAPI {
     /* ==== Dive file ==== */
 
     public async findAllDiveFiles(): Promise<DiveFileResponse[]> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.get<DiveFileResponse[]>(FileTransferAPI.DIVE_FILE_PATH);
         return response.data;
     }
@@ -78,7 +77,6 @@ class FileTransferAPI {
      * @returns Promise resolving to the response with file download info
      */
     public async uploadDiveFile(uploadFile: UploadFile): Promise<DownloadResponse[]> {
-        this.setAuthorizationHeader();
         this.setMultipartFormDataHeader();
 
         const formData = new FormData();
@@ -100,7 +98,6 @@ class FileTransferAPI {
     /* ==== Document file ==== */
 
     public async findAllDocuments(): Promise<DocumentFileResponse[]> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.get<DocumentFileResponse[]>(FileTransferAPI.DOCUMENT_PATH);
         return response.data;
     }
@@ -111,7 +108,6 @@ class FileTransferAPI {
      * @returns Promise resolving to the response with file download info
      */
     public async uploadDocumentFile(uploadFile: UploadFile): Promise<DownloadResponse[]> {
-        this.setAuthorizationHeader();
         this.setMultipartFormDataHeader();
 
         const formData = new FormData();
@@ -133,7 +129,6 @@ class FileTransferAPI {
     /* ==== Page file ==== */
 
     public async findAllPageFiles(): Promise<PageFileResponse[]> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.get<PageFileResponse[]>(FileTransferAPI.PAGE_FILE_PATH);
         return response.data;
     }
@@ -144,22 +139,8 @@ class FileTransferAPI {
      */
 
     public async removePageFile(pageId: number, language: string, fileName: string): Promise<FileRemovalResponse> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.delete(`${FileTransferAPI.PAGE_FILE_PATH}/${pageId}/${language}/${fileName}`);
         return response.data;
-    }
-
-    /**
-     * Sets the authorization header for the axios instance. We get the authorization bearer value from the local storage. We're forced
-     * to do this on every request because the token can expire at any time.
-     * @private
-     */
-    private setAuthorizationHeader(): void {
-        const session: SessionVO = JSON.parse(localStorage.getItem("user") || "{}");
-
-        if (session && session.accessToken) {
-            this.axiosInstance.defaults.headers.common["Authorization"] = "Bearer " + session.accessToken;
-        }
     }
 
     private setMultipartFormDataHeader(): void {
@@ -167,7 +148,6 @@ class FileTransferAPI {
     }
 
     private async removeFile(fileId: number, fileTypePath: string): Promise<FileRemovalResponse> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.delete(`${fileTypePath}/${fileId}`);
         return response.data;
     }
