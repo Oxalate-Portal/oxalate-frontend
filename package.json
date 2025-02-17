@@ -5,7 +5,7 @@
   "dependencies" : {
     "@ant-design/charts" : "^2.2.6",
     "@ant-design/icons" : "^5.6.0",
-    "@ckeditor/ckeditor5-react" : "^9.3.1",
+    "@ckeditor/ckeditor5-react" : "^9.5.0",
     "@testing-library/jest-dom" : "^6.6.3",
     "@testing-library/react" : "^16.2.0",
     "@types/node" : "^22.10.10",
