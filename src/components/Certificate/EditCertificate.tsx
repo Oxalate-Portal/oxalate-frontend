@@ -6,7 +6,7 @@ import { Button, Form, Input, Space, Spin } from "antd";
 import { useEffect, useState } from "react";
 import { SubmitResult } from "../main";
 import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { certificateAPI } from "../../services/CertificateAPI";
+import { certificateAPI } from "../../services";
 
 export function EditCertificate() {
     const {paramId} = useParams();

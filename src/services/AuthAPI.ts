@@ -10,7 +10,8 @@ class AuthAPI {
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: `${import.meta.env.VITE_APP_API_URL}` + member
+            baseURL: `${import.meta.env.VITE_APP_API_URL}` + member,
+            withCredentials: true
         });
     }
 
@@ -56,23 +57,8 @@ class AuthAPI {
     }
 
     public async updatePassword(userId: number | undefined, postData: { oldPassword: any; newPassword: any; confirmPassword: any }): Promise<UpdateStatusVO> {
-        this.setAuthorizationHeader();
         const response = await this.axiosInstance.put<UpdateStatusVO>("/" + userId + "/password", postData);
         return response.data;
-    }
-
-    /**
-     * Sets the authorization header for the axios instance. We get the authorization bearer value from the local storage. We're forced
-     * to do this on every request because the token can expire at any time.
-     * This is a copy from the one in AbstractAPI.ts
-     * @protected
-     */
-    protected setAuthorizationHeader(): void {
-        const session: SessionVO = JSON.parse(localStorage.getItem("user") || "{}");
-
-        if (session && session.accessToken) {
-            this.axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + session.accessToken;
-        }
     }
 }
 

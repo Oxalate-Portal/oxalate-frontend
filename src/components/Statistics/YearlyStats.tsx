@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MultiYearValueResponse } from "../../models/responses";
-import { statsAPI } from "../../services/StatsAPI";
+import { statsAPI } from "../../services";
 import { Spin } from "antd";
 import { Line } from "@ant-design/charts";
 

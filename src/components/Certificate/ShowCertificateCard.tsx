@@ -2,7 +2,6 @@ import { QuestionCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import { CertificateResponse } from "../../models/responses";
 import { Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, UploadProps } from "antd";
 import { useTranslation } from "react-i18next";
-import { useSession } from "../../session";
 import { useState } from "react";
 import { ProtectedImage } from "../main";
 import { fileTransferAPI } from "../../services";
@@ -15,7 +14,6 @@ interface ShowCertificateCardProps {
 
 export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: ShowCertificateCardProps) {
     const {t} = useTranslation();
-    const {userSession} = useSession();
     const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificatePhotoUrl);
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
@@ -23,11 +21,9 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     const uploadProps: UploadProps = {
         name: "uploadFile",
         action: `${import.meta.env.VITE_APP_API_URL}` + "/files/certificates/" + certificate.id,
-        headers: {
-            authorization: "Bearer " + userSession?.accessToken,
-        },
         showUploadList: false,
         accept: "image/png, image/jpeg, image/jpg",
+        withCredentials: true,
         beforeUpload: (file) => {
             const maxFileSize = 1 * 1024 * 1024;
             if (file.size > maxFileSize) {
@@ -36,9 +32,6 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
             }
         },
         onChange(info) {
-            if (info.file.status !== "uploading") {
-                console.log("Received info: ", info);
-            }
             if (info.file.status === "done") {
                 const uploadedUrl = info.file.response.url;
                 setCertificatePhotoUrl(uploadedUrl);

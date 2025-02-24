@@ -14,8 +14,6 @@ const {Panel} = Collapse;
 export function BiannualEventReportTable({events, childKey}: BiannualEventReportProps) {
     const {t} = useTranslation();
 
-    console.log("Rendering BiannualEventReportTable with key: " + childKey, events);
-
     const eventColumns = [
         {
             title: "#",
