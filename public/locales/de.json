@@ -85,7 +85,7 @@
       }
     }
   },
-  "AdminOrgAdminPaymentListPanel" : {
+  "PaymentListTable" : {
     "table" : {
       "expirationDate" : "Ablaufzeit",
       "name" : "Name",
@@ -157,8 +157,9 @@
     "activeDivider" : "Aktive Zahlungen",
     "addPaymentsDivider" : "Zahlungen hinzufügen",
     "confirmInvalidate" : "Sind Sie sicher, dass alle Jahresgebühren annulliert werden sollen? Diese Änderung kann nicht rückgängig gemacht werden.",
-    "yearlyResetButton" : "Jahresgebühren annullieren",
-    "yearlyResetDivider" : "Annullierung der Jahresgebühren"
+    "reset-one-time-button" : "Einmalzahlungen zurücksetzen",
+    "reset-periodical-button" : "Periodische annullieren",
+    "yearlyResetDivider" : "Annullierung der Gebühren"
   },
   "AdminUploads" : {
     "avatar" : {
@@ -367,6 +368,7 @@
     "eventTypes" : {
       "boat" : "Tauchen vom Boot",
       "cave" : "Höhle",
+      "course" : "Kurs",
       "current" : "Strömung",
       "open-and-cave" : "Offen / Höhle",
       "open-water" : "Offen",
@@ -906,10 +908,11 @@
     "ONE_TIME" : "Einmal",
     "PERIOD" : "Periodische"
   },
-  "PeriodicalPaymentType" : {
+  "PaymentExpirationType" : {
     "disabled" : "Deaktiviert",
     "durational" : "Zeitlich begrenzt",
-    "periodical" : "Periodisch"
+    "periodical" : "Periodisch",
+    "perpetual" : "Unbefristet"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1038,6 +1041,18 @@
       "event-require-payment" : {
         "label" : "Ereignis erfordert Zahlung",
         "tooltip" : "Muss ein Taucher eine gültige Zahlung haben, um an einem Tauchereignis teilzunehmen"
+      },
+      "one-time-expiration-length" : {
+        "label" : "Einmalige Ablaufdauer",
+        "tooltip" : "Dauer des einmaligen Zahlungszeitraums oder der Laufzeit in Anzahl der einmaligen Ablaufzeiteinheiten. Beachten Sie, dass dies nur verwendet wird, wenn der Zahlungstyp befristet ist."
+      },
+      "one-time-expiration-type" : {
+        "label" : "Einmaliger Ablauftyp",
+        "tooltip" : "Einmaliger Ablauftyp. Periodisch bedeutet, dass die Zahlung für den laufenden Zeitraum gültig ist, z. B. das aktuelle Jahr, der aktuelle Monat oder die aktuelle Woche zum angegebenen Startpunkt. Befristet bedeutet, dass sie für einen bestimmten Zeitraum gültig ist."
+      },
+      "one-time-expiration-unit" : {
+        "label" : "Einmalige Ablaufeinheit",
+        "tooltip" : "Einmalige Ablaufeinheit. Beachten Sie, dass dies nur verwendet wird, wenn der Zahlungstyp befristet ist."
       },
       "payment-enabled" : {
         "label" : "Zahlungssystem aktivieren",

@@ -1,14 +1,13 @@
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {diveEventAPI, membershipAPI} from "../../services";
-import {DiveEventResponse, MembershipResponse, PaymentStatusResponse} from "../../models/responses";
-import {DiveEventDetails} from "./DiveEventDetails";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { diveEventAPI, membershipAPI, paymentAPI } from "../../services";
+import { DiveEventResponse, MembershipResponse, PaymentResponse, PaymentStatusResponse } from "../../models/responses";
+import { DiveEventDetails } from "./DiveEventDetails";
 import dayjs from "dayjs";
-import {PaymentTypeEnum, PortalConfigGroupEnum, SessionVO} from "../../models";
-import {Spin} from "antd";
-import {paymentAPI} from "../../services/PaymentAPI";
+import { PaymentTypeEnum, PortalConfigGroupEnum, SessionVO } from "../../models";
+import { Spin } from "antd";
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -19,6 +18,7 @@ export function DiveEvent() {
     const [loading, setLoading] = useState<boolean>(true);
     const [canSubscribe, setCanSubscribe] = useState(false);
     const [subscribing, setSubscribing] = useState(false);
+    const [canUnsubscribe, setCanUnsubscribe] = useState(false);
 
     useEffect(() => {
         if (paramId?.length === 0) {
@@ -70,15 +70,22 @@ export function DiveEvent() {
                 try {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
 
-                    if (paymentStatusResponse.payments.length === 0) {
+                    const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
+
+                    if (diverPayments.length === 0) {
                         return false;
                     }
 
-                    // If there are no one-time payments, we need to make sure the periodical payment is valid when the event takes place
-                    const oneTimePayments = paymentStatusResponse.payments.filter(payment => payment.paymentType === PaymentTypeEnum.ONE_TIME);
+                    // If there are no active one-time payments, we need to make sure the periodical payment is valid when the event takes place
+                    const oneTimePayments = diverPayments.filter(payment => {
+                        return payment.paymentType === PaymentTypeEnum.ONE_TIME
+                                && payment.paymentCount > 0
+                                && (!dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime
+                                        || payment.expiresAt === null)));
+                    });
 
                     if (oneTimePayments.length === 0) {
-                        const periodicalPayments = paymentStatusResponse.payments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIOD);
+                        const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIOD);
                         const validPeriodicalPayment = periodicalPayments.find(payment => !dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime)));
 
                         if (!validPeriodicalPayment) {
@@ -122,6 +129,10 @@ export function DiveEvent() {
                 setCanSubscribe(false);
                 setSubscribing(false);
                 return;
+            }
+            // Diver can only unsubscribe before the event starts
+            if (dayjs().isBefore(dayjs(diveEvent.startTime))) {
+                setCanUnsubscribe(true);
             }
 
             isUserAllowedToParticipate(userSession, diveEvent)
@@ -170,7 +181,7 @@ export function DiveEvent() {
                                 </div>
                             </div>
                     }
-                    {subscribing &&
+                    {subscribing && canUnsubscribe &&
                             <div className="row pt-5">
                                 <div>
                                     <button

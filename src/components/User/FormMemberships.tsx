@@ -23,33 +23,6 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             dataIndex: 'type',
             key: 'membership-type',
             render: (_: string, record: MembershipResponse) => {
-                // Show tag with status
-                let color: string;
-                let label = t("MembershipStatusEnum." + record.status.toLowerCase());
-
-                switch (record.status) {
-                    case MembershipStatusEnum.ACTIVE:
-                        color = "green";
-                        break;
-                    case MembershipStatusEnum.EXPIRED:
-                        color = "orange";
-                        break;
-                    case MembershipStatusEnum.CANCELLED:
-                        color = "red";
-                        break;
-                    default:
-                        color = "red";
-                        break;
-                }
-
-                return (<Tag color={color} key={"membership-status-" + record.id}>{label}</Tag>);
-            }
-        },
-        {
-            title: t("FormMemberships.table.status"),
-            dataIndex: 'status',
-            key: 'membership-status',
-            render: (_: string, record: MembershipResponse) => {
                 let color: string;
                 let label = t("MembershipTypeEnum." + record.type.toLowerCase());
 
@@ -71,6 +44,33 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
                         break;
                 }
                 return (<Tag color={color} key={"membership-type-" + record.id}>{label}</Tag>);
+            }
+        },
+        {
+            title: t("FormMemberships.table.status"),
+            dataIndex: 'status',
+            key: 'membership-status',
+            render: (_: string, record: MembershipResponse) => {
+                // Show tag with status
+                let color: string;
+                let label = t("MembershipStatusEnum." + record.status.toLowerCase());
+
+                switch (record.status) {
+                    case MembershipStatusEnum.ACTIVE:
+                        color = "green";
+                        break;
+                    case MembershipStatusEnum.EXPIRED:
+                        color = "orange";
+                        break;
+                    case MembershipStatusEnum.CANCELLED:
+                        color = "red";
+                        break;
+                    default:
+                        color = "red";
+                        break;
+                }
+
+                return (<Tag color={color} key={"membership-status-" + record.id}>{label}</Tag>);
             }
         },
         {

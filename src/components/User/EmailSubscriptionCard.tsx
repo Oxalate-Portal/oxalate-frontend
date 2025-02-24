@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { emailNotificationSubscriptionAPI } from "../../services/EmailNotificationSubscriptionAPI";
+import { emailNotificationSubscriptionAPI } from "../../services";
 import { EmailNotificationSubscriptionResponse } from "../../models/responses";
 import { Button, Form, Spin, Switch } from "antd";
 import { EmailNotificationTypeEnum } from "../../models";
@@ -21,7 +21,6 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
 
         emailNotificationSubscriptionAPI.getUserEmailSubscriptions()
                 .then(response => {
-                    console.log("Email subscriptions fetched: " + JSON.stringify(response));
                     setSubscriptions(response);
                 })
                 .catch(e => {

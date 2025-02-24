@@ -1,19 +1,22 @@
 import { useTranslation } from "react-i18next";
 import { Button, Form, InputNumber, message, Select, Space, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { PaymentTypeEnum, RoleEnum } from "../../models";
+import { PaymentTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
 import { paymentAPI, userAPI } from "../../services";
-import { DiveEventUserResponse } from "../../models/responses";
+import { ListUserResponse } from "../../models/responses";
 import { PaymentRequest } from "../../models/requests";
+import { useSession } from "../../session";
+import dayjs from "dayjs";
 
 export function AddPayments() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
-    const [users, setUsers] = useState<DiveEventUserResponse[]>([]);
-    const [selectedUsers, setSelectedUsers] = useState<DiveEventUserResponse[]>([]);
+    const [users, setUsers] = useState<ListUserResponse[]>([]);
+    const [selectedUsers, setSelectedUsers] = useState<ListUserResponse[]>([]);
     const filteredOptions = users.filter((o) => !selectedUsers.includes(o));
     const [paymentForm] = Form.useForm();
     const [paymentType, setPaymentType] = useState<PaymentTypeEnum>(PaymentTypeEnum.PERIOD);
+    const {getPortalConfigurationValue} = useSession();
 
     const paymentTypes = [
         {id: PaymentTypeEnum.ONE_TIME, name: t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME)},
@@ -27,15 +30,30 @@ export function AddPayments() {
             paymentAPI.getAllActivePaymentStatus(),
         ])
                 .then(([userList, paymentList]) => {
-                    // Collect the users that already have periodical payments
-                    const periodicalUsers = paymentList
-                            .filter((payment) =>
-                                    payment.payments.some((p) => p.paymentType === PaymentTypeEnum.PERIOD)
-                            )
-                            .map((payment) => payment.userId);
+                    let participantList = [];
+                    const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
 
-                    // Filter out users with periodical payments
-                    setUsers(userList.filter((user) => !periodicalUsers.includes(user.id)));
+                    for (let i = 0; i < userList.length; i++) {
+                        let hasActivePeriodicalPayment = false;
+                        // Find if the user has any active periodical payment
+                        for (let j = 0; j < userList[i].payments.length; j++) {
+                            if (userList[i].payments[j].paymentType === PaymentTypeEnum.PERIOD
+                            && (userList[i].payments[j].expiresAt === null
+                                    || dayjs(userList[i].payments[j].expiresAt).isAfter(dayjs()))) {
+                                hasActivePeriodicalPayment = true;
+                            }
+                        }
+
+
+                        if ((requiresMembership && !userList[i].membershipActive)
+                                || hasActivePeriodicalPayment) {
+                            continue;
+                        }
+
+                        participantList.push(userList[i]);
+                    }
+
+                    setUsers(participantList);
                 })
                 .catch((error) => {
                     console.error("Failed to get users:", error);
@@ -44,7 +62,7 @@ export function AddPayments() {
                 .finally(() => setLoading(false));
     }, [t]);
 
-    function updateSelectedUsers(value: DiveEventUserResponse[]) {
+    function updateSelectedUsers(value: ListUserResponse[]) {
         setSelectedUsers(value.filter(Boolean)); // Remove undefined entries
     }
 

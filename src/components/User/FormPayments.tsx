@@ -71,7 +71,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             render: (date: Date, record: PaymentResponse) => {
                 return (
                     <>
-                        {record.paymentType === PaymentTypeEnum.PERIOD
+                        {record.expiresAt !== null
                                 ? dayjs(date).format("YYYY-MM-DD HH:mm")
                                 : "-"}
                     </>)

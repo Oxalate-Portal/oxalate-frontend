@@ -85,7 +85,7 @@
       }
     }
   },
-  "AdminOrgAdminPaymentListPanel" : {
+  "PaymentListTable" : {
     "table" : {
       "expirationDate" : "Expiration time",
       "name" : "Name",
@@ -157,8 +157,9 @@
     "activeDivider" : "Active payments",
     "addPaymentsDivider" : "Add payments",
     "confirmInvalidate" : "Are you sure you want to void all annual payments? This change cannot be undone.",
-    "yearlyResetButton" : "Void annual payments",
-    "yearlyResetDivider" : "Annual payments void"
+    "reset-one-time-button" : "Void one-time payments",
+    "reset-periodical-button" : "Void periodical payments",
+    "yearlyResetDivider" : "Void payments"
   },
   "AdminUploads" : {
     "avatar" : {
@@ -367,6 +368,7 @@
     "eventTypes" : {
       "boat" : "Diving from boat",
       "cave" : "Cave",
+      "course" : "Course",
       "current" : "Current",
       "open-and-cave" : "Open water / Cave",
       "open-water" : "Open water",
@@ -906,10 +908,11 @@
     "ONE_TIME" : "One-time",
     "PERIOD" : "Periodical"
   },
-  "PeriodicalPaymentType" : {
+  "PaymentExpirationType" : {
     "disabled" : "Disabled",
     "durational" : "Durational",
-    "periodical" : "Periodical"
+    "periodical" : "Periodical",
+    "perpetual" : "Perpetual"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1038,6 +1041,18 @@
       "event-require-payment" : {
         "label" : "Event requires payment",
         "tooltip" : "Does a diver have to have a valid payment to be able to join a dive event"
+      },
+      "one-time-expiration-length" : {
+        "label" : "One-time expiration length",
+        "tooltip" : "Length of the one-time payment period or duration in number of one-time expiration units. Note that this is only used if the payment type is durational."
+      },
+      "one-time-expiration-type" : {
+        "label" : "One-time expiration type",
+        "tooltip" : "One-time expiration type. Periodical means that the payment is valid for the given ongoing period, e.g., the current year, month or week at the given start point. Durational means that it is valid for a given time period forward."
+      },
+      "one-time-expiration-unit" : {
+        "label" : "One-time expiration unit",
+        "tooltip" : "One-time expiration unit. Note that this is only used if the payment type is durational."
       },
       "payment-enabled" : {
         "label" : "Enable payment",
