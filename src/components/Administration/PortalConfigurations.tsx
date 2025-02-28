@@ -14,6 +14,7 @@ export function PortalConfigurations() {
     const [loading, setLoading] = useState(true);
     const [modifiedValues, setModifiedValues] = useState<Record<number, any>>({});
     const {t} = useTranslation();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const groupedConfigurations = portalConfigurations.reduce((acc, config) => {
         acc[config.groupKey] = acc[config.groupKey] || [];
@@ -29,7 +30,7 @@ export function PortalConfigurations() {
                 })
                 .catch((error) => {
                     console.error(error);
-                    message.error(t("Error loading portal configurations"));
+                    messageApi.error(t("Error loading portal configurations"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -55,7 +56,7 @@ export function PortalConfigurations() {
         config.runtimeValue = value;
 
         if (valueType === "email" && !validateEmail(value)) {
-            message.error(t("PortalConfigurations.invalid-email"));
+            messageApi.error(t("PortalConfigurations.invalid-email"));
             return;
         }
 
@@ -66,12 +67,12 @@ export function PortalConfigurations() {
             value: config.runtimeValue,
         })
                 .then(() => {
-                    message.success(t("PortalConfigurations.update-ok"));
+                    messageApi.success(t("PortalConfigurations.update-ok"));
                     reloadConfiguration();
                 })
                 .catch((error) => {
                     console.error("Error updating configuration:", error);
-                    message.error(t("PortalConfigurations.update-fail"));
+                    messageApi.error(t("PortalConfigurations.update-fail"));
                 })
                 .finally(() => {
                     setPortalConfigurations([...portalConfigurations]);
@@ -234,14 +235,14 @@ export function PortalConfigurations() {
                 .then((result) => {
                     if (result.length > 0) {
                         setPortalConfigurations(result);
-                        message.success(t("PortalConfigurations.configuration-reloaded"));
+                        messageApi.success(t("PortalConfigurations.configuration-reloaded"));
                     } else {
-                        message.error(t("PortalConfigurations.configuration-reload-failed"));
+                        messageApi.error(t("PortalConfigurations.configuration-reload-failed"));
                     }
                 })
                 .catch((error) => {
                     console.error("Error reloading configuration:", error);
-                    message.error(t("PortalConfigurations.configuration-reload-failed"));
+                    messageApi.error(t("PortalConfigurations.configuration-reload-failed"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -250,6 +251,7 @@ export function PortalConfigurations() {
 
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <Space direction={"vertical"}>
                     <h4>{t("PortalConfigurations.title")}</h4>
                     <Text type="secondary">{t("PortalConfigurations.description")}</Text>

@@ -1,23 +1,21 @@
 import { useSession } from "../../session";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { PageStatusEnum, RoleEnum } from "../../models";
 import { PageGroupResponse } from "../../models/responses";
-import { Button, Space, Spin, Table } from "antd";
+import { Button, message, Space, Spin, Table } from "antd";
 import { checkRoles, getPageGroupTitleByLanguage } from "../../helpers";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { pageGroupMgmtAPI } from "../../services";
 import { ColumnsType } from "antd/es/table";
-import { SubmitResult } from "../main";
 import { PageStatusTag } from "./PageStatusTag";
 
 export function PageGroups() {
     const {userSession, sessionLanguage} = useSession();
     const [loading, setLoading] = useState<boolean>(true);
     const [pageGroups, setPageGroups] = useState<PageGroupResponse[]>([]);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const {t} = useTranslation();
-    const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const columns: ColumnsType<PageGroupResponse> = [
         {
@@ -103,7 +101,7 @@ export function PageGroups() {
                     })
                     .catch((error) => {
                         console.error(error);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: error});
+                        messageApi.error(error);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -118,21 +116,18 @@ export function PageGroups() {
                 t("PageGroups.deletePath.confirm.2"))) {
             pageGroupMgmtAPI.delete(pageGroupId)
                     .then(() => {
-                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t("PageGroups.updateStatus.removed")});
+                        messageApi.success(t("PageGroups.updateStatus.removed"));
                     })
                     .catch((e: any) => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                     });
         }
     }
 
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <h4>{t("PageGroups.title")}</h4>
 
                 <Spin spinning={loading}>

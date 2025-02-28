@@ -1,25 +1,23 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
-import {PageGroupResponse} from "../../models/responses";
-import {OptionItemVO, PageStatusEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
-import {Button, Divider, Form, Input, Select, Spin} from "antd";
-import {pageGroupMgmtAPI} from "../../services";
-import {SubmitResult} from "../main";
-import {PageGroupRequest} from "../../models/requests";
-import {useSession} from "../../session";
+import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import { PageGroupResponse } from "../../models/responses";
+import { OptionItemVO, PageStatusEnum } from "../../models";
+import { Button, Divider, Form, Input, message, Select, Spin } from "antd";
+import { pageGroupMgmtAPI } from "../../services";
+import { PageGroupRequest } from "../../models/requests";
+import { useSession } from "../../session";
 
 export function EditPageGroup() {
     const {paramId} = useParams();
     const [pageGroupId, setPageGroupId] = useState<number>(0);
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [createNewPageGroup, setCreateNewPageGroup] = useState(false);
     const [sendButtonText, setSendButtonText] = useState(t("EditPageGroup.form.button.update"));
     const [pageGroupForm] = Form.useForm();
-    const navigate = useNavigate();
     const {getFrontendConfigurationValue} = useSession();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const languageList = getFrontendConfigurationValue("enabled-language").split(",");
 
@@ -82,15 +80,15 @@ export function EditPageGroup() {
                     .then((response: PageGroupResponse) => {
                         // If we get back an ID, we assume the creation was successful
                         if (response && response.id > 0) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("EditPageGroup.onFinish.create.ok")});
+                            messageApi.success(t("EditPageGroup.onFinish.create.ok"));
                         } else {
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("EditPageGroup.onFinish.create.fail")});
+                            messageApi.error(t("EditPageGroup.onFinish.create.fail"));
                         }
                         setLoading(false);
                     })
                     .catch(e => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                         setLoading(false);
                     });
         } else {
@@ -98,15 +96,15 @@ export function EditPageGroup() {
                     .then((response: PageGroupResponse) => {
                         // If we get back the same ID as we sent, we assume the update was successful
                         if (response && response.id === pageGroupId) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("EditPageGroup.onFinish.update.ok")});
+                            messageApi.success(t("EditPageGroup.onFinish.update.ok"));
                         } else {
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("EditPageGroup.onFinish.update.fail")});
+                            messageApi.error(t("EditPageGroup.onFinish.update.fail"));
                         }
                         setLoading(false);
                     })
                     .catch(e => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                         setLoading(false);
                     });
         }
@@ -116,12 +114,9 @@ export function EditPageGroup() {
         console.error("Failed:", errorInfo);
     }
 
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <Spin spinning={loading}>
                     {!loading && <Form
                             form={pageGroupForm}

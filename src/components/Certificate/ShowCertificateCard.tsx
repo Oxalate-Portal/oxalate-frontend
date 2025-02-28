@@ -17,6 +17,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificatePhotoUrl);
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
+    const [messageApi, contextHolder] = message.useMessage();
 
     const uploadProps: UploadProps = {
         name: "uploadFile",
@@ -27,7 +28,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
         beforeUpload: (file) => {
             const maxFileSize = 1 * 1024 * 1024;
             if (file.size > maxFileSize) {
-                message.error(t("ShowCertificateCard.card.upload-photo-size-too-big"));
+                messageApi.error(t("ShowCertificateCard.card.upload-photo-size-too-big"));
                 return false;
             }
         },
@@ -36,9 +37,9 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
                 const uploadedUrl = info.file.response.url;
                 setCertificatePhotoUrl(uploadedUrl);
                 setRefreshKey((prevKey) => prevKey + 1);
-                message.success(`${info.file.name} file uploaded successfully`);
+                messageApi.success(`${info.file.name} file uploaded successfully`);
             } else if (info.file.status === "error") {
-                message.error(`${info.file.name} file upload failed.`);
+                messageApi.error(`${info.file.name} file upload failed.`);
             }
         },
     };
@@ -74,13 +75,13 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
         setLoading(true);
         fileTransferAPI.removeCertificateFile(certificate.id)
                 .then(() => {
-                    message.success(t("ShowCertificateCard.card.remove-photo-success"));
+                    messageApi.success(t("ShowCertificateCard.card.remove-photo-success"));
                     setCertificatePhotoUrl(null);
                     setRefreshKey((prevKey) => prevKey + 1);
                 })
                 .catch((error) => {
                     console.error("Error removing certificate photo:", error);
-                    message.error(t("ShowCertificateCard.card.remove-photo-fail"));
+                    messageApi.error(t("ShowCertificateCard.card.remove-photo-fail"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -112,6 +113,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
                     style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 800}}
                     extra={showExtras()}
             >
+                {contextHolder}
                 <Row gutter={16}>
                     {/* Left Column: Certificate details */}
                     <Col span={12}>

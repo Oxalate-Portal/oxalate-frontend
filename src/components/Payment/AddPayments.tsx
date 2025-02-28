@@ -17,6 +17,7 @@ export function AddPayments() {
     const [paymentForm] = Form.useForm();
     const [paymentType, setPaymentType] = useState<PaymentTypeEnum>(PaymentTypeEnum.PERIOD);
     const {getPortalConfigurationValue} = useSession();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const paymentTypes = [
         {id: PaymentTypeEnum.ONE_TIME, name: t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME)},
@@ -57,7 +58,7 @@ export function AddPayments() {
                 })
                 .catch((error) => {
                     console.error("Failed to get users:", error);
-                    message.error(t("AdminPayments.errorGetUsers"));
+                    messageApi.error(t("AdminPayments.errorGetUsers"));
                 })
                 .finally(() => setLoading(false));
     }, [t]);
@@ -86,18 +87,19 @@ export function AddPayments() {
 
         Promise.all(userPromises)
                 .then(() => {
-                    message.success(t("AddPayments.onFinish.ok"));
+                    messageApi.success(t("AddPayments.onFinish.ok"));
                     window.dispatchEvent(new Event("updatePaymentList-" + values.paymentType));
                 })
                 .catch((e) => {
                     console.error("Failed to update user payment information, error: " + e.message);
-                    message.error(t("AddPayments.onFinish.fail"));
+                    messageApi.error(t("AddPayments.onFinish.fail"));
                 })
                 .finally(() => setLoading(false));
     }
 
     return (
             <Spin spinning={loading}>
+                {contextHolder}
                 <Form
                         form={paymentForm}
                         initialValues={{

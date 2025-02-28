@@ -138,6 +138,7 @@
         "button" : "Päivitä",
         "title" : "Päivitä"
       },
+      "approvedTerms" : "Ehdot",
       "firstName" : "Etunimi",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
@@ -421,12 +422,12 @@
         "tooltip" : "Tapahtumaan osallistuvat sukeltajat"
       },
       "startTime" : {
-        "label" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä.",
+        "label" : "Aloitusaika",
         "rules" : {
           "required" : "Aloitusaika on vaadittu kenttä",
           "validator" : "Päivämäärän täytyy olla vähintään 30min tulevaisuudessa!"
         },
-        "tooltip" : "Aloitusaika"
+        "tooltip" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä."
       },
       "status" : {
         "label" : "Sukellustapahtuman tila",
@@ -1162,8 +1163,10 @@
       "diverId" : "Sukeltajatunnus",
       "organization" : "Luokitusjärjestö",
       "photocopy" : "Luokituskortin kopio",
+      "remove-photo-success" : "Kuvan lisäys onnistui",
+      "remove-photo-fail" : "Kuvan poisto epäonnistui",
       "title" : "Luokitus: ",
-      "upload-photo" : "Lataa luokituskortti",
+      "upload-photo" : "Lataa luokituskorttikuva",
       "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt.",
       "upload-photo-tooltip" : "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu."
     }
@@ -1431,6 +1434,10 @@
       "past" : "Menneet tapahtumat",
       "title" : "Tapahtumat",
       "yearlyStats" : "Vuositilastot"
+    },
+    "forum" : {
+      "title" : "Foorumi",
+      "link" : "Pääsivu"
     },
     "pageManagement" : {
       "pages" : "Sivut",

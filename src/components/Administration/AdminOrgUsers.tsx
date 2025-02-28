@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Divider, Input, Space, Spin, Table, Tag } from "antd";
-import { PaymentTypeEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { Button, Divider, Input, message, Space, Spin, Table, Tag } from "antd";
+import { PaymentTypeEnum } from "../../models";
 import { userAPI } from "../../services";
-import { SubmitResult } from "../main";
 import type { ColumnsType } from "antd/es/table";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [searchText, setSearchText] = useState<string>("");
-    const navigate = useNavigate();
     const {t} = useTranslation();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const userListColumns: ColumnsType<AdminUserResponse> = [
         {
@@ -62,6 +61,17 @@ export function AdminOrgUsers() {
             key: "status",
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.status.localeCompare(b.status),
             sortDirections: ["descend", "ascend"]
+        },
+        {
+            title: t("AdminOrgUsers.table.approvedTerms"),
+            dataIndex: "approvedTerms",
+            key: "approvedTerms",
+            sorter: (a: AdminUserResponse) => a.approvedTerms ? 1 : -1,
+            sortDirections: ["descend", "ascend"],
+            render: (_: any, record: AdminUserResponse) => {
+                return record.approvedTerms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
+                        <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
+            }
         },
         {
             title: t("AdminOrgUsers.table.role.title"),
@@ -119,7 +129,7 @@ export function AdminOrgUsers() {
                             }
 
                             return (
-                                    <Tag color={color} key={"payment-" + payment.paymentType}>
+                                    <Tag color={color} key={"payment-" + payment.paymentType + "-" + payment.id}>
                                         {paymentTypeLabel}
                                     </Tag>
                             );
@@ -159,13 +169,13 @@ export function AdminOrgUsers() {
             userAPI.resetTerms()
                     .then(response => {
                         if (response) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AdminOrgUsers.invalidateTermAgreements.ok")});
+                            messageApi.success(t("AdminOrgUsers.invalidateTermAgreements.ok"));
                         } else {
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUsers.invalidateTermAgreements.fail")});
+                            messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
                         }
                     })
                     .catch(e => {
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUsers.invalidateTermAgreements.fail")});
+                        messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
                         console.error("Failed to reset term agreements, error: " + e.message);
                     })
                     .finally(() => {
@@ -174,12 +184,9 @@ export function AdminOrgUsers() {
         }
     }
 
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <h4>{t("AdminOrgUsers.title")}</h4>
                 <Spin spinning={loading}>
                     <Input.Search
