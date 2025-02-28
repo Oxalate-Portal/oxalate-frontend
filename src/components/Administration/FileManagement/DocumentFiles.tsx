@@ -13,6 +13,7 @@ export function DocumentFiles() {
     const {userSession} = useSession();
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const {t} = useTranslation();
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         fileTransferAPI.findAllDocuments()
@@ -54,9 +55,9 @@ export function DocumentFiles() {
             }
             if (info.file.status === "done") {
                 setRefreshKey((prevKey) => prevKey + 1);
-                message.success(info.file.name + " " + t("AdminUploads.document.upload.successful"));
+                messageApi.success(info.file.name + " " + t("AdminUploads.document.upload.successful"));
             } else if (info.file.status === "error") {
-                message.error(info.file.name + " " + t("AdminUploads.document.upload.fail"));
+                messageApi.error(info.file.name + " " + t("AdminUploads.document.upload.fail"));
             }
         },
         showUploadList: false,
@@ -68,11 +69,11 @@ export function DocumentFiles() {
         fileTransferAPI.removeDocumentFile(id)
                 .then(() => {
                     setRefreshKey((prevKey) => prevKey + 1);
-                    message.success(t("AdminUploads.document.delete.successful"));
+                    messageApi.success(t("AdminUploads.document.delete.successful"));
                 })
                 .catch((error) => {
                     console.error("Error removing document", error);
-                    message.error(t("AdminUploads.document.delete.fail"));
+                    messageApi.error(t("AdminUploads.document.delete.fail"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -81,6 +82,7 @@ export function DocumentFiles() {
 
     return (
             <Space direction={"vertical"} size={"middle"}>
+                {contextHolder}
                 <Upload {...uploadProps} key={"upload-document-" + refreshKey}>
                     <Button icon={<UploadOutlined/>}>
                         {t("AdminUploads.document.upload.button")}

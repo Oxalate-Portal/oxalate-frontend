@@ -138,6 +138,7 @@
         "button" : "Update",
         "title" : "Update"
       },
+      "approvedTerms" : "Terms",
       "firstName" : "First name",
       "lastName" : "Last name",
       "login" : "Username",
@@ -421,12 +422,12 @@
         "tooltip" : "Participants in the event"
       },
       "startTime" : {
-        "label" : "Start time, note that this is in the timezone of the location",
+        "label" : "Start time",
         "rules" : {
           "required" : "Start time is a required field",
           "validator" : "The date must be at least 30 minutes in the future!"
         },
-        "tooltip" : "Start time"
+        "tooltip" : "Start time, note that this is in the timezone of the location"
       },
       "status" : {
         "label" : "Dive event status",
@@ -1162,6 +1163,8 @@
       "diverId" : "Diver ID",
       "organization" : "Certification organization",
       "photocopy" : "Certification photocopy",
+      "remove-photo-success" : "Certificate photo removed successfully",
+      "remove-photo-fail" : "Failed to remove certificate photo",
       "title" : "Certification: ",
       "upload-photo" : "Upload certificate",
       "upload-photo-size-too-big" : "File size is too big, max 1MB allowed",
@@ -1431,6 +1434,10 @@
       "past" : "Past events",
       "title" : "Events",
       "yearlyStats" : "Yearly statistics"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Main page"
     },
     "pageManagement" : {
       "pages" : "Pages",

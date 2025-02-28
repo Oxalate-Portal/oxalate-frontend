@@ -138,6 +138,7 @@
         "button" : "Aktualisieren",
         "title" : "Aktualisieren"
       },
+      "approvedTerms" : "Bedingungen",
       "firstName" : "Vorname",
       "lastName" : "Nachname",
       "login" : "Benutzername",
@@ -421,12 +422,12 @@
         "tooltip" : "Teilnehmer an der Veranstaltung"
       },
       "startTime" : {
-        "label" : "Startzeit, beachten Sie, dass diese in der Zeitzone des Standorts liegt.",
+        "label" : "Startzeit",
         "rules" : {
           "required" : "Startzeit ist ein Pflichtfeld",
           "validator" : "Das Datum muss mindestens 30 Minuten in der Zukunft liegen!"
         },
-        "tooltip" : "Startzeit des Ereignisses"
+        "tooltip" : "Startzeit des Ereignisses, beachten Sie, dass diese in der Zeitzone des Standorts liegt."
       },
       "status" : {
         "label" : "Status des Tauchereignisses",
@@ -1162,6 +1163,8 @@
       "diverId" : "Taucher-ID",
       "organization" : "Zertifizierungsstelle",
       "photocopy" : "Zertifikatskopie",
+      "remove-photo-success" : "Zertifikatsfoto erfolgreich entfernt",
+      "remove-photo-fail" : "Entfernen des Zertifikatsfotos fehlgeschlagen",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
       "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist.",
@@ -1431,6 +1434,10 @@
       "past" : "Vergangene Veranstaltungen",
       "title" : "Veranstaltungen",
       "yearlyStats" : "Jahresstatistiken"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Hauppauge"
     },
     "pageManagement" : {
       "pages" : "Seiten",

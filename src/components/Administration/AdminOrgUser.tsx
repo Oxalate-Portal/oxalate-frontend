@@ -1,25 +1,23 @@
-import {useNavigate, useParams} from "react-router-dom";
-import {SyntheticEvent, useEffect, useState} from "react";
-import {ResultEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum} from "../../models";
-import {useTranslation} from "react-i18next";
-import {authAPI, userAPI} from "../../services";
-import {AdminUserResponse} from "../../models/responses/AdminUserResponse";
-import {Button, Checkbox, Col, Form, Input, Row, Select, Space, Spin} from "antd";
-import {UserFields} from "../User";
-import {checkRoles} from "../../helpers";
-import {UserRequest} from "../../models/requests";
-import {SubmitResult} from "../main";
+import { useParams } from "react-router-dom";
+import { SyntheticEvent, useEffect, useState } from "react";
+import { ResultEnum, RoleEnum, UserStatusEnum } from "../../models";
+import { useTranslation } from "react-i18next";
+import { authAPI, userAPI } from "../../services";
+import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
+import { Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin } from "antd";
+import { UserFields } from "../User";
+import { checkRoles } from "../../helpers";
+import { UserRequest } from "../../models/requests";
 
 export function AdminOrgUser() {
     const {paramId} = useParams();
     const [workUser, setWorkUser] = useState<AdminUserResponse | null>(null);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [blockSendEmail, setBlockSendEmail] = useState(false);
     const [loading, setLoading] = useState(true);
     const [invalidForm, setInvalidForm] = useState(false);
     const {t} = useTranslation();
     const [userForm] = Form.useForm();
-    const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const statusTypes = [
         {value: UserStatusEnum.REGISTERED, label: t("common.userStatus.registered")},
@@ -123,12 +121,12 @@ export function AdminOrgUser() {
 
         userAPI.update(postData)
                 .then((response) => {
-                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AdminOrgUser.updateUser.ok")});
                     setWorkUser(response);
+                    messageApi.success(t("AdminOrgUser.updateUser.ok"));
                 })
                 .catch(e => {
                     console.error("Failed to update user, error: " + e.message);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUser.updateUser.fail")});
+                    messageApi.error(t("AdminOrgUser.updateUser.fail"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -139,12 +137,9 @@ export function AdminOrgUser() {
         console.error("Failed:", errorInfo);
     }
 
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <Spin spinning={loading}>
                     {workUser && workUser.id > 0 && <Form
                             form={userForm}

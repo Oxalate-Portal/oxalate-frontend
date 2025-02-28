@@ -138,6 +138,7 @@
         "button" : "Uppdatera",
         "title" : "Uppdatera"
       },
+      "approvedTerms" : "Vilkor",
       "firstName" : "Förnamn",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
@@ -421,12 +422,12 @@
         "tooltip" : "Deltagare i evenemanget"
       },
       "startTime" : {
-        "label" : "Starttid, observera att detta är i platsens tidszon.",
+        "label" : "Starttid",
         "rules" : {
           "required" : "Starttid är ett obligatoriskt fält",
           "validator" : "Datumet måste vara minst 30 minuter framåt i tiden!"
         },
-        "tooltip" : "Starttid för evenemanget"
+        "tooltip" : "Starttid för evenemanget, observera att detta är i platsens tidszon."
       },
       "status" : {
         "label" : "Dykeventstatus",
@@ -1162,8 +1163,10 @@
       "diverId" : "Dykarnummer",
       "organization" : "Certifieringsorganisation",
       "photocopy" : "Kopia av dykcertifikat",
+      "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
+      "remove-photo-fail" : "Kunde inte ta bort fotokopia av dykcertifikat",
       "title" : "Certifikat: ",
-      "upload-photo" : "Ladda dykcertificat",
+      "upload-photo" : "Ladda fotokopia av dykcertifikat",
       "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
       "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
     }
@@ -1431,6 +1434,10 @@
       "past" : "Förflutna evenemang",
       "title" : "Evenemang",
       "yearlyStats" : "Årlig statistik"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Huvudsidan"
     },
     "pageManagement" : {
       "pages" : "Sidor",

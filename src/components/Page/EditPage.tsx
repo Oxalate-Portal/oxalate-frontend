@@ -1,13 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { OptionItemVO, PageStatusEnum, RoleEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { OptionItemVO, PageStatusEnum, RoleEnum } from "../../models";
 import { useSession } from "../../session";
 import { getHighestRole, getPageGroupTitleByLanguage } from "../../helpers";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Alert, Button, Checkbox, Divider, Form, Input, Select, Space } from "antd";
+import { useParams } from "react-router-dom";
+import { Alert, Button, Checkbox, Divider, Form, Input, message, Select, Space } from "antd";
 import { PageGroupResponse, PageResponse, RolePermissionResponse } from "../../models/responses";
 import { pageGroupMgmtAPI, pageMgmtAPI } from "../../services";
-import { SubmitResult } from "../main";
 import { PageRequest } from "../../models/requests";
 import dayjs from "dayjs";
 import { PageBodyEditor } from "./PageBodyEditor";
@@ -16,13 +15,12 @@ export function EditPage() {
     const {paramId} = useParams();
     const {userSession, sessionLanguage, getFrontendConfigurationValue} = useSession();
     const {t} = useTranslation();
-    const navigate = useNavigate();
     const languageList = getFrontendConfigurationValue("enabled-language").split(",");
+    const [messageApi, contextHolder] = message.useMessage();
 
     const [pageId, setPageId] = useState<number>(0);
     const [pageGroupOptions, setPageGroupOptions] = useState<OptionItemVO[]>([]);
     const [loading, setLoading] = useState(true);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [createNewPage, setCreateNewPage] = useState<boolean>(false);
     const [sendButtonText, setSendButtonText] = useState<string>(t("EditPage.form.button.update"));
     const [pageForm] = Form.useForm();
@@ -166,14 +164,16 @@ export function EditPage() {
                     .then((response: PageResponse) => {
                         // If we get back an ID, we assume the creation was successful
                         if (response && response.id > 0) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("EditPage.onFinish.create.ok")});
+                            messageApi.success(t("EditPage.onFinish.create.ok"));
+                            setPageId(response.id);
+                            setPageData(response);
                         } else {
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("EditPage.onFinish.create.fail")});
+                            messageApi.error(t("EditPage.onFinish.create.fail"));
                         }
                     })
                     .catch(e => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -183,15 +183,15 @@ export function EditPage() {
                     .then((response) => {
                         // If we get back the same ID as we sent, we assume the update was successful
                         if (response && response.id === pageId) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("EditPage.onFinish.update.ok")});
+                            messageApi.success(t("EditPage.onFinish.update.ok"));
                         } else {
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("EditPage.onFinish.update.fail")});
+                            messageApi.error(t("EditPage.onFinish.update.fail"));
                         }
                         setLoading(false);
                     })
                     .catch(e => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                         setLoading(false);
                     })
                     .finally(() => {
@@ -257,13 +257,9 @@ export function EditPage() {
         return Promise.reject(t("EditPage.form.page-versions.body.rules.min"));
     }
 
-    // We use this to get back from success/fail update
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate} path={"/administration/page-groups/" + pageData.pageGroupId + "/pages"}/>;
-    }
-
     return (
             <div className={"darkDiv"} key={"pageDiv"}>
+                {contextHolder}
                 <h4 key={"pageHeader"}>{t(formTitleKey)}</h4>
                 <Space direction={"vertical"} size={12} style={{width: "100%", justifyContent: "center"}}>
                     {pageId == 0 &&

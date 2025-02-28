@@ -1,9 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { userAPI } from "../../services";
-import { Spin, Table } from "antd";
-import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { SubmitResult } from "../main";
+import { message, Spin, Table } from "antd";
 import { useTranslation } from "react-i18next";
 import { UserResponse } from "../../models/responses";
 import { FormPayments } from "./FormPayments";
@@ -16,9 +14,8 @@ export function ShowUser() {
     const [tableData, setTableData] = useState<{ id: number, name: string, value: string | number }[]>([]);
     const [userData, setUserData] = useState<UserResponse | null>(null);
     const [loading, setLoading] = useState(true);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const {t} = useTranslation();
-    const navigate = useNavigate();
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         setLoading(true);
@@ -45,26 +42,16 @@ export function ShowUser() {
                     })
                     .catch((error) => {
                         console.error(error);
-                        setUpdateStatus({
-                            status: UpdateStatusEnum.OK,
-                            message: t("ShowUser.fetchUserData.fail")
-                        });
+                        messageApi.error(t("ShowUser.fetchUserData.fail"));
                     })
                     .finally(() => {
                         setLoading(false);
                     });
         } else {
-            setUpdateStatus({
-                status: UpdateStatusEnum.OK,
-                message: t("ShowUser.userId.fail")
-            });
+            messageApi.error(t("ShowUser.userId.fail"));
             setLoading(false);
         }
     }, [paramId, t]);
-
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
 
     const colums = [
         {
@@ -82,6 +69,7 @@ export function ShowUser() {
 
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <Spin spinning={loading}>
                     {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
                     {userData && t("UserDetails.table.payments")}

@@ -1,21 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
 import { BlockedDateResponse, DiveEventResponse, ListUserResponse } from "../../models/responses";
-import {
-    DiveEventStatusEnum,
-    DiveTypeEnum,
-    OptionItemVO,
-    PaymentTypeEnum,
-    PortalConfigGroupEnum,
-    RoleEnum,
-    UpdateStatusEnum,
-    UpdateStatusVO
-} from "../../models";
+import { DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, PaymentTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
 import { useTranslation } from "react-i18next";
-import { Alert, Button, DatePicker, Form, Input, Select, Slider, Space } from "antd";
+import { Button, DatePicker, Form, Input, message, Select, Slider, Space } from "antd";
 import dayjs, { Dayjs } from "dayjs";
-import { SubmitResult } from "../main";
 import TextArea from "antd/es/input/TextArea";
 import { DiveEventRequest } from "../../models/requests";
 import { useSession } from "../../session";
@@ -27,8 +17,6 @@ export function EditDiveEvent() {
     const [loading, setLoading] = useState<boolean>(true);
     const [diveEvent, setDiveEvent] = useState<DiveEventResponse | null>(null);
     const {t} = useTranslation();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
-    const navigate = useNavigate();
     const [blockedDates, setBlockedDates] = useState<Date[]>([]);
 
     const [organizerOptions, setOrganizerOptions] = useState<OptionItemVO[]>([]);
@@ -59,6 +47,7 @@ export function EditDiveEvent() {
     ];
 
     const [diveEventForm] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         function populateOrganizerList(organizers: ListUserResponse[]): void {
@@ -261,16 +250,20 @@ export function EditDiveEvent() {
 
     function onFinish(submitValues: DiveEventRequest) {
         setLoading(true);
+        // First make sure we're not editing an event in the past
+        if (dayjs().isAfter(dayjs(submitValues.startTime).add(submitValues.eventDuration, "hour"))) {
+                messageApi.error(t("EditEvent.oldEvent.alertText"));
+                setLoading(false);
+                return;
+        }
+
         // Zero the seconds and milliseconds
         submitValues.startTime = dayjs(submitValues.startTime).second(0).millisecond(0);
         // Shift the datetime to the configured timezone
         submitValues.startTime = localToUTCDatetime(submitValues.startTime, getPortalTimezone());
         // Check also that the new maxParticipants value is not lower than the current number of participants
         if (submitValues.maxParticipants < submitValues.participants.length) {
-            setUpdateStatus({
-                status: UpdateStatusEnum.FAIL,
-                message: t("EditEvent.onFinish.updateStatusFailMaxParticipant")
-            });
+            messageApi.error(t("EditEvent.onFinish.updateStatusFailMaxParticipant"));
             setLoading(false);
             return;
         }
@@ -281,20 +274,14 @@ export function EditDiveEvent() {
                         // If we get back the same ID as we sent, we assume the update was successful
                         // The eventId is a string, so we need to convert it to int
                         if (response.id === diveEventId) {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.OK,
-                                message: t("EditEvent.onFinish.updateStatusOk")
-                            });
+                            messageApi.success(t("EditEvent.onFinish.updateStatusOk"));
                         } else {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.FAIL,
-                                message: t("EditEvent.onFinish.updateStatusFail")
-                            });
+                            messageApi.error(t("EditEvent.onFinish.updateStatusFail"));
                         }
                     })
                     .catch(e => {
                         console.error("Failed to update event:", e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.success(e);
                     });
         } else {
             submitValues.id = 0;
@@ -302,17 +289,14 @@ export function EditDiveEvent() {
                     .then((response) => {
                         // If we get back an non-zero positive ID as we sent, we assume the update was successful
                         if (response && !isNaN(response.id) && response.id > 0) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("EditEvent.onFinish.addStatusOk")});
+                            messageApi.success(t("EditEvent.onFinish.addStatusOk"));
                         } else {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.FAIL,
-                                message: t("EditEvent.onFinish.addStatusFail")
-                            });
+                            messageApi.error(t("EditEvent.onFinish.addStatusFail"));
                         }
                     })
                     .catch(e => {
                         console.error("Failed to create event:", e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.success(e);
                     });
         }
 
@@ -320,21 +304,12 @@ export function EditDiveEvent() {
     }
 
     function onFinishFail(errorInfo: { errorFields: { errors: any[]; }[]; }) {
-        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: errorInfo.errorFields[0].errors[0]});
-    }
-
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    } else if (diveEvent && diveEvent.id > 0 && diveEvent.startTime && dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour"))) {
-        return (<div>
-            <Alert type={"error"}
-                   message={t("EditEvent.oldEvent.alertText")}/>
-            <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>
-        </div>);
+        messageApi.success(errorInfo.errorFields[0].errors[0]);
     }
 
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <h4>{t("EditEvent.title")}</h4>
                 {!loading && diveEvent && <Form
                         form={diveEventForm}
