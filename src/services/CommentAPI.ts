@@ -1,6 +1,6 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {CommentRequest} from "../models/requests";
-import {CommentResponse} from "../models/responses";
+import {CommentRequest, ReportRequest} from "../models/requests";
+import {CommentResponse, ReportResponse} from "../models/responses";
 
 class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
@@ -11,6 +11,11 @@ class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
     public async findAllForParentIdWithDepth(parentId: number, depth: number): Promise<CommentResponse> {
         const response = await this.axiosInstance.get<CommentResponse>("/" + parentId + "/" + depth);
+        return response.data;
+    }
+
+    public async report(reportRequest: ReportRequest): Promise<ReportResponse> {
+        const response = await this.axiosInstance.post<ReportResponse>("/report", reportRequest);
         return response.data;
     }
 }

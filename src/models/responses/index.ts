@@ -24,6 +24,7 @@ export type {PaymentStatusResponse} from "./PaymentStatusResponse";
 export type {PortalConfigurationResponse} from "./PortalConfigurationResponse";
 export type {PortalConfigurationStatusResponse} from "./PortalConfigurationStatusResponse";
 export type {RegistrationResponse} from "./RegistrationResponse";
+export type {ReportResponse} from "./ReportResponse";
 export type {RolePermissionResponse} from "./RolePermissionResponse";
 export type {TermsResponse} from "./TermsResponse";
 export type {UserResponse} from "./UserResponse";
