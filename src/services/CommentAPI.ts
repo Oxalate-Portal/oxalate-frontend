@@ -4,15 +4,13 @@ import {CommentResponse} from "../models/responses";
 
 class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
-    public async findAllForParentId(parentId: number) {
-        this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<CommentResponse[]>("/" + parentId);
+    public async findAllForParentId(parentId: number): Promise<CommentResponse> {
+        const response = await this.axiosInstance.get<CommentResponse>("/" + parentId);
         return response.data;
     }
 
-    public async findAllForParentIdWithDepth(parentId: number, depth: number) {
-        this.setAuthorizationHeader();
-        const response = await this.axiosInstance.get<CommentResponse[]>("/" + parentId + "/" + depth);
+    public async findAllForParentIdWithDepth(parentId: number, depth: number): Promise<CommentResponse> {
+        const response = await this.axiosInstance.get<CommentResponse>("/" + parentId + "/" + depth);
         return response.data;
     }
 }

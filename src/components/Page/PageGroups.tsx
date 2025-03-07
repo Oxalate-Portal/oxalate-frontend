@@ -4,11 +4,10 @@ import { useEffect, useState } from "react";
 import { PageStatusEnum, RoleEnum } from "../../models";
 import { PageGroupResponse } from "../../models/responses";
 import { Button, message, Space, Spin, Table } from "antd";
-import { checkRoles, getPageGroupTitleByLanguage } from "../../helpers";
+import { checkRoles, getPageGroupTitleByLanguage, pageStatusEnum2Tag } from "../../helpers";
 import { Link } from "react-router-dom";
 import { pageGroupMgmtAPI } from "../../services";
 import { ColumnsType } from "antd/es/table";
-import { PageStatusTag } from "./PageStatusTag";
 
 export function PageGroups() {
     const {userSession, sessionLanguage} = useSession();
@@ -58,9 +57,7 @@ export function PageGroups() {
             title: t("PageGroups.table.status"),
             dataIndex: "status",
             key: "status",
-            render: (_text: string, record: PageGroupResponse) => {
-                return (<PageStatusTag pageStatus={record.status} recordId={record.id}/>);
-            },
+            render: (_text: string, record: PageGroupResponse) => pageStatusEnum2Tag(record.status, t, record.id)
         },
         {
             title: "",

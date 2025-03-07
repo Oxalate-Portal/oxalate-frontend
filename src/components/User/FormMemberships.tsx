@@ -1,8 +1,9 @@
-import { Table, Tag } from "antd";
+import { Table } from "antd";
 import { MembershipResponse } from "../../models/responses";
 import { useTranslation } from "react-i18next";
-import { MembershipStatusEnum, MembershipTypeEnum } from "../../models";
+import { MembershipTypeEnum } from "../../models";
 import dayjs from "dayjs";
+import { membershipStatusEnum2Tag, membershipTypeEnum2Tag } from "../../helpers";
 
 interface FormMembershipsProps {
     membershipList?: MembershipResponse[];
@@ -22,56 +23,13 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             title: t("FormMemberships.table.type"),
             dataIndex: 'type',
             key: 'membership-type',
-            render: (_: string, record: MembershipResponse) => {
-                let color: string;
-                let label = t("MembershipTypeEnum." + record.type.toLowerCase());
-
-                switch (record.type) {
-                    case MembershipTypeEnum.DISABLED:
-                        color = "red";
-                        break;
-                    case MembershipTypeEnum.DURATIONAL:
-                        color = "yellow";
-                        break;
-                    case MembershipTypeEnum.PERIODICAL:
-                        color = "blue";
-                        break;
-                    case MembershipTypeEnum.PERPETUAL:
-                        color = "green";
-                        break;
-                    default:
-                        color = "red";
-                        break;
-                }
-                return (<Tag color={color} key={"membership-type-" + record.id}>{label}</Tag>);
-            }
+            render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id)
         },
         {
             title: t("FormMemberships.table.status"),
             dataIndex: 'status',
             key: 'membership-status',
-            render: (_: string, record: MembershipResponse) => {
-                // Show tag with status
-                let color: string;
-                let label = t("MembershipStatusEnum." + record.status.toLowerCase());
-
-                switch (record.status) {
-                    case MembershipStatusEnum.ACTIVE:
-                        color = "green";
-                        break;
-                    case MembershipStatusEnum.EXPIRED:
-                        color = "orange";
-                        break;
-                    case MembershipStatusEnum.CANCELLED:
-                        color = "red";
-                        break;
-                    default:
-                        color = "red";
-                        break;
-                }
-
-                return (<Tag color={color} key={"membership-status-" + record.id}>{label}</Tag>);
-            }
+            render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id)
         },
         {
             title: t("FormMemberships.table.created-at"),

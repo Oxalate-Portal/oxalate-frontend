@@ -80,7 +80,7 @@ export function Forum() {
     };
 
     return (
-            <div>
+            <div className={"darkDiv"}>
                 <h1>Forum Topics</h1>
                 {renderComments(3)} {/* Render top-level comments (parentCommentId: null) */}
             </div>

@@ -288,6 +288,23 @@
     "months" : "Kuukausi",
     "years" : "Vuosi"
   },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Peruutettu",
+    "drafted" : "Luonnos",
+    "held" : "Pidetty",
+    "published" : "Julkaistu",
+    "unknown" : "Tuntematon"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Sukellusta veneestä",
+    "cave" : "Luola",
+    "course" : "Kurssi",
+    "current" : "Virta",
+    "open-and-cave" : "Avo / Luola",
+    "open-water" : "Avo",
+    "surface" : "Vain pintatoimintaa",
+    "unknown" : "Tuntematon"
+  },
   "DownloadData" : {
     "certificateLabel" : "Luokitukset",
     "choose" : "Valitse yksi seuraavista ladattavaksi:",
@@ -366,16 +383,6 @@
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Sukellusta veneestä",
-      "cave" : "Luola",
-      "course" : "Kurssi",
-      "current" : "Virta",
-      "open-and-cave" : "Avo / Luola",
-      "open-water" : "Avo",
-      "surface" : "Vain pintatoimintaa",
-      "unknown" : "Tuntematon"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Päivitä sukellusmäärät"
@@ -657,6 +664,7 @@
       "organizer" : "Järjestäjä",
       "participants" : "Osallistujat",
       "startTime" : "Ajankohta",
+      "status" : "Tila",
       "title" : "Kuvaus",
       "type" : "Tyyppi"
     },
@@ -918,6 +926,21 @@
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Lataa asetukset palvelimella"
+    },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Salli kommenttien päivitys",
+        "tooltip" : "Voiko käyttäjä päivittää kommenttinsa?"
+      },
+      "commenting-enabled" : {
+        "label" : "Ota kommentointi käyttöön",
+        "tooltip" : "Onko kommentointi oletusarvoisesti käytössä?"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Kommentoinnille käytettävissä olevat toiminnot",
+        "tooltip" : "Mitkä toiminnot ovat käytettävissä kommentointiin?"
+      },
+      "title" : "Kommentointi"
     },
     "configuration" : "Asetus",
     "configuration-reloaded" : "Asennukset ladattu palvelimelta",
@@ -1392,10 +1415,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Ylläpitäjä",
-      "anonymous" : "Anonyymi",
-      "organizer" : "Tapahtumajärjestäjä",
-      "user" : "Käyttäjä"
+      "role_admin" : "Ylläpitäjä",
+      "role_anonymous" : "Anonyymi",
+      "role_organizer" : "Tapahtumajärjestäjä",
+      "role_user" : "Käyttäjä"
     },
     "spinner" : {
       "loading" : "Ladataan..."

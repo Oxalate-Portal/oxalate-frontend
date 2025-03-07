@@ -7,7 +7,8 @@ import { DiveEventResponse, MembershipResponse, PaymentResponse, PaymentStatusRe
 import { DiveEventDetails } from "./DiveEventDetails";
 import dayjs from "dayjs";
 import { PaymentTypeEnum, PortalConfigGroupEnum, SessionVO } from "../../models";
-import { Spin } from "antd";
+import { Divider, Spin } from "antd";
+import { DisplayCommentThread, DiveEventCommentEditor } from "../Commenting";
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -19,6 +20,7 @@ export function DiveEvent() {
     const [canSubscribe, setCanSubscribe] = useState(false);
     const [subscribing, setSubscribing] = useState(false);
     const [canUnsubscribe, setCanUnsubscribe] = useState(false);
+    const [eventCommenting, setEventCommenting] = useState(false);
 
     useEffect(() => {
         if (paramId?.length === 0) {
@@ -141,6 +143,11 @@ export function DiveEvent() {
                     });
             setSubscribing(isUserParticipating(userSession, diveEvent));
         }
+
+        if ((getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled") === "true")
+        && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("event"))) {
+            setEventCommenting(true);
+        }
     }, [userSession, diveEvent]);
 
 
@@ -191,6 +198,13 @@ export function DiveEvent() {
                                 </div>
                             </div>
                     }
+
+                    {diveEvent && (diveEventId > 0) && eventCommenting &&
+                            <>
+                                <Divider orientation={"left"} key={"diveEventCommentDivider"}>Comments</Divider>
+                                <DisplayCommentThread commentId={diveEvent.eventCommentId} />
+                                <DiveEventCommentEditor key={"DiveEventCommentEditor" + diveEventId} diveEventId={diveEventId}/>
+                            </>}
                 </Spin>
             </div>
     );

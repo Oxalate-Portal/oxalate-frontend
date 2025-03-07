@@ -2,10 +2,10 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useSession } from "../../session";
 import { DiveEventResponse, ListUserResponse } from "../../models/responses";
-import { checkRoles } from "../../helpers";
+import { checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag } from "../../helpers";
 import { Link } from "react-router-dom";
-import { DiveTypeEnum, PaymentTypeEnum, RoleEnum } from "../../models";
-import { Space, Spin, Table, Tag, Tooltip } from "antd";
+import { RoleEnum } from "../../models";
+import { Space, Spin, Table, Tooltip } from "antd";
 import { LinkOutlined } from "@ant-design/icons";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
@@ -57,45 +57,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.type"),
             dataIndex: "type",
             key: "type",
-            render: (_, record: DiveEventResponse) => {
-                let color: string;
-                let labelText: string;
-
-                switch (record.type) {
-                    case DiveTypeEnum.BOAT:
-                        color = "yellow";
-                        labelText = t("EditEvent.eventTypes.boat");
-                        break;
-                    case DiveTypeEnum.CAVE:
-                        color = "blue";
-                        labelText = t("EditEvent.eventTypes.cave");
-                        break;
-                    case DiveTypeEnum.CURRENT:
-                        color = "violet";
-                        labelText = t("EditEvent.eventTypes.current");
-                        break;
-                    case DiveTypeEnum.OPEN_AND_CAVE:
-                        color = "green";
-                        labelText = t("EditEvent.eventTypes.open-and-cave");
-                        break;
-                    case DiveTypeEnum.OPEN_WATER:
-                        color = "marine";
-                        labelText = t("EditEvent.eventTypes.open-water");
-                        break;
-                    case DiveTypeEnum.SURFACE:
-                        color = "white";
-                        labelText = t("EditEvent.eventTypes.surface");
-                        break;
-                    default:
-                        color = "red";
-                        labelText = t("EditEvent.eventTypes.unknown");
-                }
-
-                return (
-                        <Tag color={color} key={"divetype-" + record.id}>
-                            {labelText}
-                        </Tag>);
-            }
+            render: (_, record: DiveEventResponse) => diveTypeEnum2Tag(record.type, t, record.id)
         },
         {
             title: t("EventDetails.table.organizer"),
@@ -178,29 +140,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                 key: "payments",
                 render: (_, {payments}) => (
                         <>
-                            {payments.map((payment) => {
-                                let color: string;
-                                let labelText: string;
-
-                                switch (payment.paymentType) {
-                                    case PaymentTypeEnum.PERIOD:
-                                        color = "green";
-                                        labelText = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
-                                        break;
-                                    case PaymentTypeEnum.ONE_TIME:
-                                        color = "blue";
-                                        labelText = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
-                                        break;
-                                    default:
-                                        color = "red";
-                                        labelText = t("EventDetails.participantTable.paymentType.unknown");
-                                }
-
-                                return (
-                                        <Tag color={color} key={"payment-" + payment.userId + "-" + payment.id}>
-                                            {labelText}
-                                        </Tag>);
-                            })}
+                            {payments.map((payment) => paymentTypeEnum2Tag(payment.paymentType, t, payment.id))}
                         </>
                 )
             }];

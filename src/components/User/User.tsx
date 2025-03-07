@@ -191,13 +191,13 @@ export function User() {
                             <Checkbox.Group style={{width: "100%"}}>
                                 <Row key={"roles-row"}>
                                     <Col span={6} key={"roles-col-user"}>{/* These checkboxes are supposed to be disabled and are meant just for viewing */}
-                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}} disabled>{t("common.roles.user")}</Checkbox>
+                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}} disabled>{t("common.roles.role_user")}</Checkbox>
                                     </Col>
                                     <Col span={12} key={"roles-col-organizer"}>
-                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}} disabled>{t("common.roles.organizer")}</Checkbox>
+                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}} disabled>{t("common.roles.role_organizer")}</Checkbox>
                                     </Col>
                                     <Col span={6} key={"roles-col-admin"}>
-                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}} disabled>{t("common.roles.administrator")}</Checkbox>
+                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}} disabled>{t("common.roles.role_admin")}</Checkbox>
                                     </Col>
                                 </Row>
                             </Checkbox.Group>

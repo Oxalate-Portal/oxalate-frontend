@@ -7,6 +7,7 @@ import { PaymentTypeEnum } from "../../models";
 import { userAPI } from "../../services";
 import type { ColumnsType } from "antd/es/table";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { roleEnum2Tag } from "../../helpers/Enum2TagTool";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
@@ -79,33 +80,10 @@ export function AdminOrgUsers() {
             key: "roles",
             render: (_: any, record: AdminUserResponse) => (
                     <>
-                        {record.roles.map((role) => {
-                            let color = "";
-                            let roleLabel = "";
-
-                            if (role === "ROLE_ANONYMOUS") {
-                                color = "red";
-                                roleLabel = t("common.roles.anonymous");
-                            }
-                            if (role === "ROLE_USER") {
-                                color = "green";
-                                roleLabel = t("common.roles.user");
-                            }
-                            if (role === "ROLE_ORGANIZER") {
-                                color = "blue";
-                                roleLabel = t("common.roles.organizer");
-                            }
-                            if (role === "ROLE_ADMIN") {
-                                color = "cyan";
-                                roleLabel = t("common.roles.administrator");
-                            }
-
-                            return (
-                                    <Tag color={color} key={role}>
-                                        {roleLabel}
-                                    </Tag>
-                            );
-                        })}
+                        {record.roles
+                                .slice()
+                                .sort((a, b) => a.localeCompare(b))
+                                .map((role) => roleEnum2Tag(role, t, record.id))}
                     </>
             ),
         },

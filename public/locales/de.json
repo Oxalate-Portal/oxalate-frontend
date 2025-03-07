@@ -288,6 +288,23 @@
     "months" : "Monat",
     "years" : "Jahr"
   },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Abgesagt",
+    "drafted" : "Entwurf",
+    "held" : "Abgehalten",
+    "published" : "Veröffentlicht",
+    "unknown" : "Unbekannt"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Tauchen vom Boot",
+    "cave" : "Höhle",
+    "course" : "Kurs",
+    "current" : "Strömung",
+    "open-and-cave" : "Offen / Höhle",
+    "open-water" : "Offen",
+    "surface" : "Nur Oberflächenaktivität",
+    "unknown" : "Unbekannt"
+  },
   "DownloadData" : {
     "certificateLabel" : "Zertifikate",
     "choose" : "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
@@ -657,6 +674,7 @@
       "organizer" : "Veranstalter",
       "participants" : "Teilnehmer",
       "startTime" : "Startzeit",
+      "status" : "Status",
       "title" : "Beschreibung",
       "type" : "Art"
     },
@@ -918,6 +936,21 @@
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Konfiguration neu laden"
+    },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Kommentarbearbeitung erlauben",
+        "tooltip" : "Kann ein Benutzer seinen Kommentar aktualisieren?"
+      },
+      "commenting-enabled" : {
+        "label" : "Kommentarfunktion aktivieren",
+        "tooltip" : "Ist die Kommentarfunktion standardmäßig aktiviert?"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Aktivierte Kommentarfunktionen",
+        "tooltip" : "Welche Funktionen sind für Kommentare aktiviert?"
+      },
+      "title" : "Kommentare"
     },
     "configuration" : "Konfiguration",
     "configuration-reloaded" : "Konfiguration neu geladen",
@@ -1392,10 +1425,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Administrator",
-      "anonymous" : "Anonym",
-      "organizer" : "Veranstaltungsorganisator",
-      "user" : "Benutzer"
+      "role_admin" : "Administrator",
+      "role_anonymous" : "Anonym",
+      "role_organizer" : "Veranstaltungsorganisator",
+      "role_user" : "Benutzer"
     },
     "spinner" : {
       "loading" : "Laden..."

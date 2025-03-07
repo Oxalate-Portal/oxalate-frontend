@@ -86,10 +86,10 @@ export function EditPage() {
     ];
 
     const roleOptions: OptionItemVO[] = [
-        {value: RoleEnum.ROLE_ANONYMOUS, label: t("common.roles.anonymous")},
-        {value: RoleEnum.ROLE_USER, label: t("common.roles.user")},
-        {value: RoleEnum.ROLE_ORGANIZER, label: t("common.roles.organizer")},
-        {value: RoleEnum.ROLE_ADMIN, label: t("common.roles.administrator")}
+        {value: RoleEnum.ROLE_ANONYMOUS, label: t("common.roles.role_anonymous")},
+        {value: RoleEnum.ROLE_USER, label: t("common.roles.role_user")},
+        {value: RoleEnum.ROLE_ORGANIZER, label: t("common.roles.role_organizer")},
+        {value: RoleEnum.ROLE_ADMIN, label: t("common.roles.role_admin")}
     ];
 
 

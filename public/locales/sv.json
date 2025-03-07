@@ -288,6 +288,23 @@
     "months" : "Månad",
     "years" : "År"
   },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Inställt",
+    "drafted" : "Utkast",
+    "held" : "Genomförd",
+    "published" : "Publicerad",
+    "unknown" : "Okänd"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Dykning från båt",
+    "cave" : "Grottdykning",
+    "course" : "Kurs",
+    "current" : "Strömdykning",
+    "open-and-cave" : "Öppen dykning / Grottdykning",
+    "open-water" : "Öppen dykning",
+    "surface" : "Endast yta",
+    "unknown" : "Okänd"
+  },
   "DownloadData" : {
     "certificateLabel" : "Certifikat",
     "choose" : "Välj en av följande för att ladda ner:",
@@ -366,16 +383,6 @@
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Dykning från båt",
-      "cave" : "Grottdykning",
-      "course": "Kurs",
-      "current" : "Strömdykning",
-      "open-and-cave" : "Öppen dykning / Grottdykning",
-      "open-water" : "Öppen dykning",
-      "surface" : "Endast yta",
-      "unknown" : "Okänd"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Uppdatera dykförhållanden"
@@ -657,6 +664,7 @@
       "organizer" : "Arrangör",
       "participants" : "Deltagare",
       "startTime" : "Tidpunkt",
+      "status" : "Status",
       "title" : "Beskrivning",
       "type" : "Typ"
     },
@@ -918,6 +926,21 @@
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Ladda om servern"
+    },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Tillåt kommentaruppdateringar",
+        "tooltip" : "Kan en användare uppdatera sin kommentar?"
+      },
+      "commenting-enabled" : {
+        "label" : "Aktivera kommentering",
+        "tooltip" : "Är kommentering aktiverad som standard?"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Aktiverade funktioner för kommentering",
+        "tooltip" : "Vilka funktioner är aktiverade för kommentering?"
+      },
+      "title" : "Kommentarer"
     },
     "configuration" : "Konfiguration",
     "configuration-reloaded" : "Konfigurationen har laddats om",
@@ -1392,10 +1415,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Administratör",
-      "anonymous" : "Anonym",
-      "organizer" : "Evenemangsarrangör",
-      "user" : "Användare"
+      "role_admin" : "Administratör",
+      "role_anonymous" : "Anonym",
+      "role_organizer" : "Evenemangsarrangör",
+      "role_user" : "Användare"
     },
     "spinner" : {
       "loading" : "Laddar..."

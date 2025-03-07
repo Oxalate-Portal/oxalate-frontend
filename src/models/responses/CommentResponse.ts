@@ -8,10 +8,14 @@ export interface CommentResponse {
     body: string;
     userId: number;
     username: string;
+    avatarUrl?: string;
+    registeredAt: string;
     parentCommentId: number;
     commentType: CommentTypeEnum;
     commentStatus: CommentStatusEnum;
     cancelReason: string;
     createdAt: Dayjs;
     updatedAt: Dayjs|null;
+    childComments: CommentResponse[];
+    childCount: number;
 }

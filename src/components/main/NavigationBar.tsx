@@ -19,6 +19,7 @@ export function NavigationBar() {
     const [navigationElements, setNavigationElements] = useState<PageGroupResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
+    const [forumEnabled, setForumEnabled] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchPaths = async () => {
@@ -43,6 +44,11 @@ export function NavigationBar() {
         if (userSession) {
             const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
             setMembershipType(membershipTypeString.toUpperCase() as MembershipTypeEnum);
+
+            if ((getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled") === "true")
+                    && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("forum"))) {
+                setForumEnabled(true);
+            }
         }
 
         const languageList = getFrontendConfigurationValue("enabled-language").split(",");
@@ -209,7 +215,7 @@ export function NavigationBar() {
                                             </li>
                                     );
                                 })}
-                                {userSession &&
+                                {userSession && forumEnabled &&
                                         <li className="nav-item active">
                                             <div className="dropdown">
                                                 <button className="nav-item nav-link dropdown-toggle"

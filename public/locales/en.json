@@ -288,6 +288,23 @@
     "months" : "Month",
     "years" : "Year"
   },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Cancelled",
+    "drafted" : "Draft",
+    "held" : "Held",
+    "published" : "Published",
+    "unknown" : "Unknown"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Diving from boat",
+    "cave" : "Cave",
+    "course" : "Course",
+    "current" : "Current",
+    "open-and-cave" : "Open water / Cave",
+    "open-water" : "Open water",
+    "surface" : "Surface activities only",
+    "unknown" : "Unknown"
+  },
   "DownloadData" : {
     "certificateLabel" : "Certificates",
     "choose" : "Choose one of the following to download:",
@@ -366,16 +383,6 @@
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Diving from boat",
-      "cave" : "Cave",
-      "course" : "Course",
-      "current" : "Current",
-      "open-and-cave" : "Open water / Cave",
-      "open-water" : "Open water",
-      "surface" : "Surface activities only",
-      "unknown" : "Unknown"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Update dive counts"
@@ -657,6 +664,7 @@
       "organizer" : "Organizer",
       "participants" : "Participants",
       "startTime" : "Start time",
+      "status" : "Status",
       "title" : "Description",
       "type" : "Type"
     },
@@ -918,6 +926,21 @@
   "PortalConfigurations" : {
     "button" : {
       "reload" : "Reload server"
+    },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Allow comment updates",
+        "tooltip" : "Can a user update their comment?"
+      },
+      "commenting-enabled" : {
+        "label" : "Enable commenting",
+        "tooltip" : "Is the commenting enabled by default"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Commenting enabled features",
+        "tooltip" : "Which features are enabled for commenting"
+      },
+      "title" : "Commenting"
     },
     "configuration" : "Configuration",
     "configuration-reloaded" : "Configuration reloaded",
@@ -1392,10 +1415,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Administrator",
-      "anonymous" : "Anonymous",
-      "organizer" : "Event Organizer",
-      "user" : "User"
+      "role_admin" : "Administrator",
+      "role_anonymous" : "Anonymous",
+      "role_organizer" : "Event Organizer",
+      "role_user" : "User"
     },
     "spinner" : {
       "loading" : "Loading..."

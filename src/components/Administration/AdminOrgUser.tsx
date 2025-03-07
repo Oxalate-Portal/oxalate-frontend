@@ -187,13 +187,13 @@ export function AdminOrgUser() {
                             <Checkbox.Group style={{width: "100%"}}>
                                 <Row>
                                     <Col span={6}>
-                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}}>{t("AdminOrgUser.form.roles.user")}</Checkbox>
+                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}}>{t("common.roles.role_user")}</Checkbox>
                                     </Col>
                                     <Col span={12}>
-                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}}>{t("AdminOrgUser.form.roles.organizer")}</Checkbox>
+                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}}>{t("common.roles.role_organizer")}</Checkbox>
                                     </Col>
                                     <Col span={6}>
-                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}}>{t("AdminOrgUser.form.roles.administrator")}</Checkbox>
+                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}}>{t("common.roles.role_admin")}</Checkbox>
                                     </Col>
                                 </Row>
                             </Checkbox.Group>
