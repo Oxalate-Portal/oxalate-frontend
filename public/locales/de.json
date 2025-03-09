@@ -950,6 +950,14 @@
         "label" : "Aktivierte Kommentarfunktionen",
         "tooltip" : "Welche Funktionen sind für Kommentare aktiviert?"
       },
+      "comments-report-trigger-level" : {
+        "label" : "Meldeschwelle für Kommentare",
+        "tooltip" : "Wie viele Meldungen erforderlich sind, bevor ein Kommentar zur Überprüfung markiert wird"
+      },
+      "comments-require-review" : {
+        "label" : "Kommentare erfordern Überprüfung",
+        "tooltip" : "Müssen Kommentare überprüft werden, bevor sie veröffentlicht und für andere sichtbar werden?"
+      },
       "title" : "Kommentare"
     },
     "configuration" : "Konfiguration",

@@ -940,6 +940,14 @@
         "label" : "Commenting enabled features",
         "tooltip" : "Which features are enabled for commenting"
       },
+      "comments-report-trigger-level" : {
+        "label" : "Comment report trigger level",
+        "tooltip" : "How many reports are required before a comment is set to be reviewed"
+      },
+      "comments-require-review" : {
+        "label" : "Comments require review",
+        "tooltip" : "Do comments require reviewing before they are published and become visible to others"
+      },
       "title" : "Commenting"
     },
     "configuration" : "Configuration",

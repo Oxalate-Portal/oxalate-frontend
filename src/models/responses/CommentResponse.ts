@@ -18,4 +18,5 @@ export interface CommentResponse {
     updatedAt: Dayjs|null;
     childComments: CommentResponse[];
     childCount: number;
+    userHasReported: boolean;
 }

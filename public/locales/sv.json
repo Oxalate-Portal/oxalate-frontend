@@ -940,6 +940,14 @@
         "label" : "Aktiverade funktioner för kommentering",
         "tooltip" : "Vilka funktioner är aktiverade för kommentering?"
       },
+      "comments-report-trigger-level" : {
+        "label" : "Rapporteringsgräns för kommentarer",
+        "tooltip" : "Hur många rapporter som krävs innan en kommentar sätts för granskning"
+      },
+      "comments-require-review" : {
+        "label" : "Kommentarer kräver granskning",
+        "tooltip" : "Måste kommentarer granskas innan de publiceras och blir synliga för andra?"
+      },
       "title" : "Kommentarer"
     },
     "configuration" : "Konfiguration",

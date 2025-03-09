@@ -940,6 +940,14 @@
         "label" : "Kommentoinnille käytettävissä olevat toiminnot",
         "tooltip" : "Mitkä toiminnot ovat käytettävissä kommentointiin?"
       },
+      "comments-report-trigger-level" : {
+        "label" : "Kommentin raportointiraja",
+        "tooltip" : "Kuinka monta raporttia vaaditaan, ennen kuin kommentti asetetaan tarkastettavaksi"
+      },
+      "comments-require-review" : {
+        "label" : "Kommentit vaativat tarkistuksen",
+        "tooltip" : "Onko kommentit tarkistettava ennen julkaisua ja muiden nähtäväksi tulemista?"
+      },
       "title" : "Kommentointi"
     },
     "configuration" : "Asetus",

@@ -8,7 +8,7 @@ import { DiveEventDetails } from "./DiveEventDetails";
 import dayjs from "dayjs";
 import { PaymentTypeEnum, PortalConfigGroupEnum, SessionVO } from "../../models";
 import { Divider, Spin } from "antd";
-import { DisplayCommentThread, DiveEventCommentEditor } from "../Commenting";
+import { CommentCanvas } from "../Commenting";
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -202,8 +202,8 @@ export function DiveEvent() {
                     {diveEvent && (diveEventId > 0) && eventCommenting &&
                             <>
                                 <Divider orientation={"left"} key={"diveEventCommentDivider"}>Comments</Divider>
-                                <DisplayCommentThread commentId={diveEvent.eventCommentId} />
-                                <DiveEventCommentEditor key={"DiveEventCommentEditor" + diveEventId} diveEventId={diveEventId}/>
+                                {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
+                                <CommentCanvas commentId={diveEvent.eventCommentId} allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())} />
                             </>}
                 </Spin>
             </div>

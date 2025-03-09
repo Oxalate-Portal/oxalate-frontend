@@ -1,71 +1,104 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CommentResponse } from "../../models/responses";
-import { Button, List, Spin, Typography } from "antd";
+import { Button, List, Typography } from "antd";
 import { CommentCard } from "./CommentCard";
-import { commentAPI } from "../../services";
+import { CommentEditor } from "./CommentEditor";
 
 interface DisplayCommentThreadProps {
-    commentId: number;
+    comment: CommentResponse;
     depth?: number;
+    onAddComment: () => void;
 }
 
-export function DisplayCommentThread({commentId, depth = 0}: DisplayCommentThreadProps) {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [comment, setComment] = useState<CommentResponse | null>(null);
+const ROOT_COMMENT_IDS = [1, 2, 3, 4];
+
+export function DisplayCommentThread({comment, depth = 0, onAddComment}: DisplayCommentThreadProps) {
     const [expanded, setExpanded] = useState<boolean>(false);
-
-    const fetchComment = useCallback(() => {
-        setLoading(true);
-        commentAPI.findAllForParentId(commentId)
-                .then((response) => {
-                    setComment(response);
-                })
-                .catch((err) => {
-                    console.error("Failed to fetch comment:", err);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-    }, [commentId]);
-
-    useEffect(() => {
-        fetchComment();
-    }, [fetchComment]);
-
-    if (loading) {
-        return <Spin/>;
-    }
+    const [parentIsRootComment, setParentIsRootComment] = useState<boolean>(false);
 
     if (!comment) {
         return <Typography.Text type="secondary">No comments available.</Typography.Text>;
     }
 
+    if (ROOT_COMMENT_IDS.includes(comment.parentCommentId)) {
+        setParentIsRootComment(true);
+    }
+
+    const hasChildComments = comment.childComments.length > 0;
+
+    if (parentIsRootComment && !hasChildComments) {
+        return (
+                <div>
+                    <Button type={"primary"} onClick={() => setExpanded(!expanded)}>
+                        {expanded ? "Hide" : "Be first to comment"}
+                    </Button>
+                    {expanded && <CommentEditor parentCommentId={comment.parentCommentId} onCommentSubmitted={onAddComment}/>}
+                </div>
+        );
+    }
+
     return (
-            <List
-                    dataSource={[comment]}
-                    renderItem={(item) => (
-                            <List.Item key={item.id} style={{width: "100%"}}>
-                                <div style={{width: "100%"}}>
-                                    <CommentCard comment={item} onReplySubmitted={fetchComment}/>
+            <div>
+                {parentIsRootComment && hasChildComments ? (
+                        <>
+                            <List
+                                    dataSource={comment.childComments}
+                                    renderItem={(child) => (
+                                            <List.Item key={child.id} style={{width: "100%"}}>
+                                                <div style={{width: "100%"}}>
+                                                    <CommentCard comment={child} onReplySubmitted={onAddComment}/>
+                                                    {child.childComments.length > 0 && (
+                                                            <div style={{marginLeft: 20}}>
+                                                                <Button
+                                                                        type="link"
+                                                                        onClick={() => setExpanded(!expanded)}
+                                                                        style={{marginBottom: 8}}
+                                                                >
+                                                                    {expanded ? "Hide Replies" : `Show Replies (${child.childComments.length})`}
+                                                                </Button>
 
-                                    {item.childComments.length > 0 && (
-                                            <div style={{marginLeft: 20}}>
-                                                <Button
-                                                        type="link"
-                                                        onClick={() => setExpanded(!expanded)}
-                                                        style={{marginBottom: 8}}
-                                                >
-                                                    {expanded ? "Hide Replies" : `Show Replies (${item.childComments.length})`}
-                                                </Button>
-
-                                                {expanded && item.childComments.map((child) => (
-                                                        <DisplayCommentThread key={child.id} commentId={child.id} depth={depth + 1}/>
-                                                ))}
-                                            </div>
+                                                                {expanded && child.childComments.map((child) => (
+                                                                        <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
+                                                                                              onAddComment={onAddComment}/>
+                                                                ))}
+                                                            </div>
+                                                    )}
+                                                </div>
+                                            </List.Item>
                                     )}
-                                </div>
-                            </List.Item>
-                    )}
-            />
+                            />
+                            <Button type={"primary"} onClick={() => setExpanded(!expanded)}>{expanded ? "Hide" : "Add a new comment"}</Button>
+                            {expanded && <CommentEditor parentCommentId={comment.parentCommentId} onCommentSubmitted={onAddComment}/>}
+                        </>
+                ) : (
+                        <List
+                                dataSource={[comment]}
+                                renderItem={(item) => (
+                                        <List.Item key={item.id} style={{width: "100%"}}>
+                                            <div style={{width: "100%"}}>
+                                                <CommentCard comment={item} onReplySubmitted={onAddComment}/>
+
+                                                {hasChildComments && (
+                                                        <div style={{marginLeft: 20}}>
+                                                            <Button
+                                                                    type="link"
+                                                                    onClick={() => setExpanded(!expanded)}
+                                                                    style={{marginBottom: 8}}
+                                                            >
+                                                                {expanded ? "Hide Replies" : `Show Replies (${item.childComments.length})`}
+                                                            </Button>
+
+                                                            {expanded && item.childComments.map((child) => (
+                                                                    <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
+                                                                                          onAddComment={onAddComment}/>
+                                                            ))}
+                                                        </div>
+                                                )}
+                                            </div>
+                                        </List.Item>
+                                )}
+                        />
+                )}
+            </div>
     );
 }

@@ -133,7 +133,7 @@ export function EditDiveEvent() {
             const eventTypes: string[] = getFrontendConfigurationValue("types-of-event").split(",");
             eventTypes.sort();
             setEventTypes(eventTypes.map((type) => {
-                return {value: type, label: t("EditEvent.eventTypes." + type)};
+                return {value: type, label: t("DiveTypeEnum." + type)};
             }));
         }
 
@@ -188,7 +188,8 @@ export function EditDiveEvent() {
                                     maxParticipants: 12,
                                     organizer: null,
                                     participants: [],
-                                    status: DiveEventStatusEnum.DRAFTED
+                                    status: DiveEventStatusEnum.DRAFTED,
+                                    eventCommentId: 0,
                                 }
                         );
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());

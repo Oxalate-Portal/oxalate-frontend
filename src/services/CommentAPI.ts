@@ -18,6 +18,11 @@ class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
         const response = await this.axiosInstance.post<ReportResponse>("/report", reportRequest);
         return response.data;
     }
+
+    public async cancelReport(commentId: number): Promise<ReportResponse> {
+        const response = await this.axiosInstance.post<ReportResponse>("/cancel-report" + commentId);
+        return response.data;
+    }
 }
 
 export const commentAPI = new CommentAPI("/comments");
