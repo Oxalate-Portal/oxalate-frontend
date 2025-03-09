@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CommentResponse } from "../../models/responses";
 import { Button, List, Spin, Typography } from "antd";
 import { CommentCard } from "./CommentCard";
@@ -12,9 +12,9 @@ interface DisplayCommentThreadProps {
 export function DisplayCommentThread({commentId, depth = 0}: DisplayCommentThreadProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [comment, setComment] = useState<CommentResponse | null>(null);
-    const [expanded, setExpanded] = useState<boolean>(false); // Track expanded state
+    const [expanded, setExpanded] = useState<boolean>(false);
 
-    useEffect(() => {
+    const fetchComment = useCallback(() => {
         setLoading(true);
         commentAPI.findAllForParentId(commentId)
                 .then((response) => {
@@ -27,6 +27,10 @@ export function DisplayCommentThread({commentId, depth = 0}: DisplayCommentThrea
                     setLoading(false);
                 });
     }, [commentId]);
+
+    useEffect(() => {
+        fetchComment();
+    }, [fetchComment]);
 
     if (loading) {
         return <Spin/>;
@@ -42,9 +46,8 @@ export function DisplayCommentThread({commentId, depth = 0}: DisplayCommentThrea
                     renderItem={(item) => (
                             <List.Item key={item.id} style={{width: "100%"}}>
                                 <div style={{width: "100%"}}>
-                                    <CommentCard comment={item}/>
+                                    <CommentCard comment={item} onReplySubmitted={fetchComment}/>
 
-                                    {/* Show "Show Replies" button only if the comment has children */}
                                     {item.childComments.length > 0 && (
                                             <div style={{marginLeft: 20}}>
                                                 <Button
@@ -55,7 +58,6 @@ export function DisplayCommentThread({commentId, depth = 0}: DisplayCommentThrea
                                                     {expanded ? "Hide Replies" : `Show Replies (${item.childComments.length})`}
                                                 </Button>
 
-                                                {/* Render replies only if expanded */}
                                                 {expanded && item.childComments.map((child) => (
                                                         <DisplayCommentThread key={child.id} commentId={child.id} depth={depth + 1}/>
                                                 ))}
