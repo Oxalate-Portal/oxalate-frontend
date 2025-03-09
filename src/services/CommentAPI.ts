@@ -1,6 +1,7 @@
 import {AbstractAPI} from "./AbstractAPI";
 import {CommentRequest, ReportRequest} from "../models/requests";
 import {CommentResponse, ReportResponse} from "../models/responses";
+import {CommentModerationResponse} from "../models/responses/CommentModerationResponse";
 
 class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
@@ -21,6 +22,11 @@ class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
     public async cancelReport(commentId: number): Promise<ReportResponse> {
         const response = await this.axiosInstance.post<ReportResponse>("/cancel-report" + commentId);
+        return response.data;
+    }
+
+    public async getUnhandledReports(): Promise<CommentModerationResponse[]> {
+        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/unhandled-reports");
         return response.data;
     }
 }
