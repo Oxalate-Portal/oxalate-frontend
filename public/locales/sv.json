@@ -306,6 +306,16 @@
       "placeholder" : "Ange detaljer här..."
     }
   },
+  "CommentEditor" : {
+    "form" : {
+      "title" : {
+        "placeholder" : "Titel (valfritt)"
+      },
+      "textarea" : {
+        "placeholder" : "Skriv en kommentar..."
+      }
+    }
+  },
   "CommentModeration" : {
     "collapse" : {
       "actions" : {

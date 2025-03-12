@@ -282,6 +282,12 @@
       "title" : "Dive certifications"
     }
   },
+  "ChronoUnitEnum" : {
+    "days" : "Day",
+    "weeks" : "Week",
+    "months" : "Month",
+    "years" : "Year"
+  },
   "CommentCard" : {
     "messages" : {
       "report-fail" : "Failed to report comment.",
@@ -298,6 +304,16 @@
     "modal" : {
       "description" : "Please Describe the issue:",
       "placeholder" : "Provide details here..."
+    }
+  },
+  "CommentEditor" : {
+    "form" : {
+      "title" : {
+        "placeholder" : "Title (optional)"
+      },
+      "textarea" : {
+        "placeholder" : "Write a comment..."
+      }
     }
   },
   "CommentModeration" : {
@@ -328,12 +344,6 @@
       "dismiss-reports" : "Dismiss reports",
       "reject-comment" : "Reject comment"
     }
-  },
-  "ChronoUnitEnum" : {
-    "days" : "Day",
-    "weeks" : "Week",
-    "months" : "Month",
-    "years" : "Year"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Cancelled",

@@ -3,6 +3,7 @@ import { Button, Input } from "antd";
 import { CommentRequest } from "../../models/requests";
 import { commentAPI } from "../../services";
 import { CommentTypeEnum } from "../../models";
+import { useTranslation } from "react-i18next";
 
 interface CommentEditorProps {
     parentCommentId: number;
@@ -13,6 +14,7 @@ export function CommentEditor({ parentCommentId, refreshCommentList }: CommentEd
     const [title, setTitle] = useState<string>("");
     const [body, setBody] = useState<string>("");
     const [submitting, setSubmitting] = useState<boolean>(false);
+    const {t} = useTranslation();
 
     const handleSubmit = async () => {
         if (!body.trim()) return;
@@ -40,16 +42,16 @@ export function CommentEditor({ parentCommentId, refreshCommentList }: CommentEd
 
     return (
             <div style={{ marginTop: 10 }}>
-                <Input placeholder="Title (optional)" value={title} onChange={(e) => setTitle(e.target.value)} />
+                <Input placeholder={t("CommentEditor.form.title.placeholder")} value={title} onChange={(e) => setTitle(e.target.value)} />
                 <Input.TextArea
-                        placeholder="Write a comment..."
+                        placeholder={t("CommentEditor.form.textarea.placeholder")}
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                         rows={3}
                         style={{ marginTop: 5 }}
                 />
                 <Button type="primary" onClick={handleSubmit} loading={submitting} style={{ marginTop: 5 }}>
-                    Submit
+                    {t("common.button.send")}
                 </Button>
             </div>
     );

@@ -306,6 +306,16 @@
       "placeholder" : "Geben Sie hier die Details ein..."
     }
   },
+  "CommentEditor" : {
+    "form" : {
+      "title" : {
+        "placeholder" : "Titel (optional)"
+      },
+      "textarea" : {
+        "placeholder" : "Schreiben Sie einen Kommentar..."
+      }
+    }
+  },
   "CommentModeration" : {
     "collapse" : {
       "actions" : {
