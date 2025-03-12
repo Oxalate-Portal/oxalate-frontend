@@ -306,6 +306,16 @@
       "placeholder" : "Anna lisätietoja tähän..."
     }
   },
+  "CommentEditor" : {
+    "form" : {
+      "title" : {
+        "placeholder" : "Otsikko (valinnainen)"
+      },
+      "textarea" : {
+        "placeholder" : "Kirjoita kommentti..."
+      }
+    }
+  },
   "CommentModeration" : {
     "collapse" : {
       "actions" : {
