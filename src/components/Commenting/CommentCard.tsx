@@ -6,17 +6,21 @@ import { CommentResponse } from "../../models/responses";
 import { commentAPI } from "../../services";
 import { ReportRequest } from "../../models/requests";
 import { CommentEditor } from "./CommentEditor";
+import { UpdateStatusEnum } from "../../models";
+import { useTranslation } from "react-i18next";
 
 interface CommentCardProps {
     comment: CommentResponse;
-    onReplySubmitted: () => void;
+    displayOnly?: boolean;
+    refreshCommentList: () => void;
 }
 
-export function CommentCard({comment, onReplySubmitted}: CommentCardProps) {
+export function CommentCard({comment, displayOnly = false, refreshCommentList}: CommentCardProps) {
     const [replyVisible, setReplyVisible] = useState(false);
     const [reportVisible, setReportVisible] = useState(false);
     const [reportReason, setReportReason] = useState("");
     const [messageApi, contextHolder] = message.useMessage();
+    const {t} = useTranslation();
 
     async function handleReport() {
         const reportData: ReportRequest = {
@@ -25,10 +29,10 @@ export function CommentCard({comment, onReplySubmitted}: CommentCardProps) {
         };
         commentAPI.report(reportData)
                 .then((response) => {
-                    if (response.errorCode !== 200) {
-                        messageApi.error("Failed to report comment.");
+                    if (response.status !== UpdateStatusEnum.OK) {
+                        messageApi.error(t("CommentCard.messages.report-fail"));
                     } else {
-                        messageApi.success("Comment reported successfully.");
+                        messageApi.success(t("CommentCard.messages.report-success"));
                     }
                 })
                 .catch((error) => {
@@ -43,10 +47,10 @@ export function CommentCard({comment, onReplySubmitted}: CommentCardProps) {
     function cancelReport() {
         commentAPI.cancelReport(comment.id)
                 .then((response) => {
-                    if (response.errorCode !== 200) {
-                        messageApi.error("Failed to cancel report.");
+                    if (response.status !== UpdateStatusEnum.OK) {
+                        messageApi.error(t("CommentCard.messages.report-cancel-fail"));
                     } else {
-                        messageApi.success("Report cancelled successfully.");
+                        messageApi.success(t("CommentCard.messages.report-cancel-success"));
                     }
                 })
                 .catch((error) => {
@@ -55,11 +59,12 @@ export function CommentCard({comment, onReplySubmitted}: CommentCardProps) {
                 .finally(() => {
                     setReportVisible(true);
                     setReportReason("");
-                })
+                });
     }
 
     return (
             <Card style={{marginBottom: 16, width: "100%"}}>
+                {contextHolder}
                 <Space direction="vertical" size="large" style={{width: "100%"}}>
                     <div style={{display: "flex", alignItems: "center", marginBottom: 8}}>
                         <Avatar icon={<UserOutlined/>} size={40} style={{marginRight: 12}}/>
@@ -67,33 +72,38 @@ export function CommentCard({comment, onReplySubmitted}: CommentCardProps) {
                             <Typography.Text strong>{comment.username} (#{comment.id})</Typography.Text>
                             <br/>
                             <Typography.Text type="secondary">
-                                Commented: {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
+                                {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")} {comment.childCount} {comment.childCount < 2 ? t("CommentCard.singular-reply") : t("CommentCard.multiple-replies")}
                             </Typography.Text>
                         </div>
                     </div>
                     <Typography.Title level={5}>{comment.title}</Typography.Title>
                     <Typography.Text>{comment.body}</Typography.Text>
                     <div style={{display: "flex", justifyContent: "space-between", width: "100%"}}>
-                        <Button onClick={() => setReplyVisible(!replyVisible)}>{replyVisible ? "Cancel" : "Respond"}</Button>
-                        {!comment.userHasReported && <Button danger onClick={() => setReportVisible(true)}>Report inappropriate comment</Button>}
-                        {comment.userHasReported && <Button danger onClick={() => cancelReport()}>Cancel report</Button>}
+                        {!displayOnly &&
+                                <Button onClick={() => setReplyVisible(!replyVisible)}>{replyVisible ? t("common.button.cancel") : t("common.button.respond")}</Button>}
+                        {!displayOnly && !comment.userHasReported &&
+                                <Button danger onClick={() => setReportVisible(true)}>{t("CommentCard.button.report-comment")}</Button>}
+                        {!displayOnly && comment.userHasReported &&
+                                <Button danger onClick={() => cancelReport()}>{t("CommentCard.button.cancel-report")}</Button>}
                     </div>
-                    {replyVisible && <CommentEditor parentCommentId={comment.id} onCommentSubmitted={() => {
+                    {replyVisible && <CommentEditor parentCommentId={comment.id} refreshCommentList={() => {
                         setReplyVisible(false);
-                        onReplySubmitted();
+                        refreshCommentList();
                     }}/>}
                 </Space>
                 <Modal
-                        title="Report Inappropriate Comment"
+                        title={t("CommentCard.button.report-comment")}
                         open={reportVisible}
                         onOk={handleReport}
                         onCancel={() => setReportVisible(false)}
                         okButtonProps={{disabled: !reportReason.trim()}}
-                >
-                    <Typography.Paragraph>Describe the issue:</Typography.Paragraph>
+                        okText={t("common.button.send")}
+                        cancelText={t("common.button.cancel")}
+                    >
+                    <Typography.Paragraph>{t("CommentCard.modal.description")}</Typography.Paragraph>
                     <textarea
                             rows={4}
-                            placeholder="Provide details here..."
+                            placeholder={t("CommentCard.modal.placeholder")}
                             value={reportReason}
                             onChange={(e) => setReportReason(e.target.value)}
                             style={{width: "100%"}}

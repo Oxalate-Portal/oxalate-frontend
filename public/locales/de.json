@@ -288,6 +288,53 @@
     "months" : "Monat",
     "years" : "Jahr"
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Fehler beim Melden des Kommentars.",
+      "report-success" : "Kommentar erfolgreich gemeldet.",
+      "report-cancel-fail" : "Fehler beim Abbrechen der Meldung.",
+      "report-cancel-success" : "Meldung erfolgreich abgebrochen."
+    },
+    "singular-reply" : "Antwort",
+    "multiple-replies" : "Antworten",
+    "button" : {
+      "report-comment" : "Unangemessenen Kommentar melden",
+      "cancel-report" : "Meldung zurückziehen"
+    },
+    "modal" : {
+      "description" : "Bitte beschreiben Sie das Problem:",
+      "placeholder" : "Geben Sie hier die Details ein..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Aktionen"
+      },
+      "reports" : {
+        "label" : "Meldungen"
+      }
+    },
+    "messages" : {
+      "fail" : "Fehler beim Abrufen der ausstehenden Meldungen.",
+      "success" : "Liste der ausstehenden Meldungen abgerufen."
+    },
+    "no-comments" : "Keine ausstehenden Meldungen.",
+    "title" : "Kommentare zur Moderation"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Meldungen konnten nicht abgelehnt werden.",
+      "dismiss-comment-success" : "Meldungen abgelehnt.",
+      "reject-comment-confirm" : "Das Ablehnen dieses Kommentars wird auch alle untergeordneten Kommentare ablehnen. Sind Sie sicher, dass Sie fortfahren möchten?",
+      "reject-comment-fail": "Kommentar konnte nicht abgelehnt werden.",
+      "reject-comment-success" : "Kommentar abgelehnt."
+    },
+    "button" : {
+      "dismiss-reports" : "Meldungen ablehnen",
+      "reject-comment" : "Kommentar ablehnen"
+    }
+  },
   "DiveEventStatusEnum" : {
     "cancelled" : "Abgesagt",
     "drafted" : "Entwurf",
@@ -1171,6 +1218,24 @@
       "ok" : "Bestätigung des Kontos erfolgreich, Sie können sich jetzt mit Ihrer Benutzer-ID und Ihrem Passwort anmelden."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Meldung konnte nicht akzeptiert werden.",
+      "accept-success" : "Meldung akzeptiert",
+      "dismiss-fail" : "Meldung konnte nicht abgelehnt werden.",
+      "dismiss-success" : "Meldung abgelehnt."
+    },
+    "field" : {
+      "created-at" : "Erstellt",
+      "reason" : "Grund",
+      "reporter" : "Meldender",
+      "status" : "Status"
+    },
+    "button" : {
+      "accept" : "Meldung akzeptieren",
+      "dismiss" : "Meldung ablehnen"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Tauchanzahl",
@@ -1181,6 +1246,12 @@
   },
   "ReportEvents" : {
     "title" : "Veranstaltungsberichte"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Genehmigt",
+    "cancelled" : "Storniert",
+    "pending" : "Ausstehend",
+    "rejected" : "Abgelehnt"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1388,6 +1459,7 @@
     "button" : {
       "add" : "Hinzufügen",
       "back" : "Zurück",
+      "cancel" : "Abbrechen",
       "close" : "Schließen",
       "delete" : "Löschen",
       "held" : "Gehalten",
@@ -1396,6 +1468,7 @@
       "no" : "Nein",
       "open" : "Öffnen",
       "reset" : "Zurücksetzen",
+      "respond" : "Antworten",
       "save" : "Speichern",
       "send" : "Senden",
       "update" : "Bearbeiten",
@@ -1459,6 +1532,7 @@
     "administration" : {
       "audits" : "Audits",
       "blocked-dates" : "Datumsblockierung",
+      "comment-moderation" : "Kommentarmoderation",
       "download" : "Herunterladen",
       "files" : "Dateien",
       "members" : "Mitglieder",

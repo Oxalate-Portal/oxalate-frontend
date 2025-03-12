@@ -7,12 +7,12 @@ import { CommentEditor } from "./CommentEditor";
 interface DisplayCommentThreadProps {
     comment: CommentResponse;
     depth?: number;
-    onAddComment: () => void;
+    refreshCommentList: () => void;
 }
 
 const ROOT_COMMENT_IDS = [1, 2, 3, 4];
 
-export function DisplayCommentThread({comment, depth = 0, onAddComment}: DisplayCommentThreadProps) {
+export function DisplayCommentThread({comment, depth = 0, refreshCommentList}: DisplayCommentThreadProps) {
     const [expanded, setExpanded] = useState<boolean>(false);
     const [parentIsRootComment, setParentIsRootComment] = useState<boolean>(false);
 
@@ -32,7 +32,7 @@ export function DisplayCommentThread({comment, depth = 0, onAddComment}: Display
                     <Button type={"primary"} onClick={() => setExpanded(!expanded)}>
                         {expanded ? "Hide" : "Be first to comment"}
                     </Button>
-                    {expanded && <CommentEditor parentCommentId={comment.parentCommentId} onCommentSubmitted={onAddComment}/>}
+                    {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
                 </div>
         );
     }
@@ -46,7 +46,7 @@ export function DisplayCommentThread({comment, depth = 0, onAddComment}: Display
                                     renderItem={(child) => (
                                             <List.Item key={child.id} style={{width: "100%"}}>
                                                 <div style={{width: "100%"}}>
-                                                    <CommentCard comment={child} onReplySubmitted={onAddComment}/>
+                                                    <CommentCard comment={child} refreshCommentList={refreshCommentList}/>
                                                     {child.childComments.length > 0 && (
                                                             <div style={{marginLeft: 20}}>
                                                                 <Button
@@ -59,7 +59,7 @@ export function DisplayCommentThread({comment, depth = 0, onAddComment}: Display
 
                                                                 {expanded && child.childComments.map((child) => (
                                                                         <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
-                                                                                              onAddComment={onAddComment}/>
+                                                                                              refreshCommentList={refreshCommentList}/>
                                                                 ))}
                                                             </div>
                                                     )}
@@ -68,7 +68,7 @@ export function DisplayCommentThread({comment, depth = 0, onAddComment}: Display
                                     )}
                             />
                             <Button type={"primary"} onClick={() => setExpanded(!expanded)}>{expanded ? "Hide" : "Add a new comment"}</Button>
-                            {expanded && <CommentEditor parentCommentId={comment.parentCommentId} onCommentSubmitted={onAddComment}/>}
+                            {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
                         </>
                 ) : (
                         <List
@@ -76,7 +76,7 @@ export function DisplayCommentThread({comment, depth = 0, onAddComment}: Display
                                 renderItem={(item) => (
                                         <List.Item key={item.id} style={{width: "100%"}}>
                                             <div style={{width: "100%"}}>
-                                                <CommentCard comment={item} onReplySubmitted={onAddComment}/>
+                                                <CommentCard comment={item} refreshCommentList={refreshCommentList}/>
 
                                                 {hasChildComments && (
                                                         <div style={{marginLeft: 20}}>
@@ -90,7 +90,7 @@ export function DisplayCommentThread({comment, depth = 0, onAddComment}: Display
 
                                                             {expanded && item.childComments.map((child) => (
                                                                     <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
-                                                                                          onAddComment={onAddComment}/>
+                                                                                          refreshCommentList={refreshCommentList}/>
                                                             ))}
                                                         </div>
                                                 )}

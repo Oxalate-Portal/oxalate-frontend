@@ -282,6 +282,53 @@
       "title" : "Dive certifications"
     }
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Failed to report comment.",
+      "report-success" : "Comment reported successfully.",
+      "report-cancel-fail" : "Failed to cancel the report.",
+      "report-cancel-success" : "Report canceled successfully."
+    },
+    "singular-reply" : "reply",
+    "multiple-replies" : "replies",
+    "button" : {
+      "report-comment" : "Report inappropriate comment",
+      "cancel-report" : "Cancel report"
+    },
+    "modal" : {
+      "description" : "Please Describe the issue:",
+      "placeholder" : "Provide details here..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Actions"
+      },
+      "reports" : {
+        "label" : "Reports"
+      }
+    },
+    "messages" : {
+      "fail" : "Failed to fetch pending reports.",
+      "success" : "List of pending reports fetched."
+    },
+    "no-comments" : "No pending reports.",
+    "title" : "Comments requiring moderation"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Failed to dismiss reports.",
+      "dismiss-comment-success" : "Reports dismissed.",
+      "reject-comment-confirm" : "Rejecting this comment will also reject all its children. Are you sure you want to proceed?",
+      "reject-comment-fail": "Failed to reject comment.",
+      "reject-comment-success" : "Comment rejected."
+    },
+    "button" : {
+      "dismiss-reports" : "Dismiss reports",
+      "reject-comment" : "Reject comment"
+    }
+  },
   "ChronoUnitEnum" : {
     "days" : "Day",
     "weeks" : "Week",
@@ -1161,6 +1208,24 @@
       "ok" : "Account confirmation successful. You can now log in with your username and password."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Failed to accept report.",
+      "accept-success" : "Report accepted",
+      "dismiss-fail" : "Failed to dismiss report.",
+      "dismiss-success" : "Report dismissed."
+    },
+    "field" : {
+      "created-at" : "Created",
+      "reason" : "Reason",
+      "reporter" : "Reporter",
+      "status" : "Status"
+    },
+    "button" : {
+      "accept" : "Accept report",
+      "dismiss" : "Dismiss report"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Dive count",
@@ -1171,6 +1236,12 @@
   },
   "ReportEvents" : {
     "title" : "Event reports"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Approved",
+    "cancelled" : "Cancelled",
+    "pending" : "Pending",
+    "rejected" : "Rejected"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1378,6 +1449,7 @@
     "button" : {
       "add" : "Add",
       "back" : "Back",
+      "cancel" : "Cancel",
       "close" : "Close",
       "delete" : "Delete",
       "held" : "Held",
@@ -1386,6 +1458,7 @@
       "no" : "No",
       "open" : "Open",
       "reset" : "Reset",
+      "respond" : "Respond",
       "save" : "Save",
       "send" : "Send",
       "update" : "Update",
@@ -1449,6 +1522,7 @@
     "administration" : {
       "audits" : "Audits",
       "blocked-dates" : "Date blocking",
+      "comment-moderation" : "Comment moderation",
       "download" : "Download",
       "files" : "Files",
       "members" : "Members",

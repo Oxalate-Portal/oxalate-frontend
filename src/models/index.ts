@@ -33,6 +33,7 @@ export {PageStatusEnum} from "./PageStatusEnum";
 export {PaymentTypeEnum} from "./PaymentTypeEnum";
 export {PaymentExpirationTypeEnum} from "./PaymentExpirationTypeEnum";
 export {PortalConfigGroupEnum} from "./PortalConfigGroupEnum";
+export {ReportStatusEnum} from "./ReportStatusEnum";
 export {ResultEnum} from "./ResultEnum";
 export {RoleEnum} from "./RoleEnum";
 export {UpdateStatusEnum} from "./UpdateStatusEnum";

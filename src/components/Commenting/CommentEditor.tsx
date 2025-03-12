@@ -6,10 +6,10 @@ import { CommentTypeEnum } from "../../models";
 
 interface CommentEditorProps {
     parentCommentId: number;
-    onCommentSubmitted: () => void;
+    refreshCommentList: () => void;
 }
 
-export function CommentEditor({ parentCommentId, onCommentSubmitted }: CommentEditorProps) {
+export function CommentEditor({ parentCommentId, refreshCommentList }: CommentEditorProps) {
     const [title, setTitle] = useState<string>("");
     const [body, setBody] = useState<string>("");
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export function CommentEditor({ parentCommentId, onCommentSubmitted }: CommentEd
             await commentAPI.create(newComment);
             setTitle("");
             setBody("");
-            onCommentSubmitted();
+            refreshCommentList();
         } catch (err) {
             console.error("Failed to submit comment:", err);
         } finally {

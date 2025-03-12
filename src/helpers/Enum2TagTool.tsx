@@ -1,5 +1,14 @@
 import { TFunction } from "i18next";
-import { DiveEventStatusEnum, DiveTypeEnum, MembershipStatusEnum, MembershipTypeEnum, PageStatusEnum, PaymentTypeEnum, RoleEnum } from "../models";
+import {
+    DiveEventStatusEnum,
+    DiveTypeEnum,
+    MembershipStatusEnum,
+    MembershipTypeEnum,
+    PageStatusEnum,
+    PaymentTypeEnum,
+    ReportStatusEnum,
+    RoleEnum
+} from "../models";
 import { Tag } from "antd";
 
 export function diveEventStatusEnum2Tag(status: DiveEventStatusEnum, t: TFunction, recordId: number): JSX.Element {
@@ -140,6 +149,31 @@ export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordI
     }
 
     return (<Tag color={color} key={"payment-type-" + recordId}>{label}</Tag>);
+}
+
+export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, recordId: number): JSX.Element {
+    let color = "";
+    const label = t("ReportStatusEnum." + status.toLowerCase());
+
+    switch(status) {
+        case ReportStatusEnum.APPROVED:
+            color = "green";
+            break;
+        case ReportStatusEnum.CANCELLED:
+            color = "orange";
+            break;
+        case ReportStatusEnum.PENDING:
+            color = "blue";
+            break;
+        case ReportStatusEnum.REJECTED:
+            color = "red";
+            break;
+        default:
+            color = "violet";
+            break;
+    }
+
+    return (<Tag color={color} key={"report-status-" + recordId}>{label}</Tag>);
 }
 
 export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JSX.Element {

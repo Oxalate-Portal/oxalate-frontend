@@ -30,6 +30,7 @@ import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MembershipTypeEnum, PortalConfigGroupEnum } from "./models";
 import { Forum } from "./components/Commenting";
+import { CommentModeration } from "./components/Administration/CommentModeration";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -40,6 +41,7 @@ function App() {
     const {userSession, getSessionLanguage, organizationName, logoutUser, getPortalTimezone, getPortalConfigurationValue} = useSession();
     const sessionLanguage = getSessionLanguage();
     let membershipType = MembershipTypeEnum.DISABLED;
+    let isCommentingEnabled: boolean = false;
 
     useEffect(() => {
         dayjs.tz.setDefault(getPortalTimezone());
@@ -52,6 +54,8 @@ function App() {
     if (userSession) {
         const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
         membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
+        const commentingEnabledString = getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled");
+        isCommentingEnabled = commentingEnabledString === "true";
     }
 
     // If the user is logged in, but they have not accepted the terms and conditions, then redirect them to the terms and conditions page. The user
@@ -96,6 +100,7 @@ function App() {
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
                             {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
                             {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
+                            {isCommentingEnabled && <Route path="/administration/comment-moderation" element={<AdminRoute><CommentModeration/></AdminRoute>}/>}
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>

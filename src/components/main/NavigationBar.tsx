@@ -124,6 +124,10 @@ export function NavigationBar() {
                                                                  type="button">{t("NavigationBar.administration.blocked-dates")}</NavLink>
                                                     </li>
                                                     <li>
+                                                        <NavLink to="/administration/comment-moderation" className="dropdown-item"
+                                                                 type="button">{t("NavigationBar.administration.comment-moderation")}</NavLink>
+                                                    </li>
+                                                    <li>
                                                         <NavLink to="/administration/statistics" className="dropdown-item"
                                                                  type="button">{t("NavigationBar.administration.stats")}</NavLink>
                                                     </li>

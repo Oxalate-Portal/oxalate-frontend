@@ -288,6 +288,53 @@
     "months" : "Månad",
     "years" : "År"
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Misslyckades med att rapportera kommentaren.",
+      "report-success" : "Kommentaren rapporterad framgångsrikt.",
+      "report-cancel-fail" : "Misslyckades med att avbryta rapporten.",
+      "report-cancel-success" : "Rapporten avbruten framgångsrikt."
+    },
+    "singular-reply" : "svar",
+    "multiple-replies" : "svar",
+    "button" : {
+      "report-comment" : "Rapportera olämplig kommentar",
+      "cancel-report" : "Avbryt rapport"
+    },
+    "modal" : {
+      "description" : "Beskriv problemet:",
+      "placeholder" : "Ange detaljer här..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Åtgärder"
+      },
+      "reports" : {
+        "label" : "Rapporter"
+      }
+    },
+    "messages" : {
+      "fail" : "Misslyckades med att hämta väntande rapporter.",
+      "success" : "Lista över väntande rapporter hämtad."
+    },
+    "no-comments" : "Inga väntande rapporter.",
+    "title" : "Kommentarer som kräver moderering"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Misslyckades med att avvisa rapporter.",
+      "dismiss-comment-success" : "Rapporter avvisade.",
+      "reject-comment-confirm" : "Att avvisa denna kommentar kommer även att avvisa alla dess underliggande kommentarer. Är du säker på att du vill fortsätta?",
+      "reject-comment-fail": "Misslyckades med att avvisa kommentaren.",
+      "reject-comment-success" : "Kommentaren avvisad."
+    },
+    "button" : {
+      "dismiss-reports" : "Avvisa rapporter",
+      "reject-comment" : "Avvisa kommentar"
+    }
+  },
   "DiveEventStatusEnum" : {
     "cancelled" : "Inställt",
     "drafted" : "Utkast",
@@ -1161,6 +1208,24 @@
       "ok" : "Aktiveringen av kontot lyckades. Du kan nu logga in med ditt användarnamn och lösenord."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Misslyckades med att acceptera rapporten.",
+      "accept-success" : "Rapport accepterad",
+      "dismiss-fail" : "Misslyckades med att avvisa rapporten.",
+      "dismiss-success" : "Rapport avvisad."
+    },
+    "field" : {
+      "created-at" : "Skapad",
+      "reason" : "Orsak",
+      "reporter" : "Anmälare",
+      "status" : "Status"
+    },
+    "button" : {
+      "accept" : "Acceptera rapport",
+      "dismiss" : "Avvisa rapport"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Antal dyk",
@@ -1171,6 +1236,12 @@
   },
   "ReportEvents" : {
     "title" : "Evenemangsrapporter"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Godkänd",
+    "cancelled" : "Avbruten",
+    "pending" : "Väntande",
+    "rejected" : "Avvisad"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1378,6 +1449,7 @@
     "button" : {
       "add" : "Lägg till",
       "back" : "Tillbaka",
+      "cancel" : "Avbryt",
       "close" : "Stäng",
       "delete" : "Ta bort",
       "held" : "Hållits",
@@ -1386,6 +1458,7 @@
       "no" : "Nej",
       "open" : "Öppna",
       "reset" : "Återställ",
+      "respond" : "Svara",
       "save" : "Spara",
       "send" : "Skicka",
       "update" : "Uppdatera",
@@ -1449,6 +1522,7 @@
     "administration" : {
       "audits" : "Revisionshistorik",
       "blocked-dates" : "Datumsblockering",
+      "comment-moderation" : "Komment moderering",
       "download" : "Laddan ner",
       "files" : "Filer",
       "members" : "Medlemmar",

@@ -22,7 +22,7 @@ export function CommentCanvas({commentId, allowComment, depth = 0}: CommentCanva
 
     const ROOT_COMMENT_IDS = [1, 2, 3, 4];
 
-    const fetchComment = useCallback(() => {
+    const refreshCommentList = useCallback(() => {
         setLoading(true);
         commentAPI.findAllForParentId(commentId)
                 .then((response) => {
@@ -41,15 +41,15 @@ export function CommentCanvas({commentId, allowComment, depth = 0}: CommentCanva
     }, [commentId]);
 
     useEffect(() => {
-        fetchComment();
-    }, [fetchComment]);
+        refreshCommentList();
+    }, [refreshCommentList]);
 
     return (
             <div className="darkDiv">
             <Spin spinning={loading}>
                 {comments.length > 0 && comments.map(comment => (
-                        <DisplayCommentThread comment={comment} depth={depth} onAddComment={fetchComment} key={"comment-canvas-thread-" + commentId + "-" + comment.id}/>))}
-                {allowComment && <CommentEditor parentCommentId={commentId} onCommentSubmitted={fetchComment} key={"comment-canvas-editor-" + commentId}/>}
+                        <DisplayCommentThread comment={comment} depth={depth} refreshCommentList={refreshCommentList} key={"comment-canvas-thread-" + commentId + "-" + comment.id}/>))}
+                {allowComment && <CommentEditor parentCommentId={commentId} refreshCommentList={refreshCommentList} key={"comment-canvas-editor-" + commentId}/>}
             </Spin>
             </div>
     );

@@ -1,7 +1,6 @@
 import {AbstractAPI} from "./AbstractAPI";
 import {CommentRequest, ReportRequest} from "../models/requests";
-import {CommentResponse, ReportResponse} from "../models/responses";
-import {CommentModerationResponse} from "../models/responses/CommentModerationResponse";
+import {CommentModerationResponse, CommentResponse, ReportResponse} from "../models/responses";
 
 class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
@@ -25,8 +24,28 @@ class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
         return response.data;
     }
 
-    public async getUnhandledReports(): Promise<CommentModerationResponse[]> {
-        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/unhandled-reports");
+    public async getPendingReports(): Promise<CommentModerationResponse[]> {
+        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/pending-reports");
+        return response.data;
+    }
+
+    public async rejectComment(commentId: number): Promise<CommentModerationResponse[]> {
+        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/reject-comment/" + commentId);
+        return response.data;
+    }
+
+    public async rejectReports(commentId: number): Promise<CommentModerationResponse[]> {
+        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/reject-reports/" + commentId);
+        return response.data;
+    }
+
+    public async acceptReport(reportId: number): Promise<CommentModerationResponse[]> {
+        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/accept-report/" + reportId);
+        return response.data;
+    }
+
+    public async dismissReport(reportId: number): Promise<CommentModerationResponse[]> {
+        const response = await this.axiosInstance.get<CommentModerationResponse[]>("/dismiss-report/" + reportId);
         return response.data;
     }
 }
