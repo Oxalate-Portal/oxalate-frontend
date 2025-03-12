@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
-import {Select, Spin} from "antd";
-import {useTranslation} from "react-i18next";
+import React, { useEffect, useState } from "react";
+import { Select, Spin } from "antd";
+import { useTranslation } from "react-i18next";
 
 const {Option, OptGroup} = Select;
 
@@ -21,6 +21,7 @@ export function TimezoneSelector({selectedValue, onChange}: TimezoneSelectorProp
                     setGroupedTimezones(data);
                 })
                 .catch((error) => {
+                    window.confirm("We failed to fetch the timezones, should be proceed?");
                     console.error("Error fetching timezones:", error);
                 })
                 .finally(() => {

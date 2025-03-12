@@ -1,14 +1,15 @@
-import {useEffect, useState} from "react";
-import {DiveTypeEnum, RoleEnum} from "../../models";
-import {Button, Space, Spin, Table, Tag} from "antd";
-import type {ColumnsType} from "antd/es/table";
-import {checkRoles} from "../../helpers";
-import {Link} from "react-router-dom";
-import {useSession} from "../../session";
-import {useTranslation} from "react-i18next";
-import {diveEventAPI} from "../../services";
-import {DiveEventResponse} from "../../models/responses";
+import { useEffect, useState } from "react";
+import { DiveEventStatusEnum, RoleEnum } from "../../models";
+import { Button, Space, Spin, Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { checkRoles, diveEventStatusEnum2Tag } from "../../helpers";
+import { Link } from "react-router-dom";
+import { useSession } from "../../session";
+import { useTranslation } from "react-i18next";
+import { diveEventAPI } from "../../services";
+import { DiveEventResponse } from "../../models/responses";
 import dayjs from "dayjs";
+import { diveTypeEnum2Tag } from "../../helpers/Enum2TagTool";
 
 interface DiveEventsTableProps {
     diveEventType: string,
@@ -40,6 +41,14 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             sortDirections: ["descend", "ascend"]
         },
         {
+            title: t("Events.table.status"),
+            dataIndex: "status",
+            key: "status",
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.title.localeCompare(b.title),
+            sortDirections: ["descend", "ascend"],
+            render: (text: string, record: DiveEventResponse) => diveEventStatusEnum2Tag(record.status, t, record.id)
+        },
+        {
             title: t("Events.table.participants"),
             dataIndex: "participants",
             key: "participants",
@@ -69,45 +78,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             key: "type",
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.type.localeCompare(b.type),
             sortDirections: ["descend", "ascend"],
-            render: (_, record: DiveEventResponse) => {
-                let color: string;
-                let labelText: string;
-
-                switch (record.type) {
-                    case DiveTypeEnum.BOAT:
-                        color = "yellow";
-                        labelText = t("EditEvent.eventTypes.boat");
-                        break;
-                    case DiveTypeEnum.CAVE:
-                        color = "blue";
-                        labelText = t("EditEvent.eventTypes.cave");
-                        break;
-                    case DiveTypeEnum.CURRENT:
-                        color = "violet";
-                        labelText = t("EditEvent.eventTypes.current");
-                        break;
-                    case DiveTypeEnum.OPEN_AND_CAVE:
-                        color = "green";
-                        labelText = t("EditEvent.eventTypes.open-and-cave");
-                        break;
-                    case DiveTypeEnum.OPEN_WATER:
-                        color = "marine";
-                        labelText = t("EditEvent.eventTypes.open-water");
-                        break;
-                    case DiveTypeEnum.SURFACE:
-                        color = "white";
-                        labelText = t("EditEvent.eventTypes.surface");
-                        break;
-                    default:
-                        color = "red";
-                        labelText = t("EventDetails.participantTable.paymentType.unknown");
-                }
-
-                return (
-                        <Tag color={color} key={"divetype-" + record.id}>
-                            {labelText}
-                        </Tag>);
-            }
+            render: (_, record: DiveEventResponse) => diveTypeEnum2Tag(record.type, t, record.id)
         },
         {
             title: t("Events.table.organizer"),
@@ -148,8 +119,8 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                                             background: "green",
                                             borderColor: "white"
                                         }}>{t("common.button.update")}</Button></Link>}
-                            <Link to={"/events/" + record.id}><Button
-                                    type={"primary"}>{t("common.button.open")}</Button></Link>
+                            {record.status === DiveEventStatusEnum.PUBLISHED && <Link to={"/events/" + record.id}><Button
+                                    type={"primary"}>{t("common.button.open")}</Button></Link>}
                         </Space>
                     </>);
                 } else {

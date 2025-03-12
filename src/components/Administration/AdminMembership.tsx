@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Form, message, Select, Spin} from 'antd';
-import {MembershipStatusEnum, MembershipTypeEnum} from '../../models/';
-import {MembershipResponse} from '../../models/responses/';
-import {membershipAPI} from '../../services/';
-import {useParams} from 'react-router-dom';
-import {MembershipRequest} from "../../models/requests";
+import React, { useEffect, useState } from "react";
+import { Button, Form, message, Select, Spin } from "antd";
+import { MembershipStatusEnum, MembershipTypeEnum } from "../../models/";
+import { MembershipResponse } from "../../models/responses/";
+import { membershipAPI } from "../../services/";
+import { useParams } from "react-router-dom";
+import { MembershipRequest } from "../../models/requests";
 
 export function AdminMembership() {
     const {paramId} = useParams();
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [membership, setMembership] = useState<MembershipResponse | null>(null);
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         setLoading(true);
@@ -21,7 +22,7 @@ export function AdminMembership() {
             tmpMembershipId = parseInt(paramId);
         } else {
             console.error('Invalid user id:', paramId);
-            message.error('Invalid user id');
+            messageApi.error('Invalid user id');
             return;
         }
 
@@ -31,7 +32,7 @@ export function AdminMembership() {
                 })
                 .catch((error) => {
                     console.error('Error fetching membership:', error);
-                    message.error('Failed to fetch membership data');
+                    messageApi.error('Failed to fetch membership data');
                 })
                 .finally(() => {
                     setLoading(false);
@@ -51,12 +52,13 @@ export function AdminMembership() {
         };
 
         membershipAPI.update(updatedMembership)
-                .then(() => {
-                    message.success('Membership updated successfully');
+                .then((response) => {
+                    setMembership(response);
+                    messageApi.success('Membership updated successfully');
                 })
                 .catch((error) => {
                     console.error('Error updating membership:', error);
-                    message.error('Failed to update membership');
+                    messageApi.error('Failed to update membership');
                 });
     };
 
@@ -66,6 +68,7 @@ export function AdminMembership() {
 
     return (
             <div className="darkDiv">
+                {contextHolder}
                 <Form form={form}
                       onFinish={onFinish}
                       layout="vertical"

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
-import {Button, DatePicker, Form, Input, List, message, Popconfirm, Spin} from "antd";
-import {BlockedDateResponse} from "../../models/responses";
-import {BlockedDateRequest} from "../../models/requests";
-import dayjs, {Dayjs} from "dayjs";
-import {blockedDatesAPI} from "../../services";
-import {useTranslation} from "react-i18next";
-import {localToUTCDate} from "../../helpers";
+import React, { useEffect, useState } from "react";
+import { Button, DatePicker, Form, Input, List, message, Popconfirm, Spin } from "antd";
+import { BlockedDateResponse } from "../../models/responses";
+import { BlockedDateRequest } from "../../models/requests";
+import dayjs, { Dayjs } from "dayjs";
+import { blockedDatesAPI } from "../../services";
+import { useTranslation } from "react-i18next";
+import { localToUTCDate } from "../../helpers";
 
 const {Item} = Form;
 const { TextArea } = Input;
@@ -16,6 +16,7 @@ function BlockedDates() {
     const [currentlyBlockedDates, setCurrentlyBlockedDates] = useState<Date[]>([]);
     const {t} = useTranslation();
     const [form] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         loadBlockedDates();
@@ -31,7 +32,7 @@ function BlockedDates() {
                     setBlockedDates(response);
                 })
                 .catch(() => {
-                    message.error(t("BlockedDates.load.fail"));
+                    messageApi.error(t("BlockedDates.load.fail"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -54,12 +55,12 @@ function BlockedDates() {
 
         blockedDatesAPI.create(request)
                 .then(() => {
-                    message.success(t("BlockedDates.popup.add-success"));
+                    messageApi.success(t("BlockedDates.popup.add-success"));
                     loadBlockedDates();
                     form.resetFields();
                 })
                 .catch(() => {
-                    message.error(t("BlockedDates.popup.add-fail"));
+                    messageApi.error(t("BlockedDates.popup.add-fail"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -71,11 +72,11 @@ function BlockedDates() {
 
         blockedDatesAPI.delete(id)
                 .then(() => {
-                    message.success(t("BlockedDates.popup.remove-success"));
+                    messageApi.success(t("BlockedDates.popup.remove-success"));
                     loadBlockedDates();
                 })
                 .catch(() => {
-                    message.error(t("BlockedDates.popup.remove-fail"));
+                    messageApi.error(t("BlockedDates.popup.remove-fail"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -88,6 +89,7 @@ function BlockedDates() {
 
     return (
             <div className="darkDiv">
+                {contextHolder}
                 <h4>{t("BlockedDates.title")}</h4>
 
                 <Spin spinning={loading}>

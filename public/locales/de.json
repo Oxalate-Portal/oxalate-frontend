@@ -138,6 +138,7 @@
         "button" : "Aktualisieren",
         "title" : "Aktualisieren"
       },
+      "approvedTerms" : "Bedingungen",
       "firstName" : "Vorname",
       "lastName" : "Nachname",
       "login" : "Benutzername",
@@ -287,6 +288,70 @@
     "months" : "Monat",
     "years" : "Jahr"
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Fehler beim Melden des Kommentars.",
+      "report-success" : "Kommentar erfolgreich gemeldet.",
+      "report-cancel-fail" : "Fehler beim Abbrechen der Meldung.",
+      "report-cancel-success" : "Meldung erfolgreich abgebrochen."
+    },
+    "singular-reply" : "Antwort",
+    "multiple-replies" : "Antworten",
+    "button" : {
+      "report-comment" : "Unangemessenen Kommentar melden",
+      "cancel-report" : "Meldung zurückziehen"
+    },
+    "modal" : {
+      "description" : "Bitte beschreiben Sie das Problem:",
+      "placeholder" : "Geben Sie hier die Details ein..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Aktionen"
+      },
+      "reports" : {
+        "label" : "Meldungen"
+      }
+    },
+    "messages" : {
+      "fail" : "Fehler beim Abrufen der ausstehenden Meldungen.",
+      "success" : "Liste der ausstehenden Meldungen abgerufen."
+    },
+    "no-comments" : "Keine ausstehenden Meldungen.",
+    "title" : "Kommentare zur Moderation"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Meldungen konnten nicht abgelehnt werden.",
+      "dismiss-comment-success" : "Meldungen abgelehnt.",
+      "reject-comment-confirm" : "Das Ablehnen dieses Kommentars wird auch alle untergeordneten Kommentare ablehnen. Sind Sie sicher, dass Sie fortfahren möchten?",
+      "reject-comment-fail": "Kommentar konnte nicht abgelehnt werden.",
+      "reject-comment-success" : "Kommentar abgelehnt."
+    },
+    "button" : {
+      "dismiss-reports" : "Meldungen ablehnen",
+      "reject-comment" : "Kommentar ablehnen"
+    }
+  },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Abgesagt",
+    "drafted" : "Entwurf",
+    "held" : "Abgehalten",
+    "published" : "Veröffentlicht",
+    "unknown" : "Unbekannt"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Tauchen vom Boot",
+    "cave" : "Höhle",
+    "course" : "Kurs",
+    "current" : "Strömung",
+    "open-and-cave" : "Offen / Höhle",
+    "open-water" : "Offen",
+    "surface" : "Nur Oberflächenaktivität",
+    "unknown" : "Unbekannt"
+  },
   "DownloadData" : {
     "certificateLabel" : "Zertifikate",
     "choose" : "Wählen Sie eine der folgenden Optionen zum Herunterladen:",
@@ -421,12 +486,12 @@
         "tooltip" : "Teilnehmer an der Veranstaltung"
       },
       "startTime" : {
-        "label" : "Startzeit, beachten Sie, dass diese in der Zeitzone des Standorts liegt.",
+        "label" : "Startzeit",
         "rules" : {
           "required" : "Startzeit ist ein Pflichtfeld",
           "validator" : "Das Datum muss mindestens 30 Minuten in der Zukunft liegen!"
         },
-        "tooltip" : "Startzeit des Ereignisses"
+        "tooltip" : "Startzeit des Ereignisses, beachten Sie, dass diese in der Zeitzone des Standorts liegt."
       },
       "status" : {
         "label" : "Status des Tauchereignisses",
@@ -656,6 +721,7 @@
       "organizer" : "Veranstalter",
       "participants" : "Teilnehmer",
       "startTime" : "Startzeit",
+      "status" : "Status",
       "title" : "Beschreibung",
       "type" : "Art"
     },
@@ -918,6 +984,29 @@
     "button" : {
       "reload" : "Konfiguration neu laden"
     },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Kommentarbearbeitung erlauben",
+        "tooltip" : "Kann ein Benutzer seinen Kommentar aktualisieren?"
+      },
+      "commenting-enabled" : {
+        "label" : "Kommentarfunktion aktivieren",
+        "tooltip" : "Ist die Kommentarfunktion standardmäßig aktiviert?"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Aktivierte Kommentarfunktionen",
+        "tooltip" : "Welche Funktionen sind für Kommentare aktiviert?"
+      },
+      "comments-report-trigger-level" : {
+        "label" : "Meldeschwelle für Kommentare",
+        "tooltip" : "Wie viele Meldungen erforderlich sind, bevor ein Kommentar zur Überprüfung markiert wird"
+      },
+      "comments-require-review" : {
+        "label" : "Kommentare erfordern Überprüfung",
+        "tooltip" : "Müssen Kommentare überprüft werden, bevor sie veröffentlicht und für andere sichtbar werden?"
+      },
+      "title" : "Kommentare"
+    },
     "configuration" : "Konfiguration",
     "configuration-reloaded" : "Konfiguration neu geladen",
     "configuration-reload-failed" : "Konfiguration konnte nicht neu geladen werden",
@@ -1129,6 +1218,24 @@
       "ok" : "Bestätigung des Kontos erfolgreich, Sie können sich jetzt mit Ihrer Benutzer-ID und Ihrem Passwort anmelden."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Meldung konnte nicht akzeptiert werden.",
+      "accept-success" : "Meldung akzeptiert",
+      "dismiss-fail" : "Meldung konnte nicht abgelehnt werden.",
+      "dismiss-success" : "Meldung abgelehnt."
+    },
+    "field" : {
+      "created-at" : "Erstellt",
+      "reason" : "Grund",
+      "reporter" : "Meldender",
+      "status" : "Status"
+    },
+    "button" : {
+      "accept" : "Meldung akzeptieren",
+      "dismiss" : "Meldung ablehnen"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Tauchanzahl",
@@ -1139,6 +1246,12 @@
   },
   "ReportEvents" : {
     "title" : "Veranstaltungsberichte"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Genehmigt",
+    "cancelled" : "Storniert",
+    "pending" : "Ausstehend",
+    "rejected" : "Abgelehnt"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1162,6 +1275,8 @@
       "diverId" : "Taucher-ID",
       "organization" : "Zertifizierungsstelle",
       "photocopy" : "Zertifikatskopie",
+      "remove-photo-success" : "Zertifikatsfoto erfolgreich entfernt",
+      "remove-photo-fail" : "Entfernen des Zertifikatsfotos fehlgeschlagen",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
       "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist.",
@@ -1344,6 +1459,7 @@
     "button" : {
       "add" : "Hinzufügen",
       "back" : "Zurück",
+      "cancel" : "Abbrechen",
       "close" : "Schließen",
       "delete" : "Löschen",
       "held" : "Gehalten",
@@ -1352,6 +1468,7 @@
       "no" : "Nein",
       "open" : "Öffnen",
       "reset" : "Zurücksetzen",
+      "respond" : "Antworten",
       "save" : "Speichern",
       "send" : "Senden",
       "update" : "Bearbeiten",
@@ -1389,10 +1506,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Administrator",
-      "anonymous" : "Anonym",
-      "organizer" : "Veranstaltungsorganisator",
-      "user" : "Benutzer"
+      "role_admin" : "Administrator",
+      "role_anonymous" : "Anonym",
+      "role_organizer" : "Veranstaltungsorganisator",
+      "role_user" : "Benutzer"
     },
     "spinner" : {
       "loading" : "Laden..."
@@ -1415,6 +1532,7 @@
     "administration" : {
       "audits" : "Audits",
       "blocked-dates" : "Datumsblockierung",
+      "comment-moderation" : "Kommentarmoderation",
       "download" : "Herunterladen",
       "files" : "Dateien",
       "members" : "Mitglieder",
@@ -1431,6 +1549,10 @@
       "past" : "Vergangene Veranstaltungen",
       "title" : "Veranstaltungen",
       "yearlyStats" : "Jahresstatistiken"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Hauppauge"
     },
     "pageManagement" : {
       "pages" : "Seiten",

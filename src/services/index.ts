@@ -3,6 +3,7 @@ export {authAPI} from './AuthAPI';
 export {blockedDatesAPI} from './BlockedDatesAPI';
 export {certificateAPI} from './CertificateAPI';
 export {CKUploadAdapter} from './CKUploadAdapter';
+export {commentAPI} from './CommentAPI';
 export {diveEventAPI} from './DiveEventAPI';
 export {downloadAPI} from './DownloadAPI';
 export {emailNotificationSubscriptionAPI} from './EmailNotificationSubscriptionAPI';

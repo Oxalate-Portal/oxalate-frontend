@@ -28,6 +28,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
     const [selectedUsers, setSelectedUsers] = useState<ListUserResponse[]>([]);
     const filteredOptions = users.filter((o) => !selectedUsers.includes(o) && !membershipList.some(m => m.userId === o.id));
     const [membershipForm] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         setLoading(true);
@@ -39,7 +40,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                 })
                 .catch((error) => {
                     console.error("Failed to get users:", error);
-                    message.error(t("AddMemberships.errorGetUsers"));
+                    messageApi.error(t("AddMemberships.errorGetUsers"));
                 })
                 .finally(() => {
                     setLoading(false);
@@ -68,11 +69,11 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
         Promise.all(promises)
                 .then(() => {
                     onMembershipAdded();
-                    message.success(t("AddMemberships.onFinish.ok"));
+                    messageApi.success(t("AddMemberships.onFinish.ok"));
                 })
                 .catch(e => {
                     console.error("Failed to update user membership information, error: " + e.message);
-                    message.error(t("AddMemberships.onFinish.fail") + " " + e.message);
+                    messageApi.error(t("AddMemberships.onFinish.fail") + " " + e.message);
                 })
                 .finally(() => {
                     setLoading(false);
@@ -84,6 +85,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
 
     return (
             <Spin spinning={loading}>
+                {contextHolder}
                 <Form
                         form={membershipForm}
                         initialValues={{userIdList: []}}

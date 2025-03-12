@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button, Divider, Input, Space, Spin, Table, Tag } from "antd";
-import { PaymentTypeEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
+import { Button, Divider, Input, message, Space, Spin, Table, Tag } from "antd";
+import { PaymentTypeEnum } from "../../models";
 import { userAPI } from "../../services";
-import { SubmitResult } from "../main";
 import type { ColumnsType } from "antd/es/table";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { roleEnum2Tag } from "../../helpers/Enum2TagTool";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [searchText, setSearchText] = useState<string>("");
-    const navigate = useNavigate();
     const {t} = useTranslation();
+    const [messageApi, contextHolder] = message.useMessage();
 
     const userListColumns: ColumnsType<AdminUserResponse> = [
         {
@@ -64,38 +64,26 @@ export function AdminOrgUsers() {
             sortDirections: ["descend", "ascend"]
         },
         {
+            title: t("AdminOrgUsers.table.approvedTerms"),
+            dataIndex: "approvedTerms",
+            key: "approvedTerms",
+            sorter: (a: AdminUserResponse) => a.approvedTerms ? 1 : -1,
+            sortDirections: ["descend", "ascend"],
+            render: (_: any, record: AdminUserResponse) => {
+                return record.approvedTerms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
+                        <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
+            }
+        },
+        {
             title: t("AdminOrgUsers.table.role.title"),
             dataIndex: "roles",
             key: "roles",
             render: (_: any, record: AdminUserResponse) => (
                     <>
-                        {record.roles.map((role) => {
-                            let color = "";
-                            let roleLabel = "";
-
-                            if (role === "ROLE_ANONYMOUS") {
-                                color = "red";
-                                roleLabel = t("common.roles.anonymous");
-                            }
-                            if (role === "ROLE_USER") {
-                                color = "green";
-                                roleLabel = t("common.roles.user");
-                            }
-                            if (role === "ROLE_ORGANIZER") {
-                                color = "blue";
-                                roleLabel = t("common.roles.organizer");
-                            }
-                            if (role === "ROLE_ADMIN") {
-                                color = "cyan";
-                                roleLabel = t("common.roles.administrator");
-                            }
-
-                            return (
-                                    <Tag color={color} key={role}>
-                                        {roleLabel}
-                                    </Tag>
-                            );
-                        })}
+                        {record.roles
+                                .slice()
+                                .sort((a, b) => a.localeCompare(b))
+                                .map((role) => roleEnum2Tag(role, t, record.id))}
                     </>
             ),
         },
@@ -119,7 +107,7 @@ export function AdminOrgUsers() {
                             }
 
                             return (
-                                    <Tag color={color} key={"payment-" + payment.paymentType}>
+                                    <Tag color={color} key={"payment-" + payment.paymentType + "-" + payment.id}>
                                         {paymentTypeLabel}
                                     </Tag>
                             );
@@ -159,13 +147,13 @@ export function AdminOrgUsers() {
             userAPI.resetTerms()
                     .then(response => {
                         if (response) {
-                            setUpdateStatus({status: UpdateStatusEnum.OK, message: t("AdminOrgUsers.invalidateTermAgreements.ok")});
+                            messageApi.success(t("AdminOrgUsers.invalidateTermAgreements.ok"));
                         } else {
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUsers.invalidateTermAgreements.fail")});
+                            messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
                         }
                     })
                     .catch(e => {
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("AdminOrgUsers.invalidateTermAgreements.fail")});
+                        messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
                         console.error("Failed to reset term agreements, error: " + e.message);
                     })
                     .finally(() => {
@@ -174,12 +162,9 @@ export function AdminOrgUsers() {
         }
     }
 
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <h4>{t("AdminOrgUsers.title")}</h4>
                 <Spin spinning={loading}>
                     <Input.Search

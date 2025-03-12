@@ -1,6 +1,9 @@
 export type {AuditEntryResponse} from "./AuditEntryResponse";
 export type {BlockedDateResponse} from "./BlockedDateResponse";
 export type {CertificateResponse} from "./CertificateResponse";
+export type {CommentModerationResponse} from "./CommentModerationResponse";
+export type {CommentReportResponse} from "./CommentReportResponse";
+export type {CommentResponse} from "./CommentResponse";
 export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
 export type {DiveEventListResponse} from "./DiveEventListResponse";
 export type {DiveEventResponse} from "./DiveEventResponse";
@@ -23,6 +26,7 @@ export type {PaymentStatusResponse} from "./PaymentStatusResponse";
 export type {PortalConfigurationResponse} from "./PortalConfigurationResponse";
 export type {PortalConfigurationStatusResponse} from "./PortalConfigurationStatusResponse";
 export type {RegistrationResponse} from "./RegistrationResponse";
+export type {ReportResponse} from "./ReportResponse";
 export type {RolePermissionResponse} from "./RolePermissionResponse";
 export type {TermsResponse} from "./TermsResponse";
 export type {UserResponse} from "./UserResponse";

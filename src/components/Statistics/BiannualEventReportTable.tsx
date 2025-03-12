@@ -1,5 +1,5 @@
 import { EventReportResponse } from "../../models/responses";
-import { Collapse, Table } from "antd";
+import { Table } from "antd";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
@@ -8,8 +8,6 @@ interface BiannualEventReportProps {
     events: EventReportResponse[],
     childKey?: string
 }
-
-const {Panel} = Collapse;
 
 export function BiannualEventReportTable({events, childKey}: BiannualEventReportProps) {
     const {t} = useTranslation();

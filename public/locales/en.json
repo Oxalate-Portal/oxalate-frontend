@@ -138,6 +138,7 @@
         "button" : "Update",
         "title" : "Update"
       },
+      "approvedTerms" : "Terms",
       "firstName" : "First name",
       "lastName" : "Last name",
       "login" : "Username",
@@ -281,11 +282,75 @@
       "title" : "Dive certifications"
     }
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Failed to report comment.",
+      "report-success" : "Comment reported successfully.",
+      "report-cancel-fail" : "Failed to cancel the report.",
+      "report-cancel-success" : "Report canceled successfully."
+    },
+    "singular-reply" : "reply",
+    "multiple-replies" : "replies",
+    "button" : {
+      "report-comment" : "Report inappropriate comment",
+      "cancel-report" : "Cancel report"
+    },
+    "modal" : {
+      "description" : "Please Describe the issue:",
+      "placeholder" : "Provide details here..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Actions"
+      },
+      "reports" : {
+        "label" : "Reports"
+      }
+    },
+    "messages" : {
+      "fail" : "Failed to fetch pending reports.",
+      "success" : "List of pending reports fetched."
+    },
+    "no-comments" : "No pending reports.",
+    "title" : "Comments requiring moderation"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Failed to dismiss reports.",
+      "dismiss-comment-success" : "Reports dismissed.",
+      "reject-comment-confirm" : "Rejecting this comment will also reject all its children. Are you sure you want to proceed?",
+      "reject-comment-fail": "Failed to reject comment.",
+      "reject-comment-success" : "Comment rejected."
+    },
+    "button" : {
+      "dismiss-reports" : "Dismiss reports",
+      "reject-comment" : "Reject comment"
+    }
+  },
   "ChronoUnitEnum" : {
     "days" : "Day",
     "weeks" : "Week",
     "months" : "Month",
     "years" : "Year"
+  },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Cancelled",
+    "drafted" : "Draft",
+    "held" : "Held",
+    "published" : "Published",
+    "unknown" : "Unknown"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Diving from boat",
+    "cave" : "Cave",
+    "course" : "Course",
+    "current" : "Current",
+    "open-and-cave" : "Open water / Cave",
+    "open-water" : "Open water",
+    "surface" : "Surface activities only",
+    "unknown" : "Unknown"
   },
   "DownloadData" : {
     "certificateLabel" : "Certificates",
@@ -365,16 +430,6 @@
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Diving from boat",
-      "cave" : "Cave",
-      "course" : "Course",
-      "current" : "Current",
-      "open-and-cave" : "Open water / Cave",
-      "open-water" : "Open water",
-      "surface" : "Surface activities only",
-      "unknown" : "Unknown"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Update dive counts"
@@ -421,12 +476,12 @@
         "tooltip" : "Participants in the event"
       },
       "startTime" : {
-        "label" : "Start time, note that this is in the timezone of the location",
+        "label" : "Start time",
         "rules" : {
           "required" : "Start time is a required field",
           "validator" : "The date must be at least 30 minutes in the future!"
         },
-        "tooltip" : "Start time"
+        "tooltip" : "Start time, note that this is in the timezone of the location"
       },
       "status" : {
         "label" : "Dive event status",
@@ -656,6 +711,7 @@
       "organizer" : "Organizer",
       "participants" : "Participants",
       "startTime" : "Start time",
+      "status" : "Status",
       "title" : "Description",
       "type" : "Type"
     },
@@ -918,6 +974,29 @@
     "button" : {
       "reload" : "Reload server"
     },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Allow comment updates",
+        "tooltip" : "Can a user update their comment?"
+      },
+      "commenting-enabled" : {
+        "label" : "Enable commenting",
+        "tooltip" : "Is the commenting enabled by default"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Commenting enabled features",
+        "tooltip" : "Which features are enabled for commenting"
+      },
+      "comments-report-trigger-level" : {
+        "label" : "Comment report trigger level",
+        "tooltip" : "How many reports are required before a comment is set to be reviewed"
+      },
+      "comments-require-review" : {
+        "label" : "Comments require review",
+        "tooltip" : "Do comments require reviewing before they are published and become visible to others"
+      },
+      "title" : "Commenting"
+    },
     "configuration" : "Configuration",
     "configuration-reloaded" : "Configuration reloaded",
     "configuration-reload-failed" : "Failed to reload configuration",
@@ -1129,6 +1208,24 @@
       "ok" : "Account confirmation successful. You can now log in with your username and password."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Failed to accept report.",
+      "accept-success" : "Report accepted",
+      "dismiss-fail" : "Failed to dismiss report.",
+      "dismiss-success" : "Report dismissed."
+    },
+    "field" : {
+      "created-at" : "Created",
+      "reason" : "Reason",
+      "reporter" : "Reporter",
+      "status" : "Status"
+    },
+    "button" : {
+      "accept" : "Accept report",
+      "dismiss" : "Dismiss report"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Dive count",
@@ -1139,6 +1236,12 @@
   },
   "ReportEvents" : {
     "title" : "Event reports"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Approved",
+    "cancelled" : "Cancelled",
+    "pending" : "Pending",
+    "rejected" : "Rejected"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1162,6 +1265,8 @@
       "diverId" : "Diver ID",
       "organization" : "Certification organization",
       "photocopy" : "Certification photocopy",
+      "remove-photo-success" : "Certificate photo removed successfully",
+      "remove-photo-fail" : "Failed to remove certificate photo",
       "title" : "Certification: ",
       "upload-photo" : "Upload certificate",
       "upload-photo-size-too-big" : "File size is too big, max 1MB allowed",
@@ -1344,6 +1449,7 @@
     "button" : {
       "add" : "Add",
       "back" : "Back",
+      "cancel" : "Cancel",
       "close" : "Close",
       "delete" : "Delete",
       "held" : "Held",
@@ -1352,6 +1458,7 @@
       "no" : "No",
       "open" : "Open",
       "reset" : "Reset",
+      "respond" : "Respond",
       "save" : "Save",
       "send" : "Send",
       "update" : "Update",
@@ -1389,10 +1496,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Administrator",
-      "anonymous" : "Anonymous",
-      "organizer" : "Event Organizer",
-      "user" : "User"
+      "role_admin" : "Administrator",
+      "role_anonymous" : "Anonymous",
+      "role_organizer" : "Event Organizer",
+      "role_user" : "User"
     },
     "spinner" : {
       "loading" : "Loading..."
@@ -1415,6 +1522,7 @@
     "administration" : {
       "audits" : "Audits",
       "blocked-dates" : "Date blocking",
+      "comment-moderation" : "Comment moderation",
       "download" : "Download",
       "files" : "Files",
       "members" : "Members",
@@ -1431,6 +1539,10 @@
       "past" : "Past events",
       "title" : "Events",
       "yearlyStats" : "Yearly statistics"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Main page"
     },
     "pageManagement" : {
       "pages" : "Pages",

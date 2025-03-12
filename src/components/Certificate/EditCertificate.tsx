@@ -1,17 +1,16 @@
 import { useTranslation } from "react-i18next";
 import { CertificateRequest } from "../../models/requests";
 import dayjs from "dayjs";
-import { useNavigate, useParams } from "react-router-dom";
-import { Button, Form, Input, Space, Spin } from "antd";
+import { useParams } from "react-router-dom";
+import { Button, Form, Input, message, Space, Spin } from "antd";
 import { useEffect, useState } from "react";
-import { SubmitResult } from "../main";
-import { UpdateStatusEnum, UpdateStatusVO } from "../../models";
 import { certificateAPI } from "../../services";
 
 export function EditCertificate() {
     const {paramId} = useParams();
     const {t} = useTranslation();
     const [certificateId, setCertificateId] = useState<number>(0);
+    const [messageApi, contextHolder] = message.useMessage();
 
     const emptyCertificate: CertificateRequest = {
         id: 0,
@@ -26,11 +25,9 @@ export function EditCertificate() {
     const [certificateForm] = Form.useForm();
     const [certificate, setCertificate] = useState<CertificateRequest>(emptyCertificate);
     const [loading, setLoading] = useState<boolean>(true);
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [submitButtonText, setSubmitButtonText] = useState<string>(t("EditCertificate.form.button.update"));
     const [diveIdRequired, setDiveIdRequired] = useState<boolean>(true);
     const [certificateIdRequired, setCertificateIdRequired] = useState<boolean>(true);
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (paramId?.length === 0) {
@@ -65,10 +62,7 @@ export function EditCertificate() {
                     })
                     .catch((error) => {
                         console.error("Failed to retrieve certificate: " + error);
-                        setUpdateStatus({
-                            status: UpdateStatusEnum.FAIL,
-                            message: t("EditCertificate.updateCertificate.update.fail")
-                        });
+                        messageApi.error(t("EditCertificate.updateCertificate.update.fail"));
                     })
                     .finally(() => {
                         setLoading(false);
@@ -89,20 +83,14 @@ export function EditCertificate() {
                     .then((response) => {
                         // If we get back the same ID as we sent, we assume the update was successful
                         if (response.id === certificateId) {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.OK,
-                                message: t("EditCertificate.updateCertificate.update.ok")
-                            });
+                            messageApi.success(t("EditCertificate.updateCertificate.update.ok"));
                         } else {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.FAIL,
-                                message: t("EditCertificate.updateCertificate.update.fail")
-                            });
+                            messageApi.error(t("EditCertificate.updateCertificate.update.fail"));
                         }
                     })
                     .catch(e => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -112,20 +100,14 @@ export function EditCertificate() {
                     .then((response) => {
                         // If we get back an non-zero positive ID as we sent, we assume the update was successful
                         if (!isNaN(response.id) && response.id > 0) {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.OK,
-                                message: t("EditCertificate.updateCertificate.add.ok")
-                            });
+                            messageApi.success(t("EditCertificate.updateCertificate.add.ok"));
                         } else {
-                            setUpdateStatus({
-                                status: UpdateStatusEnum.FAIL,
-                                message: t("EditCertificate.updateCertificate.add.fail")
-                            });
+                            messageApi.error(t("EditCertificate.updateCertificate.add.fail"));
                         }
                     })
                     .catch(e => {
                         console.error(e);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+                        messageApi.error(e);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -137,12 +119,9 @@ export function EditCertificate() {
         console.error("Update certificate failed: " + JSON.stringify(certValues));
     }
 
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className="darkDiv">
+                {contextHolder}
                 <h4>{t("EditCertificate.title")}</h4>
                 <p>{certificate.id}</p>
                 <Spin spinning={loading}>

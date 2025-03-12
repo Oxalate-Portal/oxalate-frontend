@@ -138,6 +138,7 @@
         "button" : "Päivitä",
         "title" : "Päivitä"
       },
+      "approvedTerms" : "Ehdot",
       "firstName" : "Etunimi",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
@@ -287,6 +288,70 @@
     "months" : "Kuukausi",
     "years" : "Vuosi"
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Kommentin ilmoittaminen epäonnistui.",
+      "report-success" : "Kommentti ilmoitettu onnistuneesti.",
+      "report-cancel-fail" : "Ilmoituksen peruminen epäonnistui.",
+      "report-cancel-success" : "Ilmoitus peruttu onnistuneesti."
+    },
+    "singular-reply" : "vastausta",
+    "multiple-replies" : "vastausta",
+    "button" : {
+      "report-comment" : "Ilmoita sopimattomasta kommentista",
+      "cancel-report" : "Peru ilmoitus"
+    },
+    "modal" : {
+      "description" : "Kuvaile ongelma:",
+      "placeholder" : "Anna lisätietoja tähän..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Toiminnot"
+      },
+      "reports" : {
+        "label" : "Ilmoitukset"
+      }
+    },
+    "messages" : {
+      "fail" : "Odotettavien ilmoitusten haku epäonnistui.",
+      "success" : "Lista odottavista ilmoituksista haettu."
+    },
+    "no-comments" : "Ei odottavia ilmoituksia.",
+    "title" : "Moderointia vaativat kommentit"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Ilmoitusten hylkääminen epäonnistui.",
+      "dismiss-comment-success" : "Ilmoitukset hylätty.",
+      "reject-comment-confirm" : "Tämän kommentin hylkääminen hylkää myös kaikki sen alikommentit. Oletko varma, että haluat jatkaa?",
+      "reject-comment-fail": "Kommentin hylkääminen epäonnistui.",
+      "reject-comment-success" : "Kommentti hylätty."
+    },
+    "button" : {
+      "dismiss-reports" : "Hylkää ilmoitukset",
+      "reject-comment" : "Hylkää kommentti"
+    }
+  },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Peruutettu",
+    "drafted" : "Luonnos",
+    "held" : "Pidetty",
+    "published" : "Julkaistu",
+    "unknown" : "Tuntematon"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Sukellusta veneestä",
+    "cave" : "Luola",
+    "course" : "Kurssi",
+    "current" : "Virta",
+    "open-and-cave" : "Avo / Luola",
+    "open-water" : "Avo",
+    "surface" : "Vain pintatoimintaa",
+    "unknown" : "Tuntematon"
+  },
   "DownloadData" : {
     "certificateLabel" : "Luokitukset",
     "choose" : "Valitse yksi seuraavista ladattavaksi:",
@@ -365,16 +430,6 @@
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Sukellusta veneestä",
-      "cave" : "Luola",
-      "course" : "Kurssi",
-      "current" : "Virta",
-      "open-and-cave" : "Avo / Luola",
-      "open-water" : "Avo",
-      "surface" : "Vain pintatoimintaa",
-      "unknown" : "Tuntematon"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Päivitä sukellusmäärät"
@@ -421,12 +476,12 @@
         "tooltip" : "Tapahtumaan osallistuvat sukeltajat"
       },
       "startTime" : {
-        "label" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä.",
+        "label" : "Aloitusaika",
         "rules" : {
           "required" : "Aloitusaika on vaadittu kenttä",
           "validator" : "Päivämäärän täytyy olla vähintään 30min tulevaisuudessa!"
         },
-        "tooltip" : "Aloitusaika"
+        "tooltip" : "Aloitusaika, huomaa, että tämä on sijainnin aikavyöhykkeellä."
       },
       "status" : {
         "label" : "Sukellustapahtuman tila",
@@ -656,6 +711,7 @@
       "organizer" : "Järjestäjä",
       "participants" : "Osallistujat",
       "startTime" : "Ajankohta",
+      "status" : "Tila",
       "title" : "Kuvaus",
       "type" : "Tyyppi"
     },
@@ -918,6 +974,29 @@
     "button" : {
       "reload" : "Lataa asetukset palvelimella"
     },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Salli kommenttien päivitys",
+        "tooltip" : "Voiko käyttäjä päivittää kommenttinsa?"
+      },
+      "commenting-enabled" : {
+        "label" : "Ota kommentointi käyttöön",
+        "tooltip" : "Onko kommentointi oletusarvoisesti käytössä?"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Kommentoinnille käytettävissä olevat toiminnot",
+        "tooltip" : "Mitkä toiminnot ovat käytettävissä kommentointiin?"
+      },
+      "comments-report-trigger-level" : {
+        "label" : "Kommentin raportointiraja",
+        "tooltip" : "Kuinka monta raporttia vaaditaan, ennen kuin kommentti asetetaan tarkastettavaksi"
+      },
+      "comments-require-review" : {
+        "label" : "Kommentit vaativat tarkistuksen",
+        "tooltip" : "Onko kommentit tarkistettava ennen julkaisua ja muiden nähtäväksi tulemista?"
+      },
+      "title" : "Kommentointi"
+    },
     "configuration" : "Asetus",
     "configuration-reloaded" : "Asennukset ladattu palvelimelta",
     "configuration-reload-failed" : "Asetusten lataaminen epäonnistui",
@@ -1129,6 +1208,24 @@
       "ok" : "Tunnuksen vahvistus onnistui, voit nyt kirjautua sisään tunnuksellasi ja salasanalla."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Ilmoituksen hyväksyminen epäonnistui.",
+      "accept-success" : "Ilmoitus hyväksytty",
+      "dismiss-fail" : "Ilmoituksen hylkääminen epäonnistui.",
+      "dismiss-success" : "Ilmoitus hylätty."
+    },
+    "field" : {
+      "created-at" : "Luotu",
+      "reason" : "Syy",
+      "reporter" : "Ilmoittaja",
+      "status" : "Tila"
+    },
+    "button" : {
+      "accept" : "Hyväksy ilmoitus",
+      "dismiss" : "Hylkää ilmoitus"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Sukellusmäärä",
@@ -1139,6 +1236,12 @@
   },
   "ReportEvents" : {
     "title" : "Tapahtumaraportit"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Hyväksytty",
+    "cancelled" : "Peruutettu",
+    "pending" : "Odottaa",
+    "rejected" : "Hylätty"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1162,8 +1265,10 @@
       "diverId" : "Sukeltajatunnus",
       "organization" : "Luokitusjärjestö",
       "photocopy" : "Luokituskortin kopio",
+      "remove-photo-success" : "Kuvan lisäys onnistui",
+      "remove-photo-fail" : "Kuvan poisto epäonnistui",
       "title" : "Luokitus: ",
-      "upload-photo" : "Lataa luokituskortti",
+      "upload-photo" : "Lataa luokituskorttikuva",
       "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt.",
       "upload-photo-tooltip" : "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu."
     }
@@ -1344,6 +1449,7 @@
     "button" : {
       "add" : "Lisää",
       "back" : "Takaisin",
+      "cancel" : "Peruuta",
       "close" : "Sulje",
       "delete" : "Poista",
       "held" : "Pidetty",
@@ -1352,6 +1458,7 @@
       "no" : "Ei",
       "open" : "Avaa",
       "reset" : "Palauta",
+      "respond" : "Vastaa",
       "save" : "Tallenna",
       "send" : "Lähetä",
       "update" : "Päivitä",
@@ -1389,10 +1496,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Ylläpitäjä",
-      "anonymous" : "Anonyymi",
-      "organizer" : "Tapahtumajärjestäjä",
-      "user" : "Käyttäjä"
+      "role_admin" : "Ylläpitäjä",
+      "role_anonymous" : "Anonyymi",
+      "role_organizer" : "Tapahtumajärjestäjä",
+      "role_user" : "Käyttäjä"
     },
     "spinner" : {
       "loading" : "Ladataan..."
@@ -1415,6 +1522,7 @@
     "administration" : {
       "audits" : "Auditointi",
       "blocked-dates" : "Päivämäärän estäminen",
+      "comment-moderation" : "Kommenttimoderointi",
       "download" : "Lataa",
       "files" : "Tiedostot",
       "members" : "Jäsenet",
@@ -1431,6 +1539,10 @@
       "past" : "Menneet tapahtumat",
       "title" : "Tapahtumat",
       "yearlyStats" : "Vuositilastot"
+    },
+    "forum" : {
+      "title" : "Foorumi",
+      "link" : "Pääsivu"
     },
     "pageManagement" : {
       "pages" : "Sivut",

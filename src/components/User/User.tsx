@@ -1,23 +1,21 @@
 import { useSession } from "../../session";
 import { useEffect, useState } from "react";
-import { Button, Checkbox, Col, Form, Input, Row, Space, Spin } from "antd";
+import { Button, Checkbox, Col, Form, Input, message, Row, Space, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 import { checkRoles } from "../../helpers";
-import { useNavigate } from "react-router-dom";
 import { FormMemberships, FormPayments, ProfileCollapse, UserFields } from "./index";
-import { RoleEnum, SessionVO, UpdateStatusEnum, UpdateStatusVO, UserStatusEnum } from "../../models";
+import { RoleEnum, SessionVO, UserStatusEnum } from "../../models";
 import { UserResponse } from "../../models/responses";
 import { UserRequest } from "../../models/requests";
-import { SubmitResult } from "../main";
 import { userAPI } from "../../services";
 
 export function User() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
     const [workUser, setWorkUser] = useState<UserResponse>();
     const [userForm] = Form.useForm();
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         const fetchMemberData = async () => {
@@ -31,7 +29,7 @@ export function User() {
                         })
                         .catch((error) => {
                             console.error("Error fetching:", error);
-                            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: error});
+                            messageApi.error(error);
                         });
             } else {
                 console.error("No userSession found");
@@ -52,11 +50,11 @@ export function User() {
 
         userAPI.updateUserStatus(workUser?.id, status)
                 .then((response) => {
-                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("User.updateStatus.ok")});
+                    messageApi.success(t("User.updateStatus.ok"));
                 })
                 .catch(e => {
                     console.error(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("User.updateStatus.fail")});
+                    messageApi.error(t("User.updateStatus.fail"));
                 });
         setLoading(false);
     }
@@ -119,12 +117,12 @@ export function User() {
                         nextOfKin: response.nextOfKin
                     };
                     refreshUserSession(newSession);
-                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("User.update.ok")});
+                    messageApi.success(t("User.update.ok"));
                     setLoading(false);
                 })
                 .catch(e => {
                     console.error(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("User.update.fail")});
+                    messageApi.error(t("User.update.fail"));
                     setLoading(false);
                 });
     }
@@ -134,14 +132,9 @@ export function User() {
         setLoading(false);
     }
 
-    const navigate = useNavigate();
-
-    if (updateStatus.status !== UpdateStatusEnum.NONE) {
-        return <SubmitResult updateStatus={updateStatus} navigate={navigate}/>;
-    }
-
     return (
             <div className={"darkDiv"}>
+                {contextHolder}
                 <h4>{userSession?.username} {t("User.title")}:</h4>
 
                 <Spin spinning={loading}>
@@ -198,13 +191,13 @@ export function User() {
                             <Checkbox.Group style={{width: "100%"}}>
                                 <Row key={"roles-row"}>
                                     <Col span={6} key={"roles-col-user"}>{/* These checkboxes are supposed to be disabled and are meant just for viewing */}
-                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}} disabled>{t("common.roles.user")}</Checkbox>
+                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}} disabled>{t("common.roles.role_user")}</Checkbox>
                                     </Col>
                                     <Col span={12} key={"roles-col-organizer"}>
-                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}} disabled>{t("common.roles.organizer")}</Checkbox>
+                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}} disabled>{t("common.roles.role_organizer")}</Checkbox>
                                     </Col>
                                     <Col span={6} key={"roles-col-admin"}>
-                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}} disabled>{t("common.roles.administrator")}</Checkbox>
+                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}} disabled>{t("common.roles.role_admin")}</Checkbox>
                                     </Col>
                                 </Row>
                             </Checkbox.Group>

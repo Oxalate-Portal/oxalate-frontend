@@ -138,6 +138,7 @@
         "button" : "Uppdatera",
         "title" : "Uppdatera"
       },
+      "approvedTerms" : "Vilkor",
       "firstName" : "Förnamn",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
@@ -287,6 +288,70 @@
     "months" : "Månad",
     "years" : "År"
   },
+  "CommentCard" : {
+    "messages" : {
+      "report-fail" : "Misslyckades med att rapportera kommentaren.",
+      "report-success" : "Kommentaren rapporterad framgångsrikt.",
+      "report-cancel-fail" : "Misslyckades med att avbryta rapporten.",
+      "report-cancel-success" : "Rapporten avbruten framgångsrikt."
+    },
+    "singular-reply" : "svar",
+    "multiple-replies" : "svar",
+    "button" : {
+      "report-comment" : "Rapportera olämplig kommentar",
+      "cancel-report" : "Avbryt rapport"
+    },
+    "modal" : {
+      "description" : "Beskriv problemet:",
+      "placeholder" : "Ange detaljer här..."
+    }
+  },
+  "CommentModeration" : {
+    "collapse" : {
+      "actions" : {
+        "label" : "Åtgärder"
+      },
+      "reports" : {
+        "label" : "Rapporter"
+      }
+    },
+    "messages" : {
+      "fail" : "Misslyckades med att hämta väntande rapporter.",
+      "success" : "Lista över väntande rapporter hämtad."
+    },
+    "no-comments" : "Inga väntande rapporter.",
+    "title" : "Kommentarer som kräver moderering"
+  },
+  "CommentModerationActions" : {
+    "messages" : {
+      "dismiss-comment-fail" : "Misslyckades med att avvisa rapporter.",
+      "dismiss-comment-success" : "Rapporter avvisade.",
+      "reject-comment-confirm" : "Att avvisa denna kommentar kommer även att avvisa alla dess underliggande kommentarer. Är du säker på att du vill fortsätta?",
+      "reject-comment-fail": "Misslyckades med att avvisa kommentaren.",
+      "reject-comment-success" : "Kommentaren avvisad."
+    },
+    "button" : {
+      "dismiss-reports" : "Avvisa rapporter",
+      "reject-comment" : "Avvisa kommentar"
+    }
+  },
+  "DiveEventStatusEnum" : {
+    "cancelled" : "Inställt",
+    "drafted" : "Utkast",
+    "held" : "Genomförd",
+    "published" : "Publicerad",
+    "unknown" : "Okänd"
+  },
+  "DiveTypeEnum" : {
+    "boat" : "Dykning från båt",
+    "cave" : "Grottdykning",
+    "course" : "Kurs",
+    "current" : "Strömdykning",
+    "open-and-cave" : "Öppen dykning / Grottdykning",
+    "open-water" : "Öppen dykning",
+    "surface" : "Endast yta",
+    "unknown" : "Okänd"
+  },
   "DownloadData" : {
     "certificateLabel" : "Certifikat",
     "choose" : "Välj en av följande för att ladda ner:",
@@ -365,16 +430,6 @@
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Dykning från båt",
-      "cave" : "Grottdykning",
-      "course": "Kurs",
-      "current" : "Strömdykning",
-      "open-and-cave" : "Öppen dykning / Grottdykning",
-      "open-water" : "Öppen dykning",
-      "surface" : "Endast yta",
-      "unknown" : "Okänd"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Uppdatera dykförhållanden"
@@ -421,12 +476,12 @@
         "tooltip" : "Deltagare i evenemanget"
       },
       "startTime" : {
-        "label" : "Starttid, observera att detta är i platsens tidszon.",
+        "label" : "Starttid",
         "rules" : {
           "required" : "Starttid är ett obligatoriskt fält",
           "validator" : "Datumet måste vara minst 30 minuter framåt i tiden!"
         },
-        "tooltip" : "Starttid för evenemanget"
+        "tooltip" : "Starttid för evenemanget, observera att detta är i platsens tidszon."
       },
       "status" : {
         "label" : "Dykeventstatus",
@@ -656,6 +711,7 @@
       "organizer" : "Arrangör",
       "participants" : "Deltagare",
       "startTime" : "Tidpunkt",
+      "status" : "Status",
       "title" : "Beskrivning",
       "type" : "Typ"
     },
@@ -918,6 +974,29 @@
     "button" : {
       "reload" : "Ladda om servern"
     },
+    "commenting" : {
+      "commenting-allow-editing" : {
+        "label" : "Tillåt kommentaruppdateringar",
+        "tooltip" : "Kan en användare uppdatera sin kommentar?"
+      },
+      "commenting-enabled" : {
+        "label" : "Aktivera kommentering",
+        "tooltip" : "Är kommentering aktiverad som standard?"
+      },
+      "commenting-enabled-features" : {
+        "label" : "Aktiverade funktioner för kommentering",
+        "tooltip" : "Vilka funktioner är aktiverade för kommentering?"
+      },
+      "comments-report-trigger-level" : {
+        "label" : "Rapporteringsgräns för kommentarer",
+        "tooltip" : "Hur många rapporter som krävs innan en kommentar sätts för granskning"
+      },
+      "comments-require-review" : {
+        "label" : "Kommentarer kräver granskning",
+        "tooltip" : "Måste kommentarer granskas innan de publiceras och blir synliga för andra?"
+      },
+      "title" : "Kommentarer"
+    },
     "configuration" : "Konfiguration",
     "configuration-reloaded" : "Konfigurationen har laddats om",
     "configuration-reload-failed" : "Misslyckades med att ladda om konfigurationen",
@@ -1129,6 +1208,24 @@
       "ok" : "Aktiveringen av kontot lyckades. Du kan nu logga in med ditt användarnamn och lösenord."
     }
   },
+  "ReportCard" : {
+    "messages" : {
+      "accept-fail" : "Misslyckades med att acceptera rapporten.",
+      "accept-success" : "Rapport accepterad",
+      "dismiss-fail" : "Misslyckades med att avvisa rapporten.",
+      "dismiss-success" : "Rapport avvisad."
+    },
+    "field" : {
+      "created-at" : "Skapad",
+      "reason" : "Orsak",
+      "reporter" : "Anmälare",
+      "status" : "Status"
+    },
+    "button" : {
+      "accept" : "Acceptera rapport",
+      "dismiss" : "Avvisa rapport"
+    }
+  },
   "ReportEvent" : {
     "table" : {
       "diveCount" : "Antal dyk",
@@ -1139,6 +1236,12 @@
   },
   "ReportEvents" : {
     "title" : "Evenemangsrapporter"
+  },
+  "ReportStatusEnum" : {
+    "approved" : "Godkänd",
+    "cancelled" : "Avbruten",
+    "pending" : "Väntande",
+    "rejected" : "Avvisad"
   },
   "ResendRegistrationEmail" : {
     "text" : {
@@ -1162,8 +1265,10 @@
       "diverId" : "Dykarnummer",
       "organization" : "Certifieringsorganisation",
       "photocopy" : "Kopia av dykcertifikat",
+      "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
+      "remove-photo-fail" : "Kunde inte ta bort fotokopia av dykcertifikat",
       "title" : "Certifikat: ",
-      "upload-photo" : "Ladda dykcertificat",
+      "upload-photo" : "Ladda fotokopia av dykcertifikat",
       "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
       "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
     }
@@ -1344,6 +1449,7 @@
     "button" : {
       "add" : "Lägg till",
       "back" : "Tillbaka",
+      "cancel" : "Avbryt",
       "close" : "Stäng",
       "delete" : "Ta bort",
       "held" : "Hållits",
@@ -1352,6 +1458,7 @@
       "no" : "Nej",
       "open" : "Öppna",
       "reset" : "Återställ",
+      "respond" : "Svara",
       "save" : "Spara",
       "send" : "Skicka",
       "update" : "Uppdatera",
@@ -1389,10 +1496,10 @@
       }
     },
     "roles" : {
-      "administrator" : "Administratör",
-      "anonymous" : "Anonym",
-      "organizer" : "Evenemangsarrangör",
-      "user" : "Användare"
+      "role_admin" : "Administratör",
+      "role_anonymous" : "Anonym",
+      "role_organizer" : "Evenemangsarrangör",
+      "role_user" : "Användare"
     },
     "spinner" : {
       "loading" : "Laddar..."
@@ -1415,6 +1522,7 @@
     "administration" : {
       "audits" : "Revisionshistorik",
       "blocked-dates" : "Datumsblockering",
+      "comment-moderation" : "Komment moderering",
       "download" : "Laddan ner",
       "files" : "Filer",
       "members" : "Medlemmar",
@@ -1431,6 +1539,10 @@
       "past" : "Förflutna evenemang",
       "title" : "Evenemang",
       "yearlyStats" : "Årlig statistik"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Huvudsidan"
     },
     "pageManagement" : {
       "pages" : "Sidor",
