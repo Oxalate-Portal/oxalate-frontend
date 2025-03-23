@@ -28,6 +28,7 @@ import { checkRoles, LanguageUtil } from "../../helpers";
 import { MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
 import { PageGroupResponse } from "../../models/responses";
 import { pageAPI } from "../../services";
+// @ts-ignore
 import Logo from "../../portal_logo.svg?react";
 
 const {Header} = Layout;
@@ -368,7 +369,7 @@ export function NavigationBar() {
                                         <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={menu} key={`infoMenu-${index}`}
                                               style={{width: "fit-content", whiteSpace: "nowrap", minWidth: "140px"}}/>
                                 ))}
-                        {forumEnabled &&
+                        {userSession && forumEnabled &&
                                 <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={forumMenuItems} key={"forumMenu"}
                                       style={{width: "fit-content", whiteSpace: "nowrap", minWidth: "140px"}}/>
                         }
@@ -388,7 +389,7 @@ export function NavigationBar() {
                         )}
                         {!userSession && (
                                 <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={registerMenuItems} key={"registerMenu"}
-                                      style={{width: "fit-content", whiteSpace: "nowrap", minWidth: "110px"}}/>
+                                      style={{width: "fit-content", whiteSpace: "nowrap", minWidth: "140px"}}/>
                         )}
                     </div>
                 </Header>}
