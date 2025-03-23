@@ -40,6 +40,20 @@ function App() {
     const {darkAlgorithm} = theme;
     const {userSession, getSessionLanguage, organizationName, logoutUser, getPortalTimezone, getPortalConfigurationValue} = useSession();
     const sessionLanguage = getSessionLanguage();
+
+    const darkThemeTokens = {
+        colorBgBase: "#050505",
+        colorBgLayout: "#121212",
+        colorTextBase: "#E0E0E0",
+        colorTextSecondary: "#B0B0B0",
+        colorPrimary: "#50B0ff",
+        colorLink: "#888888",
+        colorMenuItemHoverBg: "#333333",
+        colorMenuBackground: "#121212",
+        colorMenuItemText: "#E0E0E0",
+        colorMenuItemActiveBg: "#444444",
+    };
+
     let membershipType = MembershipTypeEnum.DISABLED;
     let isCommentingEnabled: boolean = false;
 
@@ -64,9 +78,9 @@ function App() {
     if (userSession && !userSession.approvedTerms) {
         return (
                 <div className="app-container bg-light">
-                    <NavigationBar/>
                     <div className="container pt-4 pb-4">
-                        <ConfigProvider theme={{algorithm: darkAlgorithm}}>
+                        <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
+                            <NavigationBar/>
                             <Routes>
                                 <Route path="*" element={<Navigate to="/"/>}/>
                                 <Route path="/" element={<Home/>}/>
@@ -86,9 +100,9 @@ function App() {
 
     return (
             <div className="app-container bg-light">
-                <NavigationBar/>
-                <div className="container pt-4 pb-4">
-                    <ConfigProvider theme={{algorithm: darkAlgorithm}}>
+                <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
+                    <NavigationBar/>
+                    <div className="container pt-4 pb-4" style={{ marginTop: '42px' }}>
                         <Routes>
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
@@ -98,8 +112,10 @@ function App() {
                             <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>
                             <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
-                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
-                            {membershipType !== MembershipTypeEnum.DISABLED && <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
+                            {membershipType !== MembershipTypeEnum.DISABLED &&
+                                    <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
+                            {membershipType !== MembershipTypeEnum.DISABLED &&
+                                    <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
                             {isCommentingEnabled && <Route path="/administration/comment-moderation" element={<AdminRoute><CommentModeration/></AdminRoute>}/>}
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
@@ -131,8 +147,8 @@ function App() {
                             <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>
                         </Routes>
                         <OxalateFooter/>
-                    </ConfigProvider>
-                </div>
+                    </div>
+                </ConfigProvider>
                 <AuthVerify logOut={logoutUser}/>
             </div>
     );

@@ -198,5 +198,5 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
             break;
     }
 
-    return (<Tag color={color} key={"role-label-" + recordId}>{label}</Tag>);
+    return (<Tag color={color} key={"role-label-" + recordId + "-" + role.toLowerCase()}>{label}</Tag>);
 }
