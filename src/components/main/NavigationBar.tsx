@@ -84,10 +84,21 @@ export function NavigationBar() {
           icon: <CalendarOutlined/>
         },
         {
-          label: (<NavLink
-            to="/administration/comment-moderation">{t("NavigationBar.administration.comment-moderation")}</NavLink>),
-          key: "comment-moderation",
-          icon: <MessageOutlined/>
+          label: t("NavigationBar.administration.comments.title"),
+          key: "comments",
+          icon: <MessageOutlined/>,
+          children: [
+            {
+              label: (<NavLink to="/administration/comment-moderation">{t("NavigationBar.administration.comments.comment-moderation")}</NavLink>),
+              key: "comments-moderation",
+              icon: <MessageOutlined/>
+            },
+            {
+              label: (<NavLink to="/administration/comments">{t("NavigationBar.administration.comments.comment-list")}</NavLink>),
+              key: "comments-list",
+              icon: <MessageOutlined/>
+            }
+          ]
         },
         {
           label: (<NavLink to="/administration/statistics">{t("NavigationBar.administration.stats")}</NavLink>),

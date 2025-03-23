@@ -1,5 +1,7 @@
 import { TFunction } from "i18next";
 import {
+    CommentStatusEnum,
+    CommentTypeEnum,
     DiveEventStatusEnum,
     DiveTypeEnum,
     MembershipStatusEnum,
@@ -199,4 +201,51 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
     }
 
     return (<Tag color={color} key={"role-label-" + recordId + "-" + role.toLowerCase()}>{label}</Tag>);
+}
+
+export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, recordId: number): JSX.Element {
+    let color = "";
+    let label = t("CommentStatusEnum." + status.toLowerCase());
+
+    switch(status) {
+        case CommentStatusEnum.DRAFTED:
+            color = "blue";
+            break;
+        case CommentStatusEnum.PUBLISHED:
+            color = "green";
+            break;
+        case CommentStatusEnum.HELD_FOR_MODERATION:
+            color = "orange";
+            break;
+        case CommentStatusEnum.REJECTED:
+            color = "#FF5050";
+            break;
+        case CommentStatusEnum.CANCELLED:
+            color = "#A00000";
+            break;
+        default:
+            color = "violet";
+            break;
+    }
+
+    return (<Tag color={color} key={"comment-status-" + recordId}>{label}</Tag>);
+}
+
+export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordId: number): JSX.Element {
+    let color = "";
+    let label = t("CommentTypeEnum." + type.toLowerCase());
+
+    switch(type) {
+        case CommentTypeEnum.TOPIC:
+            color = "green";
+            break;
+        case CommentTypeEnum.USER_COMMENT:
+            color = "blue";
+            break;
+        default:
+            color = "red";
+            break;
+    }
+
+    return (<Tag color={color} key={"comment-type-" + recordId}>{label}</Tag>);
 }

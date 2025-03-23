@@ -29,7 +29,7 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MembershipTypeEnum, PortalConfigGroupEnum } from "./models";
-import { Forum } from "./components/Commenting";
+import { CommentList, Forum } from "./components/Commenting";
 import { CommentModeration } from "./components/Administration/CommentModeration";
 
 dayjs.extend(customParseFormat);
@@ -108,6 +108,7 @@ function App() {
                             <Route path="/" element={<Home/>}/>
                             <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
                             <Route path="/administration/blocked-dates" element={<AdminRoute><BlockedDates/></AdminRoute>}/>
+                            <Route path="/administration/comments" element={<AdminRoute><CommentList/></AdminRoute>}/>
                             <Route path="/administration/portal-configuration" element={<AdminRoute><PortalConfigurations/></AdminRoute>}/>
                             <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
                             <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>

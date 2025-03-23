@@ -316,6 +316,31 @@
       }
     }
   },
+  "CommentList": {
+    "title": "Kommentar Liste",
+    "id": "ID",
+    "titleColumn": "Titel",
+    "body": "Inhalt",
+    "username": "Benutzername",
+    "status": "Status",
+    "type": "Typ",
+    "createdAt": "Erstellt am",
+    "filters": {
+      "user-name": "Benutzer nahme",
+      "forumId": "Forum-ID",
+      "diveEventId": "Tauchveranstaltung-ID",
+      "commentId": "Kommentar-ID",
+      "parentId": "Übergeordnete ID",
+      "depth": "Tiefe",
+      "titleSearch": "Titel-Suche",
+      "bodySearch": "Inhalt-Suche",
+      "reportCount": "Meldeanzahl",
+      "commentStatus": "Kommentarstatus",
+      "commentType": "Kommentar-Typ",
+      "beforeDate": "Vor Datum",
+      "afterDate": "Nach Datum"
+    }
+  },
   "CommentModeration" : {
     "collapse" : {
       "actions" : {
@@ -344,6 +369,17 @@
       "dismiss-reports" : "Meldungen ablehnen",
       "reject-comment" : "Kommentar ablehnen"
     }
+  },
+  "CommentStatusEnum": {
+    "drafted": "Entwurf",
+    "held_for_moderation": "Zur Moderation gehalten",
+    "published": "Veröffentlicht",
+    "rejected": "Abgelehnt",
+    "cancelled": "Abgebrochen"
+  },
+  "CommentTypeEnum": {
+    "topic": "Thema",
+    "user_comment": "Benutzerkommentar"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Abgesagt",
@@ -833,6 +869,48 @@
     "perpetual" : "Unbefristet",
     "periodical" : "Periodisch",
     "durational" : "Zeitlich befristet"
+  },
+  "NavigationBar" : {
+    "action" : {
+      "changePassword" : "Passwort ändern",
+      "login" : "Anmelden",
+      "logout" : "Abmelden",
+      "profile" : "Profil",
+      "register" : "Registrieren"
+    },
+    "administration" : {
+      "audits" : "Audits",
+      "blocked-dates" : "Datumsblockierung",
+      "comments" : {
+        "comment-list" : "Kommentarliste",
+        "comment-moderation" : "Kommentarmoderation",
+        "title" : "Kommentarer"
+      },
+      "download" : "Herunterladen",
+      "files" : "Dateien",
+      "members" : "Mitglieder",
+      "payments" : "Zahlungen",
+      "portal-configuration" : "Portal Konfigurationen",
+      "readFirst" : "Zuerst lesen",
+      "stats" : "Statistiken",
+      "title" : "Verwaltung",
+      "users" : "Benutzer"
+    },
+    "events" : {
+      "add" : "Veranstaltung hinzufügen",
+      "new" : "Veranstaltungen",
+      "past" : "Vergangene Veranstaltungen",
+      "title" : "Veranstaltungen",
+      "yearlyStats" : "Jahresstatistiken"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Hauppauge"
+    },
+    "pageManagement" : {
+      "pages" : "Seiten",
+      "title" : "Seitenverwaltung"
+    }
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1480,6 +1558,7 @@
       "reset" : "Zurücksetzen",
       "respond" : "Antworten",
       "save" : "Speichern",
+      "search" : "Suchen",
       "send" : "Senden",
       "update" : "Bearbeiten",
       "yes" : "Ja"
@@ -1529,44 +1608,6 @@
       "anonymized" : "Anonymisiert",
       "locked" : "Gesperrt",
       "registered" : "Registriert"
-    }
-  },
-  "NavigationBar" : {
-    "action" : {
-      "changePassword" : "Passwort ändern",
-      "login" : "Anmelden",
-      "logout" : "Abmelden",
-      "profile" : "Profil",
-      "register" : "Registrieren"
-    },
-    "administration" : {
-      "audits" : "Audits",
-      "blocked-dates" : "Datumsblockierung",
-      "comment-moderation" : "Kommentarmoderation",
-      "download" : "Herunterladen",
-      "files" : "Dateien",
-      "members" : "Mitglieder",
-      "payments" : "Zahlungen",
-      "portal-configuration" : "Portal Konfigurationen",
-      "readFirst" : "Zuerst lesen",
-      "stats" : "Statistiken",
-      "title" : "Verwaltung",
-      "users" : "Benutzer"
-    },
-    "events" : {
-      "add" : "Veranstaltung hinzufügen",
-      "new" : "Veranstaltungen",
-      "past" : "Vergangene Veranstaltungen",
-      "title" : "Veranstaltungen",
-      "yearlyStats" : "Jahresstatistiken"
-    },
-    "forum" : {
-      "title" : "Forum",
-      "link" : "Hauppauge"
-    },
-    "pageManagement" : {
-      "pages" : "Seiten",
-      "title" : "Seitenverwaltung"
     }
   }
 }

@@ -316,6 +316,31 @@
       }
     }
   },
+  "CommentList" : {
+    "title" : "Comment List",
+    "id" : "ID",
+    "titleColumn" : "Title",
+    "body" : "Body",
+    "username" : "Username",
+    "status" : "Status",
+    "type" : "Type",
+    "createdAt" : "Created At",
+    "filters" : {
+      "user-name" : "User name",
+      "forumId" : "Forum ID",
+      "diveEventId" : "Dive Event ID",
+      "commentId" : "Comment ID",
+      "parentId" : "Parent ID",
+      "depth" : "Depth",
+      "titleSearch" : "Title Search",
+      "bodySearch" : "Body Search",
+      "reportCount" : "Report Count",
+      "commentStatus" : "Comment Status",
+      "commentType" : "Comment Type",
+      "beforeDate" : "Before Date",
+      "afterDate" : "After Date"
+    }
+  },
   "CommentModeration" : {
     "collapse" : {
       "actions" : {
@@ -337,13 +362,24 @@
       "dismiss-comment-fail" : "Failed to dismiss reports.",
       "dismiss-comment-success" : "Reports dismissed.",
       "reject-comment-confirm" : "Rejecting this comment will also reject all its children. Are you sure you want to proceed?",
-      "reject-comment-fail": "Failed to reject comment.",
+      "reject-comment-fail" : "Failed to reject comment.",
       "reject-comment-success" : "Comment rejected."
     },
     "button" : {
       "dismiss-reports" : "Dismiss reports",
       "reject-comment" : "Reject comment"
     }
+  },
+  "CommentStatusEnum" : {
+    "drafted" : "Drafted",
+    "held_for_moderation" : "Held for Moderation",
+    "published" : "Published",
+    "rejected" : "Rejected",
+    "cancelled" : "Cancelled"
+  },
+  "CommentTypeEnum" : {
+    "topic" : "Topic",
+    "user_comment" : "User Comment"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Cancelled",
@@ -823,6 +859,48 @@
     "perpetual" : "Perpetual",
     "periodical" : "Periodical",
     "durational" : "Durational"
+  },
+  "NavigationBar" : {
+    "action" : {
+      "changePassword" : "Change Password",
+      "login" : "Log In",
+      "logout" : "Log Out",
+      "profile" : "Profile",
+      "register" : "Register"
+    },
+    "administration" : {
+      "audits" : "Audits",
+      "blocked-dates" : "Date blocking",
+      "comments" : {
+        "comment-list" : "Comment list",
+        "comment-moderation" : "Comment moderation",
+        "title" : "Comments"
+      },
+      "download" : "Download",
+      "files" : "Files",
+      "members" : "Members",
+      "payments" : "Payments",
+      "portal-configuration" : "Portal configuration",
+      "readFirst" : "Read first",
+      "stats" : "Statistics",
+      "title" : "Administration",
+      "users" : "Users"
+    },
+    "events" : {
+      "add" : "Add event",
+      "new" : "Events",
+      "past" : "Past events",
+      "title" : "Events",
+      "yearlyStats" : "Yearly statistics"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Main page"
+    },
+    "pageManagement" : {
+      "pages" : "Pages",
+      "title" : "Page management"
+    }
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1470,6 +1548,7 @@
       "reset" : "Reset",
       "respond" : "Respond",
       "save" : "Save",
+      "search" : "Search",
       "send" : "Send",
       "update" : "Update",
       "yes" : "Yes"
@@ -1519,44 +1598,6 @@
       "anonymized" : "Anonymized",
       "locked" : "Locked",
       "registered" : "Registered"
-    }
-  },
-  "NavigationBar" : {
-    "action" : {
-      "changePassword" : "Change Password",
-      "login" : "Log In",
-      "logout" : "Log Out",
-      "profile" : "Profile",
-      "register" : "Register"
-    },
-    "administration" : {
-      "audits" : "Audits",
-      "blocked-dates" : "Date blocking",
-      "comment-moderation" : "Comment moderation",
-      "download" : "Download",
-      "files" : "Files",
-      "members" : "Members",
-      "payments" : "Payments",
-      "portal-configuration" : "Portal configuration",
-      "readFirst" : "Read first",
-      "stats" : "Statistics",
-      "title" : "Administration",
-      "users" : "Users"
-    },
-    "events" : {
-      "add" : "Add event",
-      "new" : "Events",
-      "past" : "Past events",
-      "title" : "Events",
-      "yearlyStats" : "Yearly statistics"
-    },
-    "forum" : {
-      "title" : "Forum",
-      "link" : "Main page"
-    },
-    "pageManagement" : {
-      "pages" : "Pages",
-      "title" : "Page management"
     }
   }
 }

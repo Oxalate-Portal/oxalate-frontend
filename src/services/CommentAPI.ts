@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {CommentRequest, ReportRequest} from "../models/requests";
+import {CommentFilterRequest, CommentRequest, ReportRequest} from "../models/requests";
 import {CommentModerationResponse, CommentResponse, ReportResponse} from "../models/responses";
 
 class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
@@ -46,6 +46,11 @@ class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 
     public async dismissReport(reportId: number): Promise<CommentModerationResponse[]> {
         const response = await this.axiosInstance.get<CommentModerationResponse[]>("/dismiss-report/" + reportId);
+        return response.data;
+    }
+
+    public async findFilteredComments(filter: CommentFilterRequest): Promise<CommentResponse[]> {
+        const response = await this.axiosInstance.post<CommentResponse[]>("/filter", filter);
         return response.data;
     }
 }

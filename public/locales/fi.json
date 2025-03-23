@@ -316,6 +316,31 @@
       }
     }
   },
+  "CommentList": {
+    "title": "Kommenttilista",
+    "id": "ID",
+    "titleColumn": "Otsikko",
+    "body": "Sisältö",
+    "username": "Käyttäjänimi",
+    "status": "Tila",
+    "type": "Tyyppi",
+    "createdAt": "Luontiaika",
+    "filters": {
+      "user-name": "Käyttäjän nimi",
+      "forumId": "Foorumi-ID",
+      "diveEventId": "Sukellustapahtuma-ID",
+      "commentId": "Kommentti-ID",
+      "parentId": "Yläkommentti-ID",
+      "depth": "Syvyys",
+      "titleSearch": "Otsikon haku",
+      "bodySearch": "Sisällön haku",
+      "reportCount": "Ilmoitusmäärä",
+      "commentStatus": "Kommentin tila",
+      "commentType": "Kommenttityyppi",
+      "beforeDate": "Ennen päivämäärää",
+      "afterDate": "Jälkeen päivämäärän"
+    }
+  },
   "CommentModeration" : {
     "collapse" : {
       "actions" : {
@@ -344,6 +369,17 @@
       "dismiss-reports" : "Hylkää ilmoitukset",
       "reject-comment" : "Hylkää kommentti"
     }
+  },
+  "CommentStatusEnum": {
+    "drafted": "Luonnos",
+    "held_for_moderation": "Moderoitavana",
+    "published": "Julkaistu",
+    "rejected": "Hylätty",
+    "cancelled": "Peruutettu"
+  },
+  "CommentTypeEnum": {
+    "topic": "Aihe",
+    "user_comment": "Käyttäjäkommentti"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Peruutettu",
@@ -823,6 +859,48 @@
     "perpetual" : "Pysyvä",
     "periodical" : "Jaksottainen",
     "durational" : "Määräaikainen"
+  },
+  "NavigationBar" : {
+    "action" : {
+      "changePassword" : "Vaihda salasana",
+      "login" : "Kirjaudu sisään",
+      "logout" : "Kirjaudu ulos",
+      "profile" : "Profiili",
+      "register" : "Rekisteröidy"
+    },
+    "administration" : {
+      "audits" : "Auditointi",
+      "blocked-dates" : "Päivämäärän estäminen",
+      "comments" : {
+        "comment-list" : "Kommenttilista",
+        "comment-moderation" : "Kommenttimoderointi",
+        "title": "Kommentit"
+      },
+      "download" : "Lataa",
+      "files" : "Tiedostot",
+      "members" : "Jäsenet",
+      "payments" : "Maksut",
+      "portal-configuration" : "Portaalin asetukset",
+      "readFirst" : "Lue ensin",
+      "stats" : "Tilastot",
+      "title" : "Ylläpito",
+      "users" : "Käyttäjät"
+    },
+    "events" : {
+      "add" : "Lisää tapahtuma",
+      "new" : "Tapahtumat",
+      "past" : "Menneet tapahtumat",
+      "title" : "Tapahtumat",
+      "yearlyStats" : "Vuositilastot"
+    },
+    "forum" : {
+      "title" : "Foorumi",
+      "link" : "Pääsivu"
+    },
+    "pageManagement" : {
+      "pages" : "Sivut",
+      "title" : "Sivuhallinta"
+    }
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1470,6 +1548,7 @@
       "reset" : "Palauta",
       "respond" : "Vastaa",
       "save" : "Tallenna",
+      "search" : "Hae",
       "send" : "Lähetä",
       "update" : "Päivitä",
       "yes" : "Kyllä"
@@ -1519,44 +1598,6 @@
       "anonymized" : "Anonyymisoitu",
       "locked" : "Lukittu",
       "registered" : "Rekisteröity"
-    }
-  },
-  "NavigationBar" : {
-    "action" : {
-      "changePassword" : "Vaihda salasana",
-      "login" : "Kirjaudu sisään",
-      "logout" : "Kirjaudu ulos",
-      "profile" : "Profiili",
-      "register" : "Rekisteröidy"
-    },
-    "administration" : {
-      "audits" : "Auditointi",
-      "blocked-dates" : "Päivämäärän estäminen",
-      "comment-moderation" : "Kommenttimoderointi",
-      "download" : "Lataa",
-      "files" : "Tiedostot",
-      "members" : "Jäsenet",
-      "payments" : "Maksut",
-      "portal-configuration" : "Portaalin asetukset",
-      "readFirst" : "Lue ensin",
-      "stats" : "Tilastot",
-      "title" : "Ylläpito",
-      "users" : "Käyttäjät"
-    },
-    "events" : {
-      "add" : "Lisää tapahtuma",
-      "new" : "Tapahtumat",
-      "past" : "Menneet tapahtumat",
-      "title" : "Tapahtumat",
-      "yearlyStats" : "Vuositilastot"
-    },
-    "forum" : {
-      "title" : "Foorumi",
-      "link" : "Pääsivu"
-    },
-    "pageManagement" : {
-      "pages" : "Sivut",
-      "title" : "Sivuhallinta"
     }
   }
 }
