@@ -306,6 +306,11 @@
       "placeholder" : "Anna lisätietoja tähän..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Tapahtumakommentit",
+    "page_comments": "Sivukommentit",
+    "forum_comments": "Keskustelukommentit"
+  },
   "CommentEditor" : {
     "form" : {
       "title" : {
@@ -317,29 +322,30 @@
     }
   },
   "CommentList": {
-    "title": "Kommenttilista",
-    "id": "ID",
-    "titleColumn": "Otsikko",
     "body": "Sisältö",
-    "username": "Käyttäjänimi",
-    "status": "Tila",
-    "type": "Tyyppi",
     "createdAt": "Luontiaika",
     "filters": {
-      "user-name": "Käyttäjän nimi",
-      "forumId": "Foorumi-ID",
-      "diveEventId": "Sukellustapahtuma-ID",
-      "commentId": "Kommentti-ID",
-      "parentId": "Yläkommentti-ID",
-      "depth": "Syvyys",
-      "titleSearch": "Otsikon haku",
+      "afterDate": "Jälkeen päivämäärän",
+      "beforeDate": "Ennen päivämäärää",
       "bodySearch": "Sisällön haku",
-      "reportCount": "Ilmoitusmäärä",
+      "commentId": "Kommentti-ID",
       "commentStatus": "Kommentin tila",
       "commentType": "Kommenttityyppi",
-      "beforeDate": "Ennen päivämäärää",
-      "afterDate": "Jälkeen päivämäärän"
-    }
+      "commentclass": "Kommenttiluokka",
+      "depth": "Syvyys",
+      "diveEventId": "Sukellustapahtuma-ID",
+      "forumId": "Foorumi-ID",
+      "parentId": "Yläkommentti-ID",
+      "reportCount": "Ilmoitusmäärä",
+      "titleSearch": "Otsikon haku",
+      "user-name": "Käyttäjän nimi"
+    },
+    "id": "ID",
+    "status": "Tila",
+    "title": "Kommenttilista",
+    "titleColumn": "Otsikko",
+    "type": "Tyyppi",
+    "username": "Käyttäjänimi"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -1590,8 +1596,16 @@
       "role_organizer" : "Tapahtumajärjestäjä",
       "role_user" : "Käyttäjä"
     },
+    "select" : {
+      "empty" : "Ei valittu"
+    },
     "spinner" : {
       "loading" : "Ladataan..."
+    },
+    "table" : {
+      "column-title" : {
+        "action" : "Toiminto"
+      }
     },
     "userStatus" : {
       "active" : "Aktiivinen",

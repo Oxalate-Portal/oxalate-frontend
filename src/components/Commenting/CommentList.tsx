@@ -5,7 +5,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { commentAPI, userAPI } from "../../services";
 import { CommentFilterRequest } from "../../models/requests";
 import { CommentResponse } from "../../models/responses";
-import { CommentStatusEnum, CommentTypeEnum } from "../../models";
+import { CommentClassEnum, CommentStatusEnum, CommentTypeEnum } from "../../models";
 import { commentStatusEnum2Tag, commentTypeEnum2Tag } from "../../helpers/Enum2TagTool";
 
 export function CommentList() {
@@ -47,28 +47,34 @@ export function CommentList() {
 
     function handleFilterChange(changedValues: Partial<CommentFilterRequest>) {
         setFilter((prev) => ({...prev, ...changedValues}));
-        console.log("Filter is updated: ", filter);
     }
 
     const columns = [
-        {title: t("CommentList.id"), dataIndex: "id", key: "id"},
-        {title: t("CommentList.title"), dataIndex: "title", key: "title"},
-        {title: t("CommentList.body"), dataIndex: "body", key: "body"},
-        {title: t("CommentList.username"), dataIndex: "username", key: "username"},
-        {
-            title: t("CommentList.status"),
-            dataIndex: "commentStatus",
-            key: "commentStatus",
-            render: (_: string, item: CommentResponse) => (commentStatusEnum2Tag(item.commentStatus, t, item.id))
-        },
-        {
-            title: t("CommentList.type"),
-            dataIndex: "commentType",
-            key: "commentType",
-            render: (_: string, item: CommentResponse) => (commentTypeEnum2Tag(item.commentType, t, item.id))
-        },
-        {title: t("CommentList.createdAt"), dataIndex: "createdAt", key: "createdAt", render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm:ss")},
-    ];
+                {title: t("CommentList.id"), dataIndex: "id", key: "id"},
+                {title: t("CommentList.title"), dataIndex: "title", key: "title"},
+                {title: t("CommentList.body"), dataIndex: "body", key: "body"},
+                {title: t("CommentList.username"), dataIndex: "username", key: "username"},
+                {
+                    title: t("CommentList.status"),
+                    dataIndex: "commentStatus",
+                    key: "commentStatus",
+                    render: (_: string, item: CommentResponse) => (commentStatusEnum2Tag(item.commentStatus, t, item.id))
+                },
+                {
+                    title: t("CommentList.type"),
+                    dataIndex: "commentType",
+                    key: "commentType",
+                    render: (_: string, item: CommentResponse) => (commentTypeEnum2Tag(item.commentType, t, item.id))
+                },
+                {title: t("CommentList.createdAt"), dataIndex: "createdAt", key: "createdAt", render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm:ss")},
+                {
+                    title: t("common.table.column-title.action"),
+                    key: "comment-list-action",
+                    render: (_: string, item: CommentResponse) => {
+                        return <Button type={"primary"} onClick={() => console.log("Edit comment", item.id)}>{t("common.button.update")}</Button>;
+                    }
+                }
+            ];
 
     return (
             <div className="darkDiv">
@@ -85,12 +91,23 @@ export function CommentList() {
                                     onChange={e => handleFilterChange({titleSearch: e.target.value || undefined})}/></Col>
                         <Col><Input placeholder={t("CommentList.filters.bodySearch")}
                                     onChange={e => handleFilterChange({bodySearch: e.target.value || undefined})}/></Col>
-                        <Col><Input placeholder={t("CommentList.filters.reportCount")}
-                                    onChange={e => handleFilterChange({reportCount: Number(e.target.value) || undefined})}/></Col>
-                        <Col><Select placeholder={t("CommentList.filters.commentStatus")} onChange={value => handleFilterChange({commentStatus: value})}
-                                     options={Object.values(CommentStatusEnum).map(value => ({value, label: t(`CommentStatusEnum.${value.toLowerCase()}`)}))}/></Col>
-                        <Col><Select placeholder={t("CommentList.filters.commentType")} onChange={value => handleFilterChange({commentType: value})}
-                                     options={Object.values(CommentTypeEnum).map(value => ({value, label: t(`CommentTypeEnum.${value.toLowerCase()}`)}))}/></Col>
+
+                        <Col><Select placeholder={t("CommentList.filters.commentClass")}
+                                     onChange={value => handleFilterChange({commentClass: value})}
+                                     options={Object.values(CommentClassEnum).map(value => ({value, label: t(`CommentClassEnum.${value.toLowerCase()}`)}))}
+                                     allowClear={true}
+                        /></Col>
+
+                        <Col><Select placeholder={t("CommentList.filters.commentStatus")}
+                                     onChange={value => handleFilterChange({commentStatus: value})}
+                                     options={Object.values(CommentStatusEnum).map(value => ({value, label: t(`CommentStatusEnum.${value.toLowerCase()}`)}))}
+                                     allowClear={true}
+                        /></Col>
+                        <Col><Select placeholder={t("CommentList.filters.commentType")}
+                                     onChange={value => handleFilterChange({commentType: value})}
+                                     options={Object.values(CommentTypeEnum).map(value => ({value, label: t(`CommentTypeEnum.${value.toLowerCase()}`)}))}
+                                     allowClear={true}
+                        /></Col>
                         <Col><DatePicker placeholder={t("CommentList.filters.afterDate")}
                                          onChange={date => handleFilterChange({afterDate: date ? date.toDate() : undefined})}/></Col>
                         <Col><DatePicker placeholder={t("CommentList.filters.beforeDate")}

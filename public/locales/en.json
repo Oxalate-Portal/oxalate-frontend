@@ -306,6 +306,11 @@
       "placeholder" : "Provide details here..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Event comments",
+    "page_comments": "Page comments",
+    "forum_comments": "Forum comments"
+  },
   "CommentEditor" : {
     "form" : {
       "title" : {
@@ -317,29 +322,30 @@
     }
   },
   "CommentList" : {
-    "title" : "Comment List",
-    "id" : "ID",
-    "titleColumn" : "Title",
     "body" : "Body",
-    "username" : "Username",
-    "status" : "Status",
-    "type" : "Type",
     "createdAt" : "Created At",
     "filters" : {
-      "user-name" : "User name",
-      "forumId" : "Forum ID",
-      "diveEventId" : "Dive Event ID",
-      "commentId" : "Comment ID",
-      "parentId" : "Parent ID",
-      "depth" : "Depth",
-      "titleSearch" : "Title Search",
+      "afterDate" : "After Date",
+      "beforeDate" : "Before Date",
       "bodySearch" : "Body Search",
-      "reportCount" : "Report Count",
+      "commentClass" : "Comment class",
+      "commentId" : "Comment ID",
       "commentStatus" : "Comment Status",
       "commentType" : "Comment Type",
-      "beforeDate" : "Before Date",
-      "afterDate" : "After Date"
-    }
+      "depth" : "Depth",
+      "diveEventId" : "Dive Event ID",
+      "forumId" : "Forum ID",
+      "parentId" : "Parent ID",
+      "reportCount" : "Report Count",
+      "titleSearch" : "Title Search",
+      "user-name" : "User name"
+    },
+    "id" : "ID",
+    "status" : "Status",
+    "title" : "Comment List",
+    "titleColumn" : "Title",
+    "type" : "Type",
+    "username" : "Username"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -1590,8 +1596,16 @@
       "role_organizer" : "Event Organizer",
       "role_user" : "User"
     },
+    "select" : {
+      "empty" : "None selected"
+    },
     "spinner" : {
       "loading" : "Loading..."
+    },
+    "table" : {
+      "column-title" : {
+        "action" : "Action"
+      }
     },
     "userStatus" : {
       "active" : "Active",

@@ -306,6 +306,11 @@
       "placeholder" : "Geben Sie hier die Details ein..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Veranstaltungskommentare",
+    "page_comments": "Seitenkommentare",
+    "forum_comments": "Forumskommentare"
+  },
   "CommentEditor" : {
     "form" : {
       "title" : {
@@ -317,29 +322,30 @@
     }
   },
   "CommentList": {
-    "title": "Kommentar Liste",
-    "id": "ID",
-    "titleColumn": "Titel",
     "body": "Inhalt",
-    "username": "Benutzername",
-    "status": "Status",
-    "type": "Typ",
     "createdAt": "Erstellt am",
     "filters": {
-      "user-name": "Benutzer nahme",
-      "forumId": "Forum-ID",
-      "diveEventId": "Tauchveranstaltung-ID",
-      "commentId": "Kommentar-ID",
-      "parentId": "Übergeordnete ID",
-      "depth": "Tiefe",
-      "titleSearch": "Titel-Suche",
+      "afterDate": "Nach Datum",
+      "beforeDate": "Vor Datum",
       "bodySearch": "Inhalt-Suche",
-      "reportCount": "Meldeanzahl",
+      "commentId": "Kommentar-ID",
       "commentStatus": "Kommentarstatus",
       "commentType": "Kommentar-Typ",
-      "beforeDate": "Vor Datum",
-      "afterDate": "Nach Datum"
-    }
+      "commentclass": "Kommentar-Klasse",
+      "depth": "Tiefe",
+      "diveEventId": "Tauchveranstaltung-ID",
+      "forumId": "Forum-ID",
+      "parentId": "Übergeordnete ID",
+      "reportCount": "Meldeanzahl",
+      "titleSearch": "Titel-Suche",
+      "user-name": "Benutzer nahme"
+    },
+    "id": "ID",
+    "status": "Status",
+    "title": "Kommentar Liste",
+    "titleColumn": "Titel",
+    "type": "Typ",
+    "username": "Benutzername"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -1600,8 +1606,16 @@
       "role_organizer" : "Veranstaltungsorganisator",
       "role_user" : "Benutzer"
     },
+    "select" : {
+      "empty" : "Keine Auswahl"
+    },
     "spinner" : {
       "loading" : "Laden..."
+    },
+    "table" : {
+      "column-title" : {
+        "action" : "Aktion"
+      }
     },
     "userStatus" : {
       "active" : "Aktiv",

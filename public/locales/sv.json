@@ -306,6 +306,11 @@
       "placeholder" : "Ange detaljer här..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Evenemangskommentarer",
+    "page_comments": "Sidkommentarer",
+    "forum_comments": "Forumkommentarer"
+  },
   "CommentEditor" : {
     "form" : {
       "title" : {
@@ -317,29 +322,31 @@
     }
   },
   "CommentList": {
-    "title": "Kommentarslista",
-    "id": "ID",
-    "titleColumn": "Titel",
     "body": "Innehåll",
-    "username": "Användarnamn",
-    "status": "Status",
-    "type": "Typ",
     "createdAt": "Skapad",
+    "id": "ID",
     "filters": {
-      "user-name": "Användarens namn",
-      "forumId": "Forum-ID",
-      "diveEventId": "Dykningsevenemang-ID",
-      "commentId": "Kommentar-ID",
-      "parentId": "Överordnad ID",
-      "depth": "Djup",
-      "titleSearch": "Titelsökning",
+      "afterDate": "Efter datum",
+      "beforeDate": "Före datum",
       "bodySearch": "Innehållssökning",
-      "reportCount": "Rapporteringsantal",
+      "commentId": "Kommentar-ID",
       "commentStatus": "Kommentarstatus",
       "commentType": "Kommentarstyp",
-      "beforeDate": "Före datum",
-      "afterDate": "Efter datum"
-    }
+      "commentclass": "Kommentarklass",
+      "depth": "Djup",
+      "diveEventId": "Dykningsevenemang-ID",
+      "forumId": "Forum-ID",
+      "parentId": "Överordnad ID",
+      "reportCount": "Rapporteringsantal",
+      "titleSearch": "Titelsökning",
+      "user-name": "Användarens namn"
+
+    },
+    "status": "Status",
+    "title": "Kommentarslista",
+    "titleColumn": "Titel",
+    "type": "Typ",
+    "username": "Användarnamn"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -1592,6 +1599,14 @@
     },
     "spinner" : {
       "loading" : "Laddar..."
+    },
+    "select" : {
+      "empty" : "Inget valt"
+    },
+    "table" : {
+      "column-title" : {
+        "action" : "Åtgärd"
+      }
     },
     "userStatus" : {
       "active" : "Aktiv",
