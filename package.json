@@ -19,7 +19,7 @@
     "axios" : "^1.8.2",
     "ckeditor5" : "^44.3.0",
     "dayjs" : "^1.11.10",
-    "dompurify" : "^3.2.3",
+    "dompurify" : "^3.2.5",
     "env-cmd" : "^10.1.0",
     "i18next" : "^24.2.3",
     "i18next-http-backend" : "^3.0.2",
