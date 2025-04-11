@@ -31,6 +31,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { MembershipTypeEnum, PortalConfigGroupEnum } from "./models";
 import { CommentList, Forum } from "./components/Commenting";
 import { CommentModeration } from "./components/Administration/CommentModeration";
+import "@ant-design/v5-patch-for-react-19";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
