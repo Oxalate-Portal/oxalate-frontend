@@ -2,6 +2,7 @@ import { Alert, Button, Form, Input, Row, Space } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useReCaptcha } from "@wojtekmaj/react-recaptcha-v3";
 import { useSession } from "../../session";
 import { LoginRequest } from "../../models/requests";
 import { ActionResultEnum, LoginStatus, UpdateStatusEnum, UpdateStatusVO } from "../../models";
@@ -10,11 +11,20 @@ export function Login() {
     const [loading, setLoading] = useState(false);
     const {t} = useTranslation();
     const navigate = useNavigate();
+    const {executeRecaptcha} = useReCaptcha();
     const {loginUser} = useSession();
     const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
 
     async function onFinish(credentials: any): Promise<void> {
         setLoading(true);
+
+        if (!executeRecaptcha) {
+            setLoading(false);
+            console.error("Did not executeRecaptcha");
+            return;
+        }
+
+        const recaptchaResult = await executeRecaptcha("register");
 
         const loginRequest: LoginRequest = {
             username: credentials.username,
