@@ -306,6 +306,11 @@
       "placeholder" : "Ange detaljer här..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Evenemangskommentarer",
+    "page_comments": "Sidkommentarer",
+    "forum_comments": "Forumkommentarer"
+  },
   "CommentEditor" : {
     "form" : {
       "title" : {
@@ -315,6 +320,33 @@
         "placeholder" : "Skriv en kommentar..."
       }
     }
+  },
+  "CommentList": {
+    "body": "Innehåll",
+    "createdAt": "Skapad",
+    "id": "ID",
+    "filters": {
+      "afterDate": "Efter datum",
+      "beforeDate": "Före datum",
+      "bodySearch": "Innehållssökning",
+      "commentId": "Kommentar-ID",
+      "commentStatus": "Kommentarstatus",
+      "commentType": "Kommentarstyp",
+      "commentclass": "Kommentarklass",
+      "depth": "Djup",
+      "diveEventId": "Dykningsevenemang-ID",
+      "forumId": "Forum-ID",
+      "parentId": "Överordnad ID",
+      "reportCount": "Rapporteringsantal",
+      "titleSearch": "Titelsökning",
+      "user-name": "Användarens namn"
+
+    },
+    "status": "Status",
+    "title": "Kommentarslista",
+    "titleColumn": "Titel",
+    "type": "Typ",
+    "username": "Användarnamn"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -344,6 +376,17 @@
       "dismiss-reports" : "Avvisa rapporter",
       "reject-comment" : "Avvisa kommentar"
     }
+  },
+  "CommentStatusEnum": {
+    "drafted": "Utkast",
+    "held_for_moderation": "Väntar på granskning",
+    "published": "Publicerad",
+    "rejected" : "Avvisad",
+    "cancelled": "Avbruten"
+  },
+  "CommentTypeEnum": {
+    "topic": "Ämne",
+    "user_comment": "Användarkommentar"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Inställt",
@@ -823,6 +866,48 @@
     "perpetual" : "Permanent",
     "periodical" : "Periodisk",
     "durational" : "Tidsbegränsad"
+  },
+  "NavigationBar" : {
+    "action" : {
+      "changePassword" : "Ändra lösenord",
+      "login" : "Logga in",
+      "logout" : "Logga ut",
+      "profile" : "Profil",
+      "register" : "Registrera"
+    },
+    "administration" : {
+      "audits" : "Revisionshistorik",
+      "blocked-dates" : "Datumsblockering",
+      "comments" : {
+        "comment-list" : "Kommentarslista",
+        "comment-moderation" : "Komment moderering",
+        "title" : "Kommenten"
+      },
+      "download" : "Laddan ner",
+      "files" : "Filer",
+      "members" : "Medlemmar",
+      "payments" : "Betalningar",
+      "portal-configuration" : "Portalinställningar",
+      "readFirst" : "Läs först",
+      "stats" : "Statistik",
+      "title" : "Administration",
+      "users" : "Användare"
+    },
+    "events" : {
+      "add" : "Lägg till evenemang",
+      "new" : "Evenemang",
+      "past" : "Förflutna evenemang",
+      "title" : "Evenemang",
+      "yearlyStats" : "Årlig statistik"
+    },
+    "forum" : {
+      "title" : "Forum",
+      "link" : "Huvudsidan"
+    },
+    "pageManagement" : {
+      "pages" : "Sidor",
+      "title" : "Sidhantering"
+    }
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1470,6 +1555,7 @@
       "reset" : "Återställ",
       "respond" : "Svara",
       "save" : "Spara",
+      "search" : "Sök",
       "send" : "Skicka",
       "update" : "Uppdatera",
       "yes" : "Ja"
@@ -1514,49 +1600,19 @@
     "spinner" : {
       "loading" : "Laddar..."
     },
+    "select" : {
+      "empty" : "Inget valt"
+    },
+    "table" : {
+      "column-title" : {
+        "action" : "Åtgärd"
+      }
+    },
     "userStatus" : {
       "active" : "Aktiv",
       "anonymized" : "Anonymiserad",
       "locked" : "Låst",
       "registered" : "Registrerad"
-    }
-  },
-  "NavigationBar" : {
-    "action" : {
-      "changePassword" : "Ändra lösenord",
-      "login" : "Logga in",
-      "logout" : "Logga ut",
-      "profile" : "Profil",
-      "register" : "Registrera"
-    },
-    "administration" : {
-      "audits" : "Revisionshistorik",
-      "blocked-dates" : "Datumsblockering",
-      "comment-moderation" : "Komment moderering",
-      "download" : "Laddan ner",
-      "files" : "Filer",
-      "members" : "Medlemmar",
-      "payments" : "Betalningar",
-      "portal-configuration" : "Portalinställningar",
-      "readFirst" : "Läs först",
-      "stats" : "Statistik",
-      "title" : "Administration",
-      "users" : "Användare"
-    },
-    "events" : {
-      "add" : "Lägg till evenemang",
-      "new" : "Evenemang",
-      "past" : "Förflutna evenemang",
-      "title" : "Evenemang",
-      "yearlyStats" : "Årlig statistik"
-    },
-    "forum" : {
-      "title" : "Forum",
-      "link" : "Huvudsidan"
-    },
-    "pageManagement" : {
-      "pages" : "Sidor",
-      "title" : "Sidhantering"
     }
   }
 }

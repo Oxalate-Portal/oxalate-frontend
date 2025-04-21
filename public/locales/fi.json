@@ -306,6 +306,11 @@
       "placeholder" : "Anna lisätietoja tähän..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Tapahtumakommentit",
+    "page_comments": "Sivukommentit",
+    "forum_comments": "Keskustelukommentit"
+  },
   "CommentEditor" : {
     "form" : {
       "title" : {
@@ -315,6 +320,32 @@
         "placeholder" : "Kirjoita kommentti..."
       }
     }
+  },
+  "CommentList": {
+    "body": "Sisältö",
+    "createdAt": "Luontiaika",
+    "filters": {
+      "afterDate": "Jälkeen päivämäärän",
+      "beforeDate": "Ennen päivämäärää",
+      "bodySearch": "Sisällön haku",
+      "commentId": "Kommentti-ID",
+      "commentStatus": "Kommentin tila",
+      "commentType": "Kommenttityyppi",
+      "commentclass": "Kommenttiluokka",
+      "depth": "Syvyys",
+      "diveEventId": "Sukellustapahtuma-ID",
+      "forumId": "Foorumi-ID",
+      "parentId": "Yläkommentti-ID",
+      "reportCount": "Ilmoitusmäärä",
+      "titleSearch": "Otsikon haku",
+      "user-name": "Käyttäjän nimi"
+    },
+    "id": "ID",
+    "status": "Tila",
+    "title": "Kommenttilista",
+    "titleColumn": "Otsikko",
+    "type": "Tyyppi",
+    "username": "Käyttäjänimi"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -344,6 +375,17 @@
       "dismiss-reports" : "Hylkää ilmoitukset",
       "reject-comment" : "Hylkää kommentti"
     }
+  },
+  "CommentStatusEnum": {
+    "drafted": "Luonnos",
+    "held_for_moderation": "Moderoitavana",
+    "published": "Julkaistu",
+    "rejected": "Hylätty",
+    "cancelled": "Peruutettu"
+  },
+  "CommentTypeEnum": {
+    "topic": "Aihe",
+    "user_comment": "Käyttäjäkommentti"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Peruutettu",
@@ -823,6 +865,48 @@
     "perpetual" : "Pysyvä",
     "periodical" : "Jaksottainen",
     "durational" : "Määräaikainen"
+  },
+  "NavigationBar" : {
+    "action" : {
+      "changePassword" : "Vaihda salasana",
+      "login" : "Kirjaudu sisään",
+      "logout" : "Kirjaudu ulos",
+      "profile" : "Profiili",
+      "register" : "Rekisteröidy"
+    },
+    "administration" : {
+      "audits" : "Auditointi",
+      "blocked-dates" : "Päivämäärän estäminen",
+      "comments" : {
+        "comment-list" : "Kommenttilista",
+        "comment-moderation" : "Kommenttimoderointi",
+        "title": "Kommentit"
+      },
+      "download" : "Lataa",
+      "files" : "Tiedostot",
+      "members" : "Jäsenet",
+      "payments" : "Maksut",
+      "portal-configuration" : "Portaalin asetukset",
+      "readFirst" : "Lue ensin",
+      "stats" : "Tilastot",
+      "title" : "Ylläpito",
+      "users" : "Käyttäjät"
+    },
+    "events" : {
+      "add" : "Lisää tapahtuma",
+      "new" : "Tapahtumat",
+      "past" : "Menneet tapahtumat",
+      "title" : "Tapahtumat",
+      "yearlyStats" : "Vuositilastot"
+    },
+    "forum" : {
+      "title" : "Foorumi",
+      "link" : "Pääsivu"
+    },
+    "pageManagement" : {
+      "pages" : "Sivut",
+      "title" : "Sivuhallinta"
+    }
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1470,6 +1554,7 @@
       "reset" : "Palauta",
       "respond" : "Vastaa",
       "save" : "Tallenna",
+      "search" : "Hae",
       "send" : "Lähetä",
       "update" : "Päivitä",
       "yes" : "Kyllä"
@@ -1511,52 +1596,22 @@
       "role_organizer" : "Tapahtumajärjestäjä",
       "role_user" : "Käyttäjä"
     },
+    "select" : {
+      "empty" : "Ei valittu"
+    },
     "spinner" : {
       "loading" : "Ladataan..."
+    },
+    "table" : {
+      "column-title" : {
+        "action" : "Toiminto"
+      }
     },
     "userStatus" : {
       "active" : "Aktiivinen",
       "anonymized" : "Anonyymisoitu",
       "locked" : "Lukittu",
       "registered" : "Rekisteröity"
-    }
-  },
-  "NavigationBar" : {
-    "action" : {
-      "changePassword" : "Vaihda salasana",
-      "login" : "Kirjaudu sisään",
-      "logout" : "Kirjaudu ulos",
-      "profile" : "Profiili",
-      "register" : "Rekisteröidy"
-    },
-    "administration" : {
-      "audits" : "Auditointi",
-      "blocked-dates" : "Päivämäärän estäminen",
-      "comment-moderation" : "Kommenttimoderointi",
-      "download" : "Lataa",
-      "files" : "Tiedostot",
-      "members" : "Jäsenet",
-      "payments" : "Maksut",
-      "portal-configuration" : "Portaalin asetukset",
-      "readFirst" : "Lue ensin",
-      "stats" : "Tilastot",
-      "title" : "Ylläpito",
-      "users" : "Käyttäjät"
-    },
-    "events" : {
-      "add" : "Lisää tapahtuma",
-      "new" : "Tapahtumat",
-      "past" : "Menneet tapahtumat",
-      "title" : "Tapahtumat",
-      "yearlyStats" : "Vuositilastot"
-    },
-    "forum" : {
-      "title" : "Foorumi",
-      "link" : "Pääsivu"
-    },
-    "pageManagement" : {
-      "pages" : "Sivut",
-      "title" : "Sivuhallinta"
     }
   }
 }

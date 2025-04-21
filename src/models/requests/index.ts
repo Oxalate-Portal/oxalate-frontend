@@ -1,5 +1,6 @@
 export type {BlockedDateRequest} from './BlockedDateRequest';
 export type {CertificateRequest} from './CertificateRequest';
+export type {CommentFilterRequest} from './CommentFilterRequest';
 export type {CommentRequest} from './CommentRequest';
 export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
