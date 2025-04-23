@@ -30,7 +30,7 @@
     "react-csv": "^2.2.2",
     "react-dom": "^19.1.0",
     "react-highlight-words": "^0.21.0",
-    "react-i18next": "^15.4.1",
+    "react-i18next": "^15.5.1",
     "react-router-dom": "^7.5.1",
     "translation-check": "^1.1.1",
     "typescript": "^5.4.5",
