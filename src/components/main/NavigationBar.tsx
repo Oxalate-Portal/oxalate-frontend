@@ -10,6 +10,7 @@ import {
     GlobalOutlined,
     HistoryOutlined,
     LoginOutlined,
+    MenuOutlined,
     MessageOutlined,
     PlusOutlined,
     ScheduleOutlined,
@@ -18,7 +19,7 @@ import {
     UnorderedListOutlined,
     UserOutlined
 } from "@ant-design/icons";
-import { Layout, Menu, MenuProps, Tooltip } from "antd";
+import { Button, Drawer, Grid, Layout, Menu, MenuProps, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
@@ -31,6 +32,7 @@ import { pageAPI } from "../../services";
 import Logo from "../../portal_logo.svg?react";
 
 const {Header} = Layout;
+const {useBreakpoint} = Grid;
 
 export function NavigationBar() {
     const {
@@ -50,6 +52,9 @@ export function NavigationBar() {
     const [membershipType, setMembershipType] = useState<MembershipTypeEnum>(MembershipTypeEnum.DISABLED);
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
     const [forumEnabled, setForumEnabled] = useState<boolean>(false);
+
+    const screens = useBreakpoint();
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     type MenuItem = Required<MenuProps>["items"][number];
 
@@ -303,44 +308,82 @@ export function NavigationBar() {
         };
     }, [userSession, getSessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
 
-    const onClick: MenuProps["onClick"] = (e) => {
+    const onClick: MenuProps["onClick"] = e => {
         setCurrent(e.key);
+        setDrawerOpen(false);
     };
 
-    return (
-            <>
-                {!loading && <Header
+    return !loading && (
+            <Header
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 1000,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        padding: "0 16px",
+                        backgroundColor: "#191919",
+                        maxWidth: "100%"
+                    }}
+            >
+                {/* Logo + (desktop) menu */}
+                <div
                         style={{
-                            position: "fixed",
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            zIndex: 1000,
                             display: "flex",
                             alignItems: "center",
-                            justifyContent: "space-between",
-                            maxWidth: "100%",
-                            backgroundColor: "#191919",
-                            padding: "0 16px"
+                            flex: 1,
+                            overflow: "hidden"
                         }}
-                        key={"topBarHeader"}
                 >
-                    {/* Left Menus */}
-                    <div style={{display: "flex", gap: "10px", flex: 1, flexWrap: "nowrap", overflow: "hidden"}}>
-                        <Tooltip title={organizationName}>
-                            <div style={{width: "156px", height: "64px", marginRight: "20px"}}>
-                                <NavLink to={"/"}><Logo
-                                        style={{width: "100%", height: "100%"}}
-                                /></NavLink>
-                            </div>
-                        </Tooltip>
-                        <Menu onClick={onClick}
-                              selectedKeys={[current]}
-                              mode="horizontal"
-                              items={menuBarItems} key={"menuBarItems"}
-                        style={{width:'100%'}}/>
-                    </div>
-                </Header>}
-            </>
+                    <Tooltip title={organizationName}>
+                        <div style={{width: 156, height: 64, marginRight: 20}}>
+                            <NavLink to={"/"}>
+                                <Logo style={{width: "100%", height: "100%"}}/>
+                            </NavLink>
+                        </div>
+                    </Tooltip>
+
+                    {/* show horizontal Menu only on ≥ md */}
+                    {screens.md && (
+                            <Menu
+                                    onClick={onClick}
+                                    selectedKeys={[current]}
+                                    mode="horizontal"
+                                    items={menuBarItems}
+                                    style={{width: "100%"}}
+                            />
+                    )}
+                </div>
+
+                {/* Hamburger button – hidden on desktop */}
+                {!screens.md && (
+                        <>
+                            <Button
+                                    type="text"
+                                    icon={<MenuOutlined style={{fontSize: 24}}/>}
+                                    onClick={() => setDrawerOpen(true)}
+                                    aria-label="Open menu"
+                            />
+                            <Drawer
+                                    placement="right"
+                                    onClose={() => setDrawerOpen(false)}
+                                    open={drawerOpen}
+                                    styles={{padding: 0}}
+                                    width={260}
+                            >
+                                <Menu
+                                        onClick={onClick}
+                                        selectedKeys={[current]}
+                                        mode="inline"
+                                        items={menuBarItems}
+                                        style={{border: "none"}}
+                                />
+                            </Drawer>
+                        </>
+                )}
+            </Header>
     );
 }
