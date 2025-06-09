@@ -371,7 +371,7 @@ export function NavigationBar() {
                                     placement="right"
                                     onClose={() => setDrawerOpen(false)}
                                     open={drawerOpen}
-                                    styles={{padding: 0}}
+                                    styles={{body: {padding: "0"}}}
                                     width={260}
                             >
                                 <Menu
