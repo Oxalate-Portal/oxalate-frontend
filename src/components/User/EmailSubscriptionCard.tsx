@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { emailNotificationSubscriptionAPI } from "../../services";
-import { EmailNotificationSubscriptionResponse } from "../../models/responses";
-import { Button, Form, Spin, Switch } from "antd";
-import { EmailNotificationTypeEnum } from "../../models";
-import { EmailNotificationSubscriptionRequest } from "../../models/requests";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import {emailNotificationSubscriptionAPI} from "../../services";
+import {EmailNotificationSubscriptionRequest, EmailNotificationSubscriptionResponse, EmailNotificationTypeEnum} from "../../models";
+import {Button, Form, Spin, Switch} from "antd";
 
 interface EmailSubscriptionCardProps {
     userId: number;

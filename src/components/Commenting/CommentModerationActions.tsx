@@ -1,7 +1,7 @@
-import { Button, message, Spin } from "antd";
-import { commentAPI } from "../../services";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import {Button, message, Spin} from "antd";
+import {commentAPI} from "../../services";
+import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 interface CommentModerationActionsProps {
     commentId: number;

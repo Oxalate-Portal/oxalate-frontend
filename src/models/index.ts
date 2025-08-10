@@ -39,3 +39,8 @@ export {ResultEnum} from "./ResultEnum";
 export {RoleEnum} from "./RoleEnum";
 export {UpdateStatusEnum} from "./UpdateStatusEnum";
 export {UserStatusEnum} from "./UserStatusEnum";
+
+// All from sub-models
+export * from "./props";
+export * from "./requests";
+export * from "./responses";

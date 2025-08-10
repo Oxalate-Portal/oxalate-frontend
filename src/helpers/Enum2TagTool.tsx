@@ -1,4 +1,4 @@
-import { TFunction } from "i18next";
+import {TFunction} from "i18next";
 import {
     CommentStatusEnum,
     CommentTypeEnum,
@@ -11,7 +11,8 @@ import {
     ReportStatusEnum,
     RoleEnum
 } from "../models";
-import { Tag } from "antd";
+import {Tag} from "antd";
+import {JSX} from "react";
 
 export function diveEventStatusEnum2Tag(status: DiveEventStatusEnum, t: TFunction, recordId: number): JSX.Element {
     let color: string;

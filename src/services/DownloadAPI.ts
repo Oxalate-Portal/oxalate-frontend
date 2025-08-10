@@ -1,5 +1,5 @@
 import Axios, {AxiosInstance} from "axios";
-import {DownloadCertificateResponse, DownloadDiveResponse, DownloadPaymentResponse} from "../models/responses/downloads";
+import {DownloadCertificateResponse, DownloadDiveResponse, DownloadPaymentResponse} from "../models";
 
 class DownloadAPI {
     protected axiosInstance: AxiosInstance;

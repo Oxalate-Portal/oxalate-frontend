@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Select, Spin } from "antd";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState} from "react";
+import {Select, Spin} from "antd";
+import {useTranslation} from "react-i18next";
 
 const {Option, OptGroup} = Select;
 
@@ -36,7 +36,7 @@ export function TimezoneSelector({selectedValue, onChange}: TimezoneSelectorProp
                         placeholder={t("TimezoneSelector.select.placeholder")}
                         optionFilterProp={"children"}
                         style={{width: "100%"}}
-                        filterOption={(input, option) =>
+                        filterOption={(input: string, option) =>
                                 (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                         }
                         value={selectedValue}

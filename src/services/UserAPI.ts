@@ -1,8 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {ListUserResponse, UserResponse} from "../models/responses";
-import {RoleEnum, UserStatusEnum} from "../models";
-import {UserRequest} from "../models/requests";
-import {AdminUserResponse} from "../models/responses/AdminUserResponse";
+import {AdminUserResponse, ListUserResponse, RoleEnum, UserRequest, UserResponse, UserStatusEnum} from "../models";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 

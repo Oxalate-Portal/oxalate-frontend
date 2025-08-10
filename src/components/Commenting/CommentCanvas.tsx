@@ -1,9 +1,9 @@
-import { commentAPI } from "../../services";
-import { useCallback, useEffect, useState } from "react";
-import { CommentResponse } from "../../models/responses";
-import { DisplayCommentThread } from "./DisplayCommentThread";
-import { Spin } from "antd";
-import { CommentEditor } from ".";
+import {commentAPI} from "../../services";
+import {useCallback, useEffect, useState} from "react";
+import {CommentResponse} from "../../models";
+import {DisplayCommentThread} from "./DisplayCommentThread";
+import {Spin} from "antd";
+import {CommentEditor} from ".";
 
 interface CommentCanvasProps {
     commentId: number;

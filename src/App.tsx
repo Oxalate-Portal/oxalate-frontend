@@ -1,38 +1,29 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import "./App.css";
-import { ConfigProvider, theme } from "antd";
-import { AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession } from "./session";
+import {ConfigProvider, theme} from "antd";
+import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { Register, Registration } from "./components/Register";
-import { LostPassword, NewPassword, Password, ShowUser, User } from "./components/User";
-import { AcceptTerms, Home, NavigationBar, OxalateFooter } from "./components/main";
-import { EditPage, EditPageGroup, Page, PageGroups, Pages } from "./components/Page";
-import {
-    AdminMain,
-    AdminMembership,
-    AdminMemberships,
-    AdminOrgUser,
-    AdminOrgUsers,
-    AuditEvents,
-    BlockedDates,
-    DownloadData
-} from "./components/Administration";
-import { DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent } from "./components/DiveEvent";
-import { MainAdminStatistics, YearlyDiveStats } from "./components/Statistics";
-import { Payments } from "./components/Payment";
-import { EditCertificate } from "./components/Certificate";
-import { AdminUploads } from "./components/Administration/FileManagement";
-import { PortalConfigurations } from "./components/Administration/PortalConfigurations";
+import {Navigate, Route, Routes} from "react-router-dom";
+import {Register, Registration} from "./components/Register";
+import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
+import {AcceptTerms, Home, NavigationBar, OxalateFooter} from "./components/main";
+import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
+import {AdminMain, AdminMembership, AdminMemberships, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
+import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
+import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
+import {Payments} from "./components/Payment";
+import {EditCertificate} from "./components/Certificate";
+import {AdminUploads} from "./components/Administration/FileManagement";
+import {PortalConfigurations} from "./components/Administration/PortalConfigurations";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { MembershipTypeEnum, PortalConfigGroupEnum } from "./models";
-import { CommentList, Forum } from "./components/Commenting";
-import { CommentModeration } from "./components/Administration/CommentModeration";
+import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
+import {CommentList, Forum} from "./components/Commenting";
+import {CommentModeration} from "./components/Administration/CommentModeration";
 import "@ant-design/v5-patch-for-react-19";
-import { LoginWithCaptcha } from "./components/main/LoginWithCaptcha";
+import {LoginWithCaptcha} from "./components/main/LoginWithCaptcha";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);

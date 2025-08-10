@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { CommentResponse } from "../../models/responses";
-import { Button, List, Typography } from "antd";
-import { CommentCard } from "./CommentCard";
-import { CommentEditor } from "./CommentEditor";
+import React, {useState} from "react";
+import {CommentResponse} from "../../models";
+import {Button, List, Typography} from "antd";
+import {CommentCard} from "./CommentCard";
+import {CommentEditor} from "./CommentEditor";
 
 interface DisplayCommentThreadProps {
     comment: CommentResponse;

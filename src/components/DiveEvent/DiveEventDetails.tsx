@@ -1,13 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { useSession } from "../../session";
-import { DiveEventResponse, ListUserResponse } from "../../models/responses";
-import { checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag } from "../../helpers";
-import { Link } from "react-router-dom";
-import { RoleEnum } from "../../models";
-import { Space, Spin, Table, Tooltip } from "antd";
-import { LinkOutlined } from "@ant-design/icons";
-import type { ColumnsType } from "antd/es/table";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {useSession} from "../../session";
+import {DiveEventResponse, ListUserResponse, RoleEnum} from "../../models";
+import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag} from "../../helpers";
+import {Link} from "react-router-dom";
+import {Space, Spin, Table, Tooltip} from "antd";
+import {LinkOutlined} from "@ant-design/icons";
+import type {ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
 
 interface DiveEventDetailsProps {

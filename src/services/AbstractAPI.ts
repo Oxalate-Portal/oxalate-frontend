@@ -1,5 +1,5 @@
 import Axios, {AxiosInstance} from "axios";
-import {PageableResponse} from "../models/responses";
+import {PageableResponse} from "../models";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {
     protected axiosInstance: AxiosInstance;

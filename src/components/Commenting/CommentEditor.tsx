@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { Button, Input } from "antd";
-import { CommentRequest } from "../../models/requests";
-import { commentAPI } from "../../services";
-import { CommentTypeEnum } from "../../models";
-import { useTranslation } from "react-i18next";
+import React, {useState} from "react";
+import {Button, Input} from "antd";
+import {CommentRequest, CommentTypeEnum} from "../../models";
+import {commentAPI} from "../../services";
+import {useTranslation} from "react-i18next";
 
 interface CommentEditorProps {
     parentCommentId: number;

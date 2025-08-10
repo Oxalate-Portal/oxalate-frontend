@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { DiveEventStatusEnum, RoleEnum } from "../../models";
-import { Button, Space, Spin, Table } from "antd";
-import type { ColumnsType } from "antd/es/table";
-import { checkRoles, diveEventStatusEnum2Tag } from "../../helpers";
-import { Link } from "react-router-dom";
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
-import { diveEventAPI } from "../../services";
-import { DiveEventResponse } from "../../models/responses";
+import {useEffect, useState} from "react";
+import {DiveEventResponse, DiveEventStatusEnum, RoleEnum} from "../../models";
+import {Button, Space, Spin, Table} from "antd";
+import type {ColumnsType} from "antd/es/table";
+import {checkRoles, diveEventStatusEnum2Tag} from "../../helpers";
+import {Link} from "react-router-dom";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {diveEventAPI} from "../../services";
 import dayjs from "dayjs";
-import { diveTypeEnum2Tag } from "../../helpers/Enum2TagTool";
+import {diveTypeEnum2Tag} from "../../helpers/Enum2TagTool";
 
 interface DiveEventsTableProps {
     diveEventType: string,

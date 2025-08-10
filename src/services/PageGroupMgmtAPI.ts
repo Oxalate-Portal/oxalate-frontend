@@ -1,6 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {PageGroupRequest} from "../models/requests";
-import {PageGroupResponse} from "../models/responses";
+import {PageGroupRequest, PageGroupResponse} from "../models";
 
 class PageGroupMgmtAPI extends AbstractAPI<PageGroupRequest, PageGroupResponse> {
 }

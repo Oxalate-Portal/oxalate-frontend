@@ -1,6 +1,5 @@
 import Axios, {AxiosInstance} from "axios";
-import {FrontendConfigurationResponse, PortalConfigurationResponse} from "../models/responses";
-import {PortalConfigurationRequest} from "../models/requests";
+import {FrontendConfigurationResponse, PortalConfigurationRequest, PortalConfigurationResponse} from "../models";
 
 class PortalConfigurationAPI {
     private axiosInstance: AxiosInstance;

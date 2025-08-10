@@ -1,13 +1,11 @@
-import { useParams } from "react-router-dom";
-import { SyntheticEvent, useEffect, useState } from "react";
-import { ResultEnum, RoleEnum, UserStatusEnum } from "../../models";
-import { useTranslation } from "react-i18next";
-import { authAPI, userAPI } from "../../services";
-import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
-import { Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin } from "antd";
-import { UserFields } from "../User";
-import { checkRoles } from "../../helpers";
-import { UserRequest } from "../../models/requests";
+import {useParams} from "react-router-dom";
+import {SyntheticEvent, useEffect, useState} from "react";
+import {AdminUserResponse, ResultEnum, RoleEnum, UserRequest, UserStatusEnum} from "../../models";
+import {useTranslation} from "react-i18next";
+import {authAPI, userAPI} from "../../services";
+import {Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin} from "antd";
+import {UserFields} from "../User";
+import {checkRoles} from "../../helpers";
 
 export function AdminOrgUser() {
     const {paramId} = useParams();

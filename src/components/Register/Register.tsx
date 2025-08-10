@@ -1,14 +1,13 @@
-import { useSession } from "../../session";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Alert, Button, Form, Input, Modal, Row } from "antd";
-import { useTranslation } from "react-i18next";
-import { UserFields } from "../User";
-import { AcceptTerms } from "../main";
-import { ResultEnum, UpdateStatusEnum, UpdateStatusVO } from "../../models";
-import { ResendRegistrationEmail } from "./ResendRegistrationEmail";
-import { RegistrationResponse } from "../../models/responses";
-import { authAPI } from "../../services";
+import {useSession} from "../../session";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {Alert, Button, Form, Input, Modal, Row} from "antd";
+import {useTranslation} from "react-i18next";
+import {UserFields} from "../User";
+import {AcceptTerms} from "../main";
+import {RegistrationResponse, ResultEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
+import {authAPI} from "../../services";
 
 export function Register() {
     const {userSession} = useSession();

@@ -1,5 +1,5 @@
-import { useSearchParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {useSearchParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export function Registration() {
     const [searchParams] = useSearchParams();

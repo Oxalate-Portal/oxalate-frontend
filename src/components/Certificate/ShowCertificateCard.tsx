@@ -1,10 +1,10 @@
-import { QuestionCircleOutlined, UploadOutlined } from "@ant-design/icons";
-import { CertificateResponse } from "../../models/responses";
-import { Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, UploadProps } from "antd";
-import { useTranslation } from "react-i18next";
-import { useState } from "react";
-import { ProtectedImage } from "../main";
-import { fileTransferAPI } from "../../services";
+import {QuestionCircleOutlined, UploadOutlined} from "@ant-design/icons";
+import {CertificateResponse} from "../../models";
+import {Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, UploadProps} from "antd";
+import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {ProtectedImage} from "../main";
+import {fileTransferAPI} from "../../services";
 
 interface ShowCertificateCardProps {
     certificate: CertificateResponse;

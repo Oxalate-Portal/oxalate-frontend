@@ -1,8 +1,8 @@
-import { Collapse, Spin } from "antd";
-import { useTranslation } from "react-i18next";
-import { PaymentListTable } from "./PaymentListTable";
-import { PaymentTypeEnum, PortalConfigGroupEnum } from "../../models";
-import { useSession } from "../../session";
+import {Collapse, Spin} from "antd";
+import {useTranslation} from "react-i18next";
+import {PaymentListTable} from "./PaymentListTable";
+import {PaymentTypeEnum, PortalConfigGroupEnum} from "../../models";
+import {useSession} from "../../session";
 
 export function ListPayments() {
     const {t} = useTranslation();

@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { commentAPI } from "../../services";
-import { CommentResponse } from "../../models/responses";
-import { Card, List, Space, Typography } from "antd";
+import {useEffect, useState} from "react";
+import {commentAPI} from "../../services";
+import {CommentResponse} from "../../models";
+import {Card, List, Space, Typography} from "antd";
 import dayjs from "dayjs";
 
 const {Text} = Typography;
@@ -16,8 +16,8 @@ export function Forum() {
         Promise.all([
             commentAPI.findAllForParentIdWithDepth(3, 2)
         ])
-                .then(([allComments]) => {
-                    setComments(allComments);
+                .then(([rootComment]) => {
+                    setComments(rootComment.childComments);
                 })
                 .catch((error) => {
                     console.error("Failed to load comments:", error);

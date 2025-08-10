@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Table } from "antd";
-import { fileTransferAPI } from "../../../services";
-import { CertificateFileResponse } from "../../../models/responses/filetransfers";
-import { commonFileColumns } from "./commonColumns";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState} from "react";
+import {Table} from "antd";
+import {fileTransferAPI} from "../../../services";
+import {CertificateFileResponse} from "../../../models";
+import {commonFileColumns} from "./commonColumns";
+import {useTranslation} from "react-i18next";
 
 export function CertificateFiles() {
     const [loading, setLoading] = useState<boolean>(true);

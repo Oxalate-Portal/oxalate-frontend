@@ -1,6 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {CertificateResponse} from "../models/responses";
-import {CertificateRequest} from "../models/requests";
+import {CertificateRequest, CertificateResponse} from "../models";
 
 export class CertificateAPI extends AbstractAPI<CertificateRequest, CertificateResponse> {
     public async findAllByUserId(userId: number): Promise<CertificateResponse[]> {

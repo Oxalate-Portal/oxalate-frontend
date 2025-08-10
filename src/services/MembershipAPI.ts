@@ -1,6 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {MembershipRequest} from "../models/requests";
-import {MembershipResponse} from "../models/responses";
+import {MembershipRequest, MembershipResponse} from "../models";
 
 class MembershipAPI extends AbstractAPI<MembershipRequest, MembershipResponse> {
     public async findByUserId(userId: number): Promise<MembershipResponse[]> {

@@ -1,15 +1,24 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { blockedDatesAPI, diveEventAPI, userAPI } from "../../services";
-import { BlockedDateResponse, DiveEventResponse, ListUserResponse } from "../../models/responses";
-import { DiveEventStatusEnum, DiveTypeEnum, OptionItemVO, PaymentTypeEnum, PortalConfigGroupEnum, RoleEnum } from "../../models";
-import { useTranslation } from "react-i18next";
-import { Button, DatePicker, Form, Input, message, Select, Slider, Space } from "antd";
-import dayjs, { Dayjs } from "dayjs";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {blockedDatesAPI, diveEventAPI, userAPI} from "../../services";
+import {
+    BlockedDateResponse,
+    DiveEventRequest,
+    DiveEventResponse,
+    DiveEventStatusEnum,
+    DiveTypeEnum,
+    ListUserResponse,
+    OptionItemVO,
+    PaymentTypeEnum,
+    PortalConfigGroupEnum,
+    RoleEnum
+} from "../../models";
+import {useTranslation} from "react-i18next";
+import {Button, DatePicker, Form, Input, message, Select, Slider, Space} from "antd";
+import dayjs, {Dayjs} from "dayjs";
 import TextArea from "antd/es/input/TextArea";
-import { DiveEventRequest } from "../../models/requests";
-import { useSession } from "../../session";
-import { localToUTCDatetime } from "../../helpers";
+import {useSession} from "../../session";
+import {localToUTCDatetime} from "../../helpers";
 
 export function EditDiveEvent() {
     const {paramId} = useParams();

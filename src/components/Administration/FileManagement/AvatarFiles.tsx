@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Table } from "antd";
-import { fileTransferAPI } from "../../../services";
-import { AvatarFileResponse } from "../../../models/responses/filetransfers";
-import { commonFileColumns } from "./commonColumns";
+import React, {useEffect, useState} from "react";
+import {Table} from "antd";
+import {fileTransferAPI} from "../../../services";
+import {AvatarFileResponse} from "../../../models";
+import {commonFileColumns} from "./commonColumns";
 
 export function AvatarFiles() {
     const [loading, setLoading] = useState<boolean>(true);

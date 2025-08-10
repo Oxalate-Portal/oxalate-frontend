@@ -1,7 +1,5 @@
-import { AbstractAPI } from "./AbstractAPI";
-import { DiveEventListItemResponse, DiveEventResponse } from "../models/responses";
-import { DiveEventListRequest, DiveEventRequest } from "../models/requests";
-import { DiveEventListResponse } from "../models/responses/DiveEventListResponse";
+import {AbstractAPI} from "./AbstractAPI";
+import {DiveEventListItemResponse, DiveEventListRequest, DiveEventListResponse, DiveEventRequest, DiveEventResponse} from "../models";
 
 class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
     public async findByUserId(userId: number): Promise<DiveEventResponse[]> {

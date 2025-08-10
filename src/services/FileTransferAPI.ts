@@ -1,7 +1,6 @@
 import Axios, {AxiosInstance, AxiosResponse} from "axios";
 import type {GetProp, UploadFile, UploadProps} from "antd";
-import {FileRemovalResponse} from "../models/responses/FileRemovalResponse";
-import {AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models/responses/filetransfers";
+import {AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, FileRemovalResponse, PageFileResponse} from "../models";
 
 // Define the response type for successful uploads
 interface DownloadResponse {

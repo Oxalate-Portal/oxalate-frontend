@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Spin } from "antd";
-import { diveEventAPI } from "../../services";
-import { DiveEventDetails } from "./DiveEventDetails";
-import { DiveEventResponse } from "../../models/responses";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Spin} from "antd";
+import {diveEventAPI} from "../../services";
+import {DiveEventDetails} from "./DiveEventDetails";
+import {DiveEventResponse} from "../../models";
 
 export function ShowDiveEvent() {
     const {paramId} = useParams();

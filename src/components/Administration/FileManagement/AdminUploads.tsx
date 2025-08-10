@@ -1,10 +1,10 @@
-import { PageFiles } from "./PageFiles";
-import { DocumentFiles } from "./DocumentFiles";
-import { DiveFiles } from "./DiveFiles";
-import { CertificateFiles } from "./CertificateFiles";
-import { Tabs, TabsProps, Typography } from "antd";
-import { AvatarFiles } from "./AvatarFiles";
-import { useTranslation } from "react-i18next";
+import {PageFiles} from "./PageFiles";
+import {DocumentFiles} from "./DocumentFiles";
+import {DiveFiles} from "./DiveFiles";
+import {CertificateFiles} from "./CertificateFiles";
+import {Tabs, TabsProps, Typography} from "antd";
+import {AvatarFiles} from "./AvatarFiles";
+import {useTranslation} from "react-i18next";
 
 export function AdminUploads() {
     const {TabPane} = Tabs;

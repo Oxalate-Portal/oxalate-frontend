@@ -1,4 +1,4 @@
-import { CKEditor } from "@ckeditor/ckeditor5-react";
+import {CKEditor} from "@ckeditor/ckeditor5-react";
 import {
     Alignment,
     Bold,
@@ -29,8 +29,9 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import "./ckeditor_dark_theme.css";
-import { CKUploadAdapter } from "../../services";
-import { SessionVO } from "../../models";
+import {CKUploadAdapter} from "../../services";
+import {SessionVO} from "../../models";
+import {JSX} from "react";
 
 interface PageBodyEditorProps {
     value: string,
