@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Button, Form, message, Select, Spin } from "antd";
-import { MembershipStatusEnum, MembershipTypeEnum } from "../../models/";
-import { MembershipResponse } from "../../models/responses/";
-import { membershipAPI } from "../../services/";
-import { useParams } from "react-router-dom";
-import { MembershipRequest } from "../../models/requests";
+import React, {useEffect, useState} from "react";
+import {Button, Form, message, Select, Spin} from "antd";
+import {MembershipRequest, MembershipResponse, MembershipStatusEnum, MembershipTypeEnum} from "../../models";
+import {membershipAPI} from "../../services/";
+import {useParams} from "react-router-dom";
 
 export function AdminMembership() {
     const {paramId} = useParams();

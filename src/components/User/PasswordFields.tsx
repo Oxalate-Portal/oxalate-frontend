@@ -1,5 +1,5 @@
-import { Form, Input } from "antd";
-import { useTranslation } from "react-i18next";
+import {Form, Input} from "antd";
+import {useTranslation} from "react-i18next";
 
 export function PasswordFields() {
     const {t} = useTranslation();

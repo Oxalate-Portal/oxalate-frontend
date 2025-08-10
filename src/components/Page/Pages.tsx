@@ -1,15 +1,14 @@
-import { Link, useParams } from "react-router-dom";
-import { useSession } from "../../session";
-import { useEffect, useState } from "react";
-import { PageResponse, RolePermissionResponse } from "../../models/responses";
-import { useTranslation } from "react-i18next";
-import { PageStatusEnum, RoleEnum } from "../../models";
-import { Alert, Button, message, Space, Spin, Table } from "antd";
-import { checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag } from "../../helpers";
+import {Link, useParams} from "react-router-dom";
+import {useSession} from "../../session";
+import {useEffect, useState} from "react";
+import {PageResponse, PageStatusEnum, RoleEnum, RolePermissionResponse} from "../../models";
+import {useTranslation} from "react-i18next";
+import {Alert, Button, message, Space, Spin, Table} from "antd";
+import {checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag} from "../../helpers";
 import dayjs from "dayjs";
-import { ColumnsType } from "antd/es/table";
-import { pageGroupMgmtAPI, pageMgmtAPI } from "../../services";
-import { roleEnum2Tag } from "../../helpers/Enum2TagTool";
+import {ColumnsType} from "antd/es/table";
+import {pageGroupMgmtAPI, pageMgmtAPI} from "../../services";
+import {roleEnum2Tag} from "../../helpers/Enum2TagTool";
 
 export function Pages() {
     const {paramId} = useParams();

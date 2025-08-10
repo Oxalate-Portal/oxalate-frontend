@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
-import { AdminUserResponse } from "../../models/responses/AdminUserResponse";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Button, Divider, Input, message, Space, Spin, Table, Tag } from "antd";
-import { PaymentTypeEnum } from "../../models";
-import { userAPI } from "../../services";
-import type { ColumnsType } from "antd/es/table";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
-import { roleEnum2Tag } from "../../helpers/Enum2TagTool";
+import {useEffect, useState} from "react";
+import {AdminUserResponse, PaymentTypeEnum} from "../../models";
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
+import {userAPI} from "../../services";
+import type {ColumnsType} from "antd/es/table";
+import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
+import {roleEnum2Tag} from "../../helpers";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);

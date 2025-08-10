@@ -1,7 +1,7 @@
-import { EventReportResponse } from "../../models/responses";
-import { Table } from "antd";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import {EventReportResponse} from "../../models";
+import {Table} from "antd";
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 
 interface BiannualEventReportProps {

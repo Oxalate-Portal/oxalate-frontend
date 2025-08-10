@@ -1,6 +1,6 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { SessionVO } from "../models";
+import {useLocation} from "react-router-dom";
+import {useEffect} from "react";
+import {SessionVO} from "../models";
 
 interface AuthVerifyProps {
     logOut: () => void;

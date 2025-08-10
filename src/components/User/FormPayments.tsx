@@ -1,9 +1,8 @@
 import React from "react";
-import { Table, Tag } from "antd";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { PaymentResponse, UserResponse } from "../../models/responses";
-import { PaymentTypeEnum } from "../../models";
+import {Table, Tag} from "antd";
+import {Link} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {PaymentResponse, PaymentTypeEnum, UserResponse} from "../../models";
 import dayjs from "dayjs";
 
 interface FormatPaymentsProps {

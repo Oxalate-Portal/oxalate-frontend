@@ -1,8 +1,7 @@
 // Copied from https://bobbyhadz.com/blog/javascript-format-date-yyyy-mm-dd-hh-mm-ss
 
 import dayjs, {Dayjs} from "dayjs";
-import {RoleEnum, SessionVO} from "../models";
-import {PageGroupResponse, RolePermissionResponse} from "../models/responses";
+import {PageGroupResponse, RoleEnum, RolePermissionResponse, SessionVO} from "../models";
 
 function padTo2Digits(num: number) {
     return num.toString().padStart(2, '0');

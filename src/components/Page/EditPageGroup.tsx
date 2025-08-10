@@ -1,12 +1,10 @@
-import { useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { PageGroupResponse } from "../../models/responses";
-import { OptionItemVO, PageStatusEnum } from "../../models";
-import { Button, Divider, Form, Input, message, Select, Spin } from "antd";
-import { pageGroupMgmtAPI } from "../../services";
-import { PageGroupRequest } from "../../models/requests";
-import { useSession } from "../../session";
+import {useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {OptionItemVO, PageGroupRequest, PageGroupResponse, PageStatusEnum} from "../../models";
+import {Button, Divider, Form, Input, message, Select, Spin} from "antd";
+import {pageGroupMgmtAPI} from "../../services";
+import {useSession} from "../../session";
 
 export function EditPageGroup() {
     const {paramId} = useParams();

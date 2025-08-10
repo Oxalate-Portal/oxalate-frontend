@@ -4,7 +4,7 @@ import {Certificates} from "../Certificate";
 import {UserEventList} from "./UserEventList";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {DiveEventListItemResponse} from "../../models/responses";
+import {DiveEventListItemResponse} from "../../models";
 import {diveEventAPI} from "../../services";
 import dayjs from "dayjs";
 import {EmailSubscriptionCard} from "./EmailSubscriptionCard";

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { commentAPI } from "../../services";
+import {useEffect, useState} from "react";
+import {commentAPI} from "../../services";
 
 interface DiveEventCommentEditorProps {
     diveEventId?: any;

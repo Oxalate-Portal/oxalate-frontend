@@ -1,6 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {CommentFilterRequest, CommentRequest, ReportRequest} from "../models/requests";
-import {CommentModerationResponse, CommentResponse, ReportResponse} from "../models/responses";
+import {CommentFilterRequest, CommentModerationResponse, CommentRequest, CommentResponse, ReportRequest, ReportResponse} from "../models";
 
 class CommentAPI extends AbstractAPI<CommentRequest, CommentResponse> {
 

@@ -1,8 +1,14 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { ActionResultEnum, LoginStatus, PortalConfigGroupEnum, SessionVO } from "../models";
-import { LoginRequest } from "../models/requests";
-import { authAPI, portalConfigurationAPI } from "../services";
-import { FrontendConfigurationResponse, PortalConfigurationResponse } from "../models/responses";
+import {createContext, useContext, useEffect, useState} from "react";
+import {
+    ActionResultEnum,
+    FrontendConfigurationResponse,
+    LoginRequest,
+    LoginStatus,
+    PortalConfigGroupEnum,
+    PortalConfigurationResponse,
+    SessionVO
+} from "../models";
+import {authAPI, portalConfigurationAPI} from "../services";
 
 // Define the type for the session context
 interface SessionContextType {

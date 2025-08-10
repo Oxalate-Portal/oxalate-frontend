@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Table, Tag, Typography } from "antd";
-import { fileTransferAPI } from "../../../services";
-import { PageFileResponse, UploadStatusEnum } from "../../../models/responses/filetransfers";
-import { commonFileColumns } from "./commonColumns";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Table, Tag, Typography} from "antd";
+import {fileTransferAPI} from "../../../services";
+import {PageFileResponse, UploadStatusEnum} from "../../../models";
+import {commonFileColumns} from "./commonColumns";
+import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
 
 export function PageFiles() {
     const [loading, setLoading] = useState<boolean>(true);

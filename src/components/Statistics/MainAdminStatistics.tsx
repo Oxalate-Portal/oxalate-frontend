@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import { Space } from "antd";
-import { DiveEventReport } from "./DiveEventReport";
-import { YearlyStats } from "./YearlyStats";
+import {useTranslation} from "react-i18next";
+import {Space} from "antd";
+import {DiveEventReport} from "./DiveEventReport";
+import {YearlyStats} from "./YearlyStats";
 
 export function MainAdminStatistics() {
     const {t} = useTranslation();

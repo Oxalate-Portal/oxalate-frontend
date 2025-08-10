@@ -1,12 +1,10 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Button, Space, Spin, Table } from "antd";
-import { diveEventAPI } from "../../services";
-import { DiveEventListResponse } from "../../models/responses";
-import { DiveCountItemVO } from "../../models";
-import { DiveEventListRequest } from "../../models/requests";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
+import {DownOutlined, UpOutlined} from "@ant-design/icons";
+import {Button, Space, Spin, Table} from "antd";
+import {diveEventAPI} from "../../services";
+import {DiveCountItemVO, DiveEventListRequest, DiveEventListResponse} from "../../models";
 
 export function SetDives() {
     const {paramId} = useParams();

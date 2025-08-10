@@ -1,13 +1,11 @@
-import { Avatar, Button, Card, message, Modal, Space, Typography } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import {Avatar, Button, Card, message, Modal, Space, Typography} from "antd";
+import {UserOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
-import { useState } from "react";
-import { CommentResponse } from "../../models/responses";
-import { commentAPI } from "../../services";
-import { ReportRequest } from "../../models/requests";
-import { CommentEditor } from "./CommentEditor";
-import { UpdateStatusEnum } from "../../models";
-import { useTranslation } from "react-i18next";
+import {useState} from "react";
+import {CommentResponse, ReportRequest, UpdateStatusEnum} from "../../models";
+import {commentAPI} from "../../services";
+import {CommentEditor} from "./CommentEditor";
+import {useTranslation} from "react-i18next";
 
 interface CommentCardProps {
     comment: CommentResponse;

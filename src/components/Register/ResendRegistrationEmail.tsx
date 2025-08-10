@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
-import { Alert, Button } from "antd";
-import { useState } from "react";
-import { authAPI } from "../../services";
+import {useTranslation} from "react-i18next";
+import {Alert, Button} from "antd";
+import {useState} from "react";
+import {authAPI} from "../../services";
 
 interface ResendRegistrationEmailProps {
     token: string;

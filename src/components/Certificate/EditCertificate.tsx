@@ -1,10 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { CertificateRequest } from "../../models/requests";
+import {useTranslation} from "react-i18next";
+import {CertificateRequest} from "../../models";
 import dayjs from "dayjs";
-import { useParams } from "react-router-dom";
-import { Button, Form, Input, message, Space, Spin } from "antd";
-import { useEffect, useState } from "react";
-import { certificateAPI } from "../../services";
+import {useParams} from "react-router-dom";
+import {Button, Form, Input, message, Space, Spin} from "antd";
+import {useEffect, useState} from "react";
+import {certificateAPI} from "../../services";
 
 export function EditCertificate() {
     const {paramId} = useParams();

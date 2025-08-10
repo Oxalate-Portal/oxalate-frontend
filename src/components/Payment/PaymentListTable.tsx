@@ -1,14 +1,12 @@
-import { PaymentTypeEnum, PaymentVO } from "../../models";
-import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { Spin, Table, Tag } from "antd";
-import { type ColumnsType } from "antd/es/table";
+import {PaymentRequest, PaymentResponse, PaymentTypeEnum, PaymentVO} from "../../models";
+import {useTranslation} from "react-i18next";
+import {Link} from "react-router-dom";
+import {Button, Spin, Table, Tag} from "antd";
+import {type ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
-import { paymentAPI } from "../../services";
-import { PaymentRequest } from "../../models/requests";
-import { MinusCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { PaymentResponse } from "../../models/responses";
+import {useEffect, useState} from "react";
+import {paymentAPI} from "../../services";
+import {MinusCircleOutlined, PlusCircleOutlined} from "@ant-design/icons";
 
 interface PaymentListPanelProps {
     paymentType: PaymentTypeEnum;
@@ -163,7 +161,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                     return (
                             <>
                                 <span style={{marginRight: 8}}>{record.paymentCount}</span>
-                                <button
+                                <Button
                                         style={{
                                             marginRight: 4,
                                             cursor: "pointer",
@@ -174,8 +172,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                         onClick={() => updateCount(record, 1)}
                                 >
                                     <PlusCircleOutlined style={{fontSize: "18px"}}/>
-                                </button>
-                                {(record.paymentCount > 0) && <button
+                                </Button>
+                                {(record.paymentCount > 0) && <Button
                                         style={{
                                             cursor: "pointer",
                                             border: "none",
@@ -185,7 +183,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                         onClick={() => updateCount(record, -1)}
                                 >
                                     <MinusCircleOutlined style={{fontSize: "18px"}}/>
-                                </button>}
+                                </Button>}
                             </>
                     );
                 }

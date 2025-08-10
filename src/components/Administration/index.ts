@@ -8,3 +8,5 @@ export {AdminOrgUsers} from './AdminOrgUsers';
 export {BlockedDates} from './BlockedDates';
 export {DownloadData} from './DownloadData';
 export {TimezoneSelector} from './TimezoneSelector';
+
+export * from './FileManagement';

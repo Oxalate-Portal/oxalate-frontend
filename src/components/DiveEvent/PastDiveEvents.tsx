@@ -1,5 +1,5 @@
-import { DiveEventsTable } from "./DiveEventsTable";
-import { useTranslation } from "react-i18next";
+import {DiveEventsTable} from "./DiveEventsTable";
+import {useTranslation} from "react-i18next";
 
 export function PastDiveEvents() {
     const {t} = useTranslation();

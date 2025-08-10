@@ -1,14 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useSession } from "../../session";
-import { useTranslation } from "react-i18next";
-import { diveEventAPI, membershipAPI, paymentAPI } from "../../services";
-import { DiveEventResponse, MembershipResponse, PaymentResponse, PaymentStatusResponse } from "../../models/responses";
-import { DiveEventDetails } from "./DiveEventDetails";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
+import {diveEventAPI, membershipAPI, paymentAPI} from "../../services";
+import {DiveEventResponse, MembershipResponse, PaymentResponse, PaymentStatusResponse, PaymentTypeEnum, PortalConfigGroupEnum, SessionVO} from "../../models";
+import {DiveEventDetails} from "./DiveEventDetails";
 import dayjs from "dayjs";
-import { PaymentTypeEnum, PortalConfigGroupEnum, SessionVO } from "../../models";
-import { Divider, Spin } from "antd";
-import { CommentCanvas } from "../Commenting";
+import {Button, Divider, Space, Spin} from "antd";
+import {CommentCanvas} from "../Commenting";
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -145,7 +144,7 @@ export function DiveEvent() {
         }
 
         if ((getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled") === "true")
-        && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("event"))) {
+                && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("event"))) {
             setEventCommenting(true);
         }
     }, [userSession, diveEvent]);
@@ -177,34 +176,29 @@ export function DiveEvent() {
     return (
             <div className={"darkDiv"}>
                 <Spin spinning={loading}>
-                    {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
-                    {!subscribing && canSubscribe &&
-                            <div className="row pt-5">
-                                <div>
-                                    <button
-                                            className="btn btn-primary"
-                                            onClick={() => subscribeEvent(diveEventId)}
-                                            key={diveEventId + "-sub-button"}>{t("Event.subscribe.button")}</button>
-                                </div>
-                            </div>
-                    }
-                    {subscribing && canUnsubscribe &&
-                            <div className="row pt-5">
-                                <div>
-                                    <button
-                                            className="btn btn-danger"
-                                            onClick={() => unSubscribeEvent(diveEventId)}
-                                            key={diveEventId + "unsub-button"}>{t("Event.unsubscribe.button")}</button>
-                                </div>
-                            </div>
-                    }
+                    <Space direction={"vertical"} size={"large"}>
+                        {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
+                        {!subscribing && canSubscribe &&
+                                <Button
+                                        type={"primary"}
+                                        onClick={() => subscribeEvent(diveEventId)}
+                                        key={diveEventId + "-sub-button"}>{t("Event.subscribe.button")}</Button>
+                        }
+                        {subscribing && canUnsubscribe &&
+                                <Button
+                                        type={"primary"}
+                                        onClick={() => unSubscribeEvent(diveEventId)}
+                                        key={diveEventId + "unsub-button"}>{t("Event.unsubscribe.button")}</Button>
+                        }
 
-                    {diveEvent && (diveEventId > 0) && eventCommenting &&
-                            <>
-                                <Divider orientation={"left"} key={"diveEventCommentDivider"}>Comments</Divider>
-                                {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
-                                <CommentCanvas commentId={diveEvent.eventCommentId} allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())} />
-                            </>}
+                        {diveEvent && (diveEventId > 0) && eventCommenting &&
+                                <>
+                                    <Divider orientation={"left"} key={"diveEventCommentDivider"}>Comments</Divider>
+                                    {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
+                                    <CommentCanvas commentId={diveEvent.eventCommentId}
+                                                   allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())}/>
+                                </>}
+                    </Space>
                 </Spin>
             </div>
     );

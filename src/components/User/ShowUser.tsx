@@ -1,12 +1,12 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { userAPI } from "../../services";
-import { message, Spin, Table } from "antd";
-import { useTranslation } from "react-i18next";
-import { UserResponse } from "../../models/responses";
-import { FormPayments } from "./FormPayments";
-import { formatDateTime } from "../../helpers";
-import { ProfileCollapse } from "./ProfileCollapse";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {userAPI} from "../../services";
+import {message, Spin, Table} from "antd";
+import {useTranslation} from "react-i18next";
+import {UserResponse} from "../../models";
+import {FormPayments} from "./FormPayments";
+import {formatDateTime} from "../../helpers";
+import {ProfileCollapse} from "./ProfileCollapse";
 
 export function ShowUser() {
     const {paramId} = useParams<string>();

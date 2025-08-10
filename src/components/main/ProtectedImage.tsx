@@ -1,8 +1,8 @@
-import { CSSProperties, useEffect, useState } from "react";
+import {CSSProperties, useEffect, useState} from "react";
 import axios from "axios";
-import { Image } from "antd";
-import { CloseCircleOutlined } from "@ant-design/icons";
-import { useSession } from "../../session";
+import {Image} from "antd";
+import {CloseCircleOutlined} from "@ant-design/icons";
+import {useSession} from "../../session";
 
 interface ProtectedImageProps {
     imageUrl: string;

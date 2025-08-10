@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, message, Space, Table, Typography, Upload, UploadProps } from "antd";
-import { fileTransferAPI } from "../../../services";
-import { DocumentFileResponse, UploadStatusEnum } from "../../../models/responses/filetransfers";
-import { ActionColumnOptions, commonFileColumns, createActionColumn } from "./commonColumns";
-import { useSession } from "../../../session";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState} from "react";
+import {UploadOutlined} from "@ant-design/icons";
+import {Button, message, Space, Table, Typography, Upload, UploadProps} from "antd";
+import {fileTransferAPI} from "../../../services";
+import {DocumentFileResponse, UploadStatusEnum} from "../../../models";
+import {ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
+import {useSession} from "../../../session";
+import {useTranslation} from "react-i18next";
 
 export function DocumentFiles() {
     const [loading, setLoading] = useState<boolean>(true);

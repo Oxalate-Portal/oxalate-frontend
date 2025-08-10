@@ -1,11 +1,11 @@
-import { useTranslation } from "react-i18next";
-import { Button, Divider, Space, Spin } from "antd";
-import { ListPayments } from "./ListPayments";
-import { AddPayments } from "./AddPayments";
-import { paymentAPI } from "../../services";
-import { useState } from "react";
-import { PaymentTypeEnum, PortalConfigGroupEnum } from "../../models";
-import { useSession } from "../../session";
+import {useTranslation} from "react-i18next";
+import {Button, Divider, Space, Spin} from "antd";
+import {ListPayments} from "./ListPayments";
+import {AddPayments} from "./AddPayments";
+import {paymentAPI} from "../../services";
+import {useState} from "react";
+import {PaymentTypeEnum, PortalConfigGroupEnum} from "../../models";
+import {useSession} from "../../session";
 
 export function Payments() {
     const {t} = useTranslation();

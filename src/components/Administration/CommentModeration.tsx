@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { commentAPI } from "../../services";
-import { CommentModerationResponse } from "../../models/responses";
-import { Collapse, CollapseProps, message, Space, Spin } from "antd";
-import { CommentCard, CommentModerationActions, ReportCard } from "../Commenting";
-import { useTranslation } from "react-i18next";
+import {useEffect, useState} from "react";
+import {commentAPI} from "../../services";
+import {CommentModerationResponse} from "../../models";
+import {Collapse, CollapseProps, message, Space, Spin} from "antd";
+import {CommentCard, CommentModerationActions, ReportCard} from "../Commenting";
+import {useTranslation} from "react-i18next";
 
 export function CommentModeration() {
     const [loading, setLoading] = useState<boolean>(true);

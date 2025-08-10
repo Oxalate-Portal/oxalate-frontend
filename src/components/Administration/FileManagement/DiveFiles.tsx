@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Table, Typography } from "antd";
-import { fileTransferAPI } from "../../../services";
-import { DiveFileResponse, UploadStatusEnum } from "../../../models/responses/filetransfers";
-import { commonFileColumns } from "./commonColumns";
-import { useTranslation } from "react-i18next";
+import React, {useEffect, useState} from "react";
+import {Table, Typography} from "antd";
+import {fileTransferAPI} from "../../../services";
+import {DiveFileResponse, UploadStatusEnum} from "../../../models";
+import {commonFileColumns} from "./commonColumns";
+import {useTranslation} from "react-i18next";
 
 export function DiveFiles() {
     const [loading, setLoading] = useState<boolean>(true);

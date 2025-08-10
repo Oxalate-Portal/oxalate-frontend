@@ -1,9 +1,9 @@
-import { Button, Card, message, Spin } from "antd";
-import { CommentReportResponse } from "../../models/responses";
-import { commentAPI } from "../../services";
-import { useState } from "react";
-import { reportStatusEnum2Tag } from "../../helpers";
-import { useTranslation } from "react-i18next";
+import {Button, Card, message, Spin} from "antd";
+import {CommentReportResponse} from "../../models";
+import {commentAPI} from "../../services";
+import {useState} from "react";
+import {reportStatusEnum2Tag} from "../../helpers";
+import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 
 interface ReportCardProps {

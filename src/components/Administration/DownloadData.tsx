@@ -1,9 +1,9 @@
-import { useTranslation } from "react-i18next";
-import { Select, Space, Spin } from "antd";
-import { diveEventAPI, downloadAPI, userAPI } from "../../services";
-import { useState } from "react";
-import { CSVLink } from "react-csv";
-import { DownloadOutlined } from "@ant-design/icons";
+import {useTranslation} from "react-i18next";
+import {Select, Space, Spin} from "antd";
+import {diveEventAPI, downloadAPI, userAPI} from "../../services";
+import {useState} from "react";
+import {CSVLink} from "react-csv";
+import {DownloadOutlined} from "@ant-design/icons";
 
 enum DownloadTypeEnum {
     CERTIFICATE = "CERTIFICATE",

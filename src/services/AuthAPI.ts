@@ -1,7 +1,14 @@
 import Axios, {AxiosInstance} from "axios";
-import {LoginRequest, LostPasswordRequest, PasswordResetRequest} from "../models/requests";
-import {RegistrationVO, SessionVO, UpdateStatusVO} from "../models";
-import {GenericMessageResponse, RegistrationResponse} from "../models/responses";
+import {
+    GenericMessageResponse,
+    LoginRequest,
+    LostPasswordRequest,
+    PasswordResetRequest,
+    RegistrationResponse,
+    RegistrationVO,
+    SessionVO,
+    UpdateStatusVO
+} from "../models";
 
 class AuthAPI {
     userKey: string = "user";

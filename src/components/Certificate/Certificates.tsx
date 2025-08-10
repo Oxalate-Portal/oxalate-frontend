@@ -1,10 +1,10 @@
-import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { CertificateResponse } from "../../models/responses";
-import { Button, Space } from "antd";
-import { ShowCertificateCard } from "./ShowCertificateCard";
-import { certificateAPI } from "../../services";
-import { useSession } from "../../session";
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {CertificateResponse} from "../../models";
+import {Button, Space} from "antd";
+import {ShowCertificateCard} from "./ShowCertificateCard";
+import {certificateAPI} from "../../services";
+import {useSession} from "../../session";
 
 interface CertificatesProps {
     userId: number,
