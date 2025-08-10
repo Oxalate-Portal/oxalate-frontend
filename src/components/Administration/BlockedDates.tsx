@@ -5,7 +5,6 @@ import dayjs, {Dayjs} from "dayjs";
 import {blockedDatesAPI} from "../../services";
 import {useTranslation} from "react-i18next";
 import {localToUTCDate} from "../../helpers";
-import TextArea from "antd/es/input/TextArea";
 
 const {Item} = Form;
 const { TextArea } = Input;
