@@ -4,26 +4,54 @@ import {ConfigProvider, theme} from "antd";
 import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";
 import i18next from "i18next";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Register, Registration} from "./components/Register";
-import {LostPassword, NewPassword, Password, ShowUser, User} from "./components/User";
-import {AcceptTerms, Home, NavigationBar, OxalateFooter} from "./components/main";
-import {EditPage, EditPageGroup, Page, PageGroups, Pages} from "./components/Page";
-import {AdminMain, AdminMembership, AdminMemberships, AdminOrgUser, AdminOrgUsers, AuditEvents, BlockedDates, DownloadData} from "./components/Administration";
-import {DiveEvent, DiveEvents, EditDiveEvent, PastDiveEvents, SetDives, ShowDiveEvent} from "./components/DiveEvent";
-import {MainAdminStatistics, YearlyDiveStats} from "./components/Statistics";
-import {Payments} from "./components/Payment";
-import {EditCertificate} from "./components/Certificate";
-import {AdminUploads} from "./components/Administration/FileManagement";
-import {PortalConfigurations} from "./components/Administration/PortalConfigurations";
+import {
+    AcceptTerms,
+    AdminMain,
+    AdminMembership,
+    AdminMemberships,
+    AdminOrgUser,
+    AdminOrgUsers,
+    AdminUploads,
+    AuditEvents,
+    BlockedDates,
+    CommentList,
+    CommentModeration,
+    DiveEvent,
+    DiveEvents,
+    DownloadData,
+    EditCertificate,
+    EditDiveEvent,
+    EditPage,
+    EditPageGroup,
+    Forum,
+    Home,
+    LoginWithCaptcha,
+    LostPassword,
+    MainAdminStatistics,
+    NavigationBar,
+    NewPassword,
+    OxalateFooter,
+    Page,
+    PageGroups,
+    Pages,
+    Password,
+    PastDiveEvents,
+    Payments,
+    PortalConfigurations,
+    Register,
+    Registration,
+    SetDives,
+    ShowDiveEvent,
+    ShowUser,
+    User,
+    YearlyDiveStats
+} from "./components";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
-import {CommentList, Forum} from "./components/Commenting";
-import {CommentModeration} from "./components/Administration/CommentModeration";
 import "@ant-design/v5-patch-for-react-19";
-import {LoginWithCaptcha} from "./components/main/LoginWithCaptcha";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -70,9 +98,9 @@ function App() {
 
     if (userSession && !userSession.approvedTerms) {
         return (
-                <div className="app-container bg-light">
-                    <div className="container pt-4 pb-4">
-                        <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
+                <div className="app-container">
+                    <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
+                        <div className="container" style={{marginTop: '42px'}}>
                             <NavigationBar/>
                             <Routes>
                                 <Route path="*" element={<Navigate to="/"/>}/>
@@ -81,9 +109,9 @@ function App() {
                             </Routes>
                             {window.location.pathname !== "/user" && <AcceptTerms registration={false}/>}
                             <OxalateFooter/>
-                        </ConfigProvider>
-                    </div>
-                    <AuthVerify logOut={logoutUser}/>
+                        </div>
+                        <AuthVerify logOut={logoutUser}/>
+                    </ConfigProvider>
                 </div>
         );
     }
@@ -92,10 +120,10 @@ function App() {
     document.title = organizationName;
 
     return (
-            <div className="app-container bg-light">
+            <div className="app-container">
                 <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
                     <NavigationBar/>
-                    <div className="container pt-4 pb-4" style={{ marginTop: '42px' }}>
+                    <div className="container" style={{marginTop: '42px'}}>
                         <Routes>
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
