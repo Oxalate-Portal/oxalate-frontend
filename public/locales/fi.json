@@ -722,7 +722,8 @@
         "oneTime" : "Kertamaksu",
         "period" : "Kausimaksu"
       },
-      "payments" : "Maksutilanne"
+      "payments" : "Maksutilanne",
+      "userType" : "Sukellustyyppi"
     },
     "participants" : {
       "title" : "Osallistujat"
@@ -1548,7 +1549,7 @@
   },
   "UserTypeEnum" : {
     "free_diver" : "Vapaasukellus",
-    "non_diver" : "Ei mikään",
+    "non_diver" : "Ei sukeltaja",
     "scuba_diver" : "Laitesukellus",
     "snorkler" : "Snorklaus"
   },

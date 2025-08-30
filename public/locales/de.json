@@ -722,7 +722,8 @@
         "oneTime" : "Einmalige Zahlung",
         "period" : "Periodische Zahlung"
       },
-      "payments" : "Zahlungsstatus"
+      "payments" : "Zahlungsstatus",
+      "userType" : "Tauchtyp"
     },
     "participants" : {
       "title" : "Teilnehmer"
@@ -1548,7 +1549,7 @@
   },
   "UserTypeEnum" : {
     "free_diver" : "Apnoetauchen",
-    "non_diver" : "Keine",
+    "non_diver" : "Kein taucher",
     "scuba_diver" : "Gerätetauchen",
     "snorkler" : "Schnorcheln"
   },

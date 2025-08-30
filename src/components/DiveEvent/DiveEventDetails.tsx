@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {DiveEventResponse, ListUserResponse, RoleEnum} from "../../models";
-import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag} from "../../helpers";
+import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../helpers";
 import {Link} from "react-router-dom";
 import {Space, Spin, Table, Tooltip} from "antd";
 import {LinkOutlined} from "@ant-design/icons";
@@ -112,6 +112,17 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
                 return (<>{record.name}</>);
             }
+        },
+        {
+            title: t("EventDetails.participantTable.userType"),
+            dataIndex: "userType",
+            key: "userType",
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.userType.toLowerCase().localeCompare(b.userType.toLowerCase()),
+            render: (_, record: ListUserResponse) => (
+                    <>
+                        {userTypeEnum2Tag(record.userType, t, record.id)}
+                    </>
+            )
         },
         {
             title: t("EventDetails.participantTable.eventDiveCount"),

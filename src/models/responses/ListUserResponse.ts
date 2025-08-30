@@ -1,5 +1,6 @@
 import {Dayjs} from "dayjs";
 import {PaymentResponse} from "./PaymentResponse";
+import {UserTypeEnum} from "../UserTypeEnum";
 
 export interface ListUserResponse {
     id: number;
@@ -8,4 +9,5 @@ export interface ListUserResponse {
     createdAt: Dayjs;
     payments: PaymentResponse[];
     membershipActive: boolean;
+    userType: UserTypeEnum;
 }

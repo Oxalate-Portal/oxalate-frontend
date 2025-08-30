@@ -9,7 +9,8 @@ import {
     PageStatusEnum,
     PaymentTypeEnum,
     ReportStatusEnum,
-    RoleEnum
+    RoleEnum,
+    UserTypeEnum
 } from "../models";
 import {Tag} from "antd";
 import {JSX} from "react";
@@ -249,4 +250,28 @@ export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordI
     }
 
     return (<Tag color={color} key={"comment-type-" + recordId}>{label}</Tag>);
+}
+
+export function userTypeEnum2Tag(type: UserTypeEnum, t: TFunction, recordId: number): JSX.Element {
+    let color = "";
+    const label = t("UserTypeEnum." + type.toLowerCase());
+    switch (type) {
+        case UserTypeEnum.NON_DIVER:
+            color = "yellow";
+            break;
+        case UserTypeEnum.SCUBA_DIVER:
+            color = "green";
+            break;
+        case UserTypeEnum.FREE_DIVER:
+            color = "blue";
+            break;
+        case UserTypeEnum.SNORKLER:
+            color = "magenta";
+            break;
+        default:
+            color = "red";
+            break;
+    }
+
+    return (<Tag color={color} key={"user-type-" + recordId}>{label}</Tag>);
 }

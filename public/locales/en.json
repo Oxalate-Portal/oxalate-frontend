@@ -722,7 +722,8 @@
         "oneTime" : "One-time payment",
         "period" : "Periodical payment"
       },
-      "payments" : "Payment status"
+      "payments" : "Payment status",
+      "userType" : "Dive type"
     },
     "participants" : {
       "title" : "Participants"
@@ -1548,7 +1549,7 @@
   },
   "UserTypeEnum" : {
     "free_diver" : "Free diving",
-    "non_diver" : "None",
+    "non_diver" : "No diver",
     "scuba_diver" : "Scuba diving",
     "snorkler" : "Snorkling"
   },

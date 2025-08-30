@@ -722,7 +722,8 @@
         "oneTime" : "Pago único",
         "period" : "Pago periódico"
       },
-      "payments" : "Estado del pago"
+      "payments" : "Estado del pago",
+      "userType" : "Tipo de buceo"
     },
     "participants" : {
       "title" : "Participantes"

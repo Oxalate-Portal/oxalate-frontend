@@ -17,3 +17,4 @@ export type {PaymentRequest} from './PaymentRequest';
 export type {PortalConfigurationRequest} from './PortalConfigurationRequest';
 export type {ReportRequest} from './ReportRequest';
 export type {UserRequest} from './UserRequest';
+export type {EventSubscribeRequest} from './EventSubscribeRequest';

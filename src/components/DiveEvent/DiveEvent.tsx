@@ -11,7 +11,7 @@ import {
     PaymentStatusResponse,
     PaymentTypeEnum,
     PortalConfigGroupEnum,
-    UserTypeEnum
+    UserTypeEnum, EventSubscribeRequest
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import dayjs from "dayjs";
@@ -160,9 +160,11 @@ export function DiveEvent() {
 
 
     function subscribeEvent(diveEventId: number) {
-        // TODO Complete this handling
-        const userType: UserTypeEnum = UserTypeEnum.SCUBA_DIVER;
-        diveEventAPI.subscribeUserToEvent(diveEventId, userType)
+        const eventSubscribeRequest: EventSubscribeRequest = {
+            diveEventId: diveEventId,
+            userType: UserTypeEnum.SCUBA_DIVER
+        };
+        diveEventAPI.subscribeUserToEvent(eventSubscribeRequest)
                 .then(response => {
                     setDiveEvent(response);
                     setSubscribing(true);

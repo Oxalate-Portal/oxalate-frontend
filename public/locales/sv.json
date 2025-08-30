@@ -722,7 +722,8 @@
         "oneTime" : "Engångsbetalning",
         "period" : "Periodisk betalning"
       },
-      "payments" : "Betalningssituation"
+      "payments" : "Betalningssituation",
+      "userType" : "Dyktyp"
     },
     "participants" : {
       "title" : "Deltagare"
@@ -1548,7 +1549,7 @@
   },
   "UserTypeEnum" : {
     "free_diver" : "Fridykning",
-    "non_diver" : "Ingen",
+    "non_diver" : "Inte dykare",
     "scuba_diver" : "Apparatdykning",
     "snorkler" : "Snorkling"
   },
