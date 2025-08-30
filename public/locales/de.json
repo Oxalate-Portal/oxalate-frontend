@@ -12,21 +12,21 @@
     "disabled" : "Mitgliedschaft ist deaktiviert",
     "errorGetUsers" : "Benutzer konnten nicht abgerufen werden",
     "form" : {
-      "name" : {
-        "label" : "Benutzername",
-        "placeholder" : "Benutzer auswählen"
+      "button" : "Mitgliedschaft hinzufügen",
+      "membershipDuration" : {
+        "label" : "Mitgliedschaftsdauer (Monate)"
       },
       "membershipType" : {
         "label" : "Mitgliedschaftstyp"
       },
-      "membershipDuration" : {
-        "label" : "Mitgliedschaftsdauer (Monate)"
-      },
-      "button" : "Mitgliedschaft hinzufügen"
+      "name" : {
+        "label" : "Benutzername",
+        "placeholder" : "Benutzer auswählen"
+      }
     },
     "onFinish" : {
-      "ok" : "Mitgliedschaft erfolgreich hinzugefügt",
-      "fail" : "Fehler beim Hinzufügen der Mitgliedschaft: "
+      "fail" : "Fehler beim Hinzufügen der Mitgliedschaft: ",
+      "ok" : "Mitgliedschaft erfolgreich hinzugefügt"
     }
   },
   "AddPayments" : {
@@ -61,37 +61,29 @@
   },
   "AdminMain" : {
     "header" : "Verwaltung",
-    "userHeader" : "Benutzer",
     "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
     "paymentHeader" : "Zahlungen",
     "paymentText" : "Ansicht der aktuellen Zahlungen, Möglichkeit zur Ungültigmachung von Jahreszahlungen und Hinzufügung von Zahlungsinformationen zu Benutzern",
     "statsHeader" : "Statistiken",
     "statsText1" : "Jährliche Veranstaltungs-, Benutzerregistrierungs-, Mitgliederregistrierungs- (falls verwendet), Veranstaltungsorganisatoren- und Zahlungsstatistiken",
     "statsText2" : "Hier finden Sie auch halbjährliche Veranstaltungsberichte",
-    "text" : "Verwaltungsseiten. Seien Sie vorsichtig."
+    "text" : "Verwaltungsseiten. Seien Sie vorsichtig.",
+    "userHeader" : "Benutzer"
   },
   "AdminMembers" : {
-    "title" : "Mitgliedschaftsverwaltung",
     "table" : {
-      "userId" : "Benutzer-ID",
-      "username" : "Benutzername",
-      "status" : "Status",
-      "type" : "Typ",
+      "actions" : {
+        "edit" : "Bearbeiten",
+        "title" : "Aktion"
+      },
       "createdAt" : "Erstellt am",
       "expiresAt" : "Ablaufzeit",
-      "actions" : {
-        "title" : "Aktion",
-        "edit" : "Bearbeiten"
-      }
-    }
-  },
-  "PaymentListTable" : {
-    "table" : {
-      "expirationDate" : "Ablaufzeit",
-      "name" : "Name",
-      "paymentCount" : "Anzahl",
-      "paymentDate" : "Zahlungsdatum"
-    }
+      "status" : "Status",
+      "type" : "Typ",
+      "userId" : "Benutzer-ID",
+      "username" : "Benutzername"
+    },
+    "title" : "Mitgliedschaftsverwaltung"
   },
   "AdminOrgUser" : {
     "form" : {
@@ -103,8 +95,8 @@
       "roles" : {
         "administrator" : "Administrator",
         "label" : "Rollen",
-        "user" : "Benutzer",
-        "organizer" : "Veranstaltungsorganisator"
+        "organizer" : "Veranstaltungsorganisator",
+        "user" : "Benutzer"
       },
       "status" : {
         "label" : "Status",
@@ -284,40 +276,40 @@
   },
   "ChronoUnitEnum" : {
     "days" : "Tag",
-    "weeks" : "Woche",
     "months" : "Monat",
+    "weeks" : "Woche",
     "years" : "Jahr"
   },
   "CommentCard" : {
-    "messages" : {
-      "report-fail" : "Fehler beim Melden des Kommentars.",
-      "report-success" : "Kommentar erfolgreich gemeldet.",
-      "report-cancel-fail" : "Fehler beim Abbrechen der Meldung.",
-      "report-cancel-success" : "Meldung erfolgreich abgebrochen."
-    },
-    "singular-reply" : "Antwort",
-    "multiple-replies" : "Antworten",
     "button" : {
-      "report-comment" : "Unangemessenen Kommentar melden",
-      "cancel-report" : "Meldung zurückziehen"
+      "cancel-report" : "Meldung zurückziehen",
+      "report-comment" : "Unangemessenen Kommentar melden"
+    },
+    "messages" : {
+      "report-cancel-fail" : "Fehler beim Abbrechen der Meldung.",
+      "report-cancel-success" : "Meldung erfolgreich abgebrochen.",
+      "report-fail" : "Fehler beim Melden des Kommentars.",
+      "report-success" : "Kommentar erfolgreich gemeldet."
     },
     "modal" : {
       "description" : "Bitte beschreiben Sie das Problem:",
       "placeholder" : "Geben Sie hier die Details ein..."
-    }
+    },
+    "multiple-replies" : "Antworten",
+    "singular-reply" : "Antwort"
   },
   "CommentClassEnum" : {
     "event_comments" : "Veranstaltungskommentare",
-    "page_comments" : "Seitenkommentare",
-    "forum_comments" : "Forumskommentare"
+    "forum_comments" : "Forumskommentare",
+    "page_comments" : "Seitenkommentare"
   },
   "CommentEditor" : {
     "form" : {
-      "title" : {
-        "placeholder" : "Titel (optional)"
-      },
       "textarea" : {
         "placeholder" : "Schreiben Sie einen Kommentar..."
+      },
+      "title" : {
+        "placeholder" : "Titel (optional)"
       }
     }
   },
@@ -364,24 +356,24 @@
     "title" : "Kommentare zur Moderation"
   },
   "CommentModerationActions" : {
+    "button" : {
+      "dismiss-reports" : "Meldungen ablehnen",
+      "reject-comment" : "Kommentar ablehnen"
+    },
     "messages" : {
       "dismiss-comment-fail" : "Meldungen konnten nicht abgelehnt werden.",
       "dismiss-comment-success" : "Meldungen abgelehnt.",
       "reject-comment-confirm" : "Das Ablehnen dieses Kommentars wird auch alle untergeordneten Kommentare ablehnen. Sind Sie sicher, dass Sie fortfahren möchten?",
       "reject-comment-fail" : "Kommentar konnte nicht abgelehnt werden.",
       "reject-comment-success" : "Kommentar abgelehnt."
-    },
-    "button" : {
-      "dismiss-reports" : "Meldungen ablehnen",
-      "reject-comment" : "Kommentar ablehnen"
     }
   },
   "CommentStatusEnum" : {
+    "cancelled" : "Abgebrochen",
     "drafted" : "Entwurf",
     "held_for_moderation" : "Zur Moderation gehalten",
     "published" : "Veröffentlicht",
-    "rejected" : "Abgelehnt",
-    "cancelled" : "Abgebrochen"
+    "rejected" : "Abgelehnt"
   },
   "CommentTypeEnum" : {
     "topic" : "Thema",
@@ -413,9 +405,9 @@
     "downloadPrompt" : "Klicken Sie auf den Link, um die Datei herunterzuladen: ",
     "gdprWarning" : "Beachten Sie, dass einige der Downloads persönliche Informationen enthalten können, die der DSGVO unterliegen. Bitte behandeln Sie die Daten mit Sorgfalt und teilen Sie sie nicht mit unbefugten Dritten. Entfernen Sie die Dateien, wenn sie nicht mehr benötigt werden.",
     "header" : "Daten herunterladen",
-    "userLabel" : "Benutzer",
     "paymentLabel" : "Zahlungen",
-    "rowCount" : "Zeilenanzahl:  {{count}}"
+    "rowCount" : "Zeilenanzahl:  {{count}}",
+    "userLabel" : "Benutzer"
   },
   "EditCertificate" : {
     "form" : {
@@ -771,29 +763,29 @@
       "title" : "Bevorstehende Veranstaltungen"
     }
   },
-  "FormatPayments" : {
-    "noValid" : "Keine gültigen Zahlungen verfügbar.",
-    "unknownPayment" : "Unbekannter Zahlungstyp",
-    "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen.",
-    "unknownPaymentContact" : "Support kontaktieren",
-    "table" : {
-      "id" : "ID",
-      "paymentType" : "Zahlungstyp",
-      "paymentCount" : "Anzahl",
-      "startDate" : "Erstellt am",
-      "expirationDate" : "Ablaufzeit",
-      "singlePayment" : "Einmalzahlung",
-      "periodPayment" : "Periodische Zahlung"
-    }
-  },
   "FormMemberships" : {
     "table" : {
-      "id" : "ID",
-      "type" : "Typ",
-      "status" : "Status",
       "created-at" : "Erstellt am",
-      "expires-at" : "Ablaufzeit"
+      "expires-at" : "Ablaufzeit",
+      "id" : "ID",
+      "status" : "Status",
+      "type" : "Typ"
     }
+  },
+  "FormatPayments" : {
+    "noValid" : "Keine gültigen Zahlungen verfügbar.",
+    "table" : {
+      "expirationDate" : "Ablaufzeit",
+      "id" : "ID",
+      "paymentCount" : "Anzahl",
+      "paymentType" : "Zahlungstyp",
+      "periodPayment" : "Periodische Zahlung",
+      "singlePayment" : "Einmalzahlung",
+      "startDate" : "Erstellt am"
+    },
+    "unknownPayment" : "Unbekannter Zahlungstyp",
+    "unknownPaymentContact" : "Support kontaktieren",
+    "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen."
   },
   "ListPayments" : {
     "oneTime" : "Einmalzahlungen",
@@ -857,14 +849,14 @@
   },
   "MembershipStatusEnum" : {
     "active" : "Aktiv",
-    "expired" : "Abgelaufen",
-    "cancelled" : "Storniert"
+    "cancelled" : "Storniert",
+    "expired" : "Abgelaufen"
   },
   "MembershipTypeEnum" : {
     "disabled" : "Deaktiviert",
-    "perpetual" : "Unbefristet",
+    "durational" : "Zeitlich befristet",
     "periodical" : "Periodisch",
-    "durational" : "Zeitlich befristet"
+    "perpetual" : "Unbefristet"
   },
   "NavigationBar" : {
     "action" : {
@@ -900,8 +892,8 @@
       "yearlyStats" : "Jahresstatistiken"
     },
     "forum" : {
-      "title" : "Forum",
-      "link" : "Hauppauge"
+      "link" : "Hauppauge",
+      "title" : "Forum"
     },
     "pageManagement" : {
       "pages" : "Seiten",
@@ -1054,15 +1046,23 @@
   "PastEvents" : {
     "title" : "Vergangene Veranstaltungen"
   },
-  "PaymentTypeEnum" : {
-    "ONE_TIME" : "Einmal",
-    "PERIOD" : "Periodische"
-  },
   "PaymentExpirationType" : {
     "disabled" : "Deaktiviert",
     "durational" : "Zeitlich begrenzt",
     "periodical" : "Periodisch",
     "perpetual" : "Unbefristet"
+  },
+  "PaymentListTable" : {
+    "table" : {
+      "expirationDate" : "Ablaufzeit",
+      "name" : "Name",
+      "paymentCount" : "Anzahl",
+      "paymentDate" : "Zahlungsdatum"
+    }
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Einmal",
+    "PERIOD" : "Periodische"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1092,8 +1092,8 @@
       "title" : "Kommentare"
     },
     "configuration" : "Konfiguration",
-    "configuration-reloaded" : "Konfiguration neu geladen",
     "configuration-reload-failed" : "Konfiguration konnte nicht neu geladen werden",
+    "configuration-reloaded" : "Konfiguration neu geladen",
     "current-setting" : "Aktuelle Einstellung",
     "default-value" : "Standardwert",
     "description" : "Hier können Sie die Konfiguration des Portals ändern. Bitte beachten Sie, dass einige Änderungen Auswirkungen auf die Benutzererfahrung haben können.",
@@ -1239,6 +1239,10 @@
         "label" : "Startpunkt des Zahlungszeitraums",
         "tooltip" : "Wann begann der Zahlungszeitraum. Dies bestimmt, wie die Zeiträume berechnet werden. Beachten Sie, dass die Änderung dieses Wertes alle aktiven periodischen Zahlungen ungültig machen kann. Dies hat keine Auswirkungen auf zeitlich begrenzte Zahlungen."
       },
+      "payment-period-start-point" : {
+        "label" : "Startpunkt der Zahlungsperiode",
+        "tooltip" : "Wann beginnt die Zahlungsperiode. Dies steht in Bezug auf den Periodentyp. Die spezifische Beziehung lautet: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Tag der Woche, Tag -> Tag des Jahr."
+      },
       "periodical-payment-method-type" : {
         "label" : "Typ der periodischen Zahlungsmethode",
         "tooltip" : "Art der Zahlungsmethode für periodische Zahlungen. Periodisch bedeutet, dass die Zahlung für den angegebenen laufenden Zeitraum gültig ist, z. B. das aktuelle Jahr, der Monat oder die Woche ab dem angegebenen Startpunkt. Zeitlich begrenzt bedeutet, dass sie für einen bestimmten Zeitraum nach vorne gültig ist."
@@ -1246,10 +1250,6 @@
       "periodical-payment-method-unit" : {
         "label" : "Einheit der periodischen Zahlungsmethode",
         "tooltip" : "Einheit der periodischen Zahlungsmethode. Beachten Sie, dass dies nur verwendet wird, wenn die Zahlungsmethode periodisch ist."
-      },
-      "payment-period-start-point" : {
-        "label" : "Startpunkt der Zahlungsperiode",
-        "tooltip" : "Wann beginnt die Zahlungsperiode. Dies steht in Bezug auf den Periodentyp. Die spezifische Beziehung lautet: Jahr -> Monat, Monat -> Tag des Monats, Woche -> Tag der Woche, Tag -> Tag des Jahr."
       },
       "single-payment-enabled" : {
         "label" : "Einzelzahlung aktivieren",
@@ -1303,11 +1303,9 @@
     }
   },
   "ReportCard" : {
-    "messages" : {
-      "accept-fail" : "Meldung konnte nicht akzeptiert werden.",
-      "accept-success" : "Meldung akzeptiert",
-      "dismiss-fail" : "Meldung konnte nicht abgelehnt werden.",
-      "dismiss-success" : "Meldung abgelehnt."
+    "button" : {
+      "accept" : "Meldung akzeptieren",
+      "dismiss" : "Meldung ablehnen"
     },
     "field" : {
       "created-at" : "Erstellt",
@@ -1315,9 +1313,11 @@
       "reporter" : "Meldender",
       "status" : "Status"
     },
-    "button" : {
-      "accept" : "Meldung akzeptieren",
-      "dismiss" : "Meldung ablehnen"
+    "messages" : {
+      "accept-fail" : "Meldung konnte nicht akzeptiert werden.",
+      "accept-success" : "Meldung akzeptiert",
+      "dismiss-fail" : "Meldung konnte nicht abgelehnt werden.",
+      "dismiss-success" : "Meldung abgelehnt."
     }
   },
   "ReportEvent" : {
@@ -1359,8 +1359,8 @@
       "diverId" : "Taucher-ID",
       "organization" : "Zertifizierungsstelle",
       "photocopy" : "Zertifikatskopie",
-      "remove-photo-success" : "Zertifikatsfoto erfolgreich entfernt",
       "remove-photo-fail" : "Entfernen des Zertifikatsfotos fehlgeschlagen",
+      "remove-photo-success" : "Zertifikatsfoto erfolgreich entfernt",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
       "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist.",
@@ -1523,10 +1523,10 @@
       },
       "primaryUserType" : {
         "label" : "Bevorzugte Aktivitätsart",
-        "tooltip" : "Bitte wählen Sie, welche Art von Aktivität Sie bevorzugen. Sie können für jede Veranstaltung die Aktivität separat auswählen, und diese Auswahl ist die Voreinstellung.",
         "rules" : {
           "required" : "Sie müssen Ihre bevorzugte Aktivität auswählen"
-        }
+        },
+        "tooltip" : "Bitte wählen Sie, welche Art von Aktivität Sie bevorzugen. Sie können für jede Veranstaltung die Aktivität separat auswählen, und diese Auswahl ist die Voreinstellung."
       },
       "privacy" : {
         "label" : "Kontaktdaten verbergen",
@@ -1545,6 +1545,12 @@
         "tooltip" : "Die E-Mail-Adresse wird als Benutzername verwendet"
       }
     }
+  },
+  "UserTypeEnum" : {
+    "free_diver" : "Apnoetauchen",
+    "non_diver" : "Keine",
+    "scuba_diver" : "Gerätetauchen",
+    "snorkler" : "Schnorcheln"
   },
   "common" : {
     "button" : {
@@ -1620,11 +1626,5 @@
       "locked" : "Gesperrt",
       "registered" : "Registriert"
     }
-  },
-  "UserTypeEnum" : {
-    "non_diver" : "Keine",
-    "scuba_diver" : "Gerätetauchen",
-    "free_diver" : "Apnoetauchen",
-    "snorkler" : "Schnorcheln"
   }
 }

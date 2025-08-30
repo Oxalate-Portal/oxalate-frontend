@@ -12,21 +12,21 @@
     "disabled" : "Jäsenyys ei ole käytössä",
     "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
     "form" : {
-      "name" : {
-        "label" : "Käyttäjän nimi",
-        "placeholder" : "Valitse käyttäjät"
+      "button" : "Lisää jäsenyys",
+      "membershipDuration" : {
+        "label" : "Jäsenyyden kesto (kuukautta)"
       },
       "membershipType" : {
         "label" : "Jäsenyyden tyyppi"
       },
-      "membershipDuration" : {
-        "label" : "Jäsenyyden kesto (kuukautta)"
-      },
-      "button" : "Lisää jäsenyys"
+      "name" : {
+        "label" : "Käyttäjän nimi",
+        "placeholder" : "Valitse käyttäjät"
+      }
     },
     "onFinish" : {
-      "ok" : "Jäsenyys lisätty onnistuneesti",
-      "fail" : "Jäsenyyden lisääminen epäonnistui: "
+      "fail" : "Jäsenyyden lisääminen epäonnistui: ",
+      "ok" : "Jäsenyys lisätty onnistuneesti"
     }
   },
   "AddPayments" : {
@@ -61,37 +61,29 @@
   },
   "AdminMain" : {
     "header" : "Ylläpito",
-    "userHeader" : "Käyttäjät",
     "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
     "paymentHeader" : "Maksut",
     "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto käyttäjille",
     "statsHeader" : "Tilastot",
     "statsText1" : "Vuositason tapahtuma-, käyttäjärekisteröinti- jäsenrekisteröinti- (jos käytössä) tapahtumajärjestäjien sekä maksutilastot",
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
-    "text" : "Ylläpito-sivut. Ole varovainen"
+    "text" : "Ylläpito-sivut. Ole varovainen",
+    "userHeader" : "Käyttäjät"
   },
   "AdminMembers" : {
-    "title" : "Jäsenyyden hallinta",
     "table" : {
-      "userId" : "Käyttäjän ID",
-      "username" : "Käyttäjänimi",
-      "status" : "Tila",
-      "type" : "Tyyppi",
+      "actions" : {
+        "edit" : "Muokkaa",
+        "title" : "Toiminto"
+      },
       "createdAt" : "Luotu",
       "expiresAt" : "Päättymisaika",
-      "actions" : {
-        "title" : "Toiminto",
-        "edit" : "Muokkaa"
-      }
-    }
-  },
-  "PaymentListTable" : {
-    "table" : {
-      "expirationDate" : "Päättymisaika",
-      "name" : "Nimi",
-      "paymentCount" : "Määrä",
-      "paymentDate" : "Maksupäiväys"
-    }
+      "status" : "Tila",
+      "type" : "Tyyppi",
+      "userId" : "Käyttäjän ID",
+      "username" : "Käyttäjänimi"
+    },
+    "title" : "Jäsenyyden hallinta"
   },
   "AdminOrgUser" : {
     "form" : {
@@ -103,8 +95,8 @@
       "roles" : {
         "administrator" : "Ylläpitäjä",
         "label" : "Roolit",
-        "user" : "Käyttäjä",
-        "organizer" : "Tapahtumajärjestäjä"
+        "organizer" : "Tapahtumajärjestäjä",
+        "user" : "Käyttäjä"
       },
       "status" : {
         "label" : "Status",
@@ -284,40 +276,40 @@
   },
   "ChronoUnitEnum" : {
     "days" : "Päivä",
-    "weeks" : "Viikko",
     "months" : "Kuukausi",
+    "weeks" : "Viikko",
     "years" : "Vuosi"
   },
   "CommentCard" : {
-    "messages" : {
-      "report-fail" : "Kommentin ilmoittaminen epäonnistui.",
-      "report-success" : "Kommentti ilmoitettu onnistuneesti.",
-      "report-cancel-fail" : "Ilmoituksen peruminen epäonnistui.",
-      "report-cancel-success" : "Ilmoitus peruttu onnistuneesti."
-    },
-    "singular-reply" : "vastausta",
-    "multiple-replies" : "vastausta",
     "button" : {
-      "report-comment" : "Ilmoita sopimattomasta kommentista",
-      "cancel-report" : "Peru ilmoitus"
+      "cancel-report" : "Peru ilmoitus",
+      "report-comment" : "Ilmoita sopimattomasta kommentista"
+    },
+    "messages" : {
+      "report-cancel-fail" : "Ilmoituksen peruminen epäonnistui.",
+      "report-cancel-success" : "Ilmoitus peruttu onnistuneesti.",
+      "report-fail" : "Kommentin ilmoittaminen epäonnistui.",
+      "report-success" : "Kommentti ilmoitettu onnistuneesti."
     },
     "modal" : {
       "description" : "Kuvaile ongelma:",
       "placeholder" : "Anna lisätietoja tähän..."
-    }
+    },
+    "multiple-replies" : "vastausta",
+    "singular-reply" : "vastausta"
   },
   "CommentClassEnum" : {
     "event_comments" : "Tapahtumakommentit",
-    "page_comments" : "Sivukommentit",
-    "forum_comments" : "Keskustelukommentit"
+    "forum_comments" : "Keskustelukommentit",
+    "page_comments" : "Sivukommentit"
   },
   "CommentEditor" : {
     "form" : {
-      "title" : {
-        "placeholder" : "Otsikko (valinnainen)"
-      },
       "textarea" : {
         "placeholder" : "Kirjoita kommentti..."
+      },
+      "title" : {
+        "placeholder" : "Otsikko (valinnainen)"
       }
     }
   },
@@ -364,24 +356,24 @@
     "title" : "Moderointia vaativat kommentit"
   },
   "CommentModerationActions" : {
+    "button" : {
+      "dismiss-reports" : "Hylkää ilmoitukset",
+      "reject-comment" : "Hylkää kommentti"
+    },
     "messages" : {
       "dismiss-comment-fail" : "Ilmoitusten hylkääminen epäonnistui.",
       "dismiss-comment-success" : "Ilmoitukset hylätty.",
       "reject-comment-confirm" : "Tämän kommentin hylkääminen hylkää myös kaikki sen alikommentit. Oletko varma, että haluat jatkaa?",
       "reject-comment-fail" : "Kommentin hylkääminen epäonnistui.",
       "reject-comment-success" : "Kommentti hylätty."
-    },
-    "button" : {
-      "dismiss-reports" : "Hylkää ilmoitukset",
-      "reject-comment" : "Hylkää kommentti"
     }
   },
   "CommentStatusEnum" : {
+    "cancelled" : "Peruutettu",
     "drafted" : "Luonnos",
     "held_for_moderation" : "Moderoitavana",
     "published" : "Julkaistu",
-    "rejected" : "Hylätty",
-    "cancelled" : "Peruutettu"
+    "rejected" : "Hylätty"
   },
   "CommentTypeEnum" : {
     "topic" : "Aihe",
@@ -413,9 +405,9 @@
     "downloadPrompt" : "Lataa tästä: ",
     "gdprWarning" : "Ole tietoinen siitä, että jotkin lataukset voivat sisältää henkilötietoja, joita koskee GDPR. Käsittele tietoja huolellisesti äläkä jaa niitä luvattomille osapuolille. Poista tiedostot, kun niitä ei enää tarvita.",
     "header" : "Lataa tietoja",
-    "userLabel" : "Käyttäjät",
     "paymentLabel" : "Maksut",
-    "rowCount" : "Rivien määrä:  {{count}}"
+    "rowCount" : "Rivien määrä:  {{count}}",
+    "userLabel" : "Käyttäjät"
   },
   "EditCertificate" : {
     "form" : {
@@ -771,29 +763,29 @@
       "title" : "Tulevat tapahtumat"
     }
   },
-  "FormatPayments" : {
-    "noValid" : "Ei voimassa olevia maksuja.",
-    "unknownPayment" : "Tuntematon maksutyyppi",
-    "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja.",
-    "unknownPaymentContact" : "Ota yhteyttä tukeen",
-    "table" : {
-      "id" : "ID",
-      "paymentType" : "Maksutyyppi",
-      "paymentCount" : "Määrä",
-      "startDate" : "Luotu",
-      "expirationDate" : "Päättymisaika",
-      "singlePayment" : "Kertamaksu",
-      "periodPayment" : "Kausimaksu"
-    }
-  },
   "FormMemberships" : {
     "table" : {
-      "id" : "ID",
-      "type" : "Tyyppi",
-      "status" : "Tila",
       "created-at" : "Luotu",
-      "expires-at" : "Päättymisaika"
+      "expires-at" : "Päättymisaika",
+      "id" : "ID",
+      "status" : "Tila",
+      "type" : "Tyyppi"
     }
+  },
+  "FormatPayments" : {
+    "noValid" : "Ei voimassa olevia maksuja.",
+    "table" : {
+      "expirationDate" : "Päättymisaika",
+      "id" : "ID",
+      "paymentCount" : "Määrä",
+      "paymentType" : "Maksutyyppi",
+      "periodPayment" : "Kausimaksu",
+      "singlePayment" : "Kertamaksu",
+      "startDate" : "Luotu"
+    },
+    "unknownPayment" : "Tuntematon maksutyyppi",
+    "unknownPaymentContact" : "Ota yhteyttä tukeen",
+    "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja."
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",
@@ -857,14 +849,14 @@
   },
   "MembershipStatusEnum" : {
     "active" : "Aktiivinen",
-    "expired" : "Vanhentunut",
-    "cancelled" : "Peruutettu"
+    "cancelled" : "Peruutettu",
+    "expired" : "Vanhentunut"
   },
   "MembershipTypeEnum" : {
     "disabled" : "Pois käytöstä",
-    "perpetual" : "Pysyvä",
+    "durational" : "Määräaikainen",
     "periodical" : "Jaksottainen",
-    "durational" : "Määräaikainen"
+    "perpetual" : "Pysyvä"
   },
   "NavigationBar" : {
     "action" : {
@@ -900,8 +892,8 @@
       "yearlyStats" : "Vuositilastot"
     },
     "forum" : {
-      "title" : "Foorumi",
-      "link" : "Pääsivu"
+      "link" : "Pääsivu",
+      "title" : "Foorumi"
     },
     "pageManagement" : {
       "pages" : "Sivut",
@@ -1054,15 +1046,23 @@
   "PastEvents" : {
     "title" : "Menneet tapahtumat"
   },
-  "PaymentTypeEnum" : {
-    "ONE_TIME" : "Kerta",
-    "PERIOD" : "Kausi"
-  },
   "PaymentExpirationType" : {
     "disabled" : "Ei käytössä",
     "durational" : "Määräaikainen",
     "periodical" : "Jaksottainen",
     "perpetual" : "Ikuinen"
+  },
+  "PaymentListTable" : {
+    "table" : {
+      "expirationDate" : "Päättymisaika",
+      "name" : "Nimi",
+      "paymentCount" : "Määrä",
+      "paymentDate" : "Maksupäiväys"
+    }
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Kerta",
+    "PERIOD" : "Kausi"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1092,8 +1092,8 @@
       "title" : "Kommentointi"
     },
     "configuration" : "Asetus",
-    "configuration-reloaded" : "Asennukset ladattu palvelimelta",
     "configuration-reload-failed" : "Asetusten lataaminen epäonnistui",
+    "configuration-reloaded" : "Asennukset ladattu palvelimelta",
     "current-setting" : "Nykyinen asetus",
     "default-value" : "Oletusarvo",
     "description" : "Täältä voit muokata portaalin asetuksia. Huomioi, että muutokset vaativat asetusten uudelleenlataamisen tullakeseen voimaan.",
@@ -1239,6 +1239,10 @@
         "label" : "Kausimaksun aloituspiste",
         "tooltip" : "Milloin kausimaksu astui voimaan. Tämä määrittää, miten kaudet lasketaan. Huomaa, että tämän arvon muuttaminen voi mitätöidä kaikki aktiiviset jaksottaiset maksut. Tällä ei ole vaikutusta määräaikaisiin maksuihin."
       },
+      "payment-period-start-point" : {
+        "label" : "Kausimaksun aloituspiste",
+        "tooltip" : "Milloin kausimaksu alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
+      },
       "periodical-payment-method-type" : {
         "label" : "Kausimaksun tyyppi",
         "tooltip" : "Kausimaksujen tyyppi. Jaksottainen tarkoittaa, että maksu on voimassa annetun käynnissä olevan jakson ajan, esim. kuluvan vuoden, kuukauden tai viikon aloituspisteestä lähtien. Määräaikainen tarkoittaa, että se on voimassa tietyn ajan eteenpäin."
@@ -1246,10 +1250,6 @@
       "periodical-payment-method-unit" : {
         "label" : "Kausimaksun aikayksikkö",
         "tooltip" : "Kausimaksun aikayksikkö. Huomaa, että tätä käytetään vain, jos maksutavan tyyppi on toistuva."
-      },
-      "payment-period-start-point" : {
-        "label" : "Kausimaksun aloituspiste",
-        "tooltip" : "Milloin kausimaksu alkaa. Tämä liittyy jaksotyyppiin. Tarkemmin sanottuna yhteys on: vuosi -> kuukausi, kuukausi -> kuukauden päivä, viikko -> viikon päivä, päivä -> vuoden päivä."
       },
       "single-payment-enabled" : {
         "label" : "Ota yksittäinen maksu käyttöön",
@@ -1303,11 +1303,9 @@
     }
   },
   "ReportCard" : {
-    "messages" : {
-      "accept-fail" : "Ilmoituksen hyväksyminen epäonnistui.",
-      "accept-success" : "Ilmoitus hyväksytty",
-      "dismiss-fail" : "Ilmoituksen hylkääminen epäonnistui.",
-      "dismiss-success" : "Ilmoitus hylätty."
+    "button" : {
+      "accept" : "Hyväksy ilmoitus",
+      "dismiss" : "Hylkää ilmoitus"
     },
     "field" : {
       "created-at" : "Luotu",
@@ -1315,9 +1313,11 @@
       "reporter" : "Ilmoittaja",
       "status" : "Tila"
     },
-    "button" : {
-      "accept" : "Hyväksy ilmoitus",
-      "dismiss" : "Hylkää ilmoitus"
+    "messages" : {
+      "accept-fail" : "Ilmoituksen hyväksyminen epäonnistui.",
+      "accept-success" : "Ilmoitus hyväksytty",
+      "dismiss-fail" : "Ilmoituksen hylkääminen epäonnistui.",
+      "dismiss-success" : "Ilmoitus hylätty."
     }
   },
   "ReportEvent" : {
@@ -1359,8 +1359,8 @@
       "diverId" : "Sukeltajatunnus",
       "organization" : "Luokitusjärjestö",
       "photocopy" : "Luokituskortin kopio",
-      "remove-photo-success" : "Kuvan lisäys onnistui",
       "remove-photo-fail" : "Kuvan poisto epäonnistui",
+      "remove-photo-success" : "Kuvan lisäys onnistui",
       "title" : "Luokitus: ",
       "upload-photo" : "Lataa luokituskorttikuva",
       "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt.",
@@ -1523,10 +1523,10 @@
       },
       "primaryUserType" : {
         "label" : "Ensisijainen aktiviteettityyppi",
-        "tooltip" : "Valitse, minkä tyyppisestä aktiviteetista preferoit. Voit valita jokaiselle tapahtumalle aktiviteetin erikseen, ja tämä valinta on oletus.",
         "rules" : {
           "required" : "Sinun täytyy valita mieluisin aktiviteetti"
-        }
+        },
+        "tooltip" : "Valitse, minkä tyyppisestä aktiviteetista preferoit. Voit valita jokaiselle tapahtumalle aktiviteetin erikseen, ja tämä valinta on oletus."
       },
       "privacy" : {
         "label" : "Piilota yhteystiedot",
@@ -1545,6 +1545,12 @@
         "tooltip" : "Käyttäjätunnuksena käytetään toimiva sähköpostiosoite"
       }
     }
+  },
+  "UserTypeEnum" : {
+    "free_diver" : "Vapaasukellus",
+    "non_diver" : "Ei mikään",
+    "scuba_diver" : "Laitesukellus",
+    "snorkler" : "Snorklaus"
   },
   "common" : {
     "button" : {
@@ -1620,11 +1626,5 @@
       "locked" : "Lukittu",
       "registered" : "Rekisteröity"
     }
-  },
-  "UserTypeEnum" : {
-    "non_diver" : "Ei mikään",
-    "scuba_diver" : "Laitesukellus",
-    "free_diver" : "Vapaasukellus",
-    "snorkler" : "Snorklaus"
   }
 }
