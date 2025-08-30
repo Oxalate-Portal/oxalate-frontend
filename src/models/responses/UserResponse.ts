@@ -6,5 +6,4 @@ export interface UserResponse extends AbstractUser {
     diveCount: number;
     payments: PaymentResponse[];
     memberships: MembershipResponse[];
-    approvedTerms: boolean;
 }

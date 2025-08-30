@@ -3,6 +3,7 @@ import {useTranslation} from "react-i18next";
 import {LanguageUtil} from "../../helpers";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
+import {UserTypeEnum} from "../../models";
 
 export function UserFields(props: { userId: number; username: string | null; isOrganizer: boolean; }) {
     const {t} = useTranslation();
@@ -127,6 +128,23 @@ export function UserFields(props: { userId: number; username: string | null; isO
                                }
                            ]}>
                     <Select options={supportedLanguages}/>
+                </Form.Item>
+                <Form.Item name={"primaryUserType"}
+                           required={true}
+                           label={t("UserFields.form.primaryUserType.label")}
+                           tooltip={t("UserFields.form.primaryUserType.tooltip")}
+                           rules={[
+                               {
+                                   required: true,
+                                   message: t("UserFields.form.primaryUserType.rules.required")
+                               }
+                           ]}>
+                    <Select options={[
+                        ...(Object.values(UserTypeEnum).map(value => ({
+                            label: t("UserTypeEnum." + value.toLowerCase()), // expects i18n keys like UserTypeEnum.NON_DIVER
+                            value
+                        })))
+                    ]}/>
                 </Form.Item>
             </>
     );

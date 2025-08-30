@@ -3,7 +3,16 @@ import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {diveEventAPI, membershipAPI, paymentAPI} from "../../services";
-import {DiveEventResponse, MembershipResponse, PaymentResponse, PaymentStatusResponse, PaymentTypeEnum, PortalConfigGroupEnum, SessionVO} from "../../models";
+import {
+    DiveEventResponse,
+    UserSessionToken,
+    MembershipResponse,
+    PaymentResponse,
+    PaymentStatusResponse,
+    PaymentTypeEnum,
+    PortalConfigGroupEnum,
+    UserTypeEnum
+} from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import dayjs from "dayjs";
 import {Button, Divider, Space, Spin} from "antd";
@@ -51,7 +60,7 @@ export function DiveEvent() {
     }, [paramId]);
 
     useEffect(() => {
-        async function isUserAllowedToParticipate(userSession: SessionVO | null, diveEvent: DiveEventResponse): Promise<boolean> {
+        async function isUserAllowedToParticipate(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): Promise<boolean> {
             if (!userSession) {
                 return false;
             }
@@ -115,7 +124,7 @@ export function DiveEvent() {
             return true;
         }
 
-        function isUserParticipating(userSession: SessionVO | null, diveEvent: DiveEventResponse): boolean {
+        function isUserParticipating(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): boolean {
             if (!userSession) {
                 return false;
             }
@@ -151,7 +160,9 @@ export function DiveEvent() {
 
 
     function subscribeEvent(diveEventId: number) {
-        diveEventAPI.subscribeUserToEvent(diveEventId)
+        // TODO Complete this handling
+        const userType: UserTypeEnum = UserTypeEnum.SCUBA_DIVER;
+        diveEventAPI.subscribeUserToEvent(diveEventId, userType)
                 .then(response => {
                     setDiveEvent(response);
                     setSubscribing(true);

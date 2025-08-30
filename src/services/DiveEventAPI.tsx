@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {DiveEventListItemResponse, DiveEventListRequest, DiveEventListResponse, DiveEventRequest, DiveEventResponse} from "../models";
+import {DiveEventListItemResponse, DiveEventListRequest, DiveEventListResponse, DiveEventRequest, DiveEventResponse, UserTypeEnum} from "../models";
 
 class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
     public async findByUserId(userId: number): Promise<DiveEventResponse[]> {
@@ -27,8 +27,8 @@ class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
         return response.data;
     }
 
-    public async subscribeUserToEvent(diveEventId: number): Promise<DiveEventResponse> {
-        const response = await this.axiosInstance.put<DiveEventResponse>("/" + diveEventId + "/subscribe");
+    public async subscribeUserToEvent(diveEventId: number, userType: UserTypeEnum): Promise<DiveEventResponse> {
+        const response = await this.axiosInstance.put<DiveEventResponse>("/" + diveEventId + "/subscribe?");
         return response.data;
     }
 

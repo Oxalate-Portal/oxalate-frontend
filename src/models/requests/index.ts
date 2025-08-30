@@ -1,3 +1,4 @@
+export type {AdminUserRequest} from './AdminUserRequest';
 export type {BlockedDateRequest} from './BlockedDateRequest';
 export type {CertificateRequest} from './CertificateRequest';
 export type {CommentFilterRequest} from './CommentFilterRequest';
