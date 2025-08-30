@@ -306,6 +306,11 @@
       "placeholder": "Proporcione detalles aquí..."
     }
   },
+  "CommentClassEnum": {
+    "event_comments": "Comentarios de eventos",
+    "page_comments": "Comentarios de páginas",
+    "forum_comments": "Comentarios del foro"
+  },
   "CommentEditor": {
     "form": {
       "title": {
@@ -315,6 +320,32 @@
         "placeholder": "Escribe un comentario..."
       }
     }
+  },
+  "CommentList": {
+    "body": "Contenido",
+    "createdAt": "Fecha de creación",
+    "filters": {
+      "afterDate": "Después de la fecha",
+      "beforeDate": "Antes de la fecha",
+      "bodySearch": "Búsqueda en contenido",
+      "commentClass": "Clase de comentario",
+      "commentId": "ID de comentario",
+      "commentStatus": "Estado del comentario",
+      "commentType": "Tipo de comentario",
+      "depth": "Profundidad",
+      "diveEventId": "ID del evento de buceo",
+      "forumId": "ID del foro",
+      "parentId": "ID padre",
+      "reportCount": "Número de reportes",
+      "titleSearch": "Búsqueda de título",
+      "user-name": "Nombre de usuario"
+    },
+    "id": "ID",
+    "status": "Estado",
+    "title": "Lista de comentarios",
+    "titleColumn": "Título",
+    "type": "Tipo",
+    "username": "Nombre de usuario"
   },
   "CommentModeration": {
     "collapse": {
@@ -344,6 +375,17 @@
       "dismiss-reports": "Descartar reportes",
       "reject-comment": "Rechazar comentario"
     }
+  },
+  "CommentStatusEnum": {
+    "drafted": "Borrador",
+    "held_for_moderation": "En espera de moderación",
+    "published": "Publicado",
+    "rejected": "Rechazado",
+    "cancelled": "Cancelado"
+  },
+  "CommentTypeEnum": {
+    "topic": "Tema",
+    "user_comment": "Comentario de usuario"
   },
   "DiveEventStatusEnum": {
     "cancelled": "Cancelado",
@@ -1437,6 +1479,13 @@
         },
         "tooltip": "El número de teléfono debe estar en el formato +358123456789"
       },
+      "primaryUserType": {
+        "label": "Tipo de actividad preferido",
+        "tooltip": "Seleccione el tipo de actividad que prefiere. Puede elegir la actividad por separado para cada evento; esta selección será la predeterminada.",
+        "rules": {
+          "required": "Debe seleccionar su tipo de actividad preferido"
+        }
+      },
       "privacy": {
         "label": "Ocultar detalles de contacto",
         "tooltip": "El correo electrónico y el número de teléfono no serán visibles para otros miembros. Solo el usuario puede ocultar su información. El nombre del organizador del evento siempre es visible."
@@ -1470,6 +1519,7 @@
       "reset": "Restablecer",
       "respond": "Responder",
       "save": "Guardar",
+      "search": "Buscar",
       "send": "Enviar",
       "update": "Actualizar",
       "yes": "Sí"
@@ -1511,8 +1561,16 @@
       "role_organizer": "Organizador de eventos",
       "role_user": "Usuario"
     },
+    "select": {
+      "empty": "Ninguno seleccionado"
+    },
     "spinner": {
       "loading": "Cargando..."
+    },
+    "table": {
+      "column-title": {
+        "action": "Acción"
+      }
     },
     "userStatus": {
       "active": "Activo",
@@ -1532,7 +1590,11 @@
     "administration": {
       "audits": "Auditorías",
       "blocked-dates": "Bloqueo de fechas",
-      "comment-moderation": "Moderación de comentarios",
+      "comments": {
+        "comment-list": "Lista de comentarios",
+        "comment-moderation": "Moderación de comentarios",
+        "title": "Comentarios"
+      },
       "download": "Descargar",
       "files": "Archivos",
       "members": "Miembros",
@@ -1558,6 +1620,12 @@
       "pages": "Páginas",
       "title": "Gestión de páginas"
     }
+  },
+  "UserTypeEnum": {
+    "non_diver": "Ninguno",
+    "scuba_diver": "Buceo autónomo",
+    "free_diver": "Apnea",
+    "snorkler": "Snorkel"
   }
 }
 

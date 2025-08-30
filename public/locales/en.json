@@ -1521,6 +1521,13 @@
         },
         "tooltip" : "Phone number should be in the format +358123456789"
       },
+      "primaryUserType": {
+        "label": "Preferred type of activity",
+        "tooltip": "Please select which type of activity you prefer. You can separately select for each event the activity, and this selection is the default",
+        "rules": {
+          "required": "You need to select your preference of activity"
+        }
+      },
       "privacy" : {
         "label" : "Hide contact details",
         "tooltip" : "Email and phone number won't be visible to other members. Only the user can hide their information. The event organizer's name is always visible."
@@ -1613,5 +1620,11 @@
       "locked" : "Locked",
       "registered" : "Registered"
     }
+  },
+  "UserTypeEnum": {
+    "non_diver": "None",
+    "scuba_diver": "Scuba diving",
+    "free_diver": "Free diving",
+    "snorkler": "Snorkling"
   }
 }

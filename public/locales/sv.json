@@ -329,10 +329,10 @@
       "afterDate": "Efter datum",
       "beforeDate": "Före datum",
       "bodySearch": "Innehållssökning",
+      "commentClass": "Kommentarklass",
       "commentId": "Kommentar-ID",
       "commentStatus": "Kommentarstatus",
       "commentType": "Kommentarstyp",
-      "commentclass": "Kommentarklass",
       "depth": "Djup",
       "diveEventId": "Dykningsevenemang-ID",
       "forumId": "Forum-ID",
@@ -1522,6 +1522,13 @@
         },
         "tooltip" : "Telefonnumret ska vara i formatet +358123456789"
       },
+      "primaryUserType": {
+        "label": "Föredragen aktivitetstyp",
+        "tooltip": "Vänligen välj vilken typ av aktivitet du föredrar. Du kan välja aktivitet separat för varje evenemang och detta val är standard.",
+        "rules": {
+          "required": "Du måste välja din föredragna aktivitet"
+        }
+      },
       "privacy" : {
         "label" : "Dölj kontaktinformation",
         "tooltip" : "E-post och telefonnummer är inte synliga för andra medlemmar. Endast användaren kan dölja sin information. Arrangörens namn är alltid synligt."
@@ -1614,5 +1621,11 @@
       "locked" : "Låst",
       "registered" : "Registrerad"
     }
+  },
+  "UserTypeEnum": {
+    "non_diver": "Ingen",
+    "scuba_diver": "Apparatdykning",
+    "free_diver": "Fridykning",
+    "snorkler": "Snorkling"
   }
 }

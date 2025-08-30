@@ -328,10 +328,10 @@
       "afterDate": "Jälkeen päivämäärän",
       "beforeDate": "Ennen päivämäärää",
       "bodySearch": "Sisällön haku",
+      "commentClass": "Kommenttiluokka",
       "commentId": "Kommentti-ID",
       "commentStatus": "Kommentin tila",
       "commentType": "Kommenttityyppi",
-      "commentclass": "Kommenttiluokka",
       "depth": "Syvyys",
       "diveEventId": "Sukellustapahtuma-ID",
       "forumId": "Foorumi-ID",
@@ -1521,6 +1521,13 @@
         },
         "tooltip" : "Puhelinnumeron tulee olla muodossa +358123456789"
       },
+      "primaryUserType": {
+        "label": "Ensisijainen aktiviteettityyppi",
+        "tooltip": "Valitse, minkä tyyppisestä aktiviteetista preferoit. Voit valita jokaiselle tapahtumalle aktiviteetin erikseen, ja tämä valinta on oletus.",
+        "rules": {
+          "required": "Sinun täytyy valita mieluisin aktiviteetti"
+        }
+      },
       "privacy" : {
         "label" : "Piilota yhteystiedot",
         "tooltip" : "Sähköposti ja puhelinnumero ei näy muille käyttäjille. Vain käyttäjä voi piilottaa tietonsa. tapahtumajärjestäjän nimi on aina näkyvillä"
@@ -1613,5 +1620,11 @@
       "locked" : "Lukittu",
       "registered" : "Rekisteröity"
     }
+  },
+  "UserTypeEnum": {
+    "non_diver": "Ei mikään",
+    "scuba_diver": "Laitesukellus",
+    "free_diver": "Vapaasukellus",
+    "snorkler": "Snorklaus"
   }
 }

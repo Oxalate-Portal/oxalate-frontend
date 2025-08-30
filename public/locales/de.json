@@ -328,10 +328,10 @@
       "afterDate": "Nach Datum",
       "beforeDate": "Vor Datum",
       "bodySearch": "Inhalt-Suche",
+      "commentClass": "Kommentar-Klasse",
       "commentId": "Kommentar-ID",
       "commentStatus": "Kommentarstatus",
       "commentType": "Kommentar-Typ",
-      "commentclass": "Kommentar-Klasse",
       "depth": "Tiefe",
       "diveEventId": "Tauchveranstaltung-ID",
       "forumId": "Forum-ID",
@@ -467,31 +467,21 @@
           "required" : "Zertifizierungsorganisation ist ein Pflichtfeld"
         },
         "tooltip" : "Name der Zertifizierungsorganisation, z. B. PADI, SSI, CMAS, DSAT, DSAC, NAUI oder andere"
+      }
+    },
+    "title" : "Zertifikatsinformationen",
+    "updateCertificate" : {
+      "add" : {
+        "fail" : "Hinzufügen der Zertifikatsinformation fehlgeschlagen",
+        "ok" : "Zertifikatsinformation hinzugefügt"
       },
-      "title" : "Zertifikatsinformationen",
-      "updateCertificate" : {
-        "add" : {
-          "fail" : "Hinzufügen der Zertifikatsinformation fehlgeschlagen",
-          "ok" : "Zertifikatsinformation hinzugefügt"
-        },
-        "update" : {
-          "fail" : "Aktualisierung der Zertifikatsinformationen fehlgeschlagen",
-          "ok" : "Zertifikatsinformationen aktualisiert"
-        }
+      "update" : {
+        "fail" : "Aktualisierung der Zertifikatsinformationen fehlgeschlagen",
+        "ok" : "Zertifikatsinformationen aktualisiert"
       }
     }
   },
   "EditEvent" : {
-    "eventTypes" : {
-      "boat" : "Tauchen vom Boot",
-      "cave" : "Höhle",
-      "course" : "Kurs",
-      "current" : "Strömung",
-      "open-and-cave" : "Offen / Höhle",
-      "open-water" : "Offen",
-      "surface" : "Nur Oberflächenaktivität",
-      "unknown" : "Unbekannt"
-    },
     "form" : {
       "button" : {
         "updateDives" : "Aktualisiere Tauchgänge"
@@ -1531,6 +1521,13 @@
         },
         "tooltip" : "Die Telefonnummer sollte im Format +358123456789 sein"
       },
+      "primaryUserType": {
+        "label": "Bevorzugte Aktivitätsart",
+        "tooltip": "Bitte wählen Sie, welche Art von Aktivität Sie bevorzugen. Sie können für jede Veranstaltung die Aktivität separat auswählen, und diese Auswahl ist die Voreinstellung.",
+        "rules": {
+          "required": "Sie müssen Ihre bevorzugte Aktivität auswählen"
+        }
+      },
       "privacy" : {
         "label" : "Kontaktdaten verbergen",
         "tooltip" : "E-Mail und Telefonnummer sind für andere Mitglieder nicht sichtbar. Nur der Benutzer kann seine Informationen verbergen. Der Name des Veranstalters ist immer sichtbar."
@@ -1623,5 +1620,11 @@
       "locked" : "Gesperrt",
       "registered" : "Registriert"
     }
+  },
+  "UserTypeEnum": {
+    "non_diver": "Keine",
+    "scuba_diver": "Gerätetauchen",
+    "free_diver": "Apnoetauchen",
+    "snorkler": "Schnorcheln"
   }
 }
