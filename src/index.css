@@ -5,6 +5,7 @@ body {
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #121212;
 }
 
 .app-container {
@@ -25,4 +26,44 @@ code {
     padding: 20px;
     border-radius: 10px;
     color: white;
+    overflow-x: auto; /* horizontal scroll host */
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure Ant Design tables expand to their intrinsic width so backgrounds paint fully */
+.darkDiv .ant-table-wrapper,
+.darkDiv .ant-table-container,
+.darkDiv .ant-table {
+    width: max-content;
+    min-width: 100%; /* still fill when not overflowing */
+}
+
+/* Remove inner horizontal scroll bars (delegate to darkDiv) */
+.darkDiv .ant-table-content,
+.darkDiv .ant-table-body,
+.darkDiv .ant-table-body-inner {
+    overflow: visible !important;
+}
+
+/* Force cell backgrounds to paint across full intrinsic width */
+.darkDiv .ant-table-thead > tr > th,
+.darkDiv .ant-table-tbody > tr > td {
+    background-color: #2a2a2a !important;
+}
+
+/* Optional subtle zebra to keep readability */
+.darkDiv .ant-table-tbody > tr:nth-child(odd) > td {
+    background-color: #262626 !important;
+}
+
+/* Preserve hover highlight */
+.darkDiv .ant-table-tbody > tr:hover > td {
+    background-color: #333333 !important;
+}
+
+@media (max-width: 600px) {
+    .darkDiv {
+        width: 100%;
+    }
 }
