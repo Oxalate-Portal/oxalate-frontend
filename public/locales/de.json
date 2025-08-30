@@ -306,10 +306,10 @@
       "placeholder" : "Geben Sie hier die Details ein..."
     }
   },
-  "CommentClassEnum": {
-    "event_comments": "Veranstaltungskommentare",
-    "page_comments": "Seitenkommentare",
-    "forum_comments": "Forumskommentare"
+  "CommentClassEnum" : {
+    "event_comments" : "Veranstaltungskommentare",
+    "page_comments" : "Seitenkommentare",
+    "forum_comments" : "Forumskommentare"
   },
   "CommentEditor" : {
     "form" : {
@@ -321,31 +321,31 @@
       }
     }
   },
-  "CommentList": {
-    "body": "Inhalt",
-    "createdAt": "Erstellt am",
-    "filters": {
-      "afterDate": "Nach Datum",
-      "beforeDate": "Vor Datum",
-      "bodySearch": "Inhalt-Suche",
-      "commentClass": "Kommentar-Klasse",
-      "commentId": "Kommentar-ID",
-      "commentStatus": "Kommentarstatus",
-      "commentType": "Kommentar-Typ",
-      "depth": "Tiefe",
-      "diveEventId": "Tauchveranstaltung-ID",
-      "forumId": "Forum-ID",
-      "parentId": "Übergeordnete ID",
-      "reportCount": "Meldeanzahl",
-      "titleSearch": "Titel-Suche",
-      "user-name": "Benutzer nahme"
+  "CommentList" : {
+    "body" : "Inhalt",
+    "createdAt" : "Erstellt am",
+    "filters" : {
+      "afterDate" : "Nach Datum",
+      "beforeDate" : "Vor Datum",
+      "bodySearch" : "Inhalt-Suche",
+      "commentClass" : "Kommentar-Klasse",
+      "commentId" : "Kommentar-ID",
+      "commentStatus" : "Kommentarstatus",
+      "commentType" : "Kommentar-Typ",
+      "depth" : "Tiefe",
+      "diveEventId" : "Tauchveranstaltung-ID",
+      "forumId" : "Forum-ID",
+      "parentId" : "Übergeordnete ID",
+      "reportCount" : "Meldeanzahl",
+      "titleSearch" : "Titel-Suche",
+      "user-name" : "Benutzer nahme"
     },
-    "id": "ID",
-    "status": "Status",
-    "title": "Kommentar Liste",
-    "titleColumn": "Titel",
-    "type": "Typ",
-    "username": "Benutzername"
+    "id" : "ID",
+    "status" : "Status",
+    "title" : "Kommentar Liste",
+    "titleColumn" : "Titel",
+    "type" : "Typ",
+    "username" : "Benutzername"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -368,7 +368,7 @@
       "dismiss-comment-fail" : "Meldungen konnten nicht abgelehnt werden.",
       "dismiss-comment-success" : "Meldungen abgelehnt.",
       "reject-comment-confirm" : "Das Ablehnen dieses Kommentars wird auch alle untergeordneten Kommentare ablehnen. Sind Sie sicher, dass Sie fortfahren möchten?",
-      "reject-comment-fail": "Kommentar konnte nicht abgelehnt werden.",
+      "reject-comment-fail" : "Kommentar konnte nicht abgelehnt werden.",
       "reject-comment-success" : "Kommentar abgelehnt."
     },
     "button" : {
@@ -376,16 +376,16 @@
       "reject-comment" : "Kommentar ablehnen"
     }
   },
-  "CommentStatusEnum": {
-    "drafted": "Entwurf",
-    "held_for_moderation": "Zur Moderation gehalten",
-    "published": "Veröffentlicht",
-    "rejected": "Abgelehnt",
-    "cancelled": "Abgebrochen"
+  "CommentStatusEnum" : {
+    "drafted" : "Entwurf",
+    "held_for_moderation" : "Zur Moderation gehalten",
+    "published" : "Veröffentlicht",
+    "rejected" : "Abgelehnt",
+    "cancelled" : "Abgebrochen"
   },
-  "CommentTypeEnum": {
-    "topic": "Thema",
-    "user_comment": "Benutzerkommentar"
+  "CommentTypeEnum" : {
+    "topic" : "Thema",
+    "user_comment" : "Benutzerkommentar"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Abgesagt",
@@ -1521,11 +1521,11 @@
         },
         "tooltip" : "Die Telefonnummer sollte im Format +358123456789 sein"
       },
-      "primaryUserType": {
-        "label": "Bevorzugte Aktivitätsart",
-        "tooltip": "Bitte wählen Sie, welche Art von Aktivität Sie bevorzugen. Sie können für jede Veranstaltung die Aktivität separat auswählen, und diese Auswahl ist die Voreinstellung.",
-        "rules": {
-          "required": "Sie müssen Ihre bevorzugte Aktivität auswählen"
+      "primaryUserType" : {
+        "label" : "Bevorzugte Aktivitätsart",
+        "tooltip" : "Bitte wählen Sie, welche Art von Aktivität Sie bevorzugen. Sie können für jede Veranstaltung die Aktivität separat auswählen, und diese Auswahl ist die Voreinstellung.",
+        "rules" : {
+          "required" : "Sie müssen Ihre bevorzugte Aktivität auswählen"
         }
       },
       "privacy" : {
@@ -1621,10 +1621,10 @@
       "registered" : "Registriert"
     }
   },
-  "UserTypeEnum": {
-    "non_diver": "Keine",
-    "scuba_diver": "Gerätetauchen",
-    "free_diver": "Apnoetauchen",
-    "snorkler": "Schnorcheln"
+  "UserTypeEnum" : {
+    "non_diver" : "Keine",
+    "scuba_diver" : "Gerätetauchen",
+    "free_diver" : "Apnoetauchen",
+    "snorkler" : "Schnorcheln"
   }
 }

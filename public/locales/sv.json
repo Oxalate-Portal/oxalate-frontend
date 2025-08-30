@@ -306,10 +306,10 @@
       "placeholder" : "Ange detaljer här..."
     }
   },
-  "CommentClassEnum": {
-    "event_comments": "Evenemangskommentarer",
-    "page_comments": "Sidkommentarer",
-    "forum_comments": "Forumkommentarer"
+  "CommentClassEnum" : {
+    "event_comments" : "Evenemangskommentarer",
+    "page_comments" : "Sidkommentarer",
+    "forum_comments" : "Forumkommentarer"
   },
   "CommentEditor" : {
     "form" : {
@@ -321,32 +321,31 @@
       }
     }
   },
-  "CommentList": {
-    "body": "Innehåll",
-    "createdAt": "Skapad",
-    "id": "ID",
-    "filters": {
-      "afterDate": "Efter datum",
-      "beforeDate": "Före datum",
-      "bodySearch": "Innehållssökning",
-      "commentClass": "Kommentarklass",
-      "commentId": "Kommentar-ID",
-      "commentStatus": "Kommentarstatus",
-      "commentType": "Kommentarstyp",
-      "depth": "Djup",
-      "diveEventId": "Dykningsevenemang-ID",
-      "forumId": "Forum-ID",
-      "parentId": "Överordnad ID",
-      "reportCount": "Rapporteringsantal",
-      "titleSearch": "Titelsökning",
-      "user-name": "Användarens namn"
-
+  "CommentList" : {
+    "body" : "Innehåll",
+    "createdAt" : "Skapad",
+    "id" : "ID",
+    "filters" : {
+      "afterDate" : "Efter datum",
+      "beforeDate" : "Före datum",
+      "bodySearch" : "Innehållssökning",
+      "commentClass" : "Kommentarklass",
+      "commentId" : "Kommentar-ID",
+      "commentStatus" : "Kommentarstatus",
+      "commentType" : "Kommentarstyp",
+      "depth" : "Djup",
+      "diveEventId" : "Dykningsevenemang-ID",
+      "forumId" : "Forum-ID",
+      "parentId" : "Överordnad ID",
+      "reportCount" : "Rapporteringsantal",
+      "titleSearch" : "Titelsökning",
+      "user-name" : "Användarens namn"
     },
-    "status": "Status",
-    "title": "Kommentarslista",
-    "titleColumn": "Titel",
-    "type": "Typ",
-    "username": "Användarnamn"
+    "status" : "Status",
+    "title" : "Kommentarslista",
+    "titleColumn" : "Titel",
+    "type" : "Typ",
+    "username" : "Användarnamn"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -369,7 +368,7 @@
       "dismiss-comment-fail" : "Misslyckades med att avvisa rapporter.",
       "dismiss-comment-success" : "Rapporter avvisade.",
       "reject-comment-confirm" : "Att avvisa denna kommentar kommer även att avvisa alla dess underliggande kommentarer. Är du säker på att du vill fortsätta?",
-      "reject-comment-fail": "Misslyckades med att avvisa kommentaren.",
+      "reject-comment-fail" : "Misslyckades med att avvisa kommentaren.",
       "reject-comment-success" : "Kommentaren avvisad."
     },
     "button" : {
@@ -377,16 +376,16 @@
       "reject-comment" : "Avvisa kommentar"
     }
   },
-  "CommentStatusEnum": {
-    "drafted": "Utkast",
-    "held_for_moderation": "Väntar på granskning",
-    "published": "Publicerad",
+  "CommentStatusEnum" : {
+    "drafted" : "Utkast",
+    "held_for_moderation" : "Väntar på granskning",
+    "published" : "Publicerad",
     "rejected" : "Avvisad",
-    "cancelled": "Avbruten"
+    "cancelled" : "Avbruten"
   },
-  "CommentTypeEnum": {
-    "topic": "Ämne",
-    "user_comment": "Användarkommentar"
+  "CommentTypeEnum" : {
+    "topic" : "Ämne",
+    "user_comment" : "Användarkommentar"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Inställt",
@@ -1522,11 +1521,11 @@
         },
         "tooltip" : "Telefonnumret ska vara i formatet +358123456789"
       },
-      "primaryUserType": {
-        "label": "Föredragen aktivitetstyp",
-        "tooltip": "Vänligen välj vilken typ av aktivitet du föredrar. Du kan välja aktivitet separat för varje evenemang och detta val är standard.",
-        "rules": {
-          "required": "Du måste välja din föredragna aktivitet"
+      "primaryUserType" : {
+        "label" : "Föredragen aktivitetstyp",
+        "tooltip" : "Vänligen välj vilken typ av aktivitet du föredrar. Du kan välja aktivitet separat för varje evenemang och detta val är standard.",
+        "rules" : {
+          "required" : "Du måste välja din föredragna aktivitet"
         }
       },
       "privacy" : {
@@ -1622,10 +1621,10 @@
       "registered" : "Registrerad"
     }
   },
-  "UserTypeEnum": {
-    "non_diver": "Ingen",
-    "scuba_diver": "Apparatdykning",
-    "free_diver": "Fridykning",
-    "snorkler": "Snorkling"
+  "UserTypeEnum" : {
+    "non_diver" : "Ingen",
+    "scuba_diver" : "Apparatdykning",
+    "free_diver" : "Fridykning",
+    "snorkler" : "Snorkling"
   }
 }

@@ -306,10 +306,10 @@
       "placeholder" : "Anna lisätietoja tähän..."
     }
   },
-  "CommentClassEnum": {
-    "event_comments": "Tapahtumakommentit",
-    "page_comments": "Sivukommentit",
-    "forum_comments": "Keskustelukommentit"
+  "CommentClassEnum" : {
+    "event_comments" : "Tapahtumakommentit",
+    "page_comments" : "Sivukommentit",
+    "forum_comments" : "Keskustelukommentit"
   },
   "CommentEditor" : {
     "form" : {
@@ -321,31 +321,31 @@
       }
     }
   },
-  "CommentList": {
-    "body": "Sisältö",
-    "createdAt": "Luontiaika",
-    "filters": {
-      "afterDate": "Jälkeen päivämäärän",
-      "beforeDate": "Ennen päivämäärää",
-      "bodySearch": "Sisällön haku",
-      "commentClass": "Kommenttiluokka",
-      "commentId": "Kommentti-ID",
-      "commentStatus": "Kommentin tila",
-      "commentType": "Kommenttityyppi",
-      "depth": "Syvyys",
-      "diveEventId": "Sukellustapahtuma-ID",
-      "forumId": "Foorumi-ID",
-      "parentId": "Yläkommentti-ID",
-      "reportCount": "Ilmoitusmäärä",
-      "titleSearch": "Otsikon haku",
-      "user-name": "Käyttäjän nimi"
+  "CommentList" : {
+    "body" : "Sisältö",
+    "createdAt" : "Luontiaika",
+    "filters" : {
+      "afterDate" : "Jälkeen päivämäärän",
+      "beforeDate" : "Ennen päivämäärää",
+      "bodySearch" : "Sisällön haku",
+      "commentClass" : "Kommenttiluokka",
+      "commentId" : "Kommentti-ID",
+      "commentStatus" : "Kommentin tila",
+      "commentType" : "Kommenttityyppi",
+      "depth" : "Syvyys",
+      "diveEventId" : "Sukellustapahtuma-ID",
+      "forumId" : "Foorumi-ID",
+      "parentId" : "Yläkommentti-ID",
+      "reportCount" : "Ilmoitusmäärä",
+      "titleSearch" : "Otsikon haku",
+      "user-name" : "Käyttäjän nimi"
     },
-    "id": "ID",
-    "status": "Tila",
-    "title": "Kommenttilista",
-    "titleColumn": "Otsikko",
-    "type": "Tyyppi",
-    "username": "Käyttäjänimi"
+    "id" : "ID",
+    "status" : "Tila",
+    "title" : "Kommenttilista",
+    "titleColumn" : "Otsikko",
+    "type" : "Tyyppi",
+    "username" : "Käyttäjänimi"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -368,7 +368,7 @@
       "dismiss-comment-fail" : "Ilmoitusten hylkääminen epäonnistui.",
       "dismiss-comment-success" : "Ilmoitukset hylätty.",
       "reject-comment-confirm" : "Tämän kommentin hylkääminen hylkää myös kaikki sen alikommentit. Oletko varma, että haluat jatkaa?",
-      "reject-comment-fail": "Kommentin hylkääminen epäonnistui.",
+      "reject-comment-fail" : "Kommentin hylkääminen epäonnistui.",
       "reject-comment-success" : "Kommentti hylätty."
     },
     "button" : {
@@ -376,16 +376,16 @@
       "reject-comment" : "Hylkää kommentti"
     }
   },
-  "CommentStatusEnum": {
-    "drafted": "Luonnos",
-    "held_for_moderation": "Moderoitavana",
-    "published": "Julkaistu",
-    "rejected": "Hylätty",
-    "cancelled": "Peruutettu"
+  "CommentStatusEnum" : {
+    "drafted" : "Luonnos",
+    "held_for_moderation" : "Moderoitavana",
+    "published" : "Julkaistu",
+    "rejected" : "Hylätty",
+    "cancelled" : "Peruutettu"
   },
-  "CommentTypeEnum": {
-    "topic": "Aihe",
-    "user_comment": "Käyttäjäkommentti"
+  "CommentTypeEnum" : {
+    "topic" : "Aihe",
+    "user_comment" : "Käyttäjäkommentti"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Peruutettu",
@@ -880,7 +880,7 @@
       "comments" : {
         "comment-list" : "Kommenttilista",
         "comment-moderation" : "Kommenttimoderointi",
-        "title": "Kommentit"
+        "title" : "Kommentit"
       },
       "download" : "Lataa",
       "files" : "Tiedostot",
@@ -1521,11 +1521,11 @@
         },
         "tooltip" : "Puhelinnumeron tulee olla muodossa +358123456789"
       },
-      "primaryUserType": {
-        "label": "Ensisijainen aktiviteettityyppi",
-        "tooltip": "Valitse, minkä tyyppisestä aktiviteetista preferoit. Voit valita jokaiselle tapahtumalle aktiviteetin erikseen, ja tämä valinta on oletus.",
-        "rules": {
-          "required": "Sinun täytyy valita mieluisin aktiviteetti"
+      "primaryUserType" : {
+        "label" : "Ensisijainen aktiviteettityyppi",
+        "tooltip" : "Valitse, minkä tyyppisestä aktiviteetista preferoit. Voit valita jokaiselle tapahtumalle aktiviteetin erikseen, ja tämä valinta on oletus.",
+        "rules" : {
+          "required" : "Sinun täytyy valita mieluisin aktiviteetti"
         }
       },
       "privacy" : {
@@ -1621,10 +1621,10 @@
       "registered" : "Rekisteröity"
     }
   },
-  "UserTypeEnum": {
-    "non_diver": "Ei mikään",
-    "scuba_diver": "Laitesukellus",
-    "free_diver": "Vapaasukellus",
-    "snorkler": "Snorklaus"
+  "UserTypeEnum" : {
+    "non_diver" : "Ei mikään",
+    "scuba_diver" : "Laitesukellus",
+    "free_diver" : "Vapaasukellus",
+    "snorkler" : "Snorklaus"
   }
 }

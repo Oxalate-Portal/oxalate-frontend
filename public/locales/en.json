@@ -306,10 +306,10 @@
       "placeholder" : "Provide details here..."
     }
   },
-  "CommentClassEnum": {
-    "event_comments": "Event comments",
-    "page_comments": "Page comments",
-    "forum_comments": "Forum comments"
+  "CommentClassEnum" : {
+    "event_comments" : "Event comments",
+    "page_comments" : "Page comments",
+    "forum_comments" : "Forum comments"
   },
   "CommentEditor" : {
     "form" : {
@@ -1521,11 +1521,11 @@
         },
         "tooltip" : "Phone number should be in the format +358123456789"
       },
-      "primaryUserType": {
-        "label": "Preferred type of activity",
-        "tooltip": "Please select which type of activity you prefer. You can separately select for each event the activity, and this selection is the default",
-        "rules": {
-          "required": "You need to select your preference of activity"
+      "primaryUserType" : {
+        "label" : "Preferred type of activity",
+        "tooltip" : "Please select which type of activity you prefer. You can separately select for each event the activity, and this selection is the default",
+        "rules" : {
+          "required" : "You need to select your preference of activity"
         }
       },
       "privacy" : {
@@ -1621,10 +1621,10 @@
       "registered" : "Registered"
     }
   },
-  "UserTypeEnum": {
-    "non_diver": "None",
-    "scuba_diver": "Scuba diving",
-    "free_diver": "Free diving",
-    "snorkler": "Snorkling"
+  "UserTypeEnum" : {
+    "non_diver" : "None",
+    "scuba_diver" : "Scuba diving",
+    "free_diver" : "Free diving",
+    "snorkler" : "Snorkling"
   }
 }
