@@ -59,7 +59,7 @@ export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: num
             color = "marine";
             break;
         case DiveTypeEnum.SURFACE:
-            color = "white";
+            color = "magenta";
             break;
         default:
             color = "red";
