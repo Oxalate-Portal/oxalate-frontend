@@ -699,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "E-Mail erhalten, für:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Am Ereignis teilnehmen"
+      "button" : "Am Event teilnehmen",
+      "label" : "Am Event teilnehmen",
+      "mainText" : "Bitte füllen Sie Folgendes aus, um am Tauch-Event teilzunehmen"
     },
     "unsubscribe" : {
       "button" : "Entferne dich von der Ereignis"

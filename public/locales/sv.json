@@ -699,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "Mottag e-postmeddelanden då:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Delta i evenemanget"
+      "button" : "Delta i evenemanget",
+      "label" : "Delta i evenemanget",
+      "mainText" : "Vänligen fyll i följande för att delta i dyk-evenemanget"
     },
     "unsubscribe" : {
       "button" : "Delta icke i evenemanget"

@@ -699,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "Recibir notificaciones por correo electrónico cuando:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Participar en el evento"
+      "button" : "Participar en el evento",
+      "label" : "Participar en el evento",
+      "mainText" : "Por favor, complete lo siguiente para participar en el evento de buceo"
     },
     "unsubscribe" : {
       "button" : "Darse de baja del evento"

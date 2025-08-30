@@ -699,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "Email Receive email notification when:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Participate in event"
+      "button" : "Participate in event",
+      "label" : "Participate in event",
+      "mainText" : "Please complete the following to participate in the dive event"
     },
     "unsubscribe" : {
       "button" : "Remove yourself from event"

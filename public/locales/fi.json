@@ -699,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "Vastaanota sähköpostiviesti kun:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Osallistu tapahtumaan"
+      "button" : "Osallistu tapahtumaan",
+      "label" : "Osallistu tapahtumaan",
+      "mainText" : "Täytä seuraavat tiedot osallistuaksesi sukellustapahtumaan"
     },
     "unsubscribe" : {
       "button" : "Poista itsesi tapahtumasta"
