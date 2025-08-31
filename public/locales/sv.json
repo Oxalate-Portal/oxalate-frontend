@@ -12,21 +12,21 @@
     "disabled" : "Medlemskap är inte i bruk",
     "errorGetUsers" : "Misslyckades med att hämta användare",
     "form" : {
-      "name" : {
-        "label" : "Användarnamn",
-        "placeholder" : "Välj användare"
+      "button" : "Lägg till medlemskap",
+      "membershipDuration" : {
+        "label" : "Medlemskapslängd (månader)"
       },
       "membershipType" : {
         "label" : "Medlemstyp"
       },
-      "membershipDuration" : {
-        "label" : "Medlemskapslängd (månader)"
-      },
-      "button" : "Lägg till medlemskap"
+      "name" : {
+        "label" : "Användarnamn",
+        "placeholder" : "Välj användare"
+      }
     },
     "onFinish" : {
-      "ok" : "Medlemskap tillagt framgångsrikt",
-      "fail" : "Misslyckades med att lägga till medlemskap: "
+      "fail" : "Misslyckades med att lägga till medlemskap: ",
+      "ok" : "Medlemskap tillagt framgångsrikt"
     }
   },
   "AddPayments" : {
@@ -61,37 +61,29 @@
   },
   "AdminMain" : {
     "header" : "Administration",
-    "userHeader" : "Användare",
     "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden",
     "paymentHeader" : "Betalningar",
     "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
     "statsHeader" : "Statistik",
     "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
     "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
-    "text" : "Administrativa sidor. Var försiktig"
+    "text" : "Administrativa sidor. Var försiktig",
+    "userHeader" : "Användare"
   },
   "AdminMembers" : {
-    "title" : "Medlemskapshantering",
     "table" : {
-      "userId" : "Användar-ID",
-      "username" : "Användarnamn",
-      "status" : "Status",
-      "type" : "Typ",
+      "actions" : {
+        "edit" : "Redigera",
+        "title" : "Åtgärd"
+      },
       "createdAt" : "Skapad",
       "expiresAt" : "Utgångstid",
-      "actions" : {
-        "title" : "Åtgärd",
-        "edit" : "Redigera"
-      }
-    }
-  },
-  "PaymentListTable" : {
-    "table" : {
-      "expirationDate" : "Utgångstid",
-      "name" : "Namn",
-      "paymentCount" : "Antal",
-      "paymentDate" : "Betalningsdatum"
-    }
+      "status" : "Status",
+      "type" : "Typ",
+      "userId" : "Användar-ID",
+      "username" : "Användarnamn"
+    },
+    "title" : "Medlemskapshantering"
   },
   "AdminOrgUser" : {
     "form" : {
@@ -103,8 +95,8 @@
       "roles" : {
         "administrator" : "Administratör",
         "label" : "Roller",
-        "user" : "Användare",
-        "organizer" : "Evenemangsarrangör"
+        "organizer" : "Evenemangsarrangör",
+        "user" : "Användare"
       },
       "status" : {
         "label" : "Status",
@@ -284,69 +276,68 @@
   },
   "ChronoUnitEnum" : {
     "days" : "Dag",
-    "weeks" : "Vecka",
     "months" : "Månad",
+    "weeks" : "Vecka",
     "years" : "År"
   },
   "CommentCard" : {
-    "messages" : {
-      "report-fail" : "Misslyckades med att rapportera kommentaren.",
-      "report-success" : "Kommentaren rapporterad framgångsrikt.",
-      "report-cancel-fail" : "Misslyckades med att avbryta rapporten.",
-      "report-cancel-success" : "Rapporten avbruten framgångsrikt."
-    },
-    "singular-reply" : "svar",
-    "multiple-replies" : "svar",
     "button" : {
-      "report-comment" : "Rapportera olämplig kommentar",
-      "cancel-report" : "Avbryt rapport"
+      "cancel-report" : "Avbryt rapport",
+      "report-comment" : "Rapportera olämplig kommentar"
+    },
+    "messages" : {
+      "report-cancel-fail" : "Misslyckades med att avbryta rapporten.",
+      "report-cancel-success" : "Rapporten avbruten framgångsrikt.",
+      "report-fail" : "Misslyckades med att rapportera kommentaren.",
+      "report-success" : "Kommentaren rapporterad framgångsrikt."
     },
     "modal" : {
       "description" : "Beskriv problemet:",
       "placeholder" : "Ange detaljer här..."
-    }
+    },
+    "multiple-replies" : "svar",
+    "singular-reply" : "svar"
   },
-  "CommentClassEnum": {
-    "event_comments": "Evenemangskommentarer",
-    "page_comments": "Sidkommentarer",
-    "forum_comments": "Forumkommentarer"
+  "CommentClassEnum" : {
+    "event_comments" : "Evenemangskommentarer",
+    "forum_comments" : "Forumkommentarer",
+    "page_comments" : "Sidkommentarer"
   },
   "CommentEditor" : {
     "form" : {
-      "title" : {
-        "placeholder" : "Titel (valfritt)"
-      },
       "textarea" : {
         "placeholder" : "Skriv en kommentar..."
+      },
+      "title" : {
+        "placeholder" : "Titel (valfritt)"
       }
     }
   },
-  "CommentList": {
-    "body": "Innehåll",
-    "createdAt": "Skapad",
-    "id": "ID",
-    "filters": {
-      "afterDate": "Efter datum",
-      "beforeDate": "Före datum",
-      "bodySearch": "Innehållssökning",
-      "commentId": "Kommentar-ID",
-      "commentStatus": "Kommentarstatus",
-      "commentType": "Kommentarstyp",
-      "commentclass": "Kommentarklass",
-      "depth": "Djup",
-      "diveEventId": "Dykningsevenemang-ID",
-      "forumId": "Forum-ID",
-      "parentId": "Överordnad ID",
-      "reportCount": "Rapporteringsantal",
-      "titleSearch": "Titelsökning",
-      "user-name": "Användarens namn"
-
+  "CommentList" : {
+    "body" : "Innehåll",
+    "createdAt" : "Skapad",
+    "filters" : {
+      "afterDate" : "Efter datum",
+      "beforeDate" : "Före datum",
+      "bodySearch" : "Innehållssökning",
+      "commentClass" : "Kommentarklass",
+      "commentId" : "Kommentar-ID",
+      "commentStatus" : "Kommentarstatus",
+      "commentType" : "Kommentarstyp",
+      "depth" : "Djup",
+      "diveEventId" : "Dykningsevenemang-ID",
+      "forumId" : "Forum-ID",
+      "parentId" : "Överordnad ID",
+      "reportCount" : "Rapporteringsantal",
+      "titleSearch" : "Titelsökning",
+      "user-name" : "Användarens namn"
     },
-    "status": "Status",
-    "title": "Kommentarslista",
-    "titleColumn": "Titel",
-    "type": "Typ",
-    "username": "Användarnamn"
+    "id" : "ID",
+    "status" : "Status",
+    "title" : "Kommentarslista",
+    "titleColumn" : "Titel",
+    "type" : "Typ",
+    "username" : "Användarnamn"
   },
   "CommentModeration" : {
     "collapse" : {
@@ -365,28 +356,28 @@
     "title" : "Kommentarer som kräver moderering"
   },
   "CommentModerationActions" : {
+    "button" : {
+      "dismiss-reports" : "Avvisa rapporter",
+      "reject-comment" : "Avvisa kommentar"
+    },
     "messages" : {
       "dismiss-comment-fail" : "Misslyckades med att avvisa rapporter.",
       "dismiss-comment-success" : "Rapporter avvisade.",
       "reject-comment-confirm" : "Att avvisa denna kommentar kommer även att avvisa alla dess underliggande kommentarer. Är du säker på att du vill fortsätta?",
-      "reject-comment-fail": "Misslyckades med att avvisa kommentaren.",
+      "reject-comment-fail" : "Misslyckades med att avvisa kommentaren.",
       "reject-comment-success" : "Kommentaren avvisad."
-    },
-    "button" : {
-      "dismiss-reports" : "Avvisa rapporter",
-      "reject-comment" : "Avvisa kommentar"
     }
   },
-  "CommentStatusEnum": {
-    "drafted": "Utkast",
-    "held_for_moderation": "Väntar på granskning",
-    "published": "Publicerad",
-    "rejected" : "Avvisad",
-    "cancelled": "Avbruten"
+  "CommentStatusEnum" : {
+    "cancelled" : "Avbruten",
+    "drafted" : "Utkast",
+    "held_for_moderation" : "Väntar på granskning",
+    "published" : "Publicerad",
+    "rejected" : "Avvisad"
   },
-  "CommentTypeEnum": {
-    "topic": "Ämne",
-    "user_comment": "Användarkommentar"
+  "CommentTypeEnum" : {
+    "topic" : "Ämne",
+    "user_comment" : "Användarkommentar"
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Inställt",
@@ -414,9 +405,9 @@
     "downloadPrompt" : "Klicka på länken för att ladda ner data: ",
     "gdprWarning" : "Var medveten om att vissa nedladdningar kan innehålla personlig information som regleras av GDPR. Hantera data med omsorg och dela den inte med obehöriga parter. Ta bort filerna när de inte längre behövs.",
     "header" : "Ladda ner data",
-    "userLabel" : "Användarw",
     "paymentLabel" : "Betalningar",
-    "rowCount" : "Antal rader: {{count}}"
+    "rowCount" : "Antal rader: {{count}}",
+    "userLabel" : "Användarw"
   },
   "EditCertificate" : {
     "form" : {
@@ -708,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "Mottag e-postmeddelanden då:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Delta i evenemanget"
+      "button" : "Delta i evenemanget",
+      "label" : "Delta i evenemanget",
+      "mainText" : "Vänligen fyll i följande för att delta i dyk-evenemanget"
     },
     "unsubscribe" : {
       "button" : "Delta icke i evenemanget"
@@ -731,7 +724,8 @@
         "oneTime" : "Engångsbetalning",
         "period" : "Periodisk betalning"
       },
-      "payments" : "Betalningssituation"
+      "payments" : "Betalningssituation",
+      "userType" : "Dyktyp"
     },
     "participants" : {
       "title" : "Deltagare"
@@ -772,29 +766,29 @@
       "title" : "Kommande evenemang"
     }
   },
-  "FormatPayments" : {
-    "noValid" : "Inga giltiga betalningar tillgängliga.",
-    "unknownPayment" : "Okänd betalningstyp",
-    "unknownPaymentPlease" : "Kontakta supporten för mer information.",
-    "unknownPaymentContact" : "Kontakta supporten",
-    "table" : {
-      "id" : "ID",
-      "paymentType" : "Betalningstyp",
-      "paymentCount" : "Antal",
-      "startDate" : "Skapad",
-      "expirationDate" : "Utgångstid",
-      "singlePayment" : "Engångsbetalning",
-      "periodPayment" : "Period betalning"
-    }
-  },
   "FormMemberships" : {
     "table" : {
-      "id" : "ID",
-      "type" : "Typ",
-      "status" : "Status",
       "created-at" : "Skapad",
-      "expires-at" : "Utgångstid"
+      "expires-at" : "Utgångstid",
+      "id" : "ID",
+      "status" : "Status",
+      "type" : "Typ"
     }
+  },
+  "FormatPayments" : {
+    "noValid" : "Inga giltiga betalningar tillgängliga.",
+    "table" : {
+      "expirationDate" : "Utgångstid",
+      "id" : "ID",
+      "paymentCount" : "Antal",
+      "paymentType" : "Betalningstyp",
+      "periodPayment" : "Period betalning",
+      "singlePayment" : "Engångsbetalning",
+      "startDate" : "Skapad"
+    },
+    "unknownPayment" : "Okänd betalningstyp",
+    "unknownPaymentContact" : "Kontakta supporten",
+    "unknownPaymentPlease" : "Kontakta supporten för mer information."
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",
@@ -858,14 +852,14 @@
   },
   "MembershipStatusEnum" : {
     "active" : "Aktiv",
-    "expired" : "Utgånget",
-    "cancelled" : "Avbruten"
+    "cancelled" : "Avbruten",
+    "expired" : "Utgånget"
   },
   "MembershipTypeEnum" : {
     "disabled" : "Icke i bruk",
-    "perpetual" : "Permanent",
+    "durational" : "Tidsbegränsad",
     "periodical" : "Periodisk",
-    "durational" : "Tidsbegränsad"
+    "perpetual" : "Permanent"
   },
   "NavigationBar" : {
     "action" : {
@@ -901,8 +895,8 @@
       "yearlyStats" : "Årlig statistik"
     },
     "forum" : {
-      "title" : "Forum",
-      "link" : "Huvudsidan"
+      "link" : "Huvudsidan",
+      "title" : "Forum"
     },
     "pageManagement" : {
       "pages" : "Sidor",
@@ -1055,15 +1049,23 @@
   "PastEvents" : {
     "title" : "Tidigare evenemang"
   },
-  "PaymentTypeEnum" : {
-    "ONE_TIME" : "Engångs",
-    "PERIOD" : "Period"
-  },
   "PaymentExpirationType" : {
     "disabled" : "Icke i bruk",
     "durational" : "Tidsbegränsad",
     "periodical" : "Periodisk",
     "perpetual" : "Permanent"
+  },
+  "PaymentListTable" : {
+    "table" : {
+      "expirationDate" : "Utgångstid",
+      "name" : "Namn",
+      "paymentCount" : "Antal",
+      "paymentDate" : "Betalningsdatum"
+    }
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "Engångs",
+    "PERIOD" : "Period"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1093,8 +1095,8 @@
       "title" : "Kommentarer"
     },
     "configuration" : "Konfiguration",
-    "configuration-reloaded" : "Konfigurationen har laddats om",
     "configuration-reload-failed" : "Misslyckades med att ladda om konfigurationen",
+    "configuration-reloaded" : "Konfigurationen har laddats om",
     "current-setting" : "Aktuellt värde",
     "default-value" : "Standardvärde",
     "description" : "Här kan du konfigurera portalens inställningar. Observera att inställningar kräver att servern laddas om för att de ska träda i kraft.",
@@ -1240,6 +1242,10 @@
         "label" : "Startpunkt för betalningsperioden",
         "tooltip" : "När började betalningsperioden. Detta avgör hur perioderna beräknas. Observera att ändring av detta värde kan ogiltigförklara alla aktiva periodiska betalningar. Detta påverkar inte tidsbegränsade betalningar."
       },
+      "payment-period-start-point" : {
+        "label" : "Startpunkt för betalningsperiod",
+        "tooltip" : "När betalningsperioden börjar. Detta är relaterat till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag, dag -> dagen i året."
+      },
       "periodical-payment-method-type" : {
         "label" : "Typ av periodisk betalningsmetod",
         "tooltip" : "Typ av betalningsmetod för periodiska betalningar. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. det aktuella året, månaden eller veckan från den angivna startpunkten. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
@@ -1247,10 +1253,6 @@
       "periodical-payment-method-unit" : {
         "label" : "Enhet för periodisk betalningsmetod",
         "tooltip" : "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
-      },
-      "payment-period-start-point" : {
-        "label" : "Startpunkt för betalningsperiod",
-        "tooltip" : "När betalningsperioden börjar. Detta är relaterat till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag, dag -> dagen i året."
       },
       "single-payment-enabled" : {
         "label" : "Aktivera engångsbetalning",
@@ -1304,11 +1306,9 @@
     }
   },
   "ReportCard" : {
-    "messages" : {
-      "accept-fail" : "Misslyckades med att acceptera rapporten.",
-      "accept-success" : "Rapport accepterad",
-      "dismiss-fail" : "Misslyckades med att avvisa rapporten.",
-      "dismiss-success" : "Rapport avvisad."
+    "button" : {
+      "accept" : "Acceptera rapport",
+      "dismiss" : "Avvisa rapport"
     },
     "field" : {
       "created-at" : "Skapad",
@@ -1316,9 +1316,11 @@
       "reporter" : "Anmälare",
       "status" : "Status"
     },
-    "button" : {
-      "accept" : "Acceptera rapport",
-      "dismiss" : "Avvisa rapport"
+    "messages" : {
+      "accept-fail" : "Misslyckades med att acceptera rapporten.",
+      "accept-success" : "Rapport accepterad",
+      "dismiss-fail" : "Misslyckades med att avvisa rapporten.",
+      "dismiss-success" : "Rapport avvisad."
     }
   },
   "ReportEvent" : {
@@ -1360,8 +1362,8 @@
       "diverId" : "Dykarnummer",
       "organization" : "Certifieringsorganisation",
       "photocopy" : "Kopia av dykcertifikat",
-      "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
       "remove-photo-fail" : "Kunde inte ta bort fotokopia av dykcertifikat",
+      "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
       "title" : "Certifikat: ",
       "upload-photo" : "Ladda fotokopia av dykcertifikat",
       "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
@@ -1522,6 +1524,13 @@
         },
         "tooltip" : "Telefonnumret ska vara i formatet +358123456789"
       },
+      "primaryUserType" : {
+        "label" : "Föredragen aktivitetstyp",
+        "rules" : {
+          "required" : "Du måste välja din föredragna aktivitet"
+        },
+        "tooltip" : "Vänligen välj vilken typ av aktivitet du föredrar. Du kan välja aktivitet separat för varje evenemang och detta val är standard."
+      },
       "privacy" : {
         "label" : "Dölj kontaktinformation",
         "tooltip" : "E-post och telefonnummer är inte synliga för andra medlemmar. Endast användaren kan dölja sin information. Arrangörens namn är alltid synligt."
@@ -1539,6 +1548,12 @@
         "tooltip" : "Din e-postadress används som användarnamn"
       }
     }
+  },
+  "UserTypeEnum" : {
+    "free_diver" : "Fridykning",
+    "non_diver" : "Inte dykare",
+    "scuba_diver" : "Apparatdykning",
+    "snorkler" : "Snorkling"
   },
   "common" : {
     "button" : {
@@ -1597,11 +1612,11 @@
       "role_organizer" : "Evenemangsarrangör",
       "role_user" : "Användare"
     },
-    "spinner" : {
-      "loading" : "Laddar..."
-    },
     "select" : {
       "empty" : "Inget valt"
+    },
+    "spinner" : {
+      "loading" : "Laddar..."
     },
     "table" : {
       "column-title" : {

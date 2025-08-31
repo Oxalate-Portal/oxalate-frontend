@@ -6,13 +6,13 @@ import {
     LoginStatus,
     PortalConfigGroupEnum,
     PortalConfigurationResponse,
-    SessionVO
+    UserSessionToken
 } from "../models";
 import {authAPI, portalConfigurationAPI} from "../services";
 
 // Define the type for the session context
 interface SessionContextType {
-    userSession: SessionVO | null;
+    userSession: UserSessionToken | null;
     sessionLanguage: string;
     organizationName: string;
     portalTimezone: string;
@@ -23,13 +23,13 @@ interface SessionContextType {
     getPortalConfigurationValue: (groupKey: PortalConfigGroupEnum, settingKey: string) => string;
     loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
     logoutUser: () => void;
-    refreshUserSession: (sessionVO: SessionVO) => void;
+    refreshUserSession: (sessionVO: UserSessionToken) => void;
 }
 
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export function SessionProvider({children}: any) {
-    const [user, setUser] = useState<SessionVO | null>(null);
+    const [user, setUser] = useState<UserSessionToken | null>(null);
     const [language, setLanguage] = useState<string>("en");
     const [organizationName, setOrganizationName] = useState<string>("");
     const [portalTimezone, setPortalTimezone] = useState<string>("");
@@ -186,7 +186,7 @@ export function SessionProvider({children}: any) {
         return config.runtimeValue;
     }
 
-    const refreshUserSession = (sessionVO: SessionVO): void => {
+    const refreshUserSession = (sessionVO: UserSessionToken): void => {
         localStorage.setItem(userKey, JSON.stringify(sessionVO));
         setUser(sessionVO);
     };

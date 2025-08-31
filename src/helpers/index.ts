@@ -6,7 +6,8 @@ export {
     pageStatusEnum2Tag,
     paymentTypeEnum2Tag,
     reportStatusEnum2Tag,
-    roleEnum2Tag
+    roleEnum2Tag,
+    userTypeEnum2Tag
 } from "./Enum2TagTool";
 export {LanguageUtil} from "./LanguageUtil";
 export {

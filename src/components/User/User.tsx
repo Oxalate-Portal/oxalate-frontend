@@ -4,14 +4,14 @@ import {Button, Checkbox, Col, Form, Input, message, Row, Space, Spin} from "ant
 import {useTranslation} from "react-i18next";
 import {checkRoles} from "../../helpers";
 import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./index";
-import {RoleEnum, SessionVO, UserRequest, UserResponse, UserStatusEnum} from "../../models";
-import {userAPI} from "../../services";
+import {RoleEnum, UserSessionToken, UserRequest, UserResponse, UserStatusEnum, AdminUserRequest, AdminUserResponse} from "../../models";
+import {adminUserAPI, userAPI} from "../../services";
 
 export function User() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
-    const [workUser, setWorkUser] = useState<UserResponse>();
+    const [workUser, setWorkUser] = useState<AdminUserResponse>();
     const [userForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -21,7 +21,7 @@ export function User() {
 
             if (userSession) {
 
-                userAPI.findById(userSession?.id, null)
+                adminUserAPI.findById(userSession?.id, null)
                         .then((response) => {
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                         })
@@ -80,7 +80,7 @@ export function User() {
         }
         // We send all data, but only some of them will in this case be used, see backend for more details when a user sends the request
         // TODO This is duplicated from adminOrgMember.jsx, refactor this
-        let postData: UserRequest = {
+        let postData: AdminUserRequest = {
             id: workUser.id,
             username: workUser.username,
             firstName: userInfo.firstName,
@@ -88,15 +88,17 @@ export function User() {
             status: workUser.status,
             phoneNumber: userInfo.phoneNumber,
             privacy: userInfo.privacy,
+            approvedTerms: workUser.approvedTerms,
+            primaryUserType: userInfo.primaryUserType,
             nextOfKin: userInfo.nextOfKin,
             registered: workUser.registered,
             roles: workUser.roles,
             language: userInfo.language
         };
 
-        userAPI.update(postData)
+        adminUserAPI.update(postData)
                 .then((response) => {
-                    const newSession: SessionVO = {
+                    const newUserSession: UserSessionToken = {
                         id: response.id,
                         username: response.username,
                         firstName: response.firstName,
@@ -112,9 +114,12 @@ export function User() {
                         status: response.status,
                         approvedTerms: response.approvedTerms,
                         privacy: response.privacy,
-                        nextOfKin: response.nextOfKin
+                        nextOfKin: response.nextOfKin,
+                        primaryUserType: response.primaryUserType,
+                        payments: response.payments,
+                        memberships: response.memberships
                     };
-                    refreshUserSession(newSession);
+                    refreshUserSession(newUserSession);
                     messageApi.success(t("User.update.ok"));
                     setLoading(false);
                 })
@@ -154,7 +159,8 @@ export function User() {
                                 nextOfKin: workUser.nextOfKin,
                                 registered: workUser.registered,
                                 roles: workUser.roles,
-                                language: workUser.language
+                                language: workUser.language,
+                                primaryUserType: workUser.primaryUserType
                             }}
                             onFinish={onFinish}
                             onFinishFailed={onFinishFailed}
@@ -179,7 +185,7 @@ export function User() {
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>
                         <Form.Item label={t("User.form.terms.label")} key={"terms"}>
-                            <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true"): t("User.form.terms.false")}</span>
+                            <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true") : t("User.form.terms.false")}</span>
                         </Form.Item>
                         <Form.Item name={"roles"}
                                    label={t("User.form.roles.label")}
@@ -204,7 +210,8 @@ export function User() {
                                    key={"membership"}
                                    tooltip={t("User.form.membership.tooltip")}
                         >
-                            {workUser.memberships.length > 0 ? <FormMemberships membershipList={workUser.memberships} key={"membership-form"}/> : <span>{t("User.form.membership.none")}</span>}
+                            {workUser.memberships.length > 0 ? <FormMemberships membershipList={workUser.memberships} key={"membership-form"}/> :
+                                    <span>{t("User.form.membership.none")}</span>}
                         </Form.Item>
                         <Form.Item name={"payments"}
                                    label={t("User.form.payments.label")}

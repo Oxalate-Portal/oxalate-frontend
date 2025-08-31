@@ -1,3 +1,4 @@
+export type {AdminUserRequest} from './AdminUserRequest';
 export type {BlockedDateRequest} from './BlockedDateRequest';
 export type {CertificateRequest} from './CertificateRequest';
 export type {CommentFilterRequest} from './CommentFilterRequest';
@@ -16,3 +17,4 @@ export type {PaymentRequest} from './PaymentRequest';
 export type {PortalConfigurationRequest} from './PortalConfigurationRequest';
 export type {ReportRequest} from './ReportRequest';
 export type {UserRequest} from './UserRequest';
+export type {EventSubscribeRequest} from './EventSubscribeRequest';

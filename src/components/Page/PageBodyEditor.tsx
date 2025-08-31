@@ -30,7 +30,7 @@ import {
 import "ckeditor5/ckeditor5.css";
 import "./ckeditor_dark_theme.css";
 import {CKUploadAdapter} from "../../services";
-import {SessionVO} from "../../models";
+import {UserSessionToken} from "../../models";
 import {JSX} from "react";
 
 interface PageBodyEditorProps {
@@ -47,7 +47,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
     }
 
     function initiateUploadAdapter(editor: any) {
-        const session: SessionVO = JSON.parse(localStorage.getItem("user") || "{}");
+        const session: UserSessionToken = JSON.parse(localStorage.getItem("user") || "{}");
 
         if (session == undefined || session.accessToken == undefined) {
             return {};

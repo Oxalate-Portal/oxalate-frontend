@@ -1,5 +1,6 @@
 import {RoleEnum} from "./RoleEnum";
 import {UserStatusEnum} from "./UserStatusEnum";
+import {UserTypeEnum} from "./UserTypeEnum";
 
 export interface AbstractUser {
     id: number;
@@ -9,8 +10,9 @@ export interface AbstractUser {
     phoneNumber: string;
     registered: Date;
     language: string;
-    roles: RoleEnum[];
     status: UserStatusEnum;
     privacy: boolean;
     nextOfKin: string;
+    approvedTerms: boolean;
+    primaryUserType: UserTypeEnum;
 }

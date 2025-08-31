@@ -14,7 +14,7 @@ export type {OptionItemVO} from "./OptionItemVO";
 export type {Pageable} from "./Pageable";
 export type {PaymentVO} from "./PaymentVO";
 export type {RegistrationVO} from "./RegistrationVO";
-export type {SessionVO} from "./SessionVO";
+export type {UserSessionToken} from "./UserSessionToken";
 export type {Sort} from "./Sort";
 export type {SortableTableParams} from "./SortableTableParams";
 export type {UpdateStatusVO} from "./UpdateStatusVO";
@@ -39,6 +39,7 @@ export {ResultEnum} from "./ResultEnum";
 export {RoleEnum} from "./RoleEnum";
 export {UpdateStatusEnum} from "./UpdateStatusEnum";
 export {UserStatusEnum} from "./UserStatusEnum";
+export {UserTypeEnum} from "./UserTypeEnum";
 
 // All from sub-models
 export * from "./props";

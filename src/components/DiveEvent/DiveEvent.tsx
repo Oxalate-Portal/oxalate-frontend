@@ -3,10 +3,20 @@ import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {diveEventAPI, membershipAPI, paymentAPI} from "../../services";
-import {DiveEventResponse, MembershipResponse, PaymentResponse, PaymentStatusResponse, PaymentTypeEnum, PortalConfigGroupEnum, SessionVO} from "../../models";
+import {
+    DiveEventResponse,
+    EventSubscribeRequest,
+    MembershipResponse,
+    PaymentResponse,
+    PaymentStatusResponse,
+    PaymentTypeEnum,
+    PortalConfigGroupEnum,
+    UserSessionToken,
+    UserTypeEnum
+} from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import dayjs from "dayjs";
-import {Button, Divider, Space, Spin} from "antd";
+import {Button, Divider, Modal, Select, Space, Spin} from "antd";
 import {CommentCanvas} from "../Commenting";
 
 export function DiveEvent() {
@@ -20,6 +30,9 @@ export function DiveEvent() {
     const [subscribing, setSubscribing] = useState(false);
     const [canUnsubscribe, setCanUnsubscribe] = useState(false);
     const [eventCommenting, setEventCommenting] = useState(false);
+    // Add modal state + selected user type
+    const [selectUserTypeOpen, setSelectUserTypeOpen] = useState(false);
+    const [selectedUserType, setSelectedUserType] = useState<UserTypeEnum>(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
 
     useEffect(() => {
         if (paramId?.length === 0) {
@@ -51,7 +64,7 @@ export function DiveEvent() {
     }, [paramId]);
 
     useEffect(() => {
-        async function isUserAllowedToParticipate(userSession: SessionVO | null, diveEvent: DiveEventResponse): Promise<boolean> {
+        async function isUserAllowedToParticipate(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): Promise<boolean> {
             if (!userSession) {
                 return false;
             }
@@ -115,7 +128,7 @@ export function DiveEvent() {
             return true;
         }
 
-        function isUserParticipating(userSession: SessionVO | null, diveEvent: DiveEventResponse): boolean {
+        function isUserParticipating(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): boolean {
             if (!userSession) {
                 return false;
             }
@@ -150,8 +163,12 @@ export function DiveEvent() {
     }, [userSession, diveEvent]);
 
 
-    function subscribeEvent(diveEventId: number) {
-        diveEventAPI.subscribeUserToEvent(diveEventId)
+    function subscribeEvent(diveEventId: number, userType: UserTypeEnum) {
+        const eventSubscribeRequest: EventSubscribeRequest = {
+            diveEventId: diveEventId,
+            userType: userType
+        };
+        diveEventAPI.subscribeUserToEvent(eventSubscribeRequest)
                 .then(response => {
                     setDiveEvent(response);
                     setSubscribing(true);
@@ -180,15 +197,20 @@ export function DiveEvent() {
                         {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
                         {!subscribing && canSubscribe &&
                                 <Button
-                                        type={"primary"}
-                                        onClick={() => subscribeEvent(diveEventId)}
-                                        key={diveEventId + "-sub-button"}>{t("Event.subscribe.button")}</Button>
+                                        type="primary"
+                                        onClick={() => {
+                                            setSelectedUserType(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
+                                            setSelectUserTypeOpen(true);
+                                        }}
+                                        key={diveEventId + "-sub-button"}>
+                                    {t("DiveEvent.subscribe.button")}
+                                </Button>
                         }
                         {subscribing && canUnsubscribe &&
                                 <Button
                                         type={"primary"}
                                         onClick={() => unSubscribeEvent(diveEventId)}
-                                        key={diveEventId + "unsub-button"}>{t("Event.unsubscribe.button")}</Button>
+                                        key={diveEventId + "unsub-button"}>{t("DiveEvent.unsubscribe.button")}</Button>
                         }
 
                         {diveEvent && (diveEventId > 0) && eventCommenting &&
@@ -200,6 +222,35 @@ export function DiveEvent() {
                                 </>}
                     </Space>
                 </Spin>
+
+                {/* Modal for selecting user type */}
+                <Modal
+                        open={selectUserTypeOpen}
+                        title={t("DiveEvent.subscribe.label")}
+                        onCancel={() => setSelectUserTypeOpen(false)}
+                        onOk={() => {
+                            subscribeEvent(diveEventId, selectedUserType);
+                            setSelectUserTypeOpen(false);
+                        }}
+                        okText={t("DiveEvent.subscribe.button")}
+                        cancelText={t("common.button.cancel")}
+                        destroyOnHidden
+                >
+                    <Space direction="vertical" style={{width: "100%"}}>
+                        <span>{t("DiveEvent.subscribe.mainText")}</span>
+                        <Select
+                                value={selectedUserType}
+                                onChange={(val: UserTypeEnum) => setSelectedUserType(val)}
+                                style={{width: "100%"}}
+                        >
+                            {Object.values(UserTypeEnum).map(userTypeEnum => (
+                                    <Select.Option key={userTypeEnum} value={userTypeEnum}>
+                                        {t("UserTypeEnum." + userTypeEnum.toLowerCase())}
+                                    </Select.Option>
+                            ))}
+                        </Select>
+                    </Space>
+                </Modal>
             </div>
     );
 }

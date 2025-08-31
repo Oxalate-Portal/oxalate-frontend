@@ -12,21 +12,21 @@
     "disabled" : "Membership is disabled",
     "errorGetUsers" : "Failed to get users",
     "form" : {
-      "name" : {
-        "label" : "User Name",
-        "placeholder" : "Select users"
+      "button" : "Add Membership",
+      "membershipDuration" : {
+        "label" : "Membership Duration (months)"
       },
       "membershipType" : {
         "label" : "Membership Type"
       },
-      "membershipDuration" : {
-        "label" : "Membership Duration (months)"
-      },
-      "button" : "Add Membership"
+      "name" : {
+        "label" : "User Name",
+        "placeholder" : "Select users"
+      }
     },
     "onFinish" : {
-      "ok" : "Membership added successfully",
-      "fail" : "Failed to add membership: "
+      "fail" : "Failed to add membership: ",
+      "ok" : "Membership added successfully"
     }
   },
   "AddPayments" : {
@@ -61,37 +61,29 @@
   },
   "AdminMain" : {
     "header" : "Administration",
-    "userHeader" : "Users",
     "memberText" : "User data management, including assigning different roles and sending password update messages.",
     "paymentHeader" : "Payments",
     "paymentText" : "View of current payments, possibility to invalidate annual payments and add payment information to users",
     "statsHeader" : "Statistics",
     "statsText1" : "Annual event, user registration, member registration (if used), event organizer, and payment statistics",
     "statsText2" : "Here you can also find semi-annual event reports",
-    "text" : "Administration pages. Proceed with caution."
+    "text" : "Administration pages. Proceed with caution.",
+    "userHeader" : "Users"
   },
   "AdminMembers" : {
-    "title" : "Membership management",
     "table" : {
-      "userId" : "User ID",
-      "username" : "Username",
-      "status" : "Status",
-      "type" : "Type",
+      "actions" : {
+        "edit" : "Edit",
+        "title" : "action"
+      },
       "createdAt" : "Created",
       "expiresAt" : "Expiration time",
-      "actions" : {
-        "title" : "action",
-        "edit" : "Edit"
-      }
-    }
-  },
-  "PaymentListTable" : {
-    "table" : {
-      "expirationDate" : "Expiration time",
-      "name" : "Name",
-      "paymentCount" : "Count",
-      "paymentDate" : "Payment date"
-    }
+      "status" : "Status",
+      "type" : "Type",
+      "userId" : "User ID",
+      "username" : "Username"
+    },
+    "title" : "Membership management"
   },
   "AdminOrgUser" : {
     "form" : {
@@ -103,8 +95,8 @@
       "roles" : {
         "administrator" : "Administrator",
         "label" : "Roles",
-        "user" : "User",
-        "organizer" : "Event organizer"
+        "organizer" : "Event organizer",
+        "user" : "User"
       },
       "status" : {
         "label" : "Status",
@@ -284,40 +276,40 @@
   },
   "ChronoUnitEnum" : {
     "days" : "Day",
-    "weeks" : "Week",
     "months" : "Month",
+    "weeks" : "Week",
     "years" : "Year"
   },
   "CommentCard" : {
-    "messages" : {
-      "report-fail" : "Failed to report comment.",
-      "report-success" : "Comment reported successfully.",
-      "report-cancel-fail" : "Failed to cancel the report.",
-      "report-cancel-success" : "Report canceled successfully."
-    },
-    "singular-reply" : "reply",
-    "multiple-replies" : "replies",
     "button" : {
-      "report-comment" : "Report inappropriate comment",
-      "cancel-report" : "Cancel report"
+      "cancel-report" : "Cancel report",
+      "report-comment" : "Report inappropriate comment"
+    },
+    "messages" : {
+      "report-cancel-fail" : "Failed to cancel the report.",
+      "report-cancel-success" : "Report canceled successfully.",
+      "report-fail" : "Failed to report comment.",
+      "report-success" : "Comment reported successfully."
     },
     "modal" : {
       "description" : "Please Describe the issue:",
       "placeholder" : "Provide details here..."
-    }
+    },
+    "multiple-replies" : "replies",
+    "singular-reply" : "reply"
   },
-  "CommentClassEnum": {
-    "event_comments": "Event comments",
-    "page_comments": "Page comments",
-    "forum_comments": "Forum comments"
+  "CommentClassEnum" : {
+    "event_comments" : "Event comments",
+    "forum_comments" : "Forum comments",
+    "page_comments" : "Page comments"
   },
   "CommentEditor" : {
     "form" : {
-      "title" : {
-        "placeholder" : "Title (optional)"
-      },
       "textarea" : {
         "placeholder" : "Write a comment..."
+      },
+      "title" : {
+        "placeholder" : "Title (optional)"
       }
     }
   },
@@ -364,24 +356,24 @@
     "title" : "Comments requiring moderation"
   },
   "CommentModerationActions" : {
+    "button" : {
+      "dismiss-reports" : "Dismiss reports",
+      "reject-comment" : "Reject comment"
+    },
     "messages" : {
       "dismiss-comment-fail" : "Failed to dismiss reports.",
       "dismiss-comment-success" : "Reports dismissed.",
       "reject-comment-confirm" : "Rejecting this comment will also reject all its children. Are you sure you want to proceed?",
       "reject-comment-fail" : "Failed to reject comment.",
       "reject-comment-success" : "Comment rejected."
-    },
-    "button" : {
-      "dismiss-reports" : "Dismiss reports",
-      "reject-comment" : "Reject comment"
     }
   },
   "CommentStatusEnum" : {
+    "cancelled" : "Cancelled",
     "drafted" : "Drafted",
     "held_for_moderation" : "Held for Moderation",
     "published" : "Published",
-    "rejected" : "Rejected",
-    "cancelled" : "Cancelled"
+    "rejected" : "Rejected"
   },
   "CommentTypeEnum" : {
     "topic" : "Topic",
@@ -413,9 +405,9 @@
     "downloadPrompt" : "Download here: ",
     "gdprWarning" : "Be aware that some of the downloads may contain personal information which is governed by the GDPR. Please handle the data with care and do not share it with unauthorized parties. Remove the files when they are no longer needed.",
     "header" : "Download data",
-    "userLabel" : "Users",
     "paymentLabel" : "Payments",
-    "rowCount" : "Number of rows:  {{count}}"
+    "rowCount" : "Number of rows:  {{count}}",
+    "userLabel" : "Users"
   },
   "EditCertificate" : {
     "form" : {
@@ -707,9 +699,11 @@
   "EmailSubscriptionCard" : {
     "header" : "Email Receive email notification when:"
   },
-  "Event" : {
+  "DiveEvent" : {
     "subscribe" : {
-      "button" : "Participate in event"
+      "button" : "Participate in event",
+      "label" : "Participate in event",
+      "mainText" : "Please complete the following to participate in the dive event"
     },
     "unsubscribe" : {
       "button" : "Remove yourself from event"
@@ -730,7 +724,8 @@
         "oneTime" : "One-time payment",
         "period" : "Periodical payment"
       },
-      "payments" : "Payment status"
+      "payments" : "Payment status",
+      "userType" : "Dive type"
     },
     "participants" : {
       "title" : "Participants"
@@ -771,29 +766,29 @@
       "title" : "Upcoming events"
     }
   },
-  "FormatPayments" : {
-    "noValid" : "No valid payments available.",
-    "unknownPayment" : "Unknown Payment Type",
-    "unknownPaymentPlease" : "Please contact support for more information.",
-    "unknownPaymentContact" : "Contact Support",
-    "table" : {
-      "id" : "ID",
-      "paymentType" : "Payment Type",
-      "paymentCount" : "Count",
-      "startDate" : "Created",
-      "expirationDate" : "Expiration time",
-      "singlePayment" : "One-Time Payment",
-      "periodPayment" : "Period Payment"
-    }
-  },
   "FormMemberships" : {
     "table" : {
-      "id" : "ID",
-      "type" : "Type",
-      "status" : "Status",
       "created-at" : "Created",
-      "expires-at" : "Expiration time"
+      "expires-at" : "Expiration time",
+      "id" : "ID",
+      "status" : "Status",
+      "type" : "Type"
     }
+  },
+  "FormatPayments" : {
+    "noValid" : "No valid payments available.",
+    "table" : {
+      "expirationDate" : "Expiration time",
+      "id" : "ID",
+      "paymentCount" : "Count",
+      "paymentType" : "Payment Type",
+      "periodPayment" : "Period Payment",
+      "singlePayment" : "One-Time Payment",
+      "startDate" : "Created"
+    },
+    "unknownPayment" : "Unknown Payment Type",
+    "unknownPaymentContact" : "Contact Support",
+    "unknownPaymentPlease" : "Please contact support for more information."
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
@@ -857,14 +852,14 @@
   },
   "MembershipStatusEnum" : {
     "active" : "Active",
-    "expired" : "Expired",
-    "cancelled" : "Cancelled"
+    "cancelled" : "Cancelled",
+    "expired" : "Expired"
   },
   "MembershipTypeEnum" : {
     "disabled" : "Disabled",
-    "perpetual" : "Perpetual",
+    "durational" : "Durational",
     "periodical" : "Periodical",
-    "durational" : "Durational"
+    "perpetual" : "Perpetual"
   },
   "NavigationBar" : {
     "action" : {
@@ -900,8 +895,8 @@
       "yearlyStats" : "Yearly statistics"
     },
     "forum" : {
-      "title" : "Forum",
-      "link" : "Main page"
+      "link" : "Main page",
+      "title" : "Forum"
     },
     "pageManagement" : {
       "pages" : "Pages",
@@ -1054,15 +1049,23 @@
   "PastEvents" : {
     "title" : "Past events"
   },
-  "PaymentTypeEnum" : {
-    "ONE_TIME" : "One-time",
-    "PERIOD" : "Periodical"
-  },
   "PaymentExpirationType" : {
     "disabled" : "Disabled",
     "durational" : "Durational",
     "periodical" : "Periodical",
     "perpetual" : "Perpetual"
+  },
+  "PaymentListTable" : {
+    "table" : {
+      "expirationDate" : "Expiration time",
+      "name" : "Name",
+      "paymentCount" : "Count",
+      "paymentDate" : "Payment date"
+    }
+  },
+  "PaymentTypeEnum" : {
+    "ONE_TIME" : "One-time",
+    "PERIOD" : "Periodical"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1092,8 +1095,8 @@
       "title" : "Commenting"
     },
     "configuration" : "Configuration",
-    "configuration-reloaded" : "Configuration reloaded",
     "configuration-reload-failed" : "Failed to reload configuration",
+    "configuration-reloaded" : "Configuration reloaded",
     "current-setting" : "Current setting",
     "default-value" : "Default value",
     "description" : "Here you can configure the portal settings. Please note that the settings are stored immediately, but require a server reload to take effect.",
@@ -1153,11 +1156,11 @@
         "label" : "Minimum participants",
         "tooltip" : "Minimum number of simultaneous participants, below this the event is cancelled"
       },
+      "title" : "Frontend settings",
       "types-of-event" : {
         "label" : "Types of events",
         "tooltip" : "Which types of dive events are allowed"
-      },
-      "title" : "Frontend settings"
+      }
     },
     "general" : {
       "default-language" : {
@@ -1176,11 +1179,11 @@
         "label" : "Timezone",
         "tooltip" : "Timezone used to display dates and times"
       },
+      "title" : "General settings",
       "top-divers-list-size" : {
         "label" : "Top divers list size",
         "tooltip" : "What is the count of top divers (counted by dives)"
-      },
-      "title" : "General settings"
+      }
     },
     "membership" : {
       "event-require-membership" : {
@@ -1239,6 +1242,10 @@
         "label" : "Payment period start point",
         "tooltip" : "When did the payment period start. This will determine how the periods are calculated. Note that changing this value may expire all active periodical payments. This has no effect on the durational payments."
       },
+      "payment-period-start-point" : {
+        "label" : "Payment period start point",
+        "tooltip" : "When does the payment period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week, day -> day of the year."
+      },
       "periodical-payment-method-type" : {
         "label" : "Periodical payment method type",
         "tooltip" : "Type of payment method for periodical payments. Periodical means that the payment valid for the given ongoing period, e.g., the current year, month or week at the given start point. Durational means that it is valid for a given time period forward."
@@ -1246,10 +1253,6 @@
       "periodical-payment-method-unit" : {
         "label" : "Periodical payment method unit",
         "tooltip" : "Periodical payment method unit. Note that this is only used if the payment method type is periodical."
-      },
-      "payment-period-start-point" : {
-        "label" : "Payment period start point",
-        "tooltip" : "When does the payment period start. This is in relation to the period type. Specifically the relation is: Year -> month, Month -> day of month, Week -> day of week, day -> day of the year."
       },
       "single-payment-enabled" : {
         "label" : "Enable single payment",
@@ -1303,11 +1306,9 @@
     }
   },
   "ReportCard" : {
-    "messages" : {
-      "accept-fail" : "Failed to accept report.",
-      "accept-success" : "Report accepted",
-      "dismiss-fail" : "Failed to dismiss report.",
-      "dismiss-success" : "Report dismissed."
+    "button" : {
+      "accept" : "Accept report",
+      "dismiss" : "Dismiss report"
     },
     "field" : {
       "created-at" : "Created",
@@ -1315,9 +1316,11 @@
       "reporter" : "Reporter",
       "status" : "Status"
     },
-    "button" : {
-      "accept" : "Accept report",
-      "dismiss" : "Dismiss report"
+    "messages" : {
+      "accept-fail" : "Failed to accept report.",
+      "accept-success" : "Report accepted",
+      "dismiss-fail" : "Failed to dismiss report.",
+      "dismiss-success" : "Report dismissed."
     }
   },
   "ReportEvent" : {
@@ -1359,8 +1362,8 @@
       "diverId" : "Diver ID",
       "organization" : "Certification organization",
       "photocopy" : "Certification photocopy",
-      "remove-photo-success" : "Certificate photo removed successfully",
       "remove-photo-fail" : "Failed to remove certificate photo",
+      "remove-photo-success" : "Certificate photo removed successfully",
       "title" : "Certification: ",
       "upload-photo" : "Upload certificate",
       "upload-photo-size-too-big" : "File size is too big, max 1MB allowed",
@@ -1521,6 +1524,13 @@
         },
         "tooltip" : "Phone number should be in the format +358123456789"
       },
+      "primaryUserType" : {
+        "label" : "Preferred type of activity",
+        "rules" : {
+          "required" : "You need to select your preference of activity"
+        },
+        "tooltip" : "Please select which type of activity you prefer. You can separately select for each event the activity, and this selection is the default"
+      },
       "privacy" : {
         "label" : "Hide contact details",
         "tooltip" : "Email and phone number won't be visible to other members. Only the user can hide their information. The event organizer's name is always visible."
@@ -1538,6 +1548,12 @@
         "tooltip" : "A functional email address is used as the username"
       }
     }
+  },
+  "UserTypeEnum" : {
+    "free_diver" : "Free diving",
+    "non_diver" : "No diver",
+    "scuba_diver" : "Scuba diving",
+    "snorkler" : "Snorkling"
   },
   "common" : {
     "button" : {

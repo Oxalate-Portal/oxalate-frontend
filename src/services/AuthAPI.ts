@@ -6,7 +6,7 @@ import {
     PasswordResetRequest,
     RegistrationResponse,
     RegistrationVO,
-    SessionVO,
+    UserSessionToken,
     UpdateStatusVO
 } from "../models";
 
@@ -22,12 +22,12 @@ class AuthAPI {
         });
     }
 
-    async login(user: LoginRequest): Promise<SessionVO> {
+    async login(user: LoginRequest): Promise<UserSessionToken> {
         const response = await this.axiosInstance
-            .post<SessionVO>("/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
+            .post<UserSessionToken>("/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
 
         if (response.status === 200 && response.data.id > 0) {
-            const session: SessionVO = response.data;
+            const session: UserSessionToken = response.data;
             localStorage.setItem(this.userKey, JSON.stringify(session));
         } else {
             if (response.status !== 200) {

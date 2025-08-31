@@ -1,7 +1,7 @@
 // Copied from https://bobbyhadz.com/blog/javascript-format-date-yyyy-mm-dd-hh-mm-ss
 
 import dayjs, {Dayjs} from "dayjs";
-import {PageGroupResponse, RoleEnum, RolePermissionResponse, SessionVO} from "../models";
+import {PageGroupResponse, RoleEnum, RolePermissionResponse, UserSessionToken} from "../models";
 
 function padTo2Digits(num: number) {
     return num.toString().padStart(2, '0');
@@ -89,7 +89,7 @@ function getPageTitleByLanguage(language: string, page: any) {
     return (returnValue);
 }
 
-function getHighestRole(sessionVO: SessionVO): RoleEnum {
+function getHighestRole(sessionVO: UserSessionToken): RoleEnum {
     if (sessionVO.roles.indexOf(RoleEnum.ROLE_ADMIN) !== -1) {
         return RoleEnum.ROLE_ADMIN;
     } else if (sessionVO.roles.indexOf(RoleEnum.ROLE_ORGANIZER) !== -1) {
@@ -101,7 +101,7 @@ function getHighestRole(sessionVO: SessionVO): RoleEnum {
     }
 }
 
-function isAllowedToEditPage(sessionVO: SessionVO, pageRoles: RolePermissionResponse[]) {
+function isAllowedToEditPage(sessionVO: UserSessionToken, pageRoles: RolePermissionResponse[]) {
     for (let i = 0; i < pageRoles.length; i++) {
         if (sessionVO.roles.indexOf(pageRoles[i].role) !== -1 && pageRoles[i].writePermission) {
             return true;
