@@ -1,4 +1,4 @@
-import {UpdateStatusEnum} from "../UpdateStatusEnum";
+import {UpdateStatusEnum} from "../../UpdateStatusEnum";
 
 export interface ReportResponse {
   status: UpdateStatusEnum;
