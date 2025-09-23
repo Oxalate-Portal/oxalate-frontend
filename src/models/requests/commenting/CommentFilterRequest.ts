@@ -1,6 +1,6 @@
-import {CommentStatusEnum} from "../CommentStatusEnum";
-import {CommentTypeEnum} from "../CommentTypeEnum";
-import {CommentClassEnum} from "../CommentClassEnum";
+import {CommentStatusEnum} from "../../CommentStatusEnum";
+import {CommentTypeEnum} from "../../CommentTypeEnum";
+import {CommentClassEnum} from "../../CommentClassEnum";
 
 export interface CommentFilterRequest {
     userId?: number;

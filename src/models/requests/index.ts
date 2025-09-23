@@ -1,8 +1,6 @@
 export type {AdminUserRequest} from './AdminUserRequest';
 export type {BlockedDateRequest} from './BlockedDateRequest';
 export type {CertificateRequest} from './CertificateRequest';
-export type {CommentFilterRequest} from './CommentFilterRequest';
-export type {CommentRequest} from './CommentRequest';
 export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
 export type {EmailNotificationSubscriptionRequest} from './EmailNotificationSubscriptionRequest';
@@ -15,6 +13,7 @@ export type {PageRequest} from './PageRequest';
 export type {PasswordResetRequest} from './PasswordResetRequest';
 export type {PaymentRequest} from './PaymentRequest';
 export type {PortalConfigurationRequest} from './PortalConfigurationRequest';
-export type {ReportRequest} from './ReportRequest';
 export type {UserRequest} from './UserRequest';
 export type {EventSubscribeRequest} from './EventSubscribeRequest';
+
+export * from './commenting';
