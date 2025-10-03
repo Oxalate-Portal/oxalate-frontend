@@ -3,6 +3,7 @@ import {Button, Form, Input, message, Modal, Popconfirm, Space, Table, Tag} from
 import {tagGroupAPI} from "../../services";
 import {TagGroupRequest, TagGroupResponse} from "../../models";
 import {useTranslation} from "react-i18next";
+import {useSession} from "../../session";
 
 type NameKV = { lang: string; value: string };
 
@@ -15,6 +16,16 @@ export function AdminTagGroups() {
     const [deletingId, setDeletingId] = useState<number | null>(null);
     const [form] = Form.useForm();
     const {t} = useTranslation();
+    const {getFrontendConfigurationValue} = useSession();
+    const [configuredLangs, setConfiguredLangs] = useState<string[]>([]);
+
+    useEffect(() => {
+        const langs = (getFrontendConfigurationValue("enabled-language") || "")
+                .split(",")
+                .map(s => s.trim())
+                .filter(Boolean);
+        setConfiguredLangs(langs);
+    }, [getFrontendConfigurationValue]);
 
     const loadGroups = () => {
         setLoading(true);
@@ -41,19 +52,26 @@ export function AdminTagGroups() {
     const namesToList = (names?: Record<string, string>): NameKV[] =>
             Object.entries(names || {}).map(([lang, value]) => ({lang, value}));
 
+    const buildNamesFromConfig = (existing?: Record<string, string>): NameKV[] => {
+        const langs = configuredLangs.length ? configuredLangs : ["en"];
+        return langs.map(lang => ({lang, value: existing?.[lang] ?? ""}));
+    };
+
     const formInitialValues = useMemo(() => {
         if (editing) {
-            const namesList: NameKV[] = namesToList(editing.names);
-            return {
-                code: editing.code,
-                names: namesList.length ? namesList : [{lang: "en", value: ""}]
-            };
+            return {code: editing.code, names: buildNamesFromConfig(editing.names)};
         }
-        return {
-            code: "",
-            names: [{lang: "en", value: ""}] as NameKV[]
-        };
-    }, [editing]);
+        return {code: "", names: buildNamesFromConfig()};
+    }, [editing, configuredLangs]);
+
+    // Ensure names array matches configured languages and fill lang codes whenever modal opens or langs change
+    useEffect(() => {
+        if (!modalOpen) return;
+        form.setFieldsValue({
+            code: editing?.code ?? form.getFieldValue("code") ?? "",
+            names: buildNamesFromConfig(editing?.names)
+        });
+    }, [modalOpen, configuredLangs, editing, form]);
 
     const listToRecord = (list: NameKV[]): Record<string, string> => {
         const out: Record<string, string> = {};
@@ -155,7 +173,7 @@ export function AdminTagGroups() {
                         onOk={handleSubmit}
                         onCancel={() => setModalOpen(false)}
                         confirmLoading={submitting}
-                        destroyOnHidden
+                        destroyOnClose
                 >
                     <Form form={form} layout="vertical" preserve={false} initialValues={formInitialValues}>
                         <Form.Item
@@ -170,33 +188,25 @@ export function AdminTagGroups() {
                         </Form.Item>
 
                         <Form.List name="names">
-                            {(fields, {add, remove}) => (
+                            {() => (
                                     <>
                                         <Space style={{marginBottom: 8}}>
                                             {t("AdminTagGroups.form.names.label")}
-                                            <Button size="small" onClick={() => add({lang: "", value: ""})}>
-                                                {t("AdminTagGroups.form.names.add-language")}
-                                            </Button>
                                         </Space>
-                                        {fields.map(field => (
-                                                <Space key={field.key} align="baseline" style={{display: "flex", marginBottom: 8}}>
-                                                    <Form.Item
-                                                            name={[field.name, "lang"]}
-                                                            fieldKey={[field.fieldKey!, "lang"]}
-                                                            rules={[{required: true, message: t("AdminTagGroups.form.names.lang.rule.required")}]}
-                                                    >
-                                                        <Input placeholder={t("AdminTagGroups.form.names.lang.placeholder")}/>
+                                        {configuredLangs.map((lang, idx) => (
+                                                <Space key={lang} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                                    {/* Hidden bound field ensures the lang code is submitted */}
+                                                    <Form.Item name={["names", idx, "lang"]} initialValue={lang} hidden>
+                                                        <Input/>
                                                     </Form.Item>
+                                                    {/* Visible read-only input shows the code */}
+                                                    <Input readOnly value={lang}/>
                                                     <Form.Item
-                                                            name={[field.name, "value"]}
-                                                            fieldKey={[field.fieldKey!, "value"]}
+                                                            name={["names", idx, "value"]}
                                                             rules={[{required: true, message: t("AdminTagGroups.form.names.value.rule.required")}]}
                                                     >
                                                         <Input placeholder={t("AdminTagGroups.form.names.value.placeholder")}/>
                                                     </Form.Item>
-                                                    <Button danger onClick={() => remove(field.name)}>
-                                                        {t("common.button.delete")}
-                                                    </Button>
                                                 </Space>
                                         ))}
                                     </>

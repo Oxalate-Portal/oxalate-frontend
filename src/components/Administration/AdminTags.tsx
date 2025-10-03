@@ -3,6 +3,7 @@ import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, T
 import {tagGroupAPI, tagsAPI} from "../../services";
 import {TagGroupRequest, TagGroupResponse, TagRequest, TagResponse} from "../../models";
 import {useTranslation} from "react-i18next";
+import {useSession} from "../../session";
 
 type NameKV = { lang: string; value: string };
 
@@ -20,6 +21,16 @@ export function AdminTags() {
     const [form] = Form.useForm();
     const [groupForm] = Form.useForm();
     const {t} = useTranslation();
+    const {getFrontendConfigurationValue} = useSession();
+    const [configuredLangs, setConfiguredLangs] = useState<string[]>([]);
+
+    useEffect(() => {
+        const langs = (getFrontendConfigurationValue("enabled-language") || "")
+                .split(",")
+                .map(s => s.trim())
+                .filter(Boolean);
+        setConfiguredLangs(langs);
+    }, [getFrontendConfigurationValue]);
 
     const loadTags = () => {
         setLoading(true);
@@ -61,25 +72,50 @@ export function AdminTags() {
         return out;
     };
 
-    // Compute initial values for the main Tag form based on editing
+    const buildNamesFromConfig = (existing?: Record<string, string>): NameKV[] => {
+        const langs = configuredLangs.length ? configuredLangs : ["en"];
+        return langs.map(lang => ({lang, value: existing?.[lang] ?? ""}));
+    };
+
     const formInitialValues = useMemo(() => {
         if (editing) {
-            const namesList: NameKV[] = Object.entries(editing.names || {}).map(([lang, value]) => ({lang, value}));
             const resolvedGroupId =
                     (editing as any)?.tagGroupId ??
                     groups.find(g => g.code === (editing as any)?.tagGroupCode)?.id;
-            return {
-                code: editing.code,
-                names: namesList.length ? namesList : [{lang: "en", value: ""}],
-                tagGroupId: resolvedGroupId
-            };
+            return {code: editing.code, names: buildNamesFromConfig(editing.names), tagGroupId: resolvedGroupId};
         }
-        return {
-            code: "",
-            names: [{lang: "en", value: ""}],
-            tagGroupId: undefined
-        };
-    }, [editing, groups]);
+        return {code: "", names: buildNamesFromConfig(), tagGroupId: undefined};
+    }, [editing, groups, configuredLangs]);
+
+    const groupFormInitialValues = useMemo(() => ({
+        code: "",
+        names: buildNamesFromConfig()
+    }), [configuredLangs]);
+
+    // Ensure names array matches configured languages and fill lang codes whenever tag modal opens or langs change
+    useEffect(() => {
+        if (!modalOpen) return;
+        const resolvedGroupId =
+                editing
+                        ? ((editing as any)?.tagGroupId ??
+                                groups.find(g => g.code === (editing as any)?.tagGroupCode)?.id)
+                        : undefined;
+
+        form.setFieldsValue({
+            code: editing?.code ?? form.getFieldValue("code") ?? "",
+            tagGroupId: resolvedGroupId,
+            names: buildNamesFromConfig(editing?.names)
+        });
+    }, [modalOpen, configuredLangs, editing, groups, form]);
+
+    // Ensure names array matches configured languages for inline New Tag Group modal
+    useEffect(() => {
+        if (!groupModalOpen) return;
+        groupForm.setFieldsValue({
+            code: groupForm.getFieldValue("code") ?? "",
+            names: buildNamesFromConfig()
+        });
+    }, [groupModalOpen, configuredLangs, groupForm]);
 
     const handleSubmit = (submitData: any) => {
         form.validateFields()
@@ -179,7 +215,7 @@ export function AdminTags() {
                         onOk={handleSubmit}
                         onCancel={() => setModalOpen(false)}
                         confirmLoading={submitting}
-                        destroyOnHidden
+                        destroyOnClose
                 >
                     <Form form={form} layout="vertical" preserve={false} initialValues={formInitialValues}>
                         <Form.Item
@@ -214,31 +250,25 @@ export function AdminTags() {
                         </Form.Item>
 
                         <Form.List name="names">
-                            {(fields, {add, remove}) => (
+                            {() => (
                                     <>
                                         <Space style={{marginBottom: 8}}>
                                             {t("AdminTags.form.names.label")}
-                                            <Button size="small" onClick={() => add({lang: "", value: ""})}>
-                                                {t("AdminTags.form.names.add-language")}
-                                            </Button>
                                         </Space>
-                                        {fields.map(field => (
-                                                <Space key={field.key} align="baseline" style={{display: "flex", marginBottom: 8}}>
-                                                    <Form.Item
-                                                            name={[field.name, "lang"]}
-                                                            fieldKey={[field.fieldKey!, "lang"]}
-                                                            rules={[{required: true, message: t("AdminTags.form.names.lang.rule.required")}]}
-                                                    >
-                                                        <Input placeholder={t("AdminTags.form.names.lang.placeholder")}/>
+                                        {configuredLangs.map((lang, idx) => (
+                                                <Space key={lang} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                                    {/* Hidden bound field ensures the lang code is submitted */}
+                                                    <Form.Item name={["names", idx, "lang"]} initialValue={lang} hidden>
+                                                        <Input/>
                                                     </Form.Item>
+                                                    {/* Visible read-only input shows the code */}
+                                                    <Input readOnly value={lang}/>
                                                     <Form.Item
-                                                            name={[field.name, "value"]}
-                                                            fieldKey={[field.fieldKey!, "value"]}
+                                                            name={["names", idx, "value"]}
                                                             rules={[{required: true, message: t("AdminTags.form.names.value.rule.required")}]}
                                                     >
                                                         <Input placeholder={t("AdminTags.form.names.value.placeholder")}/>
                                                     </Form.Item>
-                                                    <Button danger onClick={() => remove(field.name)}>{t("common.button.delete")}</Button>
                                                 </Space>
                                         ))}
                                     </>
@@ -274,9 +304,9 @@ export function AdminTags() {
                         }}
                         onCancel={() => setGroupModalOpen(false)}
                         confirmLoading={groupSubmitting}
-                        destroyOnHidden
+                        destroyOnClose
                 >
-                    <Form form={groupForm} layout="vertical" preserve={false} initialValues={{code: "", names: [{lang: "en", value: ""}]}}>
+                    <Form form={groupForm} layout="vertical" preserve={false} initialValues={groupFormInitialValues}>
                         <Form.Item
                                 name="code"
                                 label={t("AdminTags.form.code.label")}
@@ -289,31 +319,25 @@ export function AdminTags() {
                         </Form.Item>
 
                         <Form.List name="names">
-                            {(fields, {add, remove}) => (
+                            {() => (
                                     <>
                                         <Space style={{marginBottom: 8}}>
                                             {t("AdminTags.form.names.label")}
-                                            <Button size="small" onClick={() => add({lang: "", value: ""})}>
-                                                {t("AdminTags.form.names.add-language")}
-                                            </Button>
                                         </Space>
-                                        {fields.map(field => (
-                                                <Space key={field.key} align="baseline" style={{display: "flex", marginBottom: 8}}>
-                                                    <Form.Item
-                                                            name={[field.name, "lang"]}
-                                                            fieldKey={[field.fieldKey!, "lang"]}
-                                                            rules={[{required: true, message: t("AdminTags.form.names.lang.rule.required")}]}
-                                                    >
-                                                        <Input placeholder={t("AdminTags.form.names.lang.placeholder")}/>
+                                        {configuredLangs.map((lang, idx) => (
+                                                <Space key={lang} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                                    {/* Hidden bound field ensures the lang code is submitted */}
+                                                    <Form.Item name={["names", idx, "lang"]} initialValue={lang} hidden>
+                                                        <Input/>
                                                     </Form.Item>
+                                                    {/* Visible read-only input shows the code */}
+                                                    <Input readOnly value={lang}/>
                                                     <Form.Item
-                                                            name={[field.name, "value"]}
-                                                            fieldKey={[field.fieldKey!, "value"]}
+                                                            name={["names", idx, "value"]}
                                                             rules={[{required: true, message: t("AdminTags.form.names.value.rule.required")}]}
                                                     >
                                                         <Input placeholder={t("AdminTags.form.names.value.placeholder")}/>
                                                     </Form.Item>
-                                                    <Button danger onClick={() => remove(field.name)}>{t("common.button.delete")}</Button>
                                                 </Space>
                                         ))}
                                     </>
