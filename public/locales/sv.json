@@ -1,1633 +1,1776 @@
-{
-  "AcceptTerms" : {
-    "button" : {
-      "acceptTerms" : "Godkänn villkoren"
-    },
-    "error" : {
-      "alert" : "Något gick fel, vänligen kontakta supporten"
-    },
-    "rejectTerms" : "Avvisa villkoren"
-  },
-  "AddMemberships" : {
-    "disabled" : "Medlemskap är inte i bruk",
-    "errorGetUsers" : "Misslyckades med att hämta användare",
-    "form" : {
-      "button" : "Lägg till medlemskap",
-      "membershipDuration" : {
-        "label" : "Medlemskapslängd (månader)"
-      },
-      "membershipType" : {
-        "label" : "Medlemstyp"
-      },
-      "name" : {
-        "label" : "Användarnamn",
-        "placeholder" : "Välj användare"
-      }
-    },
-    "onFinish" : {
-      "fail" : "Misslyckades med att lägga till medlemskap: ",
-      "ok" : "Medlemskap tillagt framgångsrikt"
-    }
-  },
-  "AddPayments" : {
-    "form" : {
-      "button" : "Spara betalningar",
-      "name" : {
-        "label" : "Användare",
-        "placeholder" : "Lägg till användare"
-      },
-      "paymentCount" : {
-        "label" : "Antal"
-      },
-      "paymentType" : {
-        "label" : "Betaltyp"
-      }
-    },
-    "onFinish" : {
-      "fail" : "Misslyckades med att uppdatera användarnas betalningsinformation",
-      "ok" : "Användarnas betalningsinformation uppdaterad"
-    },
-    "status" : {
-      "buttonOk" : "Ladda ned uppdaterad information",
-      "tryAgain" : "Försök igen"
-    },
-    "types" : {
-      "oneTime" : "Engångsbetalning",
-      "period" : "Periodisk betalning"
-    }
-  },
-  "AdminAudit" : {
-    "header" : "Revisionsloggar"
-  },
-  "AdminMain" : {
-    "header" : "Administration",
-    "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden",
-    "paymentHeader" : "Betalningar",
-    "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
-    "statsHeader" : "Statistik",
-    "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
-    "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
-    "text" : "Administrativa sidor. Var försiktig",
-    "userHeader" : "Användare"
-  },
-  "AdminMembers" : {
-    "table" : {
-      "actions" : {
-        "edit" : "Redigera",
-        "title" : "Åtgärd"
-      },
-      "createdAt" : "Skapad",
-      "expiresAt" : "Utgångstid",
-      "status" : "Status",
-      "type" : "Typ",
-      "userId" : "Användar-ID",
-      "username" : "Användarnamn"
-    },
-    "title" : "Medlemskapshantering"
-  },
-  "AdminOrgUser" : {
-    "form" : {
+[
+  {
+    "AcceptTerms" : {
       "button" : {
-        "reset" : "Återställ",
-        "sendPasswordEmail" : "Skicka lösenordsmejl",
-        "update" : "Uppdatera information"
+        "acceptTerms" : "Godkänn villkoren"
       },
-      "roles" : {
-        "administrator" : "Administratör",
-        "label" : "Roller",
-        "organizer" : "Evenemangsarrangör",
-        "user" : "Användare"
+      "error" : {
+        "alert" : "Något gick fel, vänligen kontakta supporten"
       },
-      "status" : {
-        "label" : "Status",
-        "rule1" : "Status är ett obligatoriskt fält",
-        "tooltip" : "Användarens status"
-      }
+      "rejectTerms" : "Avvisa villkoren"
     },
-    "sendPasswordEmail" : {
-      "fail" : "Misslyckades med att skicka lösenordsåterställningslänk",
-      "ok" : "Lösenordsåterställningslänk skickad till e-postadressen"
-    },
-    "updateUser" : {
-      "confirmAnonymize" : "Är du säker på att du vill begära anonymisering? Detta kommer att ta bort all personlig data som användaren har angett i systemet. Denna ändring kan inte ångras.",
-      "confirmOrganizer" : "Att lägga till rollen som evenemangsarrangör kommer att inaktivera integritetsskyddet. Vill du fortsätta?",
-      "fail" : "Misslyckades med att uppdatera användarens information",
-      "ok" : "Användarens information uppdaterad"
-    }
-  },
-  "AdminOrgUsers" : {
-    "invalidateTermAgreements" : {
-      "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
-      "fail" : "Det gick inte att ogiltigförklara användarvillkoren",
-      "ok" : "Användarvillkoren ogiltigförklarades framgångsrikt"
-    },
-    "search" : {
-      "placeholder" : "Sök användare",
-      "spinText" : "Söker användare..."
-    },
-    "table" : {
-      "action" : {
-        "button" : "Uppdatera",
-        "title" : "Uppdatera"
-      },
-      "approvedTerms" : "Vilkor",
-      "firstName" : "Förnamn",
-      "lastName" : "Efternamn",
-      "login" : "Användarnamn",
-      "paymentStatus" : "Betalningar",
-      "role" : {
-        "title" : "Roller"
-      },
-      "status" : "Status"
-    },
-    "terms" : {
-      "resetButton" : "Återställ användarvillkor",
-      "resetDivider" : "Återställ användarvillkor"
-    },
-    "title" : "Användare"
-  },
-  "AdminPayments" : {
-    "activeDivider" : "Aktiva betalningar",
-    "addPaymentsDivider" : "Lägg till betalningar",
-    "confirmInvalidate" : "Är du säker på att du vill ogiltigförklara alla årsbetalningar? Denna åtgärd kan inte ångras.",
-    "reset-one-time-button" : "Ogilförklara engångsbetalningar",
-    "reset-periodical-button" : "Ogiltigförklara periodbetalningar",
-    "yearlyResetDivider" : "Ogiltigförklara betalningar"
-  },
-  "AdminUploads" : {
-    "avatar" : {
-      "tab-title" : "Avatarfiler"
-    },
-    "certificate" : {
-      "certificate-id" : "Certifikat ID",
-      "tab-title" : "Certifikatsfiler"
-    },
-    "common-file-column-title" : {
-      "actions" : "Åtgärder",
-      "created-at" : "Skapad",
-      "creator" : "Skapare",
-      "download-link" : "Nedladdningslänk",
-      "filename" : "Filnamn",
-      "filesize" : "Filstorlek",
-      "view" : "Visa"
-    },
-    "dive-file" : {
-      "dive-group-id" : "Dykgrupps-ID",
-      "event-id" : "Event-ID",
-      "status" : "Status",
-      "tab-title" : "Dykfiler"
-    },
-    "document" : {
-      "delete" : {
-        "fail" : "Misslyckades med att ta bort dokumentet",
-        "successful" : "Dokumentet raderades framgångsrikt"
-      },
-      "status" : "Status",
-      "tab-title" : "Dokumentfiler",
-      "upload" : {
-        "button" : "Ladda upp nytt dokument",
-        "fail" : "dokumentuppladdning misslyckades",
-        "successful" : "dokumentet laddades upp framgångsrikt"
-      }
-    },
-    "overview" : {
-      "avatar-content" : "<b>Observera! Den här funktionen är ännu inte aktiverad.</b> Avatarer är bilder som representerar användarprofilen. De kan laddas upp och hanteras av användaren själv. Avatarbilden visas i användarprofilen och i användarlistan. Alla autentiserade användare kan se avatarbilden. Endast användaren som avataren tillhör kan ta bort avatarbilden.",
-      "avatar-title" : "Avatarer",
-      "certificate-content" : "Certifikat är fotokopior av dykarcertifikatkort som laddas upp av användaren och används för att bevisa att användaren har genomfört en kurs. Certifikatsfilen kan endast ses av användaren som laddade upp den, samt av organisatörer och administratörer. Endast användaren som certifikatet tillhör kan ta bort certifikatskopian.",
-      "certificate-title" : "Certifikat",
-      "dive-file-content" : "<b>Observera! Den här funktionen är ännu inte aktiverad.</b> Dykfiler är filer som laddas upp av användarna när de har bildat en dykgrupp för ett specifikt dykarrangemang. Dykfiler är främst dykplaner men kan också innehålla annan relevant dokumentation som krävs för dykningen. Dykfiler kan ses av alla autentiserade användare. Endast medlemmar i dykgruppen kan ta bort dykfilen.",
-      "dive-file-title" : "Dykfiler",
-      "document-content" : "Dokument är icke-bildfiler som organisationen vill dela med användarna. Dokumenten kan endast laddas upp av administratörer och kan ses av alla autentiserade användare. För närvarande stöds endast PDF-format. Uppladdning sker via fliken dokumentfiler, och när filen har laddats upp visas den i listan på samma flik, varifrån administratören kan kopiera länken för att bädda in den på sidor. Endast administratörer kan ta bort dokument.",
-      "document-title" : "Dokument",
-      "overview-content-1" : "Här kan du se alla uppladdade filer av olika typer, Avatar-, Certifikat-, Dyk-, Dokument- och Sidofiler. För alla dessa kan du också ladda upp nya dokumentfiler.",
-      "overview-content-2" : "Varje lista innehåller också en nedladdningslänk för filen, men var medveten om att det finns begränsningar för vem som kan se filerna. T.ex. kan certifikatsfilen endast ses av användaren som laddade upp den, samt av organisatörer och administratörer.",
-      "overview-title" : "Översikt över filtyper",
-      "page-file-content" : "Sidofiler är utvalda typer av bilder som laddas upp när du redigerar en specifik språkversion av en sida med sidredigerarens bilduppladdningsfunktion. Observera att den uppladdade bilden ärver sidans synlighet, så om sidan inte är synlig för användaren, är inte heller bilden synlig. Alla arrangörer eller administratörer som kan redigera sidan där bilden är placerad kan ta bort länkade bilder.",
-      "page-file-title" : "Sidofiler",
-      "tab-title" : "Översikt",
-      "type-content" : "Olika typer av uppladdade filer finns tillgängliga för olika ändamål. Följande är de typer av filer som kan laddas upp:",
-      "type-title" : "Olika typer av uppladdade filer"
-    },
-    "page-file" : {
-      "language" : "Språk",
-      "page-id" : "Sida ID",
-      "status" : "Status",
-      "tab-title" : "Sidfiler"
-    }
-  },
-  "AuditEvents" : {
-    "filter" : {
-      "address" : "IP-adress",
-      "message" : "Meddelande",
-      "source" : "Källa",
-      "traceId" : "Spår-ID",
-      "userName" : "Användarnamn"
-    },
-    "search" : {
-      "placeholder" : "Sök..."
-    },
-    "table" : {
-      "address" : "IP-adress",
-      "createdAt" : "Skapat vid",
-      "level" : "Nivå",
-      "message" : "Meddelande",
-      "source" : "Källa",
-      "traceId" : "Spår-ID",
-      "userName" : "Användarnamn"
-    },
-    "title" : "Revisionshändelser"
-  },
-  "BlockedDates" : {
-    "form" : {
-      "date" : {
-        "label" : "Datum",
-        "placeholder" : "Välj datum",
-        "rule" : "Datum är ett obligatoriskt fält"
-      },
-      "reason" : {
-        "label" : "Orsak",
-        "placeholder" : "Orsak värför datumet är blockerat",
-        "rule" : "Orsaken är ett obligatoriskt fält"
-      }
-    },
-    "list" : {
-      "confirm" : "Är du säker på att du vill ta bort det blockerade datumet?"
-    },
-    "load" : {
-      "fail" : "Misslyckades med att ladda blockerade datum"
-    },
-    "popup" : {
-      "add-fail" : "Misslyckades med att lägga till det blockerade datumet",
-      "add-success" : "Blockerat datum tillagt framgångsrikt",
-      "remove-fail" : "Misslyckades med att ta bort det blockerade datumet",
-      "remove-success" : "Blockerat datum borttaget framgångsrikt"
-    },
-    "title" : "Blockering av datum"
-  },
-  "Certificates" : {
-    "deleteCertificate" : {
-      "confirm" : "Är du säker på att du vill ta bort certifikatet \""
-    },
-    "panel" : {
-      "addButton" : "Lägg till nytt certifikat",
-      "text" : "Användaren har slutfört följande dykcertifieringar:",
-      "title" : "Dykcertifikat"
-    }
-  },
-  "ChronoUnitEnum" : {
-    "days" : "Dag",
-    "months" : "Månad",
-    "weeks" : "Vecka",
-    "years" : "År"
-  },
-  "CommentCard" : {
-    "button" : {
-      "cancel-report" : "Avbryt rapport",
-      "report-comment" : "Rapportera olämplig kommentar"
-    },
-    "messages" : {
-      "report-cancel-fail" : "Misslyckades med att avbryta rapporten.",
-      "report-cancel-success" : "Rapporten avbruten framgångsrikt.",
-      "report-fail" : "Misslyckades med att rapportera kommentaren.",
-      "report-success" : "Kommentaren rapporterad framgångsrikt."
-    },
-    "modal" : {
-      "description" : "Beskriv problemet:",
-      "placeholder" : "Ange detaljer här..."
-    },
-    "multiple-replies" : "svar",
-    "singular-reply" : "svar"
-  },
-  "CommentClassEnum" : {
-    "event_comments" : "Evenemangskommentarer",
-    "forum_comments" : "Forumkommentarer",
-    "page_comments" : "Sidkommentarer"
-  },
-  "CommentEditor" : {
-    "form" : {
-      "textarea" : {
-        "placeholder" : "Skriv en kommentar..."
-      },
-      "title" : {
-        "placeholder" : "Titel (valfritt)"
-      }
-    }
-  },
-  "CommentList" : {
-    "body" : "Innehåll",
-    "createdAt" : "Skapad",
-    "filters" : {
-      "afterDate" : "Efter datum",
-      "beforeDate" : "Före datum",
-      "bodySearch" : "Innehållssökning",
-      "commentClass" : "Kommentarklass",
-      "commentId" : "Kommentar-ID",
-      "commentStatus" : "Kommentarstatus",
-      "commentType" : "Kommentarstyp",
-      "depth" : "Djup",
-      "diveEventId" : "Dykningsevenemang-ID",
-      "forumId" : "Forum-ID",
-      "parentId" : "Överordnad ID",
-      "reportCount" : "Rapporteringsantal",
-      "titleSearch" : "Titelsökning",
-      "user-name" : "Användarens namn"
-    },
-    "id" : "ID",
-    "status" : "Status",
-    "title" : "Kommentarslista",
-    "titleColumn" : "Titel",
-    "type" : "Typ",
-    "username" : "Användarnamn"
-  },
-  "CommentModeration" : {
-    "collapse" : {
-      "actions" : {
-        "label" : "Åtgärder"
-      },
-      "reports" : {
-        "label" : "Rapporter"
-      }
-    },
-    "messages" : {
-      "fail" : "Misslyckades med att hämta väntande rapporter.",
-      "success" : "Lista över väntande rapporter hämtad."
-    },
-    "no-comments" : "Inga väntande rapporter.",
-    "title" : "Kommentarer som kräver moderering"
-  },
-  "CommentModerationActions" : {
-    "button" : {
-      "dismiss-reports" : "Avvisa rapporter",
-      "reject-comment" : "Avvisa kommentar"
-    },
-    "messages" : {
-      "dismiss-comment-fail" : "Misslyckades med att avvisa rapporter.",
-      "dismiss-comment-success" : "Rapporter avvisade.",
-      "reject-comment-confirm" : "Att avvisa denna kommentar kommer även att avvisa alla dess underliggande kommentarer. Är du säker på att du vill fortsätta?",
-      "reject-comment-fail" : "Misslyckades med att avvisa kommentaren.",
-      "reject-comment-success" : "Kommentaren avvisad."
-    }
-  },
-  "CommentStatusEnum" : {
-    "cancelled" : "Avbruten",
-    "drafted" : "Utkast",
-    "held_for_moderation" : "Väntar på granskning",
-    "published" : "Publicerad",
-    "rejected" : "Avvisad"
-  },
-  "CommentTypeEnum" : {
-    "topic" : "Ämne",
-    "user_comment" : "Användarkommentar"
-  },
-  "DiveEventStatusEnum" : {
-    "cancelled" : "Inställt",
-    "drafted" : "Utkast",
-    "held" : "Genomförd",
-    "published" : "Publicerad",
-    "unknown" : "Okänd"
-  },
-  "DiveTypeEnum" : {
-    "boat" : "Dykning från båt",
-    "cave" : "Grottdykning",
-    "course" : "Kurs",
-    "current" : "Strömdykning",
-    "open-and-cave" : "Öppen dykning / Grottdykning",
-    "open-water" : "Öppen dykning",
-    "surface" : "Endast yta",
-    "unknown" : "Okänd"
-  },
-  "DownloadData" : {
-    "certificateLabel" : "Certifikat",
-    "choose" : "Välj en av följande för att ladda ner:",
-    "description" : "Här kan du ladda ner olika dataset i CSV-format.",
-    "diveEventLabel" : "Evenemang",
-    "diveLabel" : "Dykningar",
-    "downloadPrompt" : "Klicka på länken för att ladda ner data: ",
-    "gdprWarning" : "Var medveten om att vissa nedladdningar kan innehålla personlig information som regleras av GDPR. Hantera data med omsorg och dela den inte med obehöriga parter. Ta bort filerna när de inte längre behövs.",
-    "header" : "Ladda ner data",
-    "paymentLabel" : "Betalningar",
-    "rowCount" : "Antal rader: {{count}}",
-    "userLabel" : "Användarw"
-  },
-  "EditCertificate" : {
-    "form" : {
-      "button" : {
-        "add" : "Lägg till klassificering",
-        "update" : "Uppdatera klassificering"
-      },
-      "certificateId" : {
-        "label" : "Klassificerings-ID",
-        "placeholder" : "Klassificerings-ID",
-        "rules" : {
-          "min" : "Klassificerings-ID är för kort",
-          "validator" : "Klassificerings- eller dykidentifikation är ett obligatoriskt fält"
+    "AddMemberships" : {
+      "disabled" : "Medlemskap är inte i bruk",
+      "errorGetUsers" : "Misslyckades med att hämta användare",
+      "form" : {
+        "button" : "Lägg till medlemskap",
+        "membershipDuration" : {
+          "label" : "Medlemskapslängd (månader)"
         },
-        "tooltip" : "Antingen klassificerings-ID eller dykidentifikation är ett obligatoriskt fält. Om ingen av dem finns på klassificeringskortet, ange klassificerings-ID som 000-000"
-      },
-      "certificateName" : {
-        "label" : "Klassificering",
-        "placeholder" : "Klassificeringsnamn",
-        "rules" : {
-          "min" : "Klassificeringsnamn är för kort",
-          "required" : "Klassificering är ett obligatoriskt fält"
+        "membershipType" : {
+          "label" : "Medlemstyp"
         },
-        "tooltip" : "Klassificeringens namn, på engelska, t.ex. Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master eller annat"
-      },
-      "certificationDate" : {
-        "label" : "Klassificeringsdatum",
-        "placeholder" : "Klassificeringsdatum (i formatet åååå-mm-dd)",
-        "rules" : {
-          "max" : "Datumet är för långt",
-          "min" : "Datumet är för kort",
-          "pattern" : "Datumet måste vara i formatet ÅÅÅÅ-MM-DD"
+        "name" : {
+          "label" : "Användarnamn",
+          "placeholder" : "Välj användare"
         }
       },
-      "diverId" : {
-        "label" : "Dykidentifikation",
-        "placeholder" : "Dykidentifikation",
-        "rules" : {
-          "min" : "Dykidentifikation är för kort",
-          "validator" : "Klassificerings- eller dykidentifikation är ett obligatoriskt fält"
-        },
-        "tooltip" : "Antingen klassificerings-ID eller dykidentifikation är ett obligatoriskt fält. Om ingen av dem finns på klassificeringskortet, ange klassificerings-ID som 000-000"
-      },
-      "organization" : {
-        "label" : "Klassificeringsorganisation",
-        "placeholder" : "Klassificeringsorganisationens namn",
-        "rules" : {
-          "min" : "Klassificeringsorganisationens namn är för kort",
-          "required" : "Klassificeringsorganisation är ett obligatoriskt fält"
-        },
-        "tooltip" : "Klassificeringsorganisationens namn, t.ex. PADI, SSI, CMAS, DSAT, DSAC, NAUI eller annat"
+      "onFinish" : {
+        "fail" : "Misslyckades med att lägga till medlemskap: ",
+        "ok" : "Medlemskap tillagt framgångsrikt"
       }
     },
-    "title" : "Klassificeringsinformation",
-    "updateCertificate" : {
-      "add" : {
-        "fail" : "Misslyckades med att lägga till klassificeringsinformation",
-        "ok" : "Klassificeringsinformation tillagd"
-      },
-      "update" : {
-        "fail" : "Misslyckades med att uppdatera klassificeringsinformation",
-        "ok" : "Klassificeringsinformation uppdaterad"
-      }
-    }
-  },
-  "EditEvent" : {
-    "form" : {
-      "button" : {
-        "updateDives" : "Uppdatera dykförhållanden"
-      },
-      "description" : {
-        "label" : "Beskrivning av evenemanget",
-        "placeholder" : "Beskrivning av evenemanget",
-        "rules" : {
-          "max" : "Maximalt antal tecken för evenemangets beskrivning är 15000",
-          "min" : "Beskrivning av evenemanget är för kort",
-          "required" : "Beskrivning av evenemanget är ett obligatoriskt fält"
+    "AddPayments" : {
+      "form" : {
+        "button" : "Spara betalningar",
+        "name" : {
+          "label" : "Användare",
+          "placeholder" : "Lägg till användare"
         },
-        "tooltip" : "Beskrivning av evenemanget. Vad kommer att hända under evenemanget?"
-      },
-      "eventDuration" : {
-        "label" : "Evenemangets varaktighet (h)",
-        "tooltip" : "Evenemangets varaktighet i timmar"
-      },
-      "maxDepth" : {
-        "label" : "Maximalt djup (m)",
-        "rules" : {
-          "maxParticipants" : "Maximalt antal deltagare i evenemanget kan inte vara mindre än det aktuella antalet deltagare."
+        "paymentCount" : {
+          "label" : "Antal"
         },
-        "tooltip" : "Varaktighet av dykningen i minuter"
+        "paymentType" : {
+          "label" : "Betaltyp"
+        }
       },
-      "maxDuration" : {
-        "label" : "Dykningens varaktighet (min)",
-        "tooltip" : "Varaktighet av dykningen i minuter"
-      },
-      "maxParticipants" : {
-        "label" : "Maximalt antal deltagare",
-        "tooltip" : "Maximalt antal deltagare, inklusive evenemangsarrangören"
-      },
-      "organizerId" : {
-        "label" : "Evenemangsarrangör",
-        "rules" : {
-          "required" : "Evenemangsarrangör är ett obligatoriskt fält"
-        },
-        "tooltip" : "Arrangören av dykevenemanget"
-      },
-      "participants" : {
-        "label" : "Deltagare",
-        "placeholder" : "Lägg till deltagare",
-        "tooltip" : "Deltagare i evenemanget"
-      },
-      "startTime" : {
-        "label" : "Starttid",
-        "rules" : {
-          "required" : "Starttid är ett obligatoriskt fält",
-          "validator" : "Datumet måste vara minst 30 minuter framåt i tiden!"
-        },
-        "tooltip" : "Starttid för evenemanget, observera att detta är i platsens tidszon."
+      "onFinish" : {
+        "fail" : "Misslyckades med att uppdatera användarnas betalningsinformation",
+        "ok" : "Användarnas betalningsinformation uppdaterad"
       },
       "status" : {
-        "label" : "Dykeventstatus",
-        "rules" : {
-          "required" : "Status är ett obligatoriskt fält"
-        },
-        "tooltip" : "Utkaststatus är ännu inte synlig för användare. Publicerad status är synlig för alla användare, liksom hållen, som är för tidigare händelser. Avbruten status är inte synlig för användare."
+        "buttonOk" : "Ladda ned uppdaterad information",
+        "tryAgain" : "Försök igen"
       },
-      "submitButton" : {
-        "add" : "Lägg till evenemang",
-        "update" : "Uppdatera evenemang"
-      },
-      "title" : {
-        "label" : "Evenemangets namn",
-        "placeholder" : "Evenemangets namn",
-        "rules" : {
-          "min" : "Evenemangets namn är för kort",
-          "required" : "Evenemangets namn är ett obligatoriskt fält"
-        },
-        "tooltip" : "Kort namn, t.ex. 'Valborgsdykning'"
-      },
-      "type" : {
-        "label" : "Typ",
-        "rules" : {
-          "required" : "Typ är ett obligatoriskt fält"
-        },
-        "tooltip" : "Typ av dykevenemang"
+      "types" : {
+        "oneTime" : "Engångsbetalning",
+        "period" : "Periodisk betalning"
       }
     },
-    "oldEvent" : {
-      "alertText" : "Evenemanget har redan avslutats och kan inte längre redigeras"
+    "AdminAudit" : {
+      "header" : "Revisionsloggar"
     },
-    "onFinish" : {
-      "addStatusFail" : "Misslyckades med att lägga till evenemangsinformation",
-      "addStatusOk" : "Evenemanget tillagt",
-      "updateStatusFail" : "Misslyckades med att uppdatera evenemangsinformation",
-      "updateStatusFailMaxParticipant" : "Maximalt antal deltagare kan inte vara mindre än det aktuella antalet deltagare",
-      "updateStatusOk" : "Evenemangsinformation uppdaterad"
+    "AdminMain" : {
+      "header" : "Administration",
+      "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden",
+      "paymentHeader" : "Betalningar",
+      "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
+      "statsHeader" : "Statistik",
+      "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
+      "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
+      "text" : "Administrativa sidor. Var försiktig",
+      "userHeader" : "Användare"
     },
-    "title" : "Evenemangsinformation"
-  },
-  "EditPage" : {
-    "description" : "Observera! När du skapar en ny sida måste du spara den först innan du kan lägga till några bilder.",
-    "form" : {
-      "button" : {
-        "addPermission" : "Lägg till behörighet",
-        "create" : "Skapa ny sida",
-        "update" : "Uppdatera sida"
-      },
-      "divider" : {
-        "languages" : "Språkversioner",
-        "metadata" : "Metadata",
-        "permissions" : "Behörigheter"
-      },
-      "metadata" : {
-        "createdAt" : "Skapad den",
-        "creator" : "Skapare",
-        "modifiedAt" : "Senast uppdaterad",
-        "modifier" : "Senast uppdaterad av"
-      },
-      "page-versions" : {
-        "body" : {
-          "label" : "Text",
-          "rules" : {
-            "min" : "Sidan kan inte vara tom"
-          }
+    "AdminMembers" : {
+      "table" : {
+        "actions" : {
+          "edit" : "Redigera",
+          "title" : "Åtgärd"
         },
-        "ingress" : {
-          "label" : "Ingress",
-          "placeholder" : "Ingress text"
+        "createdAt" : "Skapad",
+        "expiresAt" : "Utgångstid",
+        "status" : "Status",
+        "type" : "Typ",
+        "userId" : "Användar-ID",
+        "username" : "Användarnamn"
+      },
+      "title" : "Medlemskapshantering"
+    },
+    "AdminOrgUser" : {
+      "form" : {
+        "button" : {
+          "reset" : "Återställ",
+          "sendPasswordEmail" : "Skicka lösenordsmejl",
+          "update" : "Uppdatera information"
+        },
+        "roles" : {
+          "administrator" : "Administratör",
+          "label" : "Roller",
+          "organizer" : "Evenemangsarrangör",
+          "user" : "Användare"
+        },
+        "status" : {
+          "label" : "Status",
+          "rule1" : "Status är ett obligatoriskt fält",
+          "tooltip" : "Användarens status"
+        }
+      },
+      "sendPasswordEmail" : {
+        "fail" : "Misslyckades med att skicka lösenordsåterställningslänk",
+        "ok" : "Lösenordsåterställningslänk skickad till e-postadressen"
+      },
+      "updateUser" : {
+        "confirmAnonymize" : "Är du säker på att du vill begära anonymisering? Detta kommer att ta bort all personlig data som användaren har angett i systemet. Denna ändring kan inte ångras.",
+        "confirmOrganizer" : "Att lägga till rollen som evenemangsarrangör kommer att inaktivera integritetsskyddet. Vill du fortsätta?",
+        "fail" : "Misslyckades med att uppdatera användarens information",
+        "ok" : "Användarens information uppdaterad"
+      }
+    },
+    "AdminOrgUsers" : {
+      "invalidateTermAgreements" : {
+        "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
+        "fail" : "Det gick inte att ogiltigförklara användarvillkoren",
+        "ok" : "Användarvillkoren ogiltigförklarades framgångsrikt"
+      },
+      "search" : {
+        "placeholder" : "Sök användare",
+        "spinText" : "Söker användare..."
+      },
+      "table" : {
+        "action" : {
+          "button" : "Uppdatera",
+          "title" : "Uppdatera"
+        },
+        "approvedTerms" : "Vilkor",
+        "firstName" : "Förnamn",
+        "lastName" : "Efternamn",
+        "login" : "Användarnamn",
+        "paymentStatus" : "Betalningar",
+        "role" : {
+          "title" : "Roller"
+        },
+        "status" : "Status"
+      },
+      "terms" : {
+        "resetButton" : "Återställ användarvillkor",
+        "resetDivider" : "Återställ användarvillkor"
+      },
+      "title" : "Användare"
+    },
+    "AdminPayments" : {
+      "activeDivider" : "Aktiva betalningar",
+      "addPaymentsDivider" : "Lägg till betalningar",
+      "confirmInvalidate" : "Är du säker på att du vill ogiltigförklara alla årsbetalningar? Denna åtgärd kan inte ångras.",
+      "reset-one-time-button" : "Ogilförklara engångsbetalningar",
+      "reset-periodical-button" : "Ogiltigförklara periodbetalningar",
+      "yearlyResetDivider" : "Ogiltigförklara betalningar"
+    },
+    "AdminUploads" : {
+      "avatar" : {
+        "tab-title" : "Avatarfiler"
+      },
+      "certificate" : {
+        "certificate-id" : "Certifikat ID",
+        "tab-title" : "Certifikatsfiler"
+      },
+      "common-file-column-title" : {
+        "actions" : "Åtgärder",
+        "created-at" : "Skapad",
+        "creator" : "Skapare",
+        "download-link" : "Nedladdningslänk",
+        "filename" : "Filnamn",
+        "filesize" : "Filstorlek",
+        "view" : "Visa"
+      },
+      "dive-file" : {
+        "dive-group-id" : "Dykgrupps-ID",
+        "event-id" : "Event-ID",
+        "status" : "Status",
+        "tab-title" : "Dykfiler"
+      },
+      "document" : {
+        "delete" : {
+          "fail" : "Misslyckades med att ta bort dokumentet",
+          "successful" : "Dokumentet raderades framgångsrikt"
+        },
+        "status" : "Status",
+        "tab-title" : "Dokumentfiler",
+        "upload" : {
+          "button" : "Ladda upp nytt dokument",
+          "fail" : "dokumentuppladdning misslyckades",
+          "successful" : "dokumentet laddades upp framgångsrikt"
+        }
+      },
+      "overview" : {
+        "avatar-content" : "<b>Observera! Den här funktionen är ännu inte aktiverad.</b> Avatarer är bilder som representerar användarprofilen. De kan laddas upp och hanteras av användaren själv. Avatarbilden visas i användarprofilen och i användarlistan. Alla autentiserade användare kan se avatarbilden. Endast användaren som avataren tillhör kan ta bort avatarbilden.",
+        "avatar-title" : "Avatarer",
+        "certificate-content" : "Certifikat är fotokopior av dykarcertifikatkort som laddas upp av användaren och används för att bevisa att användaren har genomfört en kurs. Certifikatsfilen kan endast ses av användaren som laddade upp den, samt av organisatörer och administratörer. Endast användaren som certifikatet tillhör kan ta bort certifikatskopian.",
+        "certificate-title" : "Certifikat",
+        "dive-file-content" : "<b>Observera! Den här funktionen är ännu inte aktiverad.</b> Dykfiler är filer som laddas upp av användarna när de har bildat en dykgrupp för ett specifikt dykarrangemang. Dykfiler är främst dykplaner men kan också innehålla annan relevant dokumentation som krävs för dykningen. Dykfiler kan ses av alla autentiserade användare. Endast medlemmar i dykgruppen kan ta bort dykfilen.",
+        "dive-file-title" : "Dykfiler",
+        "document-content" : "Dokument är icke-bildfiler som organisationen vill dela med användarna. Dokumenten kan endast laddas upp av administratörer och kan ses av alla autentiserade användare. För närvarande stöds endast PDF-format. Uppladdning sker via fliken dokumentfiler, och när filen har laddats upp visas den i listan på samma flik, varifrån administratören kan kopiera länken för att bädda in den på sidor. Endast administratörer kan ta bort dokument.",
+        "document-title" : "Dokument",
+        "overview-content-1" : "Här kan du se alla uppladdade filer av olika typer, Avatar-, Certifikat-, Dyk-, Dokument- och Sidofiler. För alla dessa kan du också ladda upp nya dokumentfiler.",
+        "overview-content-2" : "Varje lista innehåller också en nedladdningslänk för filen, men var medveten om att det finns begränsningar för vem som kan se filerna. T.ex. kan certifikatsfilen endast ses av användaren som laddade upp den, samt av organisatörer och administratörer.",
+        "overview-title" : "Översikt över filtyper",
+        "page-file-content" : "Sidofiler är utvalda typer av bilder som laddas upp när du redigerar en specifik språkversion av en sida med sidredigerarens bilduppladdningsfunktion. Observera att den uppladdade bilden ärver sidans synlighet, så om sidan inte är synlig för användaren, är inte heller bilden synlig. Alla arrangörer eller administratörer som kan redigera sidan där bilden är placerad kan ta bort länkade bilder.",
+        "page-file-title" : "Sidofiler",
+        "tab-title" : "Översikt",
+        "type-content" : "Olika typer av uppladdade filer finns tillgängliga för olika ändamål. Följande är de typer av filer som kan laddas upp:",
+        "type-title" : "Olika typer av uppladdade filer"
+      },
+      "page-file" : {
+        "language" : "Språk",
+        "page-id" : "Sida ID",
+        "status" : "Status",
+        "tab-title" : "Sidfiler"
+      }
+    },
+    "AuditEvents" : {
+      "filter" : {
+        "address" : "IP-adress",
+        "message" : "Meddelande",
+        "source" : "Källa",
+        "traceId" : "Spår-ID",
+        "userName" : "Användarnamn"
+      },
+      "search" : {
+        "placeholder" : "Sök..."
+      },
+      "table" : {
+        "address" : "IP-adress",
+        "createdAt" : "Skapat vid",
+        "level" : "Nivå",
+        "message" : "Meddelande",
+        "source" : "Källa",
+        "traceId" : "Spår-ID",
+        "userName" : "Användarnamn"
+      },
+      "title" : "Revisionshändelser"
+    },
+    "BlockedDates" : {
+      "form" : {
+        "date" : {
+          "label" : "Datum",
+          "placeholder" : "Välj datum",
+          "rule" : "Datum är ett obligatoriskt fält"
+        },
+        "reason" : {
+          "label" : "Orsak",
+          "placeholder" : "Orsak värför datumet är blockerat",
+          "rule" : "Orsaken är ett obligatoriskt fält"
+        }
+      },
+      "list" : {
+        "confirm" : "Är du säker på att du vill ta bort det blockerade datumet?"
+      },
+      "load" : {
+        "fail" : "Misslyckades med att ladda blockerade datum"
+      },
+      "popup" : {
+        "add-fail" : "Misslyckades med att lägga till det blockerade datumet",
+        "add-success" : "Blockerat datum tillagt framgångsrikt",
+        "remove-fail" : "Misslyckades med att ta bort det blockerade datumet",
+        "remove-success" : "Blockerat datum borttaget framgångsrikt"
+      },
+      "title" : "Blockering av datum"
+    },
+    "Certificates" : {
+      "deleteCertificate" : {
+        "confirm" : "Är du säker på att du vill ta bort certifikatet \""
+      },
+      "panel" : {
+        "addButton" : "Lägg till nytt certifikat",
+        "text" : "Användaren har slutfört följande dykcertifieringar:",
+        "title" : "Dykcertifikat"
+      }
+    },
+    "ChronoUnitEnum" : {
+      "days" : "Dag",
+      "months" : "Månad",
+      "weeks" : "Vecka",
+      "years" : "År"
+    },
+    "CommentCard" : {
+      "button" : {
+        "cancel-report" : "Avbryt rapport",
+        "report-comment" : "Rapportera olämplig kommentar"
+      },
+      "messages" : {
+        "report-cancel-fail" : "Misslyckades med att avbryta rapporten.",
+        "report-cancel-success" : "Rapporten avbruten framgångsrikt.",
+        "report-fail" : "Misslyckades med att rapportera kommentaren.",
+        "report-success" : "Kommentaren rapporterad framgångsrikt."
+      },
+      "modal" : {
+        "description" : "Beskriv problemet:",
+        "placeholder" : "Ange detaljer här..."
+      },
+      "multiple-replies" : "svar",
+      "singular-reply" : "svar"
+    },
+    "CommentClassEnum" : {
+      "event_comments" : "Evenemangskommentarer",
+      "forum_comments" : "Forumkommentarer",
+      "page_comments" : "Sidkommentarer"
+    },
+    "CommentEditor" : {
+      "form" : {
+        "textarea" : {
+          "placeholder" : "Skriv en kommentar..."
         },
         "title" : {
+          "placeholder" : "Titel (valfritt)"
+        }
+      }
+    },
+    "CommentList" : {
+      "body" : "Innehåll",
+      "createdAt" : "Skapad",
+      "filters" : {
+        "afterDate" : "Efter datum",
+        "beforeDate" : "Före datum",
+        "bodySearch" : "Innehållssökning",
+        "commentClass" : "Kommentarklass",
+        "commentId" : "Kommentar-ID",
+        "commentStatus" : "Kommentarstatus",
+        "commentType" : "Kommentarstyp",
+        "depth" : "Djup",
+        "diveEventId" : "Dykningsevenemang-ID",
+        "forumId" : "Forum-ID",
+        "parentId" : "Överordnad ID",
+        "reportCount" : "Rapporteringsantal",
+        "titleSearch" : "Titelsökning",
+        "user-name" : "Användarens namn"
+      },
+      "id" : "ID",
+      "status" : "Status",
+      "title" : "Kommentarslista",
+      "titleColumn" : "Titel",
+      "type" : "Typ",
+      "username" : "Användarnamn"
+    },
+    "CommentModeration" : {
+      "collapse" : {
+        "actions" : {
+          "label" : "Åtgärder"
+        },
+        "reports" : {
+          "label" : "Rapporter"
+        }
+      },
+      "messages" : {
+        "fail" : "Misslyckades med att hämta väntande rapporter.",
+        "success" : "Lista över väntande rapporter hämtad."
+      },
+      "no-comments" : "Inga väntande rapporter.",
+      "title" : "Kommentarer som kräver moderering"
+    },
+    "CommentModerationActions" : {
+      "button" : {
+        "dismiss-reports" : "Avvisa rapporter",
+        "reject-comment" : "Avvisa kommentar"
+      },
+      "messages" : {
+        "dismiss-comment-fail" : "Misslyckades med att avvisa rapporter.",
+        "dismiss-comment-success" : "Rapporter avvisade.",
+        "reject-comment-confirm" : "Att avvisa denna kommentar kommer även att avvisa alla dess underliggande kommentarer. Är du säker på att du vill fortsätta?",
+        "reject-comment-fail" : "Misslyckades med att avvisa kommentaren.",
+        "reject-comment-success" : "Kommentaren avvisad."
+      }
+    },
+    "CommentStatusEnum" : {
+      "cancelled" : "Avbruten",
+      "drafted" : "Utkast",
+      "held_for_moderation" : "Väntar på granskning",
+      "published" : "Publicerad",
+      "rejected" : "Avvisad"
+    },
+    "CommentTypeEnum" : {
+      "topic" : "Ämne",
+      "user_comment" : "Användarkommentar"
+    },
+    "DiveEventStatusEnum" : {
+      "cancelled" : "Inställt",
+      "drafted" : "Utkast",
+      "held" : "Genomförd",
+      "published" : "Publicerad",
+      "unknown" : "Okänd"
+    },
+    "DiveTypeEnum" : {
+      "boat" : "Dykning från båt",
+      "cave" : "Grottdykning",
+      "course" : "Kurs",
+      "current" : "Strömdykning",
+      "open-and-cave" : "Öppen dykning / Grottdykning",
+      "open-water" : "Öppen dykning",
+      "surface" : "Endast yta",
+      "unknown" : "Okänd"
+    },
+    "DownloadData" : {
+      "certificateLabel" : "Certifikat",
+      "choose" : "Välj en av följande för att ladda ner:",
+      "description" : "Här kan du ladda ner olika dataset i CSV-format.",
+      "diveEventLabel" : "Evenemang",
+      "diveLabel" : "Dykningar",
+      "downloadPrompt" : "Klicka på länken för att ladda ner data: ",
+      "gdprWarning" : "Var medveten om att vissa nedladdningar kan innehålla personlig information som regleras av GDPR. Hantera data med omsorg och dela den inte med obehöriga parter. Ta bort filerna när de inte längre behövs.",
+      "header" : "Ladda ner data",
+      "paymentLabel" : "Betalningar",
+      "rowCount" : "Antal rader: {{count}}",
+      "userLabel" : "Användarw"
+    },
+    "EditCertificate" : {
+      "form" : {
+        "button" : {
+          "add" : "Lägg till klassificering",
+          "update" : "Uppdatera klassificering"
+        },
+        "certificateId" : {
+          "label" : "Klassificerings-ID",
+          "placeholder" : "Klassificerings-ID",
+          "rules" : {
+            "min" : "Klassificerings-ID är för kort",
+            "validator" : "Klassificerings- eller dykidentifikation är ett obligatoriskt fält"
+          },
+          "tooltip" : "Antingen klassificerings-ID eller dykidentifikation är ett obligatoriskt fält. Om ingen av dem finns på klassificeringskortet, ange klassificerings-ID som 000-000"
+        },
+        "certificateName" : {
+          "label" : "Klassificering",
+          "placeholder" : "Klassificeringsnamn",
+          "rules" : {
+            "min" : "Klassificeringsnamn är för kort",
+            "required" : "Klassificering är ett obligatoriskt fält"
+          },
+          "tooltip" : "Klassificeringens namn, på engelska, t.ex. Open Water Diver, Advanced Open Water Diver, Rescue Diver, Dive Master eller annat"
+        },
+        "certificationDate" : {
+          "label" : "Klassificeringsdatum",
+          "placeholder" : "Klassificeringsdatum (i formatet åååå-mm-dd)",
+          "rules" : {
+            "max" : "Datumet är för långt",
+            "min" : "Datumet är för kort",
+            "pattern" : "Datumet måste vara i formatet ÅÅÅÅ-MM-DD"
+          }
+        },
+        "diverId" : {
+          "label" : "Dykidentifikation",
+          "placeholder" : "Dykidentifikation",
+          "rules" : {
+            "min" : "Dykidentifikation är för kort",
+            "validator" : "Klassificerings- eller dykidentifikation är ett obligatoriskt fält"
+          },
+          "tooltip" : "Antingen klassificerings-ID eller dykidentifikation är ett obligatoriskt fält. Om ingen av dem finns på klassificeringskortet, ange klassificerings-ID som 000-000"
+        },
+        "organization" : {
+          "label" : "Klassificeringsorganisation",
+          "placeholder" : "Klassificeringsorganisationens namn",
+          "rules" : {
+            "min" : "Klassificeringsorganisationens namn är för kort",
+            "required" : "Klassificeringsorganisation är ett obligatoriskt fält"
+          },
+          "tooltip" : "Klassificeringsorganisationens namn, t.ex. PADI, SSI, CMAS, DSAT, DSAC, NAUI eller annat"
+        }
+      },
+      "title" : "Klassificeringsinformation",
+      "updateCertificate" : {
+        "add" : {
+          "fail" : "Misslyckades med att lägga till klassificeringsinformation",
+          "ok" : "Klassificeringsinformation tillagd"
+        },
+        "update" : {
+          "fail" : "Misslyckades med att uppdatera klassificeringsinformation",
+          "ok" : "Klassificeringsinformation uppdaterad"
+        }
+      }
+    },
+    "EditEvent" : {
+      "form" : {
+        "button" : {
+          "updateDives" : "Uppdatera dykförhållanden"
+        },
+        "description" : {
+          "label" : "Beskrivning av evenemanget",
+          "placeholder" : "Beskrivning av evenemanget",
+          "rules" : {
+            "max" : "Maximalt antal tecken för evenemangets beskrivning är 15000",
+            "min" : "Beskrivning av evenemanget är för kort",
+            "required" : "Beskrivning av evenemanget är ett obligatoriskt fält"
+          },
+          "tooltip" : "Beskrivning av evenemanget. Vad kommer att hända under evenemanget?"
+        },
+        "eventDuration" : {
+          "label" : "Evenemangets varaktighet (h)",
+          "tooltip" : "Evenemangets varaktighet i timmar"
+        },
+        "maxDepth" : {
+          "label" : "Maximalt djup (m)",
+          "rules" : {
+            "maxParticipants" : "Maximalt antal deltagare i evenemanget kan inte vara mindre än det aktuella antalet deltagare."
+          },
+          "tooltip" : "Varaktighet av dykningen i minuter"
+        },
+        "maxDuration" : {
+          "label" : "Dykningens varaktighet (min)",
+          "tooltip" : "Varaktighet av dykningen i minuter"
+        },
+        "maxParticipants" : {
+          "label" : "Maximalt antal deltagare",
+          "tooltip" : "Maximalt antal deltagare, inklusive evenemangsarrangören"
+        },
+        "organizerId" : {
+          "label" : "Evenemangsarrangör",
+          "rules" : {
+            "required" : "Evenemangsarrangör är ett obligatoriskt fält"
+          },
+          "tooltip" : "Arrangören av dykevenemanget"
+        },
+        "participants" : {
+          "label" : "Deltagare",
+          "placeholder" : "Lägg till deltagare",
+          "tooltip" : "Deltagare i evenemanget"
+        },
+        "startTime" : {
+          "label" : "Starttid",
+          "rules" : {
+            "required" : "Starttid är ett obligatoriskt fält",
+            "validator" : "Datumet måste vara minst 30 minuter framåt i tiden!"
+          },
+          "tooltip" : "Starttid för evenemanget, observera att detta är i platsens tidszon."
+        },
+        "status" : {
+          "label" : "Dykeventstatus",
+          "rules" : {
+            "required" : "Status är ett obligatoriskt fält"
+          },
+          "tooltip" : "Utkaststatus är ännu inte synlig för användare. Publicerad status är synlig för alla användare, liksom hållen, som är för tidigare händelser. Avbruten status är inte synlig för användare."
+        },
+        "submitButton" : {
+          "add" : "Lägg till evenemang",
+          "update" : "Uppdatera evenemang"
+        },
+        "title" : {
+          "label" : "Evenemangets namn",
+          "placeholder" : "Evenemangets namn",
+          "rules" : {
+            "min" : "Evenemangets namn är för kort",
+            "required" : "Evenemangets namn är ett obligatoriskt fält"
+          },
+          "tooltip" : "Kort namn, t.ex. 'Valborgsdykning'"
+        },
+        "type" : {
+          "label" : "Typ",
+          "rules" : {
+            "required" : "Typ är ett obligatoriskt fält"
+          },
+          "tooltip" : "Typ av dykevenemang"
+        }
+      },
+      "oldEvent" : {
+        "alertText" : "Evenemanget har redan avslutats och kan inte längre redigeras"
+      },
+      "onFinish" : {
+        "addStatusFail" : "Misslyckades med att lägga till evenemangsinformation",
+        "addStatusOk" : "Evenemanget tillagt",
+        "updateStatusFail" : "Misslyckades med att uppdatera evenemangsinformation",
+        "updateStatusFailMaxParticipant" : "Maximalt antal deltagare kan inte vara mindre än det aktuella antalet deltagare",
+        "updateStatusOk" : "Evenemangsinformation uppdaterad"
+      },
+      "title" : "Evenemangsinformation"
+    },
+    "EditPage" : {
+      "description" : "Observera! När du skapar en ny sida måste du spara den först innan du kan lägga till några bilder.",
+      "form" : {
+        "button" : {
+          "addPermission" : "Lägg till behörighet",
+          "create" : "Skapa ny sida",
+          "update" : "Uppdatera sida"
+        },
+        "divider" : {
+          "languages" : "Språkversioner",
+          "metadata" : "Metadata",
+          "permissions" : "Behörigheter"
+        },
+        "metadata" : {
+          "createdAt" : "Skapad den",
+          "creator" : "Skapare",
+          "modifiedAt" : "Senast uppdaterad",
+          "modifier" : "Senast uppdaterad av"
+        },
+        "page-versions" : {
+          "body" : {
+            "label" : "Text",
+            "rules" : {
+              "min" : "Sidan kan inte vara tom"
+            }
+          },
+          "ingress" : {
+            "label" : "Ingress",
+            "placeholder" : "Ingress text"
+          },
+          "title" : {
+            "label" : "Rubrik",
+            "placeholder" : "Rubrik text",
+            "rules" : {
+              "min" : "Rubriken måste vara minst 2 tecken lång",
+              "required" : "Rubrik är ett obligatoriskt fält"
+            }
+          }
+        },
+        "pageGroupId" : {
+          "label" : "Sida grupp",
+          "placeholder" : "Välj vilken grupp sidan tillhör",
+          "rules" : {
+            "required" : "Sida grupp är ett obligatoriskt fält"
+          },
+          "tooltip" : "Sida grupp som sidan tillhör"
+        },
+        "rolePermissions" : {
+          "readPermission" : {
+            "label" : "Läsbehörighet",
+            "rules" : {
+              "leastReadRequired" : "Minst läsbehörighet måste vara vald",
+              "required" : "Läsbehörighet är ett obligatoriskt fält",
+              "writeRequiresRead" : "Skrivbehörigheter kräver läsbehörighet"
+            },
+            "tooltip" : "Rätt att se sidan"
+          },
+          "role" : {
+            "label" : "Roll",
+            "rules" : {
+              "noDuplicates" : "Samma roll kan inte förekomma dubbelt",
+              "required" : "Roll är ett obligatoriskt fält"
+            },
+            "tooltip" : "Roll som behörighet beviljas. Anonym innebär att sidan är offentlig för alla."
+          },
+          "writePermission" : {
+            "label" : "Skrivbehörighet",
+            "tooltip" : "Rätt att redigera sidan. En anonym användare kan aldrig redigera sidan."
+          }
+        },
+        "status" : {
+          "label" : "Sidans status",
+          "rules" : {
+            "required" : "Status är ett obligatoriskt fält"
+          },
+          "tooltip" : "Sidans status. Utkast används när sidan fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
+        }
+      },
+      "onFinish" : {
+        "create" : {
+          "fail" : "Misslyckades med att skapa sidan",
+          "ok" : "Sida skapad"
+        },
+        "update" : {
+          "fail" : "Misslyckades med att uppdatera sidan",
+          "ok" : "Sida uppdaterad"
+        }
+      },
+      "title" : {
+        "new" : "Ny sida",
+        "update" : "Uppdatera sidan"
+      }
+    },
+    "EditPageGroup" : {
+      "form" : {
+        "button" : {
+          "create" : "Skapa ny sidgrupp",
+          "update" : "Uppdatera grupp"
+        },
+        "divider" : {
+          "languages" : "Språkversioner"
+        },
+        "pageGroupVersions" : {
           "label" : "Rubrik",
-          "placeholder" : "Rubrik text",
           "rules" : {
             "min" : "Rubriken måste vara minst 2 tecken lång",
             "required" : "Rubrik är ett obligatoriskt fält"
+          },
+          "tooltip" : "Sidgruppens rubrik, minst 2 tecken lång"
+        },
+        "status" : {
+          "label" : "Sidgruppens status",
+          "rules" : {
+            "required" : "Status är ett obligatoriskt fält"
+          },
+          "tooltip" : "Sidgruppens status. Utkast används när sidgruppen fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
+        }
+      },
+      "onFinish" : {
+        "create" : {
+          "fail" : "Misslyckades med att skapa sidgrupp",
+          "ok" : "Sidgrupp skapad"
+        },
+        "update" : {
+          "fail" : "Misslyckades med att uppdatera sidgrupp",
+          "ok" : "Sidgrupp uppdaterad"
+        }
+      }
+    },
+    "EmailSubscriptionCard" : {
+      "header" : "Mottag e-postmeddelanden då:"
+    },
+    "DiveEvent" : {
+      "subscribe" : {
+        "button" : "Delta i evenemanget",
+        "label" : "Delta i evenemanget",
+        "mainText" : "Vänligen fyll i följande för att delta i dyk-evenemanget"
+      },
+      "unsubscribe" : {
+        "button" : "Delta icke i evenemanget"
+      }
+    },
+    "EventDetails" : {
+      "description" : {
+        "title" : "Evenemangsbeskrivning"
+      },
+      "link" : {
+        "tooltip" : "Öppna evenemanget"
+      },
+      "participantTable" : {
+        "createdAt" : "Registrerad",
+        "eventDiveCount" : "Antal dykningar",
+        "name" : "Namn",
+        "paymentType" : {
+          "oneTime" : "Engångsbetalning",
+          "period" : "Periodisk betalning"
+        },
+        "payments" : "Betalningssituation",
+        "userType" : "Dyktyp"
+      },
+      "participants" : {
+        "title" : "Deltagare"
+      },
+      "table" : {
+        "maxDepth" : "Maxdjup, m",
+        "maxDuration" : "Maxtid, min",
+        "organizer" : "Arrangör",
+        "participants" : "Deltagare",
+        "phoneNumber" : "Telefonnummer",
+        "startTime" : "Tidpunkt",
+        "type" : "Typ"
+      },
+      "title" : "Evenemang"
+    },
+    "Events" : {
+      "ongoing" : {
+        "title" : "Pågående evenemang"
+      },
+      "results" : {
+        "error" : "Hämtning av data misslyckades: ",
+        "noEvents" : "Inga kommande evenemang."
+      },
+      "search" : {
+        "placeholder" : "Sök efter evenemang"
+      },
+      "table" : {
+        "maxDepth" : "Maxdjup, m",
+        "maxDuration" : "Maxtid, min",
+        "organizer" : "Arrangör",
+        "participants" : "Deltagare",
+        "startTime" : "Tidpunkt",
+        "status" : "Status",
+        "title" : "Beskrivning",
+        "type" : "Typ"
+      },
+      "upcoming" : {
+        "title" : "Kommande evenemang"
+      }
+    },
+    "FormMemberships" : {
+      "table" : {
+        "created-at" : "Skapad",
+        "expires-at" : "Utgångstid",
+        "id" : "ID",
+        "status" : "Status",
+        "type" : "Typ"
+      }
+    },
+    "FormatPayments" : {
+      "noValid" : "Inga giltiga betalningar tillgängliga.",
+      "table" : {
+        "expirationDate" : "Utgångstid",
+        "id" : "ID",
+        "paymentCount" : "Antal",
+        "paymentType" : "Betalningstyp",
+        "periodPayment" : "Period betalning",
+        "singlePayment" : "Engångsbetalning",
+        "startDate" : "Skapad"
+      },
+      "unknownPayment" : "Okänd betalningstyp",
+      "unknownPaymentContact" : "Kontakta supporten",
+      "unknownPaymentPlease" : "Kontakta supporten för mer information."
+    },
+    "ListPayments" : {
+      "oneTime" : "Engångsbetalningar",
+      "period" : "Periodiska betalningar"
+    },
+    "Login" : {
+      "form" : {
+        "button" : {
+          "forgotPassword" : "Glömt lösenordet?"
+        },
+        "password" : {
+          "label" : "Lösenord:",
+          "rules" : {
+            "required" : "Ange lösenord!"
+          }
+        },
+        "username" : {
+          "label" : "Användarnamn/E-post:",
+          "rules" : {
+            "email" : "Ogiltig e-postadress!",
+            "required" : "Ange e-postadress!"
           }
         }
       },
-      "pageGroupId" : {
-        "label" : "Sida grupp",
-        "placeholder" : "Välj vilken grupp sidan tillhör",
-        "rules" : {
-          "required" : "Sida grupp är ett obligatoriskt fält"
-        },
-        "tooltip" : "Sida grupp som sidan tillhör"
-      },
-      "rolePermissions" : {
-        "readPermission" : {
-          "label" : "Läsbehörighet",
+      "updateStatus" : {
+        "loginFail" : "Inloggning misslyckades!"
+      }
+    },
+    "LostPassword" : {
+      "form" : {
+        "email" : {
+          "label" : "Användarnamn/E-post:",
+          "placeholder" : "någon@någonstans.se",
           "rules" : {
-            "leastReadRequired" : "Minst läsbehörighet måste vara vald",
-            "required" : "Läsbehörighet är ett obligatoriskt fält",
-            "writeRequiresRead" : "Skrivbehörigheter kräver läsbehörighet"
-          },
-          "tooltip" : "Rätt att se sidan"
+            "email" : "Ogiltig e-postadress!",
+            "required" : "Ange e-postadress!"
+          }
         },
-        "role" : {
-          "label" : "Roll",
+        "submitButton" : "Skicka"
+      },
+      "setStatus" : {
+        "update" : {
+          "fail" : "Misslyckades med att skicka lösenordsmeddelande",
+          "ok" : "Lösenordsmeddelandet har skickats"
+        }
+      },
+      "text" : {
+        "bottom" : "Om problemet kvarstår, kontakta administratören.",
+        "top" : "Om du har glömt ditt lösenord kan du skicka en länk för lösenordsåterställning till din e-post (max 3 gånger)."
+      },
+      "updateStatus" : {
+        "fail" : {
+          "button" : "Gå tillbaka till sändningssidan",
+          "text" : "Sändning av återställningslänk misslyckades, vänta en stund och försök igen senare."
+        },
+        "ok" : {
+          "button" : "Tillbaka till inloggningssidan",
+          "text" : "Återställningslänken har skickats på nytt."
+        }
+      }
+    },
+    "MembershipStatusEnum" : {
+      "active" : "Aktiv",
+      "cancelled" : "Avbruten",
+      "expired" : "Utgånget"
+    },
+    "MembershipTypeEnum" : {
+      "disabled" : "Icke i bruk",
+      "durational" : "Tidsbegränsad",
+      "periodical" : "Periodisk",
+      "perpetual" : "Permanent"
+    },
+    "NavigationBar" : {
+      "action" : {
+        "changePassword" : "Ändra lösenord",
+        "login" : "Logga in",
+        "logout" : "Logga ut",
+        "profile" : "Profil",
+        "register" : "Registrera"
+      },
+      "administration" : {
+        "audits" : "Revisionshistorik",
+        "blocked-dates" : "Datumsblockering",
+        "comments" : {
+          "comment-list" : "Kommentarslista",
+          "comment-moderation" : "Komment moderering",
+          "title" : "Kommenten"
+        },
+        "download" : "Laddan ner",
+        "files" : "Filer",
+        "members" : "Medlemmar",
+        "payments" : "Betalningar",
+        "portal-configuration" : "Portalinställningar",
+        "readFirst" : "Läs först",
+        "stats" : "Statistik",
+        "tags" : {
+          "title" : "Taggar",
+          "tag-groups" : "Tagggrupper",
+          "tag-list" : "Taggar"
+        },
+        "title" : "Administration",
+        "users" : "Användare"
+      },
+      "events" : {
+        "add" : "Lägg till evenemang",
+        "new" : "Evenemang",
+        "past" : "Förflutna evenemang",
+        "title" : "Evenemang",
+        "yearlyStats" : "Årlig statistik"
+      },
+      "forum" : {
+        "link" : "Huvudsidan",
+        "title" : "Forum"
+      },
+      "pageManagement" : {
+        "pages" : "Sidor",
+        "title" : "Sidhantering"
+      }
+    },
+    "NewPassword" : {
+      "setUpdateStatus" : {
+        "update" : {
+          "fail" : "Uppdatering av användarlösenord misslyckades",
+          "ok" : "Användarlösenordet har uppdaterats"
+        }
+      },
+      "title" : "Nytt lösenord",
+      "updateStatus" : {
+        "fail" : {
+          "button" : "Kontakta administratören.",
+          "text" : "Uppdatering av lösenord misslyckades!"
+        },
+        "ok" : {
+          "button" : "Du kan logga in.",
+          "text" : "Lösenordet har uppdaterats!"
+        }
+      }
+    },
+    "OngoingEvents" : {
+      "results" : {
+        "noEvents" : "Inga pågående evenemang."
+      },
+      "search" : {
+        "placeholder" : "Sök efter evenemang"
+      },
+      "table" : {
+        "maxDepth" : "Maxdjup, m",
+        "maxDuration" : "Maxtid, min",
+        "organizer" : "Arrangör",
+        "participants" : "Deltagare",
+        "startTime" : "Tidpunkt",
+        "title" : "Beskrivning",
+        "type" : "Typ"
+      }
+    },
+    "Page" : {
+      "fields" : {
+        "created" : "Skapad: ",
+        "updated" : "Senast uppdaterad: "
+      }
+    },
+    "PageGroups" : {
+      "button" : {
+        "addGroup" : "Lägg till sidgrupp",
+        "addPage" : "Lägg till sida",
+        "updatePage" : "Uppdatera sidor"
+      },
+      "deletePath" : {
+        "confirm" : {
+          "1" : "Vill du stänga sidgrupp ",
+          "2" : "OBS! Stängning av sidgrupp stänger även alla tillhörande sidor och deras språkversioner."
+        }
+      },
+      "table" : {
+        "languageVersions" : "Språkversioner",
+        "pageCount" : "Antal sidor",
+        "status" : "Status",
+        "title" : "Sidgruppsnamn"
+      },
+      "title" : "Sidgrupper",
+      "updateStatus" : {
+        "removed" : "Sidgrupp borttagen"
+      }
+    },
+    "Pages" : {
+      "alert" : {
+        "noPages" : "Inga sidor i sidgruppen"
+      },
+      "button" : {
+        "addPage" : "Lägg till sida"
+      },
+      "closePage" : {
+        "confirm" : "Vill du ta bort sidan "
+      },
+      "table" : {
+        "createdAt" : "Skapad",
+        "languageVersions" : "Språkversioner",
+        "modifiedAt" : "Senast uppdaterad",
+        "rolePermissions" : "Befattningar",
+        "status" : "Status",
+        "title" : "Sida"
+      },
+      "title" : "Sidgruppshantering",
+      "updateStatus" : {
+        "fail" : "Misslyckades att ta bort sidan, vänligen kontakta supporten om detta fortsätter.",
+        "ok" : "Sidan borttagen"
+      }
+    },
+    "Password" : {
+      "form" : {
+        "oldPassword" : {
+          "label" : "Nuvarande lösenord",
           "rules" : {
-            "noDuplicates" : "Samma roll kan inte förekomma dubbelt",
-            "required" : "Roll är ett obligatoriskt fält"
-          },
-          "tooltip" : "Roll som behörighet beviljas. Anonym innebär att sidan är offentlig för alla."
+            "required" : "Ange ditt nuvarande lösenord!"
+          }
         },
-        "writePermission" : {
-          "label" : "Skrivbehörighet",
-          "tooltip" : "Rätt att redigera sidan. En anonym användare kan aldrig redigera sidan."
+        "submitButton" : "Uppdatera lösenord"
+      },
+      "setUpdateStatus" : {
+        "update" : {
+          "fail" : "Uppdatering av användarlösenord misslyckades",
+          "ok" : "Användarlösenordet har uppdaterats. Du måste logga in igen för att fortsätta."
         }
       },
-      "status" : {
-        "label" : "Sidans status",
-        "rules" : {
-          "required" : "Status är ett obligatoriskt fält"
+      "updateStatus" : {
+        "fail" : {
+          "text" : "Uppdatering av lösenord misslyckades!"
         },
-        "tooltip" : "Sidans status. Utkast används när sidan fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
+        "ok" : {
+          "button" : "Logga ut",
+          "text" : "Lösenordet har uppdaterats!"
+        }
       }
     },
-    "onFinish" : {
-      "create" : {
-        "fail" : "Misslyckades med att skapa sidan",
-        "ok" : "Sida skapad"
+    "PasswordFields" : {
+      "form" : {
+        "confirmPassword" : {
+          "label" : "Bekräfta nytt lösenord",
+          "rules" : {
+            "required" : "Ange det nya lösenordet igen!",
+            "validator" : "Det nya lösenordet matchar inte!"
+          }
+        },
+        "newPassword" : {
+          "label" : "Nytt lösenord",
+          "rules" : {
+            "min" : "Lösenordet måste vara minst 10 tecken långt",
+            "pattern" : "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken",
+            "required" : "Ange det nya lösenordet!"
+          }
+        }
+      }
+    },
+    "PasswordRules" : {
+      "rule" : {
+        "1" : "Stor bokstav, A-Ö",
+        "2" : "Liten bokstav, a-ö",
+        "3" : "Siffra, 0-9",
+        "4" : "Specialtecken, t.ex. !@#$%^&*_-"
       },
-      "update" : {
-        "fail" : "Misslyckades med att uppdatera sidan",
-        "ok" : "Sida uppdaterad"
+      "text" : "Lösenordet måste vara minst 10 tecken långt och måste innehålla minst en av följande:"
+    },
+    "PastEvents" : {
+      "title" : "Tidigare evenemang"
+    },
+    "PaymentExpirationType" : {
+      "disabled" : "Icke i bruk",
+      "durational" : "Tidsbegränsad",
+      "periodical" : "Periodisk",
+      "perpetual" : "Permanent"
+    },
+    "PaymentListTable" : {
+      "table" : {
+        "expirationDate" : "Utgångstid",
+        "name" : "Namn",
+        "paymentCount" : "Antal",
+        "paymentDate" : "Betalningsdatum"
       }
     },
-    "title" : {
-      "new" : "Ny sida",
-      "update" : "Uppdatera sidan"
-    }
-  },
-  "EditPageGroup" : {
-    "form" : {
+    "PaymentTypeEnum" : {
+      "ONE_TIME" : "Engångs",
+      "PERIOD" : "Period"
+    },
+    "PortalConfigurations" : {
       "button" : {
-        "create" : "Skapa ny sidgrupp",
-        "update" : "Uppdatera grupp"
+        "reload" : "Ladda om servern"
       },
-      "divider" : {
-        "languages" : "Språkversioner"
-      },
-      "pageGroupVersions" : {
-        "label" : "Rubrik",
-        "rules" : {
-          "min" : "Rubriken måste vara minst 2 tecken lång",
-          "required" : "Rubrik är ett obligatoriskt fält"
+      "commenting" : {
+        "commenting-allow-editing" : {
+          "label" : "Tillåt kommentaruppdateringar",
+          "tooltip" : "Kan en användare uppdatera sin kommentar?"
         },
-        "tooltip" : "Sidgruppens rubrik, minst 2 tecken lång"
-      },
-      "status" : {
-        "label" : "Sidgruppens status",
-        "rules" : {
-          "required" : "Status är ett obligatoriskt fält"
+        "commenting-enabled" : {
+          "label" : "Aktivera kommentering",
+          "tooltip" : "Är kommentering aktiverad som standard?"
         },
-        "tooltip" : "Sidgruppens status. Utkast används när sidgruppen fortfarande redigeras och inte ska visas. Offentlig syns för alla. Borttagen används för att ange att sidans innehåll är föråldrat och inte längre ska visas."
-      }
-    },
-    "onFinish" : {
-      "create" : {
-        "fail" : "Misslyckades med att skapa sidgrupp",
-        "ok" : "Sidgrupp skapad"
+        "commenting-enabled-features" : {
+          "label" : "Aktiverade funktioner för kommentering",
+          "tooltip" : "Vilka funktioner är aktiverade för kommentering?"
+        },
+        "comments-report-trigger-level" : {
+          "label" : "Rapporteringsgräns för kommentarer",
+          "tooltip" : "Hur många rapporter som krävs innan en kommentar sätts för granskning"
+        },
+        "comments-require-review" : {
+          "label" : "Kommentarer kräver granskning",
+          "tooltip" : "Måste kommentarer granskas innan de publiceras och blir synliga för andra?"
+        },
+        "title" : "Kommentarer"
       },
-      "update" : {
-        "fail" : "Misslyckades med att uppdatera sidgrupp",
-        "ok" : "Sidgrupp uppdaterad"
-      }
-    }
-  },
-  "EmailSubscriptionCard" : {
-    "header" : "Mottag e-postmeddelanden då:"
-  },
-  "DiveEvent" : {
-    "subscribe" : {
-      "button" : "Delta i evenemanget",
-      "label" : "Delta i evenemanget",
-      "mainText" : "Vänligen fyll i följande för att delta i dyk-evenemanget"
-    },
-    "unsubscribe" : {
-      "button" : "Delta icke i evenemanget"
-    }
-  },
-  "EventDetails" : {
-    "description" : {
-      "title" : "Evenemangsbeskrivning"
-    },
-    "link" : {
-      "tooltip" : "Öppna evenemanget"
-    },
-    "participantTable" : {
-      "createdAt" : "Registrerad",
-      "eventDiveCount" : "Antal dykningar",
-      "name" : "Namn",
-      "paymentType" : {
-        "oneTime" : "Engångsbetalning",
-        "period" : "Periodisk betalning"
-      },
-      "payments" : "Betalningssituation",
-      "userType" : "Dyktyp"
-    },
-    "participants" : {
-      "title" : "Deltagare"
-    },
-    "table" : {
-      "maxDepth" : "Maxdjup, m",
-      "maxDuration" : "Maxtid, min",
-      "organizer" : "Arrangör",
-      "participants" : "Deltagare",
-      "phoneNumber" : "Telefonnummer",
-      "startTime" : "Tidpunkt",
-      "type" : "Typ"
-    },
-    "title" : "Evenemang"
-  },
-  "Events" : {
-    "ongoing" : {
-      "title" : "Pågående evenemang"
-    },
-    "results" : {
-      "error" : "Hämtning av data misslyckades: ",
-      "noEvents" : "Inga kommande evenemang."
-    },
-    "search" : {
-      "placeholder" : "Sök efter evenemang"
-    },
-    "table" : {
-      "maxDepth" : "Maxdjup, m",
-      "maxDuration" : "Maxtid, min",
-      "organizer" : "Arrangör",
-      "participants" : "Deltagare",
-      "startTime" : "Tidpunkt",
-      "status" : "Status",
-      "title" : "Beskrivning",
-      "type" : "Typ"
-    },
-    "upcoming" : {
-      "title" : "Kommande evenemang"
-    }
-  },
-  "FormMemberships" : {
-    "table" : {
-      "created-at" : "Skapad",
-      "expires-at" : "Utgångstid",
-      "id" : "ID",
-      "status" : "Status",
-      "type" : "Typ"
-    }
-  },
-  "FormatPayments" : {
-    "noValid" : "Inga giltiga betalningar tillgängliga.",
-    "table" : {
-      "expirationDate" : "Utgångstid",
-      "id" : "ID",
-      "paymentCount" : "Antal",
-      "paymentType" : "Betalningstyp",
-      "periodPayment" : "Period betalning",
-      "singlePayment" : "Engångsbetalning",
-      "startDate" : "Skapad"
-    },
-    "unknownPayment" : "Okänd betalningstyp",
-    "unknownPaymentContact" : "Kontakta supporten",
-    "unknownPaymentPlease" : "Kontakta supporten för mer information."
-  },
-  "ListPayments" : {
-    "oneTime" : "Engångsbetalningar",
-    "period" : "Periodiska betalningar"
-  },
-  "Login" : {
-    "form" : {
-      "button" : {
-        "forgotPassword" : "Glömt lösenordet?"
-      },
-      "password" : {
-        "label" : "Lösenord:",
-        "rules" : {
-          "required" : "Ange lösenord!"
-        }
-      },
-      "username" : {
-        "label" : "Användarnamn/E-post:",
-        "rules" : {
-          "email" : "Ogiltig e-postadress!",
-          "required" : "Ange e-postadress!"
-        }
-      }
-    },
-    "updateStatus" : {
-      "loginFail" : "Inloggning misslyckades!"
-    }
-  },
-  "LostPassword" : {
-    "form" : {
+      "configuration" : "Konfiguration",
+      "configuration-reload-failed" : "Misslyckades med att ladda om konfigurationen",
+      "configuration-reloaded" : "Konfigurationen har laddats om",
+      "current-setting" : "Aktuellt värde",
+      "default-value" : "Standardvärde",
+      "description" : "Här kan du konfigurera portalens inställningar. Observera att inställningar kräver att servern laddas om för att de ska träda i kraft.",
       "email" : {
-        "label" : "Användarnamn/E-post:",
-        "placeholder" : "någon@någonstans.se",
-        "rules" : {
-          "email" : "Ogiltig e-postadress!",
-          "required" : "Ange e-postadress!"
-        }
-      },
-      "submitButton" : "Skicka"
-    },
-    "setStatus" : {
-      "update" : {
-        "fail" : "Misslyckades med att skicka lösenordsmeddelande",
-        "ok" : "Lösenordsmeddelandet har skickats"
-      }
-    },
-    "text" : {
-      "bottom" : "Om problemet kvarstår, kontakta administratören.",
-      "top" : "Om du har glömt ditt lösenord kan du skicka en länk för lösenordsåterställning till din e-post (max 3 gånger)."
-    },
-    "updateStatus" : {
-      "fail" : {
-        "button" : "Gå tillbaka till sändningssidan",
-        "text" : "Sändning av återställningslänk misslyckades, vänta en stund och försök igen senare."
-      },
-      "ok" : {
-        "button" : "Tillbaka till inloggningssidan",
-        "text" : "Återställningslänken har skickats på nytt."
-      }
-    }
-  },
-  "MembershipStatusEnum" : {
-    "active" : "Aktiv",
-    "cancelled" : "Avbruten",
-    "expired" : "Utgånget"
-  },
-  "MembershipTypeEnum" : {
-    "disabled" : "Icke i bruk",
-    "durational" : "Tidsbegränsad",
-    "periodical" : "Periodisk",
-    "perpetual" : "Permanent"
-  },
-  "NavigationBar" : {
-    "action" : {
-      "changePassword" : "Ändra lösenord",
-      "login" : "Logga in",
-      "logout" : "Logga ut",
-      "profile" : "Profil",
-      "register" : "Registrera"
-    },
-    "administration" : {
-      "audits" : "Revisionshistorik",
-      "blocked-dates" : "Datumsblockering",
-      "comments" : {
-        "comment-list" : "Kommentarslista",
-        "comment-moderation" : "Komment moderering",
-        "title" : "Kommenten"
-      },
-      "download" : "Laddan ner",
-      "files" : "Filer",
-      "members" : "Medlemmar",
-      "payments" : "Betalningar",
-      "portal-configuration" : "Portalinställningar",
-      "readFirst" : "Läs först",
-      "stats" : "Statistik",
-      "title" : "Administration",
-      "users" : "Användare"
-    },
-    "events" : {
-      "add" : "Lägg till evenemang",
-      "new" : "Evenemang",
-      "past" : "Förflutna evenemang",
-      "title" : "Evenemang",
-      "yearlyStats" : "Årlig statistik"
-    },
-    "forum" : {
-      "link" : "Huvudsidan",
-      "title" : "Forum"
-    },
-    "pageManagement" : {
-      "pages" : "Sidor",
-      "title" : "Sidhantering"
-    }
-  },
-  "NewPassword" : {
-    "setUpdateStatus" : {
-      "update" : {
-        "fail" : "Uppdatering av användarlösenord misslyckades",
-        "ok" : "Användarlösenordet har uppdaterats"
-      }
-    },
-    "title" : "Nytt lösenord",
-    "updateStatus" : {
-      "fail" : {
-        "button" : "Kontakta administratören.",
-        "text" : "Uppdatering av lösenord misslyckades!"
-      },
-      "ok" : {
-        "button" : "Du kan logga in.",
-        "text" : "Lösenordet har uppdaterats!"
-      }
-    }
-  },
-  "OngoingEvents" : {
-    "results" : {
-      "noEvents" : "Inga pågående evenemang."
-    },
-    "search" : {
-      "placeholder" : "Sök efter evenemang"
-    },
-    "table" : {
-      "maxDepth" : "Maxdjup, m",
-      "maxDuration" : "Maxtid, min",
-      "organizer" : "Arrangör",
-      "participants" : "Deltagare",
-      "startTime" : "Tidpunkt",
-      "title" : "Beskrivning",
-      "type" : "Typ"
-    }
-  },
-  "Page" : {
-    "fields" : {
-      "created" : "Skapad: ",
-      "updated" : "Senast uppdaterad: "
-    }
-  },
-  "PageGroups" : {
-    "button" : {
-      "addGroup" : "Lägg till sidgrupp",
-      "addPage" : "Lägg till sida",
-      "updatePage" : "Uppdatera sidor"
-    },
-    "deletePath" : {
-      "confirm" : {
-        "1" : "Vill du stänga sidgrupp ",
-        "2" : "OBS! Stängning av sidgrupp stänger även alla tillhörande sidor och deras språkversioner."
-      }
-    },
-    "table" : {
-      "languageVersions" : "Språkversioner",
-      "pageCount" : "Antal sidor",
-      "status" : "Status",
-      "title" : "Sidgruppsnamn"
-    },
-    "title" : "Sidgrupper",
-    "updateStatus" : {
-      "removed" : "Sidgrupp borttagen"
-    }
-  },
-  "Pages" : {
-    "alert" : {
-      "noPages" : "Inga sidor i sidgruppen"
-    },
-    "button" : {
-      "addPage" : "Lägg till sida"
-    },
-    "closePage" : {
-      "confirm" : "Vill du ta bort sidan "
-    },
-    "table" : {
-      "createdAt" : "Skapad",
-      "languageVersions" : "Språkversioner",
-      "modifiedAt" : "Senast uppdaterad",
-      "rolePermissions" : "Befattningar",
-      "status" : "Status",
-      "title" : "Sida"
-    },
-    "title" : "Sidgruppshantering",
-    "updateStatus" : {
-      "fail" : "Misslyckades att ta bort sidan, vänligen kontakta supporten om detta fortsätter.",
-      "ok" : "Sidan borttagen"
-    }
-  },
-  "Password" : {
-    "form" : {
-      "oldPassword" : {
-        "label" : "Nuvarande lösenord",
-        "rules" : {
-          "required" : "Ange ditt nuvarande lösenord!"
-        }
-      },
-      "submitButton" : "Uppdatera lösenord"
-    },
-    "setUpdateStatus" : {
-      "update" : {
-        "fail" : "Uppdatering av användarlösenord misslyckades",
-        "ok" : "Användarlösenordet har uppdaterats. Du måste logga in igen för att fortsätta."
-      }
-    },
-    "updateStatus" : {
-      "fail" : {
-        "text" : "Uppdatering av lösenord misslyckades!"
-      },
-      "ok" : {
-        "button" : "Logga ut",
-        "text" : "Lösenordet har uppdaterats!"
-      }
-    }
-  },
-  "PasswordFields" : {
-    "form" : {
-      "confirmPassword" : {
-        "label" : "Bekräfta nytt lösenord",
-        "rules" : {
-          "required" : "Ange det nya lösenordet igen!",
-          "validator" : "Det nya lösenordet matchar inte!"
-        }
-      },
-      "newPassword" : {
-        "label" : "Nytt lösenord",
-        "rules" : {
-          "min" : "Lösenordet måste vara minst 10 tecken långt",
-          "pattern" : "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken",
-          "required" : "Ange det nya lösenordet!"
-        }
-      }
-    }
-  },
-  "PasswordRules" : {
-    "rule" : {
-      "1" : "Stor bokstav, A-Ö",
-      "2" : "Liten bokstav, a-ö",
-      "3" : "Siffra, 0-9",
-      "4" : "Specialtecken, t.ex. !@#$%^&*_-"
-    },
-    "text" : "Lösenordet måste vara minst 10 tecken långt och måste innehålla minst en av följande:"
-  },
-  "PastEvents" : {
-    "title" : "Tidigare evenemang"
-  },
-  "PaymentExpirationType" : {
-    "disabled" : "Icke i bruk",
-    "durational" : "Tidsbegränsad",
-    "periodical" : "Periodisk",
-    "perpetual" : "Permanent"
-  },
-  "PaymentListTable" : {
-    "table" : {
-      "expirationDate" : "Utgångstid",
-      "name" : "Namn",
-      "paymentCount" : "Antal",
-      "paymentDate" : "Betalningsdatum"
-    }
-  },
-  "PaymentTypeEnum" : {
-    "ONE_TIME" : "Engångs",
-    "PERIOD" : "Period"
-  },
-  "PortalConfigurations" : {
-    "button" : {
-      "reload" : "Ladda om servern"
-    },
-    "commenting" : {
-      "commenting-allow-editing" : {
-        "label" : "Tillåt kommentaruppdateringar",
-        "tooltip" : "Kan en användare uppdatera sin kommentar?"
-      },
-      "commenting-enabled" : {
-        "label" : "Aktivera kommentering",
-        "tooltip" : "Är kommentering aktiverad som standard?"
-      },
-      "commenting-enabled-features" : {
-        "label" : "Aktiverade funktioner för kommentering",
-        "tooltip" : "Vilka funktioner är aktiverade för kommentering?"
-      },
-      "comments-report-trigger-level" : {
-        "label" : "Rapporteringsgräns för kommentarer",
-        "tooltip" : "Hur många rapporter som krävs innan en kommentar sätts för granskning"
-      },
-      "comments-require-review" : {
-        "label" : "Kommentarer kräver granskning",
-        "tooltip" : "Måste kommentarer granskas innan de publiceras och blir synliga för andra?"
-      },
-      "title" : "Kommentarer"
-    },
-    "configuration" : "Konfiguration",
-    "configuration-reload-failed" : "Misslyckades med att ladda om konfigurationen",
-    "configuration-reloaded" : "Konfigurationen har laddats om",
-    "current-setting" : "Aktuellt värde",
-    "default-value" : "Standardvärde",
-    "description" : "Här kan du konfigurera portalens inställningar. Observera att inställningar kräver att servern laddas om för att de ska träda i kraft.",
-    "email" : {
-      "email-enabled" : {
-        "label" : "E-post aktiverad",
-        "tooltip" : "Om e-postutskick är aktiverat som standard"
-      },
-      "email-notification-retries" : {
-        "label" : "Antal e-postnotifikationsförsök",
-        "tooltip" : "Antal försök att skicka e-postmeddelanden"
-      },
-      "email-notifications" : {
-        "label" : "E-postnotifikationer",
-        "tooltip" : "Vilka e-postmeddelanden som skickas"
-      },
-      "org-email" : {
-        "label" : "Organisations-E-post",
-        "tooltip" : "Organisationens e-postadress"
-      },
-      "support-email" : {
-        "label" : "Support-E-post",
-        "tooltip" : "Supportens e-postadress"
-      },
-      "system-email" : {
-        "label" : "System-E-post",
-        "tooltip" : "Systemets e-postadress, oftast en ingen-svara-adress"
-      },
-      "title" : "E-postinställningar"
-    },
-    "frontend" : {
-      "max-certificates" : {
-        "label" : "Certifikat (max)",
-        "tooltip" : "Maximalt antal certifikat som en medlem kan registrera"
-      },
-      "max-depth" : {
-        "label" : "Maximala djupet",
-        "tooltip" : "Maximala djupet för dykningar"
-      },
-      "max-dive-length" : {
-        "label" : "Maximal dykningstid",
-        "tooltip" : "Maximal tid för ett dyk, i minuter"
-      },
-      "max-event-length" : {
-        "label" : "Maximal evenemanglängd",
-        "tooltip" : "Maximal längd på ett dyk-evenemang, i timmar"
-      },
-      "max-participants" : {
-        "label" : "Maximalt antal deltagare",
-        "tooltip" : "Maximalt antal samtidiga deltagare"
-      },
-      "min-event-length" : {
-        "label" : "Minimal evenemanglängd",
-        "tooltip" : "Minimal längd på ett dyk-evenemang, i timmar"
-      },
-      "min-participants" : {
-        "label" : "Minimala antal deltagare",
-        "tooltip" : "Minimala antal samtidiga deltagare som krävs för att ett evenemang ska kunna genomföras"
-      },
-      "title" : "Frontend-inställningar",
-      "types-of-event" : {
-        "label" : "Evenemangstyper",
-        "tooltip" : "Tillåtna typer av dykningar"
-      }
-    },
-    "general" : {
-      "default-language" : {
-        "label" : "Standardspråk",
-        "tooltip" : "Standardspråk för portalen, ISO-639-format"
-      },
-      "enabled-language" : {
-        "label" : "Tillåtna språk",
-        "tooltip" : "Vilka språk som är tillåtna på portalen"
-      },
-      "org-name" : {
-        "label" : "Organisationsnamn",
-        "tooltip" : "Namn på organisationen"
-      },
-      "timezone" : {
-        "label" : "Tidzon",
-        "tooltip" : "Tidzon som används av portalen för att visa tider"
-      },
-      "title" : "Allmänna inställningar",
-      "top-divers-list-size" : {
-        "label" : "Topplista dykare",
-        "tooltip" : "Antal dykare som visas på topplistan"
-      }
-    },
-    "membership" : {
-      "event-require-membership" : {
-        "label" : "Evenemang kräver medlemskap",
-        "tooltip" : "Måste en dykare ha ett giltigt medlemskap för att kunna delta i ett dykevenemang"
-      },
-      "membership-period-length" : {
-        "label" : "Medlemskapsperiodens längd",
-        "tooltip" : "Längden på medlemskapsperioden eller varaktigheten. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
-      },
-      "membership-period-start" : {
-        "label" : "Medlemskapsperiodens startdatum",
-        "tooltip" : "När började räkningen av medlemskapsperioden. Detta används endast för periodisk typ. Det används för att anpassa perioden till dagens datum"
-      },
-      "membership-period-start-point" : {
-        "label" : "Startpunkt för medlemskapsperiod",
-        "tooltip" : "När börjar medlemskapsperioden. Detta är i förhållande till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag."
-      },
-      "membership-period-unit" : {
-        "label" : "Enhet för medlemskapsperiodens längd",
-        "tooltip" : "Enhet för medlemskapsperiodens längd. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
-      },
-      "membership-type" : {
-        "label" : "Medlemskapstyp",
-        "tooltip" : "Typ av medlemskap. Periodisk innebär att medlemskapet är giltigt under en viss period, t.ex. innevarande år eller månad. Tidsbegränsad innebär att det är giltigt under en angiven tidsperiod framåt."
-      },
-      "title" : "Medlemskapsinställningar"
-    },
-    "must-be-set" : "Måste sättas",
-    "payment" : {
-      "event-require-payment" : {
-        "label" : "Event kräver betalning",
-        "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevent"
-      },
-      "one-time-expiration-length" : {
-        "label" : "Engångs giltighetstid",
-        "tooltip" : "Längden på engångsbetalningsperioden eller varaktigheten i antal engångs giltighetsenheter. Observera att detta endast används om betalningstypen är tidsbegränsad."
-      },
-      "one-time-expiration-type" : {
-        "label" : "Engångs giltighetstyp",
-        "tooltip" : "Engångs giltighetstyp. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. innevarande år, månad eller vecka från angiven startpunkt. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
-      },
-      "one-time-expiration-unit" : {
-        "label" : "Engångs giltighetsenhet",
-        "tooltip" : "Engångs giltighetsenhet. Observera att detta endast används om betalningstypen är tidsbegränsad."
-      },
-      "payment-enabled" : {
-        "label" : "Aktivera betalningssystem",
-        "tooltip" : "Om betalningssystemet är aktiverat som standard"
-      },
-      "payment-period-length" : {
-        "label" : "Betalningsperiodens längd",
-        "tooltip" : "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om betalningstypen är återkommande eller tidsbegränsad."
-      },
-      "payment-period-start" : {
-        "label" : "Startpunkt för betalningsperioden",
-        "tooltip" : "När började betalningsperioden. Detta avgör hur perioderna beräknas. Observera att ändring av detta värde kan ogiltigförklara alla aktiva periodiska betalningar. Detta påverkar inte tidsbegränsade betalningar."
-      },
-      "payment-period-start-point" : {
-        "label" : "Startpunkt för betalningsperiod",
-        "tooltip" : "När betalningsperioden börjar. Detta är relaterat till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag, dag -> dagen i året."
-      },
-      "periodical-payment-method-type" : {
-        "label" : "Typ av periodisk betalningsmetod",
-        "tooltip" : "Typ av betalningsmetod för periodiska betalningar. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. det aktuella året, månaden eller veckan från den angivna startpunkten. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
-      },
-      "periodical-payment-method-unit" : {
-        "label" : "Enhet för periodisk betalningsmetod",
-        "tooltip" : "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
-      },
-      "single-payment-enabled" : {
-        "label" : "Aktivera engångsbetalning",
-        "tooltip" : "Om engångsbetalning per evenemang är aktiverad som standard"
-      },
-      "title" : "Betalningsinställningar"
-    },
-    "title" : "Portal konfiguration",
-    "update-fail" : "Misslyckades med att uppdatera konfigurationen",
-    "update-ok" : "Konfigurationen uppdaterad"
-  },
-  "Register" : {
-    "fail" : {
-      "message" : "Registrering misslyckades!"
-    },
-    "form" : {
-      "confirm" : {
-        "label" : "Bekräfta lösenordet:",
-        "rules" : {
-          "nomatch" : "De angivna lösenorden matchar inte!",
-          "required" : "Bekräfta ditt lösenord!"
-        }
-      },
-      "password" : {
-        "label" : "Lösenord:",
-        "rules" : {
-          "min" : "Lösenordet måste vara minst 10 tecken långt",
-          "pattern" : "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken",
-          "required" : "Ange ett lösenord!"
+        "email-enabled" : {
+          "label" : "E-post aktiverad",
+          "tooltip" : "Om e-postutskick är aktiverat som standard"
         },
-        "tooltip" : "Lösenordet måste vara minst 10 tecken långt och måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken"
+        "email-notification-retries" : {
+          "label" : "Antal e-postnotifikationsförsök",
+          "tooltip" : "Antal försök att skicka e-postmeddelanden"
+        },
+        "email-notifications" : {
+          "label" : "E-postnotifikationer",
+          "tooltip" : "Vilka e-postmeddelanden som skickas"
+        },
+        "org-email" : {
+          "label" : "Organisations-E-post",
+          "tooltip" : "Organisationens e-postadress"
+        },
+        "support-email" : {
+          "label" : "Support-E-post",
+          "tooltip" : "Supportens e-postadress"
+        },
+        "system-email" : {
+          "label" : "System-E-post",
+          "tooltip" : "Systemets e-postadress, oftast en ingen-svara-adress"
+        },
+        "title" : "E-postinställningar"
       },
-      "submitButton" : "Registrera",
-      "terms" : {
-        "accept" : "Jag accepterar villkoren",
-        "button" : "villkor",
-        "reject" : "Jag accepterar inte villkoren",
-        "text" : "Läs och acceptera",
-        "title" : "Villkor"
+      "frontend" : {
+        "max-certificates" : {
+          "label" : "Certifikat (max)",
+          "tooltip" : "Maximalt antal certifikat som en medlem kan registrera"
+        },
+        "max-depth" : {
+          "label" : "Maximala djupet",
+          "tooltip" : "Maximala djupet för dykningar"
+        },
+        "max-dive-length" : {
+          "label" : "Maximal dykningstid",
+          "tooltip" : "Maximal tid för ett dyk, i minuter"
+        },
+        "max-event-length" : {
+          "label" : "Maximal evenemanglängd",
+          "tooltip" : "Maximal längd på ett dyk-evenemang, i timmar"
+        },
+        "max-participants" : {
+          "label" : "Maximalt antal deltagare",
+          "tooltip" : "Maximalt antal samtidiga deltagare"
+        },
+        "min-event-length" : {
+          "label" : "Minimal evenemanglängd",
+          "tooltip" : "Minimal längd på ett dyk-evenemang, i timmar"
+        },
+        "min-participants" : {
+          "label" : "Minimala antal deltagare",
+          "tooltip" : "Minimala antal samtidiga deltagare som krävs för att ett evenemang ska kunna genomföras"
+        },
+        "title" : "Frontend-inställningar",
+        "types-of-event" : {
+          "label" : "Evenemangstyper",
+          "tooltip" : "Tillåtna typer av dykningar"
+        }
       },
-      "title" : "Registrera"
-    },
-    "success" : {
-      "message" : "Registreringen lyckades! Innan du stänger detta fönster, vänligen kontrollera din e-post. Vi har skickat ett bekräftelsemail till den adress du registrerade dig med. Kontrollera även din skräppostmapp."
-    }
-  },
-  "Registration" : {
-    "title" : {
-      "invalid" : "Registrering misslyckades, aktiveringslänken har gått ut",
-      "ok" : "Aktiveringen av kontot lyckades. Du kan nu logga in med ditt användarnamn och lösenord."
-    }
-  },
-  "ReportCard" : {
-    "button" : {
-      "accept" : "Acceptera rapport",
-      "dismiss" : "Avvisa rapport"
-    },
-    "field" : {
-      "created-at" : "Skapad",
-      "reason" : "Orsak",
-      "reporter" : "Anmälare",
-      "status" : "Status"
-    },
-    "messages" : {
-      "accept-fail" : "Misslyckades med att acceptera rapporten.",
-      "accept-success" : "Rapport accepterad",
-      "dismiss-fail" : "Misslyckades med att avvisa rapporten.",
-      "dismiss-success" : "Rapport avvisad."
-    }
-  },
-  "ReportEvent" : {
-    "table" : {
-      "diveCount" : "Antal dyk",
-      "eventDateTime" : "Evenemangsdatum",
-      "organizerName" : "Evenemangsarrangör",
-      "participantCount" : "Deltagarantal"
-    }
-  },
-  "ReportEvents" : {
-    "title" : "Evenemangsrapporter"
-  },
-  "ReportStatusEnum" : {
-    "approved" : "Godkänd",
-    "cancelled" : "Avbruten",
-    "pending" : "Väntande",
-    "rejected" : "Avvisad"
-  },
-  "ResendRegistrationEmail" : {
-    "text" : {
-      "fail" : "Misslyckades med att skicka bekräftelsemejl. Du måste registrera dig igen. Om problemet fortsätter, kontakta administratören",
-      "notReceived" : "Om du inte har mottagit bekräftelsemejlet kan du skicka det igen genom att trycka på knappen nedan."
-    }
-  },
-  "SetDives" : {
-    "noDives" : "Inga dyk",
-    "table" : {
-      "action" : "Åtgärd",
-      "diveCount" : "Antal dyk",
-      "name" : "Dykare"
-    }
-  },
-  "ShowCertificateCard" : {
-    "card" : {
-      "certificateId" : "Certifikatnummer",
-      "certification" : "Dykcertifikat",
-      "date" : "Datum för dykcertifikat",
-      "diverId" : "Dykarnummer",
-      "organization" : "Certifieringsorganisation",
-      "photocopy" : "Kopia av dykcertifikat",
-      "remove-photo-fail" : "Kunde inte ta bort fotokopia av dykcertifikat",
-      "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
-      "title" : "Certifikat: ",
-      "upload-photo" : "Ladda fotokopia av dykcertifikat",
-      "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
-      "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
-    }
-  },
-  "StatisticsMain" : {
-    "reports" : "Rapporter",
-    "yearlyStats" : "Årsstatistik"
-  },
-  "StatsOrganizers" : {
-    "stats" : {
-      "title" : "Evenemangsarrangörer"
-    }
-  },
-  "StatsPayments" : {
-    "stats" : {
-      "title" : "Betalningar"
-    }
-  },
-  "StatsYearlyDives" : {
-    "table" : {
-      "diveCount" : "Antal dyk",
-      "position" : "Position",
-      "userName" : "Namn"
-    },
-    "title-1" : "Top-",
-    "title-2" : " årsstatistik för dyk"
-  },
-  "StatsYearlyEvents" : {
-    "stats" : {
-      "title" : "Evenemang per år"
-    }
-  },
-  "StatsYearlyRegistrations" : {
-    "stats" : {
-      "title" : "Användarregistreringar per år"
-    }
-  },
-  "TimezoneSelector" : {
-    "select" : {
-      "placeholder" : "Välj tidzon"
-    }
-  },
-  "User" : {
-    "button" : {
-      "acceptTerms" : "Läs och godkänn användarvillkoren",
-      "anonymizeAccount" : "Anonymisera kontot",
-      "lockAccount" : "Lås kontot"
-    },
-    "form" : {
+      "general" : {
+        "default-language" : {
+          "label" : "Standardspråk",
+          "tooltip" : "Standardspråk för portalen, ISO-639-format"
+        },
+        "enabled-language" : {
+          "label" : "Tillåtna språk",
+          "tooltip" : "Vilka språk som är tillåtna på portalen"
+        },
+        "org-name" : {
+          "label" : "Organisationsnamn",
+          "tooltip" : "Namn på organisationen"
+        },
+        "timezone" : {
+          "label" : "Tidzon",
+          "tooltip" : "Tidzon som används av portalen för att visa tider"
+        },
+        "title" : "Allmänna inställningar",
+        "top-divers-list-size" : {
+          "label" : "Topplista dykare",
+          "tooltip" : "Antal dykare som visas på topplistan"
+        }
+      },
       "membership" : {
-        "label" : "Medlemskap",
-        "none" : "Inget medlemskap",
-        "tooltip" : "Medlemskap listade från nyast till äldst"
+        "event-require-membership" : {
+          "label" : "Evenemang kräver medlemskap",
+          "tooltip" : "Måste en dykare ha ett giltigt medlemskap för att kunna delta i ett dykevenemang"
+        },
+        "membership-period-length" : {
+          "label" : "Medlemskapsperiodens längd",
+          "tooltip" : "Längden på medlemskapsperioden eller varaktigheten. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
+        },
+        "membership-period-start" : {
+          "label" : "Medlemskapsperiodens startdatum",
+          "tooltip" : "När började räkningen av medlemskapsperioden. Detta används endast för periodisk typ. Det används för att anpassa perioden till dagens datum"
+        },
+        "membership-period-start-point" : {
+          "label" : "Startpunkt för medlemskapsperiod",
+          "tooltip" : "När börjar medlemskapsperioden. Detta är i förhållande till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag."
+        },
+        "membership-period-unit" : {
+          "label" : "Enhet för medlemskapsperiodens längd",
+          "tooltip" : "Enhet för medlemskapsperiodens längd. Observera att detta endast används om medlemskapstypen är periodisk eller tidsbegränsad."
+        },
+        "membership-type" : {
+          "label" : "Medlemskapstyp",
+          "tooltip" : "Typ av medlemskap. Periodisk innebär att medlemskapet är giltigt under en viss period, t.ex. innevarande år eller månad. Tidsbegränsad innebär att det är giltigt under en angiven tidsperiod framåt."
+        },
+        "title" : "Medlemskapsinställningar"
       },
-      "payments" : {
-        "label" : "Betalningar",
-        "tooltip" : "Betalningar listade från nyaste till äldsta"
+      "must-be-set" : "Måste sättas",
+      "payment" : {
+        "event-require-payment" : {
+          "label" : "Event kräver betalning",
+          "tooltip" : "Måste en dykare ha en giltig betalning för att kunna delta i ett dykevent"
+        },
+        "one-time-expiration-length" : {
+          "label" : "Engångs giltighetstid",
+          "tooltip" : "Längden på engångsbetalningsperioden eller varaktigheten i antal engångs giltighetsenheter. Observera att detta endast används om betalningstypen är tidsbegränsad."
+        },
+        "one-time-expiration-type" : {
+          "label" : "Engångs giltighetstyp",
+          "tooltip" : "Engångs giltighetstyp. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. innevarande år, månad eller vecka från angiven startpunkt. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
+        },
+        "one-time-expiration-unit" : {
+          "label" : "Engångs giltighetsenhet",
+          "tooltip" : "Engångs giltighetsenhet. Observera att detta endast används om betalningstypen är tidsbegränsad."
+        },
+        "payment-enabled" : {
+          "label" : "Aktivera betalningssystem",
+          "tooltip" : "Om betalningssystemet är aktiverat som standard"
+        },
+        "payment-period-length" : {
+          "label" : "Betalningsperiodens längd",
+          "tooltip" : "Längden på betalningsperioden eller varaktigheten. Observera att detta endast används om betalningstypen är återkommande eller tidsbegränsad."
+        },
+        "payment-period-start" : {
+          "label" : "Startpunkt för betalningsperioden",
+          "tooltip" : "När började betalningsperioden. Detta avgör hur perioderna beräknas. Observera att ändring av detta värde kan ogiltigförklara alla aktiva periodiska betalningar. Detta påverkar inte tidsbegränsade betalningar."
+        },
+        "payment-period-start-point" : {
+          "label" : "Startpunkt för betalningsperiod",
+          "tooltip" : "När betalningsperioden börjar. Detta är relaterat till periodtypen. Specifikt är relationen: År -> månad, Månad -> dag i månaden, Vecka -> veckodag, dag -> dagen i året."
+        },
+        "periodical-payment-method-type" : {
+          "label" : "Typ av periodisk betalningsmetod",
+          "tooltip" : "Typ av betalningsmetod för periodiska betalningar. Periodisk innebär att betalningen är giltig för den pågående perioden, t.ex. det aktuella året, månaden eller veckan från den angivna startpunkten. Tidsbegränsad innebär att den är giltig under en viss tidsperiod framåt."
+        },
+        "periodical-payment-method-unit" : {
+          "label" : "Enhet för periodisk betalningsmetod",
+          "tooltip" : "Enhet för periodisk betalningsmetod. Observera att detta endast används om betalningsmetoden är periodisk."
+        },
+        "single-payment-enabled" : {
+          "label" : "Aktivera engångsbetalning",
+          "tooltip" : "Om engångsbetalning per evenemang är aktiverad som standard"
+        },
+        "title" : "Betalningsinställningar"
+      },
+      "title" : "Portal konfiguration",
+      "update-fail" : "Misslyckades med att uppdatera konfigurationen",
+      "update-ok" : "Konfigurationen uppdaterad"
+    },
+    "Register" : {
+      "fail" : {
+        "message" : "Registrering misslyckades!"
+      },
+      "form" : {
+        "confirm" : {
+          "label" : "Bekräfta lösenordet:",
+          "rules" : {
+            "nomatch" : "De angivna lösenorden matchar inte!",
+            "required" : "Bekräfta ditt lösenord!"
+          }
+        },
+        "password" : {
+          "label" : "Lösenord:",
+          "rules" : {
+            "min" : "Lösenordet måste vara minst 10 tecken långt",
+            "pattern" : "Lösenordet måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken",
+            "required" : "Ange ett lösenord!"
+          },
+          "tooltip" : "Lösenordet måste vara minst 10 tecken långt och måste innehålla minst en stor bokstav, en liten bokstav, en siffra och ett specialtecken"
+        },
+        "submitButton" : "Registrera",
+        "terms" : {
+          "accept" : "Jag accepterar villkoren",
+          "button" : "villkor",
+          "reject" : "Jag accepterar inte villkoren",
+          "text" : "Läs och acceptera",
+          "title" : "Villkor"
+        },
+        "title" : "Registrera"
+      },
+      "success" : {
+        "message" : "Registreringen lyckades! Innan du stänger detta fönster, vänligen kontrollera din e-post. Vi har skickat ett bekräftelsemail till den adress du registrerade dig med. Kontrollera även din skräppostmapp."
+      }
+    },
+    "Registration" : {
+      "title" : {
+        "invalid" : "Registrering misslyckades, aktiveringslänken har gått ut",
+        "ok" : "Aktiveringen av kontot lyckades. Du kan nu logga in med ditt användarnamn och lösenord."
+      }
+    },
+    "ReportCard" : {
+      "button" : {
+        "accept" : "Acceptera rapport",
+        "dismiss" : "Avvisa rapport"
+      },
+      "field" : {
+        "created-at" : "Skapad",
+        "reason" : "Orsak",
+        "reporter" : "Anmälare",
+        "status" : "Status"
+      },
+      "messages" : {
+        "accept-fail" : "Misslyckades med att acceptera rapporten.",
+        "accept-success" : "Rapport accepterad",
+        "dismiss-fail" : "Misslyckades med att avvisa rapporten.",
+        "dismiss-success" : "Rapport avvisad."
+      }
+    },
+    "ReportEvent" : {
+      "table" : {
+        "diveCount" : "Antal dyk",
+        "eventDateTime" : "Evenemangsdatum",
+        "organizerName" : "Evenemangsarrangör",
+        "participantCount" : "Deltagarantal"
+      }
+    },
+    "ReportEvents" : {
+      "title" : "Evenemangsrapporter"
+    },
+    "ReportStatusEnum" : {
+      "approved" : "Godkänd",
+      "cancelled" : "Avbruten",
+      "pending" : "Väntande",
+      "rejected" : "Avvisad"
+    },
+    "ResendRegistrationEmail" : {
+      "text" : {
+        "fail" : "Misslyckades med att skicka bekräftelsemejl. Du måste registrera dig igen. Om problemet fortsätter, kontakta administratören",
+        "notReceived" : "Om du inte har mottagit bekräftelsemejlet kan du skicka det igen genom att trycka på knappen nedan."
+      }
+    },
+    "SetDives" : {
+      "noDives" : "Inga dyk",
+      "table" : {
+        "action" : "Åtgärd",
+        "diveCount" : "Antal dyk",
+        "name" : "Dykare"
+      }
+    },
+    "ShowCertificateCard" : {
+      "card" : {
+        "certificateId" : "Certifikatnummer",
+        "certification" : "Dykcertifikat",
+        "date" : "Datum för dykcertifikat",
+        "diverId" : "Dykarnummer",
+        "organization" : "Certifieringsorganisation",
+        "photocopy" : "Kopia av dykcertifikat",
+        "remove-photo-fail" : "Kunde inte ta bort fotokopia av dykcertifikat",
+        "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
+        "title" : "Certifikat: ",
+        "upload-photo" : "Ladda fotokopia av dykcertifikat",
+        "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
+        "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
+      }
+    },
+    "StatisticsMain" : {
+      "reports" : "Rapporter",
+      "yearlyStats" : "Årsstatistik"
+    },
+    "StatsOrganizers" : {
+      "stats" : {
+        "title" : "Evenemangsarrangörer"
+      }
+    },
+    "StatsPayments" : {
+      "stats" : {
+        "title" : "Betalningar"
+      }
+    },
+    "StatsYearlyDives" : {
+      "table" : {
+        "diveCount" : "Antal dyk",
+        "position" : "Position",
+        "userName" : "Namn"
+      },
+      "title-1" : "Top-",
+      "title-2" : " årsstatistik för dyk"
+    },
+    "StatsYearlyEvents" : {
+      "stats" : {
+        "title" : "Evenemang per år"
+      }
+    },
+    "StatsYearlyRegistrations" : {
+      "stats" : {
+        "title" : "Användarregistreringar per år"
+      }
+    },
+    "TimezoneSelector" : {
+      "select" : {
+        "placeholder" : "Välj tidzon"
+      }
+    },
+    "User" : {
+      "button" : {
+        "acceptTerms" : "Läs och godkänn användarvillkoren",
+        "anonymizeAccount" : "Anonymisera kontot",
+        "lockAccount" : "Lås kontot"
+      },
+      "form" : {
+        "membership" : {
+          "label" : "Medlemskap",
+          "none" : "Inget medlemskap",
+          "tooltip" : "Medlemskap listade från nyast till äldst"
+        },
+        "payments" : {
+          "label" : "Betalningar",
+          "tooltip" : "Betalningar listade från nyaste till äldsta"
+        },
+        "roles" : {
+          "label" : "Roller",
+          "tooltip" : "Användarens roller"
+        },
+        "status" : {
+          "label" : "Status"
+        },
+        "terms" : {
+          "false" : "Har inte accepterat villkoren",
+          "label" : "Användarvillkoren",
+          "true" : "Har accepterat villkoren"
+        }
+      },
+      "requestAnonymization" : {
+        "confirm" : "Vill du verkligen begära anonymisering av data? Detta kommer att ta bort all personlig information som du har angett i systemet. Efter detta kan du skapa ett nytt användarnamn och registrera dig på portalen igen."
+      },
+      "requestLocking" : {
+        "confirm" : "Vill du verkligen låsa kontot? Kontoinformationen bevaras, men administratören måste öppna ditt konto för att du ska kunna logga in i systemet igen."
+      },
+      "title" : "Användarinformation",
+      "update" : {
+        "fail" : "Misslyckades med att uppdatera användarens information",
+        "ok" : "Användarinformation uppdaterad"
+      },
+      "updateStatus" : {
+        "fail" : "Uppdatering av användarinformation misslyckades",
+        "ok" : "Användarinformationen har uppdaterats"
+      }
+    },
+    "UserDetails" : {
+      "table" : {
+        "diveCount" : "Antal dyk:",
+        "email" : "E-post:",
+        "nextOfKin" : "Kontaktuppgifter till närmaste anhörig:",
+        "payments" : "Betalningar:",
+        "phonenumber" : "Telefonnummer:",
+        "registered" : "Registrerad:"
+      }
+    },
+    "UserEvents" : {
+      "email-subscription-panel" : {
+        "header" : "E-postprenumerationer",
+        "tooltip" : "Välj vilka e-postmeddelanden du vill prenumerera på"
+      },
+      "future-panel" : {
+        "header" : "Kommande evenemang",
+        "tooltip" : "Evenemang som du har anmält dig till"
+      },
+      "past-panel" : {
+        "header" : "Tidigare evenemang",
+        "tooltip" : "Evenemang som du har deltagit i"
+      },
+      "profile-certificates-panel" : {
+        "header" : "Dykcertifikat",
+        "tooltip" : "Dykcertifikat som du har registrerat, max "
+      }
+    },
+    "UserFields" : {
+      "form" : {
+        "firstName" : {
+          "label" : "Förnamn",
+          "placeholder" : "Förnamn",
+          "rules" : {
+            "min" : "Förnamnet måste vara minst 2 tecken långt",
+            "pattern" : "Förnamnet får bara innehålla bokstäver från a-ö samt bindestreck",
+            "required" : "Förnamn är ett obligatoriskt fält"
+          },
+          "tooltip" : "Obligatoriskt fält"
+        },
+        "language" : {
+          "label" : "Språkval",
+          "rules" : {
+            "required" : "Vänligen välj ett språk"
+          },
+          "tooltip" : "På vilket språk vill du interagera? Alternativen är finska, svenska, engelska eller tyska"
+        },
+        "lastName" : {
+          "label" : "Efternamn",
+          "placeholder" : "Efternamn",
+          "rules" : {
+            "min" : "Efternamnet måste vara minst 1 tecken långt",
+            "pattern" : "Efternamnet får bara innehålla bokstäver från a-ö samt bindestreck",
+            "required" : "Efternamn är ett obligatoriskt fält"
+          },
+          "tooltip" : "Obligatoriskt fält"
+        },
+        "nextOfKin" : {
+          "label" : "Närmaste anhörig:",
+          "placeholder" : "Namn och telefonnummer till närmaste anhörig",
+          "tooltip" : "Närmaste anhörig, nödvändig i nödsituationer. Både namn och telefonnummer krävs."
+        },
+        "phoneNumber" : {
+          "placeholder" : "Telefonnummer:",
+          "rules" : {
+            "min" : "Är du säker på att ditt telefonnummer är korrekt?",
+            "pattern" : "Telefonnumret får bara innehålla siffror",
+            "required" : "Vänligen ange ett telefonnummer!"
+          },
+          "tooltip" : "Telefonnumret ska vara i formatet +358123456789"
+        },
+        "primaryUserType" : {
+          "label" : "Föredragen aktivitetstyp",
+          "rules" : {
+            "required" : "Du måste välja din föredragna aktivitet"
+          },
+          "tooltip" : "Vänligen välj vilken typ av aktivitet du föredrar. Du kan välja aktivitet separat för varje evenemang och detta val är standard."
+        },
+        "privacy" : {
+          "label" : "Dölj kontaktinformation",
+          "tooltip" : "E-post och telefonnummer är inte synliga för andra medlemmar. Endast användaren kan dölja sin information. Arrangörens namn är alltid synligt."
+        },
+        "userId" : {
+          "label" : "Användar-ID"
+        },
+        "username" : {
+          "label" : "Användarnamn",
+          "placeholder" : "E-post",
+          "rules" : {
+            "email" : "Ogiltig e-postadress!",
+            "required" : "Vänligen ange din e-postadress!"
+          },
+          "tooltip" : "Din e-postadress används som användarnamn"
+        }
+      }
+    },
+    "UserTypeEnum" : {
+      "free_diver" : "Fridykning",
+      "non_diver" : "Inte dykare",
+      "scuba_diver" : "Apparatdykning",
+      "snorkler" : "Snorkling"
+    },
+    "common" : {
+      "button" : {
+        "add" : "Lägg till",
+        "back" : "Tillbaka",
+        "cancel" : "Avbryt",
+        "close" : "Stäng",
+        "delete" : "Ta bort",
+        "held" : "Hållits",
+        "login" : "Logga in",
+        "logout" : "Logga ut",
+        "no" : "Nej",
+        "open" : "Öppna",
+        "reset" : "Återställ",
+        "respond" : "Svara",
+        "save" : "Spara",
+        "search" : "Sök",
+        "send" : "Skicka",
+        "update" : "Uppdatera",
+        "yes" : "Ja"
+      },
+      "dive-event" : {
+        "status" : {
+          "cancelled" : "Avbokat",
+          "drafted" : "Utkast",
+          "held" : "Hållits",
+          "published" : "Publicerad"
+        }
+      },
+      "email-subscription-type" : {
+        "EVENT" : {
+          "label" : "Evenemang",
+          "tooltip" : "När ett nytt evenemang skapas eller existerande evenemang uppdateras"
+        },
+        "PAGE" : {
+          "label" : "Sidor",
+          "tooltip" : "När en ny sida skapas eller existerande sidor uppdateras"
+        }
+      },
+      "pages" : {
+        "status" : {
+          "deleted" : "Borttagen",
+          "drafted" : "Utkast",
+          "published" : "Publicerad"
+        }
+      },
+      "payment" : {
+        "type" : {
+          "oneTime" : "Engångs",
+          "period" : "Periodisk"
+        }
       },
       "roles" : {
-        "label" : "Roller",
-        "tooltip" : "Användarens roller"
+        "role_admin" : "Administratör",
+        "role_anonymous" : "Anonym",
+        "role_organizer" : "Evenemangsarrangör",
+        "role_user" : "Användare"
       },
-      "status" : {
-        "label" : "Status"
+      "select" : {
+        "empty" : "Inget valt"
       },
-      "terms" : {
-        "false" : "Har inte accepterat villkoren",
-        "label" : "Användarvillkoren",
-        "true" : "Har accepterat villkoren"
+      "spinner" : {
+        "loading" : "Laddar..."
+      },
+      "table" : {
+        "column-title" : {
+          "action" : "Åtgärd"
+        }
+      },
+      "userStatus" : {
+        "active" : "Aktiv",
+        "anonymized" : "Anonymiserad",
+        "locked" : "Låst",
+        "registered" : "Registrerad"
       }
     },
-    "requestAnonymization" : {
-      "confirm" : "Vill du verkligen begära anonymisering av data? Detta kommer att ta bort all personlig information som du har angett i systemet. Efter detta kan du skapa ett nytt användarnamn och registrera dig på portalen igen."
-    },
-    "requestLocking" : {
-      "confirm" : "Vill du verkligen låsa kontot? Kontoinformationen bevaras, men administratören måste öppna ditt konto för att du ska kunna logga in i systemet igen."
-    },
-    "title" : "Användarinformation",
-    "update" : {
-      "fail" : "Misslyckades med att uppdatera användarens information",
-      "ok" : "Användarinformation uppdaterad"
-    },
-    "updateStatus" : {
-      "fail" : "Uppdatering av användarinformation misslyckades",
-      "ok" : "Användarinformationen har uppdaterats"
-    }
-  },
-  "UserDetails" : {
-    "table" : {
-      "diveCount" : "Antal dyk:",
-      "email" : "E-post:",
-      "nextOfKin" : "Kontaktuppgifter till närmaste anhörig:",
-      "payments" : "Betalningar:",
-      "phonenumber" : "Telefonnummer:",
-      "registered" : "Registrerad:"
-    }
-  },
-  "UserEvents" : {
-    "email-subscription-panel" : {
-      "header" : "E-postprenumerationer",
-      "tooltip" : "Välj vilka e-postmeddelanden du vill prenumerera på"
-    },
-    "future-panel" : {
-      "header" : "Kommande evenemang",
-      "tooltip" : "Evenemang som du har anmält dig till"
-    },
-    "past-panel" : {
-      "header" : "Tidigare evenemang",
-      "tooltip" : "Evenemang som du har deltagit i"
-    },
-    "profile-certificates-panel" : {
-      "header" : "Dykcertifikat",
-      "tooltip" : "Dykcertifikat som du har registrerat, max "
-    }
-  },
-  "UserFields" : {
-    "form" : {
-      "firstName" : {
-        "label" : "Förnamn",
-        "placeholder" : "Förnamn",
-        "rules" : {
-          "min" : "Förnamnet måste vara minst 2 tecken långt",
-          "pattern" : "Förnamnet får bara innehålla bokstäver från a-ö samt bindestreck",
-          "required" : "Förnamn är ett obligatoriskt fält"
+    "AdminTagGroups" : {
+      "button" : {
+        "add-group" : "Lägg till tagggrupp",
+        "refresh" : "Uppdatera"
+      },
+      "form" : {
+        "code" : {
+          "label" : "Kod",
+          "placeholder" : "gruppkod",
+          "rule" : {
+            "required" : "Kod är obligatorisk",
+            "max" : "Max 128 tecken"
+          }
         },
-        "tooltip" : "Obligatoriskt fält"
+        "names" : {
+          "label" : "Namn",
+          "add-language" : "Lägg till språk",
+          "lang" : {
+            "placeholder" : "sv",
+            "rule" : {
+              "required" : "Språk är obligatoriskt"
+            }
+          },
+          "value" : {
+            "placeholder" : "Visningsnamn",
+            "rule" : {
+              "required" : "Namn är obligatoriskt"
+            }
+          }
+        }
       },
-      "language" : {
-        "label" : "Språkval",
-        "rules" : {
-          "required" : "Vänligen välj ett språk"
+      "load" : {
+        "fail" : "Misslyckades med att läsa in tagggrupper"
+      },
+      "modal" : {
+        "title" : {
+          "add" : "Lägg till tagggrupp",
+          "edit" : "Redigera tagggrupp"
+        }
+      },
+      "popconfirm" : {
+        "delete" : {
+          "title" : "Ta bort tagggrupp?"
+        }
+      },
+      "popup" : {
+        "add-success" : "Tagggrupp skapad",
+        "update-success" : "Tagggrupp uppdaterad",
+        "remove-success" : "Tagggrupp borttagen",
+        "remove-fail" : "Misslyckades med att ta bort tagggrupp",
+        "operation-fail" : "Åtgärden misslyckades"
+      },
+      "table" : {
+        "actions" : {
+          "edit" : "Redigera",
+          "title" : "Åtgärder"
         },
-        "tooltip" : "På vilket språk vill du interagera? Alternativen är finska, svenska, engelska eller tyska"
+        "code" : "Kod",
+        "names" : "Namn"
+      }
+    },
+    "AdminTags" : {
+      "button" : {
+        "add-tag" : "Lägg till tagg",
+        "refresh" : "Uppdatera"
       },
-      "lastName" : {
-        "label" : "Efternamn",
-        "placeholder" : "Efternamn",
-        "rules" : {
-          "min" : "Efternamnet måste vara minst 1 tecken långt",
-          "pattern" : "Efternamnet får bara innehålla bokstäver från a-ö samt bindestreck",
-          "required" : "Efternamn är ett obligatoriskt fält"
+      "form" : {
+        "code" : {
+          "label" : "Kod",
+          "placeholder" : "unik-kod",
+          "rule" : {
+            "required" : "Kod är obligatorisk",
+            "max" : "Max 128 tecken"
+          }
         },
-        "tooltip" : "Obligatoriskt fält"
-      },
-      "nextOfKin" : {
-        "label" : "Närmaste anhörig:",
-        "placeholder" : "Namn och telefonnummer till närmaste anhörig",
-        "tooltip" : "Närmaste anhörig, nödvändig i nödsituationer. Både namn och telefonnummer krävs."
-      },
-      "phoneNumber" : {
-        "placeholder" : "Telefonnummer:",
-        "rules" : {
-          "min" : "Är du säker på att ditt telefonnummer är korrekt?",
-          "pattern" : "Telefonnumret får bara innehålla siffror",
-          "required" : "Vänligen ange ett telefonnummer!"
+        "tagGroup" : {
+          "label" : "Tagggrupp",
+          "placeholder" : "Välj en tagggrupp",
+          "new-group" : "Ny grupp"
         },
-        "tooltip" : "Telefonnumret ska vara i formatet +358123456789"
-      },
-      "primaryUserType" : {
-        "label" : "Föredragen aktivitetstyp",
-        "rules" : {
-          "required" : "Du måste välja din föredragna aktivitet"
+        "names" : {
+          "label" : "Namn",
+          "add-language" : "Lägg till språk",
+          "lang" : {
+            "placeholder" : "sv",
+            "rule" : {
+              "required" : "Språk är obligatoriskt"
+            }
+          },
+          "value" : {
+            "placeholder" : "Visningsnamn",
+            "rule" : {
+              "required" : "Namn är obligatoriskt"
+            }
+          }
         },
-        "tooltip" : "Vänligen välj vilken typ av aktivitet du föredrar. Du kan välja aktivitet separat för varje evenemang och detta val är standard."
+        "group-code" : {
+          "placeholder" : "gruppkod"
+        }
       },
-      "privacy" : {
-        "label" : "Dölj kontaktinformation",
-        "tooltip" : "E-post och telefonnummer är inte synliga för andra medlemmar. Endast användaren kan dölja sin information. Arrangörens namn är alltid synligt."
+      "load" : {
+        "fail" : "Misslyckades med att läsa in taggar",
+        "groups-fail" : "Misslyckades med att läsa in tagggrupper"
       },
-      "userId" : {
-        "label" : "Användar-ID"
-      },
-      "username" : {
-        "label" : "Användarnamn",
-        "placeholder" : "E-post",
-        "rules" : {
-          "email" : "Ogiltig e-postadress!",
-          "required" : "Vänligen ange din e-postadress!"
+      "modal" : {
+        "title" : {
+          "add" : "Lägg till tagg",
+          "edit" : "Redigera tagg"
         },
-        "tooltip" : "Din e-postadress används som användarnamn"
-      }
-    }
-  },
-  "UserTypeEnum" : {
-    "free_diver" : "Fridykning",
-    "non_diver" : "Inte dykare",
-    "scuba_diver" : "Apparatdykning",
-    "snorkler" : "Snorkling"
-  },
-  "common" : {
-    "button" : {
-      "add" : "Lägg till",
-      "back" : "Tillbaka",
-      "cancel" : "Avbryt",
-      "close" : "Stäng",
-      "delete" : "Ta bort",
-      "held" : "Hållits",
-      "login" : "Logga in",
-      "logout" : "Logga ut",
-      "no" : "Nej",
-      "open" : "Öppna",
-      "reset" : "Återställ",
-      "respond" : "Svara",
-      "save" : "Spara",
-      "search" : "Sök",
-      "send" : "Skicka",
-      "update" : "Uppdatera",
-      "yes" : "Ja"
-    },
-    "dive-event" : {
-      "status" : {
-        "cancelled" : "Avbokat",
-        "drafted" : "Utkast",
-        "held" : "Hållits",
-        "published" : "Publicerad"
-      }
-    },
-    "email-subscription-type" : {
-      "EVENT" : {
-        "label" : "Evenemang",
-        "tooltip" : "När ett nytt evenemang skapas eller existerande evenemang uppdateras"
+        "group-title" : {
+          "add" : "Lägg till tagggrupp"
+        }
       },
-      "PAGE" : {
-        "label" : "Sidor",
-        "tooltip" : "När en ny sida skapas eller existerande sidor uppdateras"
+      "popconfirm" : {
+        "delete" : {
+          "title" : "Ta bort tagg?"
+        }
+      },
+      "popup" : {
+        "add-success" : "Tagg skapad",
+        "update-success" : "Tagg uppdaterad",
+        "remove-success" : "Tagg borttagen",
+        "remove-fail" : "Misslyckades med att ta bort tagg",
+        "operation-fail" : "Åtgärden misslyckades",
+        "group-add-success" : "Tagggrupp skapad",
+        "group-add-fail" : "Misslyckades med att skapa tagggrupp"
+      },
+      "table" : {
+        "code" : "Kod",
+        "names" : "Namn",
+        "actions" : {
+          "title" : "Åtgärder",
+          "edit" : "Redigera"
+        }
       }
-    },
-    "pages" : {
-      "status" : {
-        "deleted" : "Borttagen",
-        "drafted" : "Utkast",
-        "published" : "Publicerad"
-      }
-    },
-    "payment" : {
-      "type" : {
-        "oneTime" : "Engångs",
-        "period" : "Periodisk"
-      }
-    },
-    "roles" : {
-      "role_admin" : "Administratör",
-      "role_anonymous" : "Anonym",
-      "role_organizer" : "Evenemangsarrangör",
-      "role_user" : "Användare"
-    },
-    "select" : {
-      "empty" : "Inget valt"
-    },
-    "spinner" : {
-      "loading" : "Laddar..."
-    },
-    "table" : {
-      "column-title" : {
-        "action" : "Åtgärd"
-      }
-    },
-    "userStatus" : {
-      "active" : "Aktiv",
-      "anonymized" : "Anonymiserad",
-      "locked" : "Låst",
-      "registered" : "Registrerad"
     }
   }
-}
+]
