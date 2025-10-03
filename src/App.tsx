@@ -52,6 +52,8 @@ import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
 import "@ant-design/v5-patch-for-react-19";
+import {AdminTags} from "./components/Administration/AdminTags";
+import {AdminTagGroups} from "./components/Administration/AdminTagGroups";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -100,7 +102,7 @@ function App() {
         return (
                 <div className="app-container">
                     <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
-                        <div className="container" style={{marginTop: '42px'}}>
+                        <div className="container" style={{marginTop: '50px'}}>
                             <NavigationBar/>
                             <Routes>
                                 <Route path="*" element={<Navigate to="/"/>}/>
@@ -123,7 +125,7 @@ function App() {
             <div className="app-container">
                 <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
                     <NavigationBar/>
-                    <div className="container" style={{marginTop: '42px'}}>
+                    <div className="container" style={{marginTop: '50px'}}>
                         <Routes>
                             <Route path="*" element={<Navigate to="/"/>}/>
                             <Route path="/" element={<Home/>}/>
@@ -145,6 +147,8 @@ function App() {
                             <Route path="/administration/pages/:paramId" element={<OrganizerRoute><EditPage/></OrganizerRoute>}/>
                             <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
                             <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
+                            <Route path="/administration/tag-groups" element={<AdminRoute><AdminTagGroups/></AdminRoute>}/>
+                            <Route path="/administration/tags" element={<AdminRoute><AdminTags/></AdminRoute>}/>
                             <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
                             <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>

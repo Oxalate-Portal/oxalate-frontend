@@ -11,18 +11,21 @@ export function CommentModeration() {
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
 
-    async function fetchPendingReports() {
+    function fetchPendingReports() {
         setLoading(true);
-        try {
-            const response = await commentAPI.getPendingReports();
-            setCommentReports(response);
-            messageApi.success(t("CommentModeration.messages.success"));
-        } catch (error) {
-            console.error("Failed to fetch pending reports:", error);
-            messageApi.error(t("CommentModeration.messages.fail"));
-        } finally {
-            setLoading(false);
-        }
+
+        commentAPI.getPendingReports()
+                .then(response => {
+                    setCommentReports(response);
+                    messageApi.success(t("CommentModeration.messages.success"));
+                })
+                .catch(error => {
+                    console.error("Failed to fetch pending reports:", error);
+                    messageApi.error(t("CommentModeration.messages.fail"));
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
     }
 
     useEffect(() => {

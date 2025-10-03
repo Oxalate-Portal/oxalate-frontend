@@ -5,6 +5,7 @@ export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
 export type {EmailNotificationSubscriptionRequest} from './EmailNotificationSubscriptionRequest';
 export type {EmailRequest} from './EmailRequest';
+export type {EventSubscribeRequest} from './EventSubscribeRequest';
 export type {LoginRequest} from './LoginRequest';
 export type {LostPasswordRequest} from './LostPasswordRequest';
 export type {MembershipRequest} from './MembershipRequest';
@@ -13,7 +14,8 @@ export type {PageRequest} from './PageRequest';
 export type {PasswordResetRequest} from './PasswordResetRequest';
 export type {PaymentRequest} from './PaymentRequest';
 export type {PortalConfigurationRequest} from './PortalConfigurationRequest';
+export type {TagGroupRequest} from './TagGroupRequest';
+export type {TagRequest} from './TagRequest';
 export type {UserRequest} from './UserRequest';
-export type {EventSubscribeRequest} from './EventSubscribeRequest';
 
 export * from './commenting';

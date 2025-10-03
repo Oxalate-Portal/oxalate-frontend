@@ -22,6 +22,8 @@ export type {PortalConfigurationResponse} from "./PortalConfigurationResponse";
 export type {PortalConfigurationStatusResponse} from "./PortalConfigurationStatusResponse";
 export type {RegistrationResponse} from "./RegistrationResponse";
 export type {RolePermissionResponse} from "./RolePermissionResponse";
+export type {TagGroupResponse} from "./TagGroupResponse";
+export type {TagResponse} from "./TagResponse";
 export type {TermsResponse} from "./TermsResponse";
 export type {UserResponse} from "./UserResponse";
 

@@ -1,13 +1,14 @@
 import {useSession} from "../../session";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {Alert, Button, Form, Input, Modal, Row} from "antd";
+import {Alert, Button, Form, Input, Modal, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {UserFields} from "../User";
 import {AcceptTerms} from "../main";
-import {RegistrationResponse, ResultEnum, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {RegistrationResponse, ResultEnum, UpdateStatusEnum, UpdateStatusVO, UserTypeEnum} from "../../models";
 import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
 import {authAPI} from "../../services";
+import {CheckOutlined} from "@ant-design/icons";
 
 export function Register() {
     const {userSession} = useSession();
@@ -28,14 +29,15 @@ export function Register() {
     }, [navigate]);
 
     async function onFinish(regData: {
-        username: any;
-        password: any;
-        firstName: any;
-        lastName: any;
-        phoneNumber: any;
-        privacy: any;
-        nextOfKin: any;
-        language: any;
+        username: string;
+        password: string;
+        firstName: string;
+        lastName: string;
+        phoneNumber: string;
+        privacy: boolean;
+        nextOfKin: string;
+        language: string;
+        primaryUserType: UserTypeEnum;
     }) {
         setLoading(true);
         authAPI.register({
@@ -44,9 +46,11 @@ export function Register() {
             firstName: regData.firstName,
             lastName: regData.lastName,
             phoneNumber: regData.phoneNumber,
-            privacy: regData.privacy,
             nextOfKin: regData.nextOfKin,
-            language: regData.language
+            privacy: regData.privacy,
+            language: regData.language,
+            primaryUserType: regData.primaryUserType,
+            approvedTerms: acceptedTerms
         })
                 .then(registrationResponse => {
                     if (registrationResponse.status === ResultEnum.OK) {
@@ -150,14 +154,16 @@ export function Register() {
                                    ]}>
                             <Input.Password/>
                         </Form.Item>
-                        <p>{t("Register.form.terms.text")} <Button type={"default"}
-                                                                   onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
-                        </p>
-                        <Button
-                                type={"primary"}
-                                htmlType={"submit"}
-                                disabled={!acceptedTerms && !loading}
-                        >{t("Register.form.submitButton")}</Button>
+                        <Space direction={"horizontal"}>
+                            {t("Register.form.terms.text")}
+                            <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
+                            {acceptedTerms && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                            <Button
+                                    type={"primary"}
+                                    htmlType={"submit"}
+                                    disabled={!acceptedTerms && !loading}
+                            >{t("Register.form.submitButton")}</Button>
+                        </Space>
                     </Form>
                     <Modal cancelText={t("Register.form.terms.reject")}
                            okText={t("Register.form.terms.accept")}
