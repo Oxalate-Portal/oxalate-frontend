@@ -1,4 +1,6 @@
+import {Dayjs} from "dayjs";
+
 export interface BlockedDateRequest {
-    blockedDate: Date;
+    blockedDate: Dayjs;
     reason: string;
 }
