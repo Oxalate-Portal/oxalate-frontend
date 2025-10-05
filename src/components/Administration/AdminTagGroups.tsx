@@ -66,22 +66,26 @@ export function AdminTagGroups() {
         return {code: "", names: buildNamesFromConfig(), type: TagGroupEnum.USER};
     }, [editing, configuredLangs]);
 
-    // Ensure names array matches configured languages and fill lang codes whenever modal opens or langs change
+    // Ensure names array matches configured languages and fill values whenever modal opens or langs change
     useEffect(() => {
         if (!modalOpen) return;
+        // Reset first to ensure initial values are applied cleanly when re-opening or switching record
+        form.resetFields();
         form.setFieldsValue({
-            code: editing?.code ?? form.getFieldValue("code") ?? "",
-            names: buildNamesFromConfig(editing?.names),
-            type: editing?.type ?? form.getFieldValue("type") ?? TagGroupEnum.USER
+            code: editing?.code ?? "",
+            names: (configuredLangs.length ? configuredLangs : ["en"]).map(
+                    (lang) => ({lang, value: editing?.names?.[lang] ?? ""})
+            ),
+            type: editing?.type ?? TagGroupEnum.USER
         });
     }, [modalOpen, configuredLangs, editing, form]);
 
-    const listToRecord = (list: NameKV[]): Record<string, string> => {
+    // Build payload names strictly from configured languages + entered values.
+    const listToRecord = (list: Array<Partial<NameKV>>): Record<string, string> => {
         const out: Record<string, string> = {};
-        (list || []).forEach(({lang, value}, idx) => {
-            // Fallback to configuredLangs[idx] if lang is missing in form state
-            const k = (lang ?? configuredLangs[idx] ?? "").trim();
-            if (k) out[k] = value ?? "";
+        const langs = configuredLangs.length ? configuredLangs : ["en"];
+        langs.forEach((lang, idx) => {
+            out[lang] = (list?.[idx]?.value ?? "");
         });
         return out;
     };
@@ -207,40 +211,21 @@ export function AdminTagGroups() {
                             />
                         </Form.Item>
 
-                        <Form.List name="names">
-                            {(fields) => (
-                                    <>
-                                        <Space style={{marginBottom: 8}}>
-                                            {t("AdminTagGroups.form.names.label")}
-                                        </Space>
-                                        {fields.map((field, idx) => {
-                                            const lang = configuredLangs[idx];
-                                            const {key: _omitKey, ...restField} = field; // avoid passing `key` via spread
-                                            return (
-                                                    <Space key={"lang-space-" + field.key} align="baseline" style={{display: "flex", marginBottom: 8}}>
-                                                        {/* Hidden bound field ensures the lang code is submitted */}
-                                                        <Form.Item
-                                                                {...restField}
-                                                                name={[field.name, "lang"]}
-                                                                hidden
-                                                        >
-                                                            <Input/>
-                                                        </Form.Item>
-                                                        {/* Visible read-only input shows the code */}
-                                                        <Input readOnly value={lang}/>
-                                                        <Form.Item
-                                                                {...restField}
-                                                                name={[field.name, "value"]}
-                                                                rules={[{required: true, message: t("AdminTagGroups.form.names.value.rule.required")}]}
-                                                        >
-                                                            <Input placeholder={t("AdminTagGroups.form.names.value.placeholder")}/>
-                                                        </Form.Item>
-                                                    </Space>
-                                            );
-                                        })}
-                                    </>
-                            )}
-                        </Form.List>
+                        {/* Replace Form.List with deterministic fields to ensure values populate correctly */}
+                        <Space style={{marginBottom: 8}}>
+                            {t("AdminTagGroups.form.names.label")}
+                        </Space>
+                        {(configuredLangs.length ? configuredLangs : ["en"]).map((lang, idx) => (
+                                <Space key={`name-row-${lang}-${idx}`} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                    <Input readOnly value={lang}/>
+                                    <Form.Item
+                                            name={["names", idx, "value"]}
+                                            rules={[{required: true, message: t("AdminTagGroups.form.names.value.rule.required")}]}
+                                    >
+                                        <Input placeholder={t("AdminTagGroups.form.names.value.placeholder")}/>
+                                    </Form.Item>
+                                </Space>
+                        ))}
                     </Form>
                 </Modal>
             </div>
