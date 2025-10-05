@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {commentAPI} from "../../services";
-import {CommentResponse} from "../../models";
+import type {CommentResponse} from "../../models";
 import {Card, List, Space, Typography} from "antd";
 import dayjs from "dayjs";
 

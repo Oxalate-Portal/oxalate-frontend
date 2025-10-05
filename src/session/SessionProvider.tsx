@@ -1,12 +1,12 @@
 import {createContext, useContext, useEffect, useState} from "react";
 import {
     ActionResultEnum,
-    FrontendConfigurationResponse,
-    LoginRequest,
-    LoginStatus,
+    type FrontendConfigurationResponse,
+    type LoginRequest,
+    type LoginStatus,
     PortalConfigGroupEnum,
-    PortalConfigurationResponse,
-    UserSessionToken
+    type PortalConfigurationResponse,
+    type UserSessionToken
 } from "../models";
 import {authAPI, portalConfigurationAPI} from "../services";
 

@@ -1,4 +1,4 @@
-import {EventReportResponse} from "../../models";
+import type {EventReportResponse} from "../../models";
 import {Table} from "antd";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
@@ -17,7 +17,7 @@ export function BiannualEventReportTable({events, childKey}: BiannualEventReport
             title: "#",
             dataIndex: "eventId",
             key: childKey + "-eventId",
-            render: (text: string, record: EventReportResponse) => {
+            render: (_text: string, record: EventReportResponse) => {
                 return (<Link to={"/events/" + record.eventId}>{record.eventId}</Link>);
             }
         },

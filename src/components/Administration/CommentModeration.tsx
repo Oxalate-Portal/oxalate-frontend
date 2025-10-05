@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {commentAPI} from "../../services";
-import {CommentModerationResponse} from "../../models";
-import {Collapse, CollapseProps, message, Space, Spin} from "antd";
+import type {CommentModerationResponse} from "../../models";
+import {Collapse, type CollapseProps, message, Space, Spin} from "antd";
 import {CommentCard, CommentModerationActions, ReportCard} from "../Commenting";
 import {useTranslation} from "react-i18next";
 

@@ -1,5 +1,5 @@
-import Axios, {AxiosInstance} from "axios";
-import {EmailNotificationSubscriptionRequest, EmailNotificationSubscriptionResponse} from "../models";
+import Axios, {type AxiosInstance} from "axios";
+import type {EmailNotificationSubscriptionRequest, EmailNotificationSubscriptionResponse} from "../models";
 
 class EmailNotificationSubscriptionAPI {
     protected axiosInstance: AxiosInstance;

@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Space, Spin} from "antd";
 import dayjs from "dayjs";
 import DOMPurify from "dompurify";
-import {PageProps, PageResponse} from "../../models";
+import type {PageProps, PageResponse} from "../../models";
 import {pageAPI} from "../../services";
 
 export function Page(pageProps: PageProps = {}) {

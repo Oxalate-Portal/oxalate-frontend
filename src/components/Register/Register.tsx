@@ -5,7 +5,7 @@ import {Alert, Button, Form, Input, Modal, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {UserFields} from "../User";
 import {AcceptTerms} from "../main";
-import {RegistrationResponse, ResultEnum, UpdateStatusEnum, UpdateStatusVO, UserTypeEnum} from "../../models";
+import {type RegistrationResponse, ResultEnum, UpdateStatusEnum, type UpdateStatusVO, UserTypeEnum} from "../../models";
 import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
 import {authAPI} from "../../services";
 import {CheckOutlined} from "@ant-design/icons";

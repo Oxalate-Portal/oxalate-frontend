@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {DiveEventResponse, DiveEventStatusEnum, RoleEnum} from "../../models";
+import {type DiveEventResponse, DiveEventStatusEnum, RoleEnum} from "../../models";
 import {Button, Space, Spin, Table} from "antd";
 import type {ColumnsType} from "antd/es/table";
 import {checkRoles, diveEventStatusEnum2Tag, diveTypeEnum2Tag} from "../../helpers";
@@ -27,7 +27,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             key: "startTime",
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => (new Date(a.startTime.toDate()).getTime() - new Date(b.startTime.toDate()).getTime()),
             sortDirections: ["descend", "ascend"],
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 return (<div>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</div>);
             }
         },
@@ -44,7 +44,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             key: "status",
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.title.localeCompare(b.title),
             sortDirections: ["descend", "ascend"],
-            render: (text: string, record: DiveEventResponse) => diveEventStatusEnum2Tag(record.status, t, record.id)
+            render: (_: string, record: DiveEventResponse) => diveEventStatusEnum2Tag(record.status, t, record.id)
         },
         {
             title: t("Events.table.participants"),
@@ -52,7 +52,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             key: "participants",
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.participants.length - b.participants.length,
             sortDirections: ["descend", "ascend"],
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 return (<>{record.participants.length} / {record.maxParticipants}</>);
             }
         },
@@ -97,7 +97,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                 return a.organizer.lastName.localeCompare(b.organizer.lastName);
             },
             sortDirections: ["descend", "ascend"],
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 if (record.organizer === null) {
                     return (<></>);
                 }

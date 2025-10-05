@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
-import {SyntheticEvent, useEffect, useState} from "react";
-import {AdminUserResponse, ResultEnum, RoleEnum, UserRequest, UserStatusEnum} from "../../models";
+import {type SyntheticEvent, useEffect, useState} from "react";
+import {type AdminUserRequest, type AdminUserResponse, ResultEnum, RoleEnum, UserStatusEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import {authAPI, userAPI} from "../../services";
 import {Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin} from "antd";
@@ -103,7 +103,7 @@ export function AdminOrgUser() {
             }
         }
 
-        let postData: UserRequest = {
+        let postData: AdminUserRequest = {
             id: userInfo.id,
             username: userInfo.username,
             firstName: userInfo.firstName,
@@ -114,10 +114,12 @@ export function AdminOrgUser() {
             privacy: userInfo.privacy,
             registered: userInfo.registered,
             roles: userInfo.roles,
-            language: userInfo.language
+            language: userInfo.language,
+            primaryUserType: userInfo.primaryUserType,
+            approvedTerms: userInfo.approvedTerms
         };
 
-        userAPI.update(postData)
+        userAPI.adminUpdateUser(postData)
                 .then((response) => {
                     setWorkUser(response);
                     messageApi.success(t("AdminOrgUser.updateUser.ok"));

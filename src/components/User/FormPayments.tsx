@@ -1,8 +1,7 @@
-import React from "react";
 import {Table, Tag} from "antd";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {PaymentResponse, PaymentTypeEnum, UserResponse} from "../../models";
+import {type PaymentResponse, PaymentTypeEnum, type UserResponse} from "../../models";
 import dayjs from "dayjs";
 
 interface FormatPaymentsProps {
@@ -57,7 +56,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.startDate"),
             dataIndex: "createdAt",
             key: "createdAt",
-            render: (date: Date, record: PaymentResponse) => {
+            render: (date: Date, _record: PaymentResponse) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD HH:mm")}
                 </>)

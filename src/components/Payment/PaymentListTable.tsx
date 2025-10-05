@@ -1,4 +1,4 @@
-import {PaymentRequest, PaymentResponse, PaymentTypeEnum, PaymentVO} from "../../models";
+import {type PaymentRequest, type PaymentResponse, PaymentTypeEnum, type PaymentVO} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 import {Button, Spin, Table, Tag} from "antd";

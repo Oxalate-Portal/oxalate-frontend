@@ -1,8 +1,7 @@
-import React from "react";
 import {Link} from "react-router-dom";
-import {ColumnsType} from "antd/es/table";
+import type {ColumnsType} from "antd/es/table";
 import {Button, Space} from "antd";
-import {AbstractFileResponse} from "../../../models";
+import type {AbstractFileResponse} from "../../../models";
 import {ProtectedImage} from "../../main";
 import {useTranslation} from "react-i18next";
 import {CloudDownloadOutlined, FileOutlined} from "@ant-design/icons";

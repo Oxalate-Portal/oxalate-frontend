@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import "./App.css";
 import {ConfigProvider, theme} from "antd";
 import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "./session";

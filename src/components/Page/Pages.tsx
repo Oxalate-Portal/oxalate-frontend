@@ -1,14 +1,13 @@
 import {Link, useParams} from "react-router-dom";
 import {useSession} from "../../session";
 import {useEffect, useState} from "react";
-import {PageResponse, PageStatusEnum, RoleEnum, RolePermissionResponse} from "../../models";
+import {type PageResponse, PageStatusEnum, RoleEnum, type RolePermissionResponse} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Alert, Button, message, Space, Spin, Table} from "antd";
-import {checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag} from "../../helpers";
+import {checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag, roleEnum2Tag} from "../../helpers";
 import dayjs from "dayjs";
-import {ColumnsType} from "antd/es/table";
+import type {ColumnsType} from "antd/es/table";
 import {pageGroupMgmtAPI, pageMgmtAPI} from "../../services";
-import {roleEnum2Tag} from "../../helpers/Enum2TagTool";
 
 export function Pages() {
     const {paramId} = useParams();

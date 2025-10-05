@@ -1,4 +1,4 @@
-import {TFunction} from "i18next";
+import type {TFunction} from "i18next";
 import {
     CommentStatusEnum,
     CommentTypeEnum,
@@ -13,7 +13,7 @@ import {
     UserTypeEnum
 } from "../models";
 import {Tag} from "antd";
-import {JSX} from "react";
+import type {JSX} from "react";
 
 export function diveEventStatusEnum2Tag(status: DiveEventStatusEnum, t: TFunction, recordId: number): JSX.Element {
     let color: string;
@@ -137,7 +137,7 @@ export function pageStatusEnum2Tag(status: PageStatusEnum, t: TFunction, recordI
 }
 
 export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color = "";
+    let color: string;
     const label = t("PaymentTypeEnum." + type);
 
     switch(type) {
@@ -156,7 +156,7 @@ export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordI
 }
 
 export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, recordId: number): JSX.Element {
-    let color = "";
+    let color: string;
     const label = t("ReportStatusEnum." + status.toLowerCase());
 
     switch(status) {
@@ -181,7 +181,7 @@ export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, rec
 }
 
 export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JSX.Element {
-    let color = "";
+    let color: string;
     let label = t("common.roles." + role.toLowerCase());
 
     switch(role) {
@@ -206,7 +206,7 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
 }
 
 export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, recordId: number): JSX.Element {
-    let color = "";
+    let color: string;
     let label = t("CommentStatusEnum." + status.toLowerCase());
 
     switch(status) {
@@ -234,7 +234,7 @@ export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, r
 }
 
 export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color = "";
+    let color: string;
     let label = t("CommentTypeEnum." + type.toLowerCase());
 
     switch(type) {
@@ -253,7 +253,7 @@ export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordI
 }
 
 export function userTypeEnum2Tag(type: UserTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color = "";
+    let color: string;
     const label = t("UserTypeEnum." + type.toLowerCase());
     switch (type) {
         case UserTypeEnum.NON_DIVER:

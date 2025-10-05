@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {emailNotificationSubscriptionAPI} from "../../services";
-import {EmailNotificationSubscriptionRequest, EmailNotificationSubscriptionResponse, EmailNotificationTypeEnum} from "../../models";
+import {type EmailNotificationSubscriptionRequest, type EmailNotificationSubscriptionResponse, EmailNotificationTypeEnum} from "../../models";
 import {Button, Form, Spin, Switch} from "antd";
 
 interface EmailSubscriptionCardProps {

@@ -4,14 +4,14 @@ import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {diveEventAPI, membershipAPI, paymentAPI} from "../../services";
 import {
-    DiveEventResponse,
-    EventSubscribeRequest,
-    MembershipResponse,
-    PaymentResponse,
-    PaymentStatusResponse,
+    type DiveEventResponse,
+    type EventSubscribeRequest,
+    type MembershipResponse,
+    type PaymentResponse,
+    type PaymentStatusResponse,
     PaymentTypeEnum,
     PortalConfigGroupEnum,
-    UserSessionToken,
+    type UserSessionToken,
     UserTypeEnum
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";

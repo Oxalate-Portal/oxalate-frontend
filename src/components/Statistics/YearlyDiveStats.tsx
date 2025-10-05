@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {statsAPI} from "../../services";
-import {DiverListItemResponse, PortalConfigGroupEnum, YearlyDiversListResponse} from "../../models";
-import {Collapse, CollapseProps, Spin, Table} from "antd";
-import {ColumnsType} from "antd/es/table";
+import {type DiverListItemResponse, PortalConfigGroupEnum, type YearlyDiversListResponse} from "../../models";
+import {Collapse, type CollapseProps, Spin, Table} from "antd";
+import type {ColumnsType} from "antd/es/table";
 import {useSession} from "../../session";
 
 export function YearlyDiveStats() {

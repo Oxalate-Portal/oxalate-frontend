@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {UploadOutlined} from "@ant-design/icons";
-import {Button, message, Space, Table, Typography, Upload, UploadProps} from "antd";
+import {Button, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
 import {fileTransferAPI} from "../../../services";
-import {DocumentFileResponse, UploadStatusEnum} from "../../../models";
-import {ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
+import {type DocumentFileResponse, UploadStatusEnum} from "../../../models";
+import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
 

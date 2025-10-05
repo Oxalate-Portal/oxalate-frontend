@@ -30,8 +30,8 @@ import {
 import "ckeditor5/ckeditor5.css";
 import "./ckeditor_dark_theme.css";
 import {CKUploadAdapter} from "../../services";
-import {UserSessionToken} from "../../models";
-import {JSX} from "react";
+import type {UserSessionToken} from "../../models";
+import type {JSX} from "react";
 
 interface PageBodyEditorProps {
     value: string,
@@ -41,7 +41,7 @@ interface PageBodyEditorProps {
 }
 
 export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEditorProps): JSX.Element {
-    function contentUpdated(event: any, editor: any) {
+    function contentUpdated(_event: any, editor: any) {
         const data = editor.getData();
         onChange(data);
     }

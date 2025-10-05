@@ -1,13 +1,13 @@
-import Axios, {AxiosInstance} from "axios";
-import {
+import Axios, {type AxiosInstance} from "axios";
+import type {
     GenericMessageResponse,
     LoginRequest,
     LostPasswordRequest,
     PasswordResetRequest,
     RegistrationResponse,
     RegistrationVO,
-    UserSessionToken,
-    UpdateStatusVO
+    UpdateStatusVO,
+    UserSessionToken
 } from "../models";
 
 class AuthAPI {

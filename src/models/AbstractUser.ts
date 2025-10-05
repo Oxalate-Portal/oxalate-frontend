@@ -1,4 +1,3 @@
-import {RoleEnum} from "./RoleEnum";
 import {UserStatusEnum} from "./UserStatusEnum";
 import {UserTypeEnum} from "./UserTypeEnum";
 

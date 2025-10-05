@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {CertificateRequest} from "../../models";
+import type {CertificateRequest} from "../../models";
 import dayjs from "dayjs";
 import {useParams} from "react-router-dom";
 import {Button, Form, Input, message, Space, Spin} from "antd";

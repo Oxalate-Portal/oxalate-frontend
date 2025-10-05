@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {Button, Input} from "antd";
-import {CommentRequest, CommentTypeEnum} from "../../models";
+import {type CommentRequest, CommentTypeEnum} from "../../models";
 import {commentAPI} from "../../services";
 import {useTranslation} from "react-i18next";
 

@@ -2,7 +2,7 @@ import {Avatar, Button, Card, message, Modal, Space, Typography} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
 import {useState} from "react";
-import {CommentResponse, ReportRequest, UpdateStatusEnum} from "../../models";
+import {type CommentResponse, type ReportRequest, UpdateStatusEnum} from "../../models";
 import {commentAPI} from "../../services";
 import {CommentEditor} from "./CommentEditor";
 import {useTranslation} from "react-i18next";

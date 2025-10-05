@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {AdminUserRequest, AdminUserResponse} from "../models";
+import type {AdminUserRequest, AdminUserResponse} from "../models";
 
 class AdminUserAPI extends AbstractAPI<AdminUserRequest, AdminUserResponse> {
 }

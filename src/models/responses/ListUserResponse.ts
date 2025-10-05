@@ -1,7 +1,7 @@
 import {Dayjs} from "dayjs";
-import {PaymentResponse} from "./PaymentResponse";
+import type {PaymentResponse} from "./PaymentResponse";
 import {UserTypeEnum} from "../UserTypeEnum";
-import {TagResponse} from "./TagResponse";
+import type {TagResponse} from "./TagResponse";
 
 export interface ListUserResponse {
     id: number;

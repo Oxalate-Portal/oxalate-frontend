@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {TagRequest, TagResponse} from "../models";
+import type {TagRequest, TagResponse} from "../models";
 
 class TagsAPI extends AbstractAPI<TagRequest, TagResponse> {
 }

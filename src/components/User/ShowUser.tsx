@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {userAPI} from "../../services";
 import {message, Spin, Table} from "antd";
 import {useTranslation} from "react-i18next";
-import {UserResponse} from "../../models";
+import type {UserResponse} from "../../models";
 import {FormPayments} from "./FormPayments";
 import {formatDateTime} from "../../helpers";
 import {ProfileCollapse} from "./ProfileCollapse";
@@ -58,7 +58,7 @@ export function ShowUser() {
             title: "Name",
             dataIndex: "name",
             key: "name",
-            render: (text: any, record: any) => (<b>{text}</b>)
+            render: (text: any, _record: any) => (<b>{text}</b>)
         },
         {
             title: "Value",

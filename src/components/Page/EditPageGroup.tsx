@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {OptionItemVO, PageGroupRequest, PageGroupResponse, PageStatusEnum} from "../../models";
+import {type OptionItemVO, type PageGroupRequest, type PageGroupResponse, PageStatusEnum} from "../../models";
 import {Button, Divider, Form, Input, message, Select, Spin} from "antd";
 import {pageGroupMgmtAPI} from "../../services";
 import {useSession} from "../../session";
@@ -142,7 +142,7 @@ export function EditPageGroup() {
                             {(groupVersions, {add, remove}) => {
                                 return (
                                         <>
-                                            {groupVersions.map((pageGroupVersion, index) => {
+                                            {groupVersions.map((_pageGroupVersion, index) => {
                                                 const uniqueKey = `pageGroupDivider${index}${pageGroup.pageGroupVersions[index].language}`;
                                                 return (<div key={uniqueKey}>
                                                     <Divider orientation={"left"}

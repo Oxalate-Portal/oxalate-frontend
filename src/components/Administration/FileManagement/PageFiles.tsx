@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Table, Tag, Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
-import {PageFileResponse, UploadStatusEnum} from "../../../models";
+import {type PageFileResponse, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";

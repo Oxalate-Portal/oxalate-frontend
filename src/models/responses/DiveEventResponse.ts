@@ -1,6 +1,6 @@
-import {UserResponse} from "./UserResponse";
-import {ListUserResponse} from "./ListUserResponse";
-import {AbstractDiveEvent} from "../AbstractDiveEvent";
+import type {UserResponse} from "./UserResponse";
+import type {ListUserResponse} from "./ListUserResponse";
+import type {AbstractDiveEvent} from "../AbstractDiveEvent";
 
 export interface DiveEventResponse extends AbstractDiveEvent {
     organizer: UserResponse | null;

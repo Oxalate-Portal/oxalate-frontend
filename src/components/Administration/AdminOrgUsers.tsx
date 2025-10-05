@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {AdminUserResponse, PaymentTypeEnum} from "../../models";
+import {type AdminUserResponse, PaymentTypeEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
@@ -20,7 +20,7 @@ export function AdminOrgUsers() {
             title: "#",
             dataIndex: "id",
             key: "id",
-            render: (text: string, record: AdminUserResponse) => {
+            render: (_: string, record: AdminUserResponse) => {
                 return (<Link to={"/users/" + record.id + "/show"}>{record.id}</Link>);
             }
         },
@@ -37,7 +37,7 @@ export function AdminOrgUsers() {
             ,
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
-            render: (text: string, record: AdminUserResponse) => {
+            render: (_: string, record: AdminUserResponse) => {
                 return (<Link to={"/users/" + record.id + "/show"}>{record.username}</Link>);
             }
         },

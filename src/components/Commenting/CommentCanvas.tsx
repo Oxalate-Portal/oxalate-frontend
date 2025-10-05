@@ -1,6 +1,6 @@
 import {commentAPI} from "../../services";
 import {useCallback, useEffect, useState} from "react";
-import {CommentResponse} from "../../models";
+import type {CommentResponse} from "../../models";
 import {DisplayCommentThread} from "./DisplayCommentThread";
 import {Spin} from "antd";
 import {CommentEditor} from ".";

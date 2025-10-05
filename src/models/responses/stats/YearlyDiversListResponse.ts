@@ -1,4 +1,4 @@
-import {DiverListItemResponse} from "./DiverListItemResponse";
+import type {DiverListItemResponse} from "./DiverListItemResponse";
 
 export interface YearlyDiversListResponse {
     year: number;

@@ -1,6 +1,6 @@
-import {PageVersionResponse} from "./PageVersionResponse";
-import {RolePermissionResponse} from "./RolePermissionResponse";
-import {AbstractPage} from "../AbstractPage";
+import type {PageVersionResponse} from "./PageVersionResponse";
+import type {RolePermissionResponse} from "./RolePermissionResponse";
+import type {AbstractPage} from "../AbstractPage";
 
 export interface PageResponse extends AbstractPage {
     pageVersions: PageVersionResponse[];

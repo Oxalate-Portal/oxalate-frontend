@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
-import {DiveEventResponse, ListUserResponse, RoleEnum} from "../../models";
+import {type DiveEventResponse, type ListUserResponse, RoleEnum} from "../../models";
 import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../helpers";
 import {Link} from "react-router-dom";
 import {Space, Spin, Table, Tooltip} from "antd";
@@ -28,7 +28,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.startTime"),
             dataIndex: "startTime",
             key: "startTime",
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 return (<>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
             }
         },
@@ -36,7 +36,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.participants"),
             dataIndex: "participants",
             key: "participants",
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 if (record.participants) {
                     return (<>{record.participants.length} / {record.maxParticipants}</>);
                 }
@@ -62,7 +62,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.organizer"),
             dataIndex: "organizer",
             key: "organizer",
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 if (record.organizer === null) {
                     return (<></>);
                 }
@@ -76,7 +76,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.phoneNumber"),
             dataIndex: "phoneNumber",
             key: "phoneNumber",
-            render: (text: string, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 if (record.organizer === null) {
                     return (<></>);
                 }
@@ -92,7 +92,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: "id",
             key: "id",
             sorter: (a: ListUserResponse, b: ListUserResponse) => a.id - b.id,
-            render: (text: string, record: ListUserResponse) => {
+            render: (_: string, record: ListUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
                     return (<Link to={"/users/" + record.id + "/show"} key={"user-id-link-" + record.id}>{record.id}</Link>);
                 }
@@ -105,9 +105,9 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: "name",
             key: "name",
             sorter: (a: ListUserResponse, b: ListUserResponse) => a.name.localeCompare(b.name),
-            render: (text: string, record: ListUserResponse) => {
+            render: (_: string, record: ListUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={"/users/" + record.id + "/show"}key={"user-name-" + record.id}>{record.name}</Link>);
+                    return (<Link to={"/users/" + record.id + "/show"} key={"user-name-" + record.id}>{record.name}</Link>);
                 }
 
                 return (<>{record.name}</>);
@@ -135,7 +135,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: "createdAt",
             key: "createdAt",
             sorter: (a: ListUserResponse, b: ListUserResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
-            render: (text: string, record: ListUserResponse) => {
+            render: (_: string, record: ListUserResponse) => {
                 return (<>{dayjs(record.createdAt).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
             }
         }
@@ -167,7 +167,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
     return (<Spin spinning={loading} key={"event-spinner"}>
                 {eventInfo &&
                         <Space direction={"vertical"} size={12} key={"event-space"}>
-                            <h5 key={"eventmain-" + eventInfo.id}>{t("EventDetails.title")}: {eventInfo.title}
+                            <h5 key={"event-main-" + eventInfo.id}>{t("EventDetails.title")}: {eventInfo.title}
                                 <Link to={"/events/" + eventInfo.id + "/show"} key={"event-link-" + eventInfo.id}>
                                     <Tooltip title={t("EventDetails.link.tooltip")} key={"tooltip-" + eventInfo.id}>
                                         <LinkOutlined key={"linkout" + eventInfo.id}/>
@@ -175,7 +175,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                 </Link>
                             </h5>
 
-                            <p key={"eventdesc-" + eventInfo.id}>{t("EventDetails.description.title")}: {eventInfo.description}</p>
+                            <p key={"event-desc-" + eventInfo.id}>{t("EventDetails.description.title")}: {eventInfo.description}</p>
 
                             <Table columns={columns}
                                    dataSource={[eventInfo]}
@@ -184,7 +184,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                    rowKey={(record) => "table-row-" + eventInfo.id + "-" + record.id}
                             />
 
-                            <h5 key={"eventpart-" + eventInfo.id}>{t("EventDetails.participants.title")}: ({eventInfo.participants.length}):</h5>
+                            <h5 key={"event-part-" + eventInfo.id}>{t("EventDetails.participants.title")}: ({eventInfo.participants.length}):</h5>
 
                             <Table columns={participantColumns}
                                    dataSource={eventInfo.participants}

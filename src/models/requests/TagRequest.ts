@@ -1,4 +1,4 @@
-import {TagResponse} from "../responses";
+import type {TagResponse} from "../responses";
 
 export interface TagRequest extends TagResponse {
 }

@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {DownOutlined, UpOutlined} from "@ant-design/icons";
 import {Button, Space, Spin, Table} from "antd";
 import {diveEventAPI} from "../../services";
-import {DiveCountItemVO, DiveEventListRequest, DiveEventListResponse} from "../../models";
+import type {DiveCountItemVO, DiveEventListRequest, DiveEventListResponse} from "../../models";
 
 export function SetDives() {
     const {paramId} = useParams();
@@ -20,7 +20,7 @@ export function SetDives() {
             title: "#",
             dataIndex: "userId",
             key: "userId",
-            render: (text: any, record: DiveCountItemVO) => {
+            render: (_: any, record: DiveCountItemVO) => {
                 return (<Link to={"/users/" + record.userId + "/show"}>{record.userId}</Link>);
             }
         },

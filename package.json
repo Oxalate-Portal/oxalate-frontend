@@ -58,8 +58,7 @@
     "react-dom" : "^19.1.1",
     "react-highlight-words" : "^0.21.0",
     "react-i18next" : "^16.0.0",
-    "react-router-dom" : "^7.9.3",
-    "web-vitals" : "^5.1.0"
+    "react-router-dom" : "^7.9.3"
   },
   "devDependencies" : {
     "@babel/plugin-proposal-private-property-in-object" : "^7.21.11",

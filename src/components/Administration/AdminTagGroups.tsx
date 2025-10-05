@@ -1,7 +1,7 @@
-import React, {useEffect, useMemo, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Button, Form, Input, message, Modal, Popconfirm, Space, Table, Tag} from "antd";
 import {tagGroupAPI} from "../../services";
-import {TagGroupRequest, TagGroupResponse} from "../../models";
+import type {TagGroupRequest, TagGroupResponse} from "../../models";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../session";
 

@@ -4,14 +4,7 @@ import {diveEventAPI, downloadAPI, userAPI} from "../../services";
 import {useState} from "react";
 import {CSVLink} from "react-csv";
 import {DownloadOutlined} from "@ant-design/icons";
-
-enum DownloadTypeEnum {
-    CERTIFICATE = "CERTIFICATE",
-    DIVE = "DIVE",
-    DIVE_EVENT = "DIVE_EVENT",
-    MEMBER = "MEMBER",
-    PAYMENT = "PAYMENT"
-}
+import {DownloadTypeEnum} from "../../models";
 
 function DownloadData() {
     const {t} = useTranslation();

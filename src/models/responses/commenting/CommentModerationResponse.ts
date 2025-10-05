@@ -1,5 +1,5 @@
-import {CommentResponse} from "./CommentResponse";
-import {CommentReportResponse} from "./CommentReportResponse";
+import type {CommentResponse} from "./CommentResponse";
+import type {CommentReportResponse} from "./CommentReportResponse";
 
 export interface CommentModerationResponse extends CommentResponse {
     reports: CommentReportResponse[];

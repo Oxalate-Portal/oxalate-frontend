@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {EventPeriodReportResponse, MultiYearValueResponse, YearlyDiversListResponse} from "../models";
+import type {EventPeriodReportResponse, MultiYearValueResponse, YearlyDiversListResponse} from "../models";
 
 /**
  * This class is used to make API calls to the /stats endpoint. We only retrieve data from this endpoint so there is no request payload, yet.

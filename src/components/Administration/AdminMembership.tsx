@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, Form, message, Select, Spin} from "antd";
-import {MembershipRequest, MembershipResponse, MembershipStatusEnum, MembershipTypeEnum} from "../../models";
+import {type MembershipRequest, type MembershipResponse, MembershipStatusEnum, MembershipTypeEnum} from "../../models";
 import {membershipAPI} from "../../services/";
 import {useParams} from "react-router-dom";
 
