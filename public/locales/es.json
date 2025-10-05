@@ -1560,6 +1560,10 @@
     "scuba_diver" : "Buceo autónomo",
     "snorkler" : "Snorkel"
   },
+  "TagGroupEnum" : {
+    "USER" : "Usuario",
+    "EVENT" : "Evento"
+  },
   "common" : {
     "button" : {
       "add" : "Agregar",

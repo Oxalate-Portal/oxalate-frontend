@@ -1,7 +1,8 @@
 import {useEffect, useMemo, useState} from "react";
-import {Button, Form, Input, message, Modal, Popconfirm, Space, Table, Tag} from "antd";
+import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tag} from "antd";
 import {tagGroupAPI} from "../../services";
 import type {TagGroupRequest, TagGroupResponse} from "../../models";
+import {TagGroupEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../session";
 
@@ -49,19 +50,20 @@ export function AdminTagGroups() {
         setModalOpen(true);
     };
 
-    const namesToList = (names?: Record<string, string>): NameKV[] =>
-            Object.entries(names || {}).map(([lang, value]) => ({lang, value}));
-
     const buildNamesFromConfig = (existing?: Record<string, string>): NameKV[] => {
-        const langs = configuredLangs.length ? configuredLangs : ["en"];
-        return langs.map(lang => ({lang, value: existing?.[lang] ?? ""}));
+        const languages = configuredLangs.length ? configuredLangs : ["en"];
+        return languages.map(lang => ({lang, value: existing?.[lang] ?? ""}));
     };
 
     const formInitialValues = useMemo(() => {
         if (editing) {
-            return {code: editing.code, names: buildNamesFromConfig(editing.names)};
+            return {
+                code: editing.code,
+                names: buildNamesFromConfig(editing.names),
+                type: editing.type ?? TagGroupEnum.USER
+            };
         }
-        return {code: "", names: buildNamesFromConfig()};
+        return {code: "", names: buildNamesFromConfig(), type: TagGroupEnum.USER};
     }, [editing, configuredLangs]);
 
     // Ensure names array matches configured languages and fill lang codes whenever modal opens or langs change
@@ -69,14 +71,16 @@ export function AdminTagGroups() {
         if (!modalOpen) return;
         form.setFieldsValue({
             code: editing?.code ?? form.getFieldValue("code") ?? "",
-            names: buildNamesFromConfig(editing?.names)
+            names: buildNamesFromConfig(editing?.names),
+            type: editing?.type ?? form.getFieldValue("type") ?? TagGroupEnum.USER
         });
     }, [modalOpen, configuredLangs, editing, form]);
 
     const listToRecord = (list: NameKV[]): Record<string, string> => {
         const out: Record<string, string> = {};
-        (list || []).forEach(({lang, value}) => {
-            const k = (lang || "").trim();
+        (list || []).forEach(({lang, value}, idx) => {
+            // Fallback to configuredLangs[idx] if lang is missing in form state
+            const k = (lang ?? configuredLangs[idx] ?? "").trim();
             if (k) out[k] = value ?? "";
         });
         return out;
@@ -84,12 +88,14 @@ export function AdminTagGroups() {
 
     const handleSubmit = () => {
         form.validateFields()
-                .then((values: { code: string; names: NameKV[] }) => {
+                .then((values: { code: string; names: NameKV[]; type: TagGroupEnum }) => {
+                    console.log("Form values:", values);
                     setSubmitting(true);
                     const payload: TagGroupRequest = {
                         id: editing?.id ?? 0,
                         code: values.code.trim(),
-                        names: listToRecord(values.names || [])
+                        names: listToRecord(values.names || []),
+                        type: values.type
                     };
                     const op = editing ? tagGroupAPI.update(payload) : tagGroupAPI.create(payload);
                     op.then(() => {
@@ -187,28 +193,51 @@ export function AdminTagGroups() {
                             <Input placeholder={t("AdminTagGroups.form.code.placeholder")}/>
                         </Form.Item>
 
+                        <Form.Item
+                                name="type"
+                                label={t("EditEvent.form.type.label")}
+                                rules={[{required: true, message: t("EditEvent.form.type.rules.required")}]}
+                        >
+                            <Select
+                                    placeholder={t("EditEvent.form.type.label")}
+                                    options={[
+                                        {value: TagGroupEnum.USER, label: t("TagGroupEnum.USER")},
+                                        {value: TagGroupEnum.EVENT, label: t("TagGroupEnum.EVENT")}
+                                    ]}
+                            />
+                        </Form.Item>
+
                         <Form.List name="names">
-                            {() => (
+                            {(fields) => (
                                     <>
                                         <Space style={{marginBottom: 8}}>
                                             {t("AdminTagGroups.form.names.label")}
                                         </Space>
-                                        {configuredLangs.map((lang, idx) => (
-                                                <Space key={lang} align="baseline" style={{display: "flex", marginBottom: 8}}>
-                                                    {/* Hidden bound field ensures the lang code is submitted */}
-                                                    <Form.Item name={["names", idx, "lang"]} initialValue={lang} hidden>
-                                                        <Input/>
-                                                    </Form.Item>
-                                                    {/* Visible read-only input shows the code */}
-                                                    <Input readOnly value={lang}/>
-                                                    <Form.Item
-                                                            name={["names", idx, "value"]}
-                                                            rules={[{required: true, message: t("AdminTagGroups.form.names.value.rule.required")}]}
-                                                    >
-                                                        <Input placeholder={t("AdminTagGroups.form.names.value.placeholder")}/>
-                                                    </Form.Item>
-                                                </Space>
-                                        ))}
+                                        {fields.map((field, idx) => {
+                                            const lang = configuredLangs[idx];
+                                            const {key: _omitKey, ...restField} = field; // avoid passing `key` via spread
+                                            return (
+                                                    <Space key={"lang-space-" + field.key} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                                        {/* Hidden bound field ensures the lang code is submitted */}
+                                                        <Form.Item
+                                                                {...restField}
+                                                                name={[field.name, "lang"]}
+                                                                hidden
+                                                        >
+                                                            <Input/>
+                                                        </Form.Item>
+                                                        {/* Visible read-only input shows the code */}
+                                                        <Input readOnly value={lang}/>
+                                                        <Form.Item
+                                                                {...restField}
+                                                                name={[field.name, "value"]}
+                                                                rules={[{required: true, message: t("AdminTagGroups.form.names.value.rule.required")}]}
+                                                        >
+                                                            <Input placeholder={t("AdminTagGroups.form.names.value.placeholder")}/>
+                                                        </Form.Item>
+                                                    </Space>
+                                            );
+                                        })}
                                     </>
                             )}
                         </Form.List>

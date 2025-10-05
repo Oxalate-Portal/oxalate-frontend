@@ -2,6 +2,7 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tag} from "antd";
 import {tagGroupAPI, tagsAPI} from "../../services";
 import type {TagGroupRequest, TagGroupResponse, TagRequest, TagResponse} from "../../models";
+import {TagGroupEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../session";
 
@@ -89,7 +90,8 @@ export function AdminTags() {
 
     const groupFormInitialValues = useMemo(() => ({
         code: "",
-        names: buildNamesFromConfig()
+        names: buildNamesFromConfig(),
+        type: TagGroupEnum.USER
     }), [configuredLangs]);
 
     // Ensure names array matches configured languages and fill lang codes whenever tag modal opens or langs change
@@ -113,11 +115,12 @@ export function AdminTags() {
         if (!groupModalOpen) return;
         groupForm.setFieldsValue({
             code: groupForm.getFieldValue("code") ?? "",
-            names: buildNamesFromConfig()
+            names: buildNamesFromConfig(),
+            type: groupForm.getFieldValue("type") ?? TagGroupEnum.USER
         });
     }, [groupModalOpen, configuredLangs, groupForm]);
 
-    const handleSubmit = (submitData: any) => {
+    const handleSubmit = (_submitData: any) => {
         form.validateFields()
                 .then((values: { code: string; names: NameKV[]; tagGroupId?: number }) => {
                     console.log("Values", values);
@@ -283,12 +286,13 @@ export function AdminTags() {
                         title={t("AdminTags.modal.group-title.add")}
                         onOk={() => {
                             groupForm.validateFields()
-                                    .then((values: { code: string; names: NameKV[] }) => {
+                                    .then((values: { code: string; names: NameKV[]; type: TagGroupEnum }) => {
                                         setGroupSubmitting(true);
                                         const payload = {
                                             id: 0,
                                             code: values.code.trim(),
-                                            names: listToRecord(values.names || [])
+                                            names: listToRecord(values.names || []),
+                                            type: values.type
                                         } as TagGroupRequest;
                                         tagGroupAPI.create(payload)
                                                 .then((created: TagGroupResponse) => {
@@ -316,6 +320,20 @@ export function AdminTags() {
                                 ]}
                         >
                             <Input placeholder={t("AdminTags.form.group-code.placeholder")}/>
+                        </Form.Item>
+
+                        <Form.Item
+                                name="type"
+                                label={t("EditEvent.form.type.label")}
+                                rules={[{required: true, message: t("EditEvent.form.type.rules.required")}]}
+                        >
+                            <Select
+                                    placeholder={t("EditEvent.form.type.label")}
+                                    options={[
+                                        {value: TagGroupEnum.USER, label: t("TagGroupEnum.USER")},
+                                        {value: TagGroupEnum.EVENT, label: t("TagGroupEnum.EVENT")}
+                                    ]}
+                            />
                         </Form.Item>
 
                         <Form.List name="names">

@@ -1560,6 +1560,10 @@
     "scuba_diver" : "Laitesukellus",
     "snorkler" : "Snorklaus"
   },
+  "TagGroupEnum" : {
+    "USER" : "Käyttäjä",
+    "EVENT" : "Tapahtuma"
+  },
   "common" : {
     "button" : {
       "add" : "Lisää",

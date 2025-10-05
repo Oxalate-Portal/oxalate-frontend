@@ -1560,6 +1560,10 @@
     "scuba_diver" : "Apparatdykning",
     "snorkler" : "Snorkling"
   },
+  "TagGroupEnum" : {
+    "USER" : "Användare",
+    "EVENT" : "Evenemang"
+  },
   "common" : {
     "button" : {
       "add" : "Lägg till",

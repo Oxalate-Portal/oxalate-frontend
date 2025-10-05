@@ -1560,6 +1560,10 @@
     "scuba_diver" : "Scuba diving",
     "snorkler" : "Snorkling"
   },
+  "TagGroupEnum" : {
+    "USER" : "User",
+    "EVENT" : "Event"
+  },
   "common" : {
     "button" : {
       "add" : "Add",
