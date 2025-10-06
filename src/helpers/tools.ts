@@ -111,11 +111,14 @@ function isAllowedToEditPage(sessionVO: UserSessionToken, pageRoles: RolePermiss
     return false;
 }
 
-function localToUTCDate(date: Date): Date {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const day = date.getDate();
-    return new Date(Date.UTC(year, month, day));
+function localToUTCDate(date: Dayjs, timeZone: string): Dayjs {
+    const year = date.year();
+    const month = String(date.month() + 1).padStart(2, "0"); // Months are 0-indexed
+    const day = String(date.date()).padStart(2, "0");
+    // Step 2: Create a timezone-less datetime string
+    const timezoneLessDatetime: string = `${year}-${month}-${day}`;
+    // Step 3: Use dayjs.tz() to interpret it in the desired timezone
+    return dayjs.tz(timezoneLessDatetime, timeZone);
 }
 
 function localToUTCDatetime(date: Dayjs, timeZone: string): Dayjs {
