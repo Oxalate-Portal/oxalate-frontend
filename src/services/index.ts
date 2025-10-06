@@ -16,4 +16,6 @@ export {pageMgmtAPI} from './PageMgmtAPI';
 export {paymentAPI} from './PaymentAPI';
 export {portalConfigurationAPI} from './PortalConfigurationAPI';
 export {statsAPI} from './StatsAPI';
+export {tagGroupAPI} from './TagGroupAPI';
+export {tagsAPI} from './TagsAPI';
 export {userAPI} from './UserAPI';

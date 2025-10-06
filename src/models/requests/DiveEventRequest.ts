@@ -1,4 +1,4 @@
-import {AbstractDiveEvent} from "../AbstractDiveEvent";
+import type {AbstractDiveEvent} from "../AbstractDiveEvent";
 
 export interface DiveEventRequest extends AbstractDiveEvent {
     organizerId: number;

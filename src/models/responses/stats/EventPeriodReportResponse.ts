@@ -1,4 +1,4 @@
-import {EventReportResponse} from "./EventReportResponse";
+import type {EventReportResponse} from "./EventReportResponse";
 
 export interface EventPeriodReportResponse {
     periodStart: Date;

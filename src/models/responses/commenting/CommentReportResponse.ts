@@ -1,4 +1,4 @@
-import {ReportStatusEnum} from "../ReportStatusEnum";
+import {ReportStatusEnum} from "../../ReportStatusEnum";
 
 export interface CommentReportResponse {
     id: number;

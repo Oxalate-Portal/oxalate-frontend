@@ -1,12 +1,11 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {
+import type {
     DiveEventListItemResponse,
     DiveEventListRequest,
     DiveEventListResponse,
     DiveEventRequest,
     DiveEventResponse,
-    EventSubscribeRequest,
-    UserTypeEnum
+    EventSubscribeRequest
 } from "../models";
 
 class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {

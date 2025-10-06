@@ -884,6 +884,11 @@
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
       "stats" : "Statistiken",
+      "tags" : {
+        "title" : "Schlagwörter",
+        "tag-groups" : "Schlagwortgruppen",
+        "tag-list" : "Schlagwörter"
+      },
       "title" : "Verwaltung",
       "users" : "Benutzer"
     },
@@ -1555,6 +1560,10 @@
     "scuba_diver" : "Gerätetauchen",
     "snorkler" : "Schnorcheln"
   },
+  "TagGroupEnum" : {
+    "USER" : "Benutzer",
+    "EVENT" : "Ereignis"
+  },
   "common" : {
     "button" : {
       "add" : "Hinzufügen",
@@ -1628,6 +1637,142 @@
       "anonymized" : "Anonymisiert",
       "locked" : "Gesperrt",
       "registered" : "Registriert"
+    }
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Schlagwortgruppe hinzufügen",
+      "refresh" : "Aktualisieren"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "gruppen-code",
+        "rule" : {
+          "required" : "Code ist erforderlich",
+          "max" : "Maximal 128 Zeichen"
+        }
+      },
+      "names" : {
+        "label" : "Namen",
+        "add-language" : "Sprache hinzufügen",
+        "lang" : {
+          "placeholder" : "de",
+          "rule" : {
+            "required" : "Sprache ist erforderlich"
+          }
+        },
+        "value" : {
+          "placeholder" : "Anzeigename",
+          "rule" : {
+            "required" : "Name ist erforderlich"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Fehler beim Laden der Schlagwortgruppen"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Schlagwortgruppe hinzufügen",
+        "edit" : "Schlagwortgruppe bearbeiten"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Schlagwortgruppe löschen?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Schlagwortgruppe erstellt",
+      "update-success" : "Schlagwortgruppe aktualisiert",
+      "remove-success" : "Schlagwortgruppe gelöscht",
+      "remove-fail" : "Fehler beim Löschen der Schlagwortgruppe",
+      "operation-fail" : "Vorgang fehlgeschlagen"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Bearbeiten",
+        "title" : "Aktionen"
+      },
+      "code" : "Code",
+      "names" : "Namen"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Tag hinzufügen",
+      "refresh" : "Aktualisieren"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "eindeutiger-code",
+        "rule" : {
+          "required" : "Code ist erforderlich",
+          "max" : "Maximal 128 Zeichen"
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tag-Gruppe",
+        "placeholder" : "Tag-Gruppe auswählen",
+        "new-group" : "Neue Gruppe"
+      },
+      "names" : {
+        "label" : "Namen",
+        "add-language" : "Sprache hinzufügen",
+        "lang" : {
+          "placeholder" : "de",
+          "rule" : {
+            "required" : "Sprache ist erforderlich"
+          }
+        },
+        "value" : {
+          "placeholder" : "Anzeigename",
+          "rule" : {
+            "required" : "Name ist erforderlich"
+          }
+        }
+      },
+      "group-code" : {
+        "placeholder" : "gruppen-code"
+      }
+    },
+    "load" : {
+      "fail" : "Fehler beim Laden der Tags",
+      "groups-fail" : "Fehler beim Laden der Tag-Gruppen"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Tag hinzufügen",
+        "edit" : "Tag bearbeiten"
+      },
+      "group-title" : {
+        "add" : "Tag-Gruppe hinzufügen"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Tag löschen?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tag erstellt",
+      "update-success" : "Tag aktualisiert",
+      "remove-success" : "Tag gelöscht",
+      "remove-fail" : "Fehler beim Löschen des Tags",
+      "operation-fail" : "Operation fehlgeschlagen",
+      "group-add-success" : "Tag-Gruppe erstellt",
+      "group-add-fail" : "Fehler beim Erstellen der Tag-Gruppe"
+    },
+    "table" : {
+      "code" : "Code",
+      "names" : "Namen",
+      "actions" : {
+        "title" : "Aktionen",
+        "edit" : "Bearbeiten"
+      }
     }
   }
 }

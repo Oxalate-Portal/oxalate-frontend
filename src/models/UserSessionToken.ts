@@ -1,6 +1,5 @@
-import {AbstractUser} from "./AbstractUser";
 import {RoleEnum} from "./RoleEnum";
-import {UserResponse} from "./responses";
+import type {UserResponse} from "./responses";
 
 export interface UserSessionToken extends UserResponse {
     accessToken: string;

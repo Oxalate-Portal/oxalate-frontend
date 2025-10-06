@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {commentAPI} from "../../services";
-import {CommentModerationResponse} from "../../models";
-import {Collapse, CollapseProps, message, Space, Spin} from "antd";
+import type {CommentModerationResponse} from "../../models";
+import {Collapse, type CollapseProps, message, Space, Spin} from "antd";
 import {CommentCard, CommentModerationActions, ReportCard} from "../Commenting";
 import {useTranslation} from "react-i18next";
 
@@ -11,18 +11,21 @@ export function CommentModeration() {
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
 
-    async function fetchPendingReports() {
+    function fetchPendingReports() {
         setLoading(true);
-        try {
-            const response = await commentAPI.getPendingReports();
-            setCommentReports(response);
-            messageApi.success(t("CommentModeration.messages.success"));
-        } catch (error) {
-            console.error("Failed to fetch pending reports:", error);
-            messageApi.error(t("CommentModeration.messages.fail"));
-        } finally {
-            setLoading(false);
-        }
+
+        commentAPI.getPendingReports()
+                .then(response => {
+                    setCommentReports(response);
+                    messageApi.success(t("CommentModeration.messages.success"));
+                })
+                .catch(error => {
+                    console.error("Failed to fetch pending reports:", error);
+                    messageApi.error(t("CommentModeration.messages.fail"));
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
     }
 
     useEffect(() => {

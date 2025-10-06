@@ -1,6 +1,6 @@
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {CertificateResponse} from "../../models";
+import type {CertificateResponse} from "../../models";
 import {Button, Space} from "antd";
 import {ShowCertificateCard} from "./ShowCertificateCard";
 import {certificateAPI} from "../../services";

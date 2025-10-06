@@ -1,4 +1,4 @@
-import {CSSProperties, useEffect, useState} from "react";
+import {type CSSProperties, useEffect, useState} from "react";
 import axios from "axios";
 import {Image} from "antd";
 import {CloseCircleOutlined} from "@ant-design/icons";

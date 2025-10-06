@@ -884,6 +884,11 @@
       "portal-configuration" : "Configuración del portal",
       "readFirst" : "Leer primero",
       "stats" : "Estadísticas",
+      "tags" : {
+        "title" : "Etiquetas",
+        "tag-groups" : "Grupos de etiquetas",
+        "tag-list" : "Etiquetas"
+      },
       "title" : "Administración",
       "users" : "Usuarios"
     },
@@ -1555,6 +1560,10 @@
     "scuba_diver" : "Buceo autónomo",
     "snorkler" : "Snorkel"
   },
+  "TagGroupEnum" : {
+    "USER" : "Usuario",
+    "EVENT" : "Evento"
+  },
   "common" : {
     "button" : {
       "add" : "Agregar",
@@ -1628,6 +1637,142 @@
       "anonymized" : "Anonimizado",
       "locked" : "Bloqueado",
       "registered" : "Registrado"
+    }
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Agregar grupo de etiquetas",
+      "refresh" : "Actualizar"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Código",
+        "placeholder" : "código-de-grupo",
+        "rule" : {
+          "required" : "El código es obligatorio",
+          "max" : "Máximo 128 caracteres"
+        }
+      },
+      "names" : {
+        "label" : "Nombres",
+        "add-language" : "Agregar idioma",
+        "lang" : {
+          "placeholder" : "es",
+          "rule" : {
+            "required" : "El idioma es obligatorio"
+          }
+        },
+        "value" : {
+          "placeholder" : "Nombre para mostrar",
+          "rule" : {
+            "required" : "El nombre es obligatorio"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Error al cargar los grupos de etiquetas"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Agregar grupo de etiquetas",
+        "edit" : "Editar grupo de etiquetas"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "¿Eliminar el grupo de etiquetas?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Grupo de etiquetas creado",
+      "update-success" : "Grupo de etiquetas actualizado",
+      "remove-success" : "Grupo de etiquetas eliminado",
+      "remove-fail" : "Error al eliminar el grupo de etiquetas",
+      "operation-fail" : "La operación falló"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Editar",
+        "title" : "Acciones"
+      },
+      "code" : "Código",
+      "names" : "Nombres"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Añadir etiqueta",
+      "refresh" : "Actualizar"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Código",
+        "placeholder" : "código-único",
+        "rule" : {
+          "required" : "El código es obligatorio",
+          "max" : "Máximo 128 caracteres"
+        }
+      },
+      "tagGroup" : {
+        "label" : "Grupo de etiquetas",
+        "placeholder" : "Seleccionar un grupo de etiquetas",
+        "new-group" : "Nuevo grupo"
+      },
+      "names" : {
+        "label" : "Nombres",
+        "add-language" : "Añadir idioma",
+        "lang" : {
+          "placeholder" : "es",
+          "rule" : {
+            "required" : "El idioma es obligatorio"
+          }
+        },
+        "value" : {
+          "placeholder" : "Nombre para mostrar",
+          "rule" : {
+            "required" : "El nombre es obligatorio"
+          }
+        }
+      },
+      "group-code" : {
+        "placeholder" : "código-de-grupo"
+      }
+    },
+    "load" : {
+      "fail" : "Error al cargar las etiquetas",
+      "groups-fail" : "Error al cargar los grupos de etiquetas"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Añadir etiqueta",
+        "edit" : "Editar etiqueta"
+      },
+      "group-title" : {
+        "add" : "Añadir grupo de etiquetas"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "¿Eliminar etiqueta?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Etiqueta creada",
+      "update-success" : "Etiqueta actualizada",
+      "remove-success" : "Etiqueta eliminada",
+      "remove-fail" : "Error al eliminar la etiqueta",
+      "operation-fail" : "La operación falló",
+      "group-add-success" : "Grupo de etiquetas creado",
+      "group-add-fail" : "Error al crear el grupo de etiquetas"
+    },
+    "table" : {
+      "code" : "Código",
+      "names" : "Nombres",
+      "actions" : {
+        "title" : "Acciones",
+        "edit" : "Editar"
+      }
     }
   }
 }

@@ -1,12 +1,12 @@
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {PageGroupResponse, PageStatusEnum, RoleEnum} from "../../models";
+import {type PageGroupResponse, PageStatusEnum, RoleEnum} from "../../models";
 import {Button, message, Space, Spin, Table} from "antd";
 import {checkRoles, getPageGroupTitleByLanguage, pageStatusEnum2Tag} from "../../helpers";
 import {Link} from "react-router-dom";
 import {pageGroupMgmtAPI} from "../../services";
-import {ColumnsType} from "antd/es/table";
+import type {ColumnsType} from "antd/es/table";
 
 export function PageGroups() {
     const {userSession, sessionLanguage} = useSession();

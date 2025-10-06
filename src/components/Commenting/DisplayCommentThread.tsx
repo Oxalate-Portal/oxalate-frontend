@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {CommentResponse} from "../../models";
+import {useState} from "react";
+import type {CommentResponse} from "../../models";
 import {Button, List, Typography} from "antd";
 import {CommentCard} from "./CommentCard";
 import {CommentEditor} from "./CommentEditor";

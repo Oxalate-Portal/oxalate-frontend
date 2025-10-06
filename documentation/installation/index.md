@@ -39,8 +39,8 @@ Once the repository has been downloaded, you should create an environment file t
 your editor of choice the file `env` and save it as `.env.local`, or `.env.production` depending of your use case, in the same directory. With modifying this
 file, you can modify the following parts of the frontend:
 
-| Variable                           | Description                                                                                                |
-|------------------------------------|------------------------------------------------------------------------------------------------------------|
+| Variable                          | Description                                                                                                 |
+|-----------------------------------|-------------------------------------------------------------------------------------------------------------|
 | VITE_APP_API_URL                  | The URL to the backend service. This is the URL that the frontend will use to communicate with the backend. |
 | VITE_APP_OXALATE_PAGE_TITLE       | The title of the page. This will be shown in the browser tab.                                               |
 | VITE_APP_OXALATE_COPYRIGHT_FOOTER | The copyright part of the footer.                                                                           |

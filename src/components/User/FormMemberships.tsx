@@ -1,5 +1,5 @@
 import {Table} from "antd";
-import {MembershipResponse, MembershipTypeEnum} from "../../models";
+import {type MembershipResponse, MembershipTypeEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../helpers";
@@ -34,7 +34,7 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             title: t("FormMemberships.table.created-at"),
             dataIndex: 'createdAt',
             key: 'membership-createdAt',
-            render: (date: Date, record: MembershipResponse) => {
+            render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD HH:mm")}
                 </>)

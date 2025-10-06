@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {AdminUserResponse, ListUserResponse, RoleEnum, UserRequest, UserResponse, UserStatusEnum} from "../models";
+import {type AdminUserRequest, type AdminUserResponse, type ListUserResponse, RoleEnum, type UserRequest, type UserResponse, UserStatusEnum} from "../models";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
@@ -30,19 +30,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
     }
 
     // TODO Convert the post data to an interface, requires reworking of the whole user data handling starting with AbstractUser
-    public async adminUpdateUser(postData: {
-        firstName: string;
-        lastName: string;
-        phoneNumber: string;
-        nextOfKin: string;
-        roles: RoleEnum[];
-        privacy: boolean;
-        registered: Date;
-        language: string;
-        id: number;
-        username: string;
-        status: UserStatusEnum
-    }) {
+    public async adminUpdateUser(postData: AdminUserRequest) {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         const response = await this.axiosInstance.put<AdminUserResponse>("", postData);
         return response.data;

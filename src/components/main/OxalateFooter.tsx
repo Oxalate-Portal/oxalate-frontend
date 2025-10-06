@@ -1,6 +1,6 @@
 import BuildInfoData from "../../buildInfo.json";
 import {Footer} from "antd/es/layout/layout";
-import {BuildInfo} from "../../models";
+import type {BuildInfo} from "../../models";
 
 function OxalateFooter() {
     const buildInfo: BuildInfo = BuildInfoData;

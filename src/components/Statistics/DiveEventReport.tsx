@@ -1,8 +1,8 @@
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {Collapse, CollapseProps, Spin} from "antd";
+import {Collapse, type CollapseProps, Spin} from "antd";
 import {statsAPI} from "../../services";
-import {EventPeriodReportResponse} from "../../models";
+import type {EventPeriodReportResponse} from "../../models";
 import {BiannualEventReportTable} from "./BiannualEventReportTable";
 
 export function DiveEventReport() {

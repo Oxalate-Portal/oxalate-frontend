@@ -1,4 +1,4 @@
-import {AbstractCertificate} from "../AbstractCertificate";
+import type {AbstractCertificate} from "../AbstractCertificate";
 
 export interface CertificateResponse extends AbstractCertificate {
     certificatePhotoUrl: string;

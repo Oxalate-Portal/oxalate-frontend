@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {BlockedDateRequest, BlockedDateResponse} from "../models";
+import type {BlockedDateRequest, BlockedDateResponse} from "../models";
 
 export class BlockedDatesAPI extends AbstractAPI<BlockedDateRequest, BlockedDateResponse> {
 }

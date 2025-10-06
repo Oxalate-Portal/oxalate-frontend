@@ -1,3 +1,5 @@
+import {UserTypeEnum} from "./UserTypeEnum";
+
 export interface RegistrationVO {
     username: string;
     password: string;
@@ -7,4 +9,6 @@ export interface RegistrationVO {
     nextOfKin: string;
     privacy: boolean;
     language: string;
+    approvedTerms: boolean;
+    primaryUserType: UserTypeEnum;
 }

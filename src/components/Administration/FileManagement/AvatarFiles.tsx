@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Table} from "antd";
 import {fileTransferAPI} from "../../../services";
-import {AvatarFileResponse} from "../../../models";
+import type {AvatarFileResponse} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
 
 export function AvatarFiles() {

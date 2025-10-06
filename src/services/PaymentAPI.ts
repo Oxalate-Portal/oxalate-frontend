@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {PaymentRequest, PaymentResponse, PaymentStatusResponse, PaymentTypeEnum} from "../models";
+import {type PaymentRequest, type PaymentResponse, type PaymentStatusResponse, PaymentTypeEnum} from "../models";
 
 class PaymentAPI extends AbstractAPI<PaymentRequest, PaymentResponse> {
 

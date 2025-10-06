@@ -1,6 +1,6 @@
 import {useLocation} from "react-router-dom";
 import {useEffect} from "react";
-import {UserSessionToken} from "../models";
+import type {UserSessionToken} from "../models";
 
 interface AuthVerifyProps {
     logOut: () => void;

@@ -4,7 +4,7 @@ import {Button, Checkbox, Col, Form, Input, message, Row, Space, Spin} from "ant
 import {useTranslation} from "react-i18next";
 import {checkRoles} from "../../helpers";
 import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./index";
-import {RoleEnum, UserSessionToken, UserRequest, UserResponse, UserStatusEnum, AdminUserRequest, AdminUserResponse} from "../../models";
+import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";
 
 export function User() {
@@ -47,7 +47,7 @@ export function User() {
         }
 
         userAPI.updateUserStatus(workUser?.id, status)
-                .then((response) => {
+                .then((_response) => {
                     messageApi.success(t("User.updateStatus.ok"));
                 })
                 .catch(e => {

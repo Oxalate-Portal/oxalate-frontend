@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {Alert, Button, Form, Input, Space, Spin} from "antd";
 import {useState} from "react";
 import {useSession} from "../../session";
-import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {UpdateStatusEnum, type UpdateStatusVO} from "../../models";
 import {useNavigate} from "react-router-dom";
 import {PasswordFields} from "./PasswordFields";
 import {PasswordRules} from "./PasswordRules";

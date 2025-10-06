@@ -1,5 +1,5 @@
 import {UpdateStatusEnum} from "../UpdateStatusEnum";
-import {PaymentResponse} from "./PaymentResponse";
+import type {PaymentResponse} from "./PaymentResponse";
 
 export interface PaymentStatusResponse {
     userId: number;

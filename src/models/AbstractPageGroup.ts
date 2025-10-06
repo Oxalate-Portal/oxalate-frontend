@@ -1,4 +1,4 @@
-import {PageGroupVersionResponse} from "./responses";
+import type {PageGroupVersionResponse} from "./responses";
 import {PageStatusEnum} from "./PageStatusEnum";
 
 export interface AbstractPageGroup {

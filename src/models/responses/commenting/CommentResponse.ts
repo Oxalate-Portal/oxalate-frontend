@@ -1,5 +1,5 @@
-import {CommentTypeEnum} from "../CommentTypeEnum";
-import {CommentStatusEnum} from "../CommentStatusEnum";
+import {CommentTypeEnum} from "../../CommentTypeEnum";
+import {CommentStatusEnum} from "../../CommentStatusEnum";
 import {Dayjs} from "dayjs";
 
 export interface CommentResponse {

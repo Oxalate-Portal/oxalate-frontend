@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {Alert, Button, Form, Input, Row} from "antd";
 import {useSession} from "../../session";
 import {authAPI} from "../../services";
-import {UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {UpdateStatusEnum, type UpdateStatusVO} from "../../models";
 
 export function LostPassword() {
     const {userSession} = useSession();

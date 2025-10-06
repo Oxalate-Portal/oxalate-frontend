@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {MultiYearValueResponse} from "../../models";
+import type {MultiYearValueResponse} from "../../models";
 import {statsAPI} from "../../services";
 import {Spin} from "antd";
 import {Line} from "@ant-design/charts";

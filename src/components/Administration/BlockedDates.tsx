@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, List, message, Popconfirm, Spin} from "antd";
-import {BlockedDateRequest, BlockedDateResponse} from "../../models";
+import type {BlockedDateRequest, BlockedDateResponse} from "../../models";
 import dayjs, {Dayjs} from "dayjs";
 import {blockedDatesAPI} from "../../services";
 import {useTranslation} from "react-i18next";
-import {localToUTCDate} from "../../helpers";
 
 const {Item} = Form;
 const { TextArea } = Input;
@@ -40,10 +39,10 @@ function BlockedDates() {
 
     async function addBlockedDate(values: { blockedDate: Date, blockedReason: string }) {
         // Ensure blockedDate is a Date object
-        const selectedDate = new Date(values.blockedDate);
-        // We need to convert the given date to UTC since it has the time part as well and is in local timezone which may shift the selected date as
-        // it becomes serialized.
-        const blockedDate = localToUTCDate(selectedDate);
+        const dateString = dayjs(values.blockedDate).format('YYYY-MM-DD');
+
+        const blockedDate = dayjs(dateString);
+        console.log("Converted from " + values.blockedDate + " which in date string is " + dateString + " to final blocked date: " + blockedDate);
 
         const request: BlockedDateRequest = {
             blockedDate: blockedDate,

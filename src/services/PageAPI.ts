@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {PageGroupResponse, PageRequest, PageResponse} from "../models";
+import type {PageGroupResponse, PageRequest, PageResponse} from "../models";
 
 class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
     async getNavigationItems(language: string): Promise<PageGroupResponse[] | void> {

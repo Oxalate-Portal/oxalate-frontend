@@ -1,5 +1,5 @@
-import Axios, {AxiosInstance} from "axios";
-import {FrontendConfigurationResponse, PortalConfigurationRequest, PortalConfigurationResponse} from "../models";
+import Axios, {type AxiosInstance} from "axios";
+import type {FrontendConfigurationResponse, PortalConfigurationRequest, PortalConfigurationResponse} from "../models";
 
 class PortalConfigurationAPI {
     private axiosInstance: AxiosInstance;

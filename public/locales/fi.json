@@ -884,6 +884,11 @@
       "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
       "stats" : "Tilastot",
+      "tags" : {
+        "title" : "Tunnisteet",
+        "tag-groups" : "Tunnisteryhmät",
+        "tag-list" : "Tunnisteet"
+      },
       "title" : "Ylläpito",
       "users" : "Käyttäjät"
     },
@@ -1555,6 +1560,10 @@
     "scuba_diver" : "Laitesukellus",
     "snorkler" : "Snorklaus"
   },
+  "TagGroupEnum" : {
+    "USER" : "Käyttäjä",
+    "EVENT" : "Tapahtuma"
+  },
   "common" : {
     "button" : {
       "add" : "Lisää",
@@ -1628,6 +1637,142 @@
       "anonymized" : "Anonyymisoitu",
       "locked" : "Lukittu",
       "registered" : "Rekisteröity"
+    }
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Lisää tunnisteryhmä",
+      "refresh" : "Päivitä"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Koodi",
+        "placeholder" : "ryhmäkoodi",
+        "rule" : {
+          "required" : "Koodi on pakollinen",
+          "max" : "Enintään 128 merkkiä"
+        }
+      },
+      "names" : {
+        "label" : "Nimet",
+        "add-language" : "Lisää kieli",
+        "lang" : {
+          "placeholder" : "fi",
+          "rule" : {
+            "required" : "Kieli on pakollinen"
+          }
+        },
+        "value" : {
+          "placeholder" : "Näyttönimi",
+          "rule" : {
+            "required" : "Nimi on pakollinen"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Tunnisteryhmien lataus epäonnistui"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Lisää tunnisteryhmä",
+        "edit" : "Muokkaa tunnisteryhmää"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Poistetaanko tunnisteryhmä?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tunnisteryhmä luotu",
+      "update-success" : "Tunnisteryhmä päivitetty",
+      "remove-success" : "Tunnisteryhmä poistettu",
+      "remove-fail" : "Tunnisteryhmän poistaminen epäonnistui",
+      "operation-fail" : "Toiminto epäonnistui"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Muokkaa",
+        "title" : "Toiminnot"
+      },
+      "code" : "Koodi",
+      "names" : "Nimet"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Lisää tunniste",
+      "refresh" : "Päivitä"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Koodi",
+        "placeholder" : "yksilöllinen-koodi",
+        "rule" : {
+          "required" : "Koodi on pakollinen",
+          "max" : "Enintään 128 merkkiä"
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tunnisteryhmä",
+        "placeholder" : "Valitse tunnisteryhmä",
+        "new-group" : "Uusi ryhmä"
+      },
+      "names" : {
+        "label" : "Nimet",
+        "add-language" : "Lisää kieli",
+        "lang" : {
+          "placeholder" : "fi",
+          "rule" : {
+            "required" : "Kieli on pakollinen"
+          }
+        },
+        "value" : {
+          "placeholder" : "Näyttönimi",
+          "rule" : {
+            "required" : "Nimi on pakollinen"
+          }
+        }
+      },
+      "group-code" : {
+        "placeholder" : "ryhmäkoodi"
+      }
+    },
+    "load" : {
+      "fail" : "Tunnisteiden lataus epäonnistui",
+      "groups-fail" : "Tunnisteryhmien lataus epäonnistui"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Lisää tunniste",
+        "edit" : "Muokkaa tunnistetta"
+      },
+      "group-title" : {
+        "add" : "Lisää tunnisteryhmä"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Poistetaanko tunniste?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tunniste luotu",
+      "update-success" : "Tunniste päivitetty",
+      "remove-success" : "Tunniste poistettu",
+      "remove-fail" : "Tunnisteen poistaminen epäonnistui",
+      "operation-fail" : "Toiminto epäonnistui",
+      "group-add-success" : "Tunnisteryhmä luotu",
+      "group-add-fail" : "Tunnisteryhmän luonti epäonnistui"
+    },
+    "table" : {
+      "code" : "Koodi",
+      "names" : "Nimet",
+      "actions" : {
+        "title" : "Toiminnot",
+        "edit" : "Muokkaa"
+      }
     }
   }
 }

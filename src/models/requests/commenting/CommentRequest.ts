@@ -1,4 +1,4 @@
-import {CommentTypeEnum} from "../CommentTypeEnum";
+import {CommentTypeEnum} from "../../CommentTypeEnum";
 
 export interface CommentRequest {
     id: number;

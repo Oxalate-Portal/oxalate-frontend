@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Table, Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
-import {DiveFileResponse, UploadStatusEnum} from "../../../models";
+import {type DiveFileResponse, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
 import {useTranslation} from "react-i18next";
 

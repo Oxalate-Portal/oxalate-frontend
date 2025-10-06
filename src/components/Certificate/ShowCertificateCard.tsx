@@ -1,6 +1,6 @@
 import {QuestionCircleOutlined, UploadOutlined} from "@ant-design/icons";
-import {CertificateResponse} from "../../models";
-import {Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, UploadProps} from "antd";
+import type {CertificateResponse} from "../../models";
+import {Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, type UploadProps} from "antd";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {ProtectedImage} from "../main";
@@ -26,7 +26,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
         accept: "image/png, image/jpeg, image/jpg",
         withCredentials: true,
         beforeUpload: (file) => {
-            const maxFileSize = 1 * 1024 * 1024;
+            const maxFileSize = 1024 * 1024;
             if (file.size > maxFileSize) {
                 messageApi.error(t("ShowCertificateCard.card.upload-photo-size-too-big"));
                 return false;

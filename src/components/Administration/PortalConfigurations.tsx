@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Button, Checkbox, Col, DatePicker, Divider, Input, InputNumber, message, Radio, Row, Space, Spin, Switch, Tooltip, Typography} from "antd";
-import {ChronoUnitEnum, MembershipTypeEnum, PaymentExpirationTypeEnum, PortalConfigurationResponse} from "../../models";
+import {ChronoUnitEnum, MembershipTypeEnum, PaymentExpirationTypeEnum, type PortalConfigurationResponse} from "../../models";
 import {portalConfigurationAPI} from "../../services";
 import {useTranslation} from "react-i18next";
 import {TimezoneSelector} from "./TimezoneSelector";

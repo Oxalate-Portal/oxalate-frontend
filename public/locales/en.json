@@ -884,6 +884,11 @@
       "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
       "stats" : "Statistics",
+      "tags" : {
+        "title" : "Tags",
+        "tag-groups" : "Tag groups",
+        "tag-list" : "Tags"
+      },
       "title" : "Administration",
       "users" : "Users"
     },
@@ -1555,6 +1560,10 @@
     "scuba_diver" : "Scuba diving",
     "snorkler" : "Snorkling"
   },
+  "TagGroupEnum" : {
+    "USER" : "User",
+    "EVENT" : "Event"
+  },
   "common" : {
     "button" : {
       "add" : "Add",
@@ -1628,6 +1637,142 @@
       "anonymized" : "Anonymized",
       "locked" : "Locked",
       "registered" : "Registered"
+    }
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Add Tag Group",
+      "refresh" : "Refresh"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "group-code",
+        "rule" : {
+          "required" : "Code is required",
+          "max" : "Max 128 characters"
+        }
+      },
+      "names" : {
+        "label" : "Names",
+        "add-language" : "Add language",
+        "lang" : {
+          "placeholder" : "en",
+          "rule" : {
+            "required" : "Language is required"
+          }
+        },
+        "value" : {
+          "placeholder" : "Display name",
+          "rule" : {
+            "required" : "Name is required"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Failed to load tag groups"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Add Tag Group",
+        "edit" : "Edit Tag Group"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Delete tag group?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tag group created",
+      "update-success" : "Tag group updated",
+      "remove-success" : "Tag group deleted",
+      "remove-fail" : "Failed to delete tag group",
+      "operation-fail" : "Operation failed"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Edit",
+        "title" : "Actions"
+      },
+      "code" : "Code",
+      "names" : "Names"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Add Tag",
+      "refresh" : "Refresh"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "unique-code",
+        "rule" : {
+          "required" : "Code is required",
+          "max" : "Max 128 characters"
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tag group",
+        "placeholder" : "Select a tag group",
+        "new-group" : "New group"
+      },
+      "names" : {
+        "label" : "Names",
+        "add-language" : "Add language",
+        "lang" : {
+          "placeholder" : "en",
+          "rule" : {
+            "required" : "Lang required"
+          }
+        },
+        "value" : {
+          "placeholder" : "Display name",
+          "rule" : {
+            "required" : "Name required"
+          }
+        }
+      },
+      "group-code" : {
+        "placeholder" : "group-code"
+      }
+    },
+    "load" : {
+      "fail" : "Failed to load tags",
+      "groups-fail" : "Failed to load tag groups"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Add Tag",
+        "edit" : "Edit Tag"
+      },
+      "group-title" : {
+        "add" : "Add Tag Group"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Delete tag?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tag created",
+      "update-success" : "Tag updated",
+      "remove-success" : "Tag deleted",
+      "remove-fail" : "Failed to delete tag",
+      "operation-fail" : "Operation failed",
+      "group-add-success" : "Tag group created",
+      "group-add-fail" : "Failed to create tag group"
+    },
+    "table" : {
+      "code" : "Code",
+      "names" : "Names",
+      "actions" : {
+        "title" : "Actions",
+        "edit" : "Edit"
+      }
     }
   }
 }

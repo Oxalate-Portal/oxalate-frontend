@@ -2,7 +2,7 @@ import {Alert, Button, Form, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
-import {PasswordResetRequest, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {type PasswordResetRequest, UpdateStatusEnum, type UpdateStatusVO} from "../../models";
 import {authAPI} from "../../services";
 import {PasswordRules} from "./PasswordRules";
 import {PasswordFields} from "./PasswordFields";

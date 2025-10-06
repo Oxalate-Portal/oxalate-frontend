@@ -1,5 +1,13 @@
 import {useTranslation} from "react-i18next";
-import {OptionItemVO, PageGroupResponse, PageRequest, PageResponse, PageStatusEnum, RoleEnum, RolePermissionResponse} from "../../models";
+import {
+    type OptionItemVO,
+    type PageGroupResponse,
+    type PageRequest,
+    type PageResponse,
+    PageStatusEnum,
+    RoleEnum,
+    type RolePermissionResponse
+} from "../../models";
 import {useSession} from "../../session";
 import {getHighestRole, getPageGroupTitleByLanguage} from "../../helpers";
 import {useEffect, useState} from "react";
@@ -202,7 +210,7 @@ export function EditPage() {
         console.error("Failed:", errorInfo);
     }
 
-    const validatePermissions = (rule: any, value: any, index: number) => {
+    const validatePermissions = (_: any, _1: any, index: number) => {
         const readPermissionValue = pageForm.getFieldValue(["rolePermissions", index, "readPermission"]);
         const writePermissionValue = pageForm.getFieldValue(["rolePermissions", index, "writePermission"]);
 
@@ -217,7 +225,7 @@ export function EditPage() {
         return Promise.resolve();
     };
 
-    const validateRoleDuplicates = (rule: any, value: RoleEnum, index: number) => {
+    const validateRoleDuplicates = (_: any, value: RoleEnum, index: number) => {
 
         if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
             // Disable the write permission checkbox
@@ -247,7 +255,7 @@ export function EditPage() {
         return Promise.resolve();
     };
 
-    function validatePageEditorContent(rule: any, value: string) {
+    function validatePageEditorContent(_: any, value: string) {
         if (value && value.trim() !== "") {
             return Promise.resolve();
         }

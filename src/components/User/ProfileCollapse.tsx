@@ -1,10 +1,10 @@
 import {Collapse, Spin, Tooltip} from "antd";
-import {ItemType} from "rc-collapse/es/interface";
+import type {ItemType} from "rc-collapse/es/interface";
 import {Certificates} from "../Certificate";
 import {UserEventList} from "./UserEventList";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
-import {DiveEventListItemResponse} from "../../models";
+import type {DiveEventListItemResponse} from "../../models";
 import {diveEventAPI} from "../../services";
 import dayjs from "dayjs";
 import {EmailSubscriptionCard} from "./EmailSubscriptionCard";

@@ -2,13 +2,13 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {blockedDatesAPI, diveEventAPI, userAPI} from "../../services";
 import {
-    BlockedDateResponse,
-    DiveEventRequest,
-    DiveEventResponse,
+    type BlockedDateResponse,
+    type DiveEventRequest,
+    type DiveEventResponse,
     DiveEventStatusEnum,
     DiveTypeEnum,
-    ListUserResponse,
-    OptionItemVO,
+    type ListUserResponse,
+    type OptionItemVO,
     PaymentTypeEnum,
     PortalConfigGroupEnum,
     RoleEnum
@@ -244,7 +244,7 @@ export function EditDiveEvent() {
         return Promise.resolve();
     }
 
-    function validateSelectedParticipants(_: any, value: number): Promise<void> {
+    function validateSelectedParticipants(_: any, _1: number): Promise<void> {
         // Get the selected participant IDs
         const selectedParticipants = diveEventForm.getFieldValue("participants");
         // Get the set maxParticipants value
@@ -297,7 +297,7 @@ export function EditDiveEvent() {
             submitValues.id = 0;
             diveEventAPI.create(submitValues)
                     .then((response) => {
-                        // If we get back an non-zero positive ID as we sent, we assume the update was successful
+                        // If we get back a non-zero positive ID as we sent, we assume the update was successful
                         if (response && !isNaN(response.id) && response.id > 0) {
                             messageApi.success(t("EditEvent.onFinish.addStatusOk"));
                         } else {

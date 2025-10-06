@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 import {useSession} from "../../session";
-import {ActionResultEnum, LoginRequest, LoginStatus, UpdateStatusEnum, UpdateStatusVO} from "../../models";
+import {ActionResultEnum, type LoginRequest, type LoginStatus, UpdateStatusEnum, type UpdateStatusVO} from "../../models";
 
 export function Login() {
     const [loading, setLoading] = useState(false);

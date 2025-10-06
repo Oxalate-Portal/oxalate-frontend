@@ -1,11 +1,11 @@
-import {Button, Input, InputRef, Space, Spin, Table, TablePaginationConfig, Tag} from "antd";
+import {Button, Input, type InputRef, Space, Spin, Table, type TablePaginationConfig, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../helpers";
 import {useCallback, useEffect, useRef, useState} from "react";
-import {AuditEntryResponse, AuditLevelEnum, SortableTableParams} from "../../models";
+import {type AuditEntryResponse, AuditLevelEnum, type SortableTableParams} from "../../models";
 import {auditAPI} from "../../services";
 import type {ColumnsType, ColumnType} from "antd/es/table";
-import {FilterConfirmProps, FilterValue, SorterResult} from "antd/es/table/interface";
+import type {FilterConfirmProps, FilterValue, SorterResult} from "antd/es/table/interface";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
 
@@ -273,7 +273,7 @@ export function AuditEvents() {
         refreshDataFromServer.current = true;
     }
 
-    function handleSearch(searchText: string[], confirm: (param?: FilterConfirmProps) => void,
+    function handleSearch(searchText: string[], _confirm: (param?: FilterConfirmProps) => void,
                           dataIndex: AuditEntryIndex) {
         setFilterText(searchText[0]);
         setFilteredColumn(dataIndex);
