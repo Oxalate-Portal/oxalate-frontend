@@ -25,7 +25,8 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t("Events.table.startTime"),
             dataIndex: "startTime",
             key: "startTime",
-            sorter: (a: DiveEventResponse, b: DiveEventResponse) => (new Date(a.startTime.toDate()).getTime() - new Date(b.startTime.toDate()).getTime()),
+            sorter: (a: DiveEventResponse, b: DiveEventResponse) =>
+                    dayjs(a.startTime).valueOf() - dayjs(b.startTime).valueOf(),
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: DiveEventResponse) => {
                 return (<div>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</div>);

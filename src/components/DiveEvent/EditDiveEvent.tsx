@@ -190,7 +190,8 @@ export function EditDiveEvent() {
                                     title: "",
                                     description: "",
                                     type: DiveTypeEnum.SURFACE,
-                                    startTime: nextEventTime(),
+                                    // startTime is a string in the model; store an ISO string
+                                    startTime: nextEventTime().toISOString(),
                                     eventDuration: 6,
                                     maxDuration: 120,
                                     maxDepth: 60,
@@ -262,15 +263,17 @@ export function EditDiveEvent() {
         setLoading(true);
         // First make sure we're not editing an event in the past
         if (dayjs().isAfter(dayjs(submitValues.startTime).add(submitValues.eventDuration, "hour"))) {
-                messageApi.error(t("EditEvent.oldEvent.alertText"));
-                setLoading(false);
-                return;
+            messageApi.error(t("EditEvent.oldEvent.alertText"));
+            setLoading(false);
+            return;
         }
 
-        // Zero the seconds and milliseconds
-        submitValues.startTime = dayjs(submitValues.startTime).second(0).millisecond(0);
-        // Shift the datetime to the configured timezone
-        submitValues.startTime = localToUTCDatetime(submitValues.startTime, getPortalTimezone());
+        // Normalize to minute precision
+        const normalizedStart = dayjs(submitValues.startTime).second(0).millisecond(0);
+        // Shift the datetime to the configured timezone (UTC) and send as ISO string
+        const utcStart = localToUTCDatetime(normalizedStart, getPortalTimezone());
+        submitValues.startTime = utcStart.toISOString();
+
         // Check also that the new maxParticipants value is not lower than the current number of participants
         if (submitValues.maxParticipants < submitValues.participants.length) {
             messageApi.error(t("EditEvent.onFinish.updateStatusFailMaxParticipant"));
@@ -333,6 +336,7 @@ export function EditDiveEvent() {
                             title: diveEvent.title,
                             description: diveEvent.description,
                             type: diveEvent.type,
+                            // Convert string -> dayjs for DatePicker
                             startTime: diveEvent.startTime ? dayjs(diveEvent.startTime) : nextEventTime(),
                             eventDuration: diveEvent.eventDuration,
                             maxDuration: diveEvent.maxDuration,
@@ -426,8 +430,11 @@ export function EditDiveEvent() {
                                    },
                                    () => ({
                                        validator(_, value) {
-                                           // If we're editing an existing event, then we allow the start time to be in the past
-                                           if (diveEventId > 0 || (value && dayjs().isBefore(value - 30 * 60 * 1000))) {
+                                           // Allow past times if editing; otherwise require at least 30 minutes in the future
+                                           if (diveEventId > 0) {
+                                               return Promise.resolve();
+                                           }
+                                           if (value && dayjs().isBefore(dayjs(value).subtract(30, "minute"))) {
                                                return Promise.resolve();
                                            }
 
