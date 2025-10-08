@@ -158,7 +158,10 @@ export function AdminOrgUser() {
                                 nextOfKin: workUser.nextOfKin,
                                 registered: workUser.registered,
                                 roles: workUser.roles,
-                                language: workUser.language
+                                language: workUser.language,
+                                // add missing fields so Select shows the current value
+                                primaryUserType: workUser.primaryUserType,
+                                approvedTerms: workUser.approvedTerms
                             }}
                             onFinish={updateUser}
                             onFinishFailed={updateUserFailed}

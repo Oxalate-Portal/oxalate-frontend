@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import type {DiveEventListItemResponse} from "../../models";
+import dayjs from "dayjs";
 
 interface UserEventListProps {
     eventType: string,
@@ -15,7 +16,9 @@ export function UserEventList({eventType, events}: UserEventListProps) {
                                 // participants or detailed organizer
                                 return (
                                         <li key={eventType + "-" + event.id}>
-                                            <Link to={`/events/${event.id}/show`}>{event.startTime.toISOString().split("T")[0]}: {event.title}</Link>
+                                            <Link to={`/events/${event.id}/show`}>
+                                                {dayjs(event.startTime).format("YYYY-MM-DD")}: {event.title}
+                                            </Link>
                                         </li>);
                             }
                     )}

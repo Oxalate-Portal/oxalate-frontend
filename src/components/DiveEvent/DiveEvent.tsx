@@ -94,8 +94,7 @@ export function DiveEvent() {
                     const oneTimePayments = diverPayments.filter(payment => {
                         return payment.paymentType === PaymentTypeEnum.ONE_TIME
                                 && payment.paymentCount > 0
-                                && (!dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime
-                                        || payment.expiresAt === null)));
+                                && (payment.expiresAt === null || !dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime)));
                     });
 
                     if (oneTimePayments.length === 0) {
