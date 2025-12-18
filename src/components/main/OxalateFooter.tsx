@@ -6,7 +6,7 @@ function OxalateFooter() {
     const buildInfo: BuildInfo = BuildInfoData;
 
     return (
-            <Footer style={{textAlign: "center"}}
+            <Footer style={{textAlign: "center", background: "#101010", padding: "20px"}}
                     dangerouslySetInnerHTML={{
                         __html: import.meta.env.VITE_APP_OXALATE_COPYRIGHT_FOOTER + "<br/>"
                                 + "v" + buildInfo.version + " " + " built: " + buildInfo.buildTime + "<br/>"
