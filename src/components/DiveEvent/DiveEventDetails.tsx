@@ -166,7 +166,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
     return (<Spin spinning={loading} key={"event-spinner"}>
                 {eventInfo &&
-                        <Space direction={"vertical"} size={12} key={"event-space"}>
+                        <Space orientation={"vertical"} size={12} key={"event-space"}>
                             <h5 key={"event-main-" + eventInfo.id}>{t("EventDetails.title")}: {eventInfo.title}
                                 <Link to={"/events/" + eventInfo.id + "/show"} key={"event-link-" + eventInfo.id}>
                                     <Tooltip title={t("EventDetails.link.tooltip")} key={"tooltip-" + eventInfo.id}>

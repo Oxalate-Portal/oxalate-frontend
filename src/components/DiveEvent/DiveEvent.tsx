@@ -192,7 +192,7 @@ export function DiveEvent() {
     return (
             <div className={"darkDiv"}>
                 <Spin spinning={loading}>
-                    <Space direction={"vertical"} size={"large"}>
+                    <Space orientation={"vertical"} size={"large"}>
                         {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
                         {!subscribing && canSubscribe &&
                                 <Button

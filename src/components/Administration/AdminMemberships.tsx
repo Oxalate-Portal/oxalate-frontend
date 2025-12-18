@@ -119,7 +119,7 @@ export function AdminMemberships() {
 
     return (
             <div className={"darkDiv"}>
-                <Space direction={"vertical"} size={12} style={{width: "100%"}}>
+                <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                     <h1>{t("AdminMembers.title")}</h1>
 
                     <Table columns={memberListColumns} dataSource={membershipList} loading={loading} rowKey="id"/>

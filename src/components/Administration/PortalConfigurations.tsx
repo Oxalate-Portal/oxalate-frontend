@@ -251,7 +251,7 @@ export function PortalConfigurations() {
     return (
             <div className={"darkDiv"}>
                 {contextHolder}
-                <Space direction={"vertical"}>
+                <Space orientation={"vertical"}>
                     <h4>{t("PortalConfigurations.title")}</h4>
                     <Text type="secondary">{t("PortalConfigurations.description")}</Text>
                     <Button onClick={() => reloadConfiguration()}>{t("PortalConfigurations.button.reload")}</Button>

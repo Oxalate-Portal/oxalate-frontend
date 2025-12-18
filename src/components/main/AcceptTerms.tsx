@@ -40,11 +40,11 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
             <div style={{width: "100%", textAlign: "center"}} className={"darkDiv"}>
                 <div style={{width: "50%", display: "inline-block", textAlign: "left"}}>
 
-                    <Space direction={"vertical"} size={20} style={{width: "100%", margin: 12}}>
+                    <Space orientation={"vertical"} size={20} style={{width: "100%", margin: 12}}>
                         <Page pageId={2} showTitle={false} showDate={false}/>
 
                         {!registration &&
-                                <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                                     <Button type={"primary"}
                                             onClick={() => acceptTerms("yes")}>{t("AcceptTerms.button.acceptTerms")}</Button>
                                     <Button danger={true} type={"primary"} href={"/user"}

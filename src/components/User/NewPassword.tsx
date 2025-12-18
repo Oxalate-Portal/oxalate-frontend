@@ -92,7 +92,7 @@ export function NewPassword() {
                             scrollToFirstError={true}
                     >
                         <PasswordFields/>
-                        <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                             <Button
                                     type={"primary"}
                                     htmlType={"submit"}

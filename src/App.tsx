@@ -51,7 +51,6 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
-import "@ant-design/v5-patch-for-react-19";
 import {AdminTags} from "./components/Administration/AdminTags";
 import {AdminTagGroups} from "./components/Administration/AdminTagGroups";
 

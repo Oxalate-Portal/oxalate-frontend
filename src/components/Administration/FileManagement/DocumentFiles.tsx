@@ -81,7 +81,7 @@ export function DocumentFiles() {
     }
 
     return (
-            <Space direction={"vertical"} size={"middle"}>
+            <Space orientation={"vertical"} size={"middle"}>
                 {contextHolder}
                 <Upload {...uploadProps} key={"upload-document-" + refreshKey}>
                     <Button icon={<UploadOutlined/>}>

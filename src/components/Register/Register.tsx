@@ -154,7 +154,7 @@ export function Register() {
                                    ]}>
                             <Input.Password/>
                         </Form.Item>
-                        <Space direction={"horizontal"}>
+                        <Space orientation={"horizontal"}>
                             {t("Register.form.terms.text")}
                             <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
                             {acceptedTerms && <CheckOutlined style={{color: "green", fontSize: 24}}/>}

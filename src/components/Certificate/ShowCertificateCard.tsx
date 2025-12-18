@@ -47,7 +47,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     function showExtras() {
         if (deleteCertificate) {
             return (
-                    <Space direction={"horizontal"} size={12}>
+                    <Space orientation={"horizontal"} size={12}>
                         <Button type="primary" htmlType={"submit"} href={"/users/certificates/" + certificate.id}>
                             {t("common.button.update")}
                         </Button>

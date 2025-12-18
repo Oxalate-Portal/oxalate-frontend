@@ -57,7 +57,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     }
 
     return (
-            <Space direction={"vertical"} size={12}>
+            <Space orientation={"vertical"} size={12}>
                 {!loading && certificates.length > 0 && certificates.map(certificate =>
                         <ShowCertificateCard certificate={certificate}
                                              deleteCertificate={viewOnly ? null : deleteCertificate}

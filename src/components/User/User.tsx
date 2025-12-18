@@ -220,7 +220,7 @@ export function User() {
                         >
                             <FormPayments userData={workUser} key={"payments-format"}/>
                         </Form.Item>
-                        <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}} key={"button-space"}>
+                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}} key={"button-space"}>
                             <Button
                                     type={"primary"}
                                     htmlType={"submit"}

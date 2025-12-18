@@ -63,7 +63,7 @@ export function Login() {
 
     return (
             <Row justify="center" align="middle" style={{minHeight: "30vh"}}>
-                <Space direction={"vertical"}>
+                <Space orientation={"vertical"}>
 
                     <Form
                             name="basic"
