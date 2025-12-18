@@ -157,7 +157,7 @@ export function AddPayments() {
                     </Form.Item>
 
                     <Space
-                            direction={"horizontal"}
+                            orientation={"horizontal"}
                             size={12}
                             style={{width: "100%", justifyContent: "center"}}
                     >

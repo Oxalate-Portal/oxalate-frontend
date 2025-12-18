@@ -111,7 +111,7 @@ export function SetDives() {
                 <Spin spinning={loading}>
                     {eventDives?.dives.length === 0 && <p>{t("SetDives.noDives")}</p>}
                     {eventDives && <Table dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="userId" pagination={false}/>}
-                    {eventDives && <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "right"}}>
+                    {eventDives && <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right"}}>
                         {modified && <Button type={"primary"} onClick={() => updateEventDives()} style={{margin: 8}}>{t("common.button.save")}</Button>}
                         <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>
                     </Space>}

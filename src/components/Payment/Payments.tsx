@@ -39,7 +39,7 @@ export function Payments() {
                     <Divider orientation="left">{t("AdminPayments.activeDivider")}</Divider>
                     <ListPayments/>
                     <Divider orientation="left">{t("AdminPayments.yearlyResetDivider")}</Divider>
-                    <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"}
                                 onClick={() => invalidatePayments(PaymentTypeEnum.PERIOD)}>{t("AdminPayments.reset-periodical-button")}</Button>
                         {getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "single-payment-enabled") === "true" &&

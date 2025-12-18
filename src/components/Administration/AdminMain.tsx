@@ -6,7 +6,7 @@ export function AdminMain() {
 
     return (
             <div className={"darkDiv"}>
-                <Space direction={"vertical"}>
+                <Space orientation={"vertical"}>
                     <h3>{t("AdminMain.header")}</h3>
 
                     <p>{t("AdminMain.text")}.</p>

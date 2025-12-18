@@ -184,7 +184,7 @@ export function AdminOrgUsers() {
                                         }}/>}
                     {!userList && <p>{t("AdminOrgUsers.search.spinText")}</p>}
                     <Divider orientation="left">{t("AdminOrgUsers.terms.resetDivider")}</Divider>
-                    <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>
                     </Space>
                 </Spin>

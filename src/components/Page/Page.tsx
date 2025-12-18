@@ -30,7 +30,7 @@ export function Page(pageProps: PageProps = {}) {
     return (<div className={"darkDiv"}>
         <Spin spinning={loading}>
             {pageData && pageData.pageVersions && pageData.pageVersions.length > 0 && <div>
-                <Space direction={"vertical"} size={"large"}>
+                <Space orientation={"vertical"} size={"large"}>
                     {showTitle && <h4 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].title)}}></h4>}
 
                     {showDate &&

@@ -62,7 +62,7 @@ export function Forum() {
                                                 bordered
                                                 style={{width: "100%", marginBottom: 16}}
                                         >
-                                            <Space direction={"horizontal"}>
+                                            <Space orientation={"horizontal"}>
                                                 <Text>{comment.username}</Text>
                                                 <Text>
                                                     {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}

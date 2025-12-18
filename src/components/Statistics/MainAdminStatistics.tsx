@@ -10,7 +10,7 @@ export function MainAdminStatistics() {
             <div className={"darkDiv"}>
                 <h4>{t("StatisticsMain.yearlyStats")}</h4>
 
-                <Space direction={"vertical"} size={40} style={{width: "100%"}}>
+                <Space orientation={"vertical"} size={40} style={{width: "100%"}}>
                     <YearlyStats typeOfStats={"events"} headerText={t("StatsYearlyEvents.stats.title")}/>
                     <YearlyStats typeOfStats={"registrations"} headerText={t("StatsYearlyRegistrations.stats.title")}/>
                     <YearlyStats typeOfStats={"organizers"} headerText={t("StatsOrganizers.stats.title")}/>

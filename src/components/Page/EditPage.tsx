@@ -267,7 +267,7 @@ export function EditPage() {
             <div className={"darkDiv"} key={"pageDiv"}>
                 {contextHolder}
                 <h4 key={"pageHeader"}>{t(formTitleKey)}</h4>
-                <Space direction={"vertical"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                <Space orientation={"vertical"} size={12} style={{width: "100%", justifyContent: "center"}}>
                     {pageId == 0 &&
                             <Alert type={"warning"}
                                    showIcon
@@ -516,7 +516,7 @@ export function EditPage() {
                                         key={"page-modifiedAt"}>
                                     <Input type={"text"} disabled={true}/>
                                 </Form.Item>
-                                <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                                     <Button
                                             type={"primary"}
                                             htmlType={"submit"}

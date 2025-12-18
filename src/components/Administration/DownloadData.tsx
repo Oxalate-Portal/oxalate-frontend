@@ -131,10 +131,10 @@ function DownloadData() {
                             }}
                     /><br/>
                     {dataLoaded &&
-                            <Space direction={"vertical"} size={"middle"}>
+                            <Space orientation={"vertical"} size={"middle"}>
                                 <p/>
                                 <p>{t("DownloadData.rowCount", {count: rowCount})}</p>
-                                <Space direction={"horizontal"} size={"middle"}>
+                                <Space orientation={"horizontal"} size={"middle"}>
                                     {t("DownloadData.downloadPrompt")}
                                     <CSVLink filename={downloadFileName}
                                              data={csvData}

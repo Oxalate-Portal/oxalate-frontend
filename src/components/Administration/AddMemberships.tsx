@@ -117,7 +117,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                         />
                     </Form.Item>
 
-                    <Space direction={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button type={"primary"} htmlType={"submit"} disabled={loading}>
                             {t("AddMemberships.form.button")}
                         </Button>
