@@ -259,7 +259,7 @@ export function AdminTags() {
                             {t("AdminTags.form.names.label")}
                         </Space>
                         {(configuredLangs.length ? configuredLangs : ["en"]).map((lang, idx) => (
-                                <Space key={`tag-name-row-${lang}-${idx}`} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                <Space key={`tag-name-row-${lang}-${idx}`} align={"baseline"} style={{display: "flex", marginBottom: 8}}>
                                     <Input readOnly value={lang}/>
                                     <Form.Item
                                             name={["names", idx, "value"]}
@@ -333,7 +333,7 @@ export function AdminTags() {
                             {t("AdminTags.form.names.label")}
                         </Space>
                         {(configuredLangs.length ? configuredLangs : ["en"]).map((lang, idx) => (
-                                <Space key={`group-name-row-${lang}-${idx}`} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                <Space key={`group-name-row-${lang}-${idx}`} align={"baseline"} style={{display: "flex", marginBottom: 8}}>
                                     <Input readOnly value={lang}/>
                                     <Form.Item
                                             name={["names", idx, "value"]}

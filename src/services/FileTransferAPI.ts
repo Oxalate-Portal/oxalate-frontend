@@ -1,6 +1,6 @@
 import Axios, {type AxiosInstance, type AxiosResponse} from "axios";
 import type {GetProp, UploadFile, UploadProps} from "antd";
-import type {AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, FileRemovalResponse, PageFileResponse} from "../models";
+import type {ActionResponse, AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models";
 
 // Define the response type for successful uploads
 interface DownloadResponse {
@@ -39,7 +39,7 @@ class FileTransferAPI {
      * @param avatarId - The ID of the avatar file to remove
      */
 
-    public async removeAvatarFile(avatarId: number): Promise<FileRemovalResponse> {
+    public async removeAvatarFile(avatarId: number): Promise<ActionResponse> {
         return this.removeFile(avatarId, FileTransferAPI.AVATAR_PATH);
     }
 
@@ -59,7 +59,7 @@ class FileTransferAPI {
      * @param certificateId - The ID of the certificate file to remove
      */
 
-    public async removeCertificateFile(certificateId: number): Promise<FileRemovalResponse> {
+    public async removeCertificateFile(certificateId: number): Promise<ActionResponse> {
         return this.removeFile(certificateId, FileTransferAPI.CERTIFICATE_PATH);
     }
 
@@ -90,7 +90,7 @@ class FileTransferAPI {
      * @param diveFileId - The ID of the dive file to remove
      */
 
-    public async removeDiveFile(diveFileId: number): Promise<FileRemovalResponse> {
+    public async removeDiveFile(diveFileId: number): Promise<ActionResponse> {
         return this.removeFile(diveFileId, FileTransferAPI.DIVE_FILE_PATH);
     }
 
@@ -121,7 +121,7 @@ class FileTransferAPI {
      * @param documentId - The ID of the document file to remove
      */
 
-    public async removeDocumentFile(documentId: number): Promise<FileRemovalResponse> {
+    public async removeDocumentFile(documentId: number): Promise<ActionResponse> {
         return this.removeFile(documentId, FileTransferAPI.DOCUMENT_PATH);
     }
 
@@ -137,7 +137,7 @@ class FileTransferAPI {
      * adapter appropriately
      */
 
-    public async removePageFile(pageId: number, language: string, fileName: string): Promise<FileRemovalResponse> {
+    public async removePageFile(pageId: number, language: string, fileName: string): Promise<ActionResponse> {
         const response = await this.axiosInstance.delete(`${FileTransferAPI.PAGE_FILE_PATH}/${pageId}/${language}/${fileName}`);
         return response.data;
     }
@@ -146,7 +146,7 @@ class FileTransferAPI {
         this.axiosInstance.defaults.headers.post["Content-Type"] = "multipart/form-data";
     }
 
-    private async removeFile(fileId: number, fileTypePath: string): Promise<FileRemovalResponse> {
+    private async removeFile(fileId: number, fileTypePath: string): Promise<ActionResponse> {
         const response = await this.axiosInstance.delete(`${fileTypePath}/${fileId}`);
         return response.data;
     }

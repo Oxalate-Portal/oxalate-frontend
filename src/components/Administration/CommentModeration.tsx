@@ -36,7 +36,7 @@ export function CommentModeration() {
             <Spin spinning={loading}>
                 {contextHolder}
                 <div className="darkDiv">
-                    <Space direction="vertical"
+                    <Space orientation={"vertical"}
                            style={{width: "100%"}}
                            size={"middle"}>
                         <h4>{t("CommentModeration.title")}</h4>

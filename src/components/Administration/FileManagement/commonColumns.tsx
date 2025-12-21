@@ -77,7 +77,7 @@ export function createActionColumn({ onEdit, onDelete }: ActionColumnOptions): C
             title: t("AdminUploads.common-file-column-title.actions"),
             key: "actions",
             render: (_, record: AbstractFileResponse) => (
-                    <Space size="middle">
+                    <Space size={"middle"}>
                         {onEdit && (
                                 <Button onClick={() => onEdit(record.id)} type="link">
                                     {t("common.button.update")}

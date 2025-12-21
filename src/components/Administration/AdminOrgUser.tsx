@@ -72,7 +72,7 @@ export function AdminOrgUser() {
 
         authAPI.recoverLostPassword({email: workUser.username})
                 .then((response) => {
-                    if (response.message === ResultEnum.OK) {
+                    if (response.status === ResultEnum.OK) {
                         alert(t("AdminOrgUser.sendPasswordEmail.ok"));
                     } else {
                         alert(t("AdminOrgUser.sendPasswordEmail.fail"));

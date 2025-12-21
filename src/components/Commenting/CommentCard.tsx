@@ -63,7 +63,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
     return (
             <Card style={{marginBottom: 16, width: "100%"}}>
                 {contextHolder}
-                <Space direction="vertical" size="large" style={{width: "100%"}}>
+                <Space orientation={"vertical"} size={"large"} style={{width: "100%"}}>
                     <div style={{display: "flex", alignItems: "center", marginBottom: 8}}>
                         <Avatar icon={<UserOutlined/>} size={40} style={{marginRight: 12}}/>
                         <div>

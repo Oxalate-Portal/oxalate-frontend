@@ -32,7 +32,7 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
     if (error !== null) {
         return (
                 <Alert type={"error"}
-                       message={t("AcceptTerms.error.alert")}/>
+                       title={t("AcceptTerms.error.alert")}/>
         );
     }
 

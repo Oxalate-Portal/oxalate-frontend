@@ -76,7 +76,7 @@ function App() {
         colorMenuItemActiveBg: "#444444",
     };
 
-    let membershipType = MembershipTypeEnum.DISABLED;
+    let membershipType: MembershipTypeEnum = MembershipTypeEnum.DISABLED;
     let isCommentingEnabled: boolean = false;
 
     useEffect(() => {

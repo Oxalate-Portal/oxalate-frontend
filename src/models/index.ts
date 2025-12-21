@@ -17,7 +17,6 @@ export type {RegistrationVO} from "./RegistrationVO";
 export type {UserSessionToken} from "./UserSessionToken";
 export type {Sort} from "./Sort";
 export type {SortableTableParams} from "./SortableTableParams";
-export type {UpdateStatusVO} from "./UpdateStatusVO";
 // Enums
 export {AuditLevelEnum} from "./AuditLevelEnum";
 export {ActionResultEnum} from "./ActionResultEnum";

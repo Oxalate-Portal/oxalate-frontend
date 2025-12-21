@@ -70,7 +70,7 @@ export function PageGroups() {
                     pageLink = "/administration/pages/0?pageGroupId=" + record.id;
                 }
 
-                return (<Space size="middle">
+                return (<Space size={"middle"}>
                     {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
                             record.id !== 1 &&
                             <Link to={"/administration/page-groups/" + record.id}><Button

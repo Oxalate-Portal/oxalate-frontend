@@ -5,7 +5,7 @@ import {Alert, Button, Form, Input, Modal, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {UserFields} from "../User";
 import {AcceptTerms} from "../main";
-import {type RegistrationResponse, ResultEnum, UpdateStatusEnum, type UpdateStatusVO, UserTypeEnum} from "../../models";
+import {type ActionResponse, type RegistrationResponse, ResultEnum, UpdateStatusEnum, UserTypeEnum} from "../../models";
 import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
 import {authAPI} from "../../services";
 import {CheckOutlined} from "@ant-design/icons";
@@ -17,7 +17,7 @@ export function Register() {
     const [showTerms, setShowTerms] = useState(false);
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [registrationStatus, setRegistrationStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
+    const [registrationStatus, setRegistrationStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [registrationResult, setRegistrationResult] = useState<RegistrationResponse | null>(null);
     const navigate = useNavigate();
 
@@ -55,16 +55,16 @@ export function Register() {
                 .then(registrationResponse => {
                     if (registrationResponse.status === ResultEnum.OK) {
                         localStorage.setItem("oxalateRegistrationStatus", JSON.stringify(registrationResponse));
-                        setRegistrationStatus({status: UpdateStatusEnum.OK, message: t("Register.success.message")} as UpdateStatusVO);
+                        setRegistrationStatus({status: UpdateStatusEnum.OK, message: t("Register.success.message")} as ActionResponse);
                         setRegistrationResult(registrationResponse);
                     } else {
                         console.error("The register response did not contain known status: " + JSON.stringify(registrationResponse));
-                        setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as UpdateStatusVO);
+                        setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as ActionResponse);
                     }
                 })
                 .catch(error => {
                     console.error("Failed to register new user: " + error);
-                    setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as UpdateStatusVO);
+                    setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as ActionResponse);
                 });
 
         setLoading(false);
@@ -80,7 +80,7 @@ export function Register() {
                     <Row justify={"center"}>
                         <div style={{width: 400}}>
                             <Alert type={"success"}
-                                   message={t("Register.success.message")}/>
+                                   title={t("Register.success.message")}/>
                             <Row justify={"center"} align={"middle"} style={{minHeight: "10vh"}}>
                                 <ResendRegistrationEmail token={registrationResult.token}/>
                             </Row>
@@ -92,7 +92,7 @@ export function Register() {
         return (<div className={"darkDiv"}>
             <Alert type={"error"}
                    showIcon
-                   message={t("Register.fail.message")}
+                   title={t("Register.fail.message")}
                    action={<Button type={"primary"}
                                    onClick={() => navigate("/register")}>{t("common.button.back")}</Button>}
             />

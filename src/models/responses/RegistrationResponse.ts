@@ -1,6 +1,5 @@
-import {ResultEnum} from "../ResultEnum";
+import type {ActionResponse} from "./ActionResponse.ts";
 
-export interface RegistrationResponse {
-    status: ResultEnum;
+export interface RegistrationResponse extends ActionResponse {
     token: string;
 }

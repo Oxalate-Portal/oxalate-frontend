@@ -87,7 +87,7 @@ export function Pages() {
             title: "",
             key: "action",
             render: (_: any, record: PageResponse) => (
-                    <Space size="middle">
+                    <Space size={"middle"}>
                         {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
                                 && isAllowedToEditPage(userSession, record.rolePermissions) &&
                                 <>
@@ -160,7 +160,7 @@ export function Pages() {
                 {contextHolder}
                 <h4>{pageGroupTitle}-{t("Pages.title")}</h4>
 
-                {pages && pages.length === 0 && <Alert key={"info"} showIcon={true} message={t("Pages.alert.noPages")}/>}
+                {pages && pages.length === 0 && <Alert key={"info"} showIcon={true} title={t("Pages.alert.noPages")}/>}
                 {pages && pages.length > 0 && <Spin spinning={loading}>
                     {pages && pages.length > 0 && <Table dataSource={pages} columns={columns} pagination={false} rowKey="id"/>}
                 </Spin>}

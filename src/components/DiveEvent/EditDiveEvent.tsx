@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {blockedDatesAPI, diveEventAPI, userAPI} from "../../services";
 import {
@@ -21,6 +21,7 @@ import {useSession} from "../../session";
 import {localToUTCDatetime} from "../../helpers";
 
 export function EditDiveEvent() {
+    const navigator = useNavigate();
     const {paramId} = useParams();
     const [diveEventId, setDiveEventId] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
@@ -122,10 +123,12 @@ export function EditDiveEvent() {
             const maxDepth = parseInt(getFrontendConfigurationValue("max-depth"));
             setMaxDepth(maxDepth);
             setDepthMarks(getMarks(10, maxDepth, 10, "m"));
+            diveEventForm.setFieldsValue({maxDepth: maxDepth});
 
             const maxDiveLength = parseInt(getFrontendConfigurationValue("max-dive-length"));
             setMaxDiveLength(maxDiveLength);
             setDiveLengthMarks(getMarks(30, maxDiveLength, 60, " min"));
+            diveEventForm.setFieldsValue({maxDuration: maxDiveLength});
 
             const minEventLength = parseInt(getFrontendConfigurationValue("min-event-length"));
             const maxEventLength = parseInt(getFrontendConfigurationValue("max-event-length"));
@@ -260,7 +263,6 @@ export function EditDiveEvent() {
     }
 
     function onFinish(submitValues: DiveEventRequest) {
-        setLoading(true);
         // First make sure we're not editing an event in the past
         if (dayjs().isAfter(dayjs(submitValues.startTime).add(submitValues.eventDuration, "hour"))) {
             messageApi.error(t("EditEvent.oldEvent.alertText"));
@@ -268,6 +270,13 @@ export function EditDiveEvent() {
             return;
         }
 
+        if (submitValues.organizerId <= 0) {
+            messageApi.error(t("EditEvent.onFinish.updateStatusFail"));
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
         // Normalize to minute precision
         const normalizedStart = dayjs(submitValues.startTime).second(0).millisecond(0);
         // Shift the datetime to the configured timezone (UTC) and send as ISO string
@@ -290,11 +299,13 @@ export function EditDiveEvent() {
                             messageApi.success(t("EditEvent.onFinish.updateStatusOk"));
                         } else {
                             messageApi.error(t("EditEvent.onFinish.updateStatusFail"));
+                            return;
                         }
                     })
                     .catch(e => {
                         console.error("Failed to update event:", e);
-                        messageApi.success(e);
+                        messageApi.error(e);
+                        return;
                     });
         } else {
             submitValues.id = 0;
@@ -305,15 +316,18 @@ export function EditDiveEvent() {
                             messageApi.success(t("EditEvent.onFinish.addStatusOk"));
                         } else {
                             messageApi.error(t("EditEvent.onFinish.addStatusFail"));
+                            return;
                         }
                     })
                     .catch(e => {
                         console.error("Failed to create event:", e);
-                        messageApi.success(e);
+                        messageApi.error(e);
+                        return;
                     });
         }
 
         setLoading(false);
+        navigator("/events/main");
     }
 
     function onFinishFail(errorInfo: { errorFields: { errors: any[]; }[]; }) {
@@ -364,6 +378,16 @@ export function EditDiveEvent() {
                                    {
                                        required: true,
                                        message: t("EditEvent.form.organizerId.rules.required")
+                                   },
+                                   {
+                                       min: 1,
+                                       message: t("EditEvent.form.organizerId.rules.required"),
+                                       validator: (_, value) => {
+                                           if (value > 0) {
+                                               return Promise.resolve();
+                                           }
+                                           return Promise.reject(new Error(t("EditEvent.form.organizerId.rules.required")));
+                                       }
                                    }
                                ]}>
                         <Select options={organizerOptions}
@@ -414,7 +438,17 @@ export function EditDiveEvent() {
                                rules={[
                                    {
                                        required: true,
-                                       message: t("EditEvent.form.type.rules.required")
+                                       message: t("EditEvent.form.type.rules.required"),
+                                       validator: (_, value) => {
+
+                                           if (value && value.length > 0) {
+                                               if (eventTypes.findIndex((et) => et.value === value) >= 0) {
+                                                   return Promise.resolve();
+                                               }
+                                           }
+
+                                           return Promise.reject(new Error(t("EditEvent.form.type.rules.required")));
+                                       }
                                    }
                                ]}>
                         <Select options={eventTypes}/>

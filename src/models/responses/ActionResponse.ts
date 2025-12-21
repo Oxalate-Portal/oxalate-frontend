@@ -1,6 +1,6 @@
 import {UpdateStatusEnum} from "../UpdateStatusEnum";
 
-export interface FileRemovalResponse {
+export interface ActionResponse {
     status: UpdateStatusEnum;
     message: string;
 }

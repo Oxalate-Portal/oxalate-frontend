@@ -214,7 +214,7 @@ export function DiveEvent() {
 
                         {diveEvent && (diveEventId > 0) && eventCommenting &&
                                 <>
-                                    <Divider orientation={"left"} key={"diveEventCommentDivider"}>Comments</Divider>
+                                    <Divider orientation={"horizontal"} key={"diveEventCommentDivider"}>Comments</Divider>
                                     {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
                                     <CommentCanvas commentId={diveEvent.eventCommentId}
                                                    allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())}/>
@@ -235,7 +235,7 @@ export function DiveEvent() {
                         cancelText={t("common.button.cancel")}
                         destroyOnHidden
                 >
-                    <Space direction="vertical" style={{width: "100%"}}>
+                    <Space orientation={"vertical"} style={{width: "100%"}}>
                         <span>{t("DiveEvent.subscribe.mainText")}</span>
                         <Select
                                 value={selectedUserType}

@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {Alert, Button, Form, Input, Space, Spin} from "antd";
 import {useState} from "react";
 import {useSession} from "../../session";
-import {UpdateStatusEnum, type UpdateStatusVO} from "../../models";
+import {type ActionResponse, UpdateStatusEnum} from "../../models";
 import {useNavigate} from "react-router-dom";
 import {PasswordFields} from "./PasswordFields";
 import {PasswordRules} from "./PasswordRules";
@@ -11,7 +11,7 @@ import {authAPI} from "../../services";
 export function Password() {
     const [loading, setLoading] = useState(false);
     const {userSession, logoutUser} = useSession();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
+    const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [updatePasswordForm] = Form.useForm();
     const {t} = useTranslation();
     const navigate = useNavigate();
@@ -55,7 +55,7 @@ export function Password() {
         return (<div className={"darkDiv"}>
             <Alert type={"success"}
                    showIcon
-                   message={t("Password.updateStatus.ok.text")}
+                   title={t("Password.updateStatus.ok.text")}
                    action={<Button type={"primary"}
                                    onClick={() => logoutUser()}>{t("Password.updateStatus.ok.button")}</Button>}
             />
@@ -64,7 +64,7 @@ export function Password() {
         return (<div className={"darkDiv"}>
             <Alert type={"error"}
                    showIcon
-                   message={t("Password.updateStatus.fail.text")}
+                   title={t("Password.updateStatus.fail.text")}
                    action={<Button type={"primary"}
                                    onClick={() => navigate("/")}>{t("common.button.back")}</Button>}
             />

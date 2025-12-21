@@ -2,14 +2,14 @@ import {Alert, Button, Form, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
-import {type PasswordResetRequest, UpdateStatusEnum, type UpdateStatusVO} from "../../models";
+import {type ActionResponse, type PasswordResetRequest, UpdateStatusEnum} from "../../models";
 import {authAPI} from "../../services";
 import {PasswordRules} from "./PasswordRules";
 import {PasswordFields} from "./PasswordFields";
 
 export function NewPassword() {
     const [newPasswordForm] = Form.useForm();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
+    const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [loading, setLoading] = useState(false);
     const {token} = useParams();
     const {t} = useTranslation();
@@ -34,7 +34,7 @@ export function NewPassword() {
                     setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
                 })
                 .then((response) => {
-                    if (response?.message === "OK") {
+                    if (response?.status === UpdateStatusEnum.OK) {
                         setUpdateStatus({status: UpdateStatusEnum.OK, message: t("NewPassword.setUpdateStatus.update.ok")});
                     } else {
                         console.error("Failed to update user, error: " + response?.message);
@@ -48,21 +48,20 @@ export function NewPassword() {
         console.error("Updating password failed", errorInfo);
     };
 
-    if (updateStatus.status === "OK") {
+    if (updateStatus.status === UpdateStatusEnum.OK) {
         return (<div className={"darkDiv"}>
             <Alert
                     type={"success"}
                     showIcon={true}
-                    message={t("NewPassword.updateStatus.ok.text")}
+                    title={t("NewPassword.updateStatus.ok.text") + " " + t("NewPassword.updateStatus.ok.button")}
             />
-            <div className="p-4">{t("NewPassword.updateStatus.ok.button")}</div>
         </div>);
     } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={"darkDiv"}>
             <Alert
                     type={"error"}
                     showIcon={true}
-                    message={t("NewPassword.updateStatus.fail.text")}
+                    title={t("NewPassword.updateStatus.fail.text")}
             />
             <div>{t("NewPassword.updateStatus.fail.button")}</div>
         </div>);
