@@ -4,13 +4,13 @@ import {useTranslation} from "react-i18next";
 import {Alert, Button, Form, Input, Row} from "antd";
 import {useSession} from "../../session";
 import {authAPI} from "../../services";
-import {UpdateStatusEnum, type UpdateStatusVO} from "../../models";
+import {type ActionResponse, UpdateStatusEnum} from "../../models";
 
 export function LostPassword() {
     const {userSession} = useSession();
 
     const navigate = useNavigate();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
+    const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const {t} = useTranslation();
     const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,7 @@ export function LostPassword() {
         setLoading(true);
         authAPI.recoverLostPassword(credentials)
                 .then((response) => {
-                    if (response.message === "OK") {
+                    if (response.status === UpdateStatusEnum.OK) {
                         setUpdateStatus({status: UpdateStatusEnum.OK, message: t("LostPassword.setStatus.update.ok")});
                     } else {
                         setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("LostPassword.setStatus.update.fail")});
@@ -45,7 +45,7 @@ export function LostPassword() {
             <Alert
                     type={"success"}
                     showIcon={true}
-                    message={t("LostPassword.updateStatus.ok.text")}
+                    title={t("LostPassword.updateStatus.ok.text")}
                     action={<Button type={"default"} onClick={() => navigate("/login")}>{t("LostPassword.updateStatus.ok.button")}</Button>}
             />
 
@@ -55,7 +55,7 @@ export function LostPassword() {
             <Alert
                     type={"error"}
                     showIcon={true}
-                    message={t("LostPassword.updateStatus.fail.text")}
+                    title={t("LostPassword.updateStatus.fail.text")}
                     action={<Button type={"default"} onClick={() => navigate("/auth/reconfirm")}>{t("LostPassword.updateStatus.fail.button")}</Button>}
             />
         </div>);

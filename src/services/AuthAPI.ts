@@ -1,14 +1,5 @@
 import Axios, {type AxiosInstance} from "axios";
-import type {
-    GenericMessageResponse,
-    LoginRequest,
-    LostPasswordRequest,
-    PasswordResetRequest,
-    RegistrationResponse,
-    RegistrationVO,
-    UpdateStatusVO,
-    UserSessionToken
-} from "../models";
+import type {ActionResponse, LoginRequest, LostPasswordRequest, PasswordResetRequest, RegistrationResponse, RegistrationVO, UserSessionToken} from "../models";
 
 class AuthAPI {
     userKey: string = "user";
@@ -53,18 +44,18 @@ class AuthAPI {
         return response.status === 200;
     }
 
-    async recoverLostPassword(data: LostPasswordRequest): Promise<GenericMessageResponse> {
-        const response = await this.axiosInstance.post<GenericMessageResponse>("/lost-password", data);
+    async recoverLostPassword(data: LostPasswordRequest): Promise<ActionResponse> {
+        const response = await this.axiosInstance.post<ActionResponse>("/lost-password", data);
         return response.data;
     }
 
-    async resetPassword(data: PasswordResetRequest): Promise<GenericMessageResponse> {
-        const response = await this.axiosInstance.post<GenericMessageResponse>("/reset-password", data);
+    async resetPassword(data: PasswordResetRequest): Promise<ActionResponse> {
+        const response = await this.axiosInstance.post<ActionResponse>("/reset-password", data);
         return response.data;
     }
 
-    public async updatePassword(userId: number | undefined, postData: { oldPassword: any; newPassword: any; confirmPassword: any }): Promise<UpdateStatusVO> {
-        const response = await this.axiosInstance.put<UpdateStatusVO>("/" + userId + "/password", postData);
+    public async updatePassword(userId: number | undefined, postData: { oldPassword: any; newPassword: any; confirmPassword: any }): Promise<ActionResponse> {
+        const response = await this.axiosInstance.put<ActionResponse>("/" + userId + "/password", postData);
         return response.data;
     }
 }

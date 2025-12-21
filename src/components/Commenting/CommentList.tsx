@@ -77,7 +77,7 @@ export function CommentList() {
     return (
             <div className="darkDiv">
                 <h1>{t("CommentList.title")}</h1>
-                <Space direction="vertical" size="large">
+                <Space orientation={"vertical"} size={"large"}>
                     <Row gutter={[8, 8]} wrap>
                         <Col><Select options={userList}
                                      placeholder={t("CommentList.filters.user-name")}

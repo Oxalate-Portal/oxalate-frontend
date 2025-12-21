@@ -1,3 +1,4 @@
+export type {ActionResponse} from "./ActionResponse";
 export type {AdminUserResponse} from "./AdminUserResponse";
 export type {AuditEntryResponse} from "./AuditEntryResponse";
 export type {BlockedDateResponse} from "./BlockedDateResponse";
@@ -7,9 +8,7 @@ export type {DiveEventListResponse} from "./DiveEventListResponse";
 export type {DiveEventResponse} from "./DiveEventResponse";
 export type {ListUserResponse} from "./ListUserResponse";
 export type {EmailNotificationSubscriptionResponse} from "./EmailNotificationSubscriptionResponse";
-export type {FileRemovalResponse} from "./FileRemovalResponse";
 export type {FrontendConfigurationResponse} from "./FrontendConfigurationResponse";
-export type {GenericMessageResponse} from "./GenericMessageResponse";
 export type {MembershipResponse} from "./MembershipResponse";
 export type {PageGroupResponse} from "./PageGroupResponse";
 export type {PageGroupVersionResponse} from "./PageGroupVersionResponse";

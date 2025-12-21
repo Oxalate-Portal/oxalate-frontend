@@ -134,7 +134,7 @@ export function EditPageGroup() {
                             <Input type={"text"} key={"pageGroupId"}/>
                         </Form.Item>
 
-                        <Divider orientation={"left"} key={"pageGroupDividerMain"}>{t("EditPageGroup.form.divider.languages")}</Divider>
+                        <Divider orientation={"horizontal"} key={"pageGroupDividerMain"}>{t("EditPageGroup.form.divider.languages")}</Divider>
 
                         <Form.List name={"pageGroupVersions"}
                                    key={"page-group-versions"}
@@ -145,7 +145,7 @@ export function EditPageGroup() {
                                             {groupVersions.map((_pageGroupVersion, index) => {
                                                 const uniqueKey = `pageGroupDivider${index}${pageGroup.pageGroupVersions[index].language}`;
                                                 return (<div key={uniqueKey}>
-                                                    <Divider orientation={"left"}
+                                                    <Divider orientation={"horizontal"}
                                                              key={uniqueKey + "-divider"}>{pageGroup.pageGroupVersions[index].language.toUpperCase()}</Divider>
                                                     <Form.Item
                                                             name={[index, "id"]}

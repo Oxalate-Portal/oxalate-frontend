@@ -259,7 +259,7 @@ export function PortalConfigurations() {
                         <div>
                             {!loading && Object.entries(groupedConfigurations).map(([groupKey, configs]) => (
                                     <div key={groupKey}>
-                                        <Divider orientation="left">{t("PortalConfigurations." + groupKey + ".title")}</Divider>
+                                        <Divider orientation={"horizontal"}>{t("PortalConfigurations." + groupKey + ".title")}</Divider>
                                         {configs.sort((a, b) => a.settingKey.localeCompare(b.settingKey)).map(config => (
                                                 <div key={config.id} style={{marginBottom: "16px"}}>
                                                     <Row gutter={16}>

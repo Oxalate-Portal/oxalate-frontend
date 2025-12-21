@@ -38,7 +38,7 @@ export function SetDives() {
             title: t("SetDives.table.action"),
             key: "action",
             render: (_: any, record: DiveCountItemVO) => (
-                    <Space size="middle">
+                    <Space size={"middle"}>
                         <DownOutlined onClick={() => changeDiveCount(record, -1)}/>
                         <UpOutlined onClick={() => changeDiveCount(record, 1)}/>
                     </Space>

@@ -14,9 +14,10 @@ import {
 } from "../models";
 import {Tag} from "antd";
 import type {JSX} from "react";
+import type {PresetColorType} from "antd/es/_util/colors";
 
 export function diveEventStatusEnum2Tag(status: DiveEventStatusEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     const labelText = t("DiveEventStatusEnum." + status.toLowerCase());
 
     switch (status) {
@@ -33,14 +34,14 @@ export function diveEventStatusEnum2Tag(status: DiveEventStatusEnum, t: TFunctio
             color = "blue";
             break;
         default:
-            color = "violet";
+            color = "cyan";
     }
 
     return (<Tag color={color} key={`divetype-${recordId}`}>{labelText}</Tag>);
 }
 
 export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     const labelText = t("DiveTypeEnum." + type.toLowerCase());
 
     switch (type) {
@@ -51,16 +52,16 @@ export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: num
             color = "blue";
             break;
         case DiveTypeEnum.CURRENT:
-            color = "violet";
+            color = "gold";
             break;
         case DiveTypeEnum.OPEN_AND_CAVE:
             color = "green";
             break;
         case DiveTypeEnum.OPEN_WATER:
-            color = "marine";
+            color = "volcano";
             break;
         case DiveTypeEnum.SURFACE:
-            color = "magenta";
+            color = "pink-inverse";
             break;
         default:
             color = "red";
@@ -70,7 +71,7 @@ export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: num
 }
 
 export function membershipStatusEnum2Tag(status: MembershipStatusEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     let label = t("MembershipStatusEnum." + status.toLowerCase());
 
     switch (status) {
@@ -92,7 +93,7 @@ export function membershipStatusEnum2Tag(status: MembershipStatusEnum, t: TFunct
 }
 
 export function membershipTypeEnum2Tag(type: MembershipTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     let label = t("MembershipTypeEnum." + type.toLowerCase());
 
     switch (type) {
@@ -137,7 +138,7 @@ export function pageStatusEnum2Tag(status: PageStatusEnum, t: TFunction, recordI
 }
 
 export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     const label = t("PaymentTypeEnum." + type);
 
     switch(type) {
@@ -156,7 +157,7 @@ export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordI
 }
 
 export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     const label = t("ReportStatusEnum." + status.toLowerCase());
 
     switch(status) {
@@ -173,7 +174,7 @@ export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, rec
             color = "red";
             break;
         default:
-            color = "violet";
+            color = "cyan";
             break;
     }
 
@@ -181,7 +182,7 @@ export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, rec
 }
 
 export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     let label = t("common.roles." + role.toLowerCase());
 
     switch(role) {
@@ -206,7 +207,7 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
 }
 
 export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     let label = t("CommentStatusEnum." + status.toLowerCase());
 
     switch(status) {
@@ -220,13 +221,13 @@ export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, r
             color = "orange";
             break;
         case CommentStatusEnum.REJECTED:
-            color = "#FF5050";
+            color = "red";
             break;
         case CommentStatusEnum.CANCELLED:
-            color = "#A00000";
+            color = "red-inverse";
             break;
         default:
-            color = "violet";
+            color = "cyan";
             break;
     }
 
@@ -234,7 +235,7 @@ export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, r
 }
 
 export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     let label = t("CommentTypeEnum." + type.toLowerCase());
 
     switch(type) {
@@ -253,7 +254,7 @@ export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordI
 }
 
 export function userTypeEnum2Tag(type: UserTypeEnum, t: TFunction, recordId: number): JSX.Element {
-    let color: string;
+    let color: PresetColorType;
     const label = t("UserTypeEnum." + type.toLowerCase());
     switch (type) {
         case UserTypeEnum.NON_DIVER:

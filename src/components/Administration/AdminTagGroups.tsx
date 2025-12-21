@@ -216,7 +216,7 @@ export function AdminTagGroups() {
                             {t("AdminTagGroups.form.names.label")}
                         </Space>
                         {(configuredLangs.length ? configuredLangs : ["en"]).map((lang, idx) => (
-                                <Space key={`name-row-${lang}-${idx}`} align="baseline" style={{display: "flex", marginBottom: 8}}>
+                                <Space key={`name-row-${lang}-${idx}`} align={"baseline"} style={{display: "flex", marginBottom: 8}}>
                                     <Input readOnly value={lang}/>
                                     <Form.Item
                                             name={["names", idx, "value"]}

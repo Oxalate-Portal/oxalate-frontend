@@ -27,6 +27,6 @@ export function ResendRegistrationEmail({token}: ResendRegistrationEmailProps) {
             <>
                 <p>{t("ResendRegistrationEmail.text.notReceived")}</p>
                 {resendSuccess && <Button block={true} onClick={requestEmailResend}>{t("common.button.send")}</Button>}
-                {!resendSuccess && <Alert type={"error"} message={t("ResendRegistrationEmail.text.fail")}/>}
+                {!resendSuccess && <Alert type={"error"} title={t("ResendRegistrationEmail.text.fail")}/>}
             </>);
 }

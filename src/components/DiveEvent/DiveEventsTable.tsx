@@ -111,7 +111,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             render: (_: any, record: DiveEventResponse) => {
                 if (diveEventType === "new" || diveEventType === "ongoing") {
                     return (<>
-                        <Space size="middle">
+                        <Space size={"middle"}>
                             {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
                                     <Link to={"/events/" + record.id + "/edit"}>
                                         <Button style={{
@@ -124,7 +124,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                     </>);
                 } else {
                     return (<>
-                        <Space size="middle">
+                        <Space size={"middle"}>
                             <Link to={"/events/" + record.id}><Button
                                     type={"primary"}>{t("common.button.open")}</Button></Link>
                         </Space>
@@ -169,7 +169,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                             rowKey={"id"}
                             columns={diveEventColumns}
                             pagination={{
-                                defaultPageSize: 5,
+                                defaultPageSize: 10,
                                 hideOnSinglePage: false,
                                 showSizeChanger: true,
                                 showQuickJumper: true,

@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 import {useSession} from "../../session";
-import {ActionResultEnum, type LoginRequest, type LoginStatus, UpdateStatusEnum, type UpdateStatusVO} from "../../models";
+import {type ActionResponse, ActionResultEnum, type LoginRequest, type LoginStatus, UpdateStatusEnum} from "../../models";
 
 export function Login() {
     const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ export function Login() {
     const navigate = useNavigate();
     const {executeRecaptcha} = useReCaptcha();
     const {loginUser} = useSession();
-    const [updateStatus, setUpdateStatus] = useState<UpdateStatusVO>({status: UpdateStatusEnum.NONE, message: ""});
+    const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
 
     async function onFinish(credentials: any): Promise<void> {
         setLoading(true);
@@ -54,7 +54,7 @@ export function Login() {
     if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div>
             <Alert type={"error"}
-                   message={updateStatus.message}
+                   title={updateStatus.message}
                    showIcon
                    action={<Button type={"primary"} onClick={() => clearStateOnBackButton()}>{t("common.button.back")}</Button>}
             />

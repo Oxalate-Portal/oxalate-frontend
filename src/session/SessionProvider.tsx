@@ -144,7 +144,7 @@ export function SessionProvider({children}: any) {
                 .finally(() => {
                     setUser(null);
                     localStorage.removeItem(userKey);
-                    console.log("User has been logged out");
+                    console.debug("User has been logged out");
                     // window.location.href = "/";
                 });
     };
