@@ -166,6 +166,7 @@ export function EditPage() {
         setLoading(true);
 
         if (createNewPage) {
+            console.debug("Creating new page:", formData);
             pageMgmtAPI.create(formData)
                     .then((response: PageResponse) => {
                         // If we get back an ID, we assume the creation was successful
@@ -337,6 +338,22 @@ export function EditPage() {
                                                                     hidden={true}
                                                             >
                                                                 <Input type={"text"} disabled={true} key={uniqueKey + "-id-input"}/>
+                                                            </Form.Item>
+                                                            <Form.Item
+                                                                    name={[index, "pageId"]}
+                                                                    label={"Page ID"}
+                                                                    key={uniqueKey + "-pageId"}
+                                                                    hidden={true}
+                                                            >
+                                                                <Input type={"text"} disabled={true} key={uniqueKey + "-pageId-input"}/>
+                                                            </Form.Item>
+                                                            <Form.Item
+                                                                    name={[index, "language"]}
+                                                                    label={"Language"}
+                                                                    key={uniqueKey + "-language"}
+                                                                    hidden={true}
+                                                            >
+                                                                <Input type={"text"} disabled={true} key={uniqueKey + "-language-input"}/>
                                                             </Form.Item>
                                                             <Form.Item
                                                                     name={[index, "title"]}
