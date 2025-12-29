@@ -1,10 +1,12 @@
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import {formatDateTime, formatDateTimeWithMs, localToUTCDate, localToUTCDatetime} from "../tools";
+import {formatDateTime, formatDateTimeWithMs, getDefaultMembershipDates, localToUTCDate, localToUTCDatetime} from "../tools";
+import {MembershipTypeEnum, PortalConfigGroupEnum} from "../models";
 
 dayjs.extend(timezone);
 dayjs.extend(utc);
+const timezoneId = "Europe/Helsinki";
 
 describe("DateTimeTool", () => {
     it("formats Date objects without milliseconds", () => {
@@ -32,5 +34,70 @@ describe("DateTimeTool", () => {
         const result = localToUTCDatetime(local, "Europe/Helsinki");
         expect(result.minute()).toBe(30);
         expect(result.utcOffset()).toBe(120);
+    });
+
+    describe("getDefaultMembershipDates", () => {
+        const makeConfig = (overrides: Record<string, string>) => {
+            const base = {
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: "UTC",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.DURATIONAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "month",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "0",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2020-01-01",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+            };
+            const cfg = {...base, ...overrides};
+            return (group: PortalConfigGroupEnum, key: string) => cfg[`${group}.${key}`];
+        };
+
+        const setNow = (iso: string) => {
+            jest.useFakeTimers({now: new Date(iso)});
+        };
+
+        afterEach(() => {
+            jest.useRealTimers();
+        });
+
+        it("handles durational month from 31st into shorter month", () => {
+            setNow("2023-01-31T12:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "month",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {endDate} = getDefaultMembershipDates(getCfg);
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2023-02-28");
+        });
+
+        it("handles durational month into leap-year February", () => {
+            setNow("2024-01-31T12:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "month",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {endDate} = getDefaultMembershipDates(getCfg);
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2024-02-29");
+        });
+
+        it("handles durational year from leap day to non-leap year", () => {
+            setNow("2024-02-29T08:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "year",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {endDate} = getDefaultMembershipDates(getCfg);
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-02-28");
+        });
+
+        it("returns null end date for disabled/perpetual", () => {
+            setNow("2025-05-15T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERPETUAL,
+            });
+            const {endDate} = getDefaultMembershipDates(getCfg);
+            expect(endDate).toBeNull();
+        });
     });
 });
