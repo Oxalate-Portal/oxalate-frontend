@@ -5,7 +5,8 @@ export interface PaymentResponse {
     userId: number;
     paymentType: PaymentTypeEnum;
     paymentCount: number;
-    createdAt: Date;
-    expiresAt: Date;
+    startDate: Date;
+    endDate: Date;
+    created: Date;
     boundEvents: number[];
 }

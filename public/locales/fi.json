@@ -778,13 +778,14 @@
   "FormatPayments" : {
     "noValid" : "Ei voimassa olevia maksuja.",
     "table" : {
-      "expirationDate" : "Päättymisaika",
+      "created" : "Luotu",
+      "endDate" : "Päättymisaika",
       "id" : "ID",
       "paymentCount" : "Määrä",
       "paymentType" : "Maksutyyppi",
       "periodPayment" : "Kausimaksu",
       "singlePayment" : "Kertamaksu",
-      "startDate" : "Luotu"
+      "startDate" : "Alkaamisajankohta"
     },
     "unknownPayment" : "Tuntematon maksutyyppi",
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
@@ -1062,10 +1063,12 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Päättymisaika",
+      "created" : "Luotu",
+      "endDate" : "Päättymisaika",
       "name" : "Nimi",
       "paymentCount" : "Määrä",
-      "paymentDate" : "Maksupäiväys"
+      "paymentDate" : "Maksupäiväys",
+      "startDate" : "Alkamisaika"
     }
   },
   "PaymentTypeEnum" : {

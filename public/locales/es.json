@@ -778,13 +778,14 @@
   "FormatPayments" : {
     "noValid" : "No hay pagos válidos disponibles.",
     "table" : {
-      "expirationDate" : "Fecha de expiración",
+      "created" : "Creado",
+      "endDate" : "Fecha de expiración",
       "id" : "ID",
       "paymentCount" : "Cantidad",
       "paymentType" : "Tipo de pago",
       "periodPayment" : "Pago periódico",
       "singlePayment" : "Pago único",
-      "startDate" : "Creado"
+      "startDate" : "Comenzar"
     },
     "unknownPayment" : "Tipo de pago desconocido",
     "unknownPaymentContact" : "Contactar soporte",
@@ -1062,10 +1063,12 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Fecha de expiración",
+      "created" : "Creado",
+      "endDate" : "Finaliza el",
       "name" : "Nombre",
       "paymentCount" : "Cantidad",
-      "paymentDate" : "Fecha de pago"
+      "paymentDate" : "Fecha de pago",
+      "startDate" : "Comienza"
     }
   },
   "PaymentTypeEnum" : {

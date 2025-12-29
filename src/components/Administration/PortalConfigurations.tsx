@@ -5,6 +5,7 @@ import {portalConfigurationAPI} from "../../services";
 import {useTranslation} from "react-i18next";
 import {TimezoneSelector} from "./TimezoneSelector";
 import dayjs from "dayjs";
+import {StarOutlined} from "@ant-design/icons";
 
 const {Text} = Typography;
 
@@ -259,32 +260,43 @@ export function PortalConfigurations() {
                         <div>
                             {!loading && Object.entries(groupedConfigurations).map(([groupKey, configs]) => (
                                     <div key={groupKey}>
-                                        <Divider orientation={"horizontal"}>{t("PortalConfigurations." + groupKey + ".title")}</Divider>
-                                        {configs.sort((a, b) => a.settingKey.localeCompare(b.settingKey)).map(config => (
-                                                <div key={config.id} style={{marginBottom: "16px"}}>
-                                                    <Row gutter={16}>
-                                                        <Col span={6}>
-                                                            <Tooltip
-                                                                    title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
-                                                                <Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Text>
-                                                            </Tooltip>
-                                                        </Col>
-                                                        <Col span={6}>
-                                                            <Text>{config.defaultValue}</Text>
-                                                        </Col>
-                                                        <Col span={6}>
-                                                            {renderEditor(config)}
-                                                        </Col>
-                                                        <Col span={6}>
-                                                            {modifiedValues[config.id] !== undefined && (
-                                                                    <Button type="primary" onClick={() => handleUpdate(config.id)}>
-                                                                        {t("common.button.update")}
-                                                                    </Button>
-                                                            )}
-                                                        </Col>
-                                                    </Row>
-                                                </div>
-                                        ))}
+                                        <Divider titlePlacement={"left"}
+                                                 orientation={"horizontal"}
+                                                 size={"large"}
+                                                 style={{fontSize: "20px", color: "#70FF70"}}
+                                        >{t("PortalConfigurations." + groupKey + ".title")}</Divider>
+                                        {configs.sort((a, b) => a.settingKey.localeCompare(b.settingKey)).map(config => {
+                                            const isModified = config.defaultValue !== config.runtimeValue && config.runtimeValue !== null;
+                                            console.log("Rendering config:", config.defaultValue, "runtime:", config.runtimeValue, "isModified:", isModified);
+                                            return (
+                                                    <div key={config.id} style={{marginBottom: "16px"}}>
+                                                        <Row gutter={16}>
+                                                            <Col span={6}>
+                                                                <Space direction="horizontal" size={4}>
+                                                                    <Tooltip
+                                                                            title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
+                                                                        <Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Text>
+                                                                    </Tooltip>
+                                                                    {isModified && <StarOutlined style={{color: "gold"}}/>}
+                                                                </Space>
+                                                            </Col>
+                                                            <Col span={6}>
+                                                                <Text>{config.defaultValue}</Text>
+                                                            </Col>
+                                                            <Col span={6}>
+                                                                {renderEditor(config)}
+                                                            </Col>
+                                                            <Col span={6}>
+                                                                {modifiedValues[config.id] !== undefined && (
+                                                                        <Button type="primary" onClick={() => handleUpdate(config.id)}>
+                                                                            {t("common.button.update")}
+                                                                        </Button>
+                                                                )}
+                                                            </Col>
+                                                        </Row>
+                                                    </div>
+                                            )
+                                        })}
                                     </div>
                             ))}
                         </div>

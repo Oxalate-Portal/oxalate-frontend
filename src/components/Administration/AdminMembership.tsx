@@ -46,7 +46,9 @@ export function AdminMembership() {
             id: membership.id,
             userId: membership.userId,
             status: values.status,
-            type: values.type
+            type: values.type,
+            startDate: membership.startDate,
+            endDate: membership.endDate
         };
 
         membershipAPI.update(updatedMembership)

@@ -778,13 +778,14 @@
   "FormatPayments" : {
     "noValid" : "Keine gültigen Zahlungen verfügbar.",
     "table" : {
-      "expirationDate" : "Ablaufzeit",
+      "created" : "Erstellt am",
+      "endDate" : "Ablaufzeit",
       "id" : "ID",
       "paymentCount" : "Anzahl",
       "paymentType" : "Zahlungstyp",
       "periodPayment" : "Periodische Zahlung",
       "singlePayment" : "Einmalzahlung",
-      "startDate" : "Erstellt am"
+      "startDate" : "Beginnen am"
     },
     "unknownPayment" : "Unbekannter Zahlungstyp",
     "unknownPaymentContact" : "Support kontaktieren",
@@ -1062,10 +1063,12 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Ablaufzeit",
+      "created" : "Erstellt",
+      "endDate" : "Endet am",
       "name" : "Name",
       "paymentCount" : "Anzahl",
-      "paymentDate" : "Zahlungsdatum"
+      "paymentDate" : "Zahlungstag",
+      "startDate" : "Beginnt"
     }
   },
   "PaymentTypeEnum" : {

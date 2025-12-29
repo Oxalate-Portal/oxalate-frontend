@@ -21,6 +21,7 @@ interface SessionContextType {
     getPortalTimezone: () => string;
     getFrontendConfigurationValue: (key: string) => string;
     getPortalConfigurationValue: (groupKey: PortalConfigGroupEnum, settingKey: string) => string;
+    getPortalConfiguration: () => PortalConfigurationResponse[];
     loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
     logoutUser: () => void;
     refreshUserSession: (sessionVO: UserSessionToken) => void;
@@ -147,7 +148,7 @@ export function SessionProvider({children}: any) {
                     console.debug("User has been logged out");
                     // window.location.href = "/";
                 });
-    };
+    }
 
     function setSessionLanguage(language: string): void {
         setLanguage(language);
@@ -186,6 +187,10 @@ export function SessionProvider({children}: any) {
         return config.runtimeValue;
     }
 
+    function getPortalConfiguration(): PortalConfigurationResponse[] {
+        return portalConfiguration;
+    }
+
     function refreshUserSession(sessionVO: UserSessionToken): void {
         localStorage.setItem(userKey, JSON.stringify(sessionVO));
         setUser(sessionVO);
@@ -205,6 +210,7 @@ export function SessionProvider({children}: any) {
         getPortalTimezone,
         getFrontendConfigurationValue,
         getPortalConfigurationValue,
+        getPortalConfiguration,
         loginUser,
         logoutUser,
         refreshUserSession

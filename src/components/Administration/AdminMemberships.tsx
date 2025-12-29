@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Space, Table} from "antd";
+import {Button, Space, Table} from "antd";
 import {membershipAPI} from "../../services";
 import type {MembershipResponse} from "../../models";
 import type {ColumnsType} from "antd/es/table";
@@ -76,7 +76,7 @@ export function AdminMemberships() {
             render: (_: string, record: MembershipResponse) => {
                 return (
                         <Space size="small">
-                            <Link to={"/administration/members/" + record.id + "/edit"}>{t("AdminMembers.table.actions.edit")}</Link>
+                            <Button type={"primary"} href={"/administration/members/" + record.id + "/edit"}>{t("AdminMembers.table.actions.edit")}</Button>
                         </Space>
                 );
             }
@@ -122,7 +122,17 @@ export function AdminMemberships() {
                 <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                     <h1>{t("AdminMembers.title")}</h1>
 
-                    <Table columns={memberListColumns} dataSource={membershipList} loading={loading} rowKey="id"/>
+                    <Table columns={memberListColumns}
+                           dataSource={membershipList}
+                           loading={loading} rowKey="id"
+                           pagination={{
+                               defaultPageSize: 10,
+                               hideOnSinglePage: true,
+                               showSizeChanger: true,
+                               showQuickJumper: true,
+                               pageSizeOptions: ["5", "10", "20", "30", "50"]
+                           }}
+                    />
                     <AddMemberships membershipList={membershipList} onMembershipAdded={fetchMembershipList}/>
                 </Space>
             </div>

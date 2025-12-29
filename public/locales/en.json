@@ -74,7 +74,7 @@
     "table" : {
       "actions" : {
         "edit" : "Edit",
-        "title" : "action"
+        "title" : "Action"
       },
       "createdAt" : "Created",
       "expiresAt" : "Expiration time",
@@ -778,13 +778,14 @@
   "FormatPayments" : {
     "noValid" : "No valid payments available.",
     "table" : {
-      "expirationDate" : "Expiration time",
+      "created" : "Created",
+      "endDate" : "Expiration time",
       "id" : "ID",
       "paymentCount" : "Count",
       "paymentType" : "Payment Type",
       "periodPayment" : "Period Payment",
       "singlePayment" : "One-Time Payment",
-      "startDate" : "Created"
+      "startDate" : "Starts"
     },
     "unknownPayment" : "Unknown Payment Type",
     "unknownPaymentContact" : "Contact Support",
@@ -1062,10 +1063,12 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Expiration time",
+      "created" : "Created",
+      "endDate" : "Ends at",
       "name" : "Name",
       "paymentCount" : "Count",
-      "paymentDate" : "Payment date"
+      "paymentDate" : "Payment date",
+      "startDate" : "Starts"
     }
   },
   "PaymentTypeEnum" : {

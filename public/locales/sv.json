@@ -778,13 +778,14 @@
   "FormatPayments" : {
     "noValid" : "Inga giltiga betalningar tillgängliga.",
     "table" : {
-      "expirationDate" : "Utgångstid",
+      "created" : "Skapad",
+      "endDate" : "Utgångstid",
       "id" : "ID",
       "paymentCount" : "Antal",
       "paymentType" : "Betalningstyp",
       "periodPayment" : "Period betalning",
       "singlePayment" : "Engångsbetalning",
-      "startDate" : "Skapad"
+      "startDate" : "Börjar"
     },
     "unknownPayment" : "Okänd betalningstyp",
     "unknownPaymentContact" : "Kontakta supporten",
@@ -1062,10 +1063,12 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Utgångstid",
+      "created" : "Skapad",
+      "endDate" : "Slutar",
       "name" : "Namn",
       "paymentCount" : "Antal",
-      "paymentDate" : "Betalningsdatum"
+      "paymentDate" : "Betalningsdatum",
+      "startDate" : "Påbörjas"
     }
   },
   "PaymentTypeEnum" : {

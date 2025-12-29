@@ -1,4 +1,5 @@
 import dayjs, {Dayjs} from "dayjs";
+import {MembershipTypeEnum, PortalConfigGroupEnum} from "../models";
 
 // Copied from https://bobbyhadz.com/blog/javascript-format-date-yyyy-mm-dd-hh-mm-ss
 function padTo2Digits(num: number) {
@@ -66,9 +67,39 @@ function localToUTCDatetime(date: Dayjs, timeZone: string): Dayjs {
     return dayjs.tz(timezoneLessDatetime, timeZone);
 }
 
+function getDefaultMembershipDates(getPortalConfigurationValue: (
+    groupKey: PortalConfigGroupEnum,
+    settingKey: string
+) => string): { startDate: Dayjs, endDate: Dayjs | null } {
+    const membershipType: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
+    const membershipPeriodUnit: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-unit");
+    const membershipPeriodStartPoint: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start-point");
+    const membershipPeriodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start");
+    const membershipPeriodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
+
+    console.debug("Membership info:", membershipType, membershipPeriodUnit, membershipPeriodStartPoint, membershipPeriodStart, membershipPeriodLength);
+
+    let startDate = dayjs();
+    let endDate = dayjs();
+
+    if (membershipType === MembershipTypeEnum.DISABLED
+        || membershipType === MembershipTypeEnum.PERPETUAL) {
+        return {startDate: dayjs(), endDate: null};
+    }
+
+    if (membershipType === MembershipTypeEnum.DURATIONAL) {
+        endDate = startDate.add(parseInt(membershipPeriodLength), membershipPeriodUnit as dayjs.ManipulateType);
+        return {startDate: startDate, endDate: endDate};
+
+    }
+
+    return {startDate: startDate, endDate: endDate};
+}
+
 export {
     formatDateTime,
     localToUTCDate,
     localToUTCDatetime,
-    formatDateTimeWithMs
+    formatDateTimeWithMs,
+    getDefaultMembershipDates
 };

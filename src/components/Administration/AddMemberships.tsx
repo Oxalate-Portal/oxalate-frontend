@@ -1,5 +1,5 @@
 import {useTranslation} from "react-i18next";
-import {Button, Form, message, Select, Space, Spin} from "antd";
+import {Button, DatePicker, Form, message, Select, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
 import {
     type ListUserResponse,
@@ -12,11 +12,15 @@ import {
 } from "../../models";
 import {membershipAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
+import {getDefaultMembershipDates} from "../../tools";
+import {Dayjs} from "dayjs";
 
 interface AddMembershipsProps {
     membershipList: MembershipResponse[];
     onMembershipAdded: () => void;
 }
+
+const {RangePicker} = DatePicker;
 
 export function AddMemberships({membershipList, onMembershipAdded}: AddMembershipsProps) {
     const {t} = useTranslation();
@@ -24,6 +28,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
 
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
+    const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs } = getDefaultMembershipDates(getPortalConfigurationValue);
 
     if (membershipType === MembershipTypeEnum.DISABLED) {
         return <span>{t("AddMemberships.disabled")}</span>;
@@ -64,7 +69,9 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
             id: 0,
             userId: 0,
             status: MembershipStatusEnum.ACTIVE,
-            type: membershipType
+            type: membershipType,
+            startDate: null,
+            endDate: null
         };
 
         const promises = values.userIdList.map(userId => {
@@ -114,6 +121,17 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                                 showSearch={true}
                                 style={{width: "100%"}}
                                 value={users}
+                        />
+                    </Form.Item>
+                    <Form.Item label={t("AddMemberships.form.start-date.label")}>
+                        <RangePicker
+                                allowEmpty={[false, false]}
+                                defaultValue={[defaultMembershipPeriod.startDate, defaultMembershipPeriod.endDate]}
+                                format={"YYYY-MM-DD"}
+                                id={{
+                                    start: "startDate",
+                                    end: "endDate"
+                                }}
                         />
                     </Form.Item>
 
