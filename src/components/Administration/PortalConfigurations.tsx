@@ -267,7 +267,6 @@ export function PortalConfigurations() {
                                         >{t("PortalConfigurations." + groupKey + ".title")}</Divider>
                                         {configs.sort((a, b) => a.settingKey.localeCompare(b.settingKey)).map(config => {
                                             const isModified = config.defaultValue !== config.runtimeValue && config.runtimeValue !== null;
-                                            console.log("Rendering config:", config.defaultValue, "runtime:", config.runtimeValue, "isModified:", isModified);
                                             return (
                                                     <div key={config.id} style={{marginBottom: "16px"}}>
                                                         <Row gutter={16}>
