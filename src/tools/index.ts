@@ -20,14 +20,14 @@ export {
     roleEnum2Tag,
     userTypeEnum2Tag
 } from "./Enum2TagTool";
-export {LanguageTool} from "./LanguageTool.ts";
+export {LanguageTool} from "./LanguageTool";
 export {
     checkRoles,
     getPageGroupTitleByLanguage,
     getPageTitleByLanguage,
     getHighestRole,
     isAllowedToEditPage
-} from "./OxalateTool.ts";
+} from "./OxalateTool";
 export {
     formatDateTime,
     formatDateTimeWithMs,
