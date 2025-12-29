@@ -5,7 +5,7 @@ import {message, Spin, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import type {UserResponse} from "../../models";
 import {FormPayments} from "./FormPayments";
-import {formatDateTime} from "../../helpers";
+import {formatDateTime} from "../../tools";
 import {ProfileCollapse} from "./ProfileCollapse";
 
 export function ShowUser() {

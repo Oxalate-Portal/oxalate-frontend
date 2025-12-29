@@ -9,7 +9,7 @@ import {
     type RolePermissionResponse
 } from "../../models";
 import {useSession} from "../../session";
-import {getHighestRole, getPageGroupTitleByLanguage} from "../../helpers";
+import {getHighestRole, getPageGroupTitleByLanguage} from "../../tools";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Alert, Button, Checkbox, Divider, Form, Input, message, Select, Space} from "antd";

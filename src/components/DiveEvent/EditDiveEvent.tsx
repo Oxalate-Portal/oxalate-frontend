@@ -18,7 +18,7 @@ import {Button, DatePicker, Form, Input, message, Select, Slider, Space} from "a
 import dayjs, {Dayjs} from "dayjs";
 import TextArea from "antd/es/input/TextArea";
 import {useSession} from "../../session";
-import {localToUTCDatetime} from "../../helpers";
+import {localToUTCDatetime} from "../../tools";
 
 export function EditDiveEvent() {
     const navigator = useNavigate();

@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {authAPI, userAPI} from "../../services";
 import {Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin} from "antd";
 import {UserFields} from "../User";
-import {checkRoles} from "../../helpers";
+import {checkRoles} from "../../tools";
 
 export function AdminOrgUser() {
     const {paramId} = useParams();

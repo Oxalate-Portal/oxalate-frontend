@@ -2,7 +2,7 @@ import dayjs, {Dayjs} from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import {checkRoles, formatDateTime, formatDateTimeWithMs, getHighestRole, localToUTCDate, localToUTCDatetime} from "../helpers";
+import {checkRoles, formatDateTime, formatDateTimeWithMs, getHighestRole, localToUTCDate, localToUTCDatetime} from "../tools";
 import {RoleEnum, type UserSessionToken, UserStatusEnum, UserTypeEnum} from "../models";
 
 // Initialize plugins once for all tests
@@ -10,7 +10,7 @@ dayjs.extend(customParseFormat);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-describe('tools.ts Tests', () => {
+describe('OxalateTool.ts Tests', () => {
     describe('checkRoles', () => {
         const userRoles = [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_USER];
 
@@ -27,7 +27,7 @@ describe('tools.ts Tests', () => {
         });
     });
 
-    describe('formatDateTime helpers', () => {
+    describe('formatDateTime tools', () => {
         const sample = dayjs("2020-01-01T12:34:56.789");
 
         it('formatDateTime returns a non-empty string', () => {

@@ -2,7 +2,7 @@ import {Table} from "antd";
 import {type MembershipResponse, MembershipTypeEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
-import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../helpers";
+import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
 
 interface FormMembershipsProps {
     membershipList?: MembershipResponse[];

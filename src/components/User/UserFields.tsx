@@ -1,6 +1,6 @@
 import {Form, Input, Select, Switch} from "antd";
 import {useTranslation} from "react-i18next";
-import {LanguageUtil} from "../../helpers";
+import {LanguageTool} from "../../tools";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {UserTypeEnum} from "../../models";
@@ -14,7 +14,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
     useEffect(() => {
         const languageList = getFrontendConfigurationValue("enabled-language").split(",");
         setSupportedLanguages(languageList.map(lang => {
-            return {label: LanguageUtil.getLabelByValue(lang), value: lang};
+            return {label: LanguageTool.getLabelByValue(lang), value: lang};
         }));
     }, []);
 

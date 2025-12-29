@@ -7,7 +7,7 @@ import type {MembershipResponse} from "../../models";
 import type {ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
 import {AddMemberships} from "./AddMemberships";
-import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../helpers";
+import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
 
 export function AdminMemberships() {
     const [membershipList, setMembershipList] = useState<MembershipResponse[]>([]);
