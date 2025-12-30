@@ -6,5 +6,5 @@ export interface DownloadPaymentResponse {
     name: string;
     paymentCount: number;
     paymentType: PaymentTypeEnum;
-    createdAt: Date;
+    created: Date;
 }

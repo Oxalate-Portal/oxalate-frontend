@@ -76,8 +76,8 @@
         "edit" : "Redigera",
         "title" : "Åtgärd"
       },
-      "createdAt" : "Skapad",
-      "expiresAt" : "Utgångstid",
+      "created" : "Skapad",
+      "end-date" : "Utgångstid",
       "status" : "Status",
       "type" : "Typ",
       "userId" : "Användar-ID",
@@ -768,9 +768,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Skapad",
-      "expires-at" : "Utgångstid",
+      "created" : "Skapad",
+      "end-date" : "Startdatum",
       "id" : "ID",
+      "start-date" : "Slutdatum",
       "status" : "Status",
       "type" : "Typ"
     }

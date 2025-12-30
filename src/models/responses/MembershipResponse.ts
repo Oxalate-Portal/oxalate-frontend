@@ -8,6 +8,7 @@ export interface MembershipResponse {
     username: string;
     status: MembershipStatusEnum;
     type: MembershipTypeEnum;
-    createdAt: Dayjs;
-    expiresAt: Dayjs;
+    created: Dayjs;
+    startDate: Dayjs;
+    endDate: Dayjs;
 }

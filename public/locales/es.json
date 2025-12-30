@@ -76,8 +76,8 @@
         "edit" : "Editar",
         "title" : "acción"
       },
-      "createdAt" : "Creado",
-      "expiresAt" : "Fecha de expiración",
+      "created" : "Creado",
+      "end-date" : "Fecha de expiración",
       "status" : "Estado",
       "type" : "Tipo",
       "userId" : "ID de usuario",
@@ -768,9 +768,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Creado",
-      "expires-at" : "Fecha de expiración",
+      "created" : "Creado",
+      "end-date" : "Fecha de inicio",
       "id" : "ID",
+      "start-date" : "Fecha de finalización",
       "status" : "Estado",
       "type" : "Tipo"
     }

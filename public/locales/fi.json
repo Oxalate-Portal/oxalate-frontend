@@ -76,8 +76,8 @@
         "edit" : "Muokkaa",
         "title" : "Toiminto"
       },
-      "createdAt" : "Luotu",
-      "expiresAt" : "Päättymisaika",
+      "created" : "Luotu",
+      "end-date" : "Päättymisaika",
       "status" : "Tila",
       "type" : "Tyyppi",
       "userId" : "Käyttäjän ID",
@@ -768,9 +768,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Luotu",
-      "expires-at" : "Päättymisaika",
+      "created" : "Luotu",
+      "end-date" : "Alkamispäivä",
       "id" : "ID",
+      "start-date" : "Päättymispäivä",
       "status" : "Tila",
       "type" : "Tyyppi"
     }

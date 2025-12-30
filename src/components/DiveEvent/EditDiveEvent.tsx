@@ -87,12 +87,12 @@ export function EditDiveEvent() {
                     const payment = users[i].payments[j];
                     // If the user has an active periodical payment
                     if (payment.paymentType === PaymentTypeEnum.PERIOD
-                            && dayjs(payment.expiresAt).isAfter(dayjs())) {
+                            && dayjs(payment.endDate).isAfter(dayjs())) {
                         hasValidPayment = true;
                         break;
                     } else if (payment.paymentType === PaymentTypeEnum.ONE_TIME
-                            && (dayjs(payment.expiresAt).isAfter(dayjs())
-                                    || payment.expiresAt === null)
+                            && (dayjs(payment.endDate).isAfter(dayjs())
+                                    || payment.endDate === null)
                             && (payment.paymentCount > 0
                                     || payment.boundEvents.includes(thisEventId))) {
                         hasValidPayment = true;

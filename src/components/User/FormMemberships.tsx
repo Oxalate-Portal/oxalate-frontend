@@ -31,28 +31,41 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id)
         },
         {
-            title: t("FormMemberships.table.created-at"),
-            dataIndex: 'createdAt',
-            key: 'membership-createdAt',
-            render: (date: Date) => {
-                return (<>
-                    {dayjs(date).format("YYYY-MM-DD HH:mm")}
-                </>)
-            }
-        },
-        {
-            title: t("FormMemberships.table.expires-at"),
-            dataIndex: 'expiresAt',
-            key: 'expiresAt',
+            title: t("FormMemberships.table.start-date"),
+            dataIndex: 'startDate',
+            key: 'membership-startDate',
             render: (date: Date, record: MembershipResponse) => {
                 return (
                         <>
                             {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
-                                    ? dayjs(date).format("YYYY-MM-DD HH:mm")
+                                    ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>)
             }
         },
+        {
+            title: t("FormMemberships.table.end-date"),
+            dataIndex: 'endDate',
+            key: 'membership-endDate',
+            render: (date: Date, record: MembershipResponse) => {
+                return (
+                        <>
+                            {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
+                                    ? dayjs(date).format("YYYY-MM-DD")
+                                    : "-"}
+                        </>)
+            }
+        },
+        {
+            title: t("FormMemberships.table.created"),
+            dataIndex: 'created',
+            key: 'membership-created',
+            render: (date: Date) => {
+                return (<>
+                    {date !== null ? dayjs(date).format("YYYY-MM-DD HH:mm") : "-"}
+                </>)
+            }
+        }
     ];
 
     return (

@@ -57,17 +57,17 @@ export function AdminMemberships() {
             render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id)
         },
         {
-            title: t("AdminMembers.table.createdAt"),
-            dataIndex: "createdAt",
-            key: "createdAt",
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            title: t("AdminMembers.table.created"),
+            dataIndex: "created",
+            key: "created",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
             sortDirections: ["descend", "ascend"]
         },
         {
-            title: t("AdminMembers.table.expiresAt"),
-            dataIndex: "expiresAt",
-            key: "expiresAt",
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.expiresAt).valueOf() - dayjs(b.expiresAt).valueOf(),
+            title: t("AdminMembers.table.end-date"),
+            dataIndex: "endDate",
+            key: "endDate",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).valueOf() - dayjs(b.endDate).valueOf(),
             sortDirections: ["descend", "ascend"]
         },
         {
@@ -133,7 +133,7 @@ export function AdminMemberships() {
                                pageSizeOptions: ["5", "10", "20", "30", "50"]
                            }}
                     />
-                    <AddMemberships membershipList={membershipList} onMembershipAdded={fetchMembershipList}/>
+                    <AddMemberships onMembershipAdded={fetchMembershipList}/>
                 </Space>
             </div>
     );

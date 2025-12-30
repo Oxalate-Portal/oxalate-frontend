@@ -47,8 +47,8 @@ export function AdminMembership() {
             userId: membership.userId,
             status: values.status,
             type: values.type,
-            startDate: membership.startDate,
-            endDate: membership.endDate
+            startDate: membership.startDate.format('YYYY-MM-DD'),
+            endDate: membership.endDate.format('YYYY-MM-DD')
         };
 
         membershipAPI.update(updatedMembership)
