@@ -31,8 +31,9 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                 id: payment.payments[0].id,
                                 userId: payment.userId,
                                 name: payment.name,
-                                createdAt: payment.payments[0].createdAt,
-                                expiresAt: payment.payments[0].expiresAt,
+                                created: payment.payments[0].created,
+                                startDate: payment.payments[0].startDate,
+                                endDate: payment.payments[0].endDate,
                                 paymentCount: payment.payments[0].paymentCount,
                                 paymentType: payment.payments[0].paymentType,
                                 boundEvents: payment.payments[0].boundEvents
@@ -65,6 +66,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             userId: record.userId,
             paymentType: record.paymentType,
             paymentCount: record.paymentCount,
+            startDate: record.startDate,
+            endDate: record.endDate
         };
 
         paymentAPI.update(paymentRequest)
@@ -123,26 +126,39 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
         },
         {
             title: t("PaymentListTable.table.paymentDate"),
-            dataIndex: "createdAt",
-            key: "createdAt",
+            dataIndex: "created",
+            key: "created",
             sorter: (a: PaymentVO, b: PaymentVO) =>
-                    new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+                    new Date(a.created).getTime() - new Date(b.created).getTime(),
             sortDirections: ["descend", "ascend"],
             render: (_: any, record: PaymentVO) => {
                 return (
-                        <>{dayjs(record.createdAt).format("YYYY-MM-DD HH:mm")}</>
+                        <>{dayjs(record.created).format("YYYY-MM-DD HH:mm")}</>
                 );
             },
         },
         {
-            title: t("PaymentListTable.table.expirationDate"),
-            dataIndex: "expiresAt",
-            key: "expiresAt",
+            title: t("PaymentListTable.table.startDate"),
+            dataIndex: "startDate",
+            key: "startDate",
             render: (date: Date, record: PaymentResponse) => {
                 return (
                         <>
-                            {record.expiresAt !== null
-                                    ? dayjs(date).format("YYYY-MM-DD HH:mm")
+                            {record.startDate !== null
+                                    ? dayjs(date).format("YYYY-MM-DD")
+                                    : "-"}
+                        </>)
+            },
+        },
+        {
+            title: t("PaymentListTable.table.endDate"),
+            dataIndex: "endDate",
+            key: "endDate",
+            render: (date: Date, record: PaymentResponse) => {
+                return (
+                        <>
+                            {record.endDate !== null
+                                    ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>)
             },

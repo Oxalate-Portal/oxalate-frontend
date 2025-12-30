@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {type DiveEventResponse, type ListUserResponse, RoleEnum} from "../../models";
-import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../helpers";
+import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
 import {Space, Spin, Table, Tooltip} from "antd";
 import {LinkOutlined} from "@ant-design/icons";

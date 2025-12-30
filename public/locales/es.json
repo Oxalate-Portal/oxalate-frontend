@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Agregar membresía",
       "membershipDuration" : {
-        "label" : "Duración de la membresía (meses)"
+        "label" : "Duración de la membresía"
       },
       "membershipType" : {
         "label" : "Tipo de membresía"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Tipo de pago"
+      },
+      "period" : {
+        "label" : "Período"
       }
     },
     "onFinish" : {
@@ -76,14 +79,30 @@
         "edit" : "Editar",
         "title" : "acción"
       },
-      "createdAt" : "Creado",
-      "expiresAt" : "Fecha de expiración",
+      "created" : "Creado",
+      "end-date" : "Fecha de expiración",
       "status" : "Estado",
       "type" : "Tipo",
       "userId" : "ID de usuario",
       "username" : "Nombre de usuario"
     },
     "title" : "Gestión de membresías"
+  },
+  "AdminMembership" : {
+    "form" : {
+      "membership-status" : "Estado de la membresía",
+      "membership-type" : "Tipo de membresía",
+      "rule" : {
+        "membership-status" : "Seleccione un estado de membresía",
+        "membership-type" : "Seleccione un tipo de membresía"
+      }
+    },
+    "message" : {
+      "invalid-user-id" : "ID de usuario no válida",
+      "no-membership" : "No se pudieron obtener los datos de la membresía",
+      "updated-fail" : "Error al actualizar la membresía",
+      "updated-ok" : "Membresía actualizada correctamente"
+    }
   },
   "AdminOrgUser" : {
     "form" : {
@@ -153,6 +172,142 @@
     "reset-one-time-button" : "Anular pagos únicos",
     "reset-periodical-button" : "Anular pagos periódicos",
     "yearlyResetDivider" : "Anular pagos"
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Agregar grupo de etiquetas",
+      "refresh" : "Actualizar"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Código",
+        "placeholder" : "código-de-grupo",
+        "rule" : {
+          "max" : "Máximo 128 caracteres",
+          "required" : "El código es obligatorio"
+        }
+      },
+      "names" : {
+        "add-language" : "Agregar idioma",
+        "label" : "Nombres",
+        "lang" : {
+          "placeholder" : "es",
+          "rule" : {
+            "required" : "El idioma es obligatorio"
+          }
+        },
+        "value" : {
+          "placeholder" : "Nombre para mostrar",
+          "rule" : {
+            "required" : "El nombre es obligatorio"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Error al cargar los grupos de etiquetas"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Agregar grupo de etiquetas",
+        "edit" : "Editar grupo de etiquetas"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "¿Eliminar el grupo de etiquetas?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Grupo de etiquetas creado",
+      "operation-fail" : "La operación falló",
+      "remove-fail" : "Error al eliminar el grupo de etiquetas",
+      "remove-success" : "Grupo de etiquetas eliminado",
+      "update-success" : "Grupo de etiquetas actualizado"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Editar",
+        "title" : "Acciones"
+      },
+      "code" : "Código",
+      "names" : "Nombres"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Añadir etiqueta",
+      "refresh" : "Actualizar"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Código",
+        "placeholder" : "código-único",
+        "rule" : {
+          "max" : "Máximo 128 caracteres",
+          "required" : "El código es obligatorio"
+        }
+      },
+      "group-code" : {
+        "placeholder" : "código-de-grupo"
+      },
+      "names" : {
+        "add-language" : "Añadir idioma",
+        "label" : "Nombres",
+        "lang" : {
+          "placeholder" : "es",
+          "rule" : {
+            "required" : "El idioma es obligatorio"
+          }
+        },
+        "value" : {
+          "placeholder" : "Nombre para mostrar",
+          "rule" : {
+            "required" : "El nombre es obligatorio"
+          }
+        }
+      },
+      "tagGroup" : {
+        "label" : "Grupo de etiquetas",
+        "new-group" : "Nuevo grupo",
+        "placeholder" : "Seleccionar un grupo de etiquetas"
+      }
+    },
+    "load" : {
+      "fail" : "Error al cargar las etiquetas",
+      "groups-fail" : "Error al cargar los grupos de etiquetas"
+    },
+    "modal" : {
+      "group-title" : {
+        "add" : "Añadir grupo de etiquetas"
+      },
+      "title" : {
+        "add" : "Añadir etiqueta",
+        "edit" : "Editar etiqueta"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "¿Eliminar etiqueta?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Etiqueta creada",
+      "group-add-fail" : "Error al crear el grupo de etiquetas",
+      "group-add-success" : "Grupo de etiquetas creado",
+      "operation-fail" : "La operación falló",
+      "remove-fail" : "Error al eliminar la etiqueta",
+      "remove-success" : "Etiqueta eliminada",
+      "update-success" : "Etiqueta actualizada"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Editar",
+        "title" : "Acciones"
+      },
+      "code" : "Código",
+      "names" : "Nombres"
+    }
   },
   "AdminUploads" : {
     "avatar" : {
@@ -378,6 +533,16 @@
   "CommentTypeEnum" : {
     "topic" : "Tema",
     "user_comment" : "Comentario de usuario"
+  },
+  "DiveEvent" : {
+    "subscribe" : {
+      "button" : "Participar en el evento",
+      "label" : "Participar en el evento",
+      "mainText" : "Por favor, complete lo siguiente para participar en el evento de buceo"
+    },
+    "unsubscribe" : {
+      "button" : "Darse de baja del evento"
+    }
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Cancelado",
@@ -699,16 +864,6 @@
   "EmailSubscriptionCard" : {
     "header" : "Recibir notificaciones por correo electrónico cuando:"
   },
-  "DiveEvent" : {
-    "subscribe" : {
-      "button" : "Participar en el evento",
-      "label" : "Participar en el evento",
-      "mainText" : "Por favor, complete lo siguiente para participar en el evento de buceo"
-    },
-    "unsubscribe" : {
-      "button" : "Darse de baja del evento"
-    }
-  },
   "EventDetails" : {
     "description" : {
       "title" : "Descripción del evento"
@@ -768,9 +923,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Creado",
-      "expires-at" : "Fecha de expiración",
+      "created" : "Creado",
+      "end-date" : "Fecha de inicio",
       "id" : "ID",
+      "start-date" : "Fecha de finalización",
       "status" : "Estado",
       "type" : "Tipo"
     }
@@ -778,13 +934,14 @@
   "FormatPayments" : {
     "noValid" : "No hay pagos válidos disponibles.",
     "table" : {
-      "expirationDate" : "Fecha de expiración",
+      "created" : "Creado",
+      "endDate" : "Fecha de expiración",
       "id" : "ID",
       "paymentCount" : "Cantidad",
       "paymentType" : "Tipo de pago",
       "periodPayment" : "Pago periódico",
       "singlePayment" : "Pago único",
-      "startDate" : "Creado"
+      "startDate" : "Comenzar"
     },
     "unknownPayment" : "Tipo de pago desconocido",
     "unknownPaymentContact" : "Contactar soporte",
@@ -885,9 +1042,9 @@
       "readFirst" : "Leer primero",
       "stats" : "Estadísticas",
       "tags" : {
-        "title" : "Etiquetas",
         "tag-groups" : "Grupos de etiquetas",
-        "tag-list" : "Etiquetas"
+        "tag-list" : "Etiquetas",
+        "title" : "Etiquetas"
       },
       "title" : "Administración",
       "users" : "Usuarios"
@@ -1062,15 +1219,17 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Fecha de expiración",
+      "created" : "Creado",
+      "endDate" : "Finaliza el",
       "name" : "Nombre",
       "paymentCount" : "Cantidad",
-      "paymentDate" : "Fecha de pago"
+      "paymentDate" : "Fecha de pago",
+      "startDate" : "Comienza"
     }
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Único",
-    "PERIOD" : "Periódico"
+    "PERIODICAL" : "Periódico"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1408,6 +1567,10 @@
       "title" : "Registros de usuarios por año"
     }
   },
+  "TagGroupEnum" : {
+    "EVENT" : "Evento",
+    "USER" : "Usuario"
+  },
   "TimezoneSelector" : {
     "select" : {
       "placeholder" : "Seleccione la zona horaria"
@@ -1560,10 +1723,6 @@
     "scuba_diver" : "Buceo autónomo",
     "snorkler" : "Snorkel"
   },
-  "TagGroupEnum" : {
-    "USER" : "Usuario",
-    "EVENT" : "Evento"
-  },
   "common" : {
     "button" : {
       "add" : "Agregar",
@@ -1637,142 +1796,6 @@
       "anonymized" : "Anonimizado",
       "locked" : "Bloqueado",
       "registered" : "Registrado"
-    }
-  },
-  "AdminTagGroups" : {
-    "button" : {
-      "add-group" : "Agregar grupo de etiquetas",
-      "refresh" : "Actualizar"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Código",
-        "placeholder" : "código-de-grupo",
-        "rule" : {
-          "required" : "El código es obligatorio",
-          "max" : "Máximo 128 caracteres"
-        }
-      },
-      "names" : {
-        "label" : "Nombres",
-        "add-language" : "Agregar idioma",
-        "lang" : {
-          "placeholder" : "es",
-          "rule" : {
-            "required" : "El idioma es obligatorio"
-          }
-        },
-        "value" : {
-          "placeholder" : "Nombre para mostrar",
-          "rule" : {
-            "required" : "El nombre es obligatorio"
-          }
-        }
-      }
-    },
-    "load" : {
-      "fail" : "Error al cargar los grupos de etiquetas"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Agregar grupo de etiquetas",
-        "edit" : "Editar grupo de etiquetas"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "¿Eliminar el grupo de etiquetas?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Grupo de etiquetas creado",
-      "update-success" : "Grupo de etiquetas actualizado",
-      "remove-success" : "Grupo de etiquetas eliminado",
-      "remove-fail" : "Error al eliminar el grupo de etiquetas",
-      "operation-fail" : "La operación falló"
-    },
-    "table" : {
-      "actions" : {
-        "edit" : "Editar",
-        "title" : "Acciones"
-      },
-      "code" : "Código",
-      "names" : "Nombres"
-    }
-  },
-  "AdminTags" : {
-    "button" : {
-      "add-tag" : "Añadir etiqueta",
-      "refresh" : "Actualizar"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Código",
-        "placeholder" : "código-único",
-        "rule" : {
-          "required" : "El código es obligatorio",
-          "max" : "Máximo 128 caracteres"
-        }
-      },
-      "tagGroup" : {
-        "label" : "Grupo de etiquetas",
-        "placeholder" : "Seleccionar un grupo de etiquetas",
-        "new-group" : "Nuevo grupo"
-      },
-      "names" : {
-        "label" : "Nombres",
-        "add-language" : "Añadir idioma",
-        "lang" : {
-          "placeholder" : "es",
-          "rule" : {
-            "required" : "El idioma es obligatorio"
-          }
-        },
-        "value" : {
-          "placeholder" : "Nombre para mostrar",
-          "rule" : {
-            "required" : "El nombre es obligatorio"
-          }
-        }
-      },
-      "group-code" : {
-        "placeholder" : "código-de-grupo"
-      }
-    },
-    "load" : {
-      "fail" : "Error al cargar las etiquetas",
-      "groups-fail" : "Error al cargar los grupos de etiquetas"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Añadir etiqueta",
-        "edit" : "Editar etiqueta"
-      },
-      "group-title" : {
-        "add" : "Añadir grupo de etiquetas"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "¿Eliminar etiqueta?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Etiqueta creada",
-      "update-success" : "Etiqueta actualizada",
-      "remove-success" : "Etiqueta eliminada",
-      "remove-fail" : "Error al eliminar la etiqueta",
-      "operation-fail" : "La operación falló",
-      "group-add-success" : "Grupo de etiquetas creado",
-      "group-add-fail" : "Error al crear el grupo de etiquetas"
-    },
-    "table" : {
-      "code" : "Código",
-      "names" : "Nombres",
-      "actions" : {
-        "title" : "Acciones",
-        "edit" : "Editar"
-      }
     }
   }
 }

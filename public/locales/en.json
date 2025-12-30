@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Add Membership",
       "membershipDuration" : {
-        "label" : "Membership Duration (months)"
+        "label" : "Membership Duration"
       },
       "membershipType" : {
         "label" : "Membership Type"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Payment type"
+      },
+      "period" : {
+        "label" : "Period"
       }
     },
     "onFinish" : {
@@ -74,16 +77,32 @@
     "table" : {
       "actions" : {
         "edit" : "Edit",
-        "title" : "action"
+        "title" : "Action"
       },
-      "createdAt" : "Created",
-      "expiresAt" : "Expiration time",
+      "created" : "Created",
+      "end-date" : "Expiration time",
       "status" : "Status",
       "type" : "Type",
       "userId" : "User ID",
       "username" : "Username"
     },
     "title" : "Membership management"
+  },
+  "AdminMembership" : {
+    "form" : {
+      "membership-status" : "Membership Status",
+      "membership-type" : "Membership Type",
+      "rule" : {
+        "membership-status" : "Please select a membership status",
+        "membership-type" : "Please select a membership type"
+      }
+    },
+    "message" : {
+      "invalid-user-id" : "Invalid user ID",
+      "no-membership" : "Failed to fetch membership data",
+      "updated-fail" : "Failed to update membership",
+      "updated-ok" : "Membership updated successfully"
+    }
   },
   "AdminOrgUser" : {
     "form" : {
@@ -153,6 +172,142 @@
     "reset-one-time-button" : "Void one-time payments",
     "reset-periodical-button" : "Void periodical payments",
     "yearlyResetDivider" : "Void payments"
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Add Tag Group",
+      "refresh" : "Refresh"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "group-code",
+        "rule" : {
+          "max" : "Max 128 characters",
+          "required" : "Code is required"
+        }
+      },
+      "names" : {
+        "add-language" : "Add language",
+        "label" : "Names",
+        "lang" : {
+          "placeholder" : "en",
+          "rule" : {
+            "required" : "Language is required"
+          }
+        },
+        "value" : {
+          "placeholder" : "Display name",
+          "rule" : {
+            "required" : "Name is required"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Failed to load tag groups"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Add Tag Group",
+        "edit" : "Edit Tag Group"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Delete tag group?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tag group created",
+      "operation-fail" : "Operation failed",
+      "remove-fail" : "Failed to delete tag group",
+      "remove-success" : "Tag group deleted",
+      "update-success" : "Tag group updated"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Edit",
+        "title" : "Actions"
+      },
+      "code" : "Code",
+      "names" : "Names"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Add Tag",
+      "refresh" : "Refresh"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "unique-code",
+        "rule" : {
+          "max" : "Max 128 characters",
+          "required" : "Code is required"
+        }
+      },
+      "group-code" : {
+        "placeholder" : "group-code"
+      },
+      "names" : {
+        "add-language" : "Add language",
+        "label" : "Names",
+        "lang" : {
+          "placeholder" : "en",
+          "rule" : {
+            "required" : "Lang required"
+          }
+        },
+        "value" : {
+          "placeholder" : "Display name",
+          "rule" : {
+            "required" : "Name required"
+          }
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tag group",
+        "new-group" : "New group",
+        "placeholder" : "Select a tag group"
+      }
+    },
+    "load" : {
+      "fail" : "Failed to load tags",
+      "groups-fail" : "Failed to load tag groups"
+    },
+    "modal" : {
+      "group-title" : {
+        "add" : "Add Tag Group"
+      },
+      "title" : {
+        "add" : "Add Tag",
+        "edit" : "Edit Tag"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Delete tag?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tag created",
+      "group-add-fail" : "Failed to create tag group",
+      "group-add-success" : "Tag group created",
+      "operation-fail" : "Operation failed",
+      "remove-fail" : "Failed to delete tag",
+      "remove-success" : "Tag deleted",
+      "update-success" : "Tag updated"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Edit",
+        "title" : "Actions"
+      },
+      "code" : "Code",
+      "names" : "Names"
+    }
   },
   "AdminUploads" : {
     "avatar" : {
@@ -378,6 +533,16 @@
   "CommentTypeEnum" : {
     "topic" : "Topic",
     "user_comment" : "User Comment"
+  },
+  "DiveEvent" : {
+    "subscribe" : {
+      "button" : "Participate in event",
+      "label" : "Participate in event",
+      "mainText" : "Please complete the following to participate in the dive event"
+    },
+    "unsubscribe" : {
+      "button" : "Remove yourself from event"
+    }
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Cancelled",
@@ -699,16 +864,6 @@
   "EmailSubscriptionCard" : {
     "header" : "Email Receive email notification when:"
   },
-  "DiveEvent" : {
-    "subscribe" : {
-      "button" : "Participate in event",
-      "label" : "Participate in event",
-      "mainText" : "Please complete the following to participate in the dive event"
-    },
-    "unsubscribe" : {
-      "button" : "Remove yourself from event"
-    }
-  },
   "EventDetails" : {
     "description" : {
       "title" : "Event description"
@@ -768,9 +923,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Created",
-      "expires-at" : "Expiration time",
+      "created" : "Created",
+      "end-date" : "Start date",
       "id" : "ID",
+      "start-date" : "End date",
       "status" : "Status",
       "type" : "Type"
     }
@@ -778,13 +934,14 @@
   "FormatPayments" : {
     "noValid" : "No valid payments available.",
     "table" : {
-      "expirationDate" : "Expiration time",
+      "created" : "Created",
+      "endDate" : "Expiration time",
       "id" : "ID",
       "paymentCount" : "Count",
       "paymentType" : "Payment Type",
       "periodPayment" : "Period Payment",
       "singlePayment" : "One-Time Payment",
-      "startDate" : "Created"
+      "startDate" : "Starts"
     },
     "unknownPayment" : "Unknown Payment Type",
     "unknownPaymentContact" : "Contact Support",
@@ -885,9 +1042,9 @@
       "readFirst" : "Read first",
       "stats" : "Statistics",
       "tags" : {
-        "title" : "Tags",
         "tag-groups" : "Tag groups",
-        "tag-list" : "Tags"
+        "tag-list" : "Tags",
+        "title" : "Tags"
       },
       "title" : "Administration",
       "users" : "Users"
@@ -1062,15 +1219,17 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Expiration time",
+      "created" : "Created",
+      "endDate" : "Ends at",
       "name" : "Name",
       "paymentCount" : "Count",
-      "paymentDate" : "Payment date"
+      "paymentDate" : "Payment date",
+      "startDate" : "Starts"
     }
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "One-time",
-    "PERIOD" : "Periodical"
+    "PERIODICAL" : "Periodical"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1408,6 +1567,10 @@
       "title" : "User registrations by year"
     }
   },
+  "TagGroupEnum" : {
+    "EVENT" : "Event",
+    "USER" : "User"
+  },
   "TimezoneSelector" : {
     "select" : {
       "placeholder" : "Select timezone"
@@ -1560,10 +1723,6 @@
     "scuba_diver" : "Scuba diving",
     "snorkler" : "Snorkling"
   },
-  "TagGroupEnum" : {
-    "USER" : "User",
-    "EVENT" : "Event"
-  },
   "common" : {
     "button" : {
       "add" : "Add",
@@ -1637,142 +1796,6 @@
       "anonymized" : "Anonymized",
       "locked" : "Locked",
       "registered" : "Registered"
-    }
-  },
-  "AdminTagGroups" : {
-    "button" : {
-      "add-group" : "Add Tag Group",
-      "refresh" : "Refresh"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Code",
-        "placeholder" : "group-code",
-        "rule" : {
-          "required" : "Code is required",
-          "max" : "Max 128 characters"
-        }
-      },
-      "names" : {
-        "label" : "Names",
-        "add-language" : "Add language",
-        "lang" : {
-          "placeholder" : "en",
-          "rule" : {
-            "required" : "Language is required"
-          }
-        },
-        "value" : {
-          "placeholder" : "Display name",
-          "rule" : {
-            "required" : "Name is required"
-          }
-        }
-      }
-    },
-    "load" : {
-      "fail" : "Failed to load tag groups"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Add Tag Group",
-        "edit" : "Edit Tag Group"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Delete tag group?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tag group created",
-      "update-success" : "Tag group updated",
-      "remove-success" : "Tag group deleted",
-      "remove-fail" : "Failed to delete tag group",
-      "operation-fail" : "Operation failed"
-    },
-    "table" : {
-      "actions" : {
-        "edit" : "Edit",
-        "title" : "Actions"
-      },
-      "code" : "Code",
-      "names" : "Names"
-    }
-  },
-  "AdminTags" : {
-    "button" : {
-      "add-tag" : "Add Tag",
-      "refresh" : "Refresh"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Code",
-        "placeholder" : "unique-code",
-        "rule" : {
-          "required" : "Code is required",
-          "max" : "Max 128 characters"
-        }
-      },
-      "tagGroup" : {
-        "label" : "Tag group",
-        "placeholder" : "Select a tag group",
-        "new-group" : "New group"
-      },
-      "names" : {
-        "label" : "Names",
-        "add-language" : "Add language",
-        "lang" : {
-          "placeholder" : "en",
-          "rule" : {
-            "required" : "Lang required"
-          }
-        },
-        "value" : {
-          "placeholder" : "Display name",
-          "rule" : {
-            "required" : "Name required"
-          }
-        }
-      },
-      "group-code" : {
-        "placeholder" : "group-code"
-      }
-    },
-    "load" : {
-      "fail" : "Failed to load tags",
-      "groups-fail" : "Failed to load tag groups"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Add Tag",
-        "edit" : "Edit Tag"
-      },
-      "group-title" : {
-        "add" : "Add Tag Group"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Delete tag?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tag created",
-      "update-success" : "Tag updated",
-      "remove-success" : "Tag deleted",
-      "remove-fail" : "Failed to delete tag",
-      "operation-fail" : "Operation failed",
-      "group-add-success" : "Tag group created",
-      "group-add-fail" : "Failed to create tag group"
-    },
-    "table" : {
-      "code" : "Code",
-      "names" : "Names",
-      "actions" : {
-        "title" : "Actions",
-        "edit" : "Edit"
-      }
     }
   }
 }

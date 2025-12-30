@@ -1,6 +1,7 @@
 export const PaymentTypeEnum = {
-    PERIOD: "PERIOD",
+    PERIODICAL: "PERIODICAL",
     ONE_TIME: "ONE_TIME",
+    DISABLED: "DISABLED",
     NONE: "NONE"
 } as const;
 

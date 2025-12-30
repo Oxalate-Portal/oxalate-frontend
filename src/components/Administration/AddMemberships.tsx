@@ -1,29 +1,24 @@
 import {useTranslation} from "react-i18next";
-import {Button, Form, message, Select, Space, Spin} from "antd";
+import {Button, DatePicker, Form, message, Select, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
-import {
-    type ListUserResponse,
-    type MembershipRequest,
-    type MembershipResponse,
-    MembershipStatusEnum,
-    MembershipTypeEnum,
-    PortalConfigGroupEnum,
-    RoleEnum
-} from "../../models";
+import {type ListUserResponse, type MembershipRequest, MembershipStatusEnum, MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {membershipAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
+import {getDefaultMembershipDates} from "../../tools";
+import {Dayjs} from "dayjs";
 
 interface AddMembershipsProps {
-    membershipList: MembershipResponse[];
     onMembershipAdded: () => void;
 }
 
-export function AddMemberships({membershipList, onMembershipAdded}: AddMembershipsProps) {
+const {RangePicker} = DatePicker;
+
+export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
-
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
+    const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs | null } = getDefaultMembershipDates(getPortalConfigurationValue);
 
     if (membershipType === MembershipTypeEnum.DISABLED) {
         return <span>{t("AddMemberships.disabled")}</span>;
@@ -31,8 +26,6 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
 
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
-    const [selectedUsers, setSelectedUsers] = useState<ListUserResponse[]>([]);
-    const filteredOptions = users.filter((o) => !selectedUsers.includes(o) && !membershipList.some(m => m.userId === o.id));
     const [membershipForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -41,7 +34,7 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
                     // Do not add users that already have a membership
-                    userResponses = userResponses.filter(user => !user.membershipActive);
+                    // userResponses = userResponses.filter(user => !user.membershipActive);
                     setUsers(userResponses);
                 })
                 .catch((error) => {
@@ -53,23 +46,23 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                 });
     }, [t]);
 
-    function updateSelectedUsers(value: ListUserResponse[]) {
-        setSelectedUsers(value);
-    }
-
-    function onFinish(values: { userIdList: number[], type: MembershipTypeEnum, membershipDuration: number }) {
+    function onFinish(values: { userIdList: number[], dateRange?: Dayjs[] }) {
         setLoading(true);
 
-        let postData: MembershipRequest = {
+        const [start, end] = values.dateRange || [];
+        const fallbackStart = defaultMembershipPeriod.startDate?.format("YYYY-MM-DD") || null;
+        const fallbackEnd = defaultMembershipPeriod.endDate?.format("YYYY-MM-DD") || null;
+        const postData: MembershipRequest = {
             id: 0,
             userId: 0,
             status: MembershipStatusEnum.ACTIVE,
-            type: membershipType
+            type: membershipType,
+            startDate: start ? start.format("YYYY-MM-DD") : fallbackStart,
+            endDate: end ? end.format("YYYY-MM-DD") : fallbackEnd
         };
 
         const promises = values.userIdList.map(userId => {
-            postData.userId = userId;
-            return membershipAPI.create(postData);
+            return membershipAPI.create({...postData, userId});
         });
 
         Promise.all(promises)
@@ -85,7 +78,6 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                     setLoading(false);
                     // Empty the list of selected users as well as the form
                     membershipForm.resetFields();
-                    setSelectedUsers([]);
                 });
     }
 
@@ -94,7 +86,13 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                 {contextHolder}
                 <Form
                         form={membershipForm}
-                        initialValues={{userIdList: []}}
+                        initialValues={{
+                            userIdList: [],
+                            dateRange: [
+                                defaultMembershipPeriod.startDate,
+                                defaultMembershipPeriod.endDate ?? defaultMembershipPeriod.startDate
+                            ]
+                        }}
                         labelCol={{span: 8}}
                         name="membership_form"
                         onFinish={onFinish}
@@ -106,14 +104,23 @@ export function AddMemberships({membershipList, onMembershipAdded}: AddMembershi
                                 fieldNames={{label: "name", value: "id"}}
                                 labelInValue={false}
                                 mode="multiple"
-                                onChange={updateSelectedUsers}
-                                optionFilterProp={"name"}
                                 optionLabelProp={"name"}
-                                options={filteredOptions.map((item) => ({id: item.id, name: item.name + " (" + item.id + ")"}))}
+                                options={users.map((item) => ({id: item.id, name: item.name + " (" + item.id + ")"}))}
                                 placeholder={t("AddMemberships.form.name.placeholder")}
-                                showSearch={true}
+                                showSearch={{optionFilterProp: "name"}}
                                 style={{width: "100%"}}
                                 value={users}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                            name="dateRange"
+                            label={t("AddMemberships.form.start-date.label")}
+                            rules={[{required: true}]}
+                    >
+                        <RangePicker
+                                allowEmpty={[false, false]}
+                                format={"YYYY-MM-DD"}
+                                id={{start: "startDate", end: "endDate"}}
                         />
                     </Form.Item>
 

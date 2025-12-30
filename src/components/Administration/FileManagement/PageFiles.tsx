@@ -71,7 +71,13 @@ export function PageFiles() {
                     rowKey="id"
                     loading={loading}
                     bordered
-                    pagination={{pageSize: 5}}
+                    pagination={{
+                        defaultPageSize: 10,
+                        hideOnSinglePage: true,
+                        showSizeChanger: true,
+                        showQuickJumper: true,
+                        pageSizeOptions: ["5", "10", "20", "30", "50"]
+                    }}
             />
     );
 }

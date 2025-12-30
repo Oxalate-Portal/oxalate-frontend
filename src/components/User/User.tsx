@@ -2,7 +2,7 @@ import {useSession} from "../../session";
 import {useEffect, useState} from "react";
 import {Button, Checkbox, Col, Form, Input, message, Row, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
-import {checkRoles} from "../../helpers";
+import {checkRoles} from "../../tools";
 import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./index";
 import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";

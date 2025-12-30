@@ -93,7 +93,6 @@ export function AdminTagGroups() {
     const handleSubmit = () => {
         form.validateFields()
                 .then((values: { code: string; names: NameKV[]; type: TagGroupEnum }) => {
-                    console.log("Form values:", values);
                     setSubmitting(true);
                     const payload: TagGroupRequest = {
                         id: editing?.id ?? 0,

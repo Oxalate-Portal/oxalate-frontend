@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {type PageResponse, PageStatusEnum, RoleEnum, type RolePermissionResponse} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Alert, Button, message, Space, Spin, Table} from "antd";
-import {checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag, roleEnum2Tag} from "../../helpers";
+import {checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag, roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
 import type {ColumnsType} from "antd/es/table";
 import {pageGroupMgmtAPI, pageMgmtAPI} from "../../services";

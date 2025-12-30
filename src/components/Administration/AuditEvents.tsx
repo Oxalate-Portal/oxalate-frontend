@@ -1,6 +1,6 @@
 import {Button, Input, type InputRef, Space, Spin, Table, type TablePaginationConfig, Tag} from "antd";
 import {useTranslation} from "react-i18next";
-import {formatDateTimeWithMs} from "../../helpers";
+import {formatDateTimeWithMs} from "../../tools";
 import {useCallback, useEffect, useRef, useState} from "react";
 import {type AuditEntryResponse, AuditLevelEnum, type SortableTableParams} from "../../models";
 import {auditAPI} from "../../services";

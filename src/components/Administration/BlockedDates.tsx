@@ -42,7 +42,6 @@ function BlockedDates() {
         const dateString = dayjs(values.blockedDate).format('YYYY-MM-DD');
 
         const blockedDate = dayjs(dateString);
-        console.log("Converted from " + values.blockedDate + " which in date string is " + dateString + " to final blocked date: " + blockedDate);
 
         const request: BlockedDateRequest = {
             blockedDate: blockedDate,

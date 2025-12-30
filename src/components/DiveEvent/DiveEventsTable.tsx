@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {type DiveEventResponse, DiveEventStatusEnum, RoleEnum} from "../../models";
 import {Button, Space, Spin, Table} from "antd";
 import type {ColumnsType} from "antd/es/table";
-import {checkRoles, diveEventStatusEnum2Tag, diveTypeEnum2Tag} from "../../helpers";
+import {checkRoles, diveEventStatusEnum2Tag, diveTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";

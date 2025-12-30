@@ -2,7 +2,7 @@ import {Button, Card, message, Spin} from "antd";
 import type {CommentReportResponse} from "../../models";
 import {commentAPI} from "../../services";
 import {useState} from "react";
-import {reportStatusEnum2Tag} from "../../helpers";
+import {reportStatusEnum2Tag} from "../../tools";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 

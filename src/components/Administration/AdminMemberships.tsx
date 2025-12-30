@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Space, Table} from "antd";
+import {Button, Space, Table} from "antd";
 import {membershipAPI} from "../../services";
 import type {MembershipResponse} from "../../models";
 import type {ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
 import {AddMemberships} from "./AddMemberships";
-import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../helpers";
+import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
 
 export function AdminMemberships() {
     const [membershipList, setMembershipList] = useState<MembershipResponse[]>([]);
@@ -57,17 +57,17 @@ export function AdminMemberships() {
             render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id)
         },
         {
-            title: t("AdminMembers.table.createdAt"),
-            dataIndex: "createdAt",
-            key: "createdAt",
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            title: t("AdminMembers.table.created"),
+            dataIndex: "created",
+            key: "created",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
             sortDirections: ["descend", "ascend"]
         },
         {
-            title: t("AdminMembers.table.expiresAt"),
-            dataIndex: "expiresAt",
-            key: "expiresAt",
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.expiresAt).valueOf() - dayjs(b.expiresAt).valueOf(),
+            title: t("AdminMembers.table.end-date"),
+            dataIndex: "endDate",
+            key: "endDate",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).valueOf() - dayjs(b.endDate).valueOf(),
             sortDirections: ["descend", "ascend"]
         },
         {
@@ -76,7 +76,7 @@ export function AdminMemberships() {
             render: (_: string, record: MembershipResponse) => {
                 return (
                         <Space size="small">
-                            <Link to={"/administration/members/" + record.id + "/edit"}>{t("AdminMembers.table.actions.edit")}</Link>
+                            <Button type={"primary"} href={"/administration/members/" + record.id + "/edit"}>{t("AdminMembers.table.actions.edit")}</Button>
                         </Space>
                 );
             }
@@ -122,8 +122,18 @@ export function AdminMemberships() {
                 <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                     <h1>{t("AdminMembers.title")}</h1>
 
-                    <Table columns={memberListColumns} dataSource={membershipList} loading={loading} rowKey="id"/>
-                    <AddMemberships membershipList={membershipList} onMembershipAdded={fetchMembershipList}/>
+                    <Table columns={memberListColumns}
+                           dataSource={membershipList}
+                           loading={loading} rowKey="id"
+                           pagination={{
+                               defaultPageSize: 10,
+                               hideOnSinglePage: true,
+                               showSizeChanger: true,
+                               showQuickJumper: true,
+                               pageSizeOptions: ["5", "10", "20", "30", "50"]
+                           }}
+                    />
+                    <AddMemberships onMembershipAdded={fetchMembershipList}/>
                 </Space>
             </div>
     );

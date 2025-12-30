@@ -6,7 +6,7 @@ import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
 import {userAPI} from "../../services";
 import type {ColumnsType} from "antd/es/table";
 import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
-import {roleEnum2Tag} from "../../helpers";
+import {roleEnum2Tag} from "../../tools";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);

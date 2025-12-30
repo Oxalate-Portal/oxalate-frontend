@@ -27,7 +27,7 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
 import {useSession} from "../../session";
-import {checkRoles, LanguageUtil} from "../../helpers";
+import {checkRoles, LanguageTool} from "../../tools";
 import {MembershipTypeEnum, type PageGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {pageAPI} from "../../services";
 // @ts-ignore
@@ -236,7 +236,7 @@ export function NavigationBar() {
         ...(supportedLanguages.length > 0 &&
                 [
                     {
-                        label: LanguageUtil.getLabelByValue(getSessionLanguage()),
+                        label: LanguageTool.getLabelByValue(getSessionLanguage()),
                         key: "language-menu-main",
                         icon: <GlobalOutlined/>,
                         children: supportedLanguages.map(lang => {
@@ -296,7 +296,9 @@ export function NavigationBar() {
 
             pageAPI.getNavigationItems(language)
                     .then(navElements => {
-                        setNavigationElements(JSON.parse(JSON.stringify(navElements)));
+                        if (navElements && navElements.length > 0) {
+                            setNavigationElements(JSON.parse(JSON.stringify(navElements)));
+                        }
                         window.addEventListener("reloadNavigationEvent", fetchPaths);
                     })
                     .catch(e => {
@@ -321,7 +323,7 @@ export function NavigationBar() {
 
         const languageList = getFrontendConfigurationValue("enabled-language").split(",");
         setSupportedLanguages(languageList.map(lang => {
-            return {label: LanguageUtil.getLabelByValue(lang), value: lang};
+            return {label: LanguageTool.getLabelByValue(lang), value: lang};
         }));
 
         return () => {

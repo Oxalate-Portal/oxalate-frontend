@@ -4,7 +4,7 @@ import {Button, Col, DatePicker, Input, Row, Select, Space, Table} from "antd";
 import dayjs, {Dayjs} from "dayjs";
 import {commentAPI, userAPI} from "../../services";
 import {CommentClassEnum, type CommentFilterRequest, type CommentResponse, CommentStatusEnum, CommentTypeEnum} from "../../models";
-import {commentStatusEnum2Tag, commentTypeEnum2Tag} from "../../helpers/Enum2TagTool";
+import {commentStatusEnum2Tag, commentTypeEnum2Tag} from "../../tools";
 
 export function CommentList() {
     const {t} = useTranslation();

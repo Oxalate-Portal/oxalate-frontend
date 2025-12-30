@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Lisää jäsenyys",
       "membershipDuration" : {
-        "label" : "Jäsenyyden kesto (kuukautta)"
+        "label" : "Jäsenyyden kesto"
       },
       "membershipType" : {
         "label" : "Jäsenyyden tyyppi"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Maksutyyppi"
+      },
+      "period" : {
+        "label" : "Aikaväli"
       }
     },
     "onFinish" : {
@@ -76,14 +79,30 @@
         "edit" : "Muokkaa",
         "title" : "Toiminto"
       },
-      "createdAt" : "Luotu",
-      "expiresAt" : "Päättymisaika",
+      "created" : "Luotu",
+      "end-date" : "Päättymisaika",
       "status" : "Tila",
       "type" : "Tyyppi",
       "userId" : "Käyttäjän ID",
       "username" : "Käyttäjänimi"
     },
     "title" : "Jäsenyyden hallinta"
+  },
+  "AdminMembership" : {
+    "form" : {
+      "membership-status" : "Jäsenyyden tila",
+      "membership-type" : "Jäsenyyden tyyppi",
+      "rule" : {
+        "membership-status" : "Valitse jäsenyyden tila",
+        "membership-type" : "Valitse jäsenyyden tyyppi"
+      }
+    },
+    "message" : {
+      "invalid-user-id" : "Virheellinen käyttäjätunnus",
+      "no-membership" : "Jäsenyyden tietojen haku epäonnistui",
+      "updated-fail" : "Jäsenyyden päivitys epäonnistui",
+      "updated-ok" : "Jäsenyys päivitetty onnistuneesti"
+    }
   },
   "AdminOrgUser" : {
     "form" : {
@@ -153,6 +172,142 @@
     "reset-one-time-button" : "Mitätöi kertamaksut",
     "reset-periodical-button" : "Mitätöi kausimaksut",
     "yearlyResetDivider" : "Maksujen mitätöinti"
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Lisää tunnisteryhmä",
+      "refresh" : "Päivitä"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Koodi",
+        "placeholder" : "ryhmäkoodi",
+        "rule" : {
+          "max" : "Enintään 128 merkkiä",
+          "required" : "Koodi on pakollinen"
+        }
+      },
+      "names" : {
+        "add-language" : "Lisää kieli",
+        "label" : "Nimet",
+        "lang" : {
+          "placeholder" : "fi",
+          "rule" : {
+            "required" : "Kieli on pakollinen"
+          }
+        },
+        "value" : {
+          "placeholder" : "Näyttönimi",
+          "rule" : {
+            "required" : "Nimi on pakollinen"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Tunnisteryhmien lataus epäonnistui"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Lisää tunnisteryhmä",
+        "edit" : "Muokkaa tunnisteryhmää"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Poistetaanko tunnisteryhmä?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tunnisteryhmä luotu",
+      "operation-fail" : "Toiminto epäonnistui",
+      "remove-fail" : "Tunnisteryhmän poistaminen epäonnistui",
+      "remove-success" : "Tunnisteryhmä poistettu",
+      "update-success" : "Tunnisteryhmä päivitetty"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Muokkaa",
+        "title" : "Toiminnot"
+      },
+      "code" : "Koodi",
+      "names" : "Nimet"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Lisää tunniste",
+      "refresh" : "Päivitä"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Koodi",
+        "placeholder" : "yksilöllinen-koodi",
+        "rule" : {
+          "max" : "Enintään 128 merkkiä",
+          "required" : "Koodi on pakollinen"
+        }
+      },
+      "group-code" : {
+        "placeholder" : "ryhmäkoodi"
+      },
+      "names" : {
+        "add-language" : "Lisää kieli",
+        "label" : "Nimet",
+        "lang" : {
+          "placeholder" : "fi",
+          "rule" : {
+            "required" : "Kieli on pakollinen"
+          }
+        },
+        "value" : {
+          "placeholder" : "Näyttönimi",
+          "rule" : {
+            "required" : "Nimi on pakollinen"
+          }
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tunnisteryhmä",
+        "new-group" : "Uusi ryhmä",
+        "placeholder" : "Valitse tunnisteryhmä"
+      }
+    },
+    "load" : {
+      "fail" : "Tunnisteiden lataus epäonnistui",
+      "groups-fail" : "Tunnisteryhmien lataus epäonnistui"
+    },
+    "modal" : {
+      "group-title" : {
+        "add" : "Lisää tunnisteryhmä"
+      },
+      "title" : {
+        "add" : "Lisää tunniste",
+        "edit" : "Muokkaa tunnistetta"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Poistetaanko tunniste?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tunniste luotu",
+      "group-add-fail" : "Tunnisteryhmän luonti epäonnistui",
+      "group-add-success" : "Tunnisteryhmä luotu",
+      "operation-fail" : "Toiminto epäonnistui",
+      "remove-fail" : "Tunnisteen poistaminen epäonnistui",
+      "remove-success" : "Tunniste poistettu",
+      "update-success" : "Tunniste päivitetty"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Muokkaa",
+        "title" : "Toiminnot"
+      },
+      "code" : "Koodi",
+      "names" : "Nimet"
+    }
   },
   "AdminUploads" : {
     "avatar" : {
@@ -378,6 +533,16 @@
   "CommentTypeEnum" : {
     "topic" : "Aihe",
     "user_comment" : "Käyttäjäkommentti"
+  },
+  "DiveEvent" : {
+    "subscribe" : {
+      "button" : "Osallistu tapahtumaan",
+      "label" : "Osallistu tapahtumaan",
+      "mainText" : "Täytä seuraavat tiedot osallistuaksesi sukellustapahtumaan"
+    },
+    "unsubscribe" : {
+      "button" : "Poista itsesi tapahtumasta"
+    }
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Peruutettu",
@@ -699,16 +864,6 @@
   "EmailSubscriptionCard" : {
     "header" : "Vastaanota sähköpostiviesti kun:"
   },
-  "DiveEvent" : {
-    "subscribe" : {
-      "button" : "Osallistu tapahtumaan",
-      "label" : "Osallistu tapahtumaan",
-      "mainText" : "Täytä seuraavat tiedot osallistuaksesi sukellustapahtumaan"
-    },
-    "unsubscribe" : {
-      "button" : "Poista itsesi tapahtumasta"
-    }
-  },
   "EventDetails" : {
     "description" : {
       "title" : "Tapahtumakuvaus"
@@ -768,9 +923,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Luotu",
-      "expires-at" : "Päättymisaika",
+      "created" : "Luotu",
+      "end-date" : "Alkamispäivä",
       "id" : "ID",
+      "start-date" : "Päättymispäivä",
       "status" : "Tila",
       "type" : "Tyyppi"
     }
@@ -778,13 +934,14 @@
   "FormatPayments" : {
     "noValid" : "Ei voimassa olevia maksuja.",
     "table" : {
-      "expirationDate" : "Päättymisaika",
+      "created" : "Luotu",
+      "endDate" : "Päättymisaika",
       "id" : "ID",
       "paymentCount" : "Määrä",
       "paymentType" : "Maksutyyppi",
       "periodPayment" : "Kausimaksu",
       "singlePayment" : "Kertamaksu",
-      "startDate" : "Luotu"
+      "startDate" : "Alkaamisajankohta"
     },
     "unknownPayment" : "Tuntematon maksutyyppi",
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
@@ -885,9 +1042,9 @@
       "readFirst" : "Lue ensin",
       "stats" : "Tilastot",
       "tags" : {
-        "title" : "Tunnisteet",
         "tag-groups" : "Tunnisteryhmät",
-        "tag-list" : "Tunnisteet"
+        "tag-list" : "Tunnisteet",
+        "title" : "Tunnisteet"
       },
       "title" : "Ylläpito",
       "users" : "Käyttäjät"
@@ -1062,15 +1219,17 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Päättymisaika",
+      "created" : "Luotu",
+      "endDate" : "Päättymisaika",
       "name" : "Nimi",
       "paymentCount" : "Määrä",
-      "paymentDate" : "Maksupäiväys"
+      "paymentDate" : "Maksupäiväys",
+      "startDate" : "Alkamisaika"
     }
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Kerta",
-    "PERIOD" : "Kausi"
+    "PERIODICAL" : "Kausi"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1408,6 +1567,10 @@
       "title" : "Käyttäjärekisteröinnit vuositasolla"
     }
   },
+  "TagGroupEnum" : {
+    "EVENT" : "Tapahtuma",
+    "USER" : "Käyttäjä"
+  },
   "TimezoneSelector" : {
     "select" : {
       "placeholder" : "Valitse aikavyöhyke"
@@ -1560,10 +1723,6 @@
     "scuba_diver" : "Laitesukellus",
     "snorkler" : "Snorklaus"
   },
-  "TagGroupEnum" : {
-    "USER" : "Käyttäjä",
-    "EVENT" : "Tapahtuma"
-  },
   "common" : {
     "button" : {
       "add" : "Lisää",
@@ -1637,142 +1796,6 @@
       "anonymized" : "Anonyymisoitu",
       "locked" : "Lukittu",
       "registered" : "Rekisteröity"
-    }
-  },
-  "AdminTagGroups" : {
-    "button" : {
-      "add-group" : "Lisää tunnisteryhmä",
-      "refresh" : "Päivitä"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Koodi",
-        "placeholder" : "ryhmäkoodi",
-        "rule" : {
-          "required" : "Koodi on pakollinen",
-          "max" : "Enintään 128 merkkiä"
-        }
-      },
-      "names" : {
-        "label" : "Nimet",
-        "add-language" : "Lisää kieli",
-        "lang" : {
-          "placeholder" : "fi",
-          "rule" : {
-            "required" : "Kieli on pakollinen"
-          }
-        },
-        "value" : {
-          "placeholder" : "Näyttönimi",
-          "rule" : {
-            "required" : "Nimi on pakollinen"
-          }
-        }
-      }
-    },
-    "load" : {
-      "fail" : "Tunnisteryhmien lataus epäonnistui"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Lisää tunnisteryhmä",
-        "edit" : "Muokkaa tunnisteryhmää"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Poistetaanko tunnisteryhmä?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tunnisteryhmä luotu",
-      "update-success" : "Tunnisteryhmä päivitetty",
-      "remove-success" : "Tunnisteryhmä poistettu",
-      "remove-fail" : "Tunnisteryhmän poistaminen epäonnistui",
-      "operation-fail" : "Toiminto epäonnistui"
-    },
-    "table" : {
-      "actions" : {
-        "edit" : "Muokkaa",
-        "title" : "Toiminnot"
-      },
-      "code" : "Koodi",
-      "names" : "Nimet"
-    }
-  },
-  "AdminTags" : {
-    "button" : {
-      "add-tag" : "Lisää tunniste",
-      "refresh" : "Päivitä"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Koodi",
-        "placeholder" : "yksilöllinen-koodi",
-        "rule" : {
-          "required" : "Koodi on pakollinen",
-          "max" : "Enintään 128 merkkiä"
-        }
-      },
-      "tagGroup" : {
-        "label" : "Tunnisteryhmä",
-        "placeholder" : "Valitse tunnisteryhmä",
-        "new-group" : "Uusi ryhmä"
-      },
-      "names" : {
-        "label" : "Nimet",
-        "add-language" : "Lisää kieli",
-        "lang" : {
-          "placeholder" : "fi",
-          "rule" : {
-            "required" : "Kieli on pakollinen"
-          }
-        },
-        "value" : {
-          "placeholder" : "Näyttönimi",
-          "rule" : {
-            "required" : "Nimi on pakollinen"
-          }
-        }
-      },
-      "group-code" : {
-        "placeholder" : "ryhmäkoodi"
-      }
-    },
-    "load" : {
-      "fail" : "Tunnisteiden lataus epäonnistui",
-      "groups-fail" : "Tunnisteryhmien lataus epäonnistui"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Lisää tunniste",
-        "edit" : "Muokkaa tunnistetta"
-      },
-      "group-title" : {
-        "add" : "Lisää tunnisteryhmä"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Poistetaanko tunniste?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tunniste luotu",
-      "update-success" : "Tunniste päivitetty",
-      "remove-success" : "Tunniste poistettu",
-      "remove-fail" : "Tunnisteen poistaminen epäonnistui",
-      "operation-fail" : "Toiminto epäonnistui",
-      "group-add-success" : "Tunnisteryhmä luotu",
-      "group-add-fail" : "Tunnisteryhmän luonti epäonnistui"
-    },
-    "table" : {
-      "code" : "Koodi",
-      "names" : "Nimet",
-      "actions" : {
-        "title" : "Toiminnot",
-        "edit" : "Muokkaa"
-      }
     }
   }
 }

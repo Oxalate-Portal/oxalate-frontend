@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Mitgliedschaft hinzufügen",
       "membershipDuration" : {
-        "label" : "Mitgliedschaftsdauer (Monate)"
+        "label" : "Mitgliedschaftsdauer"
       },
       "membershipType" : {
         "label" : "Mitgliedschaftstyp"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Zahlungsart"
+      },
+      "period" : {
+        "label" : "Zeitraum"
       }
     },
     "onFinish" : {
@@ -76,14 +79,30 @@
         "edit" : "Bearbeiten",
         "title" : "Aktion"
       },
-      "createdAt" : "Erstellt am",
-      "expiresAt" : "Ablaufzeit",
+      "created" : "Erstellt am",
+      "end-date" : "Ablaufzeit",
       "status" : "Status",
       "type" : "Typ",
       "userId" : "Benutzer-ID",
       "username" : "Benutzername"
     },
     "title" : "Mitgliedschaftsverwaltung"
+  },
+  "AdminMembership" : {
+    "form" : {
+      "membership-status" : "Mitgliedschaftsstatus",
+      "membership-type" : "Mitgliedschaftstyp",
+      "rule" : {
+        "membership-status" : "Bitte wählen Sie einen Mitgliedschaftsstatus",
+        "membership-type" : "Bitte wählen Sie einen Mitgliedschaftstyp"
+      }
+    },
+    "message" : {
+      "invalid-user-id" : "Ungültige Benutzer-ID",
+      "no-membership" : "Mitgliedschaftsdaten konnten nicht abgerufen werden",
+      "updated-fail" : "Aktualisierung der Mitgliedschaft fehlgeschlagen",
+      "updated-ok" : "Mitgliedschaft erfolgreich aktualisiert"
+    }
   },
   "AdminOrgUser" : {
     "form" : {
@@ -153,6 +172,142 @@
     "reset-one-time-button" : "Einmalzahlungen zurücksetzen",
     "reset-periodical-button" : "Periodische annullieren",
     "yearlyResetDivider" : "Annullierung der Gebühren"
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Schlagwortgruppe hinzufügen",
+      "refresh" : "Aktualisieren"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "gruppen-code",
+        "rule" : {
+          "max" : "Maximal 128 Zeichen",
+          "required" : "Code ist erforderlich"
+        }
+      },
+      "names" : {
+        "add-language" : "Sprache hinzufügen",
+        "label" : "Namen",
+        "lang" : {
+          "placeholder" : "de",
+          "rule" : {
+            "required" : "Sprache ist erforderlich"
+          }
+        },
+        "value" : {
+          "placeholder" : "Anzeigename",
+          "rule" : {
+            "required" : "Name ist erforderlich"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Fehler beim Laden der Schlagwortgruppen"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Schlagwortgruppe hinzufügen",
+        "edit" : "Schlagwortgruppe bearbeiten"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Schlagwortgruppe löschen?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Schlagwortgruppe erstellt",
+      "operation-fail" : "Vorgang fehlgeschlagen",
+      "remove-fail" : "Fehler beim Löschen der Schlagwortgruppe",
+      "remove-success" : "Schlagwortgruppe gelöscht",
+      "update-success" : "Schlagwortgruppe aktualisiert"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Bearbeiten",
+        "title" : "Aktionen"
+      },
+      "code" : "Code",
+      "names" : "Namen"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Tag hinzufügen",
+      "refresh" : "Aktualisieren"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Code",
+        "placeholder" : "eindeutiger-code",
+        "rule" : {
+          "max" : "Maximal 128 Zeichen",
+          "required" : "Code ist erforderlich"
+        }
+      },
+      "group-code" : {
+        "placeholder" : "gruppen-code"
+      },
+      "names" : {
+        "add-language" : "Sprache hinzufügen",
+        "label" : "Namen",
+        "lang" : {
+          "placeholder" : "de",
+          "rule" : {
+            "required" : "Sprache ist erforderlich"
+          }
+        },
+        "value" : {
+          "placeholder" : "Anzeigename",
+          "rule" : {
+            "required" : "Name ist erforderlich"
+          }
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tag-Gruppe",
+        "new-group" : "Neue Gruppe",
+        "placeholder" : "Tag-Gruppe auswählen"
+      }
+    },
+    "load" : {
+      "fail" : "Fehler beim Laden der Tags",
+      "groups-fail" : "Fehler beim Laden der Tag-Gruppen"
+    },
+    "modal" : {
+      "group-title" : {
+        "add" : "Tag-Gruppe hinzufügen"
+      },
+      "title" : {
+        "add" : "Tag hinzufügen",
+        "edit" : "Tag bearbeiten"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Tag löschen?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tag erstellt",
+      "group-add-fail" : "Fehler beim Erstellen der Tag-Gruppe",
+      "group-add-success" : "Tag-Gruppe erstellt",
+      "operation-fail" : "Operation fehlgeschlagen",
+      "remove-fail" : "Fehler beim Löschen des Tags",
+      "remove-success" : "Tag gelöscht",
+      "update-success" : "Tag aktualisiert"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Bearbeiten",
+        "title" : "Aktionen"
+      },
+      "code" : "Code",
+      "names" : "Namen"
+    }
   },
   "AdminUploads" : {
     "avatar" : {
@@ -378,6 +533,16 @@
   "CommentTypeEnum" : {
     "topic" : "Thema",
     "user_comment" : "Benutzerkommentar"
+  },
+  "DiveEvent" : {
+    "subscribe" : {
+      "button" : "Am Event teilnehmen",
+      "label" : "Am Event teilnehmen",
+      "mainText" : "Bitte füllen Sie Folgendes aus, um am Tauch-Event teilzunehmen"
+    },
+    "unsubscribe" : {
+      "button" : "Entferne dich von der Ereignis"
+    }
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Abgesagt",
@@ -699,16 +864,6 @@
   "EmailSubscriptionCard" : {
     "header" : "E-Mail erhalten, für:"
   },
-  "DiveEvent" : {
-    "subscribe" : {
-      "button" : "Am Event teilnehmen",
-      "label" : "Am Event teilnehmen",
-      "mainText" : "Bitte füllen Sie Folgendes aus, um am Tauch-Event teilzunehmen"
-    },
-    "unsubscribe" : {
-      "button" : "Entferne dich von der Ereignis"
-    }
-  },
   "EventDetails" : {
     "description" : {
       "title" : "Ereignisbeschreibung"
@@ -768,9 +923,10 @@
   },
   "FormMemberships" : {
     "table" : {
-      "created-at" : "Erstellt am",
-      "expires-at" : "Ablaufzeit",
+      "created" : "Erstellt",
+      "end-date" : "Startdatum",
       "id" : "ID",
+      "start-date" : "Enddatum",
       "status" : "Status",
       "type" : "Typ"
     }
@@ -778,13 +934,14 @@
   "FormatPayments" : {
     "noValid" : "Keine gültigen Zahlungen verfügbar.",
     "table" : {
-      "expirationDate" : "Ablaufzeit",
+      "created" : "Erstellt am",
+      "endDate" : "Ablaufzeit",
       "id" : "ID",
       "paymentCount" : "Anzahl",
       "paymentType" : "Zahlungstyp",
       "periodPayment" : "Periodische Zahlung",
       "singlePayment" : "Einmalzahlung",
-      "startDate" : "Erstellt am"
+      "startDate" : "Beginnen am"
     },
     "unknownPayment" : "Unbekannter Zahlungstyp",
     "unknownPaymentContact" : "Support kontaktieren",
@@ -885,9 +1042,9 @@
       "readFirst" : "Zuerst lesen",
       "stats" : "Statistiken",
       "tags" : {
-        "title" : "Schlagwörter",
         "tag-groups" : "Schlagwortgruppen",
-        "tag-list" : "Schlagwörter"
+        "tag-list" : "Schlagwörter",
+        "title" : "Schlagwörter"
       },
       "title" : "Verwaltung",
       "users" : "Benutzer"
@@ -1062,15 +1219,17 @@
   },
   "PaymentListTable" : {
     "table" : {
-      "expirationDate" : "Ablaufzeit",
+      "created" : "Erstellt",
+      "endDate" : "Endet am",
       "name" : "Name",
       "paymentCount" : "Anzahl",
-      "paymentDate" : "Zahlungsdatum"
+      "paymentDate" : "Zahlungstag",
+      "startDate" : "Beginnt"
     }
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Einmal",
-    "PERIOD" : "Periodische"
+    "PERIODICAL" : "Periodische"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1408,6 +1567,10 @@
       "title" : "Benutzerregistrierungen nach Jahr"
     }
   },
+  "TagGroupEnum" : {
+    "EVENT" : "Ereignis",
+    "USER" : "Benutzer"
+  },
   "TimezoneSelector" : {
     "select" : {
       "placeholder" : "Zeitzone auswählen"
@@ -1560,10 +1723,6 @@
     "scuba_diver" : "Gerätetauchen",
     "snorkler" : "Schnorcheln"
   },
-  "TagGroupEnum" : {
-    "USER" : "Benutzer",
-    "EVENT" : "Ereignis"
-  },
   "common" : {
     "button" : {
       "add" : "Hinzufügen",
@@ -1637,142 +1796,6 @@
       "anonymized" : "Anonymisiert",
       "locked" : "Gesperrt",
       "registered" : "Registriert"
-    }
-  },
-  "AdminTagGroups" : {
-    "button" : {
-      "add-group" : "Schlagwortgruppe hinzufügen",
-      "refresh" : "Aktualisieren"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Code",
-        "placeholder" : "gruppen-code",
-        "rule" : {
-          "required" : "Code ist erforderlich",
-          "max" : "Maximal 128 Zeichen"
-        }
-      },
-      "names" : {
-        "label" : "Namen",
-        "add-language" : "Sprache hinzufügen",
-        "lang" : {
-          "placeholder" : "de",
-          "rule" : {
-            "required" : "Sprache ist erforderlich"
-          }
-        },
-        "value" : {
-          "placeholder" : "Anzeigename",
-          "rule" : {
-            "required" : "Name ist erforderlich"
-          }
-        }
-      }
-    },
-    "load" : {
-      "fail" : "Fehler beim Laden der Schlagwortgruppen"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Schlagwortgruppe hinzufügen",
-        "edit" : "Schlagwortgruppe bearbeiten"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Schlagwortgruppe löschen?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Schlagwortgruppe erstellt",
-      "update-success" : "Schlagwortgruppe aktualisiert",
-      "remove-success" : "Schlagwortgruppe gelöscht",
-      "remove-fail" : "Fehler beim Löschen der Schlagwortgruppe",
-      "operation-fail" : "Vorgang fehlgeschlagen"
-    },
-    "table" : {
-      "actions" : {
-        "edit" : "Bearbeiten",
-        "title" : "Aktionen"
-      },
-      "code" : "Code",
-      "names" : "Namen"
-    }
-  },
-  "AdminTags" : {
-    "button" : {
-      "add-tag" : "Tag hinzufügen",
-      "refresh" : "Aktualisieren"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Code",
-        "placeholder" : "eindeutiger-code",
-        "rule" : {
-          "required" : "Code ist erforderlich",
-          "max" : "Maximal 128 Zeichen"
-        }
-      },
-      "tagGroup" : {
-        "label" : "Tag-Gruppe",
-        "placeholder" : "Tag-Gruppe auswählen",
-        "new-group" : "Neue Gruppe"
-      },
-      "names" : {
-        "label" : "Namen",
-        "add-language" : "Sprache hinzufügen",
-        "lang" : {
-          "placeholder" : "de",
-          "rule" : {
-            "required" : "Sprache ist erforderlich"
-          }
-        },
-        "value" : {
-          "placeholder" : "Anzeigename",
-          "rule" : {
-            "required" : "Name ist erforderlich"
-          }
-        }
-      },
-      "group-code" : {
-        "placeholder" : "gruppen-code"
-      }
-    },
-    "load" : {
-      "fail" : "Fehler beim Laden der Tags",
-      "groups-fail" : "Fehler beim Laden der Tag-Gruppen"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Tag hinzufügen",
-        "edit" : "Tag bearbeiten"
-      },
-      "group-title" : {
-        "add" : "Tag-Gruppe hinzufügen"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Tag löschen?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tag erstellt",
-      "update-success" : "Tag aktualisiert",
-      "remove-success" : "Tag gelöscht",
-      "remove-fail" : "Fehler beim Löschen des Tags",
-      "operation-fail" : "Operation fehlgeschlagen",
-      "group-add-success" : "Tag-Gruppe erstellt",
-      "group-add-fail" : "Fehler beim Erstellen der Tag-Gruppe"
-    },
-    "table" : {
-      "code" : "Code",
-      "names" : "Namen",
-      "actions" : {
-        "title" : "Aktionen",
-        "edit" : "Bearbeiten"
-      }
     }
   }
 }

@@ -6,4 +6,6 @@ export interface MembershipRequest {
     userId: number;
     status: MembershipStatusEnum;
     type: MembershipTypeEnum;
+    startDate: string | null;
+    endDate: string | null;
 }

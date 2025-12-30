@@ -21,6 +21,7 @@ interface SessionContextType {
     getPortalTimezone: () => string;
     getFrontendConfigurationValue: (key: string) => string;
     getPortalConfigurationValue: (groupKey: PortalConfigGroupEnum, settingKey: string) => string;
+    getPortalConfiguration: () => PortalConfigurationResponse[];
     loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
     logoutUser: () => void;
     refreshUserSession: (sessionVO: UserSessionToken) => void;
@@ -89,7 +90,7 @@ export function SessionProvider({children}: any) {
     }, [userKey, languageKey, organizationName, portalTimezone]);
 
     // Function to fetch portal configurations
-    const fetchPortalConfigurations = async (): Promise<ActionResultEnum> => {
+    async function fetchPortalConfigurations(): Promise<ActionResultEnum> {
         try {
             const configurations: PortalConfigurationResponse[] = await portalConfigurationAPI.findAllPortalConfigurations();
             setPortalConfiguration(configurations);
@@ -98,10 +99,10 @@ export function SessionProvider({children}: any) {
             console.error("Failed to load portal configurations", error);
             return ActionResultEnum.FAILURE;
         }
-    };
+    }
 
     // Function to handle user login
-    const loginUser = async (loginRequest: LoginRequest): Promise<LoginStatus> => {
+    async function loginUser(loginRequest: LoginRequest): Promise<LoginStatus> {
         try {
             const sessionVO = await authAPI.login(loginRequest);
             localStorage.setItem(userKey, JSON.stringify(sessionVO));
@@ -130,10 +131,10 @@ export function SessionProvider({children}: any) {
                 message: "Failed to log in user",
             };
         }
-    };
+    }
 
     // Function to handle logout
-    const logoutUser = () => {
+    function logoutUser(): void {
         authAPI.logout()
                 .then(() => {
                     console.debug("User logged out");
@@ -144,29 +145,27 @@ export function SessionProvider({children}: any) {
                 .finally(() => {
                     setUser(null);
                     localStorage.removeItem(userKey);
-                    console.debug("User has been logged out");
-                    // window.location.href = "/";
                 });
-    };
+    }
 
-    const setSessionLanguage = (language: string) => {
+    function setSessionLanguage(language: string): void {
         setLanguage(language);
         localStorage.setItem(languageKey, language);
-    };
+    }
 
-    const getSessionLanguage = () => {
+    function getSessionLanguage(): string {
         return language;
-    };
+    }
 
-    const getPortalTimezone = () => {
+    function getPortalTimezone(): string {
         return portalTimezone;
     }
 
-    const getFrontendConfigurationValue = (key: string): string => {
+    function getFrontendConfigurationValue(key: string): string {
         return frontendConfiguration.find((config) => config.key === key)?.value || "";
     }
 
-    const getPortalConfigurationValue = (groupKey: PortalConfigGroupEnum, settingKey: string): string => {
+    function getPortalConfigurationValue(groupKey: PortalConfigGroupEnum, settingKey: string): string {
         const config = portalConfiguration.find((config) => {
             return config.groupKey === groupKey.valueOf() && config.settingKey === settingKey;
         });
@@ -186,10 +185,14 @@ export function SessionProvider({children}: any) {
         return config.runtimeValue;
     }
 
-    const refreshUserSession = (sessionVO: UserSessionToken): void => {
+    function getPortalConfiguration(): PortalConfigurationResponse[] {
+        return portalConfiguration;
+    }
+
+    function refreshUserSession(sessionVO: UserSessionToken): void {
         localStorage.setItem(userKey, JSON.stringify(sessionVO));
         setUser(sessionVO);
-    };
+    }
 
     if (loading) {
         return <div>Loading...</div>;
@@ -205,6 +208,7 @@ export function SessionProvider({children}: any) {
         getPortalTimezone,
         getFrontendConfigurationValue,
         getPortalConfigurationValue,
+        getPortalConfiguration,
         loginUser,
         logoutUser,
         refreshUserSession

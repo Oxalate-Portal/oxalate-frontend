@@ -19,7 +19,7 @@ export function Payments() {
                     .then((result) => {
                         if (result) {
                             const event = new CustomEvent("paymentListUpdated", {
-                                detail: {paymentType: PaymentTypeEnum.PERIOD},
+                                detail: {paymentType: PaymentTypeEnum.PERIODICAL},
                             });
                             window.dispatchEvent(event);
                         }
@@ -36,17 +36,17 @@ export function Payments() {
     return (
             <div style={{width: "100%", justifyContent: "center"}} className={"darkDiv"}>
                 <Spin spinning={loading}>
-                    <Divider orientation="left">{t("AdminPayments.activeDivider")}</Divider>
+                    <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.activeDivider")}</Divider>
                     <ListPayments/>
-                    <Divider orientation="left">{t("AdminPayments.yearlyResetDivider")}</Divider>
+                    <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.yearlyResetDivider")}</Divider>
                     <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"}
-                                onClick={() => invalidatePayments(PaymentTypeEnum.PERIOD)}>{t("AdminPayments.reset-periodical-button")}</Button>
+                                onClick={() => invalidatePayments(PaymentTypeEnum.PERIODICAL)}>{t("AdminPayments.reset-periodical-button")}</Button>
                         {getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "single-payment-enabled") === "true" &&
                                 <Button danger={true} type={"primary"}
                                         onClick={() => invalidatePayments(PaymentTypeEnum.ONE_TIME)}>{t("AdminPayments.reset-one-time-button")}</Button>}
                     </Space>
-                    <Divider orientation="left">{t("AdminPayments.addPaymentsDivider")}</Divider>
+                    <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.addPaymentsDivider")}</Divider>
                     <AddPayments/>
                 </Spin>
             </div>
