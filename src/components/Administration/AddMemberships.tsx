@@ -114,7 +114,7 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
                     </Form.Item>
                     <Form.Item
                             name="dateRange"
-                            label={t("AddMemberships.form.start-date.label")}
+                            label={t("AddMemberships.form.membershipDuration.label")}
                             rules={[{required: true}]}
                     >
                         <RangePicker
