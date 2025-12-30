@@ -111,5 +111,65 @@ describe("DateTimeTool", () => {
             const {endDate} = getDefaultMembershipDates(getCfg);
             expect(endDate).toBeNull();
         });
+
+        it("computes yearly period with start point in January (length 1)", () => {
+            setNow("2025-12-30T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "YEARS",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "1",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-12-29",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {startDate, endDate} = getDefaultMembershipDates(getCfg);
+            expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-01-01");
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2026-01-01");
+        });
+
+        it("computes multi-year period anchored by membershipPeriodStart (length 2)", () => {
+            setNow("2025-12-30T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "YEARS",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "2",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "1",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-12-29",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {startDate, endDate} = getDefaultMembershipDates(getCfg);
+            expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-01-01");
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2027-01-01");
+        });
+
+        it("computes yearly period with May start point and length 3", () => {
+            setNow("2025-12-30T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "YEARS",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "3",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "5",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-04-25",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {startDate, endDate} = getDefaultMembershipDates(getCfg);
+            expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2024-05-01");
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2027-05-01");
+        });
+
+        it("computes monthly period starting day with length 3 months", () => {
+            setNow("2025-12-30T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "MONTHS",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "3",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "1",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-04-25",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {startDate, endDate} = getDefaultMembershipDates(getCfg);
+            expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-10-01");
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2026-01-01");
+        });
     });
 });

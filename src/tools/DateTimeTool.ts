@@ -93,24 +93,52 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     const now = dayjs().tz(timezoneId);
     const unitCounts = parseInt(membershipPeriodLength, 10);
     const periodStartPoint = parseInt(membershipPeriodStartPoint, 10);
-    const chronoUnit = (membershipPeriodUnit || "").toLowerCase() as dayjs.ManipulateType;
-    console.debug("Configured chronounit:", chronoUnit, "unitCounts:", unitCounts);
+    const chronoUnitRaw = (membershipPeriodUnit || "").toLowerCase();
+    const chronoUnit = chronoUnitRaw.endsWith("s")
+        ? (chronoUnitRaw.slice(0, -1) as dayjs.ManipulateType)
+        : (chronoUnitRaw as dayjs.ManipulateType);
+    console.debug("Configured chrono unit:", chronoUnit, "unitCounts:", unitCounts);
 
     if (membershipType === MembershipTypeEnum.DISABLED || membershipType === MembershipTypeEnum.PERPETUAL) {
         return {startDate: now, endDate: null};
     }
 
     if (membershipType === MembershipTypeEnum.PERIODICAL) {
-        let periodStart = dayjs(membershipPeriodStart).tz(timezoneId);
-        // Align to the current period
-        while (periodStart.add(unitCounts, chronoUnit).isBefore(now)) {
+        const anchor = dayjs(membershipPeriodStart).tz(timezoneId);
+        const clampDay = (y: number, m1: number, d: number) => {
+            const daysInMonth = dayjs(`${y}-${padTo2Digits(m1)}-01`).daysInMonth();
+            return d > daysInMonth ? daysInMonth : d;
+        };
+
+        let periodStart: Dayjs;
+
+        if (chronoUnit === "year") {
+            const startMonth = Math.max(1, Math.min(12, periodStartPoint || 1));
+            const candidateDay = 1;
+            const candidate = dayjs(`${anchor.year()}-${padTo2Digits(startMonth)}-${padTo2Digits(candidateDay)}`).tz(timezoneId);
+            periodStart = candidate.isAfter(anchor) ? candidate.subtract(1, "year") : candidate;
+        } else if (chronoUnit === "month") {
+            const startDay = Math.max(1, periodStartPoint || 1);
+            const clampedDay = clampDay(anchor.year(), anchor.month() + 1, startDay);
+            const candidate = dayjs(`${anchor.year()}-${padTo2Digits(anchor.month() + 1)}-${padTo2Digits(clampedDay)}`).tz(timezoneId);
+            periodStart = candidate.isAfter(anchor) ? candidate.subtract(1, "month") : candidate;
+        } else if (chronoUnit === "week") {
+            const startDow = Math.max(1, Math.min(7, periodStartPoint || 1));
+            const candidate = anchor.startOf("week").add(startDow - 1, "day").tz(timezoneId);
+            periodStart = candidate.isAfter(anchor) ? candidate.subtract(1, "week") : candidate;
+        } else {
+            // Fallback: treat as generic unit from anchor
+            periodStart = anchor;
+        }
+
+        // Move forward in full periods until now is within [periodStart, periodStart+length)
+        while (periodStart.add(unitCounts, chronoUnit).isBefore(now) || periodStart.add(unitCounts, chronoUnit).isSame(now)) {
             periodStart = periodStart.add(unitCounts, chronoUnit);
         }
-        // Respect configured start point offset if any
-        const adjustedStart = periodStart.add(periodStartPoint || 0, chronoUnit);
-        const endDate = adjustedStart.add(unitCounts, chronoUnit);
-        console.debug("Periodical membership type for default dates", adjustedStart);
-        return {startDate: now, endDate};
+
+        console.debug("Adding unitCounts:", unitCounts, "of chronoUnit:", chronoUnit, "to periodStart:", periodStart.format(), "to get endDate");
+        const endDate = periodStart.add(unitCounts, chronoUnit);
+        return {startDate: periodStart, endDate};
     }
 
     if (membershipType === MembershipTypeEnum.DURATIONAL) {
