@@ -132,12 +132,16 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
         }
 
         // Move forward in full periods until now is within [periodStart, periodStart+length)
-        while (periodStart.add(unitCounts, chronoUnit).isBefore(now) || periodStart.add(unitCounts, chronoUnit).isSame(now)) {
-            periodStart = periodStart.add(unitCounts, chronoUnit);
+        while (true) {
+            const endCandidate = periodStart.add(unitCounts, chronoUnit);
+            if (endCandidate.isAfter(now) || endCandidate.isSame(now)) {
+                break;
+            }
+            periodStart = endCandidate;
         }
 
-        console.debug("Adding unitCounts:", unitCounts, "of chronoUnit:", chronoUnit, "to periodStart:", periodStart.format(), "to get endDate");
-        const endDate = periodStart.add(unitCounts, chronoUnit);
+        // Normalize to midnight in the configured timezone to avoid DST shifting the calendar day
+        const endDate = dayjs.tz(periodStart.add(unitCounts, chronoUnit).format("YYYY-MM-DD"), timezoneId);
         return {startDate: periodStart, endDate};
     }
 
