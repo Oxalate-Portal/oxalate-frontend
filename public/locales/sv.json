@@ -85,6 +85,22 @@
     },
     "title" : "Medlemskapshantering"
   },
+  "AdminMembership" : {
+    "form" : {
+      "membership-status" : "Medlemskapsstatus",
+      "membership-type" : "Medlemstyp",
+      "rule" : {
+        "membership-status" : "Välj en medlemskapsstatus",
+        "membership-type" : "Välj en medlemstyp"
+      }
+    },
+    "message" : {
+      "invalid-user-id" : "Ogiltigt användar-ID",
+      "no-membership" : "Det gick inte att hämta medlemskapsdata",
+      "updated-fail" : "Misslyckades med att uppdatera medlemskap",
+      "updated-ok" : "Medlemskap uppdaterat"
+    }
+  },
   "AdminOrgUser" : {
     "form" : {
       "button" : {
@@ -153,6 +169,142 @@
     "reset-one-time-button" : "Ogilförklara engångsbetalningar",
     "reset-periodical-button" : "Ogiltigförklara periodbetalningar",
     "yearlyResetDivider" : "Ogiltigförklara betalningar"
+  },
+  "AdminTagGroups" : {
+    "button" : {
+      "add-group" : "Lägg till tagggrupp",
+      "refresh" : "Uppdatera"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Kod",
+        "placeholder" : "gruppkod",
+        "rule" : {
+          "max" : "Max 128 tecken",
+          "required" : "Kod är obligatorisk"
+        }
+      },
+      "names" : {
+        "add-language" : "Lägg till språk",
+        "label" : "Namn",
+        "lang" : {
+          "placeholder" : "sv",
+          "rule" : {
+            "required" : "Språk är obligatoriskt"
+          }
+        },
+        "value" : {
+          "placeholder" : "Visningsnamn",
+          "rule" : {
+            "required" : "Namn är obligatoriskt"
+          }
+        }
+      }
+    },
+    "load" : {
+      "fail" : "Misslyckades med att läsa in tagggrupper"
+    },
+    "modal" : {
+      "title" : {
+        "add" : "Lägg till tagggrupp",
+        "edit" : "Redigera tagggrupp"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Ta bort tagggrupp?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tagggrupp skapad",
+      "operation-fail" : "Åtgärden misslyckades",
+      "remove-fail" : "Misslyckades med att ta bort tagggrupp",
+      "remove-success" : "Tagggrupp borttagen",
+      "update-success" : "Tagggrupp uppdaterad"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Redigera",
+        "title" : "Åtgärder"
+      },
+      "code" : "Kod",
+      "names" : "Namn"
+    }
+  },
+  "AdminTags" : {
+    "button" : {
+      "add-tag" : "Lägg till tagg",
+      "refresh" : "Uppdatera"
+    },
+    "form" : {
+      "code" : {
+        "label" : "Kod",
+        "placeholder" : "unik-kod",
+        "rule" : {
+          "max" : "Max 128 tecken",
+          "required" : "Kod är obligatorisk"
+        }
+      },
+      "group-code" : {
+        "placeholder" : "gruppkod"
+      },
+      "names" : {
+        "add-language" : "Lägg till språk",
+        "label" : "Namn",
+        "lang" : {
+          "placeholder" : "sv",
+          "rule" : {
+            "required" : "Språk är obligatoriskt"
+          }
+        },
+        "value" : {
+          "placeholder" : "Visningsnamn",
+          "rule" : {
+            "required" : "Namn är obligatoriskt"
+          }
+        }
+      },
+      "tagGroup" : {
+        "label" : "Tagggrupp",
+        "new-group" : "Ny grupp",
+        "placeholder" : "Välj en tagggrupp"
+      }
+    },
+    "load" : {
+      "fail" : "Misslyckades med att läsa in taggar",
+      "groups-fail" : "Misslyckades med att läsa in tagggrupper"
+    },
+    "modal" : {
+      "group-title" : {
+        "add" : "Lägg till tagggrupp"
+      },
+      "title" : {
+        "add" : "Lägg till tagg",
+        "edit" : "Redigera tagg"
+      }
+    },
+    "popconfirm" : {
+      "delete" : {
+        "title" : "Ta bort tagg?"
+      }
+    },
+    "popup" : {
+      "add-success" : "Tagg skapad",
+      "group-add-fail" : "Misslyckades med att skapa tagggrupp",
+      "group-add-success" : "Tagggrupp skapad",
+      "operation-fail" : "Åtgärden misslyckades",
+      "remove-fail" : "Misslyckades med att ta bort tagg",
+      "remove-success" : "Tagg borttagen",
+      "update-success" : "Tagg uppdaterad"
+    },
+    "table" : {
+      "actions" : {
+        "edit" : "Redigera",
+        "title" : "Åtgärder"
+      },
+      "code" : "Kod",
+      "names" : "Namn"
+    }
   },
   "AdminUploads" : {
     "avatar" : {
@@ -378,6 +530,16 @@
   "CommentTypeEnum" : {
     "topic" : "Ämne",
     "user_comment" : "Användarkommentar"
+  },
+  "DiveEvent" : {
+    "subscribe" : {
+      "button" : "Delta i evenemanget",
+      "label" : "Delta i evenemanget",
+      "mainText" : "Vänligen fyll i följande för att delta i dyk-evenemanget"
+    },
+    "unsubscribe" : {
+      "button" : "Delta icke i evenemanget"
+    }
   },
   "DiveEventStatusEnum" : {
     "cancelled" : "Inställt",
@@ -699,16 +861,6 @@
   "EmailSubscriptionCard" : {
     "header" : "Mottag e-postmeddelanden då:"
   },
-  "DiveEvent" : {
-    "subscribe" : {
-      "button" : "Delta i evenemanget",
-      "label" : "Delta i evenemanget",
-      "mainText" : "Vänligen fyll i följande för att delta i dyk-evenemanget"
-    },
-    "unsubscribe" : {
-      "button" : "Delta icke i evenemanget"
-    }
-  },
   "EventDetails" : {
     "description" : {
       "title" : "Evenemangsbeskrivning"
@@ -887,9 +1039,9 @@
       "readFirst" : "Läs först",
       "stats" : "Statistik",
       "tags" : {
-        "title" : "Taggar",
         "tag-groups" : "Tagggrupper",
-        "tag-list" : "Taggar"
+        "tag-list" : "Taggar",
+        "title" : "Taggar"
       },
       "title" : "Administration",
       "users" : "Användare"
@@ -1412,6 +1564,10 @@
       "title" : "Användarregistreringar per år"
     }
   },
+  "TagGroupEnum" : {
+    "EVENT" : "Evenemang",
+    "USER" : "Användare"
+  },
   "TimezoneSelector" : {
     "select" : {
       "placeholder" : "Välj tidzon"
@@ -1564,10 +1720,6 @@
     "scuba_diver" : "Apparatdykning",
     "snorkler" : "Snorkling"
   },
-  "TagGroupEnum" : {
-    "USER" : "Användare",
-    "EVENT" : "Evenemang"
-  },
   "common" : {
     "button" : {
       "add" : "Lägg till",
@@ -1641,142 +1793,6 @@
       "anonymized" : "Anonymiserad",
       "locked" : "Låst",
       "registered" : "Registrerad"
-    }
-  },
-  "AdminTagGroups" : {
-    "button" : {
-      "add-group" : "Lägg till tagggrupp",
-      "refresh" : "Uppdatera"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Kod",
-        "placeholder" : "gruppkod",
-        "rule" : {
-          "required" : "Kod är obligatorisk",
-          "max" : "Max 128 tecken"
-        }
-      },
-      "names" : {
-        "label" : "Namn",
-        "add-language" : "Lägg till språk",
-        "lang" : {
-          "placeholder" : "sv",
-          "rule" : {
-            "required" : "Språk är obligatoriskt"
-          }
-        },
-        "value" : {
-          "placeholder" : "Visningsnamn",
-          "rule" : {
-            "required" : "Namn är obligatoriskt"
-          }
-        }
-      }
-    },
-    "load" : {
-      "fail" : "Misslyckades med att läsa in tagggrupper"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Lägg till tagggrupp",
-        "edit" : "Redigera tagggrupp"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Ta bort tagggrupp?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tagggrupp skapad",
-      "update-success" : "Tagggrupp uppdaterad",
-      "remove-success" : "Tagggrupp borttagen",
-      "remove-fail" : "Misslyckades med att ta bort tagggrupp",
-      "operation-fail" : "Åtgärden misslyckades"
-    },
-    "table" : {
-      "actions" : {
-        "edit" : "Redigera",
-        "title" : "Åtgärder"
-      },
-      "code" : "Kod",
-      "names" : "Namn"
-    }
-  },
-  "AdminTags" : {
-    "button" : {
-      "add-tag" : "Lägg till tagg",
-      "refresh" : "Uppdatera"
-    },
-    "form" : {
-      "code" : {
-        "label" : "Kod",
-        "placeholder" : "unik-kod",
-        "rule" : {
-          "required" : "Kod är obligatorisk",
-          "max" : "Max 128 tecken"
-        }
-      },
-      "tagGroup" : {
-        "label" : "Tagggrupp",
-        "placeholder" : "Välj en tagggrupp",
-        "new-group" : "Ny grupp"
-      },
-      "names" : {
-        "label" : "Namn",
-        "add-language" : "Lägg till språk",
-        "lang" : {
-          "placeholder" : "sv",
-          "rule" : {
-            "required" : "Språk är obligatoriskt"
-          }
-        },
-        "value" : {
-          "placeholder" : "Visningsnamn",
-          "rule" : {
-            "required" : "Namn är obligatoriskt"
-          }
-        }
-      },
-      "group-code" : {
-        "placeholder" : "gruppkod"
-      }
-    },
-    "load" : {
-      "fail" : "Misslyckades med att läsa in taggar",
-      "groups-fail" : "Misslyckades med att läsa in tagggrupper"
-    },
-    "modal" : {
-      "title" : {
-        "add" : "Lägg till tagg",
-        "edit" : "Redigera tagg"
-      },
-      "group-title" : {
-        "add" : "Lägg till tagggrupp"
-      }
-    },
-    "popconfirm" : {
-      "delete" : {
-        "title" : "Ta bort tagg?"
-      }
-    },
-    "popup" : {
-      "add-success" : "Tagg skapad",
-      "update-success" : "Tagg uppdaterad",
-      "remove-success" : "Tagg borttagen",
-      "remove-fail" : "Misslyckades med att ta bort tagg",
-      "operation-fail" : "Åtgärden misslyckades",
-      "group-add-success" : "Tagggrupp skapad",
-      "group-add-fail" : "Misslyckades med att skapa tagggrupp"
-    },
-    "table" : {
-      "code" : "Kod",
-      "names" : "Namn",
-      "actions" : {
-        "title" : "Åtgärder",
-        "edit" : "Redigera"
-      }
     }
   }
 }
