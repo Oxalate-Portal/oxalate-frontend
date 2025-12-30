@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Lägg till medlemskap",
       "membershipDuration" : {
-        "label" : "Medlemskapslängd (månader)"
+        "label" : "Medlemskapslängd"
       },
       "membershipType" : {
         "label" : "Medlemstyp"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Betaltyp"
+      },
+      "period" : {
+        "label" : "Period"
       }
     },
     "onFinish" : {
@@ -1226,7 +1229,7 @@
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Engångs",
-    "PERIOD" : "Period"
+    "PERIODICAL" : "Period"
   },
   "PortalConfigurations" : {
     "button" : {

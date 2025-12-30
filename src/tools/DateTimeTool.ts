@@ -82,7 +82,7 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-    console.debug("The configuration values are:", {
+    console.debug("The membership configuration values are:", {
         periodType,
         periodUnit,
         periodStartPoint,
@@ -104,7 +104,29 @@ function getDefaultPeriodPaymentDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-    console.debug("The configuration values are:", {
+    console.debug("The period payment configuration values are:", {
+        periodType,
+        periodUnit,
+        periodStartPoint,
+        periodStart,
+        periodLength,
+        timezoneId
+    });
+
+    return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
+}
+
+function getDefaultOneTimePaymentDates(getPortalConfigurationValue: (
+    groupKey: PortalConfigGroupEnum,
+    settingKey: string
+) => string): { startDate: Dayjs, endDate: Dayjs | null } {
+    const periodType: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type");
+    const periodUnit: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-unit");
+    const periodStartPoint: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start-point");
+    const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
+    const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-length");
+    const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
+    console.debug("The one-time payment configuration values are:", {
         periodType,
         periodUnit,
         periodStartPoint,
@@ -208,11 +230,11 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
             endDate = startDate.add(unitCounts, chronoUnit);
         }
 
-        console.debug("Durational membership type for default dates");
+        console.debug("Durational period type for default dates");
         return {startDate, endDate};
     }
 
-    console.debug("Unknown membership type for default dates:", periodType);
+    console.debug("Unknown period type for default dates:", periodType);
     return {startDate: now, endDate: now};
 }
 
@@ -222,5 +244,6 @@ export {
     localToUTCDatetime,
     formatDateTimeWithMs,
     getDefaultMembershipDates,
-    getDefaultPeriodPaymentDates
+    getDefaultPeriodPaymentDates,
+    getDefaultOneTimePaymentDates
 };

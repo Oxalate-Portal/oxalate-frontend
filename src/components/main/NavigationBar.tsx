@@ -296,7 +296,10 @@ export function NavigationBar() {
 
             pageAPI.getNavigationItems(language)
                     .then(navElements => {
-                        setNavigationElements(JSON.parse(JSON.stringify(navElements)));
+                        console.debug("Received navigation elements: ", navElements);
+                        if (navElements && navElements.length > 0) {
+                            setNavigationElements(JSON.parse(JSON.stringify(navElements)));
+                        }
                         window.addEventListener("reloadNavigationEvent", fetchPaths);
                     })
                     .catch(e => {

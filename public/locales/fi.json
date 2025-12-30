@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Lisää jäsenyys",
       "membershipDuration" : {
-        "label" : "Jäsenyyden kesto (kuukautta)"
+        "label" : "Jäsenyyden kesto"
       },
       "membershipType" : {
         "label" : "Jäsenyyden tyyppi"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Maksutyyppi"
+      },
+      "period" : {
+        "label" : "Aikaväli"
       }
     },
     "onFinish" : {
@@ -1226,7 +1229,7 @@
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Kerta",
-    "PERIOD" : "Kausi"
+    "PERIODICAL" : "Kausi"
   },
   "PortalConfigurations" : {
     "button" : {

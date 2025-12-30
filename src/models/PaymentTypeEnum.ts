@@ -1,7 +1,8 @@
 export const PaymentTypeEnum = {
-    PERIOD: "PERIOD",
+    PERIODICAL: "PERIODICAL",
     ONE_TIME: "ONE_TIME",
-    DISABLED: "DISABLED"
+    DISABLED: "DISABLED",
+    NONE: "NONE"
 } as const;
 
 export type PaymentTypeEnum = typeof PaymentTypeEnum[keyof typeof PaymentTypeEnum];

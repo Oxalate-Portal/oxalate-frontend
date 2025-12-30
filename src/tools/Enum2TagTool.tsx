@@ -142,7 +142,7 @@ export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordI
     const label = t("PaymentTypeEnum." + type);
 
     switch(type) {
-        case PaymentTypeEnum.PERIOD:
+        case PaymentTypeEnum.PERIODICAL:
             color = "green";
             break;
         case PaymentTypeEnum.ONE_TIME:

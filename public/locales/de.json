@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Mitgliedschaft hinzufügen",
       "membershipDuration" : {
-        "label" : "Mitgliedschaftsdauer (Monate)"
+        "label" : "Mitgliedschaftsdauer"
       },
       "membershipType" : {
         "label" : "Mitgliedschaftstyp"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Zahlungsart"
+      },
+      "period" : {
+        "label" : "Zeitraum"
       }
     },
     "onFinish" : {
@@ -1226,7 +1229,7 @@
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Einmal",
-    "PERIOD" : "Periodische"
+    "PERIODICAL" : "Periodische"
   },
   "PortalConfigurations" : {
     "button" : {

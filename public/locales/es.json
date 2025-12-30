@@ -14,7 +14,7 @@
     "form" : {
       "button" : "Agregar membresía",
       "membershipDuration" : {
-        "label" : "Duración de la membresía (meses)"
+        "label" : "Duración de la membresía"
       },
       "membershipType" : {
         "label" : "Tipo de membresía"
@@ -41,6 +41,9 @@
       },
       "paymentType" : {
         "label" : "Tipo de pago"
+      },
+      "period" : {
+        "label" : "Período"
       }
     },
     "onFinish" : {
@@ -1226,7 +1229,7 @@
   },
   "PaymentTypeEnum" : {
     "ONE_TIME" : "Único",
-    "PERIOD" : "Periódico"
+    "PERIODICAL" : "Periódico"
   },
   "PortalConfigurations" : {
     "button" : {
