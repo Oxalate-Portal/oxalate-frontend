@@ -166,7 +166,6 @@ export function EditPage() {
         setLoading(true);
 
         if (createNewPage) {
-            console.debug("Creating new page:", formData);
             pageMgmtAPI.create(formData)
                     .then((response: PageResponse) => {
                         // If we get back an ID, we assume the creation was successful

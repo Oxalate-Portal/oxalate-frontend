@@ -296,7 +296,6 @@ export function NavigationBar() {
 
             pageAPI.getNavigationItems(language)
                     .then(navElements => {
-                        console.debug("Received navigation elements: ", navElements);
                         if (navElements && navElements.length > 0) {
                             setNavigationElements(JSON.parse(JSON.stringify(navElements)));
                         }

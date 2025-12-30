@@ -127,7 +127,6 @@ export function AdminTags() {
     const handleSubmit = (_submitData: any) => {
         form.validateFields()
                 .then((values: { code: string; names: NameKV[]; tagGroupId?: number }) => {
-                    console.log("Values", values);
                     setSubmitting(true);
                     const payload: TagRequest = {
                         id: editing?.id ?? 0,

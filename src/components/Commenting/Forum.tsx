@@ -47,7 +47,6 @@ export function Forum() {
     // Recursive render for comments
     const renderComments = (parentId: number) => {
         if (!groupedComments[parentId]) {
-            console.log("No comments found for parentId:", parentId);
             return null;
         }
 

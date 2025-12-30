@@ -82,14 +82,6 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-    console.debug("The membership configuration values are:", {
-        periodType,
-        periodUnit,
-        periodStartPoint,
-        periodStart,
-        periodLength,
-        timezoneId
-    });
 
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
@@ -104,14 +96,6 @@ function getDefaultPeriodPaymentDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-    console.debug("The period payment configuration values are:", {
-        periodType,
-        periodUnit,
-        periodStartPoint,
-        periodStart,
-        periodLength,
-        timezoneId
-    });
 
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
@@ -126,14 +110,6 @@ function getDefaultOneTimePaymentDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-    console.debug("The one-time payment configuration values are:", {
-        periodType,
-        periodUnit,
-        periodStartPoint,
-        periodStart,
-        periodLength,
-        timezoneId
-    });
 
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
@@ -146,8 +122,6 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
     const chronoUnit = chronoUnitRaw.endsWith("s")
         ? (chronoUnitRaw.slice(0, -1) as dayjs.ManipulateType)
         : (chronoUnitRaw as dayjs.ManipulateType);
-
-    console.debug("Configured chrono unit:", chronoUnit, "unitCounts:", unitCounts);
 
     // The string values are the same for both MembershipTypeEnum and PaymentTypeEnum
     if (periodType === MembershipTypeEnum.DISABLED || periodType === MembershipTypeEnum.PERPETUAL) {
@@ -230,11 +204,9 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
             endDate = startDate.add(unitCounts, chronoUnit);
         }
 
-        console.debug("Durational period type for default dates");
         return {startDate, endDate};
     }
 
-    console.debug("Unknown period type for default dates:", periodType);
     return {startDate: now, endDate: now};
 }
 

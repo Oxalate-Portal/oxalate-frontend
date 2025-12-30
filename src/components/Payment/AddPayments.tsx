@@ -81,11 +81,9 @@ export function AddPayments() {
         setPaymentType(value);
 
         if (value === PaymentTypeEnum.PERIODICAL) {
-            console.debug("Setting selected default period to period payment period");
             setSelectedDefaultPeriod(defaultPeriodPaymentPeriod);
             setPaymentExpirationType(periodExpirationType);
         } else if (value === PaymentTypeEnum.ONE_TIME) {
-            console.debug("Setting selected default period to one-time payment period");
             setSelectedDefaultPeriod(defaultOneTimePaymentPeriod);
             setPaymentExpirationType(oneTimeExpirationType);
         }
@@ -114,8 +112,6 @@ export function AddPayments() {
             startDate: start ? start.format("YYYY-MM-DD") : fallbackStart,
             endDate: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : (end ? end.format("YYYY-MM-DD") : fallbackEnd)
         };
-
-        console.debug("Post data for new payments: ", postData);
 
         const userPromises = values.userIdList.map((userId) =>
                 paymentAPI.create({...postData, userId})

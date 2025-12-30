@@ -118,7 +118,7 @@ describe("Enum2TagTool", () => {
 
     describe("paymentTypeEnum2Tag", () => {
         const cases: Array<[PaymentTypeEnum, string]> = [
-            [PaymentTypeEnum.PERIOD, "green"],
+            [PaymentTypeEnum.PERIODICAL, "green"],
             [PaymentTypeEnum.ONE_TIME, "blue"],
             [PaymentTypeEnum.NONE, "red"]
         ];
