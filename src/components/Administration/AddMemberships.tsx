@@ -25,10 +25,11 @@ const {RangePicker} = DatePicker;
 export function AddMemberships({membershipList, onMembershipAdded}: AddMembershipsProps) {
     const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
-
+    const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone");
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
-    const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs } = getDefaultMembershipDates(getPortalConfigurationValue);
+    const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs | null } = getDefaultMembershipDates(getPortalConfigurationValue);
+    console.debug("Default membership period:", defaultMembershipPeriod.startDate.tz(timezoneId).format("YYYY-MM-DD"), "to", defaultMembershipPeriod.endDate ? defaultMembershipPeriod.endDate.tz(timezoneId).format("YYYY-MM-DD") : "null");
 
     if (membershipType === MembershipTypeEnum.DISABLED) {
         return <span>{t("AddMemberships.disabled")}</span>;

@@ -82,11 +82,19 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     const membershipPeriodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start");
     const membershipPeriodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-
+    console.debug("The configuration values are:", {
+        membershipType,
+        membershipPeriodUnit,
+        membershipPeriodStartPoint,
+        membershipPeriodStart,
+        membershipPeriodLength,
+        timezoneId
+    });
     const now = dayjs().tz(timezoneId);
     const unitCounts = parseInt(membershipPeriodLength, 10);
     const periodStartPoint = parseInt(membershipPeriodStartPoint, 10);
     const chronoUnit = (membershipPeriodUnit || "").toLowerCase() as dayjs.ManipulateType;
+    console.debug("Configured chronounit:", chronoUnit, "unitCounts:", unitCounts);
 
     if (membershipType === MembershipTypeEnum.DISABLED || membershipType === MembershipTypeEnum.PERPETUAL) {
         return {startDate: now, endDate: null};
@@ -101,6 +109,7 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
         // Respect configured start point offset if any
         const adjustedStart = periodStart.add(periodStartPoint || 0, chronoUnit);
         const endDate = adjustedStart.add(unitCounts, chronoUnit);
+        console.debug("Periodical membership type for default dates", adjustedStart);
         return {startDate: now, endDate};
     }
 
@@ -138,9 +147,11 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
             endDate = startDate.add(unitCounts, chronoUnit);
         }
 
+        console.debug("Durational membership type for default dates");
         return {startDate, endDate};
     }
 
+    console.debug("Unknown membership type for default dates:", membershipType);
     return {startDate: now, endDate: now};
 }
 

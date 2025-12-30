@@ -58,6 +58,18 @@ describe("DateTimeTool", () => {
             jest.useRealTimers();
         });
 
+        it("handles year periodical month from Feb to last of Dec", () => {
+            setNow("2024-02-15T12:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "YEARS",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+            });
+            const {endDate} = getDefaultMembershipDates(getCfg);
+            expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-01-01");
+        });
+
         it("handles durational month from 31st into shorter month", () => {
             setNow("2023-01-31T12:00:00Z");
             const getCfg = makeConfig({
