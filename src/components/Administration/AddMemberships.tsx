@@ -16,11 +16,9 @@ const {RangePicker} = DatePicker;
 export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
-    const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone");
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
     const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs | null } = getDefaultMembershipDates(getPortalConfigurationValue);
-    console.debug("Default membership period:", defaultMembershipPeriod.startDate.tz(timezoneId).format("YYYY-MM-DD"), "to", defaultMembershipPeriod.endDate ? defaultMembershipPeriod.endDate.tz(timezoneId).format("YYYY-MM-DD") : "null");
 
     if (membershipType === MembershipTypeEnum.DISABLED) {
         return <span>{t("AddMemberships.disabled")}</span>;
@@ -52,7 +50,6 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
         setLoading(true);
 
         const [start, end] = values.dateRange || [];
-        console.debug("Selected start and end dates:", start?.format("YYYY-MM-DD"), end?.format("YYYY-MM-DD"));
         const fallbackStart = defaultMembershipPeriod.startDate?.format("YYYY-MM-DD") || null;
         const fallbackEnd = defaultMembershipPeriod.endDate?.format("YYYY-MM-DD") || null;
         const postData: MembershipRequest = {
@@ -107,11 +104,10 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
                                 fieldNames={{label: "name", value: "id"}}
                                 labelInValue={false}
                                 mode="multiple"
-                                optionFilterProp={"name"}
                                 optionLabelProp={"name"}
                                 options={users.map((item) => ({id: item.id, name: item.name + " (" + item.id + ")"}))}
                                 placeholder={t("AddMemberships.form.name.placeholder")}
-                                showSearch={true}
+                                showSearch={{optionFilterProp: "name"}}
                                 style={{width: "100%"}}
                                 value={users}
                         />

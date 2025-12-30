@@ -5,6 +5,6 @@ export interface PaymentRequest {
     userId: number;
     paymentType: PaymentTypeEnum;
     paymentCount: number;
-    startDate: Date;
-    endDate: Date;
+    startDate: string;
+    endDate: string | null;
 }

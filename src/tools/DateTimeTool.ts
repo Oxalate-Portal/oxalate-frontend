@@ -76,41 +76,64 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     groupKey: PortalConfigGroupEnum,
     settingKey: string
 ) => string): { startDate: Dayjs, endDate: Dayjs | null } {
-    const membershipType: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
-    const membershipPeriodUnit: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-unit");
-    const membershipPeriodStartPoint: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start-point");
-    const membershipPeriodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start");
-    const membershipPeriodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
+    const periodType: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
+    const periodUnit: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-unit");
+    const periodStartPoint: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start-point");
+    const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-start");
+    const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
     console.debug("The configuration values are:", {
-        membershipType,
-        membershipPeriodUnit,
-        membershipPeriodStartPoint,
-        membershipPeriodStart,
-        membershipPeriodLength,
+        periodType,
+        periodUnit,
+        periodStartPoint,
+        periodStart,
+        periodLength,
         timezoneId
     });
-    const unitCounts = parseInt(membershipPeriodLength, 10);
-    const periodStartPoint = parseInt(membershipPeriodStartPoint, 10);
-    const chronoUnitRaw = (membershipPeriodUnit || "").toLowerCase();
+
+    return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
+}
+
+function getDefaultPeriodPaymentDates(getPortalConfigurationValue: (
+    groupKey: PortalConfigGroupEnum,
+    settingKey: string
+) => string): { startDate: Dayjs, endDate: Dayjs | null } {
+    const periodType: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "periodical-payment-method-type");
+    const periodUnit: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "periodical-payment-method-unit");
+    const periodStartPoint: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start-point");
+    const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
+    const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-length");
+    const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
+    console.debug("The configuration values are:", {
+        periodType,
+        periodUnit,
+        periodStartPoint,
+        periodStart,
+        periodLength,
+        timezoneId
+    });
+
+    return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
+}
+
+function calculatePeriod(periodUnit: string, periodLength: string, periodType: string, periodStartString: string, timezoneId: string, periodStartPointString: string) {
+    const now = dayjs().tz(timezoneId);
+    const unitCounts = parseInt(periodLength, 10);
+    const periodStartPoint = parseInt(periodStartPointString, 10);
+    const chronoUnitRaw = (periodUnit || "").toLowerCase();
     const chronoUnit = chronoUnitRaw.endsWith("s")
         ? (chronoUnitRaw.slice(0, -1) as dayjs.ManipulateType)
         : (chronoUnitRaw as dayjs.ManipulateType);
 
-    return calculatePeriod(chronoUnit, unitCounts, membershipType, membershipPeriodStart, timezoneId, periodStartPoint);
-}
-
-function calculatePeriod(chronoUnit: dayjs.ManipulateType, unitCounts: number, membershipType: string, membershipPeriodStart: string, timezoneId: string, periodStartPoint: number) {
-    const now = dayjs().tz(timezoneId);
-
     console.debug("Configured chrono unit:", chronoUnit, "unitCounts:", unitCounts);
 
-    if (membershipType === MembershipTypeEnum.DISABLED || membershipType === MembershipTypeEnum.PERPETUAL) {
+    // The string values are the same for both MembershipTypeEnum and PaymentTypeEnum
+    if (periodType === MembershipTypeEnum.DISABLED || periodType === MembershipTypeEnum.PERPETUAL) {
         return {startDate: now, endDate: null};
     }
 
-    if (membershipType === MembershipTypeEnum.PERIODICAL) {
-        const anchor = dayjs(membershipPeriodStart).tz(timezoneId);
+    if (periodType === MembershipTypeEnum.PERIODICAL) {
+        const anchor = dayjs(periodStartString).tz(timezoneId);
         const clampDay = (y: number, m1: number, d: number) => {
             const daysInMonth = dayjs(`${y}-${padTo2Digits(m1)}-01`).daysInMonth();
             return d > daysInMonth ? daysInMonth : d;
@@ -151,7 +174,7 @@ function calculatePeriod(chronoUnit: dayjs.ManipulateType, unitCounts: number, m
         return {startDate: periodStart, endDate};
     }
 
-    if (membershipType === MembershipTypeEnum.DURATIONAL) {
+    if (periodType === MembershipTypeEnum.DURATIONAL) {
         const startDate = now;
         let endDate: Dayjs;
 
@@ -189,7 +212,7 @@ function calculatePeriod(chronoUnit: dayjs.ManipulateType, unitCounts: number, m
         return {startDate, endDate};
     }
 
-    console.debug("Unknown membership type for default dates:", membershipType);
+    console.debug("Unknown membership type for default dates:", periodType);
     return {startDate: now, endDate: now};
 }
 
@@ -198,5 +221,6 @@ export {
     localToUTCDate,
     localToUTCDatetime,
     formatDateTimeWithMs,
-    getDefaultMembershipDates
+    getDefaultMembershipDates,
+    getDefaultPeriodPaymentDates
 };
