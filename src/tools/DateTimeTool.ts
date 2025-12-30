@@ -90,13 +90,19 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
         membershipPeriodLength,
         timezoneId
     });
-    const now = dayjs().tz(timezoneId);
     const unitCounts = parseInt(membershipPeriodLength, 10);
     const periodStartPoint = parseInt(membershipPeriodStartPoint, 10);
     const chronoUnitRaw = (membershipPeriodUnit || "").toLowerCase();
     const chronoUnit = chronoUnitRaw.endsWith("s")
         ? (chronoUnitRaw.slice(0, -1) as dayjs.ManipulateType)
         : (chronoUnitRaw as dayjs.ManipulateType);
+
+    return calculatePeriod(chronoUnit, unitCounts, membershipType, membershipPeriodStart, timezoneId, periodStartPoint);
+}
+
+function calculatePeriod(chronoUnit: dayjs.ManipulateType, unitCounts: number, membershipType: string, membershipPeriodStart: string, timezoneId: string, periodStartPoint: number) {
+    const now = dayjs().tz(timezoneId);
+
     console.debug("Configured chrono unit:", chronoUnit, "unitCounts:", unitCounts);
 
     if (membershipType === MembershipTypeEnum.DISABLED || membershipType === MembershipTypeEnum.PERPETUAL) {
