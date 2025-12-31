@@ -2,8 +2,13 @@ import {useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, List, message, Popconfirm, Spin} from "antd";
 import type {BlockedDateRequest, BlockedDateResponse} from "../../models";
 import dayjs, {Dayjs} from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import {blockedDatesAPI} from "../../services";
 import {useTranslation} from "react-i18next";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const {Item} = Form;
 const { TextArea } = Input;

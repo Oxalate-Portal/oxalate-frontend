@@ -16,9 +16,14 @@ import {
 import {useTranslation} from "react-i18next";
 import {Button, DatePicker, Form, Input, message, Select, Slider, Space} from "antd";
 import dayjs, {Dayjs} from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import TextArea from "antd/es/input/TextArea";
 import {useSession} from "../../session";
 import {localToUTCDatetime} from "../../tools";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function EditDiveEvent() {
     const navigator = useNavigate();
@@ -86,7 +91,7 @@ export function EditDiveEvent() {
                 for (let j = 0; j < users[i].payments.length; j++) {
                     const payment = users[i].payments[j];
                     // If the user has an active periodical payment
-                    if (payment.paymentType === PaymentTypeEnum.PERIOD
+                    if (payment.paymentType === PaymentTypeEnum.PERIODICAL
                             && dayjs(payment.endDate).isAfter(dayjs())) {
                         hasValidPayment = true;
                         break;

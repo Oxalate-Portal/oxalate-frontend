@@ -5,8 +5,12 @@ import {type ListUserResponse, PaymentExpirationTypeEnum, type PaymentRequest, P
 import {paymentAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
 import dayjs, {Dayjs} from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import {getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
 
+dayjs.extend(utc);
+dayjs.extend(timezone);
 const {RangePicker} = DatePicker;
 
 export function AddPayments() {
@@ -88,6 +92,8 @@ export function AddPayments() {
             setPaymentExpirationType(oneTimeExpirationType);
         }
 
+        console.log("Setting the default period to:", selectedDefaultPeriod.startDate.format("YYYY-MM-DD"), " -> ",
+                (selectedDefaultPeriod.endDate === null ? "null" : selectedDefaultPeriod.endDate.format("YYYY-MM-DD")));
         setLoading(false);
     }
 
