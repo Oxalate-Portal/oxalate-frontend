@@ -156,7 +156,6 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
             periodStart = anchor;
         }
 
-        console.log("Period start after alignment is:", periodStart.format("YYYY-MM-DD"));
         // Move forward in full periods until now is within [periodStart, periodStart+length)
         while (true) {
             const endCandidate = periodStart.add(unitCounts, chronoUnit);

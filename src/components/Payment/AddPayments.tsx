@@ -44,34 +44,23 @@ export function AddPayments() {
     useEffect(() => {
         setLoading(true);
         Promise.all([
-            userAPI.findByRole(RoleEnum.ROLE_USER),
-            paymentAPI.getAllActivePaymentStatus(),
+            userAPI.findByRole(RoleEnum.ROLE_USER)
         ])
-                .then(([userList, _paymentList]) => {
+                .then(([userList]) => {
                     let participantList = [];
                     const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
 
-                    for (let i = 0; i < userList.length; i++) {
-                        let hasActivePeriodicalPayment = false;
-                        // Find if the user has any active periodical payment
-                        for (let j = 0; j < userList[i].payments.length; j++) {
-                            if (userList[i].payments[j].paymentType === PaymentTypeEnum.PERIODICAL
-                                    && (userList[i].payments[j].endDate === null
-                                            || dayjs(userList[i].payments[j].endDate).isAfter(dayjs()))) {
-                                hasActivePeriodicalPayment = true;
+                    if (requiresMembership) {
+                        // We remove those users that are not active members
+                        for (let i = 0; i < userList.length; i++) {
+                            if (userList[i].membershipActive) {
+                                participantList.push(userList[i]);
                             }
                         }
-
-
-                        if ((requiresMembership && !userList[i].membershipActive)
-                                || hasActivePeriodicalPayment) {
-                            continue;
-                        }
-
-                        participantList.push(userList[i]);
+                        setUsers(participantList);
+                    } else {
+                        setUsers(userList);
                     }
-
-                    setUsers(participantList);
                 })
                 .catch((error) => {
                     console.error("Failed to get users:", error);
