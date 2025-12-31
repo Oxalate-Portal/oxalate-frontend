@@ -2,9 +2,14 @@ import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {Button, Col, DatePicker, Input, Row, Select, Space, Table} from "antd";
 import dayjs, {Dayjs} from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import {commentAPI, userAPI} from "../../services";
 import {CommentClassEnum, type CommentFilterRequest, type CommentResponse, CommentStatusEnum, CommentTypeEnum} from "../../models";
 import {commentStatusEnum2Tag, commentTypeEnum2Tag} from "../../tools";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export function CommentList() {
     const {t} = useTranslation();
