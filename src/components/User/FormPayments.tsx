@@ -32,7 +32,7 @@ export function FormPayments(props: FormatPaymentsProps) {
                 if (type === PaymentTypeEnum.ONE_TIME) {
                     return <Tag color="blue">{t("FormatPayments.table.singlePayment")}</Tag>;
                 }
-                if (type === PaymentTypeEnum.PERIOD) {
+                if (type === PaymentTypeEnum.PERIODICAL) {
                     return <Tag color="green">{t("FormatPayments.table.periodPayment")}</Tag>;
                 }
                 return (
@@ -54,25 +54,35 @@ export function FormPayments(props: FormatPaymentsProps) {
         },
         {
             title: t("FormatPayments.table.startDate"),
-            dataIndex: "createdAt",
-            key: "createdAt",
+            dataIndex: "startDate",
+            key: "startDate",
             render: (date: Date, _record: PaymentResponse) => {
                 return (<>
-                    {dayjs(date).format("YYYY-MM-DD HH:mm")}
+                    {dayjs(date).format("YYYY-MM-DD")}
                 </>)
             }
         },
         {
             title: t("FormatPayments.table.endDate"),
-            dataIndex: "expiresAt",
-            key: "expiresAt",
+            dataIndex: "endDate",
+            key: "endDate",
             render: (date: Date, record: PaymentResponse) => {
                 return (
-                    <>
-                        {record.expiresAt !== null
-                                ? dayjs(date).format("YYYY-MM-DD HH:mm")
-                                : "-"}
-                    </>)
+                        <>
+                            {record.endDate !== null
+                                    ? dayjs(date).format("YYYY-MM-DD")
+                                    : "-"}
+                        </>)
+            }
+        },
+        {
+            title: t("FormatPayments.table.created"),
+            dataIndex: "created",
+            key: "created",
+            render: (date: Date, _record: PaymentResponse) => {
+                return (<>
+                    {dayjs(date).format("YYYY-MM-DD HH:mm")}
+                </>)
             }
         },
     ];

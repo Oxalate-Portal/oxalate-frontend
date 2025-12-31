@@ -66,8 +66,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             userId: record.userId,
             paymentType: record.paymentType,
             paymentCount: record.paymentCount,
-            startDate: record.startDate,
-            endDate: record.endDate
+            startDate: dayjs(record.startDate).format("YYYY-MM-DD"),
+            endDate: record.endDate === null ? null : dayjs(record.endDate).format("YYYY-MM-DD")
         };
 
         paymentAPI.update(paymentRequest)
@@ -96,9 +96,9 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                 let color = "";
                 let paymentTypeLabel = "";
 
-                if (record.paymentType === PaymentTypeEnum.PERIOD) {
+                if (record.paymentType === PaymentTypeEnum.PERIODICAL) {
                     color = "green";
-                    paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
+                    paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL);
                 }
                 if (record.paymentType === PaymentTypeEnum.ONE_TIME) {
                     color = "blue";
@@ -129,7 +129,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             dataIndex: "created",
             key: "created",
             sorter: (a: PaymentVO, b: PaymentVO) =>
-                    new Date(a.created).getTime() - new Date(b.created).getTime(),
+                    dayjs(a.created).isAfter(dayjs(b.created)) ? 1 : -1,
             sortDirections: ["descend", "ascend"],
             render: (_: any, record: PaymentVO) => {
                 return (
@@ -141,6 +141,9 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.startDate"),
             dataIndex: "startDate",
             key: "startDate",
+            sorter: (a: PaymentVO, b: PaymentVO) =>
+                    dayjs(a.startDate).isAfter(dayjs(b.startDate)) ? 1 : -1,
+            sortDirections: ["descend", "ascend"],
             render: (date: Date, record: PaymentResponse) => {
                 return (
                         <>
@@ -154,6 +157,9 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.endDate"),
             dataIndex: "endDate",
             key: "endDate",
+            sorter: (a: PaymentVO, b: PaymentVO) =>
+                    dayjs(a.endDate).isAfter(dayjs(b.endDate)) ? 1 : -1,
+            sortDirections: ["descend", "ascend"],
             render: (date: Date, record: PaymentResponse) => {
                 return (
                         <>

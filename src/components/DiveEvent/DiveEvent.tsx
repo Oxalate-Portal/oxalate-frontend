@@ -94,12 +94,12 @@ export function DiveEvent() {
                     const oneTimePayments = diverPayments.filter(payment => {
                         return payment.paymentType === PaymentTypeEnum.ONE_TIME
                                 && payment.paymentCount > 0
-                                && (payment.expiresAt === null || !dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime)));
+                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)));
                     });
 
                     if (oneTimePayments.length === 0) {
-                        const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIOD);
-                        const validPeriodicalPayment = periodicalPayments.find(payment => !dayjs(payment.expiresAt).isBefore(dayjs(diveEvent.startTime)));
+                        const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIODICAL);
+                        const validPeriodicalPayment = periodicalPayments.find(payment => !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)));
 
                         if (!validPeriodicalPayment) {
                             return false;
@@ -214,7 +214,7 @@ export function DiveEvent() {
 
                         {diveEvent && (diveEventId > 0) && eventCommenting &&
                                 <>
-                                    <Divider orientation={"horizontal"} key={"diveEventCommentDivider"}>Comments</Divider>
+                                    <Divider titlePlacement={"left"} orientation={"horizontal"} key={"diveEventCommentDivider"}>Comments</Divider>
                                     {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
                                     <CommentCanvas commentId={diveEvent.eventCommentId}
                                                    allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())}/>

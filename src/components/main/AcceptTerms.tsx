@@ -37,7 +37,7 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
     }
 
     return (
-            <div style={{width: "100%", textAlign: "center"}} className={"darkDiv"}>
+            <div style={{textAlign: "center"}} className={"darkDiv"}>
                 <div style={{width: "50%", display: "inline-block", textAlign: "left"}}>
 
                     <Space orientation={"vertical"} size={20} style={{width: "100%", margin: 12}}>

@@ -1,3 +1,4 @@
+import type {Dayjs} from "dayjs";
 import {PaymentTypeEnum} from "../PaymentTypeEnum";
 
 export interface PaymentResponse {
@@ -5,8 +6,8 @@ export interface PaymentResponse {
     userId: number;
     paymentType: PaymentTypeEnum;
     paymentCount: number;
-    startDate: Date;
-    endDate: Date;
-    created: Date;
+    startDate: Dayjs;
+    endDate: Dayjs;
+    created: Dayjs;
     boundEvents: number[];
 }
