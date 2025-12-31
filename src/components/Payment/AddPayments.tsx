@@ -92,8 +92,6 @@ export function AddPayments() {
             setPaymentExpirationType(oneTimeExpirationType);
         }
 
-        console.log("Setting the default period to:", selectedDefaultPeriod.startDate.format("YYYY-MM-DD"), " -> ",
-                (selectedDefaultPeriod.endDate === null ? "null" : selectedDefaultPeriod.endDate.format("YYYY-MM-DD")));
         setLoading(false);
     }
 
