@@ -83,15 +83,6 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
 
-    console.debug("The retrieved membership configurations are:", {
-        periodType,
-        periodUnit,
-        periodStartPoint,
-        periodStart,
-        periodLength,
-        timezoneId
-    });
-
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
 
@@ -105,15 +96,6 @@ function getDefaultPeriodPaymentDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
-
-    console.debug("The retrieved period configurations are:", {
-        periodType,
-        periodUnit,
-        periodStartPoint,
-        periodStart,
-        periodLength,
-        timezoneId
-    });
 
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
@@ -129,21 +111,11 @@ function getDefaultOneTimePaymentDates(getPortalConfigurationValue: (
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
 
-    console.debug("The retrieved one-time configurations are:", {
-        periodType,
-        periodUnit,
-        periodStartPoint,
-        periodStart,
-        periodLength,
-        timezoneId
-    });
-
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
 
 function calculatePeriod(periodUnit: string, periodLength: string, periodType: string, periodStartString: string, timezoneId: string, periodStartPointString: string) {
     const now = dayjs().tz(timezoneId);
-    console.debug("Current time in timezone", timezoneId, "is", now.format());
     const unitCounts = parseInt(periodLength, 10);
     const periodStartPoint = parseInt(periodStartPointString, 10);
     const chronoUnitRaw = (periodUnit || "").toLowerCase();
@@ -158,7 +130,6 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
 
     if (periodType === MembershipTypeEnum.PERIODICAL) {
         const anchor = dayjs(periodStartString);
-        console.debug("Using anchor date:", anchor.format());
         const clampDay = (y: number, m1: number, d: number) => {
             const daysInMonth = dayjs(`${y}-${padTo2Digits(m1)}-01`).daysInMonth();
             return d > daysInMonth ? daysInMonth : d;
@@ -197,7 +168,6 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
 
         // Normalize to midnight in the configured timezone to avoid DST shifting the calendar day
         const endDate = dayjs.tz(periodStart.add(unitCounts, chronoUnit).format("YYYY-MM-DD"), timezoneId);
-        console.debug("Calculated periodical period:", {startDate: periodStart.format("YYYY-MM-DD"), endDate: endDate.format("YYYY-MM-DD")});
         return {startDate: periodStart, endDate: endDate};
     }
 
@@ -235,11 +205,10 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
             endDate = startDate.add(unitCounts, chronoUnit);
         }
 
-        console.debug("Calculated durational period:", {startDate: startDate.format("YYYY-MM-DD"), endDate: endDate.format("YYYY-MM-DD")});
         return {startDate: startDate, endDate: endDate};
     }
 
-    console.debug("Unknown period type", periodType, "returning current date for both start and end.");
+    console.warn("Unknown period type", periodType, "returning current date for both start and end.");
 
     return {startDate: now, endDate: now};
 }
