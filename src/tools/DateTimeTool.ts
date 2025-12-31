@@ -83,6 +83,15 @@ function getDefaultMembershipDates(getPortalConfigurationValue: (
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
 
+    console.debug("The retrieved membership configurations are:", {
+        periodType,
+        periodUnit,
+        periodStartPoint,
+        periodStart,
+        periodLength,
+        timezoneId
+    });
+
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
 
@@ -96,6 +105,15 @@ function getDefaultPeriodPaymentDates(getPortalConfigurationValue: (
     const periodStart: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-start");
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "payment-period-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
+
+    console.debug("The retrieved period configurations are:", {
+        periodType,
+        periodUnit,
+        periodStartPoint,
+        periodStart,
+        periodLength,
+        timezoneId
+    });
 
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
@@ -111,11 +129,21 @@ function getDefaultOneTimePaymentDates(getPortalConfigurationValue: (
     const periodLength: string = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-length");
     const timezoneId: string = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "timezone") || dayjs.tz.guess();
 
+    console.debug("The retrieved one-time configurations are:", {
+        periodType,
+        periodUnit,
+        periodStartPoint,
+        periodStart,
+        periodLength,
+        timezoneId
+    });
+
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
 
 function calculatePeriod(periodUnit: string, periodLength: string, periodType: string, periodStartString: string, timezoneId: string, periodStartPointString: string) {
     const now = dayjs().tz(timezoneId);
+    console.debug("Current time in timezone", timezoneId, "is", now.format());
     const unitCounts = parseInt(periodLength, 10);
     const periodStartPoint = parseInt(periodStartPointString, 10);
     const chronoUnitRaw = (periodUnit || "").toLowerCase();
@@ -129,7 +157,8 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
     }
 
     if (periodType === MembershipTypeEnum.PERIODICAL) {
-        const anchor = dayjs(periodStartString).tz(timezoneId);
+        const anchor = dayjs(periodStartString);
+        console.debug("Using anchor date:", anchor.format());
         const clampDay = (y: number, m1: number, d: number) => {
             const daysInMonth = dayjs(`${y}-${padTo2Digits(m1)}-01`).daysInMonth();
             return d > daysInMonth ? daysInMonth : d;
@@ -140,22 +169,23 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
         if (chronoUnit === "year") {
             const startMonth = Math.max(1, Math.min(12, periodStartPoint || 1));
             const candidateDay = 1;
-            const candidate = dayjs(`${anchor.year()}-${padTo2Digits(startMonth)}-${padTo2Digits(candidateDay)}`).tz(timezoneId);
+            const candidate = dayjs(`${anchor.year()}-${padTo2Digits(startMonth)}-${padTo2Digits(candidateDay)}`);
             periodStart = candidate.isAfter(anchor) ? candidate.subtract(1, "year") : candidate;
         } else if (chronoUnit === "month") {
             const startDay = Math.max(1, periodStartPoint || 1);
             const clampedDay = clampDay(anchor.year(), anchor.month() + 1, startDay);
-            const candidate = dayjs(`${anchor.year()}-${padTo2Digits(anchor.month() + 1)}-${padTo2Digits(clampedDay)}`).tz(timezoneId);
+            const candidate = dayjs(`${anchor.year()}-${padTo2Digits(anchor.month() + 1)}-${padTo2Digits(clampedDay)}`);
             periodStart = candidate.isAfter(anchor) ? candidate.subtract(1, "month") : candidate;
         } else if (chronoUnit === "week") {
             const startDow = Math.max(1, Math.min(7, periodStartPoint || 1));
-            const candidate = anchor.startOf("week").add(startDow - 1, "day").tz(timezoneId);
+            const candidate = anchor.startOf("week").add(startDow - 1, "day");
             periodStart = candidate.isAfter(anchor) ? candidate.subtract(1, "week") : candidate;
         } else {
             // Fallback: treat as generic unit from anchor
             periodStart = anchor;
         }
 
+        console.log("Period start after alignment is:", periodStart.format("YYYY-MM-DD"));
         // Move forward in full periods until now is within [periodStart, periodStart+length)
         while (true) {
             const endCandidate = periodStart.add(unitCounts, chronoUnit);
@@ -167,7 +197,8 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
 
         // Normalize to midnight in the configured timezone to avoid DST shifting the calendar day
         const endDate = dayjs.tz(periodStart.add(unitCounts, chronoUnit).format("YYYY-MM-DD"), timezoneId);
-        return {startDate: periodStart, endDate};
+        console.debug("Calculated periodical period:", {startDate: periodStart.format("YYYY-MM-DD"), endDate: endDate.format("YYYY-MM-DD")});
+        return {startDate: periodStart, endDate: endDate};
     }
 
     if (periodType === MembershipTypeEnum.DURATIONAL) {
@@ -204,8 +235,11 @@ function calculatePeriod(periodUnit: string, periodLength: string, periodType: s
             endDate = startDate.add(unitCounts, chronoUnit);
         }
 
-        return {startDate, endDate};
+        console.debug("Calculated durational period:", {startDate: startDate.format("YYYY-MM-DD"), endDate: endDate.format("YYYY-MM-DD")});
+        return {startDate: startDate, endDate: endDate};
     }
+
+    console.debug("Unknown period type", periodType, "returning current date for both start and end.");
 
     return {startDate: now, endDate: now};
 }
