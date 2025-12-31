@@ -96,9 +96,9 @@ export function AdminOrgUsers() {
                             let color = "";
                             let paymentTypeLabel = "";
 
-                            if (payment.paymentType === PaymentTypeEnum.PERIOD) {
+                            if (payment.paymentType === PaymentTypeEnum.PERIODICAL) {
                                 color = "green";
-                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD);
+                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL);
                             }
                             if (payment.paymentType === PaymentTypeEnum.ONE_TIME) {
                                 color = "blue";
@@ -183,7 +183,7 @@ export function AdminOrgUsers() {
                                             pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
                                         }}/>}
                     {!userList && <p>{t("AdminOrgUsers.search.spinText")}</p>}
-                    <Divider orientation="left">{t("AdminOrgUsers.terms.resetDivider")}</Divider>
+                    <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.terms.resetDivider")}</Divider>
                     <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>
                     </Space>

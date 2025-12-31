@@ -11,8 +11,8 @@ export function ListPayments() {
     let paymentItems = [
         {
             key: "period-payments",
-            label: t("PaymentTypeEnum." + PaymentTypeEnum.PERIOD),
-            children: <PaymentListTable paymentType={PaymentTypeEnum.PERIOD}
+            label: t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL),
+            children: <PaymentListTable paymentType={PaymentTypeEnum.PERIODICAL}
                                         keyName={"period"}
                                         key={"period"}/>
         }

@@ -34,7 +34,7 @@ export function Payments() {
     }
 
     return (
-            <div style={{width: "100%", justifyContent: "center"}} className={"darkDiv"}>
+            <div style={{justifyContent: "center"}} className={"darkDiv"}>
                 <Spin spinning={loading}>
                     <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.activeDivider")}</Divider>
                     <ListPayments/>

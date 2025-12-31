@@ -316,7 +316,7 @@ export function EditPage() {
                                 >
                                     <Select options={pageGroupOptions} placeholder={t("EditPage.form.pageGroupId.placeholder")}/>
                                 </Form.Item>
-                                <Divider orientation={"horizontal"}
+                                <Divider titlePlacement={"left"} orientation={"horizontal"}
                                          key={"page-lang-divider"}>{t("EditPage.form.divider.languages")}</Divider>
                                 <Form.List name={"pageVersions"}
                                            key={"page-versions"}
@@ -328,7 +328,7 @@ export function EditPage() {
                                                         const uniqueKey = `pageVersion-${index}-${pageData.pageVersions[index].language}`;
 
                                                         return (<div key={uniqueKey}>
-                                                            <Divider orientation={"horizontal"}
+                                                            <Divider titlePlacement={"left"} orientation={"horizontal"}
                                                                      key={uniqueKey + "-divider"}>{pageData.pageVersions[index].language.toUpperCase()}</Divider>
                                                             <Form.Item
                                                                     name={[index, "id"]}
@@ -402,7 +402,8 @@ export function EditPage() {
                                     }}
                                 </Form.List>
 
-                                <Divider orientation={"horizontal"} key={"divider-roles"}>{t("EditPage.form.divider.permissions")}</Divider>
+                                <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                         key={"divider-roles"}>{t("EditPage.form.divider.permissions")}</Divider>
                                 <Form.List name={"rolePermissions"}
                                            key={"page-roles"}
                                 >
@@ -430,7 +431,8 @@ export function EditPage() {
                                                                     wrapperCol={{offset: 8, span: 12,}}
                                                                     key={uniqueKey + "-divider"}
                                                             >
-                                                                <Divider orientation={"horizontal"} key={uniqueKey + "-divider-item"}></Divider>
+                                                                <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                                                         key={uniqueKey + "-divider-item"}></Divider>
                                                             </Form.Item>
                                                             <Form.Item
                                                                     name={[index, "readPermission"]}
@@ -507,7 +509,8 @@ export function EditPage() {
                                     }}
                                 </Form.List>
 
-                                <Divider orientation={"horizontal"} key={"page-meta-divider"}>{t("EditPage.form.divider.metadata")}</Divider>
+                                <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                         key={"page-meta-divider"}>{t("EditPage.form.divider.metadata")}</Divider>
                                 <Form.Item
                                         name={"creator"}
                                         label={t("EditPage.form.metadata.creator")}
