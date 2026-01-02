@@ -56,7 +56,7 @@ export function CommentModerationActions({commentId, refreshModerationList, chil
             <Spin spinning={loading}>
                 {contextHolder}
                 <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-                    <Button type="primary" loading={loading} onClick={handleRejectComment}>
+                    <Button type={"primary"} loading={loading} onClick={handleRejectComment}>
                         {t("CommentModerationActions.button.reject-comment")}
                     </Button>
                     <Button danger loading={loading} onClick={handleDismissReports}>

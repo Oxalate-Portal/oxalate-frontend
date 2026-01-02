@@ -115,7 +115,7 @@ export function CommentList() {
                                          onChange={date => handleFilterChange({afterDate: date ? date.toDate() : undefined})}/></Col>
                         <Col><DatePicker placeholder={t("CommentList.filters.beforeDate")}
                                          onChange={date => handleFilterChange({beforeDate: date ? date.toDate() : undefined})}/></Col>
-                        <Col><Button type="primary" onClick={fetchComments}>{t("common.button.search")}</Button></Col>
+                        <Col><Button type={"primary"} onClick={fetchComments}>{t("common.button.search")}</Button></Col>
                     </Row>
                     <Table dataSource={comments} columns={columns} rowKey="id" loading={loading}/>
                 </Space>

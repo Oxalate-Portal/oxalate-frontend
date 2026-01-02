@@ -204,7 +204,7 @@ export function AdminTags() {
     return (
             <div className={"darkDiv"}>
                 <Space style={{marginBottom: 16}}>
-                    <Button type="primary" onClick={openAdd}>{t("AdminTags.button.add-tag")}</Button>
+                    <Button type={"primary"} onClick={openAdd}>{t("AdminTags.button.add-tag")}</Button>
                     <Button onClick={loadTags} loading={loading}>{t("AdminTags.button.refresh")}</Button>
                 </Space>
                 <Table<TagResponse>

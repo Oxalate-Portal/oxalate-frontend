@@ -1,43 +1,57 @@
-import {useEffect, useState} from "react";
+import {type Key, useEffect, useState} from "react";
 import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
 import {userAPI} from "../../services";
 import type {ColumnsType} from "antd/es/table";
-import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
+import {CheckOutlined, CloseOutlined, SearchOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [searchText, setSearchText] = useState<string>("");
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
 
     const userListColumns: ColumnsType<AdminUserResponse> = [
         {
-            title: "#",
-            dataIndex: "id",
-            key: "id",
-            render: (_: string, record: AdminUserResponse) => {
-                return (<Link to={"/users/" + record.id + "/show"}>{record.id}</Link>);
-            }
-        },
-        {
             title: t("AdminOrgUsers.table.login"),
             dataIndex: "username",
             key: "username",
-            filteredValue: [searchText],
-            onFilter: (value: any, record: AdminUserResponse) =>
-                    record.username.toLowerCase().includes(value.toLowerCase()) ||
-                    record.firstName.toLowerCase().includes(value.toLowerCase()) ||
-                    record.lastName.toLowerCase().includes(value.toLowerCase()) ||
-                    record.status.toLowerCase().includes(value.toLowerCase())
-            ,
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                    <div style={{padding: 8}}>
+                        <Input
+                                placeholder={t("AdminOrgUsers.table.username")}
+                                value={selectedKeys[0]}
+                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                                onPressEnter={() => confirm()}
+                                style={{marginBottom: 8, display: "block"}}
+                        />
+                        <Space>
+                            <Button
+                                    type={"primary"}
+                                    onClick={() => confirm()}
+                                    icon={<SearchOutlined/>}
+                                    size="small"
+                                    style={{width: 90}}
+                            >
+                                {t("common.button.search")}
+                            </Button>
+                            <Button onClick={() => {
+                                clearFilters?.();
+                                confirm();
+                            }} size="small" style={{width: 90}}>
+                                {t("common.button.reset")}
+                            </Button>
+                        </Space>
+                    </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
+            onFilter: (value: boolean | Key, record: AdminUserResponse) => record.username.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: string, record: AdminUserResponse) => {
                 return (<Link to={"/users/" + record.id + "/show"}>{record.username}</Link>);
             }
@@ -47,14 +61,76 @@ export function AdminOrgUsers() {
             dataIndex: "firstName",
             key: "firstName",
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.firstName.localeCompare(b.firstName),
-            sortDirections: ["descend", "ascend"]
+            sortDirections: ["descend", "ascend"],
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                    <div style={{padding: 8}}>
+                        <Input
+                                placeholder={t("AdminOrgUsers.table.firstName")}
+                                value={selectedKeys[0]}
+                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                                onPressEnter={() => confirm()}
+                                style={{marginBottom: 8, display: "block"}}
+                        />
+                        <Space>
+                            <Button
+                                    type={"primary"}
+                                    onClick={() => confirm()}
+                                    icon={<SearchOutlined/>}
+                                    size="small"
+                                    style={{width: 90}}
+                            >
+                                {t("common.button.search")}
+                            </Button>
+                            <Button onClick={() => {
+                                clearFilters?.();
+                                confirm();
+                            }} size="small" style={{width: 90}}>
+                                {t("common.button.reset")}
+                            </Button>
+                        </Space>
+                    </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
+            onFilter: (value: boolean | Key, record: AdminUserResponse) =>
+                    record.firstName.toLowerCase().includes((value as string).toLowerCase())
         },
         {
             title: t("AdminOrgUsers.table.lastName"),
             dataIndex: "lastName",
             key: "lastName",
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.lastName.localeCompare(b.lastName),
-            sortDirections: ["descend", "ascend"]
+            sortDirections: ["descend", "ascend"],
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                    <div style={{padding: 8}}>
+                        <Input
+                                placeholder={t("AdminOrgUsers.table.lastName")}
+                                value={selectedKeys[0]}
+                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                                onPressEnter={() => confirm()}
+                                style={{marginBottom: 8, display: "block"}}
+                        />
+                        <Space>
+                            <Button
+                                    type={"primary"}
+                                    onClick={() => confirm()}
+                                    icon={<SearchOutlined/>}
+                                    size="small"
+                                    style={{width: 90}}
+                            >
+                                {t("common.button.search")}
+                            </Button>
+                            <Button onClick={() => {
+                                clearFilters?.();
+                                confirm();
+                            }} size="small" style={{width: 90}}>
+                                {t("common.button.reset")}
+                            </Button>
+                        </Space>
+                    </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
+            onFilter: (value: boolean | Key, record: AdminUserResponse) =>
+                    record.lastName.toLowerCase().includes((value as string).toLowerCase())
         },
         {
             title: t("AdminOrgUsers.table.status"),
@@ -172,11 +248,6 @@ export function AdminOrgUsers() {
                 {contextHolder}
                 <h4>{t("AdminOrgUsers.title")}</h4>
                 <Spin spinning={loading}>
-                    <Input.Search
-                            placeholder={t("AdminOrgUsers.search.placeholder")}
-                            onSearch={value => setSearchText(value)}
-                            onChange={e => setSearchText(e.target.value)}
-                            enterButton/>
                     {userList && <Table dataSource={userList}
                                         rowKey="id"
                                         columns={userListColumns}

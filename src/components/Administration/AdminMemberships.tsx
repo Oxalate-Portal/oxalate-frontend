@@ -1,11 +1,12 @@
-import {useEffect, useState} from "react";
+import {type Key, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Button, Space, Table} from "antd";
+import {Button, Input, Space, Table} from "antd";
+import {SearchOutlined} from "@ant-design/icons";
 import {membershipAPI} from "../../services";
 import type {MembershipResponse} from "../../models";
 import type {ColumnsType} from "antd/es/table";
-import dayjs from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import {AddMemberships} from "./AddMemberships";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
 
@@ -36,6 +37,37 @@ export function AdminMemberships() {
             key: "username",
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                    <div style={{padding: 8}}>
+                        <Input
+                                placeholder={t("AdminMembers.table.username")}
+                                value={selectedKeys[0]}
+                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                                onPressEnter={() => confirm()}
+                                style={{marginBottom: 8, display: "block"}}
+                        />
+                        <Space>
+                            <Button
+                                    type={"primary"}
+                                    onClick={() => confirm()}
+                                    icon={<SearchOutlined/>}
+                                    size="small"
+                                    style={{width: 90}}
+                            >
+                                {t("common.button.search")}
+                            </Button>
+                            <Button onClick={() => {
+                                clearFilters?.();
+                                confirm();
+                            }} size="small" style={{width: 90}}>
+                                {t("common.button.reset")}
+                            </Button>
+                        </Space>
+                    </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
+            onFilter: (value: boolean | Key, record: MembershipResponse) =>
+                    record.username.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: string, record: MembershipResponse) => {
                 return (<Link to={"/users/" + record.userId + "/show"}>{record.username}</Link>);
             }
@@ -75,7 +107,8 @@ export function AdminMemberships() {
             dataIndex: "created",
             key: "created",
             sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
-            sortDirections: ["descend", "ascend"]
+            sortDirections: ["descend", "ascend"],
+            render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm"),
         },
         {
             title: t("AdminMembers.table.actions.title"),

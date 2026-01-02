@@ -23,7 +23,6 @@ const unitMap: Record<ChronoUnitEnum, ManipulateType> = {
 };
 
 export function ShiftableRangePicker({periodType, value, onChange, ...rest}: Props) {
-    console.debug("Provided period type:", periodType);
     const unit: ManipulateType = unitMap[periodType] ?? "day";
     const rangeValue = value ?? null;
     const start = Array.isArray(rangeValue) ? (rangeValue[0] as Dayjs | null) : null;

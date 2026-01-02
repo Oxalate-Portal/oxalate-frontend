@@ -135,7 +135,7 @@ function BlockedDates() {
                                     style={{width: "600px"}}/>
                         </Item>
                         <Item>
-                            <Button type="primary" htmlType="submit">
+                            <Button type={"primary"} htmlType="submit">
                                 {t("common.button.add")}
                             </Button>
                         </Item>

@@ -80,7 +80,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
                         );
                     })}
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">
+                        <Button type={"primary"} htmlType="submit">
                             {t("common.button.save")}
                         </Button>
                     </Form.Item>

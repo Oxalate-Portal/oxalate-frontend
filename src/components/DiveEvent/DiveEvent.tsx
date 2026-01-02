@@ -196,7 +196,7 @@ export function DiveEvent() {
                         {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
                         {!subscribing && canSubscribe &&
                                 <Button
-                                        type="primary"
+                                        type={"primary"}
                                         onClick={() => {
                                             setSelectedUserType(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
                                             setSelectUserTypeOpen(true);
