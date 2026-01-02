@@ -1,12 +1,12 @@
 import {type PaymentRequest, type PaymentResponse, PaymentTypeEnum, type PaymentVO} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {Button, Spin, Table, Tag} from "antd";
+import {Button, Input, Space, Spin, Table, Tag} from "antd";
 import {type ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
-import {useEffect, useState} from "react";
+import {type Key, useEffect, useState} from "react";
 import {paymentAPI} from "../../services";
-import {MinusCircleOutlined, PlusCircleOutlined} from "@ant-design/icons";
+import {MinusCircleOutlined, PlusCircleOutlined, SearchOutlined} from "@ant-design/icons";
 
 interface PaymentListPanelProps {
     paymentType: PaymentTypeEnum;
@@ -89,7 +89,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             key: "id"
         },
         {
-            title: "Type",
+            title: t("PaymentListTable.table.payment-type"),
             dataIndex: "paymentType",
             key: "paymentType",
             render: (_: any, record: PaymentVO) => {
@@ -118,6 +118,37 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             key: "name",
             sorter: (a: PaymentVO, b: PaymentVO) => a.name.localeCompare(b.name),
             sortDirections: ["descend", "ascend"],
+            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
+                    <div style={{padding: 8}}>
+                        <Input
+                                placeholder={t("PaymentListTable.table.name")}
+                                value={selectedKeys[0]}
+                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                                onPressEnter={() => confirm()}
+                                style={{marginBottom: 8, display: "block"}}
+                        />
+                        <Space>
+                            <Button
+                                    type="primary"
+                                    onClick={() => confirm()}
+                                    icon={<SearchOutlined/>}
+                                    size="small"
+                                    style={{width: 90}}
+                            >
+                                {t("common.button.search")}
+                            </Button>
+                            <Button onClick={() => {
+                                clearFilters?.();
+                                confirm();
+                            }} size="small" style={{width: 90}}>
+                                {t("common.button.reset")}
+                            </Button>
+                        </Space>
+                    </div>
+            ),
+            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
+            onFilter: (value: boolean | Key, record: PaymentVO) =>
+                    record.name.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: any, record: PaymentVO) => {
                 return (
                         <Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>
