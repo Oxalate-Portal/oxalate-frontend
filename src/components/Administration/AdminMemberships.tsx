@@ -5,7 +5,7 @@ import {Button, Space, Table} from "antd";
 import {membershipAPI} from "../../services";
 import type {MembershipResponse} from "../../models";
 import type {ColumnsType} from "antd/es/table";
-import dayjs from "dayjs";
+import dayjs, {Dayjs} from "dayjs";
 import {AddMemberships} from "./AddMemberships";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
 
@@ -75,7 +75,8 @@ export function AdminMemberships() {
             dataIndex: "created",
             key: "created",
             sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
-            sortDirections: ["descend", "ascend"]
+            sortDirections: ["descend", "ascend"],
+            render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm"),
         },
         {
             title: t("AdminMembers.table.actions.title"),
