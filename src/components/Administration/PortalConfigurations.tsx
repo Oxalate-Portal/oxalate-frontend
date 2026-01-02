@@ -287,7 +287,7 @@ export function PortalConfigurations() {
                                                             </Col>
                                                             <Col span={6}>
                                                                 {modifiedValues[config.id] !== undefined && (
-                                                                        <Button type="primary" onClick={() => handleUpdate(config.id)}>
+                                                                        <Button type={"primary"} onClick={() => handleUpdate(config.id)}>
                                                                             {t("common.button.update")}
                                                                         </Button>
                                                                 )}

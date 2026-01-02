@@ -165,7 +165,7 @@ export function AdminTagGroups() {
     return (
             <div className={"darkDiv"}>
                 <Space style={{marginBottom: 16}}>
-                    <Button type="primary" onClick={openAdd}>{t("AdminTagGroups.button.add-group")}</Button>
+                    <Button type={"primary"} onClick={openAdd}>{t("AdminTagGroups.button.add-group")}</Button>
                     <Button onClick={loadGroups} loading={loading}>{t("AdminTagGroups.button.refresh")}</Button>
                 </Space>
                 <Table<TagGroupResponse>

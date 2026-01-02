@@ -20,6 +20,8 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.login"),
             dataIndex: "username",
             key: "username",
+            sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
+            sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
                     <div style={{padding: 8}}>
                         <Input
@@ -31,7 +33,7 @@ export function AdminOrgUsers() {
                         />
                         <Space>
                             <Button
-                                    type="primary"
+                                    type={"primary"}
                                     onClick={() => confirm()}
                                     icon={<SearchOutlined/>}
                                     size="small"
@@ -48,10 +50,8 @@ export function AdminOrgUsers() {
                         </Space>
                     </div>
             ),
-            sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
             filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
             onFilter: (value: boolean | Key, record: AdminUserResponse) => record.username.toLowerCase().includes((value as string).toLowerCase()),
-            sortDirections: ["descend", "ascend"],
             render: (_: string, record: AdminUserResponse) => {
                 return (<Link to={"/users/" + record.id + "/show"}>{record.username}</Link>);
             }
@@ -73,7 +73,7 @@ export function AdminOrgUsers() {
                         />
                         <Space>
                             <Button
-                                    type="primary"
+                                    type={"primary"}
                                     onClick={() => confirm()}
                                     icon={<SearchOutlined/>}
                                     size="small"
@@ -111,7 +111,7 @@ export function AdminOrgUsers() {
                         />
                         <Space>
                             <Button
-                                    type="primary"
+                                    type={"primary"}
                                     onClick={() => confirm()}
                                     icon={<SearchOutlined/>}
                                     size="small"

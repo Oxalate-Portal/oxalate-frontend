@@ -61,7 +61,7 @@ export function AuditEvents() {
                     />
                     <Space>
                         <Button
-                                type="primary"
+                                type={"primary"}
                                 onClick={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
                                 icon={<SearchOutlined/>}
                                 size="small"

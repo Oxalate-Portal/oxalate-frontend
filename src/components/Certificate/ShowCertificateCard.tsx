@@ -48,10 +48,10 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
         if (deleteCertificate) {
             return (
                     <Space orientation={"horizontal"} size={12}>
-                        <Button type="primary" htmlType={"submit"} href={"/users/certificates/" + certificate.id}>
+                        <Button type={"primary"} htmlType={"submit"} href={"/users/certificates/" + certificate.id}>
                             {t("common.button.update")}
                         </Button>
-                        <Button danger type="primary" onClick={() => deleteCertificate(certificate)}>
+                        <Button danger type={"primary"} onClick={() => deleteCertificate(certificate)}>
                             {t("common.button.delete")}
                         </Button>
                         <div>

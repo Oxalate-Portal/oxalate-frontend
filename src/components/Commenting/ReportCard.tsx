@@ -61,7 +61,7 @@ export function ReportCard({report, refreshModerationList}: ReportCardProps) {
                             <p><strong>{t("ReportCard.field.status")}:</strong> {reportStatusEnum2Tag(report.status, t, report.id)}</p>
                         </div>
                         <div style={{display: "flex", flexDirection: "column", gap: 8, alignSelf: "flex-start"}}>
-                            <Button type="primary" onClick={handleAcceptReport}>{t("ReportCard.button.accept")}</Button>
+                            <Button type={"primary"} onClick={handleAcceptReport}>{t("ReportCard.button.accept")}</Button>
                             <Button danger onClick={handleDismissReport}>{t("ReportCard.button.dismiss")}</Button>
                         </div>
                     </div>

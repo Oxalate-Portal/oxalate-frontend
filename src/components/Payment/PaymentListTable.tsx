@@ -129,7 +129,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                         />
                         <Space>
                             <Button
-                                    type="primary"
+                                    type={"primary"}
                                     onClick={() => confirm()}
                                     icon={<SearchOutlined/>}
                                     size="small"
@@ -150,9 +150,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             onFilter: (value: boolean | Key, record: PaymentVO) =>
                     record.name.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: any, record: PaymentVO) => {
-                return (
-                        <Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>
-                );
+                return (<Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>);
             },
         },
         {

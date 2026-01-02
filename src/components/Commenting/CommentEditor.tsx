@@ -49,7 +49,7 @@ export function CommentEditor({ parentCommentId, refreshCommentList }: CommentEd
                         rows={3}
                         style={{ marginTop: 5 }}
                 />
-                <Button type="primary" onClick={handleSubmit} loading={submitting} style={{ marginTop: 5 }}>
+                <Button type={"primary"} onClick={handleSubmit} loading={submitting} style={{marginTop: 5}}>
                     {t("common.button.send")}
                 </Button>
             </div>

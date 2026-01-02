@@ -117,7 +117,7 @@ export function AdminMembership() {
                         </Select>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">
+                        <Button type={"primary"} htmlType="submit">
                             {t("common.button.update")}
                         </Button>
                     </Form.Item>
