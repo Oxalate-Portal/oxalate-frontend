@@ -80,7 +80,8 @@
         "title" : "Åtgärd"
       },
       "created" : "Skapad",
-      "end-date" : "Utgångstid",
+      "end-date" : "Slutdatum",
+      "start-date" : "Startdatum",
       "status" : "Status",
       "type" : "Typ",
       "userId" : "Användar-ID",
@@ -924,9 +925,9 @@
   "FormMemberships" : {
     "table" : {
       "created" : "Skapad",
-      "end-date" : "Startdatum",
+      "end-date" : "Slutdatum",
       "id" : "ID",
-      "start-date" : "Slutdatum",
+      "start-date" : "Startdatum",
       "status" : "Status",
       "type" : "Typ"
     }
@@ -935,13 +936,13 @@
     "noValid" : "Inga giltiga betalningar tillgängliga.",
     "table" : {
       "created" : "Skapad",
-      "endDate" : "Utgångstid",
+      "end-date" : "Slutdatum",
       "id" : "ID",
       "paymentCount" : "Antal",
       "paymentType" : "Betalningstyp",
       "periodPayment" : "Period betalning",
       "singlePayment" : "Engångsbetalning",
-      "startDate" : "Börjar"
+      "startDate" : "Startdatum"
     },
     "unknownPayment" : "Okänd betalningstyp",
     "unknownPaymentContact" : "Kontakta supporten",
@@ -1220,7 +1221,7 @@
   "PaymentListTable" : {
     "table" : {
       "created" : "Skapad",
-      "endDate" : "Slutar",
+      "end-date" : "Slutar",
       "name" : "Namn",
       "paymentCount" : "Antal",
       "paymentDate" : "Betalningsdatum",
@@ -1621,14 +1622,16 @@
       "ok" : "Användarinformationen har uppdaterats"
     }
   },
-  "UserDetails" : {
+  "ShowUser" : {
     "table" : {
-      "diveCount" : "Antal dyk:",
-      "email" : "E-post:",
-      "nextOfKin" : "Kontaktuppgifter till närmaste anhörig:",
-      "payments" : "Betalningar:",
-      "phonenumber" : "Telefonnummer:",
-      "registered" : "Registrerad:"
+      "diveCount" : "Antal dyk",
+      "email" : "E-post",
+      "memberships" : "Medlemskap",
+      "nextOfKin" : "Kontaktuppgifter till närmaste anhörig",
+      "payments" : "Betalningar",
+      "phonenumber" : "Telefonnummer",
+      "registered" : "Registrerad",
+      "user-details" : "Användardetaljer"
     }
   },
   "UserEvents" : {

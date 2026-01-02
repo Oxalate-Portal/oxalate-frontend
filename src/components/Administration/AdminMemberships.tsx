@@ -57,10 +57,10 @@ export function AdminMemberships() {
             render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id)
         },
         {
-            title: t("AdminMembers.table.created"),
-            dataIndex: "created",
-            key: "created",
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
+            title: t("AdminMembers.table.start-date"),
+            dataIndex: "startDate",
+            key: "startDate",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.startDate).valueOf() - dayjs(b.startDate).valueOf(),
             sortDirections: ["descend", "ascend"]
         },
         {
@@ -68,6 +68,13 @@ export function AdminMemberships() {
             dataIndex: "endDate",
             key: "endDate",
             sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).valueOf() - dayjs(b.endDate).valueOf(),
+            sortDirections: ["descend", "ascend"]
+        },
+        {
+            title: t("AdminMembers.table.created"),
+            dataIndex: "created",
+            key: "created",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
             sortDirections: ["descend", "ascend"]
         },
         {

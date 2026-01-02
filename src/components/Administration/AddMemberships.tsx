@@ -1,22 +1,31 @@
 import {useTranslation} from "react-i18next";
-import {Button, DatePicker, Form, message, Select, Space, Spin} from "antd";
+import {Button, Form, message, Select, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
-import {type ListUserResponse, type MembershipRequest, MembershipStatusEnum, MembershipTypeEnum, PortalConfigGroupEnum, RoleEnum} from "../../models";
+import {
+    ChronoUnitEnum,
+    type ListUserResponse,
+    type MembershipRequest,
+    MembershipStatusEnum,
+    MembershipTypeEnum,
+    PortalConfigGroupEnum,
+    RoleEnum
+} from "../../models";
 import {membershipAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
 import {getDefaultMembershipDates} from "../../tools";
 import {Dayjs} from "dayjs";
+import {type RangeValue, ShiftableRangePicker} from "../main";
 
 interface AddMembershipsProps {
     onMembershipAdded: () => void;
 }
 
-const {RangePicker} = DatePicker;
-
 export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
+    const periodTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-unit");
+    const membershipUnit: ChronoUnitEnum = (periodTypeString?.toUpperCase() as ChronoUnitEnum) ?? ChronoUnitEnum.YEARS;
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
     const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs | null } = getDefaultMembershipDates(getPortalConfigurationValue);
 
@@ -27,14 +36,13 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
     const [membershipForm] = Form.useForm();
+    const watchedRange = Form.useWatch("dateRange", membershipForm) as RangeValue | undefined;
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         setLoading(true);
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
-                    // Do not add users that already have a membership
-                    // userResponses = userResponses.filter(user => !user.membershipActive);
                     setUsers(userResponses);
                 })
                 .catch((error) => {
@@ -45,6 +53,10 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
                     setLoading(false);
                 });
     }, [t]);
+
+    function handleDateRangeChange(dates: RangeValue) {
+        membershipForm.setFieldsValue({dateRange: dates ?? []});
+    }
 
     function onFinish(values: { userIdList: number[], dateRange?: Dayjs[] }) {
         setLoading(true);
@@ -117,10 +129,12 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
                             label={t("AddMemberships.form.membershipDuration.label")}
                             rules={[{required: true}]}
                     >
-                        <RangePicker
+                        <ShiftableRangePicker
                                 allowEmpty={[false, false]}
                                 format={"YYYY-MM-DD"}
-                                id={{start: "startDate", end: "endDate"}}
+                                periodType={membershipUnit}
+                                value={watchedRange ?? null}
+                                onChange={handleDateRangeChange}
                         />
                     </Form.Item>
 

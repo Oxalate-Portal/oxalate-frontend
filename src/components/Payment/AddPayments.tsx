@@ -1,23 +1,32 @@
 import {useTranslation} from "react-i18next";
-import {Button, DatePicker, Form, InputNumber, message, Select, Space, Spin} from "antd";
+import {Button, Form, InputNumber, message, Select, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
-import {type ListUserResponse, PaymentExpirationTypeEnum, type PaymentRequest, PaymentTypeEnum, PortalConfigGroupEnum, RoleEnum} from "../../models";
+import {
+    ChronoUnitEnum,
+    type ListUserResponse,
+    PaymentExpirationTypeEnum,
+    type PaymentRequest,
+    PaymentTypeEnum,
+    PortalConfigGroupEnum,
+    RoleEnum
+} from "../../models";
 import {paymentAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
+import {type RangeValue, ShiftableRangePicker} from "../main";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
-const {RangePicker} = DatePicker;
 
 export function AddPayments() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
     const [paymentForm] = Form.useForm();
+    const watchedRange = Form.useWatch("dateRange", paymentForm) as RangeValue | undefined;
     const [paymentType, setPaymentType] = useState<PaymentTypeEnum>(PaymentTypeEnum.PERIODICAL);
 
     const {getPortalConfigurationValue} = useSession();
@@ -25,9 +34,13 @@ export function AddPayments() {
 
     const oneTimeExpirationTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type");
     const oneTimeExpirationType = oneTimeExpirationTypeString.toUpperCase() as PaymentExpirationTypeEnum;
+    const oneTimeUnitString = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-unit");
+    const oneTimeUnit = (oneTimeUnitString?.toUpperCase() as ChronoUnitEnum) ?? ChronoUnitEnum.YEARS;
 
     const periodExpirationTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "periodical-payment-method-type");
     const periodExpirationType = periodExpirationTypeString.toUpperCase() as PaymentExpirationTypeEnum;
+    const periodUnitString = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "periodical-payment-method-unit");
+    const periodUnit = (periodUnitString?.toUpperCase() as ChronoUnitEnum) ?? ChronoUnitEnum.YEARS;
 
     const [paymentExpirationType, setPaymentExpirationType] = useState<PaymentExpirationTypeEnum>(periodExpirationType);
 
@@ -136,6 +149,15 @@ export function AddPayments() {
                 .finally(() => setLoading(false));
     }
 
+    function handleDateRangeChange(dates: RangeValue) {
+        if (dates && Array.isArray(dates)) {
+            const startDate = dates?.[0] === null ? "-" : dates?.[0]?.format("YYYY-MM-DD");
+            const endDate = dates?.[1] === null ? "-" : dates?.[1]?.format("YYYY-MM-DD");
+            console.debug("Date range changed: from", startDate, "to", endDate);
+        }
+        paymentForm.setFieldsValue({dateRange: dates ?? []});
+    }
+
     return (
             <Spin spinning={loading}>
                 {contextHolder}
@@ -181,10 +203,12 @@ export function AddPayments() {
                             label={t("AddPayments.form.period.label")}
                             rules={[{required: true}]}
                     >
-                        <RangePicker
+                        <ShiftableRangePicker
                                 allowEmpty={[false, false]}
                                 format={"YYYY-MM-DD"}
-                                id={{start: "startDate", end: "endDate"}}
+                                periodType={paymentType === PaymentTypeEnum.ONE_TIME ? oneTimeUnit : periodUnit}
+                                value={watchedRange ?? null}
+                                onChange={handleDateRangeChange}
                         />
                     </Form.Item>}
                     <Form.Item

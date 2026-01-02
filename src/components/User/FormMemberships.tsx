@@ -10,25 +10,28 @@ interface FormMembershipsProps {
 
 export function FormMemberships({membershipList}: FormMembershipsProps) {
     const {t} = useTranslation();
-    const sortedMembershipList = membershipList?.slice().sort((a, b) => dayjs(b.expiresAt).valueOf() - dayjs(a.expiresAt).valueOf());
+    const sortedMembershipList = membershipList?.slice().sort((a, b) => dayjs(b.endDate).valueOf() - dayjs(a.endDate).valueOf());
 
     const columns = [
         {
             title: t("FormMemberships.table.id"),
             dataIndex: 'id',
             key: 'membership-id',
+            sorter: (a: MembershipResponse, b: MembershipResponse) => a.id - b.id,
         },
         {
             title: t("FormMemberships.table.type"),
             dataIndex: 'type',
             key: 'membership-type',
-            render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id)
+            render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => a.type.localeCompare(b.type),
         },
         {
             title: t("FormMemberships.table.status"),
             dataIndex: 'status',
             key: 'membership-status',
-            render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id)
+            render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => a.status.localeCompare(b.status),
         },
         {
             title: t("FormMemberships.table.start-date"),
@@ -41,7 +44,8 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>)
-            }
+            },
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix(),
         },
         {
             title: t("FormMemberships.table.end-date"),
@@ -54,7 +58,8 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>)
-            }
+            },
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).unix() - dayjs(b.endDate).unix(),
         },
         {
             title: t("FormMemberships.table.created"),
@@ -64,7 +69,8 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
                 return (<>
                     {date !== null ? dayjs(date).format("YYYY-MM-DD HH:mm") : "-"}
                 </>)
-            }
+            },
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).unix() - dayjs(b.created).unix(),
         }
     ];
 

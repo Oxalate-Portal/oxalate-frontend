@@ -1,12 +1,13 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {userAPI} from "../../services";
-import {message, Spin, Table} from "antd";
+import {message, Space, Spin, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import type {UserResponse} from "../../models";
 import {FormPayments} from "./FormPayments";
 import {formatDateTime} from "../../tools";
 import {ProfileCollapse} from "./ProfileCollapse";
+import {FormMemberships} from "./FormMemberships.tsx";
 
 export function ShowUser() {
     const {paramId} = useParams<string>();
@@ -33,11 +34,11 @@ export function ShowUser() {
                     .then((response) => {
                         setUserData(response);
                         setTableData([
-                            {id: 1, name: t("UserDetails.table.email"), value: response.username},
-                            {id: 2, name: t("UserDetails.table.phonenumber"), value: response.phoneNumber},
-                            {id: 3, name: t("UserDetails.table.registered"), value: formatDateTime(response.registered)},
-                            {id: 4, name: t("UserDetails.table.diveCount"), value: response.diveCount},
-                            {id: 5, name: t("UserDetails.table.nextOfKin"), value: response.nextOfKin},
+                            {id: 1, name: t("ShowUser.table.email"), value: response.username},
+                            {id: 2, name: t("ShowUser.table.phonenumber"), value: response.phoneNumber},
+                            {id: 3, name: t("ShowUser.table.registered"), value: formatDateTime(response.registered)},
+                            {id: 4, name: t("ShowUser.table.diveCount"), value: response.diveCount},
+                            {id: 5, name: t("ShowUser.table.nextOfKin"), value: response.nextOfKin},
                         ]);
                     })
                     .catch((error) => {
@@ -71,11 +72,16 @@ export function ShowUser() {
             <div className={"darkDiv"}>
                 {contextHolder}
                 <Spin spinning={loading}>
-                    {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
-                    {userData && t("UserDetails.table.payments")}
-                    {userData && <FormPayments userData={userData}/>}
-                    {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
-                    {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
+                    <Space orientation="vertical" size="large" style={{width: "100%"}}>
+                        {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
+                        {userData && t("ShowUser.table.payments")}
+                        {userData && <FormPayments userData={userData}/>}
+                        {userData && t("ShowUser.table.memberships")}
+                        {userData && <FormMemberships membershipList={userData.memberships}/>}
+                        {userData && t("ShowUser.table.user-details")}
+                        {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
+                        {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
+                    </Space>
                 </Spin>
             </div>
     );

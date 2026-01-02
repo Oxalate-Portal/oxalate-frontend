@@ -80,7 +80,8 @@
         "title" : "acción"
       },
       "created" : "Creado",
-      "end-date" : "Fecha de expiración",
+      "end-date" : "Fecha de finalización",
+      "start-date" : "Fecha de inicio",
       "status" : "Estado",
       "type" : "Tipo",
       "userId" : "ID de usuario",
@@ -924,9 +925,9 @@
   "FormMemberships" : {
     "table" : {
       "created" : "Creado",
-      "end-date" : "Fecha de inicio",
+      "end-date" : "Fecha de finalización",
       "id" : "ID",
-      "start-date" : "Fecha de finalización",
+      "start-date" : "Fecha de inicio",
       "status" : "Estado",
       "type" : "Tipo"
     }
@@ -935,7 +936,7 @@
     "noValid" : "No hay pagos válidos disponibles.",
     "table" : {
       "created" : "Creado",
-      "endDate" : "Fecha de expiración",
+      "end-date" : "Fecha de finalización",
       "id" : "ID",
       "paymentCount" : "Cantidad",
       "paymentType" : "Tipo de pago",
@@ -1220,7 +1221,7 @@
   "PaymentListTable" : {
     "table" : {
       "created" : "Creado",
-      "endDate" : "Finaliza el",
+      "end-date" : "Finaliza el",
       "name" : "Nombre",
       "paymentCount" : "Cantidad",
       "paymentDate" : "Fecha de pago",
@@ -1621,14 +1622,16 @@
       "ok" : "Información del usuario actualizada"
     }
   },
-  "UserDetails" : {
+  "ShowUser" : {
     "table" : {
-      "diveCount" : "Conteo de inmersiones:",
-      "email" : "Correo electrónico:",
-      "nextOfKin" : "Pariente más cercano:",
-      "payments" : "Pagos:",
-      "phonenumber" : "Número de teléfono:",
-      "registered" : "Registrado:"
+      "diveCount" : "Conteo de inmersiones",
+      "email" : "Correo electrónico",
+      "memberships" : "Membresías",
+      "nextOfKin" : "Pariente más cercano",
+      "payments" : "Pagos",
+      "phonenumber" : "Número de teléfono",
+      "registered" : "Registrado",
+      "user-details" : "Usuario"
     }
   },
   "UserEvents" : {

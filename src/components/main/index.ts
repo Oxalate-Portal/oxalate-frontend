@@ -5,3 +5,5 @@ export {LoginWithCaptcha} from "./LoginWithCaptcha";
 export {NavigationBar} from "./NavigationBar";
 export {OxalateFooter} from "./OxalateFooter";
 export {ProtectedImage} from "./ProtectedImage";
+export {ShiftableRangePicker} from "./ShiftableRangePicker";
+export type {RangeValue} from "./ShiftableRangePicker";

@@ -43,7 +43,7 @@ import {
     SetDives,
     ShowDiveEvent,
     ShowUser,
-    User,
+    UserProfile,
     YearlyDiveStats
 } from "./components";
 import dayjs from "dayjs";
@@ -106,7 +106,7 @@ function App() {
                             <Routes>
                                 <Route path="*" element={<Navigate to="/"/>}/>
                                 <Route path="/" element={<Home/>}/>
-                                <Route path="/user" element={<PrivateRoute><User/></PrivateRoute>}/>
+                                <Route path="/user" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
                             </Routes>
                             {window.location.pathname !== "/user" && <AcceptTerms registration={false}/>}
                             <OxalateFooter/>
@@ -169,7 +169,7 @@ function App() {
                             <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>
                             <Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>
                             <Route path="/users/certificates/:paramId" element={<PrivateRoute><EditCertificate/></PrivateRoute>}/>
-                            <Route path="/users/profile" element={<PrivateRoute><User/></PrivateRoute>}/>
+                            <Route path="/users/profile" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
                         </Routes>
                         <OxalateFooter/>
                     </div>

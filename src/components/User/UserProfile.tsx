@@ -7,7 +7,7 @@ import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./inde
 import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";
 
-export function User() {
+export function UserProfile() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
