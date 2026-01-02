@@ -80,7 +80,8 @@
         "title" : "Aktion"
       },
       "created" : "Erstellt am",
-      "end-date" : "Ablaufzeit",
+      "end-date" : "Enddatum",
+      "startDate" : "Beginnen am",
       "status" : "Status",
       "type" : "Typ",
       "userId" : "Benutzer-ID",
@@ -924,9 +925,9 @@
   "FormMemberships" : {
     "table" : {
       "created" : "Erstellt",
-      "end-date" : "Startdatum",
+      "end-date" : "Enddatum",
       "id" : "ID",
-      "start-date" : "Enddatum",
+      "start-date" : "Startdatum",
       "status" : "Status",
       "type" : "Typ"
     }
@@ -935,7 +936,7 @@
     "noValid" : "Keine gültigen Zahlungen verfügbar.",
     "table" : {
       "created" : "Erstellt am",
-      "endDate" : "Ablaufzeit",
+      "end-date" : "Enddatum",
       "id" : "ID",
       "paymentCount" : "Anzahl",
       "paymentType" : "Zahlungstyp",
@@ -1220,7 +1221,7 @@
   "PaymentListTable" : {
     "table" : {
       "created" : "Erstellt",
-      "endDate" : "Endet am",
+      "end-date" : "Endet am",
       "name" : "Name",
       "paymentCount" : "Anzahl",
       "paymentDate" : "Zahlungstag",

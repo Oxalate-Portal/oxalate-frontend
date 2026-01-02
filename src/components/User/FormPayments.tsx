@@ -63,7 +63,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             }
         },
         {
-            title: t("FormatPayments.table.endDate"),
+            title: t("FormatPayments.table.end-date"),
             dataIndex: "endDate",
             key: "endDate",
             render: (date: Date, record: PaymentResponse) => {

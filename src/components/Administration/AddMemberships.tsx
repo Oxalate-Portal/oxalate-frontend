@@ -33,8 +33,6 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
         setLoading(true);
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
-                    // Do not add users that already have a membership
-                    // userResponses = userResponses.filter(user => !user.membershipActive);
                     setUsers(userResponses);
                 })
                 .catch((error) => {

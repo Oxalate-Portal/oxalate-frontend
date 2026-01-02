@@ -10,7 +10,7 @@ interface FormMembershipsProps {
 
 export function FormMemberships({membershipList}: FormMembershipsProps) {
     const {t} = useTranslation();
-    const sortedMembershipList = membershipList?.slice().sort((a, b) => dayjs(b.expiresAt).valueOf() - dayjs(a.expiresAt).valueOf());
+    const sortedMembershipList = membershipList?.slice().sort((a, b) => dayjs(b.endDate).valueOf() - dayjs(a.endDate).valueOf());
 
     const columns = [
         {

@@ -81,6 +81,7 @@
       },
       "created" : "Luotu",
       "end-date" : "Päättymisaika",
+      "start-date" : "Aloitusaika",
       "status" : "Tila",
       "type" : "Tyyppi",
       "userId" : "Käyttäjän ID",
@@ -924,9 +925,9 @@
   "FormMemberships" : {
     "table" : {
       "created" : "Luotu",
-      "end-date" : "Alkamispäivä",
+      "end-date" : "Päättymisaika",
       "id" : "ID",
-      "start-date" : "Päättymispäivä",
+      "start-date" : "Alkamisaika",
       "status" : "Tila",
       "type" : "Tyyppi"
     }
@@ -935,13 +936,13 @@
     "noValid" : "Ei voimassa olevia maksuja.",
     "table" : {
       "created" : "Luotu",
-      "endDate" : "Päättymisaika",
+      "end-date" : "Päättymisaika",
       "id" : "ID",
       "paymentCount" : "Määrä",
       "paymentType" : "Maksutyyppi",
       "periodPayment" : "Kausimaksu",
       "singlePayment" : "Kertamaksu",
-      "startDate" : "Alkaamisajankohta"
+      "startDate" : "Alkamisaika"
     },
     "unknownPayment" : "Tuntematon maksutyyppi",
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
@@ -1220,7 +1221,7 @@
   "PaymentListTable" : {
     "table" : {
       "created" : "Luotu",
-      "endDate" : "Päättymisaika",
+      "end-date" : "Päättymisaika",
       "name" : "Nimi",
       "paymentCount" : "Määrä",
       "paymentDate" : "Maksupäiväys",

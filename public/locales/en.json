@@ -80,7 +80,8 @@
         "title" : "Action"
       },
       "created" : "Created",
-      "end-date" : "Expiration time",
+      "end-date" : "End date",
+      "start-date" : "Start date",
       "status" : "Status",
       "type" : "Type",
       "userId" : "User ID",
@@ -924,9 +925,9 @@
   "FormMemberships" : {
     "table" : {
       "created" : "Created",
-      "end-date" : "Start date",
+      "end-date" : "End date",
       "id" : "ID",
-      "start-date" : "End date",
+      "start-date" : "Start date",
       "status" : "Status",
       "type" : "Type"
     }
@@ -935,7 +936,7 @@
     "noValid" : "No valid payments available.",
     "table" : {
       "created" : "Created",
-      "endDate" : "Expiration time",
+      "end-date" : "End date",
       "id" : "ID",
       "paymentCount" : "Count",
       "paymentType" : "Payment Type",
@@ -1220,7 +1221,7 @@
   "PaymentListTable" : {
     "table" : {
       "created" : "Created",
-      "endDate" : "Ends at",
+      "end-date" : "Ends at",
       "name" : "Name",
       "paymentCount" : "Count",
       "paymentDate" : "Payment date",
