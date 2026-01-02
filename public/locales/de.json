@@ -1622,14 +1622,16 @@
       "ok" : "Benutzerdaten erfolgreich aktualisiert"
     }
   },
-  "UserDetails" : {
+  "ShowUser" : {
     "table" : {
-      "diveCount" : "Tauchanzahl:",
-      "email" : "E-Mail:",
-      "nextOfKin" : "Kontaktperson:",
-      "payments" : "Zahlungen:",
-      "phonenumber" : "Telefonnummer:",
-      "registered" : "Registriert am:"
+      "diveCount" : "Tauchanzahl",
+      "email" : "E-Mail",
+      "memberships" : "Mitgliedschaften",
+      "nextOfKin" : "Kontaktperson",
+      "payments" : "Zahlungen",
+      "phonenumber" : "Telefonnummer",
+      "registered" : "Registriert am",
+      "user-details" : "Benutzerdetails"
     }
   },
   "UserEvents" : {

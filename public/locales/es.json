@@ -1622,14 +1622,16 @@
       "ok" : "Información del usuario actualizada"
     }
   },
-  "UserDetails" : {
+  "ShowUser" : {
     "table" : {
-      "diveCount" : "Conteo de inmersiones:",
-      "email" : "Correo electrónico:",
-      "nextOfKin" : "Pariente más cercano:",
-      "payments" : "Pagos:",
-      "phonenumber" : "Número de teléfono:",
-      "registered" : "Registrado:"
+      "diveCount" : "Conteo de inmersiones",
+      "email" : "Correo electrónico",
+      "memberships" : "Membresías",
+      "nextOfKin" : "Pariente más cercano",
+      "payments" : "Pagos",
+      "phonenumber" : "Número de teléfono",
+      "registered" : "Registrado",
+      "user-details" : "Usuario"
     }
   },
   "UserEvents" : {

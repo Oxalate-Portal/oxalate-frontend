@@ -1,8 +1,8 @@
-import {Table, Tag} from "antd";
-import {Link} from "react-router-dom";
+import {Table} from "antd";
 import {useTranslation} from "react-i18next";
 import {type PaymentResponse, PaymentTypeEnum, type UserResponse} from "../../models";
 import dayjs from "dayjs";
+import {paymentTypeEnum2Tag} from "../../tools";
 
 interface FormatPaymentsProps {
     userData: UserResponse | undefined;
@@ -23,27 +23,14 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.id"),
             dataIndex: "id",
             key: "id",
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.id - b.id,
         },
         {
             title: t("FormatPayments.table.paymentType"),
             dataIndex: "paymentType",
             key: "paymentType",
-            render: (type: PaymentTypeEnum) => {
-                if (type === PaymentTypeEnum.ONE_TIME) {
-                    return <Tag color="blue">{t("FormatPayments.table.singlePayment")}</Tag>;
-                }
-                if (type === PaymentTypeEnum.PERIODICAL) {
-                    return <Tag color="green">{t("FormatPayments.table.periodPayment")}</Tag>;
-                }
-                return (
-                        <>
-                            <Tag color="red">{t("FormatPayments.table.unknownPayment")}</Tag>
-                            <Link to="/about/contact">
-                                {t("FormatPayments.table.unknownPaymentContact")}
-                            </Link>
-                        </>
-                );
-            },
+            render: (type: PaymentTypeEnum, record: PaymentResponse) => paymentTypeEnum2Tag(type, t, record.id),
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentType.localeCompare(b.paymentType),
         },
         {
             title: t("FormatPayments.table.paymentCount"),
@@ -51,6 +38,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             key: "paymentCount",
             render: (count: number, record: PaymentResponse) =>
                     record.paymentType === PaymentTypeEnum.ONE_TIME ? count : "-",
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentCount - b.paymentCount,
         },
         {
             title: t("FormatPayments.table.startDate"),
@@ -60,7 +48,8 @@ export function FormPayments(props: FormatPaymentsProps) {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD")}
                 </>)
-            }
+            },
+            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix(),
         },
         {
             title: t("FormatPayments.table.end-date"),
@@ -73,6 +62,17 @@ export function FormPayments(props: FormatPaymentsProps) {
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>)
+            },
+            sorter: (a: PaymentResponse, b: PaymentResponse) => {
+                if (a.endDate === null && b.endDate === null) {
+                    return 0;
+                } else if (a.endDate === null) {
+                    return 1;
+                } else if (b.endDate === null) {
+                    return -1;
+                } else {
+                    return dayjs(a.endDate).unix() - dayjs(b.endDate).unix();
+                }
             }
         },
         {
@@ -83,7 +83,8 @@ export function FormPayments(props: FormatPaymentsProps) {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD HH:mm")}
                 </>)
-            }
+            },
+            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.created).unix() - dayjs(b.created).unix(),
         },
     ];
 

@@ -1622,14 +1622,16 @@
       "ok" : "Käyttäjän tiedot päivitetty"
     }
   },
-  "UserDetails" : {
+  "ShowUser" : {
     "table" : {
-      "diveCount" : "Sukellusmäärä:",
-      "email" : "Sähköposti:",
-      "nextOfKin" : "Lähiomaisen yhteystiedot:",
-      "payments" : "Maksut:",
-      "phonenumber" : "Puhelinnumero:",
-      "registered" : "Rekisteröitynyt:"
+      "diveCount" : "Sukellusmäärä",
+      "email" : "Sähköposti",
+      "memberships" : "Jäsenyydet",
+      "nextOfKin" : "Lähiomaisen yhteystiedot",
+      "payments" : "Maksut",
+      "phonenumber" : "Puhelinnumero",
+      "registered" : "Rekisteröitynyt",
+      "user-details" : "Käyttäjätiedot"
     }
   },
   "UserEvents" : {

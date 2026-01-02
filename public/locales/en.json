@@ -1622,14 +1622,16 @@
       "ok" : "User information updated"
     }
   },
-  "UserDetails" : {
+  "ShowUser" : {
     "table" : {
-      "diveCount" : "Dive count:",
-      "email" : "Email:",
-      "nextOfKin" : "Next of kin:",
-      "payments" : "Payments:",
-      "phonenumber" : "Phone number:",
-      "registered" : "Registered:"
+      "diveCount" : "Dive count",
+      "email" : "Email",
+      "memberships" : "Memberships",
+      "nextOfKin" : "Next of kin",
+      "payments" : "Payments",
+      "phonenumber" : "Phone number",
+      "registered" : "Registered",
+      "user-details" : "User details"
     }
   },
   "UserEvents" : {

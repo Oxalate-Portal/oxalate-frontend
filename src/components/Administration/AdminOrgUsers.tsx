@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {type AdminUserResponse, PaymentTypeEnum} from "../../models";
+import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
@@ -7,6 +7,7 @@ import {userAPI} from "../../services";
 import type {ColumnsType} from "antd/es/table";
 import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
+import dayjs from "dayjs";
 
 export function AdminOrgUsers() {
     const [userList, setUserList] = useState<AdminUserResponse[]>([]);
@@ -92,7 +93,12 @@ export function AdminOrgUsers() {
             key: "payments",
             render: (_: any, record: AdminUserResponse) => (
                     <>
-                        {record.payments.map((payment) => {
+                        {record.payments.map((payment: PaymentResponse) => {
+                            if (dayjs(payment.startDate).isAfter(dayjs())
+                                    || dayjs(payment.endDate).isBefore(dayjs())) {
+                                return null;
+                            }
+
                             let color = "";
                             let paymentTypeLabel = "";
 
