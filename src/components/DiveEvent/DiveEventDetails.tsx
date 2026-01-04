@@ -150,7 +150,13 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                 key: "payments",
                 render: (_, {payments}) => (
                         <>
-                            {payments.map((payment) => paymentTypeEnum2Tag(payment.paymentType, t, payment.id))}
+                            {payments.map((payment) => {
+                                if ((dayjs(payment.endDate).isAfter(dayjs())
+                                                || payment.endDate === null)
+                                        && dayjs(payment.startDate).isBefore(dayjs())) {
+                                    return paymentTypeEnum2Tag(payment.paymentType, t, payment.id);
+                                }
+                            })}
                         </>
                 )
             }];
