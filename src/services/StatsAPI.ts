@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import type {EventPeriodReportResponse, MultiYearValueResponse, YearlyDiversListResponse} from "../models";
+import type {AggregateResponse, EventPeriodReportResponse, MultiYearValueResponse, YearlyDiversListResponse} from "../models";
 
 /**
  * This class is used to make API calls to the /stats endpoint. We only retrieve data from this endpoint so there is no request payload, yet.
@@ -18,6 +18,11 @@ class StatsAPI extends AbstractAPI<void, MultiYearValueResponse[]> {
 
     public async getYearlyStatsData(type: string): Promise<MultiYearValueResponse[]> {
         const response = await this.axiosInstance.get<MultiYearValueResponse[]>('/yearly-' + type);
+        return response.data;
+    }
+
+    public async getAggregates(): Promise<AggregateResponse> {
+        const response = await this.axiosInstance.get<AggregateResponse>('/yearly-aggregates');
         return response.data;
     }
 }

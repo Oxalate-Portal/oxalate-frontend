@@ -2,6 +2,7 @@ import {useTranslation} from "react-i18next";
 import {Space} from "antd";
 import {DiveEventReport} from "./DiveEventReport";
 import {YearlyStats} from "./YearlyStats";
+import {AggregateStats} from "./AggregateStats.tsx";
 
 export function MainAdminStatistics() {
     const {t} = useTranslation();
@@ -11,6 +12,7 @@ export function MainAdminStatistics() {
                 <h4>{t("StatisticsMain.yearlyStats")}</h4>
 
                 <Space orientation={"vertical"} size={40} style={{width: "100%"}}>
+                    <AggregateStats/>
                     <YearlyStats typeOfStats={"events"} headerText={t("StatsYearlyEvents.stats.title")}/>
                     <YearlyStats typeOfStats={"registrations"} headerText={t("StatsYearlyRegistrations.stats.title")}/>
                     <YearlyStats typeOfStats={"organizers"} headerText={t("StatsOrganizers.stats.title")}/>
