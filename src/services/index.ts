@@ -10,6 +10,7 @@ export {downloadAPI} from './DownloadAPI';
 export {emailNotificationSubscriptionAPI} from './EmailNotificationSubscriptionAPI';
 export {fileTransferAPI} from './FileTransferAPI';
 export {membershipAPI} from './MembershipAPI';
+export {notificationAPI} from './NotificationAPI';
 export {pageAPI} from './PageAPI';
 export {pageGroupMgmtAPI} from './PageGroupMgmtAPI';
 export {pageMgmtAPI} from './PageMgmtAPI';

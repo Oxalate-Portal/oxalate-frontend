@@ -41,7 +41,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentCount - b.paymentCount,
         },
         {
-            title: t("FormatPayments.table.startDate"),
+            title: t("FormatPayments.table.start-date"),
             dataIndex: "startDate",
             key: "startDate",
             render: (date: Date, _record: PaymentResponse) => {

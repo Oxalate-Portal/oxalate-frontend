@@ -2,6 +2,7 @@ import {
     ApartmentOutlined,
     AppstoreOutlined,
     BarChartOutlined,
+    BellOutlined,
     CalendarOutlined,
     ContainerOutlined,
     DownloadOutlined,
@@ -30,6 +31,7 @@ import {useSession} from "../../session";
 import {checkRoles, LanguageTool} from "../../tools";
 import {MembershipTypeEnum, type PageGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {pageAPI} from "../../services";
+import {NotificationDropdown} from "../Notification";
 // @ts-ignore
 import Logo from "../../portal_logo.svg?react";
 
@@ -150,6 +152,11 @@ export function NavigationBar() {
                                 label: (<NavLink to="/administration/download">{t("NavigationBar.administration.download")}</NavLink>),
                                 key: "download",
                                 icon: <DownloadOutlined/>
+                            },
+                            {
+                                label: (<NavLink to="/administration/notifications">{t("NavigationBar.administration.notifications")}</NavLink>),
+                                key: "notifications",
+                                icon: <BellOutlined/>
                             },
                             {
                                 label: (<NavLink
@@ -380,6 +387,13 @@ export function NavigationBar() {
                             />
                     )}
                 </div>
+
+                {/* Notification bell for logged in users */}
+                {userSession && (
+                        <div style={{marginRight: screens.md ? 0 : 16}}>
+                            <NotificationDropdown/>
+                        </div>
+                )}
 
                 {/* Hamburger button – hidden on desktop */}
                 {!screens.md && (

@@ -3,6 +3,7 @@ export * from './Certificate';
 export * from './Commenting';
 export * from './DiveEvent';
 export * from './main';
+export * from './Notification';
 export * from './Page';
 export * from './Payment';
 export * from './Register';
