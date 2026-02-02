@@ -105,6 +105,35 @@
       "updated-ok" : "Membresía actualizada correctamente"
     }
   },
+  "AdminNotifications" : {
+    "error" : "Error al enviar notificaciones",
+    "errorGetUsers" : "Error al obtener usuarios",
+    "errorNoRecipients" : "Seleccione al menos un destinatario o marque 'Enviar a todos los usuarios'",
+    "form" : {
+      "message" : {
+        "label" : "Mensaje",
+        "placeholder" : "Ingrese el mensaje de notificación",
+        "required" : "Ingrese un mensaje"
+      },
+      "recipients" : {
+        "label" : "Destinatarios",
+        "placeholder" : "Seleccione usuarios",
+        "required" : "Seleccione al menos un destinatario"
+      },
+      "reset" : "Restablecer",
+      "sendAll" : {
+        "label" : "Enviar a todos los usuarios"
+      },
+      "submit" : "Enviar notificación",
+      "title" : {
+        "label" : "Título",
+        "placeholder" : "Ingrese el título de la notificación",
+        "required" : "Ingrese un título"
+      }
+    },
+    "success" : "Notificaciones enviadas correctamente",
+    "title" : "Enviar notificaciones"
+  },
   "AdminOrgUser" : {
     "form" : {
       "button" : {
@@ -942,7 +971,7 @@
       "paymentType" : "Tipo de pago",
       "periodPayment" : "Pago periódico",
       "singlePayment" : "Pago único",
-      "startDate" : "Comenzar"
+      "start-date" : "Comenzar"
     },
     "unknownPayment" : "Tipo de pago desconocido",
     "unknownPaymentContact" : "Contactar soporte",
@@ -1038,6 +1067,7 @@
       "download" : "Descargar",
       "files" : "Archivos",
       "members" : "Miembros",
+      "notifications" : "Notificaciones",
       "payments" : "Pagos",
       "portal-configuration" : "Configuración del portal",
       "readFirst" : "Leer primero",
@@ -1065,6 +1095,21 @@
       "pages" : "Páginas",
       "title" : "Gestión de páginas"
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Cerrar",
+      "next" : "Siguiente",
+      "previous" : "Anterior"
+    },
+    "noNotifications" : "No hay notificaciones sin leer",
+    "title" : "Notificaciones",
+    "viewAll" : "Ver todas las notificaciones"
+  },
+  "NotificationList" : {
+    "noNotifications" : "No hay notificaciones",
+    "title" : "Todas las notificaciones",
+    "unread" : "Sin leer"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1225,7 +1270,7 @@
       "name" : "Nombre",
       "paymentCount" : "Cantidad",
       "paymentDate" : "Fecha de pago",
-      "startDate" : "Comienza"
+      "start-date" : "Comienza"
     }
   },
   "PaymentTypeEnum" : {

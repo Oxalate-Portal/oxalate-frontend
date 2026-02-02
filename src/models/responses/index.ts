@@ -10,6 +10,7 @@ export type {ListUserResponse} from "./ListUserResponse";
 export type {EmailNotificationSubscriptionResponse} from "./EmailNotificationSubscriptionResponse";
 export type {FrontendConfigurationResponse} from "./FrontendConfigurationResponse";
 export type {MembershipResponse} from "./MembershipResponse";
+export type {MessageResponse} from "./MessageResponse";
 export type {PageGroupResponse} from "./PageGroupResponse";
 export type {PageGroupVersionResponse} from "./PageGroupVersionResponse";
 export type {PageableResponse} from "./PageableResponse";

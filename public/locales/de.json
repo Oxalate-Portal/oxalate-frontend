@@ -81,7 +81,7 @@
       },
       "created" : "Erstellt am",
       "end-date" : "Enddatum",
-      "startDate" : "Beginnen am",
+      "start-date" : "Beginnen am",
       "status" : "Status",
       "type" : "Typ",
       "userId" : "Benutzer-ID",
@@ -104,6 +104,35 @@
       "updated-fail" : "Aktualisierung der Mitgliedschaft fehlgeschlagen",
       "updated-ok" : "Mitgliedschaft erfolgreich aktualisiert"
     }
+  },
+  "AdminNotifications" : {
+    "error" : "Benachrichtigungen konnten nicht gesendet werden",
+    "errorGetUsers" : "Benutzer konnten nicht abgerufen werden",
+    "errorNoRecipients" : "Bitte wählen Sie mindestens einen Empfänger aus oder aktivieren Sie 'An alle Benutzer senden'",
+    "form" : {
+      "message" : {
+        "label" : "Nachricht",
+        "placeholder" : "Geben Sie die Benachrichtigungsnachricht ein",
+        "required" : "Bitte geben Sie eine Nachricht ein"
+      },
+      "recipients" : {
+        "label" : "Empfänger",
+        "placeholder" : "Benutzer auswählen",
+        "required" : "Bitte wählen Sie mindestens einen Empfänger"
+      },
+      "reset" : "Zurücksetzen",
+      "sendAll" : {
+        "label" : "An alle Benutzer senden"
+      },
+      "submit" : "Benachrichtigung senden",
+      "title" : {
+        "label" : "Titel",
+        "placeholder" : "Benachrichtigungstitel eingeben",
+        "required" : "Bitte geben Sie einen Titel ein"
+      }
+    },
+    "success" : "Benachrichtigungen erfolgreich gesendet",
+    "title" : "Benachrichtigungen senden"
   },
   "AdminOrgUser" : {
     "form" : {
@@ -942,7 +971,7 @@
       "paymentType" : "Zahlungstyp",
       "periodPayment" : "Periodische Zahlung",
       "singlePayment" : "Einmalzahlung",
-      "startDate" : "Beginnen am"
+      "start-date" : "Beginnen am"
     },
     "unknownPayment" : "Unbekannter Zahlungstyp",
     "unknownPaymentContact" : "Support kontaktieren",
@@ -1038,6 +1067,7 @@
       "download" : "Herunterladen",
       "files" : "Dateien",
       "members" : "Mitglieder",
+      "notifications" : "Benachrichtigungen",
       "payments" : "Zahlungen",
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
@@ -1065,6 +1095,21 @@
       "pages" : "Seiten",
       "title" : "Seitenverwaltung"
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Schließen",
+      "next" : "Nächste",
+      "previous" : "Vorherige"
+    },
+    "noNotifications" : "Keine ungelesenen Benachrichtigungen",
+    "title" : "Benachrichtigungen",
+    "viewAll" : "Alle Benachrichtigungen anzeigen"
+  },
+  "NotificationList" : {
+    "noNotifications" : "Keine Benachrichtigungen",
+    "title" : "Alle Benachrichtigungen",
+    "unread" : "Ungelesen"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1225,7 +1270,7 @@
       "name" : "Name",
       "paymentCount" : "Anzahl",
       "paymentDate" : "Zahlungstag",
-      "startDate" : "Beginnt"
+      "start-date" : "Beginnt"
     }
   },
   "PaymentTypeEnum" : {

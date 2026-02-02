@@ -105,6 +105,35 @@
       "updated-ok" : "Medlemskap uppdaterat"
     }
   },
+  "AdminNotifications" : {
+    "error" : "Misslyckades med att skicka aviseringar",
+    "errorGetUsers" : "Misslyckades med att hämta användare",
+    "errorNoRecipients" : "Välj minst en mottagare eller markera 'Skicka till alla användare'",
+    "form" : {
+      "message" : {
+        "label" : "Meddelande",
+        "placeholder" : "Ange aviseringsmeddelandet",
+        "required" : "Ange ett meddelande"
+      },
+      "recipients" : {
+        "label" : "Mottagare",
+        "placeholder" : "Välj användare",
+        "required" : "Välj minst en mottagare"
+      },
+      "reset" : "Återställ",
+      "sendAll" : {
+        "label" : "Skicka till alla användare"
+      },
+      "submit" : "Skicka avisering",
+      "title" : {
+        "label" : "Titel",
+        "placeholder" : "Ange aviseringstitel",
+        "required" : "Ange en titel"
+      }
+    },
+    "success" : "Aviseringar skickade",
+    "title" : "Skicka aviseringar"
+  },
   "AdminOrgUser" : {
     "form" : {
       "button" : {
@@ -942,7 +971,7 @@
       "paymentType" : "Betalningstyp",
       "periodPayment" : "Period betalning",
       "singlePayment" : "Engångsbetalning",
-      "startDate" : "Startdatum"
+      "start-date" : "Startdatum"
     },
     "unknownPayment" : "Okänd betalningstyp",
     "unknownPaymentContact" : "Kontakta supporten",
@@ -1038,6 +1067,7 @@
       "download" : "Laddan ner",
       "files" : "Filer",
       "members" : "Medlemmar",
+      "notifications" : "Aviseringar",
       "payments" : "Betalningar",
       "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",
@@ -1065,6 +1095,21 @@
       "pages" : "Sidor",
       "title" : "Sidhantering"
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Stäng",
+      "next" : "Nästa",
+      "previous" : "Föregående"
+    },
+    "noNotifications" : "Inga olästa aviseringar",
+    "title" : "Aviseringar",
+    "viewAll" : "Visa alla aviseringar"
+  },
+  "NotificationList" : {
+    "noNotifications" : "Inga aviseringar",
+    "title" : "Alla aviseringar",
+    "unread" : "Oläst"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1225,7 +1270,7 @@
       "name" : "Namn",
       "paymentCount" : "Antal",
       "paymentDate" : "Betalningsdatum",
-      "startDate" : "Påbörjas"
+      "start-date" : "Påbörjas"
     }
   },
   "PaymentTypeEnum" : {

@@ -105,6 +105,35 @@
       "updated-ok" : "Membership updated successfully"
     }
   },
+  "AdminNotifications" : {
+    "error" : "Failed to send notifications",
+    "errorGetUsers" : "Failed to get users",
+    "errorNoRecipients" : "Please select at least one recipient or check 'Send to all users'",
+    "form" : {
+      "message" : {
+        "label" : "Message",
+        "placeholder" : "Enter the notification message",
+        "required" : "Please enter a message"
+      },
+      "recipients" : {
+        "label" : "Recipients",
+        "placeholder" : "Select users",
+        "required" : "Please select at least one recipient"
+      },
+      "reset" : "Reset",
+      "sendAll" : {
+        "label" : "Send to all users"
+      },
+      "submit" : "Send Notification",
+      "title" : {
+        "label" : "Title",
+        "placeholder" : "Enter notification title",
+        "required" : "Please enter a title"
+      }
+    },
+    "success" : "Notifications sent successfully",
+    "title" : "Send Notifications"
+  },
   "AdminOrgUser" : {
     "form" : {
       "button" : {
@@ -942,7 +971,7 @@
       "paymentType" : "Payment Type",
       "periodPayment" : "Period Payment",
       "singlePayment" : "One-Time Payment",
-      "startDate" : "Starts"
+      "start-date" : "Starts"
     },
     "unknownPayment" : "Unknown Payment Type",
     "unknownPaymentContact" : "Contact Support",
@@ -1038,6 +1067,7 @@
       "download" : "Download",
       "files" : "Files",
       "members" : "Members",
+      "notifications" : "Notifications",
       "payments" : "Payments",
       "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
@@ -1065,6 +1095,21 @@
       "pages" : "Pages",
       "title" : "Page management"
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Close",
+      "next" : "Next",
+      "previous" : "Previous"
+    },
+    "noNotifications" : "No unread notifications",
+    "title" : "Notifications",
+    "viewAll" : "View all notifications"
+  },
+  "NotificationList" : {
+    "noNotifications" : "No notifications",
+    "title" : "All Notifications",
+    "unread" : "Unread"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1225,7 +1270,7 @@
       "name" : "Name",
       "paymentCount" : "Count",
       "paymentDate" : "Payment date",
-      "startDate" : "Starts"
+      "start-date" : "Starts"
     }
   },
   "PaymentTypeEnum" : {

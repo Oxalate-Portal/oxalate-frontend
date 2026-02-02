@@ -9,6 +9,7 @@ import {
     AdminMain,
     AdminMembership,
     AdminMemberships,
+    AdminNotifications,
     AdminOrgUser,
     AdminOrgUsers,
     AdminUploads,
@@ -30,6 +31,7 @@ import {
     MainAdminStatistics,
     NavigationBar,
     NewPassword,
+    NotificationList,
     OxalateFooter,
     Page,
     PageGroups,
@@ -140,6 +142,7 @@ function App() {
                             {membershipType !== MembershipTypeEnum.DISABLED &&
                                     <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
                             {isCommentingEnabled && <Route path="/administration/comment-moderation" element={<AdminRoute><CommentModeration/></AdminRoute>}/>}
+                            <Route path="/administration/notifications" element={<OrganizerRoute><AdminNotifications/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
@@ -164,6 +167,7 @@ function App() {
                             <Route path="/events/past" element={<PrivateRoute><PastDiveEvents/></PrivateRoute>}/>
                             <Route path="/forum" element={<PrivateRoute><Forum/></PrivateRoute>}/>
                             <Route path="/login" element={<LoginWithCaptcha/>}/>
+                            <Route path="/notifications" element={<PrivateRoute><NotificationList/></PrivateRoute>}/>
                             <Route path="/pages/:paramId" element={<Page/>}/>
                             <Route path="/registration" element={<Registration/>}/>
                             <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>

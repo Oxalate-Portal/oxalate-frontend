@@ -105,6 +105,35 @@
       "updated-ok" : "Jäsenyys päivitetty onnistuneesti"
     }
   },
+  "AdminNotifications" : {
+    "error" : "Ilmoitusten lähettäminen epäonnistui",
+    "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
+    "errorNoRecipients" : "Valitse vähintään yksi vastaanottaja tai valitse 'Lähetä kaikille käyttäjille'",
+    "form" : {
+      "message" : {
+        "label" : "Viesti",
+        "placeholder" : "Syötä ilmoituksen viesti",
+        "required" : "Syötä viesti"
+      },
+      "recipients" : {
+        "label" : "Vastaanottajat",
+        "placeholder" : "Valitse käyttäjät",
+        "required" : "Valitse vähintään yksi vastaanottaja"
+      },
+      "reset" : "Tyhjennä",
+      "sendAll" : {
+        "label" : "Lähetä kaikille käyttäjille"
+      },
+      "submit" : "Lähetä ilmoitus",
+      "title" : {
+        "label" : "Otsikko",
+        "placeholder" : "Syötä ilmoituksen otsikko",
+        "required" : "Syötä otsikko"
+      }
+    },
+    "success" : "Ilmoitukset lähetetty onnistuneesti",
+    "title" : "Lähetä ilmoituksia"
+  },
   "AdminOrgUser" : {
     "form" : {
       "button" : {
@@ -942,7 +971,7 @@
       "paymentType" : "Maksutyyppi",
       "periodPayment" : "Kausimaksu",
       "singlePayment" : "Kertamaksu",
-      "startDate" : "Alkamisaika"
+      "start-date" : "Alkamisaika"
     },
     "unknownPayment" : "Tuntematon maksutyyppi",
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
@@ -1038,6 +1067,7 @@
       "download" : "Lataa",
       "files" : "Tiedostot",
       "members" : "Jäsenet",
+      "notifications" : "Ilmoitukset",
       "payments" : "Maksut",
       "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
@@ -1065,6 +1095,21 @@
       "pages" : "Sivut",
       "title" : "Sivuhallinta"
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Sulje",
+      "next" : "Seuraava",
+      "previous" : "Edellinen"
+    },
+    "noNotifications" : "Ei lukemattomia ilmoituksia",
+    "title" : "Ilmoitukset",
+    "viewAll" : "Näytä kaikki ilmoitukset"
+  },
+  "NotificationList" : {
+    "noNotifications" : "Ei ilmoituksia",
+    "title" : "Kaikki ilmoitukset",
+    "unread" : "Lukematon"
   },
   "NewPassword" : {
     "setUpdateStatus" : {
@@ -1225,7 +1270,7 @@
       "name" : "Nimi",
       "paymentCount" : "Määrä",
       "paymentDate" : "Maksupäiväys",
-      "startDate" : "Alkamisaika"
+      "start-date" : "Alkamisaika"
     }
   },
   "PaymentTypeEnum" : {

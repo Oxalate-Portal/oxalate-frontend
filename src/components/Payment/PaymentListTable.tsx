@@ -167,7 +167,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             },
         },
         {
-            title: t("PaymentListTable.table.startDate"),
+            title: t("PaymentListTable.table.start-date"),
             dataIndex: "startDate",
             key: "startDate",
             sorter: (a: PaymentVO, b: PaymentVO) =>
