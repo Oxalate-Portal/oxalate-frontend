@@ -14,13 +14,14 @@ import {
     RoleEnum
 } from "../../models";
 import {useTranslation} from "react-i18next";
-import {Button, DatePicker, Form, Input, message, Select, Slider, Space} from "antd";
+import {Button, DatePicker, Form, Input, message, Modal, Select, Slider, Space} from "antd";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import TextArea from "antd/es/input/TextArea";
 import {useSession} from "../../session";
 import {localToUTCDatetime} from "../../tools";
+import {AdminNotifications} from "../Notification";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -63,6 +64,7 @@ export function EditDiveEvent() {
 
     const [diveEventForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
+    const [notificationModalOpen, setNotificationModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         function populateOrganizerList(organizers: ListUserResponse[]): void {
@@ -568,8 +570,30 @@ export function EditDiveEvent() {
                                         href={"/events/" + diveEventId + "/set-dives"}
                                         disabled={loading}
                                 >{t("EditEvent.form.button.updateDives")}</Button>}
+                        {diveEvent && diveEvent.participants.length > 0 &&
+                                <Button
+                                        onClick={() => setNotificationModalOpen(true)}
+                                        disabled={loading}
+                                >{t("EditEvent.form.button.notifyParticipants")}</Button>}
                     </Space>
                 </Form>}
+
+                <Modal
+                        title={t("EditEvent.notificationModal.title")}
+                        open={notificationModalOpen}
+                        onCancel={() => setNotificationModalOpen(false)}
+                        footer={null}
+                        width={600}
+                        destroyOnClose
+                >
+                    {diveEvent && (
+                            <AdminNotifications
+                                    participantIds={diveEvent.participants.map(p => p.id)}
+                                    onNotificationSent={() => setNotificationModalOpen(false)}
+                                    embedded={true}
+                            />
+                    )}
+                </Modal>
             </div>
     );
 }

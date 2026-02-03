@@ -131,6 +131,7 @@
         "required" : "Ingrese un título"
       }
     },
+    "participantCount" : "Enviar notificación a {{count}} participante(s)",
     "success" : "Notificaciones enviadas correctamente",
     "title" : "Enviar notificaciones"
   },
@@ -671,6 +672,7 @@
   "EditEvent" : {
     "form" : {
       "button" : {
+        "notifyParticipants" : "Notificar a participantes",
         "updateDives" : "Actualizar conteos de inmersiones"
       },
       "description" : {
@@ -749,6 +751,9 @@
         },
         "tooltip" : "Tipo de evento de buceo"
       }
+    },
+    "notificationModal" : {
+      "title" : "Enviar notificación a participantes"
     },
     "oldEvent" : {
       "alertText" : "El evento ya ha finalizado y ya no se puede editar"

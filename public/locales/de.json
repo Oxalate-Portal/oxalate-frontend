@@ -131,6 +131,7 @@
         "required" : "Bitte geben Sie einen Titel ein"
       }
     },
+    "participantCount" : "Benachrichtigung an {{count}} Teilnehmer senden",
     "success" : "Benachrichtigungen erfolgreich gesendet",
     "title" : "Benachrichtigungen senden"
   },
@@ -671,6 +672,7 @@
   "EditEvent" : {
     "form" : {
       "button" : {
+        "notifyParticipants" : "Teilnehmer benachrichtigen",
         "updateDives" : "Aktualisiere Tauchgänge"
       },
       "description" : {
@@ -749,6 +751,9 @@
         },
         "tooltip" : "Art des Tauchereignisses"
       }
+    },
+    "notificationModal" : {
+      "title" : "Benachrichtigung an Teilnehmer senden"
     },
     "oldEvent" : {
       "alertText" : "Das Ereignis ist bereits abgeschlossen und kann nicht mehr bearbeitet werden."

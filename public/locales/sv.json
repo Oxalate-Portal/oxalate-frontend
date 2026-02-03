@@ -131,6 +131,7 @@
         "required" : "Ange en titel"
       }
     },
+    "participantCount" : "Skickar avisering till {{count}} deltagare",
     "success" : "Aviseringar skickade",
     "title" : "Skicka aviseringar"
   },
@@ -671,6 +672,7 @@
   "EditEvent" : {
     "form" : {
       "button" : {
+        "notifyParticipants" : "Meddela deltagare",
         "updateDives" : "Uppdatera dykförhållanden"
       },
       "description" : {
@@ -749,6 +751,9 @@
         },
         "tooltip" : "Typ av dykevenemang"
       }
+    },
+    "notificationModal" : {
+      "title" : "Skicka avisering till deltagare"
     },
     "oldEvent" : {
       "alertText" : "Evenemanget har redan avslutats och kan inte längre redigeras"
