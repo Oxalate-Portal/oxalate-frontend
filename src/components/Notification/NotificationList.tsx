@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {List, Pagination, Space, Spin, Tag, Typography} from "antd";
 import {useTranslation} from "react-i18next";
+import {useLocation} from "react-router-dom";
 import type {MessageResponse} from "../../models";
 import {notificationAPI} from "../../services";
 import dayjs from "dayjs";
@@ -11,6 +12,7 @@ const PAGE_SIZE = 100;
 
 export function NotificationList() {
     const {t} = useTranslation();
+    const location = useLocation();
     const [notifications, setNotifications] = useState<MessageResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -29,7 +31,7 @@ export function NotificationList() {
         };
 
         fetchAllNotifications();
-    }, []);
+    }, [location.key]); // Re-fetch when navigation occurs
 
     const handleMarkAsRead = async (notification: MessageResponse) => {
         if (notification.read) {
@@ -54,7 +56,7 @@ export function NotificationList() {
 
     return (
             <div className="darkDiv">
-                <Space direction="vertical" size={16} style={{width: "100%"}}>
+                <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
                     <Title level={2}>{t("NotificationList.title")}</Title>
 
                     <Spin spinning={loading}>

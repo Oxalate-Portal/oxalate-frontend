@@ -131,6 +131,7 @@
         "required" : "Please enter a title"
       }
     },
+    "participantCount" : "Sending notification to {{count}} participant(s)",
     "success" : "Notifications sent successfully",
     "title" : "Send Notifications"
   },
@@ -671,6 +672,7 @@
   "EditEvent" : {
     "form" : {
       "button" : {
+        "notifyParticipants" : "Notify participants",
         "updateDives" : "Update dive counts"
       },
       "description" : {
@@ -749,6 +751,9 @@
         },
         "tooltip" : "Type of diving event"
       }
+    },
+    "notificationModal" : {
+      "title" : "Send notification to participants"
     },
     "oldEvent" : {
       "alertText" : "The event has already ended, and it can no longer be edited"

@@ -3,13 +3,26 @@ import type {ActionResponse, MarkReadRequest, MessageRequest, MessageResponse} f
 
 class NotificationAPI extends AbstractAPI<MessageRequest, MessageResponse> {
 
+    private getNoCacheConfig() {
+        return {
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            },
+            params: {
+                _t: Date.now() // Cache-busting timestamp
+            }
+        };
+    }
+
     public async getUnreadNotifications(): Promise<MessageResponse[]> {
-        const response = await this.axiosInstance.get<MessageResponse[]>("/unread");
+        const response = await this.axiosInstance.get<MessageResponse[]>("/unread", this.getNoCacheConfig());
         return response.data;
     }
 
     public async getAllNotifications(): Promise<MessageResponse[]> {
-        const response = await this.axiosInstance.get<MessageResponse[]>("/all");
+        const response = await this.axiosInstance.get<MessageResponse[]>("/all", this.getNoCacheConfig());
         return response.data;
     }
 

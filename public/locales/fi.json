@@ -131,6 +131,7 @@
         "required" : "Syötä otsikko"
       }
     },
+    "participantCount" : "Lähetetään ilmoitus {{count}} osallistujalle",
     "success" : "Ilmoitukset lähetetty onnistuneesti",
     "title" : "Lähetä ilmoituksia"
   },
@@ -671,6 +672,7 @@
   "EditEvent" : {
     "form" : {
       "button" : {
+        "notifyParticipants" : "Ilmoita osallistujille",
         "updateDives" : "Päivitä sukellusmäärät"
       },
       "description" : {
@@ -749,6 +751,9 @@
         },
         "tooltip" : "Sukellustapahtuman tyyppi"
       }
+    },
+    "notificationModal" : {
+      "title" : "Lähetä ilmoitus osallistujille"
     },
     "oldEvent" : {
       "alertText" : "Tapahtuma on jo päättynyt, eikä tapahtumaa voi enää muokata"

@@ -8,7 +8,13 @@ import {notificationAPI, userAPI} from "../../services";
 const {TextArea} = Input;
 const {Title} = Typography;
 
-export function AdminNotifications() {
+interface AdminNotificationsProps {
+    participantIds?: number[];
+    onNotificationSent?: () => void;
+    embedded?: boolean;
+}
+
+export function AdminNotifications({participantIds, onNotificationSent, embedded = false}: AdminNotificationsProps) {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(false);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
@@ -16,7 +22,15 @@ export function AdminNotifications() {
     const [notificationForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
+    // Determine if we're in participant mode (pre-selected recipients)
+    const hasParticipants = participantIds && participantIds.length > 0;
+
     useEffect(() => {
+        // Skip fetching users if we have pre-selected participants
+        if (hasParticipants) {
+            return;
+        }
+
         setLoading(true);
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
@@ -29,10 +43,11 @@ export function AdminNotifications() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [t, messageApi]);
+    }, [t, messageApi, hasParticipants]);
 
     function onFinish(values: { recipients?: number[], title: string, message: string, sendAll: boolean }) {
-        if (!values.sendAll && (!values.recipients || values.recipients.length === 0)) {
+        // Skip validation if we have pre-selected participants
+        if (!hasParticipants && !values.sendAll && (!values.recipients || values.recipients.length === 0)) {
             messageApi.error(t("AdminNotifications.errorNoRecipients"));
             return;
         }
@@ -45,8 +60,8 @@ export function AdminNotifications() {
             title: values.title,
             message: values.message,
             creator: 0, // Will be set by backend
-            recipients: values.sendAll ? undefined : values.recipients,
-            sendAll: values.sendAll
+            recipients: hasParticipants ? participantIds : (values.sendAll ? undefined : values.recipients),
+            sendAll: hasParticipants ? false : values.sendAll
         };
 
         notificationAPI.createBulkNotifications(messageRequest)
@@ -55,6 +70,10 @@ export function AdminNotifications() {
                         messageApi.success(t("AdminNotifications.success"));
                         notificationForm.resetFields();
                         setSendToAll(false);
+                        // Call the callback if provided (e.g., to close the modal)
+                        if (onNotificationSent) {
+                            onNotificationSent();
+                        }
                     } else {
                         messageApi.error(t("AdminNotifications.error") + " " + response.message);
                     }
@@ -69,10 +88,15 @@ export function AdminNotifications() {
     }
 
     return (
-            <div className="darkDiv">
+            <div className={embedded ? "" : "darkDiv"}>
                 {contextHolder}
                 <Space direction="vertical" size={16} style={{width: "100%"}}>
-                    <Title level={2}>{t("AdminNotifications.title")}</Title>
+                    {!embedded && <Title level={2}>{t("AdminNotifications.title")}</Title>}
+                    {hasParticipants && (
+                            <Typography.Text>
+                                {t("AdminNotifications.participantCount", {count: participantIds.length})}
+                            </Typography.Text>
+                    )}
 
                     <Spin spinning={loading}>
                         <Form
@@ -82,49 +106,53 @@ export function AdminNotifications() {
                                 style={{maxWidth: 800}}
                                 initialValues={{sendAll: false}}
                         >
-                            <Form.Item
-                                    name="sendAll"
-                                    valuePropName="checked"
-                            >
-                                <Checkbox
-                                        onChange={(e) => {
-                                            setSendToAll(e.target.checked);
-                                            if (e.target.checked) {
-                                                notificationForm.setFieldsValue({recipients: []});
-                                            }
-                                        }}
-                                >
-                                    {t("AdminNotifications.form.sendAll.label")}
-                                </Checkbox>
-                            </Form.Item>
+                            {!hasParticipants && (
+                                    <Form.Item
+                                            name="sendAll"
+                                            valuePropName="checked"
+                                    >
+                                        <Checkbox
+                                                onChange={(e) => {
+                                                    setSendToAll(e.target.checked);
+                                                    if (e.target.checked) {
+                                                        notificationForm.setFieldsValue({recipients: []});
+                                                    }
+                                                }}
+                                        >
+                                            {t("AdminNotifications.form.sendAll.label")}
+                                        </Checkbox>
+                                    </Form.Item>
+                            )}
 
-                            <Form.Item
-                                    name="recipients"
-                                    label={t("AdminNotifications.form.recipients.label")}
-                                    rules={[
-                                        {
-                                            validator: (_, value) => {
-                                                if (sendToAll || (value && value.length > 0)) {
-                                                    return Promise.resolve();
+                            {!hasParticipants && (
+                                    <Form.Item
+                                            name="recipients"
+                                            label={t("AdminNotifications.form.recipients.label")}
+                                            rules={[
+                                                {
+                                                    validator: (_, value) => {
+                                                        if (sendToAll || (value && value.length > 0)) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject(new Error(t("AdminNotifications.form.recipients.required")));
+                                                    }
                                                 }
-                                                return Promise.reject(new Error(t("AdminNotifications.form.recipients.required")));
-                                            }
-                                        }
-                                    ]}
-                            >
-                                <Select
-                                        mode="multiple"
-                                        disabled={sendToAll}
-                                        placeholder={t("AdminNotifications.form.recipients.placeholder")}
-                                        optionFilterProp="label"
-                                        showSearch
-                                        options={users.map(user => ({
-                                            value: user.id,
-                                            label: user.name
-                                        }))}
-                                        style={{width: "100%"}}
-                                />
-                            </Form.Item>
+                                            ]}
+                                    >
+                                        <Select
+                                                mode="multiple"
+                                                disabled={sendToAll}
+                                                placeholder={t("AdminNotifications.form.recipients.placeholder")}
+                                                optionFilterProp="label"
+                                                showSearch
+                                                options={users.map(user => ({
+                                                    value: user.id,
+                                                    label: user.name
+                                                }))}
+                                                style={{width: "100%"}}
+                                        />
+                                    </Form.Item>
+                            )}
 
                             <Form.Item
                                     name="title"
