@@ -8,6 +8,9 @@ import {Link} from "react-router-dom";
 import {pageGroupMgmtAPI} from "../../services";
 import type {ColumnsType} from "antd/es/table";
 
+const RESERVED_PAGE_ID = 1;
+const RESERVED_PAGE_GROUPS = [RESERVED_PAGE_ID, 3];
+
 export function PageGroups() {
     const {userSession, sessionLanguage} = useSession();
     const [loading, setLoading] = useState<boolean>(true);
@@ -71,18 +74,23 @@ export function PageGroups() {
                 }
 
                 return (<Space size={"middle"}>
-                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
-                            record.id !== 1 &&
-                            <Link to={"/administration/page-groups/" + record.id}><Button
+                    {userSession
+                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN])
+                            && !RESERVED_PAGE_GROUPS.includes(record.id)
+                            && <Link to={"/administration/page-groups/" + record.id}><Button
                                     type={"primary"}>{t("common.button.update")}</Button></Link>}
-                    {((record.id === 1 && userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))
-                                    || (record.id !== 1 && userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]))) &&
-                            <Link to={pageLink}><Button>{buttonText}</Button></Link>}
-                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
-                            record.id !== 1 &&
-                            record.status !== PageStatusEnum.DELETED  &&
-                            <Button danger type={"primary"}
-                                    onClick={() => closePageGroup(record.id)}>{t("common.button.close")}</Button>}
+                    {((userSession
+                                            && record.id === RESERVED_PAGE_ID
+                                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))
+                                    || (userSession
+                                            && record.id !== RESERVED_PAGE_ID
+                                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])))
+                            && <Link to={pageLink}><Button>{buttonText}</Button></Link>}
+                    {userSession
+                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN])
+                            && !RESERVED_PAGE_GROUPS.includes(record.id)
+                            && record.status !== PageStatusEnum.DELETED
+                            && <Button danger type={"primary"} onClick={() => closePageGroup(record.id)}>{t("common.button.close")}</Button>}
                 </Space>);
             },
         }

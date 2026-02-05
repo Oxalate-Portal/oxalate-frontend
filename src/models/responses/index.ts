@@ -11,9 +11,9 @@ export type {EmailNotificationSubscriptionResponse} from "./EmailNotificationSub
 export type {FrontendConfigurationResponse} from "./FrontendConfigurationResponse";
 export type {MembershipResponse} from "./MembershipResponse";
 export type {MessageResponse} from "./MessageResponse";
+export type {PagedResponse} from "./PagedResponse";
 export type {PageGroupResponse} from "./PageGroupResponse";
 export type {PageGroupVersionResponse} from "./PageGroupVersionResponse";
-export type {PageableResponse} from "./PageableResponse";
 export type {PageResponse} from "./PageResponse";
 export type {PageVersionResponse} from "./PageVersionResponse";
 export type {PaymentResponse} from "./PaymentResponse";

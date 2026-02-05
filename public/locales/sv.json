@@ -1378,6 +1378,10 @@
       }
     },
     "general" : {
+      "blog-enabled" : {
+        "label" : "Aktivera blogg",
+        "tooltip" : "Detta styr om bloggfunktionen i portalen är aktiverad."
+      },
       "default-language" : {
         "label" : "Standardspråk",
         "tooltip" : "Standardspråk för portalen, ISO-639-format"

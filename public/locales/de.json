@@ -1378,6 +1378,10 @@
       }
     },
     "general" : {
+      "blog-enabled" : {
+        "label" : "Blog aktivieren",
+        "tooltip" : "Dies steuert, ob die Blog-Funktion im Portal aktiviert ist."
+      },
       "default-language" : {
         "label" : "Standardsprache",
         "tooltip" : "Standardsprache des Portals, ISO-639-Format"

@@ -55,6 +55,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
 import {AdminTags} from "./components/Administration/AdminTags";
 import {AdminTagGroups} from "./components/Administration/AdminTagGroups";
+import {Blog} from "./components/Blogging";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -95,6 +96,8 @@ function App() {
         const commentingEnabledString = getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled");
         isCommentingEnabled = commentingEnabledString === "true";
     }
+
+    const blogEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "blog-enabled");
 
     // If the user is logged in, but they have not accepted the terms and conditions, then redirect them to the terms and conditions page. The user
     // is only allowed to access their own profile page until they have accepted the terms and conditions.
@@ -157,6 +160,7 @@ function App() {
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>
                             <Route path="/auth/register" element={<Register/>}/>
+                            {blogEnabled && <Route path="/blog" element={<Blog/>}/>}
                             <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
                             <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
                             <Route path="/events/:paramId/set-dives" element={<PrivateRoute><SetDives/></PrivateRoute>}/>

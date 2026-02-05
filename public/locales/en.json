@@ -1378,6 +1378,10 @@
       }
     },
     "general" : {
+      "blog-enabled" : {
+        "label" : "Enable blog",
+        "tooltip" : "This controls whether the blog feature in the portal is enabled."
+      },
       "default-language" : {
         "label" : "Default language",
         "tooltip" : "Default language for the portal, ISO-639 format"

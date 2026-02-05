@@ -1378,6 +1378,10 @@
       }
     },
     "general" : {
+      "blog-enabled" : {
+        "label" : "Ota blogi käyttöön",
+        "tooltip" : "Tämä määrittää, onko blogiominaisuus portaalissa käytössä."
+      },
       "default-language" : {
         "label" : "Oletuskieli",
         "tooltip" : "Portaalin oletuskieli, ISO-639-muodossa"

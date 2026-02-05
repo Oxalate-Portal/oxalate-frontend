@@ -34,6 +34,7 @@ import {pageAPI} from "../../services";
 import {NotificationDropdown} from "../Notification";
 // @ts-ignore
 import Logo from "../../portal_logo.svg?react";
+import {BlogOutlined} from "../../icons";
 
 const {Header} = Layout;
 const {useBreakpoint} = Grid;
@@ -56,6 +57,7 @@ export function NavigationBar() {
     const [membershipType, setMembershipType] = useState<MembershipTypeEnum>(MembershipTypeEnum.DISABLED);
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
     const [forumEnabled, setForumEnabled] = useState<boolean>(false);
+    const [blogEnabled, setBlogEnabled] = useState<boolean>(false);
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -212,7 +214,7 @@ export function NavigationBar() {
         ...(navigationElements.length > 0
                 ? navigationElements.map(navigationElement => ({
                     label: navigationElement.pageGroupVersions[0].title,
-                    key: `pagegroup-${navigationElement.id}`,
+                    key: `page-group-${navigationElement.id}`,
                     children:
                             navigationElement.pages.map(page => ({
                                 label: (
@@ -236,6 +238,21 @@ export function NavigationBar() {
                                 label: (<NavLink to="/forum">{t("NavigationBar.forum.link")}</NavLink>),
                                 key: "forum-main",
                                 icon: <FormOutlined/>
+                            }
+                        ]
+                    }
+                ] || []),
+        ...(userSession && blogEnabled &&
+                [
+                    {
+                        label: t("NavigationBar.blog.title"),
+                        key: "blog",
+                        icon: <BlogOutlined/>,
+                        children: [
+                            {
+                                label: (<NavLink to="/blog">{t("NavigationBar.blog.link")}</NavLink>),
+                                key: "blog-main",
+                                icon: <BlogOutlined/>
                             }
                         ]
                     }
@@ -325,6 +342,10 @@ export function NavigationBar() {
             if ((getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled") === "true")
                     && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("forum"))) {
                 setForumEnabled(true);
+            }
+
+            if ((getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "blog-enabled") === "true")) {
+                setBlogEnabled(true);
             }
         }
 
