@@ -460,20 +460,26 @@
     "updated" : "Uppdaterad: "
   },
   "BlogControls" : {
-    "caseSensitive" : "Skiftlägeskänslig",
+    "caseSensitive" : {
+      "label" : "Skiftläge",
+      "text" : "Skiftlägeskänslig"
+    },
     "loadMore" : "Ladda fler",
     "noMore" : "Inga fler inlägg",
     "search" : {
+      "label" : "Sök",
       "placeholder" : "Sök blogginlägg..."
     },
     "sortBy" : {
       "createdAt" : "Datum",
+      "label" : "Sortera efter",
       "placeholder" : "Sortera efter",
       "title" : "Titel"
     },
     "sortDirection" : {
       "asc" : "Stigande",
       "desc" : "Fallande",
+      "label" : "Riktning",
       "placeholder" : "Riktning"
     }
   },
@@ -1881,6 +1887,10 @@
     },
     "spinner" : {
       "loading" : "Laddar..."
+    },
+    "switch" : {
+      "off" : "Av",
+      "on" : "På"
     },
     "table" : {
       "column-title" : {

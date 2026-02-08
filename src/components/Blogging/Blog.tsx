@@ -111,6 +111,7 @@ export function Blog() {
     };
 
     const hasMore = pagedResponse ? !pagedResponse.last : false;
+    const totalItems = pagedResponse?.total_elements ?? 0;
 
     return (
             <div className="darkDiv">
@@ -125,6 +126,7 @@ export function Blog() {
                         onSortDirectionChange={handleSortDirectionChange}
                         onSearchChange={handleSearchChange}
                         onCaseSensitiveChange={handleCaseSensitiveChange}
+                        totalItems={totalItems}
                 />
 
                 <Spin spinning={loading}>
@@ -155,6 +157,7 @@ export function Blog() {
                         onLoadMore={handleLoadMore}
                         loading={loading}
                         hasMore={hasMore}
+                        totalItems={totalItems}
                 />
             </div>
     );

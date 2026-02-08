@@ -5,7 +5,7 @@ import DOMPurify from "dompurify";
 import type {PageResponse} from "../../models";
 import {useSession} from "../../session";
 
-const {Title, Paragraph, Text} = Typography;
+const {Text} = Typography;
 
 interface BlogCardProps {
     blog: PageResponse;
@@ -41,18 +41,21 @@ export function BlogCard({blog, expanded, onClick}: BlogCardProps) {
                         width: "100%"
                     }}
             >
-                <Title level={4} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.title)}}/>
+                <h4
+                        style={{margin: "0 0 8px 0", fontSize: "20px", fontWeight: 600}}
+                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.title)}}
+                />
                 <Text type="secondary">{dateLabel} {formattedDate}</Text>
 
                 {pageVersion.ingress && (
-                        <Paragraph
+                        <p
                                 style={{marginTop: 12, fontWeight: "bold"}}
                                 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.ingress)}}
                         />
                 )}
 
                 {expanded && pageVersion.body && (
-                        <Paragraph
+                        <div
                                 style={{marginTop: 12}}
                                 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.body)}}
                         />

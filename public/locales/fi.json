@@ -460,20 +460,26 @@
     "updated" : "Päivitetty: "
   },
   "BlogControls" : {
-    "caseSensitive" : "Kirjainkoko huomioiden",
+    "caseSensitive" : {
+      "label" : "Kirjainkoko",
+      "text" : "Kirjainkoko huomioiden"
+    },
     "loadMore" : "Lataa lisää",
     "noMore" : "Ei enempää kirjoituksia",
     "search" : {
+      "label" : "Haku",
       "placeholder" : "Hae blogikirjoituksia..."
     },
     "sortBy" : {
       "createdAt" : "Päivämäärä",
+      "label" : "Järjestä",
       "placeholder" : "Järjestä",
       "title" : "Otsikko"
     },
     "sortDirection" : {
       "asc" : "Nouseva",
       "desc" : "Laskeva",
+      "label" : "Suunta",
       "placeholder" : "Suunta"
     }
   },
@@ -1881,6 +1887,10 @@
     },
     "spinner" : {
       "loading" : "Ladataan..."
+    },
+    "switch" : {
+      "off" : "Pois",
+      "on" : "Päällä"
     },
     "table" : {
       "column-title" : {

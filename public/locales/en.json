@@ -460,20 +460,26 @@
     "updated" : "Updated: "
   },
   "BlogControls" : {
-    "caseSensitive" : "Case sensitive",
+    "caseSensitive" : {
+      "label" : "Case sensitivity",
+      "text" : "Case sensitive"
+    },
     "loadMore" : "Load more",
     "noMore" : "No more posts",
     "search" : {
+      "label" : "Search",
       "placeholder" : "Search blog posts..."
     },
     "sortBy" : {
       "createdAt" : "Date",
+      "label" : "Sort by",
       "placeholder" : "Sort by",
       "title" : "Title"
     },
     "sortDirection" : {
       "asc" : "Ascending",
       "desc" : "Descending",
+      "label" : "Direction",
       "placeholder" : "Direction"
     }
   },
@@ -1881,6 +1887,10 @@
     },
     "spinner" : {
       "loading" : "Loading..."
+    },
+    "switch" : {
+      "off" : "Off",
+      "on" : "On"
     },
     "table" : {
       "column-title" : {

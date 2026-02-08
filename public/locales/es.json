@@ -460,20 +460,26 @@
     "updated" : "Actualizado: "
   },
   "BlogControls" : {
-    "caseSensitive" : "Distinguir mayúsculas",
+    "caseSensitive" : {
+      "label" : "Mayúsculas/minúsculas",
+      "text" : "Distinguir mayúsculas"
+    },
     "loadMore" : "Cargar más",
     "noMore" : "No hay más publicaciones",
     "search" : {
+      "label" : "Buscar",
       "placeholder" : "Buscar publicaciones de blog..."
     },
     "sortBy" : {
       "createdAt" : "Fecha",
+      "label" : "Ordenar por",
       "placeholder" : "Ordenar por",
       "title" : "Título"
     },
     "sortDirection" : {
       "asc" : "Ascendente",
       "desc" : "Descendente",
+      "label" : "Dirección",
       "placeholder" : "Dirección"
     }
   },
@@ -1881,6 +1887,10 @@
     },
     "spinner" : {
       "loading" : "Cargando..."
+    },
+    "switch" : {
+      "off" : "No",
+      "on" : "Sí"
     },
     "table" : {
       "column-title" : {

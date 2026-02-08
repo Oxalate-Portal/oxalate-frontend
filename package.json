@@ -43,6 +43,7 @@
     "@ckeditor/ckeditor5-react" : "^11.0.0",
     "@wojtekmaj/react-recaptcha-v3" : "^0.1.4",
     "antd" : "^6.2.2",
+    "antd-style" : "^4.1.0",
     "axios" : "^1.13.4",
     "ckeditor5" : "^47.4.0",
     "dayjs" : "^1.11.19",
