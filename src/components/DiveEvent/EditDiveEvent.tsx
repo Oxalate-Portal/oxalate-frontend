@@ -68,7 +68,7 @@ export function EditDiveEvent() {
 
     useEffect(() => {
         function populateOrganizerList(organizers: ListUserResponse[]): void {
-            let organizerList = [];
+            const organizerList = [];
 
             for (let i = 0; i < organizers.length; i++) {
                 organizerList.push({value: organizers[i].id, label: organizers[i].name});
@@ -77,7 +77,7 @@ export function EditDiveEvent() {
         }
 
         function populateParticipantList(users: ListUserResponse[], thisEventId: number): void {
-            let participantList = [];
+            const participantList = [];
             const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
             const requiresActivePayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
 
@@ -118,7 +118,7 @@ export function EditDiveEvent() {
         }
 
         function getMarks(min: number, max: number, step: number, suffix: string): { [key: number]: string } {
-            let marks: { [key: number]: string } = {};
+            const marks: { [key: number]: string } = {};
             for (let i = min; i <= max; i += step) {
                 marks[i] = i.toString() + suffix;
             }
@@ -231,7 +231,7 @@ export function EditDiveEvent() {
 
     // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
     function nextEventTime(): dayjs.Dayjs {
-        let now = dayjs();
+        const now = dayjs();
         let nextEvent: dayjs.Dayjs;
 
         if (now.minute() % 30 === 0) {
@@ -487,7 +487,7 @@ export function EditDiveEvent() {
                         <DatePicker
                                 disabledDate={disabledDate}
                                 showTime={{format: "HH:mm", defaultValue: dayjs()}}
-                                minuteStep={30 as 30}
+                                minuteStep={30 as const}
                                 format={"YYYY-MM-DD HH:mm"}
                         />
                     </Form.Item>
