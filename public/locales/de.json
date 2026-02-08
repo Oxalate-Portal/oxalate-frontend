@@ -477,6 +477,13 @@
       "placeholder" : "Richtung"
     }
   },
+  "BlogMenuItem" : {
+    "empty" : "Keine Blogbeiträge verfügbar",
+    "error" : "Fehler beim Laden der Blogbeiträge",
+    "loading" : "Wird geladen...",
+    "untitled" : "Ohne Titel",
+    "viewAll" : "Alle Blogbeiträge anzeigen"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Sind Sie sicher, dass Sie die Klassifizierung löschen möchten? \""

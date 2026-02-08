@@ -477,6 +477,13 @@
       "placeholder" : "Suunta"
     }
   },
+  "BlogMenuItem" : {
+    "empty" : "Ei blogikirjoituksia saatavilla",
+    "error" : "Blogikirjoitusten lataaminen epäonnistui",
+    "loading" : "Ladataan...",
+    "untitled" : "Nimetön",
+    "viewAll" : "Näytä kaikki blogikirjoitukset"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Haluatko varmasti poistaa luokituksen \""

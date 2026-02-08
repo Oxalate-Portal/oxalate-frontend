@@ -477,6 +477,13 @@
       "placeholder" : "Dirección"
     }
   },
+  "BlogMenuItem" : {
+    "empty" : "No hay publicaciones de blog disponibles",
+    "error" : "Error al cargar las publicaciones de blog",
+    "loading" : "Cargando...",
+    "untitled" : "Sin título",
+    "viewAll" : "Ver todas las publicaciones"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "¿Está seguro de que desea eliminar la clasificación \""

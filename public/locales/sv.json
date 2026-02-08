@@ -477,6 +477,13 @@
       "placeholder" : "Riktning"
     }
   },
+  "BlogMenuItem" : {
+    "empty" : "Inga blogginlägg tillgängliga",
+    "error" : "Kunde inte ladda blogginlägg",
+    "loading" : "Laddar...",
+    "untitled" : "Utan titel",
+    "viewAll" : "Visa alla blogginlägg"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Är du säker på att du vill ta bort certifikatet \""

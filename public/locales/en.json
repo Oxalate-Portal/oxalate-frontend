@@ -477,6 +477,13 @@
       "placeholder" : "Direction"
     }
   },
+  "BlogMenuItem" : {
+    "empty" : "No blog posts available",
+    "error" : "Failed to load blog posts",
+    "loading" : "Loading...",
+    "untitled" : "Untitled",
+    "viewAll" : "View all blog posts"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Are you sure you want to delete the classification \""

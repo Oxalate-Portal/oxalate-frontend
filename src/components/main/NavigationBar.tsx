@@ -32,9 +32,9 @@ import {checkRoles, LanguageTool} from "../../tools";
 import {MembershipTypeEnum, type PageGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {pageAPI} from "../../services";
 import {NotificationDropdown} from "../Notification";
+import {useBlogMenuItems} from "../Blogging";
 // @ts-ignore
 import Logo from "../../portal_logo.svg?react";
-import {BlogOutlined} from "../../icons";
 
 const {Header} = Layout;
 const {useBreakpoint} = Grid;
@@ -61,6 +61,9 @@ export function NavigationBar() {
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
+
+    // Get the blog menu items from the hook
+    const blogMenuItems = useBlogMenuItems(blogEnabled);
 
     type MenuItem = Required<MenuProps>["items"][number];
 
@@ -249,21 +252,7 @@ export function NavigationBar() {
                         ]
                     }
                 ] || []),
-        ...(userSession && blogEnabled &&
-                [
-                    {
-                        label: t("NavigationBar.blog.title"),
-                        key: "blog",
-                        icon: <BlogOutlined/>,
-                        children: [
-                            {
-                                label: (<NavLink to="/blog">{t("NavigationBar.blog.link")}</NavLink>),
-                                key: "blog-main",
-                                icon: <BlogOutlined/>
-                            }
-                        ]
-                    }
-                ] || []),
+        ...(userSession && blogEnabled ? blogMenuItems : []),
         ...(supportedLanguages.length > 0 &&
                 [
                     {
