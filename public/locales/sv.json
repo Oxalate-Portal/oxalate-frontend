@@ -450,6 +450,46 @@
     },
     "title" : "Blockering av datum"
   },
+  "Blog" : {
+    "empty" : "Inga blogginlägg hittades",
+    "title" : "Blogg"
+  },
+  "BlogCard" : {
+    "clickToExpand" : "Klicka för att läsa mer...",
+    "published" : "Publicerad: ",
+    "updated" : "Uppdaterad: "
+  },
+  "BlogControls" : {
+    "caseSensitive" : {
+      "label" : "Skiftläge",
+      "text" : "Skiftlägeskänslig"
+    },
+    "loadMore" : "Ladda fler",
+    "noMore" : "Inga fler inlägg",
+    "search" : {
+      "label" : "Sök",
+      "placeholder" : "Sök blogginlägg..."
+    },
+    "sortBy" : {
+      "createdAt" : "Datum",
+      "label" : "Sortera efter",
+      "placeholder" : "Sortera efter",
+      "title" : "Titel"
+    },
+    "sortDirection" : {
+      "asc" : "Stigande",
+      "desc" : "Fallande",
+      "label" : "Riktning",
+      "placeholder" : "Riktning"
+    }
+  },
+  "BlogMenuItem" : {
+    "empty" : "Inga blogginlägg tillgängliga",
+    "error" : "Kunde inte ladda blogginlägg",
+    "loading" : "Laddar...",
+    "untitled" : "Utan titel",
+    "viewAll" : "Visa alla blogginlägg"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Är du säker på att du vill ta bort certifikatet \""
@@ -1085,6 +1125,10 @@
       "title" : "Administration",
       "users" : "Användare"
     },
+    "blog" : {
+      "link" : "Blogg",
+      "title" : "Blogg"
+    },
     "events" : {
       "add" : "Lägg till evenemang",
       "new" : "Evenemang",
@@ -1097,6 +1141,7 @@
       "title" : "Forum"
     },
     "pageManagement" : {
+      "blogs" : "Lägg till blogginlägg",
       "pages" : "Sidor",
       "title" : "Sidhantering"
     }
@@ -1378,6 +1423,10 @@
       }
     },
     "general" : {
+      "blog-enabled" : {
+        "label" : "Aktivera blogg",
+        "tooltip" : "Detta styr om bloggfunktionen i portalen är aktiverad."
+      },
       "default-language" : {
         "label" : "Standardspråk",
         "tooltip" : "Standardspråk för portalen, ISO-639-format"
@@ -1838,6 +1887,10 @@
     },
     "spinner" : {
       "loading" : "Laddar..."
+    },
+    "switch" : {
+      "off" : "Av",
+      "on" : "På"
     },
     "table" : {
       "column-title" : {

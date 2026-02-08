@@ -1,5 +1,5 @@
 import Axios, {type AxiosInstance} from "axios";
-import type {PageableResponse} from "../models";
+import type {PagedResponse} from "../models";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {
     protected axiosInstance: AxiosInstance;
@@ -11,7 +11,7 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
         });
     }
 
-    public async findAll(params?: Record<string, any>): Promise<RESPONSE[]> {
+    public async findAll(params?: Record<string, string | number>): Promise<RESPONSE[]> {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         const response = await this.axiosInstance.get<RESPONSE[]>("", {params: params});
         return response.data;
@@ -21,9 +21,9 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
      * This should be used instead of findAll() when you want to use pagination.
      * @param params
      */
-    public async findPageable(params?: Record<string, any>): Promise<PageableResponse<RESPONSE>> {
+    public async findPageable(params?: Record<string, string | number>): Promise<PagedResponse<RESPONSE>> {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        const response = await this.axiosInstance.get<PageableResponse<RESPONSE>>("", {params: params});
+        const response = await this.axiosInstance.get<PagedResponse<RESPONSE>>("", {params: params});
         return response.data;
     }
 

@@ -1,4 +1,4 @@
-import {type PageGroupResponse, RoleEnum, type RolePermissionResponse, type UserSessionToken} from "../models";
+import {type PageGroupResponse, type PageResponse, RoleEnum, type RolePermissionResponse, type UserSessionToken} from "../models";
 
 
 /**
@@ -35,8 +35,9 @@ function getPageGroupTitleByLanguage(language: string, pageGroup: PageGroupRespo
     return (returnValue);
 }
 
-function getPageTitleByLanguage(language: string, page: any) {
+function getPageTitleByLanguage(language: string, page: PageResponse) {
     let returnValue = '';
+
     for (let i = 0; i < page.pageVersions.length; i++) {
         if (page.pageVersions[i].language === language) {
             returnValue = page.pageVersions[i].title;

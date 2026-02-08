@@ -72,7 +72,7 @@ export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: num
 
 export function membershipStatusEnum2Tag(status: MembershipStatusEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
-    let label = t("MembershipStatusEnum." + status.toLowerCase());
+    const label = t("MembershipStatusEnum." + status.toLowerCase());
 
     switch (status) {
         case MembershipStatusEnum.ACTIVE:
@@ -94,7 +94,7 @@ export function membershipStatusEnum2Tag(status: MembershipStatusEnum, t: TFunct
 
 export function membershipTypeEnum2Tag(type: MembershipTypeEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
-    let label = t("MembershipTypeEnum." + type.toLowerCase());
+    const label = t("MembershipTypeEnum." + type.toLowerCase());
 
     switch (type) {
         case MembershipTypeEnum.DISABLED:
@@ -183,7 +183,7 @@ export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, rec
 
 export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
-    let label = t("common.roles." + role.toLowerCase());
+    const label = t("common.roles." + role.toLowerCase());
 
     switch(role) {
         case RoleEnum.ROLE_ANONYMOUS:
@@ -208,7 +208,7 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
 
 export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
-    let label = t("CommentStatusEnum." + status.toLowerCase());
+    const label = t("CommentStatusEnum." + status.toLowerCase());
 
     switch(status) {
         case CommentStatusEnum.DRAFTED:
@@ -236,7 +236,7 @@ export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, r
 
 export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
-    let label = t("CommentTypeEnum." + type.toLowerCase());
+    const label = t("CommentTypeEnum." + type.toLowerCase());
 
     switch(type) {
         case CommentTypeEnum.TOPIC:

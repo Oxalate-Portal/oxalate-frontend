@@ -450,6 +450,46 @@
     },
     "title" : "Datumsblockierung"
   },
+  "Blog" : {
+    "empty" : "Keine Blogbeiträge gefunden",
+    "title" : "Blog"
+  },
+  "BlogCard" : {
+    "clickToExpand" : "Klicken Sie, um mehr zu lesen...",
+    "published" : "Veröffentlicht: ",
+    "updated" : "Aktualisiert: "
+  },
+  "BlogControls" : {
+    "caseSensitive" : {
+      "label" : "Groß-/Kleinschreibung",
+      "text" : "Groß-/Kleinschreibung beachten"
+    },
+    "loadMore" : "Mehr laden",
+    "noMore" : "Keine weiteren Beiträge",
+    "search" : {
+      "label" : "Suche",
+      "placeholder" : "Blogbeiträge durchsuchen..."
+    },
+    "sortBy" : {
+      "createdAt" : "Datum",
+      "label" : "Sortieren nach",
+      "placeholder" : "Sortieren nach",
+      "title" : "Titel"
+    },
+    "sortDirection" : {
+      "asc" : "Aufsteigend",
+      "desc" : "Absteigend",
+      "label" : "Richtung",
+      "placeholder" : "Richtung"
+    }
+  },
+  "BlogMenuItem" : {
+    "empty" : "Keine Blogbeiträge verfügbar",
+    "error" : "Fehler beim Laden der Blogbeiträge",
+    "loading" : "Wird geladen...",
+    "untitled" : "Ohne Titel",
+    "viewAll" : "Alle Blogbeiträge anzeigen"
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Sind Sie sicher, dass Sie die Klassifizierung löschen möchten? \""
@@ -1085,6 +1125,10 @@
       "title" : "Verwaltung",
       "users" : "Benutzer"
     },
+    "blog" : {
+      "link" : "Blog",
+      "title" : "Blog"
+    },
     "events" : {
       "add" : "Veranstaltung hinzufügen",
       "new" : "Veranstaltungen",
@@ -1097,6 +1141,7 @@
       "title" : "Forum"
     },
     "pageManagement" : {
+      "blogs" : "Blogbeitrag hinzufügen",
       "pages" : "Seiten",
       "title" : "Seitenverwaltung"
     }
@@ -1378,6 +1423,10 @@
       }
     },
     "general" : {
+      "blog-enabled" : {
+        "label" : "Blog aktivieren",
+        "tooltip" : "Dies steuert, ob die Blog-Funktion im Portal aktiviert ist."
+      },
       "default-language" : {
         "label" : "Standardsprache",
         "tooltip" : "Standardsprache des Portals, ISO-639-Format"
@@ -1838,6 +1887,10 @@
     },
     "spinner" : {
       "loading" : "Laden..."
+    },
+    "switch" : {
+      "off" : "Aus",
+      "on" : "Ein"
     },
     "table" : {
       "column-title" : {

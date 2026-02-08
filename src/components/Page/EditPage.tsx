@@ -33,7 +33,7 @@ export function EditPage() {
     const [formTitleKey, setFormTitleKey] = useState<string>("EditPage.title.new");
 
     const searchParams = new URLSearchParams(window.location.search);
-    let queryPageGroupId = searchParams.get("pageGroupId");
+    const queryPageGroupId = searchParams.get("pageGroupId");
     let tmpPageGroupId: number = 0;
 
     if (queryPageGroupId !== null && queryPageGroupId?.length !== 0 && !Number.isNaN(parseInt(queryPageGroupId))) {
@@ -101,10 +101,10 @@ export function EditPage() {
 
     useEffect(() => {
         function populatePageGroups(data: PageGroupResponse[]) {
-            let pageGroups = [];
+            const pageGroups = [];
 
             for (let i = 0; i < data.length; i++) {
-                let title = getPageGroupTitleByLanguage(sessionLanguage, data[i]);
+                const title = getPageGroupTitleByLanguage(sessionLanguage, data[i]);
                 pageGroups.push({value: data[i].id, label: title});
             }
 

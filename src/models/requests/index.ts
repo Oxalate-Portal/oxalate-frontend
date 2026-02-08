@@ -11,6 +11,7 @@ export type {LostPasswordRequest} from './LostPasswordRequest';
 export type {MarkReadRequest} from './MarkReadRequest';
 export type {MembershipRequest} from './MembershipRequest';
 export type {MessageRequest} from './MessageRequest';
+export type {PagedRequest} from './PagedRequest';
 export type {PageGroupRequest} from './PageGroupRequest';
 export type {PageRequest} from './PageRequest';
 export type {PasswordResetRequest} from './PasswordResetRequest';

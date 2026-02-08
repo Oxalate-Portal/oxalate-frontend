@@ -1,4 +1,13 @@
-import {type PageGroupResponse, PageStatusEnum, RoleEnum, type RolePermissionResponse, type UserSessionToken, UserStatusEnum, UserTypeEnum} from "../models";
+import {
+    type PageGroupResponse,
+    type PageResponse,
+    PageStatusEnum,
+    RoleEnum,
+    type RolePermissionResponse,
+    type UserSessionToken,
+    UserStatusEnum,
+    UserTypeEnum
+} from "../models";
 import {checkRoles, getHighestRole, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage} from "../tools";
 
 describe('OxalateTool.ts Tests', () => {
@@ -92,11 +101,19 @@ describe('OxalateTool.ts Tests', () => {
     });
 
     describe('getPageTitleByLanguage', () => {
-        const page = {
+        const page: PageResponse = {
+            id: 1,
+            pageGroupId: 1,
+            status: PageStatusEnum.PUBLISHED,
             pageVersions: [
                 {id: 21, pageId: 2, language: "en", title: "Page EN", ingress: "", body: ""},
                 {id: 22, pageId: 2, language: "de", title: "Seite DE", ingress: "", body: ""}
-            ]
+            ],
+            rolePermissions: [],
+            creator: 1,
+            createdAt: new Date(),
+            modifier: null,
+            modifiedAt: null
         } as const;
 
         it('returns title for existing language', () => {

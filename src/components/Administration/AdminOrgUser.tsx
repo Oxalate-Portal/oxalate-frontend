@@ -103,7 +103,7 @@ export function AdminOrgUser() {
             }
         }
 
-        let postData: AdminUserRequest = {
+        const postData: AdminUserRequest = {
             id: userInfo.id,
             username: userInfo.username,
             firstName: userInfo.firstName,

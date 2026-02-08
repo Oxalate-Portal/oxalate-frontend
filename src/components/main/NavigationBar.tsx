@@ -32,6 +32,7 @@ import {checkRoles, LanguageTool} from "../../tools";
 import {MembershipTypeEnum, type PageGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {pageAPI} from "../../services";
 import {NotificationDropdown} from "../Notification";
+import {useBlogMenuItems} from "../Blogging";
 // @ts-ignore
 import Logo from "../../portal_logo.svg?react";
 
@@ -56,9 +57,13 @@ export function NavigationBar() {
     const [membershipType, setMembershipType] = useState<MembershipTypeEnum>(MembershipTypeEnum.DISABLED);
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
     const [forumEnabled, setForumEnabled] = useState<boolean>(false);
+    const [blogEnabled, setBlogEnabled] = useState<boolean>(false);
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
+
+    // Get the blog menu items from the hook
+    const blogMenuItems = useBlogMenuItems(blogEnabled);
 
     type MenuItem = Required<MenuProps>["items"][number];
 
@@ -173,7 +178,12 @@ export function NavigationBar() {
                         children: [
                             {
                                 label: (<NavLink to="/administration/page-groups">{t("NavigationBar.pageManagement.pages")}</NavLink>),
-                                key: "pages",
+                                key: "pageManagement-pages",
+                                icon: <FileOutlined/>
+                            },
+                            {
+                                label: (<NavLink to="/administration/pages/0?pageGroupId=3">{t("NavigationBar.pageManagement.blogs")}</NavLink>),
+                                key: "pageManagement-blogs",
                                 icon: <FileOutlined/>
                             }
                         ],
@@ -212,16 +222,18 @@ export function NavigationBar() {
         ...(navigationElements.length > 0
                 ? navigationElements.map(navigationElement => ({
                     label: navigationElement.pageGroupVersions[0].title,
-                    key: `pagegroup-${navigationElement.id}`,
+                    key: `page-group-${navigationElement.id}`,
                     children:
-                            navigationElement.pages.map(page => ({
-                                label: (
-                                        <NavLink to={`/pages/${page.id}`} className="dropdown-item">
-                                            {page.pageVersions[0].title}
-                                        </NavLink>
-                                ),
-                                key: `page-${navigationElement.id}-${page.id}`,
-                            }))
+                            navigationElement.pages.map(page =>
+                                    (page.pageVersions.length > 0 && {
+                                        label: (
+                                                <NavLink to={`/pages/${page.id}`} className="dropdown-item">
+                                                    {page.pageVersions[0].title}
+                                                </NavLink>
+                                        ),
+                                        key: `page-${navigationElement.id}-${page.id}`,
+                                    })
+                            )
                 }))
                 : []),
         // We generate the infoMenuItems from the page versions belonging to the "info" group.
@@ -240,6 +252,7 @@ export function NavigationBar() {
                         ]
                     }
                 ] || []),
+        ...(blogEnabled ? blogMenuItems : []),
         ...(supportedLanguages.length > 0 &&
                 [
                     {
@@ -325,6 +338,10 @@ export function NavigationBar() {
             if ((getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled") === "true")
                     && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("forum"))) {
                 setForumEnabled(true);
+            }
+
+            if ((getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "blog-enabled") === "true")) {
+                setBlogEnabled(true);
             }
         }
 

@@ -60,7 +60,7 @@ export function AddPayments() {
             userAPI.findByRole(RoleEnum.ROLE_USER)
         ])
                 .then(([userList]) => {
-                    let participantList = [];
+                    const participantList = [];
                     const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
 
                     if (requiresMembership) {
