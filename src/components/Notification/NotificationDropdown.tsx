@@ -133,7 +133,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                 <Dropdown
                         open={dropdownOpen}
                         onOpenChange={setDropdownOpen}
-                        dropdownRender={() => dropdownContent}
+                        popupRender={() => dropdownContent}
                         trigger={["click"]}
                         placement="bottomRight"
                 >

@@ -175,7 +175,12 @@ export function NavigationBar() {
                         children: [
                             {
                                 label: (<NavLink to="/administration/page-groups">{t("NavigationBar.pageManagement.pages")}</NavLink>),
-                                key: "pages",
+                                key: "pageManagement-pages",
+                                icon: <FileOutlined/>
+                            },
+                            {
+                                label: (<NavLink to="/administration/pages/0?pageGroupId=3">{t("NavigationBar.pageManagement.blogs")}</NavLink>),
+                                key: "pageManagement-blogs",
                                 icon: <FileOutlined/>
                             }
                         ],
@@ -216,14 +221,16 @@ export function NavigationBar() {
                     label: navigationElement.pageGroupVersions[0].title,
                     key: `page-group-${navigationElement.id}`,
                     children:
-                            navigationElement.pages.map(page => ({
-                                label: (
-                                        <NavLink to={`/pages/${page.id}`} className="dropdown-item">
-                                            {page.pageVersions[0].title}
-                                        </NavLink>
-                                ),
-                                key: `page-${navigationElement.id}-${page.id}`,
-                            }))
+                            navigationElement.pages.map(page =>
+                                    (page.pageVersions.length > 0 && {
+                                        label: (
+                                                <NavLink to={`/pages/${page.id}`} className="dropdown-item">
+                                                    {page.pageVersions[0].title}
+                                                </NavLink>
+                                        ),
+                                        key: `page-${navigationElement.id}-${page.id}`,
+                                    })
+                            )
                 }))
                 : []),
         // We generate the infoMenuItems from the page versions belonging to the "info" group.

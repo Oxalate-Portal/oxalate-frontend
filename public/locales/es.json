@@ -450,6 +450,33 @@
     },
     "title" : "Bloqueo de fechas"
   },
+  "Blog" : {
+    "empty" : "No se encontraron publicaciones de blog",
+    "title" : "Blog"
+  },
+  "BlogCard" : {
+    "clickToExpand" : "Haga clic para leer más...",
+    "published" : "Publicado: ",
+    "updated" : "Actualizado: "
+  },
+  "BlogControls" : {
+    "caseSensitive" : "Distinguir mayúsculas",
+    "loadMore" : "Cargar más",
+    "noMore" : "No hay más publicaciones",
+    "search" : {
+      "placeholder" : "Buscar publicaciones de blog..."
+    },
+    "sortBy" : {
+      "createdAt" : "Fecha",
+      "placeholder" : "Ordenar por",
+      "title" : "Título"
+    },
+    "sortDirection" : {
+      "asc" : "Ascendente",
+      "desc" : "Descendente",
+      "placeholder" : "Dirección"
+    }
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "¿Está seguro de que desea eliminar la clasificación \""
@@ -1085,6 +1112,10 @@
       "title" : "Administración",
       "users" : "Usuarios"
     },
+    "blog" : {
+      "link" : "Blog",
+      "title" : "Blog"
+    },
     "events" : {
       "add" : "Agregar evento",
       "new" : "Eventos",
@@ -1097,6 +1128,7 @@
       "title" : "Foro"
     },
     "pageManagement" : {
+      "blogs" : "Agregar publicación de blog",
       "pages" : "Páginas",
       "title" : "Gestión de páginas"
     }

@@ -450,6 +450,33 @@
     },
     "title" : "Päivämäärän estäminen"
   },
+  "Blog" : {
+    "empty" : "Blogikirjoituksia ei löytynyt",
+    "title" : "Blogi"
+  },
+  "BlogCard" : {
+    "clickToExpand" : "Klikkaa lukeaksesi lisää...",
+    "published" : "Julkaistu: ",
+    "updated" : "Päivitetty: "
+  },
+  "BlogControls" : {
+    "caseSensitive" : "Kirjainkoko huomioiden",
+    "loadMore" : "Lataa lisää",
+    "noMore" : "Ei enempää kirjoituksia",
+    "search" : {
+      "placeholder" : "Hae blogikirjoituksia..."
+    },
+    "sortBy" : {
+      "createdAt" : "Päivämäärä",
+      "placeholder" : "Järjestä",
+      "title" : "Otsikko"
+    },
+    "sortDirection" : {
+      "asc" : "Nouseva",
+      "desc" : "Laskeva",
+      "placeholder" : "Suunta"
+    }
+  },
   "Certificates" : {
     "deleteCertificate" : {
       "confirm" : "Haluatko varmasti poistaa luokituksen \""
@@ -1085,6 +1112,10 @@
       "title" : "Ylläpito",
       "users" : "Käyttäjät"
     },
+    "blog" : {
+      "link" : "Blogi",
+      "title" : "Blogi"
+    },
     "events" : {
       "add" : "Lisää tapahtuma",
       "new" : "Tapahtumat",
@@ -1097,6 +1128,7 @@
       "title" : "Foorumi"
     },
     "pageManagement" : {
+      "blogs" : "Lisää blogikirjoitus",
       "pages" : "Sivut",
       "title" : "Sivuhallinta"
     }

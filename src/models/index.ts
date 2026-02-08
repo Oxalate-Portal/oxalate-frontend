@@ -14,7 +14,6 @@ export type {OptionItemVO} from "./OptionItemVO";
 export type {PaymentVO} from "./PaymentVO";
 export type {RegistrationVO} from "./RegistrationVO";
 export type {UserSessionToken} from "./UserSessionToken";
-export type {Sort} from "./Sort";
 export type {SortableTableParams} from "./SortableTableParams";
 // Enums
 export {AuditLevelEnum} from "./AuditLevelEnum";
