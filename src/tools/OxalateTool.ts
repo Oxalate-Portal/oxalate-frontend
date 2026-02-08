@@ -37,6 +37,7 @@ function getPageGroupTitleByLanguage(language: string, pageGroup: PageGroupRespo
 
 function getPageTitleByLanguage(language: string, page: PageResponse) {
     let returnValue = '';
+
     for (let i = 0; i < page.pageVersions.length; i++) {
         if (page.pageVersions[i].language === language) {
             returnValue = page.pageVersions[i].title;
