@@ -166,7 +166,7 @@ export function Pages() {
                 </Spin>}
 
                 {pageGroupId !== 1 &&
-                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right", margin: 12}}>
+                        <Space orientation={"horizontal"} size={12} style={{width: "98%", justifyContent: "right", margin: 12}}>
                             <Link to={"/administration/pages/0?pageGroupId=" + pageGroupId}><Button
                                     type={"primary"}>{t("Pages.button.addPage")}</Button></Link>
                         </Space>}

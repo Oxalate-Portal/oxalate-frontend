@@ -8,8 +8,7 @@
   "license" : "GPL-2.0",
   "private" : true,
   "scripts" : {
-    "prebuild" : "node generateBuildInfo.js",
-    "prestart" : "node generateBuildInfo.js",
+    "prebuild" : "node generateBuildInfo.cjs",
     "start" : "env-cmd -f .env.local vite",
     "build:test" : "npm run prebuild && vite build",
     "build:stage" : "npm run prebuild && env-cmd -f .env.stage vite build",

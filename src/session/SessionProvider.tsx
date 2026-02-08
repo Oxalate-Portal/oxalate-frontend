@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import {createContext, type ReactNode, useContext, useEffect, useState} from "react";
 import {
     ActionResultEnum,
     type FrontendConfigurationResponse,
@@ -27,9 +27,13 @@ interface SessionContextType {
     refreshUserSession: (sessionVO: UserSessionToken) => void;
 }
 
+interface SessionProviderProps {
+    children: ReactNode;
+}
+
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
-export function SessionProvider({children}: any) {
+export function SessionProvider({children}: SessionProviderProps) {
     const [user, setUser] = useState<UserSessionToken | null>(null);
     const [language, setLanguage] = useState<string>("en");
     const [organizationName, setOrganizationName] = useState<string>("");

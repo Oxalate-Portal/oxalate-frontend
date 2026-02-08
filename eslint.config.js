@@ -50,7 +50,7 @@ export default tseslint.config(
             'react-hooks/exhaustive-deps': 'warn',
             'react-hooks/immutability': 'off', // Disable the strict immutability rule
             // General rules
-            'no-console': ['warn', {allow: ['warn', 'error']}]
+            'no-console': ['warn', {allow: ['warn', 'error', 'debug']}],
         }
     }
 );

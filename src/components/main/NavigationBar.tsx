@@ -252,7 +252,7 @@ export function NavigationBar() {
                         ]
                     }
                 ] || []),
-        ...(userSession && blogEnabled ? blogMenuItems : []),
+        ...(blogEnabled ? blogMenuItems : []),
         ...(supportedLanguages.length > 0 &&
                 [
                     {
