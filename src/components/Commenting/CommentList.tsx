@@ -23,7 +23,7 @@ export function CommentList() {
         userAPI.findAll()
                 .then(response => {
                     const optionList = [];
-                    for (let user of response) {
+                    for (const user of response) {
                         optionList.push({value: user.id, label: user.lastName + " " + user.firstName + " (" + user.id + ")"});
                         user.username = user.firstName + " " + user.lastName;
                     }

@@ -35,7 +35,7 @@ export function PageGroups() {
                     language = sessionLanguage;
                 }
 
-                let title = getPageGroupTitleByLanguage(language, record);
+                const title = getPageGroupTitleByLanguage(language, record);
                 return (<b>{title}</b>);
             }
         },

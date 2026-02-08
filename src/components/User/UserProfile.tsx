@@ -80,7 +80,7 @@ export function UserProfile() {
         }
         // We send all data, but only some of them will in this case be used, see backend for more details when a user sends the request
         // TODO This is duplicated from adminOrgMember.jsx, refactor this
-        let postData: AdminUserRequest = {
+        const postData: AdminUserRequest = {
             id: workUser.id,
             username: workUser.username,
             firstName: userInfo.firstName,

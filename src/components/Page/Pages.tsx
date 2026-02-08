@@ -34,7 +34,7 @@ export function Pages() {
                 if (sessionLanguage) {
                     language = sessionLanguage;
                 }
-                let title = getPageTitleByLanguage(language, record);
+                const title = getPageTitleByLanguage(language, record);
                 return (<b>{title}</b>);
             }
         },

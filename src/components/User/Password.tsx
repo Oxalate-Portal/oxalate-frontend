@@ -18,7 +18,7 @@ export function Password() {
 
     const updatePassword = (values: { oldPassword: any; newPassword: any; confirmPassword: any; }) => {
         setLoading(true);
-        let postData = {
+        const postData = {
             oldPassword: values.oldPassword,
             newPassword: values.newPassword,
             confirmPassword: values.confirmPassword
