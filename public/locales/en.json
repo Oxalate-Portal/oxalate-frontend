@@ -73,6 +73,11 @@
     }
   },
   "AdminAudit" : {
+    "header" : "Audit logs"
+  },
+  "AdminMain" : {
+    "header" : "Administration",
+    "memberText" : "User data management, including assigning different roles and sending password update messages.",
     "paymentHeader" : "Payments",
     "paymentText" : "View of current payments, possibility to invalidate annual payments and add payment information to users",
     "statsHeader" : "Statistics",

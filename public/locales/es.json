@@ -73,6 +73,11 @@
     }
   },
   "AdminAudit" : {
+    "header" : "Registros de auditoría"
+  },
+  "AdminMain" : {
+    "header" : "Administración",
+    "memberText" : "Gestión de datos de usuario, incluyendo la asignación de diferentes roles y el envío de mensajes de actualización de contraseña.",
     "paymentHeader" : "Pagos",
     "paymentText" : "Vista de los pagos actuales, posibilidad de invalidar pagos anuales y agregar información de pago a los usuarios",
     "statsHeader" : "Estadísticas",

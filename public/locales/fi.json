@@ -73,12 +73,17 @@
     }
   },
   "AdminAudit" : {
+    "header" : "Auditointilogit"
+  },
+  "AdminMain" : {
+    "header" : "Ylläpito",
+    "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys.",
     "paymentHeader" : "Maksut",
     "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto käyttäjille",
     "statsHeader" : "Tilastot",
     "statsText1" : "Vuositason tapahtuma-, käyttäjärekisteröinti- jäsenrekisteröinti- (jos käytössä) tapahtumajärjestäjien sekä maksutilastot",
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
-    "text" : "Ylläpito-sivut. Ole varovainen",
+    "text" : "Ylläpito-sivut. Ole varovainen.",
     "userHeader" : "Käyttäjät"
   },
   "AdminMembers" : {

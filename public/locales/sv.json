@@ -73,12 +73,17 @@
     }
   },
   "AdminAudit" : {
+    "header" : "Revisionsloggar"
+  },
+  "AdminMain" : {
+    "header" : "Administration",
+    "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden.",
     "paymentHeader" : "Betalningar",
     "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
     "statsHeader" : "Statistik",
     "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
     "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
-    "text" : "Administrativa sidor. Var försiktig",
+    "text" : "Administrativa sidor. Var försiktig.",
     "userHeader" : "Användare"
   },
   "AdminMembers" : {

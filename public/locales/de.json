@@ -73,6 +73,11 @@
     }
   },
   "AdminAudit" : {
+    "header" : "Audit-Logs"
+  },
+  "AdminMain" : {
+    "header" : "Verwaltung",
+    "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten.",
     "paymentHeader" : "Zahlungen",
     "paymentText" : "Ansicht der aktuellen Zahlungen, Möglichkeit zur Ungültigmachung von Jahreszahlungen und Hinzufügung von Zahlungsinformationen zu Benutzern",
     "statsHeader" : "Statistiken",
