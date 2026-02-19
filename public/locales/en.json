@@ -59,12 +59,20 @@
       "period" : "Periodical payment"
     }
   },
-  "AdminAudit" : {
-    "header" : "Audit logs"
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Divers by Type per Year",
+      "diversPerYear" : "Divers per Year",
+      "eventsByTypePerYear" : "Events by Type per Year",
+      "eventsPerYear" : "Events per Year"
+    },
+    "table" : {
+      "type" : "Type",
+      "value" : "Value",
+      "year" : "Year"
+    }
   },
-  "AdminMain" : {
-    "header" : "Administration",
-    "memberText" : "User data management, including assigning different roles and sending password update messages.",
+  "AdminAudit" : {
     "paymentHeader" : "Payments",
     "paymentText" : "View of current payments, possibility to invalidate annual payments and add payment information to users",
     "statsHeader" : "Statistics",

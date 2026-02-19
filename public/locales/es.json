@@ -59,12 +59,20 @@
       "period" : "Pago periódico"
     }
   },
-  "AdminAudit" : {
-    "header" : "Registros de auditoría"
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Buceadores por tipo por año",
+      "diversPerYear" : "Buceadores por año",
+      "eventsByTypePerYear" : "Eventos por tipo por año",
+      "eventsPerYear" : "Eventos por año"
+    },
+    "table" : {
+      "type" : "Tipo",
+      "value" : "Valor",
+      "year" : "Año"
+    }
   },
-  "AdminMain" : {
-    "header" : "Administración",
-    "memberText" : "Gestión de datos de usuario, incluyendo la asignación de diferentes roles y el envío de mensajes de actualización de contraseña.",
+  "AdminAudit" : {
     "paymentHeader" : "Pagos",
     "paymentText" : "Vista de los pagos actuales, posibilidad de invalidar pagos anuales y agregar información de pago a los usuarios",
     "statsHeader" : "Estadísticas",

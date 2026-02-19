@@ -3,8 +3,10 @@ import type {AggregateResponse, MultiYearValueResponse} from "../../models";
 import {statsAPI} from "../../services";
 import {Card, Col, Row, Spin, Table} from "antd";
 import {Column, Line} from "@ant-design/charts";
+import {useTranslation} from "react-i18next";
 
 export function AggregateStats() {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState<AggregateResponse | null>(null);
 
@@ -17,14 +19,14 @@ export function AggregateStats() {
     }, []);
 
     const totalColumns = [
-        {title: "Year", dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
-        {title: "Value", dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
+        {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
+        {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
     ];
 
     const typeColumns = [
-        {title: "Year", dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
-        {title: "Type", dataIndex: "type", key: "type"},
-        {title: "Value", dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
+        {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
+        {title: t("AggregateStats.table.type"), dataIndex: "type", key: "type"},
+        {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
     ];
 
     const withKeys = (rows: MultiYearValueResponse[] = []) =>
@@ -65,25 +67,25 @@ export function AggregateStats() {
             <Spin spinning={loading}>
                 <Row gutter={[16, 16]}>
                     <Col span={12}>
-                        <Card title="Events per Year">
+                        <Card title={t("AggregateStats.card.eventsPerYear")}>
                             <Table pagination={false} size="small" dataSource={totals.events} columns={totalColumns}/>
                             <Column {...totalsConfig(data?.eventsPerYear)}/>
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card title="Divers per Year">
+                        <Card title={t("AggregateStats.card.diversPerYear")}>
                             <Table pagination={false} size="small" dataSource={totals.divers} columns={totalColumns}/>
                             <Column {...totalsConfig(data?.diversPerYear)}/>
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card title="Events by Type per Year">
+                        <Card title={t("AggregateStats.card.eventsByTypePerYear")}>
                             <Table pagination={false} size="small" dataSource={typed.eventTypes} columns={typeColumns}/>
                             <Line {...lineConfig(data?.eventTypesPerYear)}/>
                         </Card>
                     </Col>
                     <Col span={12}>
-                        <Card title="Divers by Type per Year">
+                        <Card title={t("AggregateStats.card.diversByTypePerYear")}>
                             <Table pagination={false} size="small" dataSource={typed.diverTypes} columns={typeColumns}/>
                             <Line {...lineConfig(data?.diverTypesPerYear)}/>
                         </Card>

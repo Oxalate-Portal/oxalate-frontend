@@ -59,12 +59,20 @@
       "period" : "Periodische Zahlung"
     }
   },
-  "AdminAudit" : {
-    "header" : "Audit-Logs"
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Taucher nach Typ pro Jahr",
+      "diversPerYear" : "Taucher pro Jahr",
+      "eventsByTypePerYear" : "Veranstaltungen nach Typ pro Jahr",
+      "eventsPerYear" : "Veranstaltungen pro Jahr"
+    },
+    "table" : {
+      "type" : "Typ",
+      "value" : "Wert",
+      "year" : "Jahr"
+    }
   },
-  "AdminMain" : {
-    "header" : "Verwaltung",
-    "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
+  "AdminAudit" : {
     "paymentHeader" : "Zahlungen",
     "paymentText" : "Ansicht der aktuellen Zahlungen, Möglichkeit zur Ungültigmachung von Jahreszahlungen und Hinzufügung von Zahlungsinformationen zu Benutzern",
     "statsHeader" : "Statistiken",

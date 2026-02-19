@@ -59,12 +59,20 @@
       "period" : "Periodisk betalning"
     }
   },
-  "AdminAudit" : {
-    "header" : "Revisionsloggar"
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Dykare efter typ per år",
+      "diversPerYear" : "Dykare per år",
+      "eventsByTypePerYear" : "Evenemang efter typ per år",
+      "eventsPerYear" : "Evenemang per år"
+    },
+    "table" : {
+      "type" : "Typ",
+      "value" : "Värde",
+      "year" : "År"
+    }
   },
-  "AdminMain" : {
-    "header" : "Administration",
-    "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden",
+  "AdminAudit" : {
     "paymentHeader" : "Betalningar",
     "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
     "statsHeader" : "Statistik",

@@ -59,12 +59,20 @@
       "period" : "Kausimaksu"
     }
   },
-  "AdminAudit" : {
-    "header" : "Auditointilogit"
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Sukeltajat tyypeittäin vuodessa",
+      "diversPerYear" : "Sukeltajat vuodessa",
+      "eventsByTypePerYear" : "Tapahtumat tyypeittäin vuodessa",
+      "eventsPerYear" : "Tapahtumat vuodessa"
+    },
+    "table" : {
+      "type" : "Tyyppi",
+      "value" : "Arvo",
+      "year" : "Vuosi"
+    }
   },
-  "AdminMain" : {
-    "header" : "Ylläpito",
-    "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
+  "AdminAudit" : {
     "paymentHeader" : "Maksut",
     "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto käyttäjille",
     "statsHeader" : "Tilastot",
