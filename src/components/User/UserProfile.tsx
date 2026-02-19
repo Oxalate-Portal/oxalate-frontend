@@ -36,7 +36,7 @@ export function UserProfile() {
         };
 
         fetchMemberData().catch(console.error);
-    }, [userSession]);
+    }, [userSession, messageApi]);
 
     function requestStatusUpdate(status: UserStatusEnum) {
         setLoading(true);
@@ -89,6 +89,7 @@ export function UserProfile() {
             phoneNumber: userInfo.phoneNumber,
             privacy: userInfo.privacy,
             approvedTerms: workUser.approvedTerms,
+            healthCheckId: workUser.healthCheckId,
             primaryUserType: userInfo.primaryUserType,
             nextOfKin: userInfo.nextOfKin,
             registered: workUser.registered,
@@ -113,6 +114,7 @@ export function UserProfile() {
                         language: response.language,
                         status: response.status,
                         approvedTerms: response.approvedTerms,
+                        healthCheckId: response.healthCheckId,
                         privacy: response.privacy,
                         nextOfKin: response.nextOfKin,
                         primaryUserType: response.primaryUserType,
@@ -130,7 +132,8 @@ export function UserProfile() {
                 });
     }
 
-    function onFinishFailed(errorInfo: any) {
+    // @ts-ignore
+    function onFinishFailed(errorInfo: ValidateErrorEntity<UserResponse>) {
         console.error("Failed:", errorInfo);
         setLoading(false);
     }

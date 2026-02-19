@@ -166,6 +166,15 @@
     }
   },
   "AdminOrgUsers" : {
+    "healthCheck" : {
+      "resetButton" : "Reset health check confirmation",
+      "resetDivider" : "Health check reset"
+    },
+    "invalidateHealthCheckAgreements" : {
+      "confirm" : "Are you sure that all users need to re-confirm their health check? This change cannot be undone.",
+      "fail" : "Failed to invalidate the health check confirmations",
+      "ok" : "Successfully invalidated the health check confirmations"
+    },
     "invalidateTermAgreements" : {
       "confirm" : "Are you sure that all users need to re-accept the terms of use? This change cannot be undone.",
       "fail" : "Failed to invalidate the terms agreements",
@@ -181,6 +190,7 @@
         "title" : "Update"
       },
       "approvedTerms" : "Terms",
+      "healthCheckId" : "Health check",
       "firstName" : "First name",
       "lastName" : "Last name",
       "login" : "Username",
@@ -972,6 +982,7 @@
     "title" : "Event"
   },
   "Events" : {
+    "healthCheckRequired" : "Please confirm your health check to access this event",
     "ongoing" : {
       "title" : "Ongoing events"
     },
@@ -1021,6 +1032,20 @@
     "unknownPayment" : "Unknown Payment Type",
     "unknownPaymentContact" : "Contact Support",
     "unknownPaymentPlease" : "Please contact support for more information."
+  },
+  "HealthCheckConfirmation" : {
+    "button" : {
+      "confirm" : "Confirm health check",
+      "reject" : "Reject health check"
+    },
+    "error" : {
+      "alert" : "Something went wrong, please contact the administrator."
+    }
+  },
+  "HealthCheckConfirmationModal" : {
+    "confirm" : "I confirm my health check",
+    "reject" : "I do not confirm my health check",
+    "title" : "Health check confirmation"
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
@@ -1539,6 +1564,13 @@
           "nomatch" : "The entered passwords do not match!",
           "required" : "Please confirm your password!"
         }
+      },
+      "healthCheck" : {
+        "accept" : "I confirm my health check",
+        "button" : "health check",
+        "reject" : "I do not confirm my health check",
+        "text" : "Read and confirm",
+        "title" : "Health check confirmation"
       },
       "password" : {
         "label" : "Password:",

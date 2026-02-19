@@ -90,7 +90,7 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
     return (
             <div className={embedded ? "" : "darkDiv"}>
                 {contextHolder}
-                <Space direction="vertical" size={16} style={{width: "100%"}}>
+                <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
                     {!embedded && <Title level={2}>{t("AdminNotifications.title")}</Title>}
                     {hasParticipants && (
                             <Typography.Text>

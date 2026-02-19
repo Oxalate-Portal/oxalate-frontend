@@ -166,6 +166,15 @@
     }
   },
   "AdminOrgUsers" : {
+    "healthCheck" : {
+      "resetButton" : "Återställ hälsokontrollbekräftelse",
+      "resetDivider" : "Återställ hälsokontroll"
+    },
+    "invalidateHealthCheckAgreements" : {
+      "confirm" : "Är du säker på att alla användare måste bekräfta sin hälsokontroll igen? Denna ändring kan inte ångras.",
+      "fail" : "Det gick inte att ogiltigförklara hälsokontrollbekräftelserna",
+      "ok" : "Hälsokontrollbekräftelserna ogiltigförklarades framgångsrikt"
+    },
     "invalidateTermAgreements" : {
       "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
       "fail" : "Det gick inte att ogiltigförklara användarvillkoren",
@@ -181,6 +190,7 @@
         "title" : "Uppdatera"
       },
       "approvedTerms" : "Vilkor",
+      "healthCheckId" : "Hälsokontroll",
       "firstName" : "Förnamn",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
@@ -972,6 +982,7 @@
     "title" : "Evenemang"
   },
   "Events" : {
+    "healthCheckRequired" : "Vänligen bekräfta din hälsokontroll för att komma åt detta evenemang",
     "ongoing" : {
       "title" : "Pågående evenemang"
     },
@@ -1021,6 +1032,20 @@
     "unknownPayment" : "Okänd betalningstyp",
     "unknownPaymentContact" : "Kontakta supporten",
     "unknownPaymentPlease" : "Kontakta supporten för mer information."
+  },
+  "HealthCheckConfirmation" : {
+    "button" : {
+      "confirm" : "Bekräfta hälsokontroll",
+      "reject" : "Avvisa hälsokontroll"
+    },
+    "error" : {
+      "alert" : "Något gick fel, vänligen kontakta administratören."
+    }
+  },
+  "HealthCheckConfirmationModal" : {
+    "confirm" : "Jag bekräftar min hälsokontroll",
+    "reject" : "Jag bekräftar inte min hälsokontroll",
+    "title" : "Hälsokontrollbekräftelse"
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",
@@ -1539,6 +1564,13 @@
           "nomatch" : "De angivna lösenorden matchar inte!",
           "required" : "Bekräfta ditt lösenord!"
         }
+      },
+      "healthCheck" : {
+        "accept" : "Jag bekräftar min hälsokontroll",
+        "button" : "hälsokontroll",
+        "reject" : "Jag bekräftar inte min hälsokontroll",
+        "text" : "Läs och bekräfta",
+        "title" : "Hälsokontrollbekräftelse"
       },
       "password" : {
         "label" : "Lösenord:",

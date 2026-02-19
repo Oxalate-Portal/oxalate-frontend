@@ -13,6 +13,11 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
         return response.status === 200;
     }
 
+    public async confirmHealthCheck(payload: { healthCheckAnswer: string }): Promise<boolean> {
+        const response = await this.axiosInstance.put<void>("/confirm-health-check", payload);
+        return response.status === 200;
+    }
+
     public async findByRole(role: RoleEnum): Promise<ListUserResponse[]> {
         const response = await this.axiosInstance.get<ListUserResponse[]>("/role/" + role);
         return response.data;
@@ -26,6 +31,11 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
     public async resetTerms(): Promise<boolean> {
         const response = await this.axiosInstance.get<AdminUserResponse>("/reset-terms");
+        return response.status === 200;
+    }
+
+    public async resetHealthCheck(): Promise<boolean> {
+        const response = await this.axiosInstance.get<AdminUserResponse>("/reset-health-check");
         return response.status === 200;
     }
 

@@ -271,7 +271,7 @@ export function PortalConfigurations() {
                                                     <div key={config.id} style={{marginBottom: "16px"}}>
                                                         <Row gutter={16}>
                                                             <Col span={6}>
-                                                                <Space direction="horizontal" size={4}>
+                                                                <Space orientation={"horizontal"} size={4}>
                                                                     <Tooltip
                                                                             title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
                                                                         <Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Text>

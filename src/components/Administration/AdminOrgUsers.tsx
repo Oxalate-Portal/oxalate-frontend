@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
 import {userAPI} from "../../services";
 import type {ColumnsType} from "antd/es/table";
-import {CheckOutlined, CloseOutlined, SearchOutlined} from "@ant-design/icons";
+import {CheckOutlined, CheckSquareOutlined, CloseOutlined, SearchOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
 
@@ -145,16 +145,34 @@ export function AdminOrgUsers() {
             key: "approvedTerms",
             sorter: (a: AdminUserResponse) => a.approvedTerms ? 1 : -1,
             sortDirections: ["descend", "ascend"],
-            render: (_: any, record: AdminUserResponse) => {
+            render: (_: string, record: AdminUserResponse) => {
                 return record.approvedTerms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
                         <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
+            }
+        },
+        {
+            title: t("AdminOrgUsers.table.healthCheckId"),
+            dataIndex: "healthCheckId",
+            key: "healthCheckId",
+            sorter: (a: AdminUserResponse) => a.healthCheckId ? 1 : -1,
+            sortDirections: ["descend", "ascend"],
+            render: (_: string, record: AdminUserResponse) => {
+                if (record.healthCheckId === null) {
+                    return <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
+                }
+
+                if (record.healthCheckId === 0) {
+                    return <CheckOutlined style={{fontSize: "18px", color: "green"}}/>;
+                }
+
+                return <CheckSquareOutlined style={{fontSize: "18px", color: "green"}}/>;
             }
         },
         {
             title: t("AdminOrgUsers.table.role.title"),
             dataIndex: "roles",
             key: "roles",
-            render: (_: any, record: AdminUserResponse) => (
+            render: (_: string, record: AdminUserResponse) => (
                     <>
                         {record.roles
                                 .slice()
@@ -167,7 +185,7 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.paymentStatus"),
             dataIndex: "payments",
             key: "payments",
-            render: (_: any, record: AdminUserResponse) => (
+            render: (_: string, record: AdminUserResponse) => (
                     <>
                         {record.payments.map((payment: PaymentResponse) => {
                             if (dayjs(payment.startDate).isAfter(dayjs())
@@ -199,7 +217,7 @@ export function AdminOrgUsers() {
         {
             title: t("AdminOrgUsers.table.action.title"),
             key: "action",
-            render: (_: any, record: AdminUserResponse) => (
+            render: (_: string, record: AdminUserResponse) => (
                     <Space size="middle">
                         {record.status !== "ANONYMIZED" &&
                                 <Link to={"/administration/users/" + record.id}><Button>{t("AdminOrgUsers.table.action.button")}</Button></Link>}
@@ -243,6 +261,27 @@ export function AdminOrgUsers() {
         }
     }
 
+    function invalidateHealthCheckAgreements() {
+        if (window.confirm(t("AdminOrgUsers.invalidateHealthCheckAgreements.confirm"))) {
+            setLoading(true);
+            userAPI.resetHealthCheck()
+                    .then(response => {
+                        if (response) {
+                            messageApi.success(t("AdminOrgUsers.invalidateHealthCheckAgreements.ok"));
+                        } else {
+                            messageApi.error(t("AdminOrgUsers.invalidateHealthCheckAgreements.fail"));
+                        }
+                    })
+                    .catch(e => {
+                        messageApi.error(t("AdminOrgUsers.invalidateHealthCheckAgreements.fail"));
+                        console.error("Failed to reset health check agreements, error: " + e.message);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+        }
+    }
+
     return (
             <div className={"darkDiv"}>
                 {contextHolder}
@@ -263,6 +302,11 @@ export function AdminOrgUsers() {
                     <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.terms.resetDivider")}</Divider>
                     <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>
+                    </Space>
+                    <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.healthCheck.resetDivider")}</Divider>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                        <Button danger={true} type={"primary"}
+                                onClick={() => invalidateHealthCheckAgreements()}>{t("AdminOrgUsers.healthCheck.resetButton")}</Button>
                     </Space>
                 </Spin>
             </div>);
