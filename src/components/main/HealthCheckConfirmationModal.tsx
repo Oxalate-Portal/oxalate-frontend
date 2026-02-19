@@ -48,31 +48,8 @@ export function HealthCheckConfirmationModal({open, onConfirm, onCancel, registr
         }
     }
 
-    async function handleReject() {
-        if (registration) {
-            onCancel();
-            return;
-        }
-
-        setLoading(true);
-        setError(null);
-
-        try {
-            await userAPI.confirmHealthCheck({healthCheckAnswer: "no"});
-
-            if (userSession) {
-                const newSession = JSON.parse(JSON.stringify(userSession));
-                newSession.healthCheckId = null;
-                refreshUserSession(newSession);
-            }
-
-            onCancel();
-        } catch (e: unknown) {
-            console.error(e);
-            setError(e instanceof Error ? e.message : String(e));
-        } finally {
-            setLoading(false);
-        }
+    function handleReject() {
+        onCancel();
     }
 
     return (

@@ -1,11 +1,13 @@
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 import {DiveEventsTable} from "./DiveEventsTable";
 import {useSession} from "../../session";
 import {HealthCheckConfirmationModal} from "../main";
 
 export function DiveEvents() {
     const {t} = useTranslation();
+    const navigate = useNavigate();
     const {userSession} = useSession();
     const [showHealthCheckModal, setShowHealthCheckModal] = useState(!userSession?.healthCheckId);
 
@@ -15,8 +17,8 @@ export function DiveEvents() {
     };
 
     const handleHealthCheckCancel = () => {
-        // Keep the modal open if the user hasn't confirmed
-        // The modal stays open until the user confirms or navigates away
+        setShowHealthCheckModal(false);
+        navigate("/");
     };
 
     return (
