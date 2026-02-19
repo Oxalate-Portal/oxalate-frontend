@@ -1041,17 +1041,9 @@
     "unknownPaymentContact" : "Contact Support",
     "unknownPaymentPlease" : "Please contact support for more information."
   },
-  "HealthCheckConfirmation" : {
-    "button" : {
-      "confirm" : "Confirm health check",
-      "reject" : "Reject health check"
-    },
-    "error" : {
-      "alert" : "Something went wrong, please contact the administrator."
-    }
-  },
   "HealthCheckConfirmationModal" : {
     "confirm" : "I confirm my health check",
+    "error" : "Something went wrong, please contact the administrator.",
     "reject" : "I do not confirm my health check",
     "title" : "Health check confirmation"
   },
@@ -1574,9 +1566,7 @@
         }
       },
       "healthCheck" : {
-        "accept" : "I confirm my health check",
         "button" : "health check",
-        "reject" : "I do not confirm my health check",
         "text" : "Read and confirm",
         "title" : "Health check confirmation"
       },

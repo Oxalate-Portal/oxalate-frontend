@@ -1,5 +1,4 @@
 export {AcceptTerms} from "./AcceptTerms";
-export {HealthCheckConfirmation} from "./HealthCheckConfirmation";
 export {HealthCheckConfirmationModal} from "./HealthCheckConfirmationModal";
 export {Home} from "./Home";
 export {Login} from "./Login";

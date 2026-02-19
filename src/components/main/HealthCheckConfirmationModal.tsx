@@ -1,6 +1,11 @@
-import {Modal} from "antd";
+import {Alert, Modal} from "antd";
 import {useTranslation} from "react-i18next";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {CloseOutlined} from "@ant-design/icons";
 import {HealthCheckConfirmation} from "./HealthCheckConfirmation";
+import {userAPI} from "../../services";
+import {useSession} from "../../session";
 
 interface HealthCheckConfirmationModalProps {
     open: boolean;
@@ -11,18 +16,83 @@ interface HealthCheckConfirmationModalProps {
 
 export function HealthCheckConfirmationModal({open, onConfirm, onCancel, registration = false}: HealthCheckConfirmationModalProps) {
     const {t} = useTranslation();
+    const navigate = useNavigate();
+    const {userSession, refreshUserSession} = useSession();
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    async function handleConfirm() {
+        if (registration) {
+            onConfirm();
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const response = await userAPI.confirmHealthCheck({healthCheckAnswer: "yes"});
+
+            if (userSession) {
+                const newSession = JSON.parse(JSON.stringify(userSession));
+                newSession.healthCheckId = response;
+                refreshUserSession(newSession);
+            }
+
+            onConfirm();
+        } catch (e: unknown) {
+            console.error(e);
+            setError(e instanceof Error ? e.message : String(e));
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    async function handleReject() {
+        if (registration) {
+            onCancel();
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            await userAPI.confirmHealthCheck({healthCheckAnswer: "no"});
+
+            if (userSession) {
+                const newSession = JSON.parse(JSON.stringify(userSession));
+                newSession.healthCheckId = null;
+                refreshUserSession(newSession);
+            }
+
+            onCancel();
+        } catch (e: unknown) {
+            console.error(e);
+            setError(e instanceof Error ? e.message : String(e));
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
             <Modal
                     cancelText={t("HealthCheckConfirmationModal.reject")}
+                    closable={!registration}
+                    closeIcon={!registration ? <CloseOutlined onClick={(e) => {
+                        e.stopPropagation();
+                        navigate("/");
+                    }}/> : undefined}
+                    confirmLoading={loading}
                     okText={t("HealthCheckConfirmationModal.confirm")}
-                    onCancel={onCancel}
-                    onOk={onConfirm}
+                    onCancel={handleReject}
+                    onOk={handleConfirm}
                     open={open}
                     title={t("HealthCheckConfirmationModal.title")}
                     width={"80%"}
             >
-                <HealthCheckConfirmation registration={registration}/>
+                {error && <Alert type={"error"} message={t("HealthCheckConfirmationModal.error")} style={{marginBottom: 16}}/>}
+                <HealthCheckConfirmation/>
             </Modal>
     );
 }

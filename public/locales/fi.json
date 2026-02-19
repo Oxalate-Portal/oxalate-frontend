@@ -1041,17 +1041,9 @@
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
     "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja."
   },
-  "HealthCheckConfirmation" : {
-    "button" : {
-      "confirm" : "Vahvista terveystarkastus",
-      "reject" : "Hylkää terveystarkastus"
-    },
-    "error" : {
-      "alert" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään."
-    }
-  },
   "HealthCheckConfirmationModal" : {
     "confirm" : "Vahvistan terveystarkastukseni",
+    "error" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään.",
     "reject" : "En vahvista terveystarkastustani",
     "title" : "Terveystarkastuksen vahvistus"
   },
@@ -1574,9 +1566,7 @@
         }
       },
       "healthCheck" : {
-        "accept" : "Vahvistan terveystarkastukseni",
         "button" : "terveystarkastus",
-        "reject" : "En vahvista terveystarkastustani",
         "text" : "Lue ja vahvista",
         "title" : "Terveystarkastuksen vahvistus"
       },

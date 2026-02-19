@@ -4,11 +4,11 @@ import {useNavigate} from "react-router-dom";
 import {Alert, Button, Form, Input, Modal, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {UserFields} from "../User";
-import {AcceptTerms, HealthCheckConfirmation} from "../main";
+import {AcceptTerms, HealthCheckConfirmationModal} from "../main";
 import {type ActionResponse, type RegistrationResponse, ResultEnum, UpdateStatusEnum, UserTypeEnum} from "../../models";
 import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
 import {authAPI} from "../../services";
-import {CheckOutlined} from "@ant-design/icons";
+import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 
 export function Register() {
     const {userSession} = useSession();
@@ -16,8 +16,8 @@ export function Register() {
     const [registrationForm] = Form.useForm();
     const [showTerms, setShowTerms] = useState(false);
     const [showHealthCheck, setShowHealthCheck] = useState(false);
-    const [acceptedTerms, setAcceptedTerms] = useState(false);
-    const [healthCheckId, setHealthCheckId] = useState<number | null>(null);
+    const [acceptedTerms, setAcceptedTerms] = useState<boolean | undefined>(undefined);
+    const [healthCheckId, setHealthCheckId] = useState<number | null | undefined>(undefined);
     const [loading, setLoading] = useState(false);
     const [registrationStatus, setRegistrationStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [registrationResult, setRegistrationResult] = useState<RegistrationResponse | null>(null);
@@ -52,8 +52,8 @@ export function Register() {
             privacy: regData.privacy,
             language: regData.language,
             primaryUserType: regData.primaryUserType,
-            approvedTerms: acceptedTerms,
-            healthCheckId: healthCheckId
+            approvedTerms: acceptedTerms === true,
+            healthCheckId: healthCheckId ?? null
         })
                 .then(registrationResponse => {
                     if (registrationResponse.status === ResultEnum.OK) {
@@ -162,17 +162,19 @@ export function Register() {
                             <Space orientation={"horizontal"}>
                                 {t("Register.form.terms.text")}
                                 <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
-                                {acceptedTerms && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                                {acceptedTerms === true && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                                {acceptedTerms === false && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
                             </Space>
                             <Space orientation={"horizontal"}>
                                 {t("Register.form.healthCheck.text")}
                                 <Button type={"default"} onClick={() => setShowHealthCheck(true)}>{t("Register.form.healthCheck.button")}</Button>
-                                {healthCheckId && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                                {healthCheckId !== undefined && healthCheckId !== null && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                                {healthCheckId === null && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
                             </Space>
                             <Button
                                     type={"primary"}
                                     htmlType={"submit"}
-                                    disabled={!acceptedTerms || loading}
+                                    disabled={!acceptedTerms || healthCheckId === undefined || healthCheckId === null || loading}
                             >{t("Register.form.submitButton")}</Button>
                         </Space>
                     </Form>
@@ -191,21 +193,18 @@ export function Register() {
                            width={"80%"}>
                         <AcceptTerms registration={true}/>
                     </Modal>
-                    <Modal cancelText={t("Register.form.healthCheck.reject")}
-                           okText={t("Register.form.healthCheck.accept")}
-                           onCancel={() => {
-                               setHealthCheckId(null);
-                               setShowHealthCheck(false);
-                           }}
-                           onOk={() => {
-                               setHealthCheckId(0);
-                               setShowHealthCheck(false);
-                           }}
-                           open={showHealthCheck}
-                           title={t("Register.form.healthCheck.title")}
-                           width={"80%"}>
-                        <HealthCheckConfirmation registration={true}/>
-                    </Modal>
+                    <HealthCheckConfirmationModal
+                            open={showHealthCheck}
+                            onConfirm={() => {
+                                setHealthCheckId(0);
+                                setShowHealthCheck(false);
+                            }}
+                            onCancel={() => {
+                                setHealthCheckId(null);
+                                setShowHealthCheck(false);
+                            }}
+                            registration={true}
+                    />
                 </Row>
             </div>
     );

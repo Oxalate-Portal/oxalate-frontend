@@ -1041,17 +1041,9 @@
     "unknownPaymentContact" : "Contactar soporte",
     "unknownPaymentPlease" : "Por favor, contacte al soporte para más información."
   },
-  "HealthCheckConfirmation" : {
-    "button" : {
-      "confirm" : "Confirmar revisión de salud",
-      "reject" : "Rechazar revisión de salud"
-    },
-    "error" : {
-      "alert" : "Algo salió mal, por favor contacte al administrador."
-    }
-  },
   "HealthCheckConfirmationModal" : {
     "confirm" : "Confirmo mi revisión de salud",
+    "error" : "Algo salió mal, por favor contacte al administrador.",
     "reject" : "No confirmo mi revisión de salud",
     "title" : "Confirmación de revisión de salud"
   },
@@ -1574,9 +1566,7 @@
         }
       },
       "healthCheck" : {
-        "accept" : "Confirmo mi revisión de salud",
         "button" : "revisión de salud",
-        "reject" : "No confirmo mi revisión de salud",
         "text" : "Leer y confirmar",
         "title" : "Confirmación de revisión de salud"
       },

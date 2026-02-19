@@ -1041,17 +1041,9 @@
     "unknownPaymentContact" : "Kontakta supporten",
     "unknownPaymentPlease" : "Kontakta supporten för mer information."
   },
-  "HealthCheckConfirmation" : {
-    "button" : {
-      "confirm" : "Bekräfta hälsokontroll",
-      "reject" : "Avvisa hälsokontroll"
-    },
-    "error" : {
-      "alert" : "Något gick fel, vänligen kontakta administratören."
-    }
-  },
   "HealthCheckConfirmationModal" : {
     "confirm" : "Jag bekräftar min hälsokontroll",
+    "error" : "Något gick fel, vänligen kontakta administratören.",
     "reject" : "Jag bekräftar inte min hälsokontroll",
     "title" : "Hälsokontrollbekräftelse"
   },
@@ -1574,9 +1566,7 @@
         }
       },
       "healthCheck" : {
-        "accept" : "Jag bekräftar min hälsokontroll",
         "button" : "hälsokontroll",
-        "reject" : "Jag bekräftar inte min hälsokontroll",
         "text" : "Läs och bekräfta",
         "title" : "Hälsokontrollbekräftelse"
       },

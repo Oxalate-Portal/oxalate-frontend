@@ -6,15 +6,10 @@ import {HealthCheckConfirmationModal} from "../main";
 
 export function DiveEvents() {
     const {t} = useTranslation();
-    const {userSession, refreshUserSession} = useSession();
+    const {userSession} = useSession();
     const [showHealthCheckModal, setShowHealthCheckModal] = useState(!userSession?.healthCheckId);
 
     const handleHealthCheckConfirm = () => {
-        if (userSession) {
-            const newSession = JSON.parse(JSON.stringify(userSession));
-            newSession.healthCheckId = 0;
-            refreshUserSession(newSession);
-        }
 
         setShowHealthCheckModal(false);
     };

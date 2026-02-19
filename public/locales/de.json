@@ -1041,17 +1041,9 @@
     "unknownPaymentContact" : "Support kontaktieren",
     "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen."
   },
-  "HealthCheckConfirmation" : {
-    "button" : {
-      "confirm" : "Gesundheitscheck bestätigen",
-      "reject" : "Gesundheitscheck ablehnen"
-    },
-    "error" : {
-      "alert" : "Etwas ist schief gelaufen, bitte kontaktieren Sie den Administrator."
-    }
-  },
   "HealthCheckConfirmationModal" : {
     "confirm" : "Ich bestätige meinen Gesundheitscheck",
+    "error" : "Etwas ist schief gelaufen, bitte kontaktieren Sie den Administrator.",
     "reject" : "Ich bestätige meinen Gesundheitscheck nicht",
     "title" : "Gesundheitscheck-Bestätigung"
   },
@@ -1574,9 +1566,7 @@
         }
       },
       "healthCheck" : {
-        "accept" : "Ich bestätige meinen Gesundheitscheck",
         "button" : "Gesundheitscheck",
-        "reject" : "Ich bestätige meinen Gesundheitscheck nicht",
         "text" : "Lesen und bestätigen Sie",
         "title" : "Gesundheitscheck-Bestätigung"
       },
