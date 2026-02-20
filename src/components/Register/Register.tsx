@@ -169,7 +169,7 @@ export function Register() {
                                 {t("Register.form.healthCheck.text")}
                                 <Button type={"default"} onClick={() => setShowHealthCheck(true)}>{t("Register.form.healthCheck.button")}</Button>
                                 {healthCheckId !== undefined && healthCheckId !== null && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
-                                {healthCheckId === null && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
+                                {(healthCheckId === undefined || healthCheckId === null) && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
                             </Space>
                             <Button
                                     type={"primary"}
