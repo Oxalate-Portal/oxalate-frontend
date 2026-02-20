@@ -59,18 +59,31 @@
       "period" : "Periodisk betalning"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Dykare efter typ per år",
+      "diversPerYear" : "Dykare per år",
+      "eventsByTypePerYear" : "Evenemang efter typ per år",
+      "eventsPerYear" : "Evenemang per år"
+    },
+    "table" : {
+      "type" : "Typ",
+      "value" : "Värde",
+      "year" : "År"
+    }
+  },
   "AdminAudit" : {
     "header" : "Revisionsloggar"
   },
   "AdminMain" : {
     "header" : "Administration",
-    "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden",
+    "memberText" : "Hantering av användarinformation, inklusive tilldelning av olika roller och skickande av lösenordsuppdateringsmeddelanden.",
     "paymentHeader" : "Betalningar",
     "paymentText" : "Översikt över aktuella betalningar, möjlighet att ogiltigförklara årsbetalningar och lägga till betalningsinformation till användare",
     "statsHeader" : "Statistik",
     "statsText1" : "Årlig händelse-, användarregistrerings-, medlemsregistrerings- (om tillämpligt), evenemangsarrangörs- och betalningsstatistik",
     "statsText2" : "Här hittar du också halvårsvisa händelserapporter",
-    "text" : "Administrativa sidor. Var försiktig",
+    "text" : "Administrativa sidor. Var försiktig.",
     "userHeader" : "Användare"
   },
   "AdminMembers" : {
@@ -166,6 +179,15 @@
     }
   },
   "AdminOrgUsers" : {
+    "healthCheck" : {
+      "resetButton" : "Återställ hälsokontrollbekräftelse",
+      "resetDivider" : "Återställ hälsokontroll"
+    },
+    "invalidateHealthCheckAgreements" : {
+      "confirm" : "Är du säker på att alla användare måste bekräfta sin hälsokontroll igen? Denna ändring kan inte ångras.",
+      "fail" : "Det gick inte att ogiltigförklara hälsokontrollbekräftelserna",
+      "ok" : "Hälsokontrollbekräftelserna ogiltigförklarades framgångsrikt"
+    },
     "invalidateTermAgreements" : {
       "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
       "fail" : "Det gick inte att ogiltigförklara användarvillkoren",
@@ -181,6 +203,7 @@
         "title" : "Uppdatera"
       },
       "approvedTerms" : "Vilkor",
+      "healthCheckId" : "Hälsokontroll",
       "firstName" : "Förnamn",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
@@ -972,6 +995,7 @@
     "title" : "Evenemang"
   },
   "Events" : {
+    "healthCheckRequired" : "Vänligen bekräfta din hälsokontroll för att komma åt detta evenemang",
     "ongoing" : {
       "title" : "Pågående evenemang"
     },
@@ -1021,6 +1045,12 @@
     "unknownPayment" : "Okänd betalningstyp",
     "unknownPaymentContact" : "Kontakta supporten",
     "unknownPaymentPlease" : "Kontakta supporten för mer information."
+  },
+  "HealthCheckConfirmationModal" : {
+    "confirm" : "Jag bekräftar min hälsokontroll",
+    "error" : "Något gick fel, vänligen kontakta administratören.",
+    "reject" : "Jag bekräftar inte min hälsokontroll",
+    "title" : "Hälsokontrollbekräftelse"
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",
@@ -1539,6 +1569,11 @@
           "nomatch" : "De angivna lösenorden matchar inte!",
           "required" : "Bekräfta ditt lösenord!"
         }
+      },
+      "healthCheck" : {
+        "button" : "hälsokontroll",
+        "text" : "Läs och bekräfta",
+        "title" : "Hälsokontrollbekräftelse"
       },
       "password" : {
         "label" : "Lösenord:",

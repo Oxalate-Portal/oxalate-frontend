@@ -86,7 +86,7 @@ export function NotificationList() {
                                                         </Space>
                                                     }
                                                     description={
-                                                        <Space direction="vertical" size={4} style={{width: "100%"}}>
+                                                        <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
                                                             <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
                                                             <Text type="secondary" style={{fontSize: 12}}>
                                                                 {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}

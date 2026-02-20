@@ -1,13 +1,46 @@
+import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 import {DiveEventsTable} from "./DiveEventsTable";
+import {useSession} from "../../session";
+import {HealthCheckConfirmationModal} from "../main";
 
 export function DiveEvents() {
     const {t} = useTranslation();
+    const navigate = useNavigate();
+    const {userSession} = useSession();
+    const [showHealthCheckModal, setShowHealthCheckModal] = useState(!userSession?.healthCheckId);
+
+    const handleHealthCheckConfirm = () => {
+
+        setShowHealthCheckModal(false);
+    };
+
+    const handleHealthCheckCancel = () => {
+        setShowHealthCheckModal(false);
+        navigate("/");
+    };
 
     return (
             <div className={"darkDiv"}>
-                <DiveEventsTable diveEventType={"new"} title={t("Events.search.placeholder")}/>
-                <DiveEventsTable diveEventType={"ongoing"} title={t("Events.ongoing.title")}/>
+                <DiveEventsTable
+                        diveEventType={"new"}
+                        title={t("Events.search.placeholder")}
+                        healthCheckId={(userSession ? userSession.healthCheckId : null)}
+                        onHealthCheckRequired={() => setShowHealthCheckModal(true)}
+                />
+                <DiveEventsTable
+                        diveEventType={"ongoing"}
+                        title={t("Events.ongoing.title")}
+                        healthCheckId={(userSession ? userSession.healthCheckId : null)}
+                        onHealthCheckRequired={() => setShowHealthCheckModal(true)}
+                />
+                <HealthCheckConfirmationModal
+                        open={showHealthCheckModal}
+                        onConfirm={handleHealthCheckConfirm}
+                        onCancel={handleHealthCheckCancel}
+                        registration={false}
+                />
             </div>
     );
 }

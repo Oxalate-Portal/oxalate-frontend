@@ -4,18 +4,20 @@ import {useNavigate} from "react-router-dom";
 import {Alert, Button, Form, Input, Modal, Row, Space} from "antd";
 import {useTranslation} from "react-i18next";
 import {UserFields} from "../User";
-import {AcceptTerms} from "../main";
+import {AcceptTerms, HealthCheckConfirmationModal} from "../main";
 import {type ActionResponse, type RegistrationResponse, ResultEnum, UpdateStatusEnum, UserTypeEnum} from "../../models";
 import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
 import {authAPI} from "../../services";
-import {CheckOutlined} from "@ant-design/icons";
+import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
 
 export function Register() {
     const {userSession} = useSession();
     const {t} = useTranslation();
     const [registrationForm] = Form.useForm();
     const [showTerms, setShowTerms] = useState(false);
-    const [acceptedTerms, setAcceptedTerms] = useState(false);
+    const [showHealthCheck, setShowHealthCheck] = useState(false);
+    const [acceptedTerms, setAcceptedTerms] = useState<boolean | undefined>(undefined);
+    const [healthCheckId, setHealthCheckId] = useState<number | null | undefined>(undefined);
     const [loading, setLoading] = useState(false);
     const [registrationStatus, setRegistrationStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [registrationResult, setRegistrationResult] = useState<RegistrationResponse | null>(null);
@@ -50,7 +52,8 @@ export function Register() {
             privacy: regData.privacy,
             language: regData.language,
             primaryUserType: regData.primaryUserType,
-            approvedTerms: acceptedTerms
+            approvedTerms: acceptedTerms === true,
+            healthCheckId: healthCheckId ?? null
         })
                 .then(registrationResponse => {
                     if (registrationResponse.status === ResultEnum.OK) {
@@ -70,7 +73,8 @@ export function Register() {
         setLoading(false);
     }
 
-    function onFinishFailed(errorInfo: any) {
+    // @ts-ignore
+    function onFinishFailed(errorInfo: ValidateErrorEntity) {
         console.error("Failed:", errorInfo);
     }
 
@@ -154,14 +158,23 @@ export function Register() {
                                    ]}>
                             <Input.Password/>
                         </Form.Item>
-                        <Space orientation={"horizontal"}>
-                            {t("Register.form.terms.text")}
-                            <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
-                            {acceptedTerms && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                        <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
+                            <Space orientation={"horizontal"}>
+                                {t("Register.form.terms.text")}
+                                <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
+                                {acceptedTerms === true && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                                {acceptedTerms === false && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
+                            </Space>
+                            <Space orientation={"horizontal"}>
+                                {t("Register.form.healthCheck.text")}
+                                <Button type={"default"} onClick={() => setShowHealthCheck(true)}>{t("Register.form.healthCheck.button")}</Button>
+                                {healthCheckId !== undefined && healthCheckId !== null && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                                {(healthCheckId === undefined || healthCheckId === null) && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
+                            </Space>
                             <Button
                                     type={"primary"}
                                     htmlType={"submit"}
-                                    disabled={!acceptedTerms && !loading}
+                                    disabled={!acceptedTerms || healthCheckId === undefined || healthCheckId === null || loading}
                             >{t("Register.form.submitButton")}</Button>
                         </Space>
                     </Form>
@@ -180,6 +193,18 @@ export function Register() {
                            width={"80%"}>
                         <AcceptTerms registration={true}/>
                     </Modal>
+                    <HealthCheckConfirmationModal
+                            open={showHealthCheck}
+                            onConfirm={() => {
+                                setHealthCheckId(0);
+                                setShowHealthCheck(false);
+                            }}
+                            onCancel={() => {
+                                setHealthCheckId(null);
+                                setShowHealthCheck(false);
+                            }}
+                            registration={true}
+                    />
                 </Row>
             </div>
     );

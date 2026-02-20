@@ -36,6 +36,7 @@ describe('OxalateTool.ts Tests', () => {
                 diveCount: 0,
                 expiresAt: new Date(),
                 firstName: "",
+                healthCheckId: 1,
                 language: "",
                 lastName: "",
                 memberships: [],
@@ -61,6 +62,7 @@ describe('OxalateTool.ts Tests', () => {
                 diveCount: 0,
                 expiresAt: new Date(),
                 firstName: "",
+                healthCheckId: null,
                 language: "",
                 lastName: "",
                 memberships: [],
@@ -137,6 +139,7 @@ describe('OxalateTool.ts Tests', () => {
             diveCount: 0,
             expiresAt: new Date(),
             firstName: "",
+            healthCheckId: 1,
             language: "",
             lastName: "",
             memberships: [],
@@ -160,6 +163,66 @@ describe('OxalateTool.ts Tests', () => {
         it('returns false when no write permission exists', () => {
             const updated = {...baseSession, roles: [RoleEnum.ROLE_USER]};
             expect(isAllowedToEditPage(updated, pageRoles)).toBe(false);
+        });
+    });
+
+    describe('healthCheckId field', () => {
+        const createSession = (overrides: Partial<UserSessionToken> = {}): UserSessionToken => ({
+            accessToken: "",
+            approvedTerms: false,
+            diveCount: 0,
+            expiresAt: new Date(),
+            firstName: "",
+            healthCheckId: null,
+            language: "",
+            lastName: "",
+            memberships: [],
+            nextOfKin: "",
+            payments: [],
+            phoneNumber: "",
+            primaryUserType: UserTypeEnum.SCUBA_DIVER,
+            privacy: false,
+            registered: new Date(),
+            status: UserStatusEnum.ACTIVE,
+            type: "",
+            id: 1,
+            username: "testuser",
+            roles: [RoleEnum.ROLE_USER],
+            ...overrides
+        });
+
+        it('can be set to a numeric value', () => {
+            const session = createSession({healthCheckId: 42});
+            expect(session.healthCheckId).toBe(42);
+        });
+
+        it('can be set to null', () => {
+            const session = createSession({healthCheckId: null});
+            expect(session.healthCheckId).toBeNull();
+        });
+
+        it('defaults to null in the helper', () => {
+            const session = createSession();
+            expect(session.healthCheckId).toBeNull();
+        });
+
+        it('is preserved when spreading a session', () => {
+            const session = createSession({healthCheckId: 7});
+            const copy = {...session};
+            expect(copy.healthCheckId).toBe(7);
+        });
+
+        it('can be overridden when spreading a session', () => {
+            const session = createSession({healthCheckId: 7});
+            const updated = {...session, healthCheckId: null};
+            expect(updated.healthCheckId).toBeNull();
+        });
+
+        it('does not affect role resolution', () => {
+            const withCheck = createSession({healthCheckId: 1, roles: [RoleEnum.ROLE_ADMIN]});
+            const withoutCheck = createSession({healthCheckId: null, roles: [RoleEnum.ROLE_ADMIN]});
+            expect(getHighestRole(withCheck)).toBe(RoleEnum.ROLE_ADMIN);
+            expect(getHighestRole(withoutCheck)).toBe(RoleEnum.ROLE_ADMIN);
         });
     });
 });

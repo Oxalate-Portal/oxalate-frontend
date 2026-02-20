@@ -13,5 +13,6 @@ export interface AbstractUser {
     privacy: boolean;
     nextOfKin: string;
     approvedTerms: boolean;
+    healthCheckId: number | null;
     primaryUserType: UserTypeEnum;
 }

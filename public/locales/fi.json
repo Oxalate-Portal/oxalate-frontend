@@ -59,18 +59,31 @@
       "period" : "Kausimaksu"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Sukeltajat tyypeittäin vuodessa",
+      "diversPerYear" : "Sukeltajat vuodessa",
+      "eventsByTypePerYear" : "Tapahtumat tyypeittäin vuodessa",
+      "eventsPerYear" : "Tapahtumat vuodessa"
+    },
+    "table" : {
+      "type" : "Tyyppi",
+      "value" : "Arvo",
+      "year" : "Vuosi"
+    }
+  },
   "AdminAudit" : {
     "header" : "Auditointilogit"
   },
   "AdminMain" : {
     "header" : "Ylläpito",
-    "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys",
+    "memberText" : "Käyttäjätietojen ylläpito mukaanlukien eri roolien asettaminen sekä salasanapäivitysviestin lähetys.",
     "paymentHeader" : "Maksut",
     "paymentText" : "Näkymä tämänhetkisiin maksuihin, mahdollisuus mitätöidä vuosimaksut sekä lisätä maksutieto käyttäjille",
     "statsHeader" : "Tilastot",
     "statsText1" : "Vuositason tapahtuma-, käyttäjärekisteröinti- jäsenrekisteröinti- (jos käytössä) tapahtumajärjestäjien sekä maksutilastot",
     "statsText2" : "Täältä löytyy myös puolivuosittaiset tapahtumaraportit",
-    "text" : "Ylläpito-sivut. Ole varovainen",
+    "text" : "Ylläpito-sivut. Ole varovainen.",
     "userHeader" : "Käyttäjät"
   },
   "AdminMembers" : {
@@ -166,6 +179,15 @@
     }
   },
   "AdminOrgUsers" : {
+    "healthCheck" : {
+      "resetButton" : "Nollaa terveystarkastusvahvistus",
+      "resetDivider" : "Terveystarkastuksen nollaus"
+    },
+    "invalidateHealthCheckAgreements" : {
+      "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen vahvistaa terveystarkastuksensa? Tätä muutosta ei voi perua.",
+      "fail" : "Ei onnistuttu mitätöimään terveystarkastusvahvistuksia",
+      "ok" : "Terveystarkastusvahvistukset mitätöitiin onnistuneesti"
+    },
     "invalidateTermAgreements" : {
       "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
       "fail" : "Ei onnistuttu mitätöimään käyttöehtoja",
@@ -181,6 +203,7 @@
         "title" : "Päivitä"
       },
       "approvedTerms" : "Ehdot",
+      "healthCheckId" : "Terveystarkastus",
       "firstName" : "Etunimi",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
@@ -972,6 +995,7 @@
     "title" : "Tapahtuma"
   },
   "Events" : {
+    "healthCheckRequired" : "Vahvista terveystarkastuksesi päästäksesi tapahtumaan",
     "ongoing" : {
       "title" : "Käynnissä olevat tapahtumat"
     },
@@ -1021,6 +1045,12 @@
     "unknownPayment" : "Tuntematon maksutyyppi",
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
     "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja."
+  },
+  "HealthCheckConfirmationModal" : {
+    "confirm" : "Vahvistan terveystarkastukseni",
+    "error" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään.",
+    "reject" : "En vahvista terveystarkastustani",
+    "title" : "Terveystarkastuksen vahvistus"
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",
@@ -1539,6 +1569,11 @@
           "nomatch" : "Annetut salasanat eivät täsmää!",
           "required" : "Ole hyvä ja varmista salasanasi!"
         }
+      },
+      "healthCheck" : {
+        "button" : "terveystarkastus",
+        "text" : "Lue ja vahvista",
+        "title" : "Terveystarkastuksen vahvistus"
       },
       "password" : {
         "label" : "Salasana:",

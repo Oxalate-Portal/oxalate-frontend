@@ -59,12 +59,25 @@
       "period" : "Periodische Zahlung"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Taucher nach Typ pro Jahr",
+      "diversPerYear" : "Taucher pro Jahr",
+      "eventsByTypePerYear" : "Veranstaltungen nach Typ pro Jahr",
+      "eventsPerYear" : "Veranstaltungen pro Jahr"
+    },
+    "table" : {
+      "type" : "Typ",
+      "value" : "Wert",
+      "year" : "Jahr"
+    }
+  },
   "AdminAudit" : {
     "header" : "Audit-Logs"
   },
   "AdminMain" : {
     "header" : "Verwaltung",
-    "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten",
+    "memberText" : "Verwaltung von Benutzerdaten, einschließlich Zuweisung verschiedener Rollen und Versenden von Passwortaktualisierungsnachrichten.",
     "paymentHeader" : "Zahlungen",
     "paymentText" : "Ansicht der aktuellen Zahlungen, Möglichkeit zur Ungültigmachung von Jahreszahlungen und Hinzufügung von Zahlungsinformationen zu Benutzern",
     "statsHeader" : "Statistiken",
@@ -166,6 +179,15 @@
     }
   },
   "AdminOrgUsers" : {
+    "healthCheck" : {
+      "resetButton" : "Gesundheitscheck-Bestätigung zurücksetzen",
+      "resetDivider" : "Gesundheitscheck zurücksetzen"
+    },
+    "invalidateHealthCheckAgreements" : {
+      "confirm" : "Sind Sie sicher, dass alle Benutzer ihren Gesundheitscheck erneut bestätigen müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
+      "fail" : "Die Gesundheitscheck-Bestätigungen konnten nicht für ungültig erklärt werden",
+      "ok" : "Die Gesundheitscheck-Bestätigungen wurden erfolgreich für ungültig erklärt"
+    },
     "invalidateTermAgreements" : {
       "confirm" : "Sind Sie sicher, dass alle Benutzer die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
       "fail" : "Die Bedingungen konnten nicht für ungültig erklärt werden",
@@ -181,6 +203,7 @@
         "title" : "Aktualisieren"
       },
       "approvedTerms" : "Bedingungen",
+      "healthCheckId" : "Gesundheitscheck",
       "firstName" : "Vorname",
       "lastName" : "Nachname",
       "login" : "Benutzername",
@@ -972,6 +995,7 @@
     "title" : "Ereignis"
   },
   "Events" : {
+    "healthCheckRequired" : "Bitte bestätigen Sie Ihren Gesundheitscheck, um auf diese Veranstaltung zuzugreifen",
     "ongoing" : {
       "title" : "Laufende Veranstaltungen"
     },
@@ -1021,6 +1045,12 @@
     "unknownPayment" : "Unbekannter Zahlungstyp",
     "unknownPaymentContact" : "Support kontaktieren",
     "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen."
+  },
+  "HealthCheckConfirmationModal" : {
+    "confirm" : "Ich bestätige meinen Gesundheitscheck",
+    "error" : "Etwas ist schief gelaufen, bitte kontaktieren Sie den Administrator.",
+    "reject" : "Ich bestätige meinen Gesundheitscheck nicht",
+    "title" : "Gesundheitscheck-Bestätigung"
   },
   "ListPayments" : {
     "oneTime" : "Einmalzahlungen",
@@ -1539,6 +1569,11 @@
           "nomatch" : "Die eingegebenen Passwörter stimmen nicht überein!",
           "required" : "Bitte bestätige dein Passwort!"
         }
+      },
+      "healthCheck" : {
+        "button" : "Gesundheitscheck",
+        "text" : "Lesen und bestätigen Sie",
+        "title" : "Gesundheitscheck-Bestätigung"
       },
       "password" : {
         "label" : "Passwort:",

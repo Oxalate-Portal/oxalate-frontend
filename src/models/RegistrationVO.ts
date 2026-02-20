@@ -10,5 +10,6 @@ export interface RegistrationVO {
     privacy: boolean;
     language: string;
     approvedTerms: boolean;
+    healthCheckId: number | null;
     primaryUserType: UserTypeEnum;
 }

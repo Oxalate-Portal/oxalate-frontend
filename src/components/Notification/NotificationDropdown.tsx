@@ -108,7 +108,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                                             <List.Item.Meta
                                                     title={<Text strong>{notification.title}</Text>}
                                                     description={
-                                                        <Space direction="vertical" size={0}>
+                                                        <Space orientation={"vertical"} size={0}>
                                                             <Text type="secondary">{truncateMessage(notification.message)}</Text>
                                                             <Text type="secondary" style={{fontSize: 12}}>
                                                                 {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
@@ -178,7 +178,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                         width={600}
                 >
                     {selectedNotification && (
-                            <Space direction="vertical" style={{width: "100%"}}>
+                            <Space orientation={"vertical"} style={{width: "100%"}}>
                                 <Text type="secondary">
                                     {dayjs(selectedNotification.createdAt).format("YYYY-MM-DD HH:mm")}
                                 </Text>
