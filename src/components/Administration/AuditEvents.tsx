@@ -1,7 +1,7 @@
 import {Button, Input, type InputRef, Space, Spin, Table, type TablePaginationConfig, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../tools";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {type AuditEntryResponse, AuditLevelEnum, type SortableTableParams} from "../../models";
 import {auditAPI} from "../../services";
 import type {ColumnsType, ColumnType} from "antd/es/table";
@@ -196,58 +196,73 @@ export function AuditEvents() {
         }
     ];
 
-    const updateDataFromServer = useCallback(() => {
-        if (refreshDataFromServer.current) {
-            auditAPI.findPageable({
-                page: (tablePaginationConfig.current === undefined ? 0 : (tablePaginationConfig.current - 1)),
-                pageSize: tablePaginationConfig.pageSize,
-                sorting: tableParams.field ? `${tableParams.field},${tableParams.order}` : null,
-                filter: tableParams.filter,
-                filterColumn: filteredColumn
-            })
-                    .then((response) => {
-                        setAuditEvents(response.content);
-                        setLoading(false);
-
-                        setTablePaginationConfig(
-                                {
-                                    current: response.pageable.pageNumber,
-                                    pageSize: response.pageable.pageSize,
-                                    defaultPageSize: 10,
-                                    total: response.totalElements,
-                                    pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
-                                    showSizeChanger: true,
-                                    hideOnSinglePage: false
-                                }
-                        );
-
-                        setTableParams({
-                            ...tableParams,
-                            pagination: tablePaginationConfig
-                        });
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        setLoading(false);
-                    });
-        }
-    }, [filteredColumn, tableParams, tablePaginationConfig]);
 
     useEffect(() => {
-        setLoading(true);
-        updateDataFromServer();
-        setLoading(false);
-        refreshDataFromServer.current = false;
-    }, [updateDataFromServer]);
+        if (!refreshDataFromServer.current) {
+            return;
+        }
+
+        const currentPage = Math.max(1, tablePaginationConfig.current ?? 1);
+        const requestParams: Record<string, string | number> = {
+            page: Math.max(0, currentPage - 1),
+            pageSize: tablePaginationConfig.pageSize ?? 10,
+            filter: tableParams.filter ?? "",
+            filterColumn: filteredColumn
+        };
+
+        if (tableParams.field) {
+            requestParams.sorting = `${tableParams.field},${tableParams.order}`;
+        }
+
+        auditAPI.findPageable(requestParams)
+                .then((response) => {
+                    setAuditEvents(response.content);
+
+                    const responsePage = response.pageable?.pageNumber ?? response.number ?? response.page ?? 0;
+                    const responsePageSize = response.pageable?.pageSize ?? response.size ?? tablePaginationConfig.pageSize ?? 10;
+                    const responseTotal = response.totalElements ?? response.total_elements ?? response.content.length;
+
+                    // AntD pagination is 1-based, backend page is 0-based.
+                    const nextPaginationConfig: TablePaginationConfig = {
+                        current: Math.max(1, responsePage + 1),
+                        pageSize: responsePageSize,
+                        defaultPageSize: 10,
+                        total: responseTotal,
+                        pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
+                        showSizeChanger: true,
+                        hideOnSinglePage: false
+                    };
+
+                    setTablePaginationConfig(nextPaginationConfig);
+                    setTableParams((previousParams) => ({
+                        ...previousParams,
+                        pagination: nextPaginationConfig
+                    }));
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                    refreshDataFromServer.current = false;
+                });
+    }, [filteredColumn, tablePaginationConfig, tableParams.field, tableParams.filter, tableParams.order]);
 
     function handleTableChange(tablePaginationConfig: TablePaginationConfig, filters: Record<string, FilterValue | null>,
                                sorter: SorterResult<AuditEntryResponse> | SorterResult<AuditEntryResponse>[]) {
-        setTablePaginationConfig(tablePaginationConfig);
+        setLoading(true);
+
+        const safePaginationConfig: TablePaginationConfig = {
+            ...tablePaginationConfig,
+            current: Math.max(1, tablePaginationConfig.current ?? 1)
+        };
+
+        setTablePaginationConfig(safePaginationConfig);
 
         if (filters) {
             setTableParams({
                 ...tableParams,
-                pagination: tablePaginationConfig,
+                pagination: safePaginationConfig,
                 filters: filters,
             });
         }
@@ -264,7 +279,7 @@ export function AuditEvents() {
 
             setTableParams({
                 ...tableParams,
-                pagination: tablePaginationConfig,
+                pagination: safePaginationConfig,
                 field: primarySorter.field === undefined ? defaultFilterColumn : primarySorter.field.toString(),
                 order: primarySorter.order === "ascend" ? "asc" : "desc"
             });
@@ -275,12 +290,13 @@ export function AuditEvents() {
 
     function handleSearch(searchText: string[], _confirm: (param?: FilterConfirmProps) => void,
                           dataIndex: AuditEntryIndex) {
+        setLoading(true);
         setFilterText(searchText[0]);
         setFilteredColumn(dataIndex);
         setTableParams({
             ...tableParams,
             filter: searchText[0],
-            filterColumn: filteredColumn,
+            filterColumn: dataIndex,
             pagination: {
                 ...tableParams.pagination,
                 current: 1, // Reset the current page to 1
