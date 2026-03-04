@@ -4,6 +4,7 @@ import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {Page} from "../Page";
 import {userAPI} from "../../services";
+import type {ConfirmationRequest} from "../../models";
 
 interface AcceptTermsProps {
     registration: boolean;
@@ -14,8 +15,8 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
     const {t} = useTranslation();
     const [error, setError] = useState<string | null>(null);
 
-    async function acceptTerms(answer: string) {
-        const payload = {termAnswer: answer};
+    async function acceptTerms(answer: boolean) {
+        const payload: ConfirmationRequest = {confirmationAnswer: answer};
 
         userAPI.acceptTerms(payload)
                 .then((response) => {
@@ -46,9 +47,9 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
                         {!registration &&
                                 <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                                     <Button type={"primary"}
-                                            onClick={() => acceptTerms("yes")}>{t("AcceptTerms.button.acceptTerms")}</Button>
+                                            onClick={() => acceptTerms(true)}>{t("AcceptTerms.button.acceptTerms")}</Button>
                                     <Button danger={true} type={"primary"} href={"/user"}
-                                            onClick={() => acceptTerms("no")}>{t("AcceptTerms.rejectTerms")}</Button>
+                                            onClick={() => acceptTerms(false)}>{t("AcceptTerms.rejectTerms")}</Button>
                                     <Button danger={true} type={"dashed"} onClick={logoutUser}
                                             href="/">{t("common.button.logout")}</Button>
                                 </Space>}

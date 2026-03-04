@@ -31,7 +31,7 @@ export function HealthCheckConfirmationModal({open, onConfirm, onCancel, registr
         setError(null);
 
         try {
-            const response = await userAPI.confirmHealthCheck({healthCheckAnswer: "yes"});
+            const response = await userAPI.acceptHealthCheck({confirmationAnswer: true});
 
             if (userSession) {
                 const newSession = JSON.parse(JSON.stringify(userSession));

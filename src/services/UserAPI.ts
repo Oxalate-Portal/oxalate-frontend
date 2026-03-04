@@ -1,5 +1,14 @@
 import {AbstractAPI} from "./AbstractAPI";
-import {type AdminUserRequest, type AdminUserResponse, type ListUserResponse, RoleEnum, type UserRequest, type UserResponse, UserStatusEnum} from "../models";
+import {
+    type AdminUserRequest,
+    type AdminUserResponse,
+    type ConfirmationRequest,
+    type ListUserResponse,
+    RoleEnum,
+    type UserRequest,
+    type UserResponse,
+    UserStatusEnum
+} from "../models";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
@@ -8,12 +17,12 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
         return response.data;
     }
 
-    public async acceptTerms(payload: { termAnswer: string }): Promise<boolean> {
+    public async acceptTerms(payload: ConfirmationRequest): Promise<boolean> {
         const response = await this.axiosInstance.put<void>("/accept-terms", payload);
         return response.status === 200;
     }
 
-    public async confirmHealthCheck(payload: { healthCheckAnswer: string }): Promise<boolean> {
+    public async acceptHealthCheck(payload: ConfirmationRequest): Promise<boolean> {
         const response = await this.axiosInstance.put<void>("/confirm-health-check", payload);
         return response.status === 200;
     }

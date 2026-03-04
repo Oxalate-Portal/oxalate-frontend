@@ -1734,6 +1734,11 @@
       "status" : {
         "label" : "Status"
       },
+      "healthCheck" : {
+        "false" : "Ei ole vahvistanut terveystarkastusta",
+        "label" : "Terveystarkastus",
+        "true" : "On vahvistanut terveystarkastuksen"
+      },
       "terms" : {
         "false" : "Ei ole hyväksynyt ehtoja",
         "label" : "Käyttöehdot",

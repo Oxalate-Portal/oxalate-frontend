@@ -190,6 +190,9 @@ export function UserProfile() {
                         <Form.Item label={t("User.form.terms.label")} key={"terms"}>
                             <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true") : t("User.form.terms.false")}</span>
                         </Form.Item>
+                        <Form.Item label={t("User.form.healthCheck.label")} key={"healthCheck"}>
+                            <span className="ant-form-text">{workUser.healthCheckId !== null ? t("User.form.healthCheck.true") : t("User.form.healthCheck.false")}</span>
+                        </Form.Item>
                         <Form.Item name={"roles"}
                                    label={t("User.form.roles.label")}
                                    key={"roles"}

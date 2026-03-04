@@ -415,7 +415,7 @@
       "page-file-title" : "Archivos de página",
       "tab-title" : "Resumen",
       "type-content" : "Se encuentran disponibles diferentes tipos de archivos para subir, con distintos propósitos. Los siguientes son los tipos de archivos que se pueden subir:",
-      "type-title" : "Diferentes tipos de archivos para subir"
+      "type-title" : "Diferentes tipos de archivos de carga"
     },
     "page-file" : {
       "language" : "Idioma",
@@ -1733,6 +1733,11 @@
       },
       "status" : {
         "label" : "Estado"
+      },
+      "healthCheck" : {
+        "false" : "No ha confirmado el control de salud",
+        "label" : "Control de salud",
+        "true" : "Ha confirmado el control de salud"
       },
       "terms" : {
         "false" : "No ha aceptado los términos y condiciones",
