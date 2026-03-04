@@ -1734,6 +1734,11 @@
       "status" : {
         "label" : "Status"
       },
+      "healthCheck" : {
+        "false" : "Har inte bekraftat halsokontrollen",
+        "label" : "Halsokontroll",
+        "true" : "Har bekraftat halsokontrollen"
+      },
       "terms" : {
         "false" : "Har inte accepterat villkoren",
         "label" : "Användarvillkoren",

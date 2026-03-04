@@ -1734,6 +1734,11 @@
       "status" : {
         "label" : "Status"
       },
+      "healthCheck" : {
+        "false" : "Has not confirmed health check",
+        "label" : "Health check",
+        "true" : "Has confirmed health check"
+      },
       "terms" : {
         "false" : "Has not accepted terms and conditions",
         "label" : "Terms and conditions",

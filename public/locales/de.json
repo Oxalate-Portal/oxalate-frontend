@@ -1734,6 +1734,11 @@
       "status" : {
         "label" : "Status"
       },
+      "healthCheck" : {
+        "false" : "Hat den Gesundheitscheck nicht bestaetigt",
+        "label" : "Gesundheitscheck",
+        "true" : "Hat den Gesundheitscheck bestaetigt"
+      },
       "terms" : {
         "false" : "Hat die Bedingungen nicht akzeptiert",
         "label" : "Nutzungsbedingungen",
