@@ -16,7 +16,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
         setSupportedLanguages(languageList.map(lang => {
             return {label: LanguageTool.getLabelByValue(lang), value: lang};
         }));
-    }, []);
+    }, [getFrontendConfigurationValue]);
 
     return (
             <>
@@ -149,4 +149,3 @@ export function UserFields(props: { userId: number; username: string | null; isO
             </>
     );
 }
-

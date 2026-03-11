@@ -1,4 +1,4 @@
-import {createContext, type ReactNode, useContext, useEffect, useState} from "react";
+import {type ReactNode, useEffect, useState} from "react";
 import {
     ActionResultEnum,
     type FrontendConfigurationResponse,
@@ -9,29 +9,11 @@ import {
     type UserSessionToken
 } from "../models";
 import {authAPI, portalConfigurationAPI} from "../services";
-
-// Define the type for the session context
-interface SessionContextType {
-    userSession: UserSessionToken | null;
-    sessionLanguage: string;
-    organizationName: string;
-    portalTimezone: string;
-    getSessionLanguage: () => string;
-    setSessionLanguage: (language: string) => void;
-    getPortalTimezone: () => string;
-    getFrontendConfigurationValue: (key: string) => string;
-    getPortalConfigurationValue: (groupKey: PortalConfigGroupEnum, settingKey: string) => string;
-    getPortalConfiguration: () => PortalConfigurationResponse[];
-    loginUser: (loginRequest: LoginRequest) => Promise<LoginStatus>;
-    logoutUser: () => void;
-    refreshUserSession: (sessionVO: UserSessionToken) => void;
-}
+import {SessionContext, type SessionContextType} from "./SessionContext";
 
 interface SessionProviderProps {
     children: ReactNode;
 }
-
-const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 export function SessionProvider({children}: SessionProviderProps) {
     const [user, setUser] = useState<UserSessionToken | null>(null);
@@ -223,15 +205,4 @@ export function SessionProvider({children}: SessionProviderProps) {
                 {children}
             </SessionContext.Provider>
     );
-}
-
-// Custom hook to use session data in components
-export function useSession(): SessionContextType {
-    const context = useContext(SessionContext);
-    if (!context) {
-        console.error("No context found");
-        throw new Error("useSession must be used within a SessionProvider");
-    }
-
-    return context;
 }

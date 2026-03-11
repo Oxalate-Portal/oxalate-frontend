@@ -30,8 +30,8 @@ class AuthAPI {
         return response.data;
     }
 
-    async logout(): Promise<any> {
-        return await this.axiosInstance.get<void>("/logout");
+    async logout(): Promise<void> {
+        await this.axiosInstance.get<void>("/logout");
     }
 
     async register(registrationData: RegistrationVO): Promise<RegistrationResponse> {
@@ -54,7 +54,10 @@ class AuthAPI {
         return response.data;
     }
 
-    public async updatePassword(userId: number | undefined, postData: { oldPassword: any; newPassword: any; confirmPassword: any }): Promise<ActionResponse> {
+    public async updatePassword(
+        userId: number | undefined,
+        postData: { oldPassword: string; newPassword: string; confirmPassword: string }
+    ): Promise<ActionResponse> {
         const response = await this.axiosInstance.put<ActionResponse>("/" + userId + "/password", postData);
         return response.data;
     }

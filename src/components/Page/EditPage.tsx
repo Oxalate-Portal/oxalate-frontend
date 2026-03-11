@@ -160,7 +160,7 @@ export function EditPage() {
                         setLoading(false);
                     });
         }
-    }, [paramId, sessionLanguage, t]);
+    }, [paramId, sessionLanguage, t, languageList]);
 
     function onFinish(formData: PageRequest): void {
         setLoading(true);
@@ -206,11 +206,11 @@ export function EditPage() {
         }
     }
 
-    function onFinishFailed(errorInfo: any) {
+    function onFinishFailed(errorInfo: { errorFields: { errors: string[] }[] }) {
         console.error("Failed:", errorInfo);
     }
 
-    const validatePermissions = (_: any, _1: any, index: number) => {
+    const validatePermissions = (_: unknown, _1: unknown, index: number) => {
         const readPermissionValue = pageForm.getFieldValue(["rolePermissions", index, "readPermission"]);
         const writePermissionValue = pageForm.getFieldValue(["rolePermissions", index, "writePermission"]);
 
@@ -225,7 +225,7 @@ export function EditPage() {
         return Promise.resolve();
     };
 
-    const validateRoleDuplicates = (_: any, value: RoleEnum, index: number) => {
+    const validateRoleDuplicates = (_: unknown, value: RoleEnum, index: number) => {
 
         if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
             // Disable the write permission checkbox
@@ -244,7 +244,7 @@ export function EditPage() {
         }, {} as Record<RoleEnum, number>);
 
         for (const role in countRoles) {
-            if (countRoles.hasOwnProperty(role)) {
+            if (Object.prototype.hasOwnProperty.call(countRoles, role)) {
                 const typedRole = role as RoleEnum;
                 if (countRoles[typedRole] > 1) {
                     return Promise.reject(t("EditPage.form.rolePermissions.role.rules.noDuplicates"));
@@ -255,7 +255,7 @@ export function EditPage() {
         return Promise.resolve();
     };
 
-    function validatePageEditorContent(_: any, value: string) {
+    function validatePageEditorContent(_: unknown, value: string) {
         if (value && value.trim() !== "") {
             return Promise.resolve();
         }
@@ -321,7 +321,7 @@ export function EditPage() {
                                 <Form.List name={"pageVersions"}
                                            key={"page-versions"}
                                 >
-                                    {(versions, {add, remove}) => {
+                                    {(versions, {add: _add, remove: _remove}) => {
                                         return (
                                                 <>
                                                     {versions.map((_pageVersion, index) => {

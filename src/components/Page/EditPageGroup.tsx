@@ -68,7 +68,7 @@ export function EditPageGroup() {
             setCreateNewPageGroup(true);
             setSendButtonText(t("EditPageGroup.form.button.create"));
         }
-    }, [pageGroupId, paramId, t]);
+    }, [pageGroupId, paramId, t, languageList]);
 
     function onFinish(formData: PageGroupRequest): void {
         setLoading(true);
@@ -108,7 +108,7 @@ export function EditPageGroup() {
         }
     }
 
-    function onFinishFailed(errorInfo: any) {
+    function onFinishFailed(errorInfo: { errorFields: { errors: string[] }[] }) {
         console.error("Failed:", errorInfo);
     }
 
@@ -140,7 +140,7 @@ export function EditPageGroup() {
                         <Form.List name={"pageGroupVersions"}
                                    key={"page-group-versions"}
                         >
-                            {(groupVersions, {add, remove}) => {
+                            {(groupVersions, {add: _add, remove: _remove}) => {
                                 return (
                                         <>
                                             {groupVersions.map((_pageGroupVersion, index) => {

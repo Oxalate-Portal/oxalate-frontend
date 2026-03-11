@@ -72,7 +72,7 @@ export function Pages() {
             title: t("Pages.table.rolePermissions"),
             dataIndex: "rolePermissions",
             key: "rolePermissions",
-            render: (_: any, record: PageResponse) => (
+            render: (_: string, record: PageResponse) => (
                     <>
                         {record.rolePermissions
                                 .slice()
@@ -86,7 +86,7 @@ export function Pages() {
         {
             title: "",
             key: "action",
-            render: (_: any, record: PageResponse) => (
+            render: (_: string, record: PageResponse) => (
                     <Space size={"middle"}>
                         {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
                                 && isAllowedToEditPage(userSession, record.rolePermissions) &&

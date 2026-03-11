@@ -103,9 +103,9 @@ export function PageGroups() {
                     .then(response => {
                         setPageGroups(response);
                     })
-                    .catch((error) => {
+                    .catch((error: Error) => {
                         console.error(error);
-                        messageApi.error(error);
+                        messageApi.error(error.message || t("PageGroups.updateStatus.fail"));
                     })
                     .finally(() => {
                         setLoading(false);
@@ -113,7 +113,7 @@ export function PageGroups() {
         };
 
         fetchData().catch(console.error);
-    }, []);
+    }, [messageApi, t]);
 
     function closePageGroup(pageGroupId: number) {
         if (window.confirm(t("PageGroups.deletePath.confirm.1") + pageGroupId + "?\n" +
@@ -122,9 +122,9 @@ export function PageGroups() {
                     .then(() => {
                         messageApi.success(t("PageGroups.updateStatus.removed"));
                     })
-                    .catch((e: any) => {
+                    .catch((e: Error) => {
                         console.error(e);
-                        messageApi.error(e);
+                        messageApi.error(e.message || t("PageGroups.updateStatus.fail"));
                     });
         }
     }

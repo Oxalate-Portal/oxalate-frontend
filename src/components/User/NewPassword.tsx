@@ -14,7 +14,7 @@ export function NewPassword() {
     const {token} = useParams();
     const {t} = useTranslation();
 
-    const resetPassword = (values: { newPassword: any; confirmPassword: any; }) => {
+    const resetPassword = (values: { newPassword: string; confirmPassword: string }) => {
         if (!token) {
             console.error("No token provided");
             setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("NewPassword.setUpdateStatus.update.fail")});
@@ -44,7 +44,7 @@ export function NewPassword() {
         setLoading(false);
     };
 
-    const updatePasswordFailed = (errorInfo: any) => {
+    const updatePasswordFailed = (errorInfo: { errorFields: { errors: string[] }[] }) => {
         console.error("Updating password failed", errorInfo);
     };
 

@@ -223,7 +223,7 @@ export function EditDiveEvent() {
                     });
             setSubmitButtonText(t("EditEvent.form.submitButton.add"));
         }
-    }, [paramId, t, getFrontendConfigurationValue, getPortalConfigurationValue]);
+    }, [paramId, t, getFrontendConfigurationValue, getPortalConfigurationValue, diveEventForm]);
 
     function disabledDate(current: Dayjs): boolean {
         return current && (blockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
@@ -243,7 +243,7 @@ export function EditDiveEvent() {
         return nextEvent;
     }
 
-    function validateMaxParticipants(_: any, value: number): Promise<void> {
+    function validateMaxParticipants(_: unknown, value: number): Promise<void> {
         // Get the selected participant IDs
         const selectedParticipants = diveEventForm.getFieldValue("participants");
 
@@ -255,7 +255,7 @@ export function EditDiveEvent() {
         return Promise.resolve();
     }
 
-    function validateSelectedParticipants(_: any, _1: number): Promise<void> {
+    function validateSelectedParticipants(_: unknown, _1: number): Promise<void> {
         // Get the selected participant IDs
         const selectedParticipants = diveEventForm.getFieldValue("participants");
         // Get the set maxParticipants value
@@ -337,7 +337,7 @@ export function EditDiveEvent() {
         navigator("/events/main");
     }
 
-    function onFinishFail(errorInfo: { errorFields: { errors: any[]; }[]; }) {
+    function onFinishFail(errorInfo: { errorFields: { errors: string[]; }[]; }) {
         messageApi.success(errorInfo.errorFields[0].errors[0]);
     }
 

@@ -16,7 +16,7 @@ export function Password() {
     const {t} = useTranslation();
     const navigate = useNavigate();
 
-    const updatePassword = (values: { oldPassword: any; newPassword: any; confirmPassword: any; }) => {
+    const updatePassword = (values: { oldPassword: string; newPassword: string; confirmPassword: string }) => {
         setLoading(true);
         const postData = {
             oldPassword: values.oldPassword,
@@ -47,7 +47,7 @@ export function Password() {
         setLoading(false);
     };
 
-    const updatePasswordFailed = (errorInfo: any) => {
+    const updatePasswordFailed = (errorInfo: { errorFields: { errors: string[] }[] }) => {
         console.error("Updating password failed", errorInfo);
     };
 

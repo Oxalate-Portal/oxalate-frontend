@@ -29,10 +29,6 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const membershipType = membershipTypeString.toUpperCase() as MembershipTypeEnum;
     const defaultMembershipPeriod: { startDate: Dayjs, endDate: Dayjs | null } = getDefaultMembershipDates(getPortalConfigurationValue);
 
-    if (membershipType === MembershipTypeEnum.DISABLED) {
-        return <span>{t("AddMemberships.disabled")}</span>;
-    }
-
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
     const [membershipForm] = Form.useForm();
@@ -52,7 +48,11 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [t]);
+    }, [t, messageApi]);
+
+    if (membershipType === MembershipTypeEnum.DISABLED) {
+        return <span>{t("AddMemberships.disabled")}</span>;
+    }
 
     function handleDateRangeChange(dates: RangeValue) {
         membershipForm.setFieldsValue({dateRange: dates ?? []});

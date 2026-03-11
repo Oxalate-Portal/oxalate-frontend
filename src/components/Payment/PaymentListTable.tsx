@@ -92,7 +92,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.payment-type"),
             dataIndex: "paymentType",
             key: "paymentType",
-            render: (_: any, record: PaymentVO) => {
+            render: (_: string, record: PaymentVO) => {
                 let color = "";
                 let paymentTypeLabel = "";
 
@@ -149,7 +149,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
             onFilter: (value: boolean | Key, record: PaymentVO) =>
                     record.name.toLowerCase().includes((value as string).toLowerCase()),
-            render: (_: any, record: PaymentVO) => {
+            render: (_: string, record: PaymentVO) => {
                 return (<Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>);
             },
         },
@@ -160,7 +160,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             sorter: (a: PaymentVO, b: PaymentVO) =>
                     dayjs(a.created).isAfter(dayjs(b.created)) ? 1 : -1,
             sortDirections: ["descend", "ascend"],
-            render: (_: any, record: PaymentVO) => {
+            render: (_: string, record: PaymentVO) => {
                 return (
                         <>{dayjs(record.created).format("YYYY-MM-DD HH:mm")}</>
                 );
@@ -202,7 +202,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.paymentCount"),
             dataIndex: "paymentCount",
             key: "paymentCount",
-            render: (_: any, record: PaymentVO) => {
+            render: (_: string, record: PaymentVO) => {
                 if (
                         record.paymentCount === null ||
                         record.paymentType !== PaymentTypeEnum.ONE_TIME

@@ -110,7 +110,7 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
         {
             title: "",
             key: "action",
-            render: (_: any, record: DiveEventResponse) => {
+            render: (_: string, record: DiveEventResponse) => {
                 const handleOpenClick = (e: React.MouseEvent) => {
                     if (!healthCheckId && onHealthCheckRequired) {
                         e.preventDefault();
@@ -185,7 +185,7 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
                 .then((response) => {
                     setDiveEvents(response);
                 })
-                .catch((error: any) => {
+                .catch((error: Error) => {
                     console.error("Failed to fetch events for type: " + diveEventType, error);
                 })
                 .finally(() => {

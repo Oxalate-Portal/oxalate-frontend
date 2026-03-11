@@ -72,7 +72,7 @@ export function EditCertificate() {
         }
 
         setLoading(false);
-    }, [paramId, certificateForm, t]);
+    }, [paramId, certificateForm, t, messageApi]);
 
 
     function updateCertificate(postData: CertificateRequest) {
@@ -115,7 +115,7 @@ export function EditCertificate() {
         }
     }
 
-    function updateCertificateFailed(certValues: any) {
+    function updateCertificateFailed(certValues: { errorFields: { errors: string[] }[] }) {
         console.error("Update certificate failed: " + JSON.stringify(certValues));
     }
 

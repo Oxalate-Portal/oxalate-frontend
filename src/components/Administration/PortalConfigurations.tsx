@@ -12,7 +12,7 @@ const {Text} = Typography;
 export function PortalConfigurations() {
     const [portalConfigurations, setPortalConfigurations] = useState<PortalConfigurationResponse[]>([]);
     const [loading, setLoading] = useState(true);
-    const [modifiedValues, setModifiedValues] = useState<Record<number, any>>({});
+    const [modifiedValues, setModifiedValues] = useState<Record<number, string | undefined>>({});
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -35,7 +35,7 @@ export function PortalConfigurations() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [t]);
+    }, [t, messageApi]);
 
     function validateEmail(value: string): boolean {
         return !value || /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value);
@@ -51,7 +51,7 @@ export function PortalConfigurations() {
 
         const valueType = config.valueType;
 
-        const value = modifiedValues[configId];
+        const value = modifiedValues[configId] ?? "";
 
         config.runtimeValue = value;
 
@@ -84,15 +84,21 @@ export function PortalConfigurations() {
     function renderEditor(config: PortalConfigurationResponse) {
         const {valueType, runtimeValue, defaultValue} = config;
 
-        let currentValue = modifiedValues[config.id] !== undefined ? modifiedValues[config.id] : runtimeValue ?? defaultValue;
-        const required = config.requiredRuntime && currentValue === null;
+        let currentValue: string = modifiedValues[config.id] ?? runtimeValue ?? defaultValue ?? "";
+        const required = config.requiredRuntime && currentValue.length === 0;
 
-        function handleChange(newValue: any) {
-            setModifiedValues((prev) => ({...prev, [config.id]: newValue}));
+        function handleChange(newValue: string | boolean | number | null | undefined) {
+            if (newValue === null || newValue === undefined) {
+                setModifiedValues((prev) => ({...prev, [config.id]: undefined}));
+                return;
+            }
+
+            const normalized = typeof newValue === "string" ? newValue : String(newValue);
+            setModifiedValues((prev) => ({...prev, [config.id]: normalized}));
         }
 
         switch (valueType) {
-            case "array":
+            case "array": {
                 const options = defaultValue.split(",");
                 const selectedValues = currentValue.split(",");
                 return (
@@ -105,7 +111,7 @@ export function PortalConfigurations() {
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );
-
+            }
             case "boolean":
                 return (
                         <>
@@ -118,9 +124,8 @@ export function PortalConfigurations() {
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );
-            case "date":
+            case "date": {
                 const currentDate = currentValue ? dayjs(currentValue) : dayjs();
-
                 return (
                         <>
                             <DatePicker value={currentDate}
@@ -128,6 +133,7 @@ export function PortalConfigurations() {
                             />
                         </>
                 );
+            }
             case "email":
                 return (
                         <>
@@ -164,12 +170,12 @@ export function PortalConfigurations() {
             case "timezone":
                 return (
                         <>
-                            <TimezoneSelector selectedValue={currentValue} onChange={(e) => handleChange(e.target.value)}/>
+                            <TimezoneSelector selectedValue={currentValue} onChange={(e) => handleChange(String(e.target.value))}/>
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );
 
-            case "enum":
+            case "enum": {
                 let enumOptions: { label: string, value: string }[] = [];
 
                 if (config.settingKey === "membership-type") {
@@ -223,11 +229,12 @@ export function PortalConfigurations() {
                             {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
                         </>
                 );
-
+            }
             default:
                 return null;
         }
     }
+
 
     function reloadConfiguration() {
         setLoading(true);

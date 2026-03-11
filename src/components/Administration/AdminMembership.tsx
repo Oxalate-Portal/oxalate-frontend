@@ -46,9 +46,9 @@ export function AdminMembership() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, []);
+    }, [form, messageApi, paramId, t]);
 
-    const onFinish = (values: any) => {
+    const onFinish = (values: { status: MembershipStatusEnum; type: MembershipTypeEnum }) => {
         if (!membership) {
             return;
         }

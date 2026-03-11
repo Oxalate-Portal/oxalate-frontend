@@ -52,14 +52,14 @@ export function ShowUser() {
             messageApi.error(t("ShowUser.userId.fail"));
             setLoading(false);
         }
-    }, [paramId, t]);
+    }, [paramId, t, messageApi]);
 
     const colums = [
         {
             title: "Name",
             dataIndex: "name",
             key: "name",
-            render: (text: any, _record: any) => (<b>{text}</b>)
+            render: (text: string) => (<b>{text}</b>)
         },
         {
             title: "Value",

@@ -3,7 +3,7 @@ import type {ColumnsType} from "antd/es/table";
 import {Button, Space} from "antd";
 import type {AbstractFileResponse} from "../../../models";
 import {ProtectedImage} from "../../main";
-import {useTranslation} from "react-i18next";
+import type {TFunction} from "i18next";
 import {CloudDownloadOutlined, FileOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
 
@@ -11,9 +11,7 @@ interface CommonFileColumnsOptions {
     showPreview?: boolean;
 }
 
-export function commonFileColumns({ showPreview = true }: CommonFileColumnsOptions): ColumnsType<AbstractFileResponse> {
-    const {t} = useTranslation();
-
+export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFileColumnsOptions = {}): ColumnsType<AbstractFileResponse> {
     return [
         {
             title: t("AdminUploads.common-file-column-title.filename"),
@@ -69,9 +67,7 @@ export interface ActionColumnOptions {
     onDelete?: (id: number) => void;
 }
 
-export function createActionColumn({ onEdit, onDelete }: ActionColumnOptions): ColumnsType<AbstractFileResponse> {
-    const {t} = useTranslation();
-
+export function createActionColumn(t: TFunction, {onEdit, onDelete}: ActionColumnOptions): ColumnsType<AbstractFileResponse> {
     return [
         {
             title: t("AdminUploads.common-file-column-title.actions"),

@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tag} from "antd";
 import {tagGroupAPI} from "../../services";
 import type {TagGroupRequest, TagGroupResponse} from "../../models";
@@ -28,17 +28,17 @@ export function AdminTagGroups() {
         setConfiguredLangs(langs);
     }, [getFrontendConfigurationValue]);
 
-    const loadGroups = () => {
+    const loadGroups = useCallback(() => {
         setLoading(true);
         tagGroupAPI.findAll()
                 .then(setData)
                 .catch(() => message.error(t("AdminTagGroups.load.fail")))
                 .finally(() => setLoading(false));
-    };
+    }, [t]);
 
     useEffect(() => {
         loadGroups();
-    }, []);
+    }, [loadGroups]);
 
     const openAdd = () => {
         setEditing(null);
@@ -50,10 +50,10 @@ export function AdminTagGroups() {
         setModalOpen(true);
     };
 
-    const buildNamesFromConfig = (existing?: Record<string, string>): NameKV[] => {
+    const buildNamesFromConfig = useCallback((existing?: Record<string, string>): NameKV[] => {
         const languages = configuredLangs.length ? configuredLangs : ["en"];
         return languages.map(lang => ({lang, value: existing?.[lang] ?? ""}));
-    };
+    }, [configuredLangs]);
 
     const formInitialValues = useMemo(() => {
         if (editing) {
@@ -64,7 +64,7 @@ export function AdminTagGroups() {
             };
         }
         return {code: "", names: buildNamesFromConfig(), type: TagGroupEnum.USER};
-    }, [editing, configuredLangs]);
+    }, [editing, buildNamesFromConfig]);
 
     // Ensure names array matches configured languages and fill values whenever modal opens or langs change
     useEffect(() => {
@@ -112,7 +112,7 @@ export function AdminTagGroups() {
                 .catch(() => void 0);
     };
 
-    const handleDelete = (record: TagGroupResponse) => {
+    const handleDelete = useCallback((record: TagGroupResponse) => {
         setDeletingId(record.id);
         tagGroupAPI.delete(record.id)
                 .then(ok => {
@@ -125,7 +125,7 @@ export function AdminTagGroups() {
                 })
                 .catch(() => message.error(t("AdminTagGroups.popup.remove-fail")))
                 .finally(() => setDeletingId(null));
-    };
+    }, [t, loadGroups]);
 
     const columns = useMemo(
             () => [
@@ -145,7 +145,7 @@ export function AdminTagGroups() {
                 {
                     title: t("AdminTagGroups.table.actions.title"),
                     key: "actions",
-                    render: (_: any, record: TagGroupResponse) => (
+                    render: (_: string, record: TagGroupResponse) => (
                             <Space>
                                 <Button type="link" onClick={() => openEdit(record)}>{t("AdminTagGroups.table.actions.edit")}</Button>
                                 <Popconfirm
@@ -159,7 +159,7 @@ export function AdminTagGroups() {
                     )
                 }
             ],
-            [deletingId, t]
+            [deletingId, t, handleDelete]
     );
 
     return (
@@ -172,7 +172,7 @@ export function AdminTagGroups() {
                         rowKey="id"
                         loading={loading}
                         dataSource={data}
-                        columns={columns as any}
+                        columns={columns}
                         pagination={{pageSize: 10}}
                 />
 

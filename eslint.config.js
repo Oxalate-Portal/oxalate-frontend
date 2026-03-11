@@ -44,11 +44,15 @@ export default tseslint.config(
             '@typescript-eslint/no-unused-vars': ['warn', {argsIgnorePattern: '^_'}],
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/ban-ts-comment': 'off',
+            '@typescript-eslint/no-empty-object-type': 'off',
             // React rules
             'react/prop-types': 'off', // Not needed with TypeScript
             'react/react-in-jsx-scope': 'off', // Not needed with React 17+
             'react-hooks/exhaustive-deps': 'warn',
             'react-hooks/immutability': 'off', // Disable the strict immutability rule
+            // React Compiler rules - disable overly strict rules not suitable for this codebase
+            'react-hooks/set-state-in-effect': 'off',
+            'react-hooks/preserve-manual-memoization': 'off',
             // General rules
             'no-console': ['warn', {allow: ['warn', 'error', 'debug']}],
         }

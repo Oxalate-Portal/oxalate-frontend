@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {commentAPI} from "../../services";
 import type {CommentModerationResponse} from "../../models";
 import {Collapse, type CollapseProps, message, Space, Spin} from "antd";
@@ -11,7 +11,7 @@ export function CommentModeration() {
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
 
-    function fetchPendingReports() {
+    const fetchPendingReports = useCallback(() => {
         setLoading(true);
 
         commentAPI.getPendingReports()
@@ -26,11 +26,11 @@ export function CommentModeration() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }
+    }, [messageApi, t]);
 
     useEffect(() => {
         fetchPendingReports();
-    }, []);
+    }, [fetchPendingReports]);
 
     return (
             <Spin spinning={loading}>

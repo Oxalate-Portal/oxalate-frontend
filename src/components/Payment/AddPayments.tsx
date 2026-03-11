@@ -80,7 +80,7 @@ export function AddPayments() {
                     messageApi.error(t("AdminPayments.errorGetUsers"));
                 })
                 .finally(() => setLoading(false));
-    }, [t]);
+    }, [t, getPortalConfigurationValue, messageApi]);
 
     function updateSelectedPaymentType(value: PaymentTypeEnum) {
         setLoading(true);
@@ -128,7 +128,7 @@ export function AddPayments() {
                     let success = true;
 
                     for (let i = 0; i < responses.length; i++) {
-                        if (!responses[i].created === null) {
+                        if (responses[i].created === null) {
                             success = false;
                             break;
                         }

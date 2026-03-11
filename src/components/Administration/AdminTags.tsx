@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useCallback, useEffect, useMemo, useState} from "react";
 import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tag} from "antd";
 import {tagGroupAPI, tagsAPI} from "../../services";
 import type {TagGroupRequest, TagGroupResponse, TagRequest, TagResponse} from "../../models";
@@ -33,26 +33,26 @@ export function AdminTags() {
         setConfiguredLangs(langs);
     }, [getFrontendConfigurationValue]);
 
-    const loadTags = () => {
+    const loadTags = useCallback(() => {
         setLoading(true);
         tagsAPI.findAll()
                 .then(setData)
                 .catch(err => message.error(err?.response?.data?.message || err.message || t("AdminTags.load.fail")))
                 .finally(() => setLoading(false));
-    };
+    }, [t]);
 
-    const loadGroups = () => {
+    const loadGroups = useCallback(() => {
         setGroupsLoading(true);
         tagGroupAPI.findAll()
                 .then(setGroups)
                 .catch(err => message.error(err?.response?.data?.message || err.message || t("AdminTags.load.groups-fail")))
                 .finally(() => setGroupsLoading(false));
-    };
+    }, [t]);
 
     useEffect(() => {
         loadTags();
         loadGroups();
-    }, []);
+    }, [loadTags, loadGroups]);
 
     const openAdd = () => {
         setEditing(null);
@@ -74,26 +74,26 @@ export function AdminTags() {
         return out;
     };
 
-    const buildNamesFromConfig = (existing?: Record<string, string>): NameKV[] => {
+    const buildNamesFromConfig = useCallback((existing?: Record<string, string>): NameKV[] => {
         const langs = configuredLangs.length ? configuredLangs : ["en"];
         return langs.map(lang => ({lang, value: existing?.[lang] ?? ""}));
-    };
+    }, [configuredLangs]);
 
     const formInitialValues = useMemo(() => {
         if (editing) {
             const resolvedGroupId =
-                    (editing as any)?.tagGroupId ??
-                    groups.find(g => g.code === (editing as any)?.tagGroupCode)?.id;
+                    editing.tagGroupId ??
+                    groups.find(g => g.code === editing.tagGroupCode)?.id;
             return {code: editing.code, names: buildNamesFromConfig(editing.names), tagGroupId: resolvedGroupId};
         }
         return {code: "", names: buildNamesFromConfig(), tagGroupId: undefined};
-    }, [editing, groups, configuredLangs]);
+    }, [editing, groups, buildNamesFromConfig]);
 
     const groupFormInitialValues = useMemo(() => ({
         code: "",
         names: buildNamesFromConfig(),
         type: TagGroupEnum.USER
-    }), [configuredLangs]);
+    }), [buildNamesFromConfig]);
 
     // Ensure names array matches configured languages and fill lang codes whenever tag modal opens or langs change
     useEffect(() => {
@@ -102,8 +102,8 @@ export function AdminTags() {
         form.resetFields();
         const resolvedGroupId =
                 editing
-                        ? ((editing as any)?.tagGroupId ??
-                                groups.find(g => g.code === (editing as any)?.tagGroupCode)?.id)
+                        ? (editing.tagGroupId ??
+                                groups.find(g => g.code === editing.tagGroupCode)?.id)
                         : undefined;
 
         form.setFieldsValue({
@@ -111,7 +111,7 @@ export function AdminTags() {
             tagGroupId: resolvedGroupId,
             names: buildNamesFromConfig(editing?.names)
         });
-    }, [modalOpen, configuredLangs, editing, groups, form]);
+    }, [modalOpen, configuredLangs, editing, groups, form, buildNamesFromConfig]);
 
     // Ensure names array matches configured languages for inline New Tag Group modal
     useEffect(() => {
@@ -122,9 +122,9 @@ export function AdminTags() {
             names: buildNamesFromConfig(),
             type: groupForm.getFieldValue("type") ?? TagGroupEnum.USER
         });
-    }, [groupModalOpen, configuredLangs, groupForm]);
+    }, [groupModalOpen, configuredLangs, groupForm, buildNamesFromConfig]);
 
-    const handleSubmit = (_submitData: any) => {
+    const handleSubmit = (_submitData: unknown) => {
         form.validateFields()
                 .then((values: { code: string; names: NameKV[]; tagGroupId?: number }) => {
                     setSubmitting(true);
@@ -132,8 +132,8 @@ export function AdminTags() {
                         id: editing?.id ?? 0,
                         code: values.code.trim(),
                         names: listToRecord(values.names || []),
-                        tagGroupId: values.tagGroupId ?? (editing as any)?.tagGroupId,
-                        tagGroupCode: (editing as any)?.tagGroupCode
+                        tagGroupId: values.tagGroupId ?? editing?.tagGroupId,
+                        tagGroupCode: editing?.tagGroupCode
                     };
                     const op = editing ? tagsAPI.update(payload) : tagsAPI.create(payload);
                     op.then(() => {
@@ -147,7 +147,7 @@ export function AdminTags() {
                 .catch(() => void 0);
     };
 
-    const handleDelete = (record: TagResponse) => {
+    const handleDelete = useCallback((record: TagResponse) => {
         setDeletingId(record.id);
         tagsAPI.delete(record.id)
                 .then(ok => {
@@ -160,7 +160,7 @@ export function AdminTags() {
                 })
                 .catch(err => message.error(err?.response?.data?.message || err.message || t("AdminTags.popup.remove-fail")))
                 .finally(() => setDeletingId(null));
-    };
+    }, [t, loadTags]);
 
     const columns = useMemo(
             () => [
@@ -184,7 +184,7 @@ export function AdminTags() {
                 {
                     title: t("AdminTags.table.actions.title"),
                     key: "actions",
-                    render: (_: any, record: TagResponse) => (
+                    render: (_: string, record: TagResponse) => (
                             <Space>
                                 <Button type="link" onClick={() => openEdit(record)}>{t("AdminTags.table.actions.edit")}</Button>
                                 <Popconfirm
@@ -198,7 +198,7 @@ export function AdminTags() {
                     )
                 }
             ],
-            [deletingId, t]
+            [deletingId, t, handleDelete]
     );
 
     return (
@@ -211,7 +211,7 @@ export function AdminTags() {
                         rowKey="id"
                         loading={loading}
                         dataSource={data}
-                        columns={columns as any}
+                        columns={columns}
                         pagination={{pageSize: 10}}
                 />
 

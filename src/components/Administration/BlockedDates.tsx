@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {Button, DatePicker, Form, Input, List, message, Popconfirm, Spin} from "antd";
 import type {BlockedDateRequest, BlockedDateResponse} from "../../models";
 import dayjs, {Dayjs} from "dayjs";
@@ -21,11 +21,7 @@ function BlockedDates() {
     const [form] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
-    useEffect(() => {
-        loadBlockedDates();
-    }, []);
-
-    async function loadBlockedDates() {
+    const loadBlockedDates = useCallback(async () => {
         setLoading(true);
 
         blockedDatesAPI.findAll()
@@ -40,7 +36,11 @@ function BlockedDates() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }
+    }, [messageApi, t]);
+
+    useEffect(() => {
+        loadBlockedDates();
+    }, [loadBlockedDates]);
 
     async function addBlockedDate(values: { blockedDate: Date, blockedReason: string }) {
         // Ensure blockedDate is a Date object

@@ -34,7 +34,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 })
                 .finally(() => {
                     setReportVisible(false);
