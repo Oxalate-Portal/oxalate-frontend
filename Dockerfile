@@ -15,7 +15,7 @@ server {
 EOL
 
 # Copy built React app from dist directory to nginx html directory
-COPY dist/ /usr/share/nginx/html/
+COPY build/ /usr/share/nginx/html/
 
 # Expose port 8080 for external access
 EXPOSE 8080
