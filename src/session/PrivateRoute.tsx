@@ -1,5 +1,5 @@
-import {useSession} from "./SessionProvider";
 import {Navigate} from "react-router-dom";
+import {useSession} from "./useSession";
 import type {RoleRouteProps} from "../models";
 
 export function PrivateRoute({children}: RoleRouteProps) {

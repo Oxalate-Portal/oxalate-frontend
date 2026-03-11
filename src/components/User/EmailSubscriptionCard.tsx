@@ -29,13 +29,13 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
                 });
     }, [userId]);
 
-    const updateSubscriptions = (values: any) => {
+    const updateSubscriptions = (values: Record<string, boolean>) => {
         setLoading(true);
         const subscriptionRequest: EmailNotificationSubscriptionRequest = {subscriptionList: []};
 
         for (const [key, value] of Object.entries(values)) {
             // Get the enum from the key string
-            if (value === true) {
+            if (value) {
                 const notificationEnum = EmailNotificationTypeEnum[key as keyof typeof EmailNotificationTypeEnum];
                 subscriptionRequest.subscriptionList.push(notificationEnum);
             }
@@ -54,7 +54,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
     };
 
     return (
-            <Spin spinning={loading} tip={t("common.spinner.loading")}>
+            <Spin spinning={loading} description={t("common.spinner.loading")}>
                 <h4>{t("EmailSubscriptionCard.header")}</h4>
                 {!loading && <Form form={subscriptionForm}
                                    name={userId + "-subscription-form"}

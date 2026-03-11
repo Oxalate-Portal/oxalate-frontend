@@ -465,6 +465,12 @@
     "load" : {
       "fail" : "Estettyjen päivämäärien lataus epäonnistui"
     },
+    "table" : {
+      "actions" : "Toiminnot",
+      "creator" : "Luonut",
+      "date" : "Päivämäärä",
+      "reason" : "Syy"
+    },
     "popup" : {
       "add-fail" : "Estetyn päivämäärän lisääminen epäonnistui",
       "add-success" : "Estetty päivämäärä lisätty onnistuneesti",

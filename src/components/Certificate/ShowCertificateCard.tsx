@@ -8,7 +8,7 @@ import {fileTransferAPI} from "../../services";
 
 interface ShowCertificateCardProps {
     certificate: CertificateResponse;
-    deleteCertificate: any;
+    deleteCertificate: ((certificate: CertificateResponse) => void) | null;
     viewOnly: boolean;
 }
 

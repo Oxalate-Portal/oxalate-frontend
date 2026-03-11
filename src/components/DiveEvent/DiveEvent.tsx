@@ -159,7 +159,7 @@ export function DiveEvent() {
                 && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("event"))) {
             setEventCommenting(true);
         }
-    }, [userSession, diveEvent]);
+    }, [userSession, diveEvent, getPortalConfigurationValue]);
 
 
     function subscribeEvent(diveEventId: number, userType: UserTypeEnum) {

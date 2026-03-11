@@ -2,14 +2,25 @@
  * Modified adapter which includes the pageId and language in the upload request
  */
 
+type CkLoader = {
+    file: Promise<File>;
+    uploadTotal?: number;
+    uploaded?: number;
+};
+
+type CkUploadResponse = {
+    url?: string;
+    error?: { message?: string };
+};
+
 export class CKUploadAdapter {
-    private loader: any;
+    private loader: CkLoader;
     private url: string;
     private language: string;
     private pageId: number;
     private xhr: XMLHttpRequest | null = null;
 
-    constructor(loader: any, language: string, pageId: number, url: string) {
+    constructor(loader: CkLoader, language: string, pageId: number, url: string) {
         this.loader = loader;
         this.language = language;
         this.pageId = pageId;
@@ -48,18 +59,25 @@ export class CKUploadAdapter {
         xhr.withCredentials = true;
     }
 
-    private _initListeners(resolve: (value: { default: string }) => void, reject: (reason?: any) => void): void {
+    private _initListeners(
+            resolve: (value: { default: string }) => void,
+            reject: (reason?: string) => void
+    ): void {
         const xhr = this.xhr!;
         const loader = this.loader;
-        const genericErrorText = `Couldn't upload file: ${loader.file?.name}.`;
+        const genericErrorText = "Couldn't upload file.";
 
         xhr.addEventListener("error", () => reject(genericErrorText));
         xhr.addEventListener("abort", () => reject());
         xhr.addEventListener("load", () => {
-            const response = xhr.response;
+            const response = xhr.response as CkUploadResponse;
 
             if (!response || response.error) {
-                return reject(response && response.error ? response.error.message : genericErrorText);
+                return reject(response?.error?.message || genericErrorText);
+            }
+
+            if (!response.url) {
+                return reject(genericErrorText);
             }
 
             resolve({default: response.url});

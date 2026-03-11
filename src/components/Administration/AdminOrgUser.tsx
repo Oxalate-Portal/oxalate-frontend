@@ -116,7 +116,8 @@ export function AdminOrgUser() {
             roles: userInfo.roles,
             language: userInfo.language,
             primaryUserType: userInfo.primaryUserType,
-            approvedTerms: userInfo.approvedTerms
+            approvedTerms: userInfo.approvedTerms,
+            healthCheckId: userInfo.healthCheckId
         };
 
         userAPI.adminUpdateUser(postData)
@@ -133,7 +134,7 @@ export function AdminOrgUser() {
                 });
     }
 
-    function updateUserFailed(errorInfo: any) {
+    function updateUserFailed(errorInfo: { errorFields: { errors: string[] }[] }) {
         console.error("Failed:", errorInfo);
     }
 

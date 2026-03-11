@@ -11,6 +11,8 @@ interface CommentCanvasProps {
     depth?: number;
 }
 
+const ROOT_COMMENT_IDS = [1, 2, 3, 4];
+
 /**
  CommentCanvas takes a topic-typed commentId and displays the comment threads of that topic.
  If the topic is a direct child of one of the root comments, then it is not displayed, rather its children.
@@ -20,7 +22,6 @@ export function CommentCanvas({commentId, allowComment, depth = 0}: CommentCanva
     const [loading, setLoading] = useState<boolean>(true);
     const [comments, setComments] = useState<CommentResponse[]>([]);
 
-    const ROOT_COMMENT_IDS = [1, 2, 3, 4];
 
     const refreshCommentList = useCallback(() => {
         setLoading(true);

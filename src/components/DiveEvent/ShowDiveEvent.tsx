@@ -23,7 +23,7 @@ export function ShowDiveEvent() {
 
         if (tmpDiveEventId > 0) {
             setLoading(true);
-            console.error("Fetching dive event with id:", tmpDiveEventId);
+            console.debug("Fetching dive event with id:", tmpDiveEventId);
             diveEventAPI.findById(tmpDiveEventId, null)
                     .then(response => {
                         setDiveEvent(response);

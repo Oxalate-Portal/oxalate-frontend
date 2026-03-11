@@ -29,7 +29,7 @@ export function CertificateFiles() {
             dataIndex: "certificateId",
             key: "certificateId",
         },
-        ...commonFileColumns({showPreview: true})
+        ...commonFileColumns(t, {showPreview: true})
     ];
 
     return (

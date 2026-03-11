@@ -17,7 +17,6 @@
     "test:watch" : "jest --watch",
     "test:coverage" : "jest --coverage .",
     "test:debug" : "jest --inspect-brk --runInBand --no-cache",
-    "test:lint" : "eslint src/",
     "lint" : "eslint src/",
     "lint:fix" : "eslint src/ --fix",
     "preview" : "vite preview"
@@ -65,6 +64,7 @@
   },
   "devDependencies" : {
     "@babel/plugin-proposal-private-property-in-object" : "^7.21.11",
+    "@eslint/js" : "9.39.3",
     "@stylistic/eslint-plugin" : "^5.10.0",
     "@testing-library/jest-dom" : "^6.8.0",
     "@testing-library/react" : "^16.3.2",
@@ -77,6 +77,7 @@
     "@types/react-dom" : "^19.2.3",
     "@types/react-highlight-words" : "^0.20.0",
     "@vitejs/plugin-react" : "^5.1.4",
+    "eslint" : "9.39.3",
     "eslint-config-prettier" : "^10.1.8",
     "eslint-plugin-react" : "^7.37.5",
     "eslint-plugin-react-hooks" : "^7.0.1",

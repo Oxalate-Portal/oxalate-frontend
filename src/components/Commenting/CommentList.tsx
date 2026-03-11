@@ -74,7 +74,7 @@ export function CommentList() {
                     title: t("common.table.column-title.action"),
                     key: "comment-list-action",
                     render: (_: string, item: CommentResponse) => {
-                        return <Button type={"primary"} onClick={() => console.log("Edit comment", item.id)}>{t("common.button.update")}</Button>;
+                        return <Button type={"primary"} onClick={() => console.debug("Edit comment", item.id)}>{t("common.button.update")}</Button>;
                     }
                 }
             ];

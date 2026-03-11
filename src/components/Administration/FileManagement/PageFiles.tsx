@@ -61,7 +61,7 @@ export function PageFiles() {
                 );
             },
         },
-        ...commonFileColumns({showPreview: true})
+        ...commonFileColumns(t, {showPreview: true})
     ];
 
     return (

@@ -63,8 +63,14 @@ dayjs.extend(timezone);
 
 function App() {
     const {darkAlgorithm} = theme;
-    const {userSession, getSessionLanguage, organizationName, logoutUser, getPortalTimezone, getPortalConfigurationValue} = useSession();
-    const sessionLanguage = getSessionLanguage();
+    const {
+        userSession,
+        sessionLanguage,
+        organizationName,
+        logoutUser,
+        getPortalTimezone,
+        getPortalConfigurationValue
+    } = useSession();
 
     const darkThemeTokens = {
         colorBgBase: "#050505",
@@ -86,9 +92,17 @@ function App() {
         dayjs.tz.setDefault(getPortalTimezone());
     }, [getPortalTimezone]);
 
-    if (sessionLanguage !== undefined && sessionLanguage !== i18next.language) {
-        i18next.changeLanguage(getSessionLanguage());
-    }
+    useEffect(() => {
+        if (!sessionLanguage || sessionLanguage === i18next.language) {
+            return;
+        }
+
+        void i18next.changeLanguage(sessionLanguage);
+    }, [sessionLanguage]);
+
+    useEffect(() => {
+        document.title = organizationName;
+    }, [organizationName]);
 
     if (userSession) {
         const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
@@ -122,8 +136,6 @@ function App() {
         );
     }
 
-    // Set the title of the page to that of the organization name.
-    document.title = organizationName;
 
     return (
             <div className="app-container">

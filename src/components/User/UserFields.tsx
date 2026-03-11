@@ -1,4 +1,4 @@
-import {Form, Input, Select, Switch} from "antd";
+import {Form, Input, Select, Space, Switch} from "antd";
 import {useTranslation} from "react-i18next";
 import {LanguageTool} from "../../tools";
 import {useEffect, useState} from "react";
@@ -16,7 +16,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
         setSupportedLanguages(languageList.map(lang => {
             return {label: LanguageTool.getLabelByValue(lang), value: lang};
         }));
-    }, []);
+    }, [getFrontendConfigurationValue]);
 
     return (
             <>
@@ -82,27 +82,34 @@ export function UserFields(props: { userId: number; username: string | null; isO
                            ]}>
                     <Input placeholder={t("UserFields.form.lastName.placeholder")}/>
                 </Form.Item>
-                <Form.Item name="phoneNumber"
+                <Form.Item
                            label={t("UserFields.form.phoneNumber.placeholder")}
                            tooltip={t("UserFields.form.phoneNumber.tooltip")}
-                           rules={[
-                               {
-                                   required: true,
-                                   message: t("UserFields.form.phoneNumber.rules.required")
-                               },
-                               {
-                                   min: 10,
-                                   message: t("UserFields.form.phoneNumber.rules.min")
-                               },
-                               {
-                                   pattern: new RegExp(/^[0-9]+$/),
-                                   message: t("UserFields.form.phoneNumber.rules.pattern")
-                               }
-                           ]}
+                           required={true}
                 >
-                    <Input type={"text"}
-                           addonBefore={"+"}
-                           style={{width: 300}}></Input>
+                    <Space.Compact style={{width: 300}}>
+                        <Input value={"+"} disabled style={{width: 48}}/>
+                        <Form.Item
+                                name="phoneNumber"
+                                noStyle
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: t("UserFields.form.phoneNumber.rules.required")
+                                    },
+                                    {
+                                        min: 10,
+                                        message: t("UserFields.form.phoneNumber.rules.min")
+                                    },
+                                    {
+                                        pattern: new RegExp(/^[0-9]+$/),
+                                        message: t("UserFields.form.phoneNumber.rules.pattern")
+                                    }
+                                ]}
+                        >
+                            <Input type={"text"}/>
+                        </Form.Item>
+                    </Space.Compact>
                 </Form.Item>
                 <Form.Item name={"privacy"}
                            required={true}
@@ -149,4 +156,3 @@ export function UserFields(props: { userId: number; username: string | null; isO
             </>
     );
 }
-

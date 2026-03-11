@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
 import type {MenuProps} from "antd";
@@ -10,11 +10,7 @@ import {BlogOutlined} from "../../icons";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-interface BlogMenuItemProps {
-    blogEnabled: boolean;
-}
-
-export function BlogMenuItem({blogEnabled}: BlogMenuItemProps) {
+export function useBlogMenuItems(blogEnabled: boolean): MenuItem[] {
     const {t} = useTranslation();
     const {getSessionLanguage} = useSession();
     const [blogPosts, setBlogPosts] = useState<PageResponse[]>([]);
@@ -60,35 +56,53 @@ export function BlogMenuItem({blogEnabled}: BlogMenuItemProps) {
 
     if (loading) {
         children.push({
-            label: (
-                    <Spin size="small">
-                        <span style={{marginLeft: 8}}>{t("BlogMenuItem.loading")}</span>
-                    </Spin>
+            label: React.createElement(Spin, {size: "small"},
+                React.createElement("span", {style: {marginLeft: 8}}, t("BlogMenuItem.loading"))
             ),
             key: "blog-loading",
             disabled: true
         });
     } else if (error) {
-        children.push({label: t("BlogMenuItem.error"), key: "blog-error", disabled: true});
+        children.push({
+            label: t("BlogMenuItem.error"),
+            key: "blog-error",
+            disabled: true
+        });
     } else if (blogPosts.length === 0) {
-        children.push({label: t("BlogMenuItem.empty"), key: "blog-empty", disabled: true});
+        children.push({
+            label: t("BlogMenuItem.empty"),
+            key: "blog-empty",
+            disabled: true
+        });
     } else {
         blogPosts.forEach((post) => {
-            const title = post.pageVersions.length > 0 ? post.pageVersions[0].title : t("BlogMenuItem.untitled");
+            const title = post.pageVersions.length > 0
+                ? post.pageVersions[0].title
+                : t("BlogMenuItem.untitled");
+
             children.push({
-                label: <NavLink to={`/pages/${post.id}`}>{title}</NavLink>,
+                label: React.createElement(NavLink, {to: `/pages/${post.id}`}, title),
                 key: `blog-post-${post.id}`,
-                icon: <BlogOutlined/>
+                icon: React.createElement(BlogOutlined)
             });
         });
     }
 
     children.push({type: "divider"});
+
     children.push({
-        label: <NavLink to="/blog">{t("BlogMenuItem.viewAll")}</NavLink>,
+        label: React.createElement(NavLink, {to: "/blog"}, t("BlogMenuItem.viewAll")),
         key: "blog-view-all",
-        icon: <BlogOutlined/>
+        icon: React.createElement(BlogOutlined)
     });
 
-    return [{label: t("NavigationBar.blog.title"), key: "blog", icon: <BlogOutlined/>, children}];
+    return [
+        {
+            label: t("NavigationBar.blog.title"),
+            key: "blog",
+            icon: React.createElement(BlogOutlined),
+            children: children
+        }
+    ];
 }
+

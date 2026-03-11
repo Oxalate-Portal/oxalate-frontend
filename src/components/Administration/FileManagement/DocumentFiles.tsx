@@ -32,7 +32,7 @@ export function DocumentFiles() {
         onDelete: (id: number) => removeDocument(id)
     };
     const columns = [
-        ...commonFileColumns({showPreview: false}),
+        ...commonFileColumns(t, {showPreview: false}),
         {
             title: t("AdminUploads.document.status"),
             dataIndex: "status",
@@ -41,7 +41,7 @@ export function DocumentFiles() {
                     <Typography.Text>{status}</Typography.Text>
             ),
         },
-        ...createActionColumn(actionColumnOptions)
+        ...createActionColumn(t, actionColumnOptions)
     ];
 
     const uploadProps: UploadProps = {
@@ -51,8 +51,6 @@ export function DocumentFiles() {
             authorization: "Bearer " + userSession?.accessToken,
         },
         onChange(info) {
-            if (info.file.status !== "uploading") {
-            }
             if (info.file.status === "done") {
                 setRefreshKey((prevKey) => prevKey + 1);
                 messageApi.success(info.file.name + " " + t("AdminUploads.document.upload.successful"));

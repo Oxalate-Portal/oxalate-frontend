@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {statsAPI} from "../../services";
 import {type DiverListItemResponse, PortalConfigGroupEnum, type YearlyDiversListResponse} from "../../models";
@@ -14,7 +14,7 @@ export function YearlyDiveStats() {
     const [collapseItems, setCollapseItems] = useState<CollapseProps["items"]>([]);
     const {getPortalConfigurationValue} = useSession();
 
-    const columns: ColumnsType<DiverListItemResponse> = [
+    const columns: ColumnsType<DiverListItemResponse> = useMemo(() => [
         {
             title: t("StatsYearlyDives.table.position"),
             dataIndex: "position",
@@ -30,7 +30,7 @@ export function YearlyDiveStats() {
             dataIndex: "diveCount",
             key: "diveCount"
         }
-    ];
+    ], [t]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,7 +68,7 @@ export function YearlyDiveStats() {
         };
 
         fetchData().catch(console.error);
-    }, []);
+    }, [columns, getPortalConfigurationValue]);
 
     return (
             <div className={"darkDiv"}>

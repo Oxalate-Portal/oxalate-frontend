@@ -1,4 +1,5 @@
 import {CKEditor} from "@ckeditor/ckeditor5-react";
+import type {EventInfo} from "ckeditor5";
 import {
     Alignment,
     Bold,
@@ -33,6 +34,20 @@ import {CKUploadAdapter} from "../../services";
 import type {UserSessionToken} from "../../models";
 import type {JSX} from "react";
 
+interface CkLoader {
+    file: Promise<File>;
+    uploadTotal?: number;
+    uploaded?: number;
+}
+
+interface CKEditorInstance {
+    getData(): string;
+
+    plugins: {
+        get(name: string): { createUploadAdapter: (loader: CkLoader) => CKUploadAdapter };
+    };
+}
+
 interface PageBodyEditorProps {
     value: string,
     language: string,
@@ -41,19 +56,19 @@ interface PageBodyEditorProps {
 }
 
 export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEditorProps): JSX.Element {
-    function contentUpdated(_event: any, editor: any) {
+    function contentUpdated(_event: EventInfo, editor: CKEditorInstance) {
         const data = editor.getData();
         onChange(data);
     }
 
-    function initiateUploadAdapter(editor: any) {
+    function initiateUploadAdapter(editor: CKEditorInstance) {
         const session: UserSessionToken = JSON.parse(localStorage.getItem("user") || "{}");
 
         if (session == undefined || session.accessToken == undefined) {
             return {};
         }
 
-        editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) => {
+        editor.plugins.get("FileRepository").createUploadAdapter = (loader: CkLoader) => {
             return new CKUploadAdapter(loader, language, pageId, `${import.meta.env.VITE_APP_API_URL}` + "/files/page-files");
         };
     }

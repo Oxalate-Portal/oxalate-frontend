@@ -6,6 +6,8 @@ import {CSVLink} from "react-csv";
 import {DownloadOutlined} from "@ant-design/icons";
 import {DownloadTypeEnum} from "../../models";
 
+type CsvRow = Record<string, string | number | boolean | null | undefined>;
+
 function DownloadData() {
     const {t} = useTranslation();
     const downloadSelectOptions = [
@@ -20,7 +22,7 @@ function DownloadData() {
     const [dataLoaded, setDataLoaded] = useState<boolean>(false);
     const [rowCount, setRowCount] = useState<number>(0);
     const [downloadFileName, setDownloadFileName] = useState<string>("undefined.csv");
-    const [csvData, setCsvData] = useState<any>(null);
+    const [csvData, setCsvData] = useState<CsvRow[]>([]);
     const [csvHeaders, setCsvHeaders] = useState<{ label: string, key: string }[]>([]);
 
     function selectToDownload(value: DownloadTypeEnum) {
@@ -107,7 +109,7 @@ function DownloadData() {
                     // Set download file name to current date
                     const date = new Date();
                     setDownloadFileName(`${dataName}-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}.csv`);
-                    setCsvData(response);
+                    setCsvData(response as CsvRow[]);
                 })
                 .catch(error => {
                     console.error(`Failed to download ${dataName}:`, error);

@@ -3,10 +3,12 @@ import {Table} from "antd";
 import {fileTransferAPI} from "../../../services";
 import type {AvatarFileResponse} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
+import {useTranslation} from "react-i18next";
 
 export function AvatarFiles() {
     const [loading, setLoading] = useState<boolean>(true);
     const [avatarFiles, setAvatarFiles] = useState<AvatarFileResponse[]>([]);
+    const {t} = useTranslation();
 
     useEffect(() => {
         fileTransferAPI.findAllAvatarFiles()
@@ -21,7 +23,7 @@ export function AvatarFiles() {
                 });
     }, []);
 
-    const columns = [...commonFileColumns({showPreview: true})];
+    const columns = [...commonFileColumns(t, {showPreview: true})];
 
     return (
             <>

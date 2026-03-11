@@ -44,7 +44,7 @@ export function DiveFiles() {
                     <Typography.Text>{status}</Typography.Text>
             ),
         },
-        ...commonFileColumns({showPreview: false})
+        ...commonFileColumns(t, {showPreview: false})
     ];
 
     return (

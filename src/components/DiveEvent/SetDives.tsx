@@ -20,7 +20,7 @@ export function SetDives() {
             title: "#",
             dataIndex: "userId",
             key: "userId",
-            render: (_: any, record: DiveCountItemVO) => {
+            render: (_: string, record: DiveCountItemVO) => {
                 return (<Link to={"/users/" + record.userId + "/show"}>{record.userId}</Link>);
             }
         },
@@ -30,14 +30,9 @@ export function SetDives() {
             key: "name"
         },
         {
-            title: t("SetDives.table.diveCount"),
-            dataIndex: "diveCount",
-            key: "diveCount"
-        },
-        {
             title: t("SetDives.table.action"),
             key: "action",
-            render: (_: any, record: DiveCountItemVO) => (
+            render: (_: string, record: DiveCountItemVO) => (
                     <Space size={"middle"}>
                         <DownOutlined onClick={() => changeDiveCount(record, -1)}/>
                         <UpOutlined onClick={() => changeDiveCount(record, 1)}/>
@@ -68,7 +63,7 @@ export function SetDives() {
                         setLoading(false);
                     });
         } else {
-
+            // No valid dive event ID, nothing to load
         }
     }, [paramId]);
 

@@ -1,5 +1,5 @@
 import {Navigate} from "react-router-dom";
-import {useSession} from "./SessionProvider";
+import {useSession} from "./useSession";
 import {RoleEnum, type RoleRouteProps} from "../models";
 
 export function OrganizerRoute({children}: RoleRouteProps) {

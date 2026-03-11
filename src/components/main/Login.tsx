@@ -14,7 +14,7 @@ export function Login() {
     const {loginUser} = useSession();
     const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
 
-    async function onFinish(credentials: any): Promise<void> {
+    async function onFinish(credentials: { username: string; password: string }): Promise<void> {
         setLoading(true);
 
         if (!executeRecaptcha) {
@@ -43,7 +43,7 @@ export function Login() {
         setLoading(false);
     }
 
-    function onFinishFailed(errorInfo: any) {
+    function onFinishFailed(errorInfo: { errorFields: { errors: string[] }[] }) {
         console.error("Failed:", errorInfo);
     }
 

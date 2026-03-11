@@ -43,7 +43,7 @@ export function NavigationBar() {
     const {
         userSession,
         logoutUser,
-        getSessionLanguage,
+        sessionLanguage,
         organizationName,
         setSessionLanguage,
         getPortalConfigurationValue,
@@ -256,7 +256,7 @@ export function NavigationBar() {
         ...(supportedLanguages.length > 0 &&
                 [
                     {
-                        label: LanguageTool.getLabelByValue(getSessionLanguage()),
+                        label: LanguageTool.getLabelByValue(sessionLanguage),
                         key: "language-menu-main",
                         icon: <GlobalOutlined/>,
                         children: supportedLanguages.map(lang => {
@@ -312,7 +312,7 @@ export function NavigationBar() {
     useEffect(() => {
         const fetchPaths = async () => {
             setLoading(true);
-            const language = getSessionLanguage();
+            const language = sessionLanguage;
 
             pageAPI.getNavigationItems(language)
                     .then(navElements => {
@@ -353,7 +353,7 @@ export function NavigationBar() {
         return () => {
             window.removeEventListener("reloadNavigationEvent", fetchPaths);
         };
-    }, [userSession, getSessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
+    }, [userSession, sessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
 
     const onClick: MenuProps["onClick"] = e => {
         setCurrent(e.key);
