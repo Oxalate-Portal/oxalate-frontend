@@ -247,7 +247,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                 {!loading && <Table columns={columns}
                                     dataSource={payments}
                                     rowKey={(record) =>
-                                            keyName + "-payment-" + record.userId
+                                            keyName + "-payment-" + record.userId + "-" + record.created
                                     }
                 />}
             </Spin>);

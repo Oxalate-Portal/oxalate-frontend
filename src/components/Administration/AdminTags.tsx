@@ -221,7 +221,7 @@ export function AdminTags() {
                         onOk={handleSubmit}
                         onCancel={() => setModalOpen(false)}
                         confirmLoading={submitting}
-                        destroyOnClose
+                        destroyOnHidden
                 >
                     <Form form={form} layout="vertical" preserve={false} initialValues={formInitialValues}>
                         <Form.Item
@@ -299,7 +299,7 @@ export function AdminTags() {
                         }}
                         onCancel={() => setGroupModalOpen(false)}
                         confirmLoading={groupSubmitting}
-                        destroyOnClose
+                        destroyOnHidden
                 >
                     <Form form={groupForm} layout="vertical" preserve={false} initialValues={groupFormInitialValues}>
                         <Form.Item

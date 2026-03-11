@@ -465,6 +465,12 @@
     "load" : {
       "fail" : "Misslyckades med att ladda blockerade datum"
     },
+    "table" : {
+      "actions" : "Åtgärder",
+      "creator" : "Skapad av",
+      "date" : "Datum",
+      "reason" : "Orsak"
+    },
     "popup" : {
       "add-fail" : "Misslyckades med att lägga till det blockerade datumet",
       "add-success" : "Blockerat datum tillagt framgångsrikt",

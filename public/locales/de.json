@@ -465,6 +465,12 @@
     "load" : {
       "fail" : "Fehler beim Laden der gesperrten Daten"
     },
+    "table" : {
+      "actions" : "Aktionen",
+      "creator" : "Erstellt von",
+      "date" : "Datum",
+      "reason" : "Grund"
+    },
     "popup" : {
       "add-fail" : "Das Hinzufügen des gesperrten Datums ist fehlgeschlagen",
       "add-success" : "Gesperrtes Datum erfolgreich hinzugefügt",

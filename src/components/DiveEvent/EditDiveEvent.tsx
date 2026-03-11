@@ -584,7 +584,7 @@ export function EditDiveEvent() {
                         onCancel={() => setNotificationModalOpen(false)}
                         footer={null}
                         width={600}
-                        destroyOnClose
+                        destroyOnHidden
                 >
                     {diveEvent && (
                             <AdminNotifications

@@ -465,6 +465,12 @@
     "load" : {
       "fail" : "Failed to load blocked dates"
     },
+    "table" : {
+      "actions" : "Actions",
+      "creator" : "Created by",
+      "date" : "Date",
+      "reason" : "Reason"
+    },
     "popup" : {
       "add-fail" : "Failed to add the blocked date",
       "add-success" : "Blocked date added successfully",

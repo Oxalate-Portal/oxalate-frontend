@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from "react";
-import {Button, DatePicker, Form, Input, List, message, Popconfirm, Spin} from "antd";
+import {Button, DatePicker, Form, Input, message, Popconfirm, Spin, Table} from "antd";
+import type {ColumnsType} from "antd/es/table";
 import type {BlockedDateRequest, BlockedDateResponse} from "../../models";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -89,30 +90,54 @@ function BlockedDates() {
         return current && (currentlyBlockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
     }
 
+    const columns: ColumnsType<BlockedDateResponse> = [
+        {
+            title: t("BlockedDates.table.date"),
+            dataIndex: "blockedDate",
+            key: "blockedDate",
+            render: (value: Date) => dayjs(value).format("YYYY-MM-DD"),
+            sorter: (a, b) => dayjs(a.blockedDate).unix() - dayjs(b.blockedDate).unix(),
+            defaultSortOrder: "ascend",
+        },
+        {
+            title: t("BlockedDates.table.creator"),
+            dataIndex: "creatorName",
+            key: "creatorName",
+        },
+        {
+            title: t("BlockedDates.table.reason"),
+            dataIndex: "reason",
+            key: "reason",
+        },
+        {
+            title: t("BlockedDates.table.actions"),
+            key: "actions",
+            render: (_: unknown, record: BlockedDateResponse) => (
+                    <Popconfirm
+                            title={t("BlockedDates.list.confirm")}
+                            onConfirm={() => handleRemoveBlockedDate(record.id)}
+                            okText={t("common.button.yes")}
+                            cancelText={t("common.button.no")}
+                    >
+                        <Button type="link" danger>
+                            {t("common.button.delete")}
+                        </Button>
+                    </Popconfirm>
+            ),
+        },
+    ];
+
     return (
             <div className="darkDiv">
                 {contextHolder}
                 <h4>{t("BlockedDates.title")}</h4>
 
                 <Spin spinning={loading}>
-                    <List
-                            bordered
+                    <Table<BlockedDateResponse>
                             dataSource={blockedDates}
-                            renderItem={(item: BlockedDateResponse) => (
-                                    <List.Item key={item.id}>
-                                        {dayjs(item.blockedDate).format("YYYY-MM-DD")} {item.creatorName} {item.reason}
-                                        <Popconfirm
-                                                title={t("BlockedDates.list.confirm")}
-                                                onConfirm={() => handleRemoveBlockedDate(item.id)}
-                                                okText={t("common.button.yes")}
-                                                cancelText={t("common.button.no")}
-                                        >
-                                            <Button type="link" danger>
-                                                {t("common.button.delete")}
-                                            </Button>
-                                        </Popconfirm>
-                                    </List.Item>
-                            )}
+                            columns={columns}
+                            rowKey="id"
+                            pagination={{hideOnSinglePage: true}}
                             style={{marginBottom: "16px"}}
                     />
                     <Form onFinish={addBlockedDate} layout={"vertical"} form={form}>

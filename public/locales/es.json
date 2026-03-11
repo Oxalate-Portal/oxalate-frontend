@@ -465,6 +465,12 @@
     "load" : {
       "fail" : "Error al cargar las fechas bloqueadas"
     },
+    "table" : {
+      "actions" : "Acciones",
+      "creator" : "Creado por",
+      "date" : "Fecha",
+      "reason" : "Razón"
+    },
     "popup" : {
       "add-fail" : "Error al agregar la fecha bloqueada",
       "add-success" : "Fecha bloqueada agregada exitosamente",

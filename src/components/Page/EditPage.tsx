@@ -10,7 +10,7 @@ import {
 } from "../../models";
 import {useSession} from "../../session";
 import {getHighestRole, getPageGroupTitleByLanguage} from "../../tools";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useParams} from "react-router-dom";
 import {Alert, Button, Checkbox, Divider, Form, Input, message, Select, Space} from "antd";
 import {pageGroupMgmtAPI, pageMgmtAPI} from "../../services";
@@ -21,7 +21,13 @@ export function EditPage() {
     const {paramId} = useParams();
     const {userSession, sessionLanguage, getFrontendConfigurationValue} = useSession();
     const {t} = useTranslation();
-    const languageList = getFrontendConfigurationValue("enabled-language").split(",");
+    const languageConfig = getFrontendConfigurationValue("enabled-language");
+    const languageList = useMemo(() => {
+        return languageConfig
+                .split(",")
+                .map((language) => language.trim())
+                .filter(Boolean);
+    }, [languageConfig]);
     const [messageApi, contextHolder] = message.useMessage();
 
     const [pageId, setPageId] = useState<number>(0);
@@ -225,17 +231,7 @@ export function EditPage() {
         return Promise.resolve();
     };
 
-    const validateRoleDuplicates = (_: unknown, value: RoleEnum, index: number) => {
-
-        if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
-            // Disable the write permission checkbox
-            pageForm.setFieldValue(["rolePermissions", index, "writePermission"], false);
-            pageForm.getFieldInstance(["rolePermissions", index, "writePermission"]).input.disabled = true;
-        } else {
-            // Enable the write permission for non-anonymous
-            pageForm.getFieldInstance(["rolePermissions", index, "writePermission"]).input.disabled = false;
-        }
-
+    const validateRoleDuplicates = (_: unknown, _value: RoleEnum, _index: number) => {
         const allRolePermissions: RolePermissionResponse[] = pageForm.getFieldValue("rolePermissions");
         const roles: RoleEnum[] = allRolePermissions.map((item: RolePermissionResponse) => item.role);
         const countRoles: Record<RoleEnum, number> = roles.reduce((acc, role) => {
@@ -464,8 +460,13 @@ export function EditPage() {
                                                                         {validator: (rule, value) => validatePermissions(rule, value, index)}
                                                                     ]}
                                                             >
-                                                                <Checkbox style={{lineHeight: "32px"}} key={uniqueKey + "-write-check"}
-                                                                          disabled={isDisabledRole}/>
+                                                                <Checkbox
+                                                                        style={{lineHeight: "32px"}}
+                                                                        key={uniqueKey + "-write-check"}
+                                                                        disabled={isDisabledRole ||
+                                                                                pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_ANONYMOUS ||
+                                                                                pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_USER}
+                                                                />
                                                             </Form.Item>
                                                             <Form.Item
                                                                     name={[index, "role"]}
@@ -482,8 +483,16 @@ export function EditPage() {
                                                                         }
                                                                     ]}
                                                             >
-                                                                <Select options={roleOptions} key={uniqueKey + "-role-select"}
-                                                                        disabled={isDisabledRole}/>
+                                                                <Select
+                                                                        options={roleOptions}
+                                                                        key={uniqueKey + "-role-select"}
+                                                                        disabled={isDisabledRole}
+                                                                        onChange={(value: RoleEnum) => {
+                                                                            if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
+                                                                                pageForm.setFieldValue(["rolePermissions", index, "writePermission"], false);
+                                                                            }
+                                                                        }}
+                                                                />
                                                             </Form.Item>
                                                             {rolePermissions.length > 1 && !isDisabledRole &&
                                                                     <Form.Item wrapperCol={{offset: 8, span: 12,}}
@@ -553,3 +562,4 @@ export function EditPage() {
             </div>
     );
 }
+

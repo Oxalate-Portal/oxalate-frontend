@@ -54,7 +54,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
     };
 
     return (
-            <Spin spinning={loading} tip={t("common.spinner.loading")}>
+            <Spin spinning={loading} description={t("common.spinner.loading")}>
                 <h4>{t("EmailSubscriptionCard.header")}</h4>
                 {!loading && <Form form={subscriptionForm}
                                    name={userId + "-subscription-form"}
