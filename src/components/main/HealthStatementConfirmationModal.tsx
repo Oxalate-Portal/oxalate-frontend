@@ -1,22 +1,19 @@
 import {Alert, Modal} from "antd";
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {CloseOutlined} from "@ant-design/icons";
-import {HealthCheckConfirmation} from "./HealthCheckConfirmation";
+import {HealthStatementConfirmation} from "./HealthStatementConfirmation";
 import {userAPI} from "../../services";
 import {useSession} from "../../session";
 
-interface HealthCheckConfirmationModalProps {
+interface HealthStatementConfirmationModalProps {
     open: boolean;
     onConfirm: () => void;
     onCancel: () => void;
     registration?: boolean;
 }
 
-export function HealthCheckConfirmationModal({open, onConfirm, onCancel, registration = false}: HealthCheckConfirmationModalProps) {
+export function HealthStatementConfirmationModal({open, onConfirm, onCancel, registration = false}: HealthStatementConfirmationModalProps) {
     const {t} = useTranslation();
-    const navigate = useNavigate();
     const {userSession, refreshUserSession} = useSession();
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
@@ -31,11 +28,11 @@ export function HealthCheckConfirmationModal({open, onConfirm, onCancel, registr
         setError(null);
 
         try {
-            const response = await userAPI.acceptHealthCheck({confirmationAnswer: true});
+            await userAPI.acceptHealthStatement({confirmationAnswer: true});
 
             if (userSession) {
                 const newSession = JSON.parse(JSON.stringify(userSession));
-                newSession.healthCheckId = response;
+                newSession.healthStatementId = 0;
                 refreshUserSession(newSession);
             }
 
@@ -54,23 +51,20 @@ export function HealthCheckConfirmationModal({open, onConfirm, onCancel, registr
 
     return (
             <Modal
-                    cancelText={t("HealthCheckConfirmationModal.reject")}
+                    cancelText={t("common.button.reject")}
                     closable={!registration}
-                    closeIcon={!registration ? <CloseOutlined onClick={(e) => {
-                        e.stopPropagation();
-                        navigate("/");
-                    }}/> : undefined}
                     confirmLoading={loading}
-                    okText={t("HealthCheckConfirmationModal.confirm")}
+                    okText={t("common.button.confirm")}
                     onCancel={handleReject}
                     onOk={handleConfirm}
                     open={open}
-                    title={t("HealthCheckConfirmationModal.title")}
+                    title={t("HealthStatementConfirmationModal.title")}
                     width={"80%"}
             >
-                {error && <Alert type={"error"} message={t("HealthCheckConfirmationModal.error")} style={{marginBottom: 16}}/>}
-                <HealthCheckConfirmation/>
+                {error && <Alert type={"error"} message={t("HealthStatementConfirmationModal.error")} style={{marginBottom: 16}}/>}
+                <HealthStatementConfirmation/>
             </Modal>
     );
 }
+
 

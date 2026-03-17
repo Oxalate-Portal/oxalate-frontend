@@ -1,12 +1,8 @@
 {
   "AcceptTerms" : {
-    "button" : {
-      "acceptTerms" : "Godkänn villkoren"
-    },
     "error" : {
       "alert" : "Något gick fel, vänligen kontakta supporten"
-    },
-    "rejectTerms" : "Avvisa villkoren"
+    }
   },
   "AddMemberships" : {
     "disabled" : "Medlemskap är inte i bruk",
@@ -179,14 +175,14 @@
     }
   },
   "AdminOrgUsers" : {
-    "healthCheck" : {
-      "resetButton" : "Återställ hälsokontrollbekräftelse",
-      "resetDivider" : "Återställ hälsokontroll"
+    "healthStatement" : {
+      "resetButton" : "Återställ bekräftelse av hälsodeklaration",
+      "resetDivider" : "Återställ hälsodeklaration"
     },
-    "invalidateHealthCheckAgreements" : {
-      "confirm" : "Är du säker på att alla användare måste bekräfta sin hälsokontroll igen? Denna ändring kan inte ångras.",
-      "fail" : "Det gick inte att ogiltigförklara hälsokontrollbekräftelserna",
-      "ok" : "Hälsokontrollbekräftelserna ogiltigförklarades framgångsrikt"
+    "invalidateHealthStatementAgreements" : {
+      "confirm" : "Är du säker på att alla användare måste bekräfta sin hälsodeklaration igen? Denna ändring kan inte ångras.",
+      "fail" : "Det gick inte att ogiltigförklara bekräftelserna av hälsodeklarationen",
+      "ok" : "Bekräftelserna av hälsodeklarationen ogiltigförklarades framgångsrikt"
     },
     "invalidateTermAgreements" : {
       "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
@@ -203,7 +199,7 @@
         "title" : "Uppdatera"
       },
       "approvedTerms" : "Vilkor",
-      "healthCheckId" : "Hälsokontroll",
+      "healthStatementId" : "Hälsodeklaration",
       "firstName" : "Förnamn",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
@@ -635,6 +631,10 @@
     "user_comment" : "Användarkommentar"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Godkänn hälsodeklaration",
+    "requiresHealthStatement" : "För att delta i ett evenemang krävs att hälsodeklarationen är godkänd",
+    "requiresMembership" : "För att delta i ett evenemang krävs medlemskap",
+    "requiresPayment" : "För att delta i ett evenemang krävs betalning",
     "subscribe" : {
       "button" : "Delta i evenemanget",
       "label" : "Delta i evenemanget",
@@ -1001,7 +1001,7 @@
     "title" : "Evenemang"
   },
   "Events" : {
-    "healthCheckRequired" : "Vänligen bekräfta din hälsokontroll för att komma åt detta evenemang",
+    "healthStatementRequired" : "Vänligen bekräfta din hälsodeklaration för att komma åt detta evenemang",
     "ongoing" : {
       "title" : "Pågående evenemang"
     },
@@ -1052,11 +1052,9 @@
     "unknownPaymentContact" : "Kontakta supporten",
     "unknownPaymentPlease" : "Kontakta supporten för mer information."
   },
-  "HealthCheckConfirmationModal" : {
-    "confirm" : "Jag bekräftar min hälsokontroll",
+  "HealthStatementConfirmationModal" : {
     "error" : "Något gick fel, vänligen kontakta administratören.",
-    "reject" : "Jag bekräftar inte min hälsokontroll",
-    "title" : "Hälsokontrollbekräftelse"
+    "title" : "Hälsodeklaration och läkarundersökning för dykarlämplighet"
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",
@@ -1576,10 +1574,10 @@
           "required" : "Bekräfta ditt lösenord!"
         }
       },
-      "healthCheck" : {
-        "button" : "hälsokontroll",
+      "healthStatement" : {
+        "button" : "hälsodeklaration",
         "text" : "Läs och bekräfta",
-        "title" : "Hälsokontrollbekräftelse"
+        "title" : "Bekräftelse av hälsodeklaration"
       },
       "password" : {
         "label" : "Lösenord:",
@@ -1592,9 +1590,7 @@
       },
       "submitButton" : "Registrera",
       "terms" : {
-        "accept" : "Jag accepterar villkoren",
         "button" : "villkor",
-        "reject" : "Jag accepterar inte villkoren",
         "text" : "Läs och acceptera",
         "title" : "Villkor"
       },
@@ -1721,6 +1717,7 @@
     "button" : {
       "acceptTerms" : "Läs och godkänn användarvillkoren",
       "anonymizeAccount" : "Anonymisera kontot",
+      "confirmHealthStatement" : "Bekräfta hälsodeklaration",
       "lockAccount" : "Lås kontot"
     },
     "form" : {
@@ -1740,10 +1737,10 @@
       "status" : {
         "label" : "Status"
       },
-      "healthCheck" : {
-        "false" : "Har inte bekraftat halsokontrollen",
-        "label" : "Halsokontroll",
-        "true" : "Har bekraftat halsokontrollen"
+      "healthStatement" : {
+        "false" : "Har inte bekräftat hälsodeklarationen",
+        "label" : "Hälsodeklaration",
+        "true" : "Har bekräftat hälsodeklarationen"
       },
       "terms" : {
         "false" : "Har inte accepterat villkoren",
@@ -1877,12 +1874,14 @@
       "back" : "Tillbaka",
       "cancel" : "Avbryt",
       "close" : "Stäng",
+      "confirm" : "Jag bekräftar",
       "delete" : "Ta bort",
       "held" : "Hållits",
       "login" : "Logga in",
       "logout" : "Logga ut",
       "no" : "Nej",
       "open" : "Öppna",
+      "reject" : "Jag avvisar",
       "reset" : "Återställ",
       "respond" : "Svara",
       "save" : "Spara",

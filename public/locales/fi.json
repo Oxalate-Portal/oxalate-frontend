@@ -1,12 +1,8 @@
 {
   "AcceptTerms" : {
-    "button" : {
-      "acceptTerms" : "Hyväksyn ehdot"
-    },
     "error" : {
       "alert" : "Jokin meni vikaan, ole hyvä ja ota yhteyttä ylläpitoon"
-    },
-    "rejectTerms" : "En hyväksy ehtoja"
+    }
   },
   "AddMemberships" : {
     "disabled" : "Jäsenyys ei ole käytössä",
@@ -179,14 +175,14 @@
     }
   },
   "AdminOrgUsers" : {
-    "healthCheck" : {
-      "resetButton" : "Nollaa terveystarkastusvahvistus",
-      "resetDivider" : "Terveystarkastuksen nollaus"
+    "healthStatement" : {
+      "resetButton" : "Nollaa terveysselvityksen vahvistus",
+      "resetDivider" : "Terveysselvityksen nollaus"
     },
-    "invalidateHealthCheckAgreements" : {
-      "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen vahvistaa terveystarkastuksensa? Tätä muutosta ei voi perua.",
-      "fail" : "Ei onnistuttu mitätöimään terveystarkastusvahvistuksia",
-      "ok" : "Terveystarkastusvahvistukset mitätöitiin onnistuneesti"
+    "invalidateHealthStatementAgreements" : {
+      "confirm" : "Oletko varma että kaikkien käyttäjien täytyy vahvistaa terveysselvityksensä uudelleen? Tätä muutosta ei voi perua.",
+      "fail" : "Terveysselvitysvahvistusten mitätöinti epäonnistui",
+      "ok" : "Terveysselvitysvahvistukset mitätöitiin onnistuneesti"
     },
     "invalidateTermAgreements" : {
       "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
@@ -203,7 +199,7 @@
         "title" : "Päivitä"
       },
       "approvedTerms" : "Ehdot",
-      "healthCheckId" : "Terveystarkastus",
+      "healthStatementId" : "Terveysselvitys",
       "firstName" : "Etunimi",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
@@ -635,6 +631,10 @@
     "user_comment" : "Käyttäjäkommentti"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Hyväksy terveysselostus",
+    "requiresHealthStatement" : "Tapahtumaan osallistuminen vaatii terveysselostuksen hyväksymistä",
+    "requiresMembership" : "Tapahtumaan osallistuminen vaatii jäsenyyden",
+    "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
     "subscribe" : {
       "button" : "Osallistu tapahtumaan",
       "label" : "Osallistu tapahtumaan",
@@ -1001,7 +1001,7 @@
     "title" : "Tapahtuma"
   },
   "Events" : {
-    "healthCheckRequired" : "Vahvista terveystarkastuksesi päästäksesi tapahtumaan",
+    "healthStatementRequired" : "Vahvista terveysselvityksesi päästäksesi tapahtumaan",
     "ongoing" : {
       "title" : "Käynnissä olevat tapahtumat"
     },
@@ -1052,11 +1052,9 @@
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
     "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja."
   },
-  "HealthCheckConfirmationModal" : {
-    "confirm" : "Vahvistan terveystarkastukseni",
+  "HealthStatementConfirmationModal" : {
     "error" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään.",
-    "reject" : "En vahvista terveystarkastustani",
-    "title" : "Terveystarkastuksen vahvistus"
+    "title" : "Terveysselvitys ja lääkärintarkastus sukelluskelpoisuudesta"
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",
@@ -1576,10 +1574,10 @@
           "required" : "Ole hyvä ja varmista salasanasi!"
         }
       },
-      "healthCheck" : {
-        "button" : "terveystarkastus",
+      "healthStatement" : {
+        "button" : "terveysselvitys",
         "text" : "Lue ja vahvista",
-        "title" : "Terveystarkastuksen vahvistus"
+        "title" : "Terveysselvityksen vahvistus"
       },
       "password" : {
         "label" : "Salasana:",
@@ -1592,9 +1590,7 @@
       },
       "submitButton" : "Rekisteröidy",
       "terms" : {
-        "accept" : "Hyväksyn käyttöehdot",
         "button" : "käyttöehdot",
-        "reject" : "En hyväksy käyttöehtoja",
         "text" : "Lue ja hyväksy",
         "title" : "Käyttöehdot"
       },
@@ -1721,6 +1717,7 @@
     "button" : {
       "acceptTerms" : "Lue ja hyväksy käyttöehdot",
       "anonymizeAccount" : "Anonymisoi tiedot",
+      "confirmHealthStatement" : "Vahvista terveysselvitys",
       "lockAccount" : "Lukitse tili"
     },
     "form" : {
@@ -1740,10 +1737,10 @@
       "status" : {
         "label" : "Status"
       },
-      "healthCheck" : {
-        "false" : "Ei ole vahvistanut terveystarkastusta",
-        "label" : "Terveystarkastus",
-        "true" : "On vahvistanut terveystarkastuksen"
+      "healthStatement" : {
+        "false" : "Ei ole vahvistanut terveysselvitystä",
+        "label" : "Terveysselvitys",
+        "true" : "On vahvistanut terveysselvityksen"
       },
       "terms" : {
         "false" : "Ei ole hyväksynyt ehtoja",
@@ -1877,12 +1874,14 @@
       "back" : "Takaisin",
       "cancel" : "Peruuta",
       "close" : "Sulje",
+      "confirm" : "Vahvistan",
       "delete" : "Poista",
       "held" : "Pidetty",
       "login" : "Kirjaudu sisään",
       "logout" : "Kirjaudu ulos",
       "no" : "Ei",
       "open" : "Avaa",
+      "reject" : "Hylkään",
       "reset" : "Palauta",
       "respond" : "Vastaa",
       "save" : "Tallenna",

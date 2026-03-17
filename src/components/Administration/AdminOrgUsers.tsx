@@ -3,7 +3,7 @@ import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum} from "../
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
-import {userAPI} from "../../services";
+import {adminUserAPI, userAPI} from "../../services";
 import type {ColumnsType} from "antd/es/table";
 import {CheckOutlined, CheckSquareOutlined, CloseOutlined, SearchOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
@@ -151,17 +151,17 @@ export function AdminOrgUsers() {
             }
         },
         {
-            title: t("AdminOrgUsers.table.healthCheckId"),
-            dataIndex: "healthCheckId",
-            key: "healthCheckId",
-            sorter: (a: AdminUserResponse) => a.healthCheckId ? 1 : -1,
+            title: t("AdminOrgUsers.table.healthStatementId"),
+            dataIndex: "healthStatementId",
+            key: "healthStatementId",
+            sorter: (a: AdminUserResponse) => a.healthStatementId !== null ? 1 : -1,
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: AdminUserResponse) => {
-                if (record.healthCheckId === null) {
+                if (record.healthStatementId === null) {
                     return <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
                 }
 
-                if (record.healthCheckId === 0) {
+                if (record.healthStatementId === 0) {
                     return <CheckOutlined style={{fontSize: "18px", color: "green"}}/>;
                 }
 
@@ -228,7 +228,7 @@ export function AdminOrgUsers() {
 
     useEffect(() => {
         setLoading(true);
-        userAPI.findAll()
+        adminUserAPI.findAll()
                 .then(response => {
                     setUserList(response);
                 })
@@ -261,20 +261,20 @@ export function AdminOrgUsers() {
         }
     }
 
-    function invalidateHealthCheckAgreements() {
-        if (window.confirm(t("AdminOrgUsers.invalidateHealthCheckAgreements.confirm"))) {
+    function invalidateHealthStatementAgreements() {
+        if (window.confirm(t("AdminOrgUsers.invalidateHealthStatementAgreements.confirm"))) {
             setLoading(true);
-            userAPI.resetHealthCheck()
-                    .then(response => {
+            userAPI.resetHealthStatement()
+                    .then((response: boolean) => {
                         if (response) {
-                            messageApi.success(t("AdminOrgUsers.invalidateHealthCheckAgreements.ok"));
+                            messageApi.success(t("AdminOrgUsers.invalidateHealthStatementAgreements.ok"));
                         } else {
-                            messageApi.error(t("AdminOrgUsers.invalidateHealthCheckAgreements.fail"));
+                            messageApi.error(t("AdminOrgUsers.invalidateHealthStatementAgreements.fail"));
                         }
                     })
-                    .catch(e => {
-                        messageApi.error(t("AdminOrgUsers.invalidateHealthCheckAgreements.fail"));
-                        console.error("Failed to reset health check agreements, error: " + e.message);
+                    .catch((e: Error) => {
+                        messageApi.error(t("AdminOrgUsers.invalidateHealthStatementAgreements.fail"));
+                        console.error("Failed to reset health statement agreements, error: " + e.message);
                     })
                     .finally(() => {
                         setLoading(false);
@@ -303,10 +303,10 @@ export function AdminOrgUsers() {
                     <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>
                     </Space>
-                    <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.healthCheck.resetDivider")}</Divider>
+                    <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.healthStatement.resetDivider")}</Divider>
                     <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                         <Button danger={true} type={"primary"}
-                                onClick={() => invalidateHealthCheckAgreements()}>{t("AdminOrgUsers.healthCheck.resetButton")}</Button>
+                                onClick={() => invalidateHealthStatementAgreements()}>{t("AdminOrgUsers.healthStatement.resetButton")}</Button>
                     </Space>
                 </Spin>
             </div>);

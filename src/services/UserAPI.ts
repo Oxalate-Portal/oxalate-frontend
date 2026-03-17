@@ -17,14 +17,12 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
         return response.data;
     }
 
-    public async acceptTerms(payload: ConfirmationRequest): Promise<boolean> {
-        const response = await this.axiosInstance.put<void>("/accept-terms", payload);
-        return response.status === 200;
+    public async acceptTerms(payload: ConfirmationRequest): Promise<void> {
+        await this.axiosInstance.put<void>("/accept-terms", payload);
     }
 
-    public async acceptHealthCheck(payload: ConfirmationRequest): Promise<boolean> {
-        const response = await this.axiosInstance.put<void>("/confirm-health-check", payload);
-        return response.status === 200;
+    public async acceptHealthStatement(payload: ConfirmationRequest): Promise<void> {
+        await this.axiosInstance.put<void>("/confirm-health-check", payload);
     }
 
     public async findByRole(role: RoleEnum): Promise<ListUserResponse[]> {
@@ -43,7 +41,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
         return response.status === 200;
     }
 
-    public async resetHealthCheck(): Promise<boolean> {
+    public async resetHealthStatement(): Promise<boolean> {
         const response = await this.axiosInstance.get<AdminUserResponse>("/reset-health-check");
         return response.status === 200;
     }

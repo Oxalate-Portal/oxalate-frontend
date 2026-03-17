@@ -1,12 +1,8 @@
 {
   "AcceptTerms" : {
-    "button" : {
-      "acceptTerms" : "Accept terms"
-    },
     "error" : {
       "alert" : "Something went wrong, please contact the administrator."
-    },
-    "rejectTerms" : "Reject terms"
+    }
   },
   "AddMemberships" : {
     "disabled" : "Membership is disabled",
@@ -179,14 +175,14 @@
     }
   },
   "AdminOrgUsers" : {
-    "healthCheck" : {
-      "resetButton" : "Reset health check confirmation",
-      "resetDivider" : "Health check reset"
+    "healthStatement" : {
+      "resetButton" : "Reset health statement confirmation",
+      "resetDivider" : "Health statement reset"
     },
-    "invalidateHealthCheckAgreements" : {
-      "confirm" : "Are you sure that all users need to re-confirm their health check? This change cannot be undone.",
-      "fail" : "Failed to invalidate the health check confirmations",
-      "ok" : "Successfully invalidated the health check confirmations"
+    "invalidateHealthStatementAgreements" : {
+      "confirm" : "Are you sure that all users need to re-confirm their health statement? This change cannot be undone.",
+      "fail" : "Failed to invalidate the health statement confirmations",
+      "ok" : "Successfully invalidated the health statement confirmations"
     },
     "invalidateTermAgreements" : {
       "confirm" : "Are you sure that all users need to re-accept the terms of use? This change cannot be undone.",
@@ -203,7 +199,7 @@
         "title" : "Update"
       },
       "approvedTerms" : "Terms",
-      "healthCheckId" : "Health check",
+      "healthStatementId" : "Health statement",
       "firstName" : "First name",
       "lastName" : "Last name",
       "login" : "Username",
@@ -635,6 +631,10 @@
     "user_comment" : "User Comment"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Approve health statement",
+    "requiresHealthStatement" : "Joining an event requires that the health statement is approved",
+    "requiresMembership" : "Joining an event requires membership",
+    "requiresPayment" : "Joining an event requires payment",
     "subscribe" : {
       "button" : "Participate in event",
       "label" : "Participate in event",
@@ -1001,7 +1001,7 @@
     "title" : "Event"
   },
   "Events" : {
-    "healthCheckRequired" : "Please confirm your health check to access this event",
+    "healthStatementRequired" : "Please confirm your health statement to access this event",
     "ongoing" : {
       "title" : "Ongoing events"
     },
@@ -1052,11 +1052,9 @@
     "unknownPaymentContact" : "Contact Support",
     "unknownPaymentPlease" : "Please contact support for more information."
   },
-  "HealthCheckConfirmationModal" : {
-    "confirm" : "I confirm my health check",
+  "HealthStatementConfirmationModal" : {
     "error" : "Something went wrong, please contact the administrator.",
-    "reject" : "I do not confirm my health check",
-    "title" : "Health check confirmation"
+    "title" : "Health statement and medical examination for diving fitness"
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",
@@ -1576,10 +1574,10 @@
           "required" : "Please confirm your password!"
         }
       },
-      "healthCheck" : {
-        "button" : "health check",
+      "healthStatement" : {
+        "button" : "health statement",
         "text" : "Read and confirm",
-        "title" : "Health check confirmation"
+        "title" : "Health statement confirmation"
       },
       "password" : {
         "label" : "Password:",
@@ -1592,9 +1590,7 @@
       },
       "submitButton" : "Register",
       "terms" : {
-        "accept" : "I accept the terms and conditions",
         "button" : "terms and conditions",
-        "reject" : "I do not accept the terms and conditions",
         "text" : "Read and accept",
         "title" : "Terms and conditions"
       },
@@ -1721,6 +1717,7 @@
     "button" : {
       "acceptTerms" : "Read and accept terms",
       "anonymizeAccount" : "Anonymize data",
+      "confirmHealthStatement" : "Confirm health statement",
       "lockAccount" : "Lock account"
     },
     "form" : {
@@ -1740,10 +1737,10 @@
       "status" : {
         "label" : "Status"
       },
-      "healthCheck" : {
-        "false" : "Has not confirmed health check",
-        "label" : "Health check",
-        "true" : "Has confirmed health check"
+      "healthStatement" : {
+        "false" : "Has not confirmed health statement",
+        "label" : "Health statement",
+        "true" : "Has confirmed health statement"
       },
       "terms" : {
         "false" : "Has not accepted terms and conditions",
@@ -1877,12 +1874,14 @@
       "back" : "Back",
       "cancel" : "Cancel",
       "close" : "Close",
+      "confirm" : "I confirm",
       "delete" : "Delete",
       "held" : "Held",
       "login" : "Log In",
       "logout" : "Log Out",
       "no" : "No",
       "open" : "Open",
+      "reject" : "I reject",
       "reset" : "Reset",
       "respond" : "Respond",
       "save" : "Save",

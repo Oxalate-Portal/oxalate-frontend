@@ -11,12 +11,10 @@ import dayjs from "dayjs";
 
 interface DiveEventsTableProps {
     diveEventType: string,
-    title: string,
-    healthCheckId: number | null,
-    onHealthCheckRequired?: () => void
+    title: string
 }
 
-export function DiveEventsTable({diveEventType, title, healthCheckId = null, onHealthCheckRequired}: DiveEventsTableProps) {
+export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
     const {userSession, getPortalTimezone} = useSession();
     const {t} = useTranslation();
     const [diveEvents, setDiveEvents] = useState<DiveEventResponse[]>([]);
@@ -111,12 +109,11 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
             title: "",
             key: "action",
             render: (_: string, record: DiveEventResponse) => {
-                const handleOpenClick = (e: React.MouseEvent) => {
-                    if (!healthCheckId && onHealthCheckRequired) {
-                        e.preventDefault();
-                        onHealthCheckRequired();
-                    }
-                };
+                const openButton = (
+                        <Link to={"/events/" + record.id}>
+                            <Button type={"primary"}>{t("common.button.open")}</Button>
+                        </Link>
+                );
 
                 if (diveEventType === "new" || diveEventType === "ongoing") {
                     return (<>
@@ -127,39 +124,13 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
                                             background: "green",
                                             borderColor: "white"
                                         }}>{t("common.button.update")}</Button></Link>}
-                            {record.status === DiveEventStatusEnum.PUBLISHED && (
-                                    healthCheckId ? (
-                                            <Link to={"/events/" + record.id}>
-                                                <Button type={"primary"}>{t("common.button.open")}</Button>
-                                            </Link>
-                                    ) : (
-                                            <Button
-                                                    type={"primary"}
-                                                    onClick={handleOpenClick}
-                                                    title={t("Events.healthCheckRequired")}
-                                            >
-                                                {t("common.button.open")}
-                                            </Button>
-                                    )
-                            )}
+                            {record.status === DiveEventStatusEnum.PUBLISHED && openButton}
                         </Space>
                     </>);
                 } else {
                     return (<>
                         <Space size={"middle"}>
-                            {healthCheckId ? (
-                                    <Link to={"/events/" + record.id}>
-                                        <Button type={"primary"}>{t("common.button.open")}</Button>
-                                    </Link>
-                            ) : (
-                                    <Button
-                                            type={"primary"}
-                                            onClick={handleOpenClick}
-                                            title={t("Events.healthCheckRequired")}
-                                    >
-                                        {t("common.button.open")}
-                                    </Button>
-                            )}
+                            {openButton}
                         </Space>
                     </>);
                 }

@@ -1,12 +1,8 @@
 {
   "AcceptTerms" : {
-    "button" : {
-      "acceptTerms" : "Nutzungsbedingungen akzeptieren"
-    },
     "error" : {
       "alert" : "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie den Support."
-    },
-    "rejectTerms" : "Nutzungsbedingungen ablehnen"
+    }
   },
   "AddMemberships" : {
     "disabled" : "Mitgliedschaft ist deaktiviert",
@@ -179,14 +175,14 @@
     }
   },
   "AdminOrgUsers" : {
-    "healthCheck" : {
-      "resetButton" : "Gesundheitscheck-Bestätigung zurücksetzen",
-      "resetDivider" : "Gesundheitscheck zurücksetzen"
+    "healthStatement" : {
+      "resetButton" : "Bestätigung der Gesundheitserklärung zurücksetzen",
+      "resetDivider" : "Gesundheitserklärung zurücksetzen"
     },
-    "invalidateHealthCheckAgreements" : {
-      "confirm" : "Sind Sie sicher, dass alle Benutzer ihren Gesundheitscheck erneut bestätigen müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
-      "fail" : "Die Gesundheitscheck-Bestätigungen konnten nicht für ungültig erklärt werden",
-      "ok" : "Die Gesundheitscheck-Bestätigungen wurden erfolgreich für ungültig erklärt"
+    "invalidateHealthStatementAgreements" : {
+      "confirm" : "Sind Sie sicher, dass alle Benutzer ihre Gesundheitserklärung erneut bestätigen müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
+      "fail" : "Die Bestätigungen der Gesundheitserklärung konnten nicht für ungültig erklärt werden",
+      "ok" : "Die Bestätigungen der Gesundheitserklärung wurden erfolgreich für ungültig erklärt"
     },
     "invalidateTermAgreements" : {
       "confirm" : "Sind Sie sicher, dass alle Benutzer die Nutzungsbedingungen erneut akzeptieren müssen? Diese Änderung kann nicht rückgängig gemacht werden.",
@@ -203,7 +199,7 @@
         "title" : "Aktualisieren"
       },
       "approvedTerms" : "Bedingungen",
-      "healthCheckId" : "Gesundheitscheck",
+      "healthStatementId" : "Gesundheitserklärung",
       "firstName" : "Vorname",
       "lastName" : "Nachname",
       "login" : "Benutzername",
@@ -635,6 +631,10 @@
     "user_comment" : "Benutzerkommentar"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Gesundheitserklärung genehmigen",
+    "requiresHealthStatement" : "Für die Teilnahme an einer Veranstaltung muss die Gesundheitserklärung genehmigt werden",
+    "requiresMembership" : "Für die Teilnahme an einer Veranstaltung ist eine Mitgliedschaft erforderlich",
+    "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
     "subscribe" : {
       "button" : "Am Event teilnehmen",
       "label" : "Am Event teilnehmen",
@@ -1001,7 +1001,7 @@
     "title" : "Ereignis"
   },
   "Events" : {
-    "healthCheckRequired" : "Bitte bestätigen Sie Ihren Gesundheitscheck, um auf diese Veranstaltung zuzugreifen",
+    "healthStatementRequired" : "Bitte bestätigen Sie Ihre Gesundheitserklärung, um auf diese Veranstaltung zuzugreifen",
     "ongoing" : {
       "title" : "Laufende Veranstaltungen"
     },
@@ -1052,11 +1052,9 @@
     "unknownPaymentContact" : "Support kontaktieren",
     "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen."
   },
-  "HealthCheckConfirmationModal" : {
-    "confirm" : "Ich bestätige meinen Gesundheitscheck",
+  "HealthStatementConfirmationModal" : {
     "error" : "Etwas ist schief gelaufen, bitte kontaktieren Sie den Administrator.",
-    "reject" : "Ich bestätige meinen Gesundheitscheck nicht",
-    "title" : "Gesundheitscheck-Bestätigung"
+    "title" : "Gesundheitserklärung und ärztliche Untersuchung zur Tauchtauglichkeit"
   },
   "ListPayments" : {
     "oneTime" : "Einmalzahlungen",
@@ -1576,10 +1574,10 @@
           "required" : "Bitte bestätige dein Passwort!"
         }
       },
-      "healthCheck" : {
-        "button" : "Gesundheitscheck",
+      "healthStatement" : {
+        "button" : "Gesundheitserklärung",
         "text" : "Lesen und bestätigen Sie",
-        "title" : "Gesundheitscheck-Bestätigung"
+        "title" : "Bestätigung der Gesundheitserklärung"
       },
       "password" : {
         "label" : "Passwort:",
@@ -1592,9 +1590,7 @@
       },
       "submitButton" : "Registrieren",
       "terms" : {
-        "accept" : "Ich akzeptiere die Nutzungsbedingungen",
         "button" : "Nutzungsbedingungen",
-        "reject" : "Ich akzeptiere die Nutzungsbedingungen nicht",
         "text" : "Lesen und akzeptieren Sie",
         "title" : "Nutzungsbedingungen"
       },
@@ -1721,6 +1717,7 @@
     "button" : {
       "acceptTerms" : "Nutzungsbedingungen lesen und akzeptieren",
       "anonymizeAccount" : "Daten anonymisieren",
+      "confirmHealthStatement" : "Gesundheitserklärung bestätigen",
       "lockAccount" : "Konto sperren"
     },
     "form" : {
@@ -1740,10 +1737,10 @@
       "status" : {
         "label" : "Status"
       },
-      "healthCheck" : {
-        "false" : "Hat den Gesundheitscheck nicht bestaetigt",
-        "label" : "Gesundheitscheck",
-        "true" : "Hat den Gesundheitscheck bestaetigt"
+      "healthStatement" : {
+        "false" : "Hat die Gesundheitserklärung nicht bestätigt",
+        "label" : "Gesundheitserklärung",
+        "true" : "Hat die Gesundheitserklärung bestätigt"
       },
       "terms" : {
         "false" : "Hat die Bedingungen nicht akzeptiert",
@@ -1877,12 +1874,14 @@
       "back" : "Zurück",
       "cancel" : "Abbrechen",
       "close" : "Schließen",
+      "confirm" : "Ich bestätige",
       "delete" : "Löschen",
       "held" : "Gehalten",
       "login" : "Anmelden",
       "logout" : "Abmelden",
       "no" : "Nein",
       "open" : "Öffnen",
+      "reject" : "Ich lehne ab",
       "reset" : "Zurücksetzen",
       "respond" : "Antworten",
       "save" : "Speichern",

@@ -117,7 +117,7 @@ export function AdminOrgUser() {
             language: userInfo.language,
             primaryUserType: userInfo.primaryUserType,
             approvedTerms: userInfo.approvedTerms,
-            healthCheckId: userInfo.healthCheckId
+            healthStatementId: userInfo.healthStatementId
         };
 
         userAPI.adminUpdateUser(postData)
