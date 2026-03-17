@@ -631,6 +631,10 @@
     "user_comment" : "Käyttäjäkommentti"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Hyväksy terveysselostus",
+    "requiresHealthStatement" : "Tapahtumaan osallistuminen vaatii terveysselostuksen hyväksymistä",
+    "requiresMembership" : "Tapahtumaan osallistuminen vaatii jäsenyyden",
+    "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
     "subscribe" : {
       "button" : "Osallistu tapahtumaan",
       "label" : "Osallistu tapahtumaan",

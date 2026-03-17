@@ -631,6 +631,10 @@
     "user_comment" : "Comentario de usuario"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Aprobar declaración de salud",
+    "requiresHealthStatement" : "Para unirse a un evento se requiere que la declaración de salud esté aprobada",
+    "requiresMembership" : "Para unirse a un evento se requiere membresía",
+    "requiresPayment" : "Para unirse a un evento se requiere un pago",
     "subscribe" : {
       "button" : "Participar en el evento",
       "label" : "Participar en el evento",

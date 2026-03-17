@@ -631,6 +631,10 @@
     "user_comment" : "Användarkommentar"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Godkänn hälsodeklaration",
+    "requiresHealthStatement" : "För att delta i ett evenemang krävs att hälsodeklarationen är godkänd",
+    "requiresMembership" : "För att delta i ett evenemang krävs medlemskap",
+    "requiresPayment" : "För att delta i ett evenemang krävs betalning",
     "subscribe" : {
       "button" : "Delta i evenemanget",
       "label" : "Delta i evenemanget",

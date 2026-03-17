@@ -631,6 +631,10 @@
     "user_comment" : "Benutzerkommentar"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Gesundheitserklärung genehmigen",
+    "requiresHealthStatement" : "Für die Teilnahme an einer Veranstaltung muss die Gesundheitserklärung genehmigt werden",
+    "requiresMembership" : "Für die Teilnahme an einer Veranstaltung ist eine Mitgliedschaft erforderlich",
+    "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
     "subscribe" : {
       "button" : "Am Event teilnehmen",
       "label" : "Am Event teilnehmen",

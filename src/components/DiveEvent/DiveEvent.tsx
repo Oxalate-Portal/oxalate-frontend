@@ -7,6 +7,7 @@ import {
     type DiveEventResponse,
     type EventSubscribeRequest,
     type MembershipResponse,
+    PaymentExpirationTypeEnum,
     type PaymentResponse,
     type PaymentStatusResponse,
     PaymentTypeEnum,
@@ -16,8 +17,16 @@ import {
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import dayjs from "dayjs";
-import {Button, Divider, Modal, Select, Space, Spin} from "antd";
+import {Alert, Button, Divider, Modal, Select, Space, Spin} from "antd";
 import {CommentCanvas} from "../Commenting";
+import {HealthStatementConfirmationModal} from "../main";
+
+interface ParticipationCheckResult {
+    canSubscribe: boolean;
+    missingMembership: boolean;
+    missingPayment: boolean;
+    missingHealthStatement: boolean;
+}
 
 export function DiveEvent() {
     const {paramId} = useParams();
@@ -30,6 +39,10 @@ export function DiveEvent() {
     const [subscribing, setSubscribing] = useState(false);
     const [canUnsubscribe, setCanUnsubscribe] = useState(false);
     const [eventCommenting, setEventCommenting] = useState(false);
+    const [missingMembership, setMissingMembership] = useState(false);
+    const [missingPayment, setMissingPayment] = useState(false);
+    const [missingHealthStatement, setMissingHealthStatement] = useState(false);
+    const [showHealthStatementModal, setShowHealthStatementModal] = useState(false);
     // Add modal state + selected user type
     const [selectUserTypeOpen, setSelectUserTypeOpen] = useState(false);
     const [selectedUserType, setSelectedUserType] = useState<UserTypeEnum>(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
@@ -64,67 +77,76 @@ export function DiveEvent() {
     }, [paramId]);
 
     useEffect(() => {
-        async function isUserAllowedToParticipate(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): Promise<boolean> {
+        async function isUserAllowedToParticipate(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): Promise<ParticipationCheckResult> {
+            const result: ParticipationCheckResult = {
+                canSubscribe: false,
+                missingMembership: false,
+                missingPayment: false,
+                missingHealthStatement: false,
+            };
+
             if (!userSession) {
-                return false;
+                return result;
             }
 
             const currentUser = userSession.id;
             const isUserTheOrganizer = diveEvent.organizer?.id === currentUser;
             const isUserAlreadyInEvent = isUserParticipating(userSession, diveEvent);
             const isEventFull = diveEvent.participants?.length >= diveEvent.maxParticipants;
-            // If any of these are true, the user should not be able to subscribe
+            // If any of these are true, the user cannot subscribe (no requirement messages needed)
             if (isUserTheOrganizer || isUserAlreadyInEvent || isEventFull) {
-                return false;
+                return result;
             }
 
-            // Next we do more heavy checks to see if the user is allowed to participate
+            // Check health statement
+            if (userSession.healthStatementId === null) {
+                result.missingHealthStatement = true;
+            }
+
             // Check if the event requires valid payment
             if (getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true") {
                 try {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
-
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
 
-                    if (diverPayments.length === 0) {
-                        return false;
-                    }
+                    const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
 
-                    // If there are no active one-time payments, we need to make sure the periodical payment is valid when the event takes place
-                    const oneTimePayments = diverPayments.filter(payment => {
-                        return payment.paymentType === PaymentTypeEnum.ONE_TIME
+                    if (oneTimeEnabled) {
+                        const validOneTimePayments = diverPayments.filter(payment =>
+                                payment.paymentType === PaymentTypeEnum.ONE_TIME
                                 && payment.paymentCount > 0
-                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)));
-                    });
-
-                    if (oneTimePayments.length === 0) {
+                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)))
+                        );
+                        if (validOneTimePayments.length === 0) {
+                            result.missingPayment = true;
+                        }
+                    } else {
                         const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIODICAL);
                         const validPeriodicalPayment = periodicalPayments.find(payment => !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)));
-
                         if (!validPeriodicalPayment) {
-                            return false;
+                            result.missingPayment = true;
                         }
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    return false;
+                    result.missingPayment = true;
                 }
             }
 
             if (getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true") {
                 try {
                     const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
-
                     if (activeMembership.length === 0) {
-                        return false;
+                        result.missingMembership = true;
                     }
                 } catch (error) {
                     console.error("Error:", error);
-                    return false;
+                    result.missingMembership = true;
                 }
             }
 
-            return true;
+            result.canSubscribe = !result.missingMembership && !result.missingPayment && !result.missingHealthStatement;
+            return result;
         }
 
         function isUserParticipating(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): boolean {
@@ -149,8 +171,11 @@ export function DiveEvent() {
             }
 
             isUserAllowedToParticipate(userSession, diveEvent)
-                    .then((canSubscribe: boolean) => {
-                        setCanSubscribe(canSubscribe);
+                    .then((checkResult: ParticipationCheckResult) => {
+                        setCanSubscribe(checkResult.canSubscribe);
+                        setMissingMembership(checkResult.missingMembership);
+                        setMissingPayment(checkResult.missingPayment);
+                        setMissingHealthStatement(checkResult.missingHealthStatement);
                     });
             setSubscribing(isUserParticipating(userSession, diveEvent));
         }
@@ -194,6 +219,24 @@ export function DiveEvent() {
                 <Spin spinning={loading}>
                     <Space orientation={"vertical"} size={"large"}>
                         {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
+                        {!subscribing && !canSubscribe && (missingMembership || missingPayment || missingHealthStatement) && (
+                                <Space direction={"vertical"}>
+                                    {missingMembership && (
+                                            <Alert type={"warning"} showIcon message={t("DiveEvent.requiresMembership")}/>
+                                    )}
+                                    {missingPayment && (
+                                            <Alert type={"warning"} showIcon message={t("DiveEvent.requiresPayment")}/>
+                                    )}
+                                    {missingHealthStatement && (
+                                            <Space>
+                                                <Alert type={"warning"} showIcon message={t("DiveEvent.requiresHealthStatement")}/>
+                                                <Button onClick={() => setShowHealthStatementModal(true)}>
+                                                    {t("DiveEvent.approveHealthStatement")}
+                                                </Button>
+                                            </Space>
+                                    )}
+                                </Space>
+                        )}
                         {!subscribing && canSubscribe &&
                                 <Button
                                         type={"primary"}
@@ -250,6 +293,14 @@ export function DiveEvent() {
                         </Select>
                     </Space>
                 </Modal>
+
+                <HealthStatementConfirmationModal
+                        open={showHealthStatementModal}
+                        onConfirm={() => setShowHealthStatementModal(false)}
+                        onCancel={() => setShowHealthStatementModal(false)}
+                        registration={false}
+                />
             </div>
     );
 }
+

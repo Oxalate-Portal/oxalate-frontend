@@ -631,6 +631,10 @@
     "user_comment" : "User Comment"
   },
   "DiveEvent" : {
+    "approveHealthStatement" : "Approve health statement",
+    "requiresHealthStatement" : "Joining an event requires that the health statement is approved",
+    "requiresMembership" : "Joining an event requires membership",
+    "requiresPayment" : "Joining an event requires payment",
     "subscribe" : {
       "button" : "Participate in event",
       "label" : "Participate in event",
