@@ -1050,7 +1050,7 @@
   },
   "HealthStatementConfirmationModal" : {
     "error" : "Something went wrong, please contact the administrator.",
-    "title" : "Health statement confirmation"
+    "title" : "Health statement and medical examination for diving fitness"
   },
   "ListPayments" : {
     "oneTime" : "One-time payments",

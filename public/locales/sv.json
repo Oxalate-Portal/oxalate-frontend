@@ -1050,7 +1050,7 @@
   },
   "HealthStatementConfirmationModal" : {
     "error" : "Något gick fel, vänligen kontakta administratören.",
-    "title" : "Bekräftelse av hälsodeklaration"
+    "title" : "Hälsodeklaration och läkarundersökning för dykarlämplighet"
   },
   "ListPayments" : {
     "oneTime" : "Engångsbetalningar",

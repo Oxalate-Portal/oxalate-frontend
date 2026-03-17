@@ -1050,7 +1050,7 @@
   },
   "HealthStatementConfirmationModal" : {
     "error" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään.",
-    "title" : "Terveysselvityksen vahvistus"
+    "title" : "Terveysselvitys ja lääkärintarkastus sukelluskelpoisuudesta"
   },
   "ListPayments" : {
     "oneTime" : "Kertamaksut",

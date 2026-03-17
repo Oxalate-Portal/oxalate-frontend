@@ -1050,7 +1050,7 @@
   },
   "HealthStatementConfirmationModal" : {
     "error" : "Algo salió mal, por favor contacte al administrador.",
-    "title" : "Confirmación de la declaración de salud"
+    "title" : "Declaración de salud y examen médico para aptitud de buceo"
   },
   "ListPayments" : {
     "oneTime" : "Pagos únicos",

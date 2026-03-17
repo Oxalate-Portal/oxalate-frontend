@@ -1050,7 +1050,7 @@
   },
   "HealthStatementConfirmationModal" : {
     "error" : "Etwas ist schief gelaufen, bitte kontaktieren Sie den Administrator.",
-    "title" : "Bestätigung der Gesundheitserklärung"
+    "title" : "Gesundheitserklärung und ärztliche Untersuchung zur Tauchtauglichkeit"
   },
   "ListPayments" : {
     "oneTime" : "Einmalzahlungen",
