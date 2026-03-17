@@ -12,11 +12,11 @@ import dayjs from "dayjs";
 interface DiveEventsTableProps {
     diveEventType: string,
     title: string,
-    healthCheckId: number | null,
-    onHealthCheckRequired?: () => void
+    healthStatementId: number | null,
+    onHealthStatementRequired?: () => void
 }
 
-export function DiveEventsTable({diveEventType, title, healthCheckId = null, onHealthCheckRequired}: DiveEventsTableProps) {
+export function DiveEventsTable({diveEventType, title, healthStatementId = null, onHealthStatementRequired}: DiveEventsTableProps) {
     const {userSession, getPortalTimezone} = useSession();
     const {t} = useTranslation();
     const [diveEvents, setDiveEvents] = useState<DiveEventResponse[]>([]);
@@ -112,9 +112,9 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
             key: "action",
             render: (_: string, record: DiveEventResponse) => {
                 const handleOpenClick = (e: React.MouseEvent) => {
-                    if (!healthCheckId && onHealthCheckRequired) {
+                    if (healthStatementId === null && onHealthStatementRequired) {
                         e.preventDefault();
-                        onHealthCheckRequired();
+                        onHealthStatementRequired();
                     }
                 };
 
@@ -128,7 +128,7 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
                                             borderColor: "white"
                                         }}>{t("common.button.update")}</Button></Link>}
                             {record.status === DiveEventStatusEnum.PUBLISHED && (
-                                    healthCheckId ? (
+                                    healthStatementId !== null ? (
                                             <Link to={"/events/" + record.id}>
                                                 <Button type={"primary"}>{t("common.button.open")}</Button>
                                             </Link>
@@ -136,7 +136,7 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
                                             <Button
                                                     type={"primary"}
                                                     onClick={handleOpenClick}
-                                                    title={t("Events.healthCheckRequired")}
+                                                    title={t("Events.healthStatementRequired")}
                                             >
                                                 {t("common.button.open")}
                                             </Button>
@@ -147,7 +147,7 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
                 } else {
                     return (<>
                         <Space size={"middle"}>
-                            {healthCheckId ? (
+                            {healthStatementId !== null ? (
                                     <Link to={"/events/" + record.id}>
                                         <Button type={"primary"}>{t("common.button.open")}</Button>
                                     </Link>
@@ -155,7 +155,7 @@ export function DiveEventsTable({diveEventType, title, healthCheckId = null, onH
                                     <Button
                                             type={"primary"}
                                             onClick={handleOpenClick}
-                                            title={t("Events.healthCheckRequired")}
+                                            title={t("Events.healthStatementRequired")}
                                     >
                                         {t("common.button.open")}
                                     </Button>

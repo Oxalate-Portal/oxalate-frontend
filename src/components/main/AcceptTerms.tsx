@@ -19,9 +19,9 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
         const payload: ConfirmationRequest = {confirmationAnswer: answer};
 
         userAPI.acceptTerms(payload)
-                .then((response) => {
+                .then(() => {
                     const newSession = JSON.parse(JSON.stringify(userSession));
-                    newSession.approvedTerms = response;
+                    newSession.approvedTerms = answer;
                     refreshUserSession(newSession);
                 })
                 .catch((error) => {
@@ -47,9 +47,9 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
                         {!registration &&
                                 <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                                     <Button type={"primary"}
-                                            onClick={() => acceptTerms(true)}>{t("AcceptTerms.button.acceptTerms")}</Button>
+                                            onClick={() => acceptTerms(true)}>{t("common.button.confirm")}</Button>
                                     <Button danger={true} type={"primary"} href={"/user"}
-                                            onClick={() => acceptTerms(false)}>{t("AcceptTerms.rejectTerms")}</Button>
+                                            onClick={() => acceptTerms(false)}>{t("common.button.reject")}</Button>
                                     <Button danger={true} type={"dashed"} onClick={logoutUser}
                                             href="/">{t("common.button.logout")}</Button>
                                 </Space>}

@@ -1,12 +1,8 @@
 {
   "AcceptTerms" : {
-    "button" : {
-      "acceptTerms" : "Aceptar términos"
-    },
     "error" : {
       "alert" : "Algo salió mal, por favor contacte al administrador."
-    },
-    "rejectTerms" : "Rechazar términos"
+    }
   },
   "AddMemberships" : {
     "disabled" : "La membresía está desactivada",
@@ -179,14 +175,14 @@
     }
   },
   "AdminOrgUsers" : {
-    "healthCheck" : {
-      "resetButton" : "Restablecer confirmación de revisión de salud",
-      "resetDivider" : "Reinicio de revisión de salud"
+    "healthStatement" : {
+      "resetButton" : "Restablecer confirmación de la declaración de salud",
+      "resetDivider" : "Reinicio de la declaración de salud"
     },
-    "invalidateHealthCheckAgreements" : {
-      "confirm" : "¿Está seguro de que todos los usuarios deben volver a confirmar su revisión de salud? Este cambio no se puede deshacer.",
-      "fail" : "Error al invalidar las confirmaciones de revisión de salud",
-      "ok" : "Confirmaciones de revisión de salud invalidadas con éxito"
+    "invalidateHealthStatementAgreements" : {
+      "confirm" : "¿Está seguro de que todos los usuarios deben volver a confirmar su declaración de salud? Este cambio no se puede deshacer.",
+      "fail" : "Error al invalidar las confirmaciones de la declaración de salud",
+      "ok" : "Confirmaciones de la declaración de salud invalidadas con éxito"
     },
     "invalidateTermAgreements" : {
       "confirm" : "¿Está seguro de que todos los usuarios deben volver a aceptar los términos de uso? Este cambio no se puede deshacer.",
@@ -203,7 +199,7 @@
         "title" : "Actualizar"
       },
       "approvedTerms" : "Términos",
-      "healthCheckId" : "Revisión de salud",
+      "healthStatementId" : "Declaración de salud",
       "firstName" : "Nombre",
       "lastName" : "Apellido",
       "login" : "Nombre de usuario",
@@ -1001,7 +997,7 @@
     "title" : "Evento"
   },
   "Events" : {
-    "healthCheckRequired" : "Por favor, confirme su revisión de salud para acceder a este evento",
+    "healthStatementRequired" : "Por favor, confirme su declaración de salud para acceder a este evento",
     "ongoing" : {
       "title" : "Eventos en curso"
     },
@@ -1052,11 +1048,9 @@
     "unknownPaymentContact" : "Contactar soporte",
     "unknownPaymentPlease" : "Por favor, contacte al soporte para más información."
   },
-  "HealthCheckConfirmationModal" : {
-    "confirm" : "Confirmo mi revisión de salud",
+  "HealthStatementConfirmationModal" : {
     "error" : "Algo salió mal, por favor contacte al administrador.",
-    "reject" : "No confirmo mi revisión de salud",
-    "title" : "Confirmación de revisión de salud"
+    "title" : "Confirmación de la declaración de salud"
   },
   "ListPayments" : {
     "oneTime" : "Pagos únicos",
@@ -1576,10 +1570,10 @@
           "required" : "¡Por favor, confirme su contraseña!"
         }
       },
-      "healthCheck" : {
-        "button" : "revisión de salud",
+      "healthStatement" : {
+        "button" : "declaración de salud",
         "text" : "Leer y confirmar",
-        "title" : "Confirmación de revisión de salud"
+        "title" : "Confirmación de la declaración de salud"
       },
       "password" : {
         "label" : "Contraseña:",
@@ -1592,9 +1586,7 @@
       },
       "submitButton" : "Registrarse",
       "terms" : {
-        "accept" : "Acepto los términos y condiciones",
         "button" : "términos y condiciones",
-        "reject" : "No acepto los términos y condiciones",
         "text" : "Leer y aceptar",
         "title" : "Términos y condiciones"
       },
@@ -1721,6 +1713,7 @@
     "button" : {
       "acceptTerms" : "Leer y aceptar términos",
       "anonymizeAccount" : "Anonimizar datos",
+      "confirmHealthStatement" : "Confirmar declaración de salud",
       "lockAccount" : "Bloquear cuenta"
     },
     "form" : {
@@ -1740,10 +1733,10 @@
       "status" : {
         "label" : "Estado"
       },
-      "healthCheck" : {
-        "false" : "No ha confirmado el control de salud",
-        "label" : "Control de salud",
-        "true" : "Ha confirmado el control de salud"
+      "healthStatement" : {
+        "false" : "No ha confirmado la declaración de salud",
+        "label" : "Declaración de salud",
+        "true" : "Ha confirmado la declaración de salud"
       },
       "terms" : {
         "false" : "No ha aceptado los términos y condiciones",
@@ -1877,12 +1870,14 @@
       "back" : "Atrás",
       "cancel" : "Cancelar",
       "close" : "Cerrar",
+      "confirm" : "Confirmo",
       "delete" : "Eliminar",
       "held" : "Realizado",
       "login" : "Iniciar sesión",
       "logout" : "Cerrar sesión",
       "no" : "No",
       "open" : "Abrir",
+      "reject" : "Rechazo",
       "reset" : "Restablecer",
       "respond" : "Responder",
       "save" : "Guardar",

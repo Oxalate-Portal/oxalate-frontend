@@ -36,7 +36,7 @@ describe('OxalateTool.ts Tests', () => {
                 diveCount: 0,
                 expiresAt: new Date(),
                 firstName: "",
-                healthCheckId: 1,
+                healthStatementId: 1,
                 language: "",
                 lastName: "",
                 memberships: [],
@@ -62,7 +62,7 @@ describe('OxalateTool.ts Tests', () => {
                 diveCount: 0,
                 expiresAt: new Date(),
                 firstName: "",
-                healthCheckId: null,
+                healthStatementId: null,
                 language: "",
                 lastName: "",
                 memberships: [],
@@ -139,7 +139,7 @@ describe('OxalateTool.ts Tests', () => {
             diveCount: 0,
             expiresAt: new Date(),
             firstName: "",
-            healthCheckId: 1,
+            healthStatementId: 1,
             language: "",
             lastName: "",
             memberships: [],
@@ -166,14 +166,14 @@ describe('OxalateTool.ts Tests', () => {
         });
     });
 
-    describe('healthCheckId field', () => {
+    describe('healthStatementId field', () => {
         const createSession = (overrides: Partial<UserSessionToken> = {}): UserSessionToken => ({
             accessToken: "",
             approvedTerms: false,
             diveCount: 0,
             expiresAt: new Date(),
             firstName: "",
-            healthCheckId: null,
+            healthStatementId: null,
             language: "",
             lastName: "",
             memberships: [],
@@ -192,35 +192,35 @@ describe('OxalateTool.ts Tests', () => {
         });
 
         it('can be set to a numeric value', () => {
-            const session = createSession({healthCheckId: 42});
-            expect(session.healthCheckId).toBe(42);
+            const session = createSession({healthStatementId: 42});
+            expect(session.healthStatementId).toBe(42);
         });
 
         it('can be set to null', () => {
-            const session = createSession({healthCheckId: null});
-            expect(session.healthCheckId).toBeNull();
+            const session = createSession({healthStatementId: null});
+            expect(session.healthStatementId).toBeNull();
         });
 
         it('defaults to null in the helper', () => {
             const session = createSession();
-            expect(session.healthCheckId).toBeNull();
+            expect(session.healthStatementId).toBeNull();
         });
 
         it('is preserved when spreading a session', () => {
-            const session = createSession({healthCheckId: 7});
+            const session = createSession({healthStatementId: 7});
             const copy = {...session};
-            expect(copy.healthCheckId).toBe(7);
+            expect(copy.healthStatementId).toBe(7);
         });
 
         it('can be overridden when spreading a session', () => {
-            const session = createSession({healthCheckId: 7});
-            const updated = {...session, healthCheckId: null};
-            expect(updated.healthCheckId).toBeNull();
+            const session = createSession({healthStatementId: 7});
+            const updated = {...session, healthStatementId: null};
+            expect(updated.healthStatementId).toBeNull();
         });
 
         it('does not affect role resolution', () => {
-            const withCheck = createSession({healthCheckId: 1, roles: [RoleEnum.ROLE_ADMIN]});
-            const withoutCheck = createSession({healthCheckId: null, roles: [RoleEnum.ROLE_ADMIN]});
+            const withCheck = createSession({healthStatementId: 1, roles: [RoleEnum.ROLE_ADMIN]});
+            const withoutCheck = createSession({healthStatementId: null, roles: [RoleEnum.ROLE_ADMIN]});
             expect(getHighestRole(withCheck)).toBe(RoleEnum.ROLE_ADMIN);
             expect(getHighestRole(withoutCheck)).toBe(RoleEnum.ROLE_ADMIN);
         });

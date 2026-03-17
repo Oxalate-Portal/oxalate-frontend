@@ -1,5 +1,5 @@
 export {AcceptTerms} from "./AcceptTerms";
-export {HealthCheckConfirmationModal} from "./HealthCheckConfirmationModal";
+export {HealthStatementConfirmationModal} from "./HealthStatementConfirmationModal";
 export {Home} from "./Home";
 export {Login} from "./Login";
 export {LoginWithCaptcha} from "./LoginWithCaptcha";

@@ -1,11 +1,12 @@
 import {useSession} from "../../session";
 import {useEffect, useState} from "react";
-import {Button, Checkbox, Col, Form, Input, message, Row, Space, Spin} from "antd";
+import {Button, Checkbox, Col, Form, Input, message, Modal, Row, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 import {checkRoles} from "../../tools";
 import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./index";
 import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";
+import {AcceptTerms, HealthStatementConfirmationModal} from "../main";
 
 export function UserProfile() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
@@ -14,6 +15,8 @@ export function UserProfile() {
     const [workUser, setWorkUser] = useState<AdminUserResponse>();
     const [userForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
+    const [showTermsModal, setShowTermsModal] = useState(false);
+    const [showHealthStatementModal, setShowHealthStatementModal] = useState(false);
 
     useEffect(() => {
         const fetchMemberData = async () => {
@@ -71,6 +74,30 @@ export function UserProfile() {
         }
     };
 
+    function updateAcceptanceState(updates: Partial<Pick<AdminUserResponse, "approvedTerms" | "healthStatementId">>) {
+        setWorkUser((prevState) => prevState ? {...prevState, ...updates} : prevState);
+
+        if (userSession) {
+            const updatedSession: UserSessionToken = {...userSession, ...updates};
+            refreshUserSession(updatedSession);
+        }
+    }
+
+    async function handleTermsConfirmation(answer: boolean) {
+        setLoading(true);
+
+        try {
+            await userAPI.acceptTerms({confirmationAnswer: answer});
+            updateAcceptanceState({approvedTerms: answer});
+            setShowTermsModal(false);
+        } catch (error) {
+            console.error(error);
+            messageApi.error(t("AcceptTerms.error.alert"));
+        } finally {
+            setLoading(false);
+        }
+    }
+
     function onFinish(userInfo: UserResponse): void {
         setLoading(true);
 
@@ -89,7 +116,7 @@ export function UserProfile() {
             phoneNumber: userInfo.phoneNumber,
             privacy: userInfo.privacy,
             approvedTerms: workUser.approvedTerms,
-            healthCheckId: workUser.healthCheckId,
+            healthStatementId: workUser.healthStatementId,
             primaryUserType: userInfo.primaryUserType,
             nextOfKin: userInfo.nextOfKin,
             registered: workUser.registered,
@@ -114,7 +141,7 @@ export function UserProfile() {
                         language: response.language,
                         status: response.status,
                         approvedTerms: response.approvedTerms,
-                        healthCheckId: response.healthCheckId,
+                        healthStatementId: response.healthStatementId,
                         privacy: response.privacy,
                         nextOfKin: response.nextOfKin,
                         primaryUserType: response.primaryUserType,
@@ -188,10 +215,18 @@ export function UserProfile() {
                             <span className="ant-form-text">{workUser.status}</span>
                         </Form.Item>
                         <Form.Item label={t("User.form.terms.label")} key={"terms"}>
-                            <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true") : t("User.form.terms.false")}</span>
+                            <Space size={12}>
+                                <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true") : t("User.form.terms.false")}</span>
+                                {!workUser.approvedTerms && <Button type={"default"}
+                                                                    onClick={() => setShowTermsModal(true)}>{t("User.button.acceptTerms")}</Button>}
+                            </Space>
                         </Form.Item>
-                        <Form.Item label={t("User.form.healthCheck.label")} key={"healthCheck"}>
-                            <span className="ant-form-text">{workUser.healthCheckId !== null ? t("User.form.healthCheck.true") : t("User.form.healthCheck.false")}</span>
+                        <Form.Item label={t("User.form.healthStatement.label")} key={"healthStatement"}>
+                            <Space size={12}>
+                                <span className="ant-form-text">{workUser.healthStatementId !== null ? t("User.form.healthStatement.true") : t("User.form.healthStatement.false")}</span>
+                                {workUser.healthStatementId === null && <Button type={"default"}
+                                                                                onClick={() => setShowHealthStatementModal(true)}>{t("User.button.confirmHealthStatement")}</Button>}
+                            </Space>
                         </Form.Item>
                         <Form.Item name={"roles"}
                                    label={t("User.form.roles.label")}
@@ -239,12 +274,6 @@ export function UserProfile() {
                                     disabled={loading}
                                     key={"reset-button"}
                             >{t("common.button.reset")}</Button>
-                            {!workUser.approvedTerms && <Button
-                                    type={"default"}
-                                    href={"/"}
-                                    disabled={loading}
-                                    key={"terms-button"}
-                            >{t("User.button.acceptTerms")}</Button>}
                             <Button
                                     type={"dashed"}
                                     danger onClick={requestLocking}
@@ -268,6 +297,36 @@ export function UserProfile() {
                     </Form>}
 
                     <p style={{height: 30}}></p>
+
+                    <Modal
+                            cancelButtonProps={{danger: true}}
+                            cancelText={t("common.button.reject")}
+                            confirmLoading={loading}
+                            footer={[
+                                <Button danger={true} key={"reject-terms"} onClick={() => handleTermsConfirmation(false)}>
+                                    {t("common.button.reject")}
+                                </Button>,
+                                <Button key={"confirm-terms"} loading={loading} type={"primary"} onClick={() => handleTermsConfirmation(true)}>
+                                    {t("common.button.confirm")}
+                                </Button>
+                            ]}
+                            okText={t("common.button.confirm")}
+                            onCancel={() => setShowTermsModal(false)}
+                            onOk={() => handleTermsConfirmation(true)}
+                            open={showTermsModal}
+                            title={t("User.form.terms.label")}
+                            width={"80%"}
+                    >
+                        <AcceptTerms registration={true}/>
+                    </Modal>
+                    <HealthStatementConfirmationModal
+                            open={showHealthStatementModal}
+                            onConfirm={() => {
+                                updateAcceptanceState({healthStatementId: 0});
+                                setShowHealthStatementModal(false);
+                            }}
+                            onCancel={() => setShowHealthStatementModal(false)}
+                    />
 
                     {workUser && <ProfileCollapse userId={workUser.id} viewOnly={false}/>}
                 </Spin>

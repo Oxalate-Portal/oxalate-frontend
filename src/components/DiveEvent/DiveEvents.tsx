@@ -3,21 +3,21 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {DiveEventsTable} from "./DiveEventsTable";
 import {useSession} from "../../session";
-import {HealthCheckConfirmationModal} from "../main";
+import {HealthStatementConfirmationModal} from "../main";
 
 export function DiveEvents() {
     const {t} = useTranslation();
     const navigate = useNavigate();
     const {userSession} = useSession();
-    const [showHealthCheckModal, setShowHealthCheckModal] = useState(!userSession?.healthCheckId);
+    const [showHealthStatementModal, setShowHealthStatementModal] = useState(userSession?.healthStatementId == null);
 
-    const handleHealthCheckConfirm = () => {
+    const handleHealthStatementConfirm = () => {
 
-        setShowHealthCheckModal(false);
+        setShowHealthStatementModal(false);
     };
 
-    const handleHealthCheckCancel = () => {
-        setShowHealthCheckModal(false);
+    const handleHealthStatementCancel = () => {
+        setShowHealthStatementModal(false);
         navigate("/");
     };
 
@@ -26,19 +26,19 @@ export function DiveEvents() {
                 <DiveEventsTable
                         diveEventType={"new"}
                         title={t("Events.search.placeholder")}
-                        healthCheckId={(userSession ? userSession.healthCheckId : null)}
-                        onHealthCheckRequired={() => setShowHealthCheckModal(true)}
+                        healthStatementId={(userSession ? userSession.healthStatementId : null)}
+                        onHealthStatementRequired={() => setShowHealthStatementModal(true)}
                 />
                 <DiveEventsTable
                         diveEventType={"ongoing"}
                         title={t("Events.ongoing.title")}
-                        healthCheckId={(userSession ? userSession.healthCheckId : null)}
-                        onHealthCheckRequired={() => setShowHealthCheckModal(true)}
+                        healthStatementId={(userSession ? userSession.healthStatementId : null)}
+                        onHealthStatementRequired={() => setShowHealthStatementModal(true)}
                 />
-                <HealthCheckConfirmationModal
-                        open={showHealthCheckModal}
-                        onConfirm={handleHealthCheckConfirm}
-                        onCancel={handleHealthCheckCancel}
+                <HealthStatementConfirmationModal
+                        open={showHealthStatementModal}
+                        onConfirm={handleHealthStatementConfirm}
+                        onCancel={handleHealthStatementCancel}
                         registration={false}
                 />
             </div>
