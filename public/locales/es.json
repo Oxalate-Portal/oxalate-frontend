@@ -1353,6 +1353,7 @@
       "end-date" : "Finaliza el",
       "name" : "Nombre",
       "paymentCount" : "Cantidad",
+      "payment-type" : "Tipo de pago",
       "paymentDate" : "Fecha de pago",
       "start-date" : "Comienza"
     }

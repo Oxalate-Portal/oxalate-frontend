@@ -1353,6 +1353,7 @@
       "end-date" : "Slutar",
       "name" : "Namn",
       "paymentCount" : "Antal",
+      "payment-type" : "Betalningstyp",
       "paymentDate" : "Betalningsdatum",
       "start-date" : "Påbörjas"
     }

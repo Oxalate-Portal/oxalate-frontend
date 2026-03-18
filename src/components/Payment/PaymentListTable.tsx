@@ -1,7 +1,7 @@
 import {type PaymentRequest, type PaymentResponse, PaymentTypeEnum, type PaymentVO} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {Button, Input, Space, Spin, Table, Tag} from "antd";
+import {Button, Input, Space, Table, Tag} from "antd";
 import {type ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
 import {type Key, useEffect, useState} from "react";
@@ -40,7 +40,6 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                             };
                         });
                         setPayments(payments);
-                        window.addEventListener("updatePaymentList-" + paymentType, fetchPayments);
                     })
                     .catch((error) => {
                         console.error("Failed to get payments:", error);
@@ -50,6 +49,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                     });
         }
 
+        window.addEventListener("updatePaymentList-" + paymentType, fetchPayments);
         fetchPayments();
 
         return () => {
@@ -58,14 +58,13 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
     }, [paymentType]);
 
     function updateCount(record: PaymentVO, change: number) {
-        setLoading(true);
-        record.paymentCount += change;
+        const nextPaymentCount = (record.paymentCount ?? 0) + change;
 
         const paymentRequest: PaymentRequest = {
             id: record.id,
             userId: record.userId,
             paymentType: record.paymentType,
-            paymentCount: record.paymentCount,
+            paymentCount: nextPaymentCount,
             startDate: dayjs(record.startDate).format("YYYY-MM-DD"),
             endDate: record.endDate === null ? null : dayjs(record.endDate).format("YYYY-MM-DD")
         };
@@ -76,9 +75,6 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                 })
                 .catch((error) => {
                     console.error("Failed to increase payment count:", error);
-                })
-                .finally(() => {
-                    setLoading(false);
                 });
     }
 
@@ -243,12 +239,11 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
     ];
 
     return (
-            <Spin spinning={loading}>
-                {!loading && <Table columns={columns}
-                                    dataSource={payments}
-                                    rowKey={(record) =>
-                                            keyName + "-payment-" + record.userId + "-" + record.created
-                                    }
-                />}
-            </Spin>);
+            <Table columns={columns}
+                   dataSource={payments}
+                   loading={loading}
+                   rowKey={(record) =>
+                           keyName + "-payment-" + record.userId + "-" + record.created
+                   }
+            />);
 }

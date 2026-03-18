@@ -18,10 +18,7 @@ export function Payments() {
             paymentAPI.resetAllPayments(type)
                     .then((result) => {
                         if (result) {
-                            const event = new CustomEvent("paymentListUpdated", {
-                                detail: {paymentType: PaymentTypeEnum.PERIODICAL},
-                            });
-                            window.dispatchEvent(event);
+                            window.dispatchEvent(new Event("updatePaymentList-" + type));
                         }
                     })
                     .catch((error) => {

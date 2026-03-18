@@ -1353,6 +1353,7 @@
       "end-date" : "Ends at",
       "name" : "Name",
       "paymentCount" : "Count",
+      "payment-type" : "Payment type",
       "paymentDate" : "Payment date",
       "start-date" : "Starts"
     }
