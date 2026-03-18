@@ -1353,6 +1353,7 @@
       "end-date" : "Endet am",
       "name" : "Name",
       "paymentCount" : "Anzahl",
+      "payment-type" : "Zahlungsart",
       "paymentDate" : "Zahlungstag",
       "start-date" : "Beginnt"
     }

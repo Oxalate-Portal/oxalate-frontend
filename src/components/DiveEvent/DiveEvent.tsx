@@ -109,24 +109,34 @@ export function DiveEvent() {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
 
-                    const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
+                    // Either payment type (one-time or periodical) independently satisfies the requirement.
+                    // hasValidPayment becomes true as soon as any enabled type has a valid payment.
+                    let hasValidPayment = false;
 
+                    const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
                     if (oneTimeEnabled) {
                         const validOneTimePayments = diverPayments.filter(payment =>
                                 payment.paymentType === PaymentTypeEnum.ONE_TIME
                                 && payment.paymentCount > 0
                                 && (payment.endDate === null || !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)))
                         );
-                        if (validOneTimePayments.length === 0) {
-                            result.missingPayment = true;
-                        }
-                    } else {
-                        const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIODICAL);
-                        const validPeriodicalPayment = periodicalPayments.find(payment => !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)));
-                        if (!validPeriodicalPayment) {
-                            result.missingPayment = true;
+                        if (validOneTimePayments.length > 0) {
+                            hasValidPayment = true;
                         }
                     }
+
+                    const periodicalEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "periodical-payment-method-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
+                    if (periodicalEnabled) {
+                        const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIODICAL);
+                        const validPeriodicalPayment = periodicalPayments.find(payment =>
+                                !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime))
+                        );
+                        if (validPeriodicalPayment) {
+                            hasValidPayment = true;
+                        }
+                    }
+
+                    result.missingPayment = !hasValidPayment;
                 } catch (error) {
                     console.error("Error:", error);
                     result.missingPayment = true;
@@ -220,16 +230,16 @@ export function DiveEvent() {
                     <Space orientation={"vertical"} size={"large"}>
                         {diveEvent && diveEvent.id !== undefined && <DiveEventDetails eventInfo={diveEvent}/>}
                         {!subscribing && !canSubscribe && (missingMembership || missingPayment || missingHealthStatement) && (
-                                <Space direction={"vertical"}>
+                                <Space orientation={"vertical"}>
                                     {missingMembership && (
-                                            <Alert type={"warning"} showIcon message={t("DiveEvent.requiresMembership")}/>
+                                            <Alert type={"warning"} showIcon title={t("DiveEvent.requiresMembership")}/>
                                     )}
                                     {missingPayment && (
-                                            <Alert type={"warning"} showIcon message={t("DiveEvent.requiresPayment")}/>
+                                            <Alert type={"warning"} showIcon title={t("DiveEvent.requiresPayment")}/>
                                     )}
                                     {missingHealthStatement && (
                                             <Space>
-                                                <Alert type={"warning"} showIcon message={t("DiveEvent.requiresHealthStatement")}/>
+                                                <Alert type={"warning"} showIcon title={t("DiveEvent.requiresHealthStatement")}/>
                                                 <Button onClick={() => setShowHealthStatementModal(true)}>
                                                     {t("DiveEvent.approveHealthStatement")}
                                                 </Button>
