@@ -27,6 +27,18 @@ export function SessionProvider({children}: SessionProviderProps) {
     const userKey: string = "user";
     const languageKey: string = "language";
 
+    // Function to fetch portal configurations
+    async function fetchPortalConfigurations(): Promise<ActionResultEnum> {
+        try {
+            const configurations: PortalConfigurationResponse[] = await portalConfigurationAPI.findAllPortalConfigurations();
+            setPortalConfiguration(configurations);
+            return ActionResultEnum.SUCCESS;
+        } catch (error) {
+            console.error("Failed to load portal configurations", error);
+            return ActionResultEnum.FAILURE;
+        }
+    }
+
     // Check if user data exists in local storage on initial load
     useEffect(() => {
         const loadPortalConfigurations = async () => {
@@ -36,6 +48,7 @@ export function SessionProvider({children}: SessionProviderProps) {
             }
         };
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
         const userData = localStorage.getItem(userKey);
 
@@ -75,17 +88,6 @@ export function SessionProvider({children}: SessionProviderProps) {
 
     }, [userKey, languageKey, organizationName, portalTimezone]);
 
-    // Function to fetch portal configurations
-    async function fetchPortalConfigurations(): Promise<ActionResultEnum> {
-        try {
-            const configurations: PortalConfigurationResponse[] = await portalConfigurationAPI.findAllPortalConfigurations();
-            setPortalConfiguration(configurations);
-            return ActionResultEnum.SUCCESS;
-        } catch (error) {
-            console.error("Failed to load portal configurations", error);
-            return ActionResultEnum.FAILURE;
-        }
-    }
 
     // Function to handle user login
     async function loginUser(loginRequest: LoginRequest): Promise<LoginStatus> {

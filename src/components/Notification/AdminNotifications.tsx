@@ -31,7 +31,6 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
             return;
         }
 
-        setLoading(true);
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
                     setUsers(userResponses);

@@ -19,12 +19,13 @@ export function Page(pageProps: PageProps = {}) {
     const {t} = useTranslation();
 
     useEffect(() => {
-        setLoading(true);
         pageAPI.findById(pageId, "language=" + sessionLanguage)
                 .then((response) => {
                     setPageData(response);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
-        setLoading(false);
     }, [pageId, sessionLanguage]);
 
     return (<div className={"darkDiv"}>

@@ -227,7 +227,6 @@ export function AdminOrgUsers() {
     ];
 
     useEffect(() => {
-        setLoading(true);
         adminUserAPI.findAll()
                 .then(response => {
                     setUserList(response);

@@ -14,7 +14,6 @@ export function YearlyStats({typeOfStats, headerText}: YearlyStatsProps) {
     const [yearlyData, setYearlyData] = useState<MultiYearValueResponse[]>([]);
 
     useEffect(() => {
-        setLoading(true);
         statsAPI.getYearlyStatsData(typeOfStats)
                 .then((response) => {
                     setYearlyData(response);

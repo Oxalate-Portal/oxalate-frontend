@@ -25,11 +25,11 @@ export function AdminTagGroups() {
                 .split(",")
                 .map(s => s.trim())
                 .filter(Boolean);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setConfiguredLangs(langs);
     }, [getFrontendConfigurationValue]);
 
     const loadGroups = useCallback(() => {
-        setLoading(true);
         tagGroupAPI.findAll()
                 .then(setData)
                 .catch(() => message.error(t("AdminTagGroups.load.fail")))

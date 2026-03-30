@@ -139,7 +139,6 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
     ];
 
     useEffect(() => {
-        setLoading(true);
         let diveEventResponses: Promise<DiveEventResponse[]>;
         if (diveEventType === "new") {
             diveEventResponses = diveEventAPI.findAll();

@@ -19,7 +19,6 @@ export function CommentList() {
     const [userList, setUserList] = useState<{ value: number, label: string }[]>([]);
 
     useEffect(() => {
-        setLoading(true);
         userAPI.findAll()
                 .then(response => {
                     const optionList = [];

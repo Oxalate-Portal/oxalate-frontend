@@ -30,11 +30,11 @@ export function AdminTags() {
                 .split(",")
                 .map(s => s.trim())
                 .filter(Boolean);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setConfiguredLangs(langs);
     }, [getFrontendConfigurationValue]);
 
     const loadTags = useCallback(() => {
-        setLoading(true);
         tagsAPI.findAll()
                 .then(setData)
                 .catch(err => message.error(err?.response?.data?.message || err.message || t("AdminTags.load.fail")))
@@ -42,7 +42,6 @@ export function AdminTags() {
     }, [t]);
 
     const loadGroups = useCallback(() => {
-        setGroupsLoading(true);
         tagGroupAPI.findAll()
                 .then(setGroups)
                 .catch(err => message.error(err?.response?.data?.message || err.message || t("AdminTags.load.groups-fail")))
@@ -124,6 +123,7 @@ export function AdminTags() {
         });
     }, [groupModalOpen, configuredLangs, groupForm, buildNamesFromConfig]);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleSubmit = (_submitData: unknown) => {
         form.validateFields()
                 .then((values: { code: string; names: NameKV[]; tagGroupId?: number }) => {

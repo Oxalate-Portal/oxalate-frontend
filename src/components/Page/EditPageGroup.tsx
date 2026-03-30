@@ -47,11 +47,11 @@ export function EditPageGroup() {
         let tmpPageGroupId = 0;
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpPageGroupId = parseInt(paramId);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setPageGroupId(tmpPageGroupId);
         }
 
         if (tmpPageGroupId > 0) {
-            setLoading(true);
             pageGroupMgmtAPI.findById(tmpPageGroupId, null)
                     .then(response => {
                         // Filter the page group versions to only include the languages that are enabled in the frontend
@@ -178,6 +178,7 @@ export function EditPageGroup() {
                         <Form.List name={"pageGroupVersions"}
                                    key={"page-group-versions"}
                         >
+                            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
                             {(groupVersions, {add: _add, remove: _remove}) => {
                                 return (
                                         <>

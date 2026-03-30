@@ -23,7 +23,6 @@ export function PortalConfigurations() {
     }, {} as Record<string, PortalConfigurationResponse[]>);
 
     useEffect(() => {
-        setLoading(true);
         portalConfigurationAPI.findAllPortalConfigurations()
                 .then((response) => {
                     setPortalConfigurations(response);

@@ -33,7 +33,6 @@ import {MembershipTypeEnum, type PageGroupResponse, PortalConfigGroupEnum, RoleE
 import {pageAPI} from "../../services";
 import {NotificationDropdown} from "../Notification";
 import {useBlogMenuItems} from "../Blogging";
-// @ts-ignore
 import Logo from "../../portal_logo.svg?react";
 
 const {Header} = Layout;
@@ -333,6 +332,7 @@ export function NavigationBar() {
 
         if (userSession) {
             const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setMembershipType(membershipTypeString.toUpperCase() as MembershipTypeEnum);
 
             if ((getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled") === "true")

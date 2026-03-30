@@ -13,9 +13,11 @@ export function UserFields(props: { userId: number; username: string | null; isO
 
     useEffect(() => {
         const languageList = getFrontendConfigurationValue("enabled-language").split(",");
-        setSupportedLanguages(languageList.map(lang => {
+        const languages = languageList.map(lang => {
             return {label: LanguageTool.getLabelByValue(lang), value: lang};
-        }));
+        });
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setSupportedLanguages(languages);
     }, [getFrontendConfigurationValue]);
 
     return (

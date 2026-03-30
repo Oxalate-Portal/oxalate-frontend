@@ -113,10 +113,10 @@ export function Pages() {
         let tmpPageGroupId = 0;
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpPageGroupId = parseInt(paramId);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setPageGroupId(tmpPageGroupId);
         }
 
-        setLoading(true);
         pageGroupMgmtAPI.findById(tmpPageGroupId, null)
                 .then(response => {
                     setPages(response.pages);

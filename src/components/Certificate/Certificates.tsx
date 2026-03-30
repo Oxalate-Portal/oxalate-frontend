@@ -19,7 +19,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     const {getFrontendConfigurationValue} = useSession();
 
     useEffect(() => {
-        setLoading(true);
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setMaxCertificates(parseInt(getFrontendConfigurationValue("max-certificates")));
 
         Promise.all([
@@ -44,7 +44,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
         if (window.confirm(t("Certificates.deleteCertificate.confirm") + certificateObject.certificateName + "\"?")) {
             setLoading(true);
             certificateAPI.delete(certificateObject.id)
-                    .then(_response => {
+                    .then(() => {
                         window.location.reload();
                     })
                     .catch(error => {

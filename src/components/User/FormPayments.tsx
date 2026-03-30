@@ -44,7 +44,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.start-date"),
             dataIndex: "startDate",
             key: "startDate",
-            render: (date: Date, _record: PaymentResponse) => {
+            render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD")}
                 </>)
@@ -79,7 +79,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.created"),
             dataIndex: "created",
             key: "created",
-            render: (date: Date, _record: PaymentResponse) => {
+            render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD HH:mm")}
                 </>)

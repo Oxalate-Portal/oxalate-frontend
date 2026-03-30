@@ -15,19 +15,10 @@ export function AdminMembership() {
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
-        setLoading(true);
-
-        let tmpMembershipId = 0;
 
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
-            tmpMembershipId = parseInt(paramId);
-        } else {
-            console.error("Invalid user id:", paramId);
-            messageApi.error(t("AdminMembership.message.invalid-user-id", {defaultValue: "Invalid user ID"}));
-            return;
-        }
-
-        membershipAPI.findByMemberId(tmpMembershipId)
+            const membershipId = parseInt(paramId);
+            membershipAPI.findByMemberId(membershipId)
                 .then((response) => {
                     // Convert date strings to Dayjs instances (guarding nullable endDate)
                     const converted = {
@@ -46,6 +37,12 @@ export function AdminMembership() {
                 .finally(() => {
                     setLoading(false);
                 });
+        } else {
+            console.error("Invalid membership id:", paramId);
+            messageApi.error(t("AdminMembership.message.invalid-user-id", {defaultValue: "Invalid user ID"}));
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setLoading(false);
+        }
     }, [form, messageApi, paramId, t]);
 
     const onFinish = (values: { status: MembershipStatusEnum; type: MembershipTypeEnum }) => {

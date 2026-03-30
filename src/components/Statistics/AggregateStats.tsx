@@ -11,7 +11,6 @@ export function AggregateStats() {
     const [data, setData] = useState<AggregateResponse | null>(null);
 
     useEffect(() => {
-        setLoading(true);
         statsAPI.getAggregates()
                 .then(setData)
                 .catch(console.error)

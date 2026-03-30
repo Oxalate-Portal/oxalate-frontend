@@ -32,6 +32,8 @@ export function EditCertificate() {
     useEffect(() => {
         if (paramId?.length === 0) {
             console.error("Invalid dive event id:", paramId);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setLoading(false);
             return;
         }
 
@@ -44,7 +46,6 @@ export function EditCertificate() {
 
         // ID 0 means that we're supposed to create a new certificate
         if (tmpCertificateId !== 0) {
-            setLoading(true);
             certificateAPI.findById(tmpCertificateId, null)
                     .then((result) => {
                         const formData: CertificateRequest = {
@@ -69,9 +70,8 @@ export function EditCertificate() {
                     });
         } else {
             setSubmitButtonText(t("EditCertificate.form.button.add"));
+            setLoading(false);
         }
-
-        setLoading(false);
     }, [paramId, certificateForm, t, messageApi]);
 
 

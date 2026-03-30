@@ -1,4 +1,3 @@
 import type {AbstractCertificate} from "../AbstractCertificate";
 
-export interface CertificateRequest extends AbstractCertificate {
-}
+export type CertificateRequest = AbstractCertificate;

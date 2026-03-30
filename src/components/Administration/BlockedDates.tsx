@@ -23,7 +23,6 @@ function BlockedDates() {
     const [messageApi, contextHolder] = message.useMessage();
 
     const loadBlockedDates = useCallback(async () => {
-        setLoading(true);
 
         blockedDatesAPI.findAll()
                 .then(response => {

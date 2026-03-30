@@ -50,7 +50,7 @@ export function UserProfile() {
         }
 
         userAPI.updateUserStatus(workUser?.id, status)
-                .then((_response) => {
+                .then(() => {
                     messageApi.success(t("User.updateStatus.ok"));
                 })
                 .catch(e => {
@@ -159,7 +159,7 @@ export function UserProfile() {
                 });
     }
 
-    // @ts-ignore
+    // @ts-expect-error Form validation error info type mismatch
     function onFinishFailed(errorInfo: ValidateErrorEntity<UserResponse>) {
         console.error("Failed:", errorInfo);
         setLoading(false);

@@ -73,7 +73,7 @@ export function Register() {
         setLoading(false);
     }
 
-    // @ts-ignore
+    // @ts-expect-error Form validation error info type mismatch
     function onFinishFailed(errorInfo: ValidateErrorEntity) {
         console.error("Failed:", errorInfo);
     }
