@@ -24,7 +24,7 @@ that can then be placed into a directory for the native web server to find, or i
 
 First you need to have the necessary tools installed to build the frontend. The following tools are needed:
 
-* Node.js (version 20 or later) which provides the npm command
+* Node.js (version 20 or later) with Corepack enabled, which provides Yarn
 * git
 * A web browser to verify the build
 
@@ -55,7 +55,9 @@ In case you're building a production setup, then you need to also set up the Goo
 To build the frontend, first execute the following commands:
 
 ```bash
-npm install
+corepack enable
+corepack prepare yarn@4.13.0 --activate
+yarn install
 ```
 
 This will fetch the modules required by the frontend and install them in the `node_modules` directory.
@@ -63,7 +65,7 @@ This will fetch the modules required by the frontend and install them in the `no
 Depending on whether you then want to test the portal locally or build it for production, you can execute one of the following commands:
 
 ```bash
-npm start
+yarn start
 ```
 
 This will start a local web server that will serve the frontend on port 3000. You can then open a web browser and go to http://localhost:3000 to see the
@@ -73,7 +75,7 @@ in order to be able to fully use the frontend. This requires that you have creat
 Alternatively, you can build the frontend for production by executing the following command:
 
 ```bash
-npm run build:production
+yarn build:production
 ```
 
 This will build the frontend and place the resulting files in the `build` directory. You can then copy the contents of this directory to a web server and serve

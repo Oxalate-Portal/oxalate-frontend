@@ -22,20 +22,26 @@ jobs:
         uses: actions/setup-node@v6.3.0
         with:
           node-version: '24'
+          cache: 'yarn'
+
+      - name: Set up Yarn
+        run: |
+          corepack enable
+          corepack prepare yarn@4.13.0 --activate
 
       - name: Test
         run: |
-          npm install
-          npm run build:test
-          npm run test --passWithNoTests -- --watchAll=false
+          yarn install --immutable
+          yarn build:test
+          yarn test --passWithNoTests -- --watchAll=false
 
       - name: Coverage
         run: |
-          npm run test:coverage
+          yarn test:coverage
 
       - name: ESLint
         run: |
-          npm run lint
+          yarn lint
 
   version-and-upload:
     runs-on: ubuntu-latest
@@ -48,6 +54,12 @@ jobs:
         uses: actions/setup-node@v6.3.0
         with:
           node-version: '24'
+          cache: 'yarn'
+
+      - name: Set up Yarn
+        run: |
+          corepack enable
+          corepack prepare yarn@4.13.0 --activate
 
       - name: Get main and base version
         id: basemain
@@ -86,8 +98,8 @@ jobs:
 
       - name: Build production package
         run: |
-          npm install
-          npm run build:production
+          yarn install --immutable
+          yarn build:production
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
