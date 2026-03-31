@@ -78,6 +78,7 @@
     "@types/react-dom" : "^19.2.3",
     "@types/react-highlight-words" : "^0.20.1",
     "@vitejs/plugin-react" : "^6.0.1",
+    "axios-mock-adapter" : "^2.1.0",
     "eslint" : "10.1.0",
     "eslint-config-prettier" : "^10.1.8",
     "eslint-plugin-react" : "^7.37.5",
@@ -95,17 +96,6 @@
     "typescript-eslint" : "^8.58.0",
     "vite" : "^8.0.3",
     "vite-plugin-svgr" : "^5.0.0"
-  },
-  "jest" : {
-    "preset" : "ts-jest/presets/js-with-ts",
-    "testEnvironment" : "jest-environment-jsdom",
-    "moduleNameMapper" : {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$" : "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less)$" : "<rootDir>/__mocks__/styleMock.js"
-    },
-    "modulePaths" : [
-      "<rootDir>/src"
-    ]
   },
   "repository" : {
     "type" : "git",

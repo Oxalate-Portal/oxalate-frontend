@@ -1,12 +1,13 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {PagedResponse} from "../models";
+import {getApiBaseUrl} from "./getApiBaseUrl";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {
     protected axiosInstance: AxiosInstance;
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: `${import.meta.env.VITE_APP_API_URL}` + member,
+            baseURL: getApiBaseUrl() + member,
             withCredentials: true
         });
     }

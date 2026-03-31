@@ -1,6 +1,7 @@
 import Axios, {type AxiosInstance, type AxiosResponse} from "axios";
 import type {GetProp, UploadFile, UploadProps} from "antd";
 import type {ActionResponse, AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models";
+import {getApiBaseUrl} from "./getApiBaseUrl";
 
 // Define the response type for successful uploads
 interface DownloadResponse {
@@ -12,7 +13,7 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 class FileTransferAPI {
     private axiosInstance: AxiosInstance;
-    private baseUrl: string = `${import.meta.env.VITE_APP_API_URL}` + "/files";
+    private baseUrl: string = getApiBaseUrl() + "/files";
     private static  readonly AVATAR_PATH: string = "/avatars";
     private static  readonly CERTIFICATE_PATH: string = "/certificates";
     private static  readonly DOCUMENT_PATH: string = "/documents";

@@ -1,9 +1,10 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {FrontendConfigurationResponse, PortalConfigurationRequest, PortalConfigurationResponse} from "../models";
+import {getApiBaseUrl} from "./getApiBaseUrl";
 
 class PortalConfigurationAPI {
     private axiosInstance: AxiosInstance;
-    private baseUrl: string = `${import.meta.env.VITE_APP_API_URL}` + "/configurations";
+    private baseUrl: string = getApiBaseUrl() + "/configurations";
 
     constructor() {
         this.axiosInstance = Axios.create({

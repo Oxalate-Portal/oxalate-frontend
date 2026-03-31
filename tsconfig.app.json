@@ -9,6 +9,9 @@
       "DOM",
       "DOM.Iterable"
     ],
+    "types" : [
+      "jest"
+    ],
     "module" : "ESNext",
     "skipLibCheck" : true,
     /* Bundler mode */
@@ -28,5 +31,8 @@
   },
   "include" : [
     "src"
+  ],
+  "exclude" : [
+    "node_modules"
   ]
 }

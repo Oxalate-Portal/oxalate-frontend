@@ -1,12 +1,13 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {EmailNotificationSubscriptionRequest, EmailNotificationSubscriptionResponse} from "../models";
+import {getApiBaseUrl} from "./getApiBaseUrl";
 
 class EmailNotificationSubscriptionAPI {
     protected axiosInstance: AxiosInstance;
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: `${import.meta.env.VITE_APP_API_URL}` + member,
+            baseURL: getApiBaseUrl() + member,
             withCredentials: true,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         });

@@ -1,5 +1,6 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {DownloadCertificateResponse, DownloadDiveResponse, DownloadPaymentResponse} from "../models";
+import {getApiBaseUrl} from "./getApiBaseUrl";
 
 class DownloadAPI {
     protected axiosInstance: AxiosInstance;
@@ -7,7 +8,7 @@ class DownloadAPI {
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: `${import.meta.env.VITE_APP_API_URL}` + member,
+            baseURL: getApiBaseUrl() + member,
             withCredentials: true,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         });

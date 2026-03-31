@@ -11,7 +11,7 @@ interface EmailSubscriptionCardProps {
 export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const {t} = useTranslation();
-    const [subscriptions, setSubscriptions] = useState<EmailNotificationSubscriptionResponse[]>([]);
+    const [subscriptions, setEmailSubscriptions] = useState<EmailNotificationSubscriptionResponse[]>([]);
     const [subscriptionForm] = Form.useForm();
 
     useEffect(() => {
@@ -41,7 +41,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
 
         emailNotificationSubscriptionAPI.subscribeToEmailNotification(subscriptionRequest)
                 .then(response => {
-                    setSubscriptions(response);
+                    setEmailSubscriptions(response);
                 })
                 .catch(e => {
                     console.error("Error updating email subscriptions: " + e);

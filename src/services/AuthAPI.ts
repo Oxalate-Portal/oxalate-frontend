@@ -1,5 +1,6 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {ActionResponse, LoginRequest, LostPasswordRequest, PasswordResetRequest, RegistrationResponse, RegistrationVO, UserSessionToken} from "../models";
+import {getApiBaseUrl} from "./getApiBaseUrl";
 
 class AuthAPI {
     userKey: string = "user";
@@ -8,7 +9,7 @@ class AuthAPI {
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: `${import.meta.env.VITE_APP_API_URL}` + member,
+            baseURL: getApiBaseUrl() + member,
             withCredentials: true
         });
     }
