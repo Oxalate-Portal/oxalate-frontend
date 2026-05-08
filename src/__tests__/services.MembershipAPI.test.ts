@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {membershipAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {MembershipRequest} from '../models';
 
 describe('MembershipAPI', () => {
     let mock: MockAdapter;
@@ -40,7 +41,7 @@ describe('MembershipAPI', () => {
     });
 
     it('should create membership', async () => {
-        const payload = {userId: 1, type: 'ACTIVE'} as any;
+        const payload = {userId: 1, type: 'ACTIVE'} as unknown as MembershipRequest;
         const mockResponse = {id: 1, userId: 1, type: 'ACTIVE'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -49,7 +50,7 @@ describe('MembershipAPI', () => {
     });
 
     it('should update membership', async () => {
-        const payload = {id: 1, type: 'EXPIRED'} as any;
+        const payload = {id: 1, type: 'EXPIRED'} as unknown as MembershipRequest;
         const mockResponse = {id: 1, type: 'EXPIRED'};
         mock.onPut('', payload).reply(200, mockResponse);
 

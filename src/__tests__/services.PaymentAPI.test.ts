@@ -2,6 +2,7 @@
 import {paymentAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
 import {PaymentTypeEnum} from '../models';
+import type {PaymentRequest} from '../models';
 
 describe('PaymentAPI', () => {
     let mock: MockAdapter;
@@ -57,7 +58,7 @@ describe('PaymentAPI', () => {
     });
 
     it('should create payment', async () => {
-        const payload = {type: PaymentTypeEnum.ONE_TIME, amount: 100} as any;
+        const payload = {type: PaymentTypeEnum.ONE_TIME, amount: 100} as unknown as PaymentRequest;
         const mockResponse = {id: 1, type: PaymentTypeEnum.ONE_TIME, amount: 100};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -66,7 +67,7 @@ describe('PaymentAPI', () => {
     });
 
     it('should update payment', async () => {
-        const payload = {id: 1, type: PaymentTypeEnum.PERIODICAL, amount: 150} as any;
+        const payload = {id: 1, type: PaymentTypeEnum.PERIODICAL, amount: 150} as unknown as PaymentRequest;
         const mockResponse = {id: 1, type: PaymentTypeEnum.PERIODICAL, amount: 150};
         mock.onPut('', payload).reply(200, mockResponse);
 

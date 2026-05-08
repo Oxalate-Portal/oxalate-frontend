@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {diveEventAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {DiveEventRequest, EventSubscribeRequest} from '../models';
 
 describe('DiveEventAPI', () => {
     let mock: MockAdapter;
@@ -56,7 +57,7 @@ describe('DiveEventAPI', () => {
     });
 
     it('should subscribe user to event', async () => {
-        const subscribeRequest = {eventId: 1, userId: 1} as any;
+        const subscribeRequest = {eventId: 1, userId: 1} as unknown as EventSubscribeRequest;
         const mockResponse = {id: 1, status: 'PUBLISHED'};
         mock.onPut('/subscribe', subscribeRequest).reply(200, mockResponse);
 
@@ -99,7 +100,7 @@ describe('DiveEventAPI', () => {
     });
 
     it('should create event', async () => {
-        const payload = {title: 'New Event'} as any;
+        const payload = {title: 'New Event'} as unknown as DiveEventRequest;
         const mockResponse = {id: 1, title: 'New Event'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -108,7 +109,7 @@ describe('DiveEventAPI', () => {
     });
 
     it('should update event', async () => {
-        const payload = {id: 1, title: 'Updated Event'} as any;
+        const payload = {id: 1, title: 'Updated Event'} as unknown as DiveEventRequest;
         const mockResponse = {id: 1, title: 'Updated Event'};
         mock.onPut('', payload).reply(200, mockResponse);
 

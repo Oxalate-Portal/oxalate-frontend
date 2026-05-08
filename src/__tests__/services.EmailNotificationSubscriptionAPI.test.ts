@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {emailNotificationSubscriptionAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {EmailNotificationSubscriptionRequest} from '../models';
 
 describe('EmailNotificationSubscriptionAPI', () => {
     let mock: MockAdapter;
@@ -25,7 +26,7 @@ describe('EmailNotificationSubscriptionAPI', () => {
     });
 
     it('should subscribe to email notification', async () => {
-        const payload = {type: 'NEW_EVENT', subscribed: true} as any;
+        const payload = {type: 'NEW_EVENT', subscribed: true} as unknown as EmailNotificationSubscriptionRequest;
         const mockResponse = [{id: 1, type: 'NEW_EVENT', subscribed: true}];
         mock.onPost('', payload).reply(200, mockResponse);
 

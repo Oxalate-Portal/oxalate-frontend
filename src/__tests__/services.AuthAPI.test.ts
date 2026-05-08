@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {authAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {LoginRequest, PasswordResetRequest, RegistrationVO} from '../models';
 
 describe('AuthAPI', () => {
     let mock: MockAdapter;
@@ -21,7 +22,7 @@ describe('AuthAPI', () => {
             email: 'test@example.com',
             password: 'password123',
             recaptchaToken: 'token'
-        } as any;
+        } as unknown as LoginRequest;
 
         const sessionResponse = {
             id: 1,
@@ -42,7 +43,7 @@ describe('AuthAPI', () => {
             email: 'test@example.com',
             password: 'wrongpassword',
             recaptchaToken: 'token'
-        } as any;
+        } as unknown as LoginRequest;
 
         const failResponse = {id: 0, email: 'test@example.com', token: ''};
 
@@ -66,7 +67,7 @@ describe('AuthAPI', () => {
             lastName: 'Doe',
             email: 'john@example.com',
             password: 'password123'
-        } as any;
+        } as unknown as RegistrationVO;
 
         const response = {status: 'SUCCESS', message: 'Registration successful'};
         mock.onPost('/register').reply(200, response);
@@ -93,7 +94,7 @@ describe('AuthAPI', () => {
     });
 
     it('should reset password', async () => {
-        const data = {token: 'reset-token', password: 'newpassword123', confirmPassword: 'newpassword123'} as any;
+        const data = {token: 'reset-token', password: 'newpassword123', confirmPassword: 'newpassword123'} as unknown as PasswordResetRequest;
         const response = {status: 'SUCCESS', message: 'Password reset successfully'};
 
         mock.onPost('/reset-password').reply(200, response);

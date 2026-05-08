@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {certificateAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {CertificateRequest} from '../models';
 
 describe('CertificateAPI', () => {
     let mock: MockAdapter;
@@ -39,7 +40,7 @@ describe('CertificateAPI', () => {
     });
 
     it('should create certificate', async () => {
-        const payload = {name: 'New Cert'} as any;
+        const payload = {name: 'New Cert'} as unknown as CertificateRequest;
         const mockResponse = {id: 1, name: 'New Cert'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -48,7 +49,7 @@ describe('CertificateAPI', () => {
     });
 
     it('should update certificate', async () => {
-        const payload = {id: 1, name: 'Updated Cert'} as any;
+        const payload = {id: 1, name: 'Updated Cert'} as unknown as CertificateRequest;
         const mockResponse = {id: 1, name: 'Updated Cert'};
         mock.onPut('', payload).reply(200, mockResponse);
 

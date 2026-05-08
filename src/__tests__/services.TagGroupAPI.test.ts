@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {tagGroupAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {TagGroupRequest} from '../models';
 
 describe('TagGroupAPI', () => {
     let mock: MockAdapter;
@@ -30,7 +31,7 @@ describe('TagGroupAPI', () => {
     });
 
     it('should create tag group', async () => {
-        const payload = {name: 'New Group'} as any;
+        const payload = {name: 'New Group'} as unknown as TagGroupRequest;
         const mockResponse = {id: 1, name: 'New Group'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -39,7 +40,7 @@ describe('TagGroupAPI', () => {
     });
 
     it('should update tag group', async () => {
-        const payload = {id: 1, name: 'Updated Group'} as any;
+        const payload = {id: 1, name: 'Updated Group'} as unknown as TagGroupRequest;
         const mockResponse = {id: 1, name: 'Updated Group'};
         mock.onPut('', payload).reply(200, mockResponse);
 

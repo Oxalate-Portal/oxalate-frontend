@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {adminUserAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {AdminUserRequest} from '../models';
 
 describe('AdminUserAPI', () => {
     let mock: MockAdapter;
@@ -30,7 +31,7 @@ describe('AdminUserAPI', () => {
     });
 
     it('should create admin user', async () => {
-        const payload = {email: 'newadmin@example.com'} as any;
+        const payload = {email: 'newadmin@example.com'} as unknown as AdminUserRequest;
         const mockResponse = {id: 1, email: 'newadmin@example.com'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -39,7 +40,7 @@ describe('AdminUserAPI', () => {
     });
 
     it('should update admin user', async () => {
-        const payload = {id: 1, email: 'updated@example.com'} as any;
+        const payload = {id: 1, email: 'updated@example.com'} as unknown as AdminUserRequest;
         const mockResponse = {id: 1, email: 'updated@example.com'};
         mock.onPut('', payload).reply(200, mockResponse);
 

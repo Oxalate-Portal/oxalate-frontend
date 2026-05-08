@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {tagsAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {TagRequest} from '../models';
 
 describe('TagsAPI', () => {
     let mock: MockAdapter;
@@ -30,7 +31,7 @@ describe('TagsAPI', () => {
     });
 
     it('should create tag', async () => {
-        const payload = {name: 'New Tag'} as any;
+        const payload = {name: 'New Tag'} as unknown as TagRequest;
         const mockResponse = {id: 1, name: 'New Tag'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -39,7 +40,7 @@ describe('TagsAPI', () => {
     });
 
     it('should update tag', async () => {
-        const payload = {id: 1, name: 'Updated Tag'} as any;
+        const payload = {id: 1, name: 'Updated Tag'} as unknown as TagRequest;
         const mockResponse = {id: 1, name: 'Updated Tag'};
         mock.onPut('', payload).reply(200, mockResponse);
 

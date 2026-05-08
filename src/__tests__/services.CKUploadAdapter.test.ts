@@ -1,8 +1,9 @@
 import {CKUploadAdapter} from '../services';
+import type {CkLoader} from '../services/CKUploadAdapter';
 
 describe('CKUploadAdapter', () => {
     let adapter: CKUploadAdapter;
-    let mockLoader: any;
+    let mockLoader: CkLoader;
 
     beforeEach(() => {
         mockLoader = {

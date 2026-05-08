@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {blockedDatesAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {BlockedDateRequest} from '../models';
 
 describe('BlockedDatesAPI', () => {
     let mock: MockAdapter;
@@ -30,7 +31,7 @@ describe('BlockedDatesAPI', () => {
     });
 
     it('should create blocked date', async () => {
-        const payload = {date: '2024-01-15'} as any;
+        const payload = {date: '2024-01-15'} as unknown as BlockedDateRequest;
         const mockResponse = {id: 1, date: '2024-01-15'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -39,7 +40,7 @@ describe('BlockedDatesAPI', () => {
     });
 
     it('should update blocked date', async () => {
-        const payload = {id: 1, date: '2024-01-20'} as any;
+        const payload = {id: 1, date: '2024-01-20'} as unknown as BlockedDateRequest;
         const mockResponse = {id: 1, date: '2024-01-20'};
         mock.onPut('', payload).reply(200, mockResponse);
 

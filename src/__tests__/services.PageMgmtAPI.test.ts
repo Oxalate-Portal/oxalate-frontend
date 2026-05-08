@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {pageMgmtAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {PageRequest} from '../models';
 
 describe('PageMgmtAPI', () => {
     let mock: MockAdapter;
@@ -30,7 +31,7 @@ describe('PageMgmtAPI', () => {
     });
 
     it('should create page', async () => {
-        const payload = {title: 'New Page'} as any;
+        const payload = {title: 'New Page'} as unknown as PageRequest;
         const mockResponse = {id: 1, title: 'New Page'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -39,7 +40,7 @@ describe('PageMgmtAPI', () => {
     });
 
     it('should update page', async () => {
-        const payload = {id: 1, title: 'Updated Page'} as any;
+        const payload = {id: 1, title: 'Updated Page'} as unknown as PageRequest;
         const mockResponse = {id: 1, title: 'Updated Page'};
         mock.onPut('', payload).reply(200, mockResponse);
 

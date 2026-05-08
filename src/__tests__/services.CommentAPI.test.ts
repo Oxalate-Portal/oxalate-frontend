@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {commentAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {CommentFilterRequest, ReportRequest} from '../models';
 
 describe('CommentAPI', () => {
     let mock: MockAdapter;
@@ -33,7 +34,7 @@ describe('CommentAPI', () => {
     });
 
     it('should report a comment', async () => {
-        const reportRequest = {commentId: 1, reason: 'Spam'} as any;
+        const reportRequest = {commentId: 1, reason: 'Spam'} as unknown as ReportRequest;
         const mockResponse = {status: 'SUCCESS'};
         mock.onPost('/report', reportRequest).reply(200, mockResponse);
 
@@ -95,7 +96,7 @@ describe('CommentAPI', () => {
     });
 
     it('should find filtered comments', async () => {
-        const filter = {status: 'PUBLISHED', limit: 10} as any;
+        const filter = {status: 'PUBLISHED', limit: 10} as unknown as CommentFilterRequest;
         const mockResponse = [{id: 1, status: 'PUBLISHED'}];
         mock.onPost('/filter', filter).reply(200, mockResponse);
 

@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {pageAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {PagedRequest, PageRequest} from '../models';
 
 describe('PageAPI', () => {
     let mock: MockAdapter;
@@ -31,7 +32,7 @@ describe('PageAPI', () => {
     });
 
     it('should get paged blogs', async () => {
-        const pagedRequest = {page: 0, size: 10} as any;
+        const pagedRequest = {page: 0, size: 10} as unknown as PagedRequest;
         const mockResponse = {content: [{id: 1, title: 'Blog 1'}], totalElements: 1};
         mock.onPost('/blogs', pagedRequest).reply(200, mockResponse);
 
@@ -56,7 +57,7 @@ describe('PageAPI', () => {
     });
 
     it('should create page', async () => {
-        const payload = {title: 'New Page'} as any;
+        const payload = {title: 'New Page'} as unknown as PageRequest;
         const mockResponse = {id: 1, title: 'New Page'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -65,7 +66,7 @@ describe('PageAPI', () => {
     });
 
     it('should update page', async () => {
-        const payload = {id: 1, title: 'Updated Page'} as any;
+        const payload = {id: 1, title: 'Updated Page'} as unknown as PageRequest;
         const mockResponse = {id: 1, title: 'Updated Page'};
         mock.onPut('', payload).reply(200, mockResponse);
 

@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {notificationAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {MarkReadRequest, MessageRequest} from '../models';
 
 describe('NotificationAPI', () => {
     let mock: MockAdapter;
@@ -33,7 +34,7 @@ describe('NotificationAPI', () => {
     });
 
     it('should mark notifications as read', async () => {
-        const markReadRequest = {notificationIds: [1, 2]} as any;
+        const markReadRequest = {notificationIds: [1, 2]} as unknown as MarkReadRequest;
         const mockResponse = {status: 'SUCCESS'};
         mock.onPost('/mark-read', markReadRequest).reply(200, mockResponse);
 
@@ -42,7 +43,7 @@ describe('NotificationAPI', () => {
     });
 
     it('should create notification', async () => {
-        const messageRequest = {title: 'New Notification', message: 'Test message'} as any;
+        const messageRequest = {title: 'New Notification', message: 'Test message'} as unknown as MessageRequest;
         const mockResponse = {id: 1, title: 'New Notification', message: 'Test message'};
         mock.onPost('/create', messageRequest).reply(200, mockResponse);
 
@@ -51,7 +52,7 @@ describe('NotificationAPI', () => {
     });
 
     it('should create bulk notifications', async () => {
-        const messageRequest = {title: 'Bulk Notification', message: 'Test message'} as any;
+        const messageRequest = {title: 'Bulk Notification', message: 'Test message'} as unknown as MessageRequest;
         const mockResponse = {status: 'SUCCESS'};
         mock.onPost('/create-bulk', messageRequest).reply(200, mockResponse);
 
@@ -68,7 +69,7 @@ describe('NotificationAPI', () => {
     });
 
     it('should create notification via abstract api', async () => {
-        const payload = {title: 'Test', message: 'Message'} as any;
+        const payload = {title: 'Test', message: 'Message'} as unknown as MessageRequest;
         const mockResponse = {id: 1, title: 'Test', message: 'Message'};
         mock.onPost('', payload).reply(200, mockResponse);
 
@@ -77,7 +78,7 @@ describe('NotificationAPI', () => {
     });
 
     it('should update notification', async () => {
-        const payload = {id: 1, read: true, message: 'Updated'} as any;
+        const payload = {id: 1, read: true, message: 'Updated'} as unknown as MessageRequest;
         const mockResponse = {id: 1, read: true, message: 'Updated'};
         mock.onPut('', payload).reply(200, mockResponse);
 

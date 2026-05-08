@@ -1,6 +1,7 @@
 /// <reference types="jest" />
 import {portalConfigurationAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
+import type {PortalConfigurationRequest} from '../models';
 
 describe('PortalConfigurationAPI', () => {
     let mock: MockAdapter;
@@ -22,7 +23,7 @@ describe('PortalConfigurationAPI', () => {
     });
 
     it('should update configuration value', async () => {
-        const request = {key: 'config.key1', value: 'newvalue'} as any;
+        const request = {key: 'config.key1', value: 'newvalue'} as unknown as PortalConfigurationRequest;
         const mockResponse = {key: 'config.key1', value: 'newvalue'};
         mock.onPut('', request).reply(200, mockResponse);
 

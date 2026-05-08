@@ -2,6 +2,7 @@
 import {userAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
 import {RoleEnum, UserStatusEnum} from '../models';
+import type {AdminUserRequest, ConfirmationRequest} from '../models';
 
 describe('UserAPI', () => {
     let mock: MockAdapter;
@@ -26,14 +27,14 @@ describe('UserAPI', () => {
     });
 
     it('should accept terms', async () => {
-        const payload = {confirmationAnswer: true} as any;
+        const payload = {confirmationAnswer: true} as unknown as ConfirmationRequest;
         mock.onPut('/accept-terms').reply(200);
         await userAPI.acceptTerms(payload);
         expect(mock.history.put.length).toBeGreaterThan(0);
     });
 
     it('should accept health statement', async () => {
-        const payload = {confirmationAnswer: true} as any;
+        const payload = {confirmationAnswer: true} as unknown as ConfirmationRequest;
         mock.onPut('/confirm-health-check').reply(200);
         await userAPI.acceptHealthStatement(payload);
         expect(mock.history.put.length).toBeGreaterThan(0);
@@ -68,7 +69,7 @@ describe('UserAPI', () => {
     });
 
     it('should admin update user', async () => {
-        const postData = {id: 1, email: 'user@example.com', status: UserStatusEnum.ACTIVE} as any;
+        const postData = {id: 1, email: 'user@example.com', status: UserStatusEnum.ACTIVE} as unknown as AdminUserRequest;
         const mockResponse = {id: 1, email: 'user@example.com', status: UserStatusEnum.ACTIVE};
         mock.onPut('').reply(200, mockResponse);
         const result = await userAPI.adminUpdateUser(postData);
