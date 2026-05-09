@@ -77,3 +77,5 @@
   consistency.
 - Always verify the updates by running both the tests and linting and type checks: `yarn test`, `yarn lint`, `yarn tsc --noEmit`. If you add new tests,
   follow the existing patterns for service class testing with mocks.
+- In case of deprecations, never ignore nor remove old code without a clear migration path. Instead, plan for cleanup and include it in the task description so
+  that the migration from the deprecated code to the new code becomes a part of the expanded task.
