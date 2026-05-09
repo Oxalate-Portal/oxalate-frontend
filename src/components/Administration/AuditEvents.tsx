@@ -1,7 +1,7 @@
-import {Button, Input, type InputRef, Space, Spin, Table, type TablePaginationConfig, Tag} from "antd";
+import {Button, Input, Space, Spin, Table, type TablePaginationConfig, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../tools";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {type AuditEntryResponse, AuditLevelEnum, type SortableTableParams} from "../../models";
 import {auditAPI} from "../../services";
 import type {ColumnsType, ColumnType} from "antd/es/table";
@@ -16,7 +16,7 @@ export function AuditEvents() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [auditEvents, setAuditEvents] = useState<AuditEntryResponse[]>([]);
-    const refreshDataFromServer = useRef(true); // useRef to track whether data should be fetched or not
+    const [refreshDataFromServer, setRefreshDataFromServer] = useState<boolean>(true);
 
     const [tablePaginationConfig, setTablePaginationConfig] = useState<TablePaginationConfig>({
         current: 1,
@@ -42,8 +42,6 @@ export function AuditEvents() {
 
     const [filterText, setFilterText] = useState("");
     const [filteredColumn, setFilteredColumn] = useState(defaultFilterColumn);
-    const searchInput = useRef<InputRef>(null);
-
     const handleReset = (clearFilters: () => void) => {
         clearFilters();
         setFilterText("");
@@ -52,7 +50,7 @@ export function AuditEvents() {
         filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters, close}) => (
                 <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
                     <Input
-                            ref={searchInput}
+                            autoFocus
                             placeholder={`Search ${auditEntryKey}`}
                             value={selectedKeys[0]}
                             onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
@@ -107,11 +105,6 @@ export function AuditEvents() {
                         .toString()
                         .toLowerCase()
                         .includes((value as string).toLowerCase()),
-        onFilterDropdownOpenChange: (visible) => {
-            if (visible) {
-                setTimeout(() => searchInput.current?.select(), 100);
-            }
-        },
         render: (text) =>
                 filteredColumn === auditEntryKey ? (
                         <Highlighter
@@ -198,7 +191,7 @@ export function AuditEvents() {
 
 
     useEffect(() => {
-        if (!refreshDataFromServer.current) {
+        if (!refreshDataFromServer) {
             return;
         }
 
@@ -244,9 +237,9 @@ export function AuditEvents() {
                 })
                 .finally(() => {
                     setLoading(false);
-                    refreshDataFromServer.current = false;
+                    setRefreshDataFromServer(false);
                 });
-    }, [filteredColumn, tablePaginationConfig, tableParams.field, tableParams.filter, tableParams.order]);
+    }, [filteredColumn, refreshDataFromServer, tablePaginationConfig, tableParams.field, tableParams.filter, tableParams.order]);
 
     function handleTableChange(tablePaginationConfig: TablePaginationConfig, filters: Record<string, FilterValue | null>,
                                sorter: SorterResult<AuditEntryResponse> | SorterResult<AuditEntryResponse>[]) {
@@ -285,7 +278,7 @@ export function AuditEvents() {
             });
         }
 
-        refreshDataFromServer.current = true;
+        setRefreshDataFromServer(true);
     }
 
     function handleSearch(searchText: string[], _confirm: (param?: FilterConfirmProps) => void,
@@ -307,7 +300,7 @@ export function AuditEvents() {
             ...tablePaginationConfig,
             current: 1
         });
-        refreshDataFromServer.current = true;
+        setRefreshDataFromServer(true);
     }
 
     return (<div className={"darkDiv"}>

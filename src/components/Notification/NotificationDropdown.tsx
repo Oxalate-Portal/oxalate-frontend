@@ -34,10 +34,15 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
     }, []);
 
     useEffect(() => {
-        fetchUnreadNotifications();
+        const runFetch = () => {
+            void fetchUnreadNotifications();
+        };
+
+        // Defer initial fetch to avoid synchronous setState in effect body.
+        queueMicrotask(runFetch);
 
         // Set up polling interval
-        const intervalId = setInterval(fetchUnreadNotifications, pollInterval);
+        const intervalId = setInterval(runFetch, pollInterval);
 
         return () => {
             clearInterval(intervalId);
