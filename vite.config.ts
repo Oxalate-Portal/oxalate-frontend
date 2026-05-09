@@ -5,6 +5,9 @@ import svgr from "vite-plugin-svgr";
 export default defineConfig({
     // depending on your application, base can also be "/"
     base: "/",
+    define: {
+        __OXALATE_VITE_APP_API_URL__: JSON.stringify(process.env.VITE_APP_API_URL || "")
+    },
     plugins: [react(), svgr()],
     resolve: {
         tsconfigPaths: true,

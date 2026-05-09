@@ -15,6 +15,15 @@ interface SessionProviderProps {
     children: ReactNode;
 }
 
+function normalizeConfigurationArray<T>(value: unknown, label: string): T[] {
+    if (Array.isArray(value)) {
+        return value;
+    }
+
+    console.error(`Expected ${label} to be an array but received:`, value);
+    return [];
+}
+
 export function SessionProvider({children}: SessionProviderProps) {
     const [user, setUser] = useState<UserSessionToken | null>(null);
     const [language, setLanguage] = useState<string>("en");
@@ -30,9 +39,11 @@ export function SessionProvider({children}: SessionProviderProps) {
     // Function to fetch portal configurations
     async function fetchPortalConfigurations(): Promise<ActionResultEnum> {
         try {
-            const configurations: PortalConfigurationResponse[] = await portalConfigurationAPI.findAllPortalConfigurations();
+            const response = await portalConfigurationAPI.findAllPortalConfigurations();
+            const configurations = normalizeConfigurationArray<PortalConfigurationResponse>(response, "portal configurations");
             setPortalConfiguration(configurations);
-            return ActionResultEnum.SUCCESS;
+
+            return Array.isArray(response) ? ActionResultEnum.SUCCESS : ActionResultEnum.FAILURE;
         } catch (error) {
             console.error("Failed to load portal configurations", error);
             return ActionResultEnum.FAILURE;
@@ -59,7 +70,8 @@ export function SessionProvider({children}: SessionProviderProps) {
         }
 
         portalConfigurationAPI.getFrontendConfiguration()
-                .then((configurations: FrontendConfigurationResponse[]) => {
+                .then((response) => {
+                    const configurations = normalizeConfigurationArray<FrontendConfigurationResponse>(response, "frontend configurations");
                     setFrontendConfiguration(configurations);
                     const languageData = localStorage.getItem(languageKey);
 
@@ -81,6 +93,9 @@ export function SessionProvider({children}: SessionProviderProps) {
                     if (portalTimezone === "") {
                         setPortalTimezone(configurations.find((config) => config.key === "timezone")?.value || "UTC");
                     }
+                })
+                .catch((error) => {
+                    console.error("Failed to load frontend configurations", error);
                 })
                 .finally(() => {
                     setLoading(false);

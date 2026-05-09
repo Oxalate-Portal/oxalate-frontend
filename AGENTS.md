@@ -71,3 +71,9 @@
 - If you change CMS pages, blog navigation, or page-group administration, verify both the editing screen and menu regeneration path (`reloadNavigationEvent`).
 - If you add config-driven behavior, decide whether it belongs in frontend config (`getFrontendConfigurationValue`) or authenticated portal config (
   `getPortalConfigurationValue`) before wiring UI logic.
+- If any errors are reported as a result of your changes, do add test coverage to prevent regressions. If you add new API methods, add tests for them in the
+  corresponding service test file.
+- If any visible texts have been added or changed, update the translation files in `public/locales/{de,en,es,fi,sv}.json` and run the parity checker to verify
+  consistency.
+- Always verify the updates by running both the tests and linting and type checks: `yarn test`, `yarn lint`, `yarn tsc --noEmit`. If you add new tests,
+  follow the existing patterns for service class testing with mocks.
