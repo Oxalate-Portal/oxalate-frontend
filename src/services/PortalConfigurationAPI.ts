@@ -1,17 +1,16 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {FrontendConfigurationResponse, PortalConfigurationRequest, PortalConfigurationResponse} from "../models";
-import {getApiBaseUrl} from "./getApiBaseUrl";
+import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 class PortalConfigurationAPI {
     private axiosInstance: AxiosInstance;
-    private baseUrl: string = getApiBaseUrl() + "/configurations";
 
     constructor() {
         this.axiosInstance = Axios.create({
-            baseURL: this.baseUrl,
             withCredentials: true,
             headers: {"Content-Type": "application/json;charset=utf-8"
             }});
+        configureAxiosBaseUrl(this.axiosInstance, "/configurations");
     }
 
     public async findAllPortalConfigurations(): Promise<PortalConfigurationResponse[]> {

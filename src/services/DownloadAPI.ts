@@ -1,6 +1,6 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {DownloadCertificateResponse, DownloadDiveResponse, DownloadPaymentResponse} from "../models";
-import {getApiBaseUrl} from "./getApiBaseUrl";
+import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 class DownloadAPI {
     protected axiosInstance: AxiosInstance;
@@ -8,10 +8,10 @@ class DownloadAPI {
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: getApiBaseUrl() + member,
             withCredentials: true,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         });
+        configureAxiosBaseUrl(this.axiosInstance, member);
     }
 
     public async downloadCertificates(): Promise<DownloadCertificateResponse[]> {

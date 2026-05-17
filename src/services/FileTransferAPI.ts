@@ -1,7 +1,7 @@
 import Axios, {type AxiosInstance, type AxiosResponse} from "axios";
 import type {GetProp, UploadFile, UploadProps} from "antd";
 import type {ActionResponse, AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models";
-import {getApiBaseUrl} from "./getApiBaseUrl";
+import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 // Define the response type for successful uploads
 interface DownloadResponse {
@@ -13,7 +13,6 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 class FileTransferAPI {
     private axiosInstance: AxiosInstance;
-    private baseUrl: string = getApiBaseUrl() + "/files";
     private static  readonly AVATAR_PATH: string = "/avatars";
     private static  readonly CERTIFICATE_PATH: string = "/certificates";
     private static  readonly DOCUMENT_PATH: string = "/documents";
@@ -22,10 +21,10 @@ class FileTransferAPI {
 
     constructor() {
         this.axiosInstance = Axios.create({
-            baseURL: this.baseUrl,
             withCredentials: true,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         });
+        configureAxiosBaseUrl(this.axiosInstance, "/files");
     }
 
     /* ==== Avatar file ==== */

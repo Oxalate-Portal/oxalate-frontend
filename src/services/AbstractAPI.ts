@@ -1,15 +1,15 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {PagedResponse} from "../models";
-import {getApiBaseUrl} from "./getApiBaseUrl";
+import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {
     protected axiosInstance: AxiosInstance;
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: getApiBaseUrl() + member,
             withCredentials: true
         });
+        configureAxiosBaseUrl(this.axiosInstance, member);
     }
 
     public async findAll(params?: Record<string, string | number>): Promise<RESPONSE[]> {

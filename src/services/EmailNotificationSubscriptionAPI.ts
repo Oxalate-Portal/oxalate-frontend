@@ -1,16 +1,16 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {EmailNotificationSubscriptionRequest, EmailNotificationSubscriptionResponse} from "../models";
-import {getApiBaseUrl} from "./getApiBaseUrl";
+import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 class EmailNotificationSubscriptionAPI {
     protected axiosInstance: AxiosInstance;
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: getApiBaseUrl() + member,
             withCredentials: true,
             headers: {"Content-Type": "application/json;charset=utf-8"}
         });
+        configureAxiosBaseUrl(this.axiosInstance, member);
     }
 
     public async getUserEmailSubscriptions(): Promise<EmailNotificationSubscriptionResponse[]> {

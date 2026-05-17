@@ -1,6 +1,6 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {ActionResponse, LoginRequest, LostPasswordRequest, PasswordResetRequest, RegistrationResponse, RegistrationVO, UserSessionToken} from "../models";
-import {getApiBaseUrl} from "./getApiBaseUrl";
+import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 class AuthAPI {
     userKey: string = "user";
@@ -9,9 +9,9 @@ class AuthAPI {
 
     constructor(member: string) {
         this.axiosInstance = Axios.create({
-            baseURL: getApiBaseUrl() + member,
             withCredentials: true
         });
+        configureAxiosBaseUrl(this.axiosInstance, member);
     }
 
     async login(user: LoginRequest): Promise<UserSessionToken> {

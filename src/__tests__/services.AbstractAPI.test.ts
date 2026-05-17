@@ -17,6 +17,8 @@ class TestAPI extends AbstractAPI<TestRequest, TestResponse> {
 describe('AbstractAPI', () => {
     let api: TestAPI;
     let mock: MockAdapter;
+    const globalWithApi = globalThis as { __OXALATE_API_URL__?: string };
+    const originalGlobalApiUrl = globalWithApi.__OXALATE_API_URL__;
 
     beforeEach(() => {
         api = new TestAPI('/test');
@@ -25,9 +27,19 @@ describe('AbstractAPI', () => {
 
     afterEach(() => {
         mock.reset();
+        globalWithApi.__OXALATE_API_URL__ = originalGlobalApiUrl;
     });
 
     describe('findAll', () => {
+        it('should use updated runtime API base URL for requests', async () => {
+            globalWithApi.__OXALATE_API_URL__ = 'http://localhost:9999/api';
+            mock.onGet('').reply(200, []);
+
+            await api.findAll();
+
+            expect(mock.history.get[0]?.baseURL).toBe('http://localhost:9999/api/test');
+        });
+
         it('should retrieve all items', async () => {
             const mockData: TestResponse[] = [
                 {id: 1, name: 'Item 1'},

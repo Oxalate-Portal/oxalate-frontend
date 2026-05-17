@@ -5,6 +5,8 @@ import type {PortalConfigurationRequest} from '../models';
 
 describe('PortalConfigurationAPI', () => {
     let mock: MockAdapter;
+    const globalWithApi = globalThis as { __OXALATE_API_URL__?: string };
+    const originalGlobalApiUrl = globalWithApi.__OXALATE_API_URL__;
 
     beforeEach(() => {
         mock = new MockAdapter(portalConfigurationAPI['axiosInstance']);
@@ -12,6 +14,17 @@ describe('PortalConfigurationAPI', () => {
 
     afterEach(() => {
         mock.reset();
+        globalWithApi.__OXALATE_API_URL__ = originalGlobalApiUrl;
+    });
+
+    it('should use runtime API base URL when requesting frontend configuration', async () => {
+        globalWithApi.__OXALATE_API_URL__ = 'http://localhost:8080/api';
+        mock.onGet('/frontend').reply(200, []);
+
+        await portalConfigurationAPI.getFrontendConfiguration();
+
+        expect(mock.history.get[0]?.baseURL).toBe('http://localhost:8080/api/configurations');
+        expect(mock.history.get[0]?.url).toBe('/frontend');
     });
 
     it('should find all portal configurations', async () => {
