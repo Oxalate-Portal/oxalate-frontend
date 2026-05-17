@@ -1,9 +1,11 @@
 import {useEffect, useMemo, useState} from "react";
 import type {AggregateResponse, MultiYearValueResponse} from "../../models";
+import {DiveTypeEnum, UserTypeEnum} from "../../models";
 import {statsAPI} from "../../services";
 import {Card, Col, Row, Spin, Table} from "antd";
 import {Column, Line} from "@ant-design/charts";
 import {useTranslation} from "react-i18next";
+import {diveTypeEnum2Tag, userTypeEnum2Tag} from "../../tools";
 
 export function AggregateStats() {
     const {t} = useTranslation();
@@ -11,7 +13,6 @@ export function AggregateStats() {
     const [data, setData] = useState<AggregateResponse | null>(null);
 
     useEffect(() => {
-        setLoading(true);
         statsAPI.getAggregates()
                 .then(setData)
                 .catch(console.error)
@@ -23,9 +24,21 @@ export function AggregateStats() {
         {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
     ];
 
-    const typeColumns = [
+    const eventTypeColumns = [
         {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
-        {title: t("AggregateStats.table.type"), dataIndex: "type", key: "type"},
+        {
+            title: t("AggregateStats.table.type"), dataIndex: "type", key: "type",
+            render: (type: DiveTypeEnum, _record: object, index: number) => diveTypeEnum2Tag(type, t, index)
+        },
+        {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
+    ];
+
+    const diverTypeColumns = [
+        {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
+        {
+            title: t("AggregateStats.table.type"), dataIndex: "type", key: "type",
+            render: (type: UserTypeEnum, _record: object, index: number) => userTypeEnum2Tag(type, t, index)
+        },
         {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
     ];
 
@@ -80,13 +93,13 @@ export function AggregateStats() {
                     </Col>
                     <Col span={12}>
                         <Card title={t("AggregateStats.card.eventsByTypePerYear")}>
-                            <Table pagination={false} size="small" dataSource={typed.eventTypes} columns={typeColumns}/>
+                            <Table pagination={false} size="small" dataSource={typed.eventTypes} columns={eventTypeColumns}/>
                             <Line {...lineConfig(data?.eventTypesPerYear)}/>
                         </Card>
                     </Col>
                     <Col span={12}>
                         <Card title={t("AggregateStats.card.diversByTypePerYear")}>
-                            <Table pagination={false} size="small" dataSource={typed.diverTypes} columns={typeColumns}/>
+                            <Table pagination={false} size="small" dataSource={typed.diverTypes} columns={diverTypeColumns}/>
                             <Line {...lineConfig(data?.diverTypesPerYear)}/>
                         </Card>
                     </Col>

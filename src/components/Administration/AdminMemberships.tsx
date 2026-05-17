@@ -124,16 +124,11 @@ export function AdminMemberships() {
     ];
 
     useEffect(() => {
-        setLoading(true);
         Promise.all([
             membershipAPI.findAll()
         ])
                 .then(([membershipResponses]) => {
                     setMembershipList(membershipResponses);
-                    setLoading(false);
-                })
-                .catch((error) => {
-                    console.error("Failed to load members", error);
                 })
                 .catch((error) => {
                     console.error("Failed to load members", error);

@@ -25,7 +25,6 @@ export function AdminOrgUser() {
     ];
 
     useEffect(() => {
-        setLoading(true);
         let tmpUserId = 0;
 
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
@@ -55,7 +54,6 @@ export function AdminOrgUser() {
                     });
         } else {
             console.error("Invalid user id:", tmpUserId);
-            setLoading(false);
         }
     }, [paramId]);
 

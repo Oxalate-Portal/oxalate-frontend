@@ -12,7 +12,6 @@ export function CommentModeration() {
     const {t} = useTranslation();
 
     const fetchPendingReports = useCallback(() => {
-        setLoading(true);
 
         commentAPI.getPendingReports()
                 .then(response => {

@@ -55,7 +55,6 @@ export function AddPayments() {
     ];
 
     useEffect(() => {
-        setLoading(true);
         Promise.all([
             userAPI.findByRole(RoleEnum.ROLE_USER)
         ])

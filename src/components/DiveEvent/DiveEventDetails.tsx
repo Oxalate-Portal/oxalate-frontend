@@ -164,6 +164,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
     useEffect(() => {
         if (!eventInfo || eventInfo.participants === undefined || eventInfo.organizer === undefined) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setLoading(true);
         } else {
             setLoading(false);

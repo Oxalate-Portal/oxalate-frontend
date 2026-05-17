@@ -1,5 +1,3 @@
 import type {AbstractPage} from "../AbstractPage";
 
-export interface PageRequest extends AbstractPage {
-
-}
+export type PageRequest = AbstractPage;

@@ -1,0 +1,35 @@
+{
+  "compilerOptions" : {
+    "ignoreDeprecations" : "6.0",
+    "target" : "ES2022",
+    "module" : "ES2022",
+    "moduleResolution" : "node",
+    "jsx" : "react-jsx",
+    "esModuleInterop" : true,
+    "allowSyntheticDefaultImports" : true,
+    "allowImportingTsExtensions" : true,
+    "resolveJsonModule" : true,
+    "isolatedModules" : true,
+    "strict" : false,
+    "skipLibCheck" : true,
+    "noImplicitAny" : false,
+    "allowJs" : true,
+    "types" : [
+      "jest",
+      "node",
+      "vite/client",
+      "vite-plugin-svgr/client"
+    ],
+    "lib" : [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ]
+  },
+  "include" : [
+    "src/**/*",
+    "src/vite-env.d.ts",
+    "jest.setup.ts"
+  ]
+}
+

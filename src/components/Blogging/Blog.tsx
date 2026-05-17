@@ -29,7 +29,6 @@ export function Blog() {
     const [pagedResponse, setPagedResponse] = useState<PagedResponse<PageResponse> | null>(null);
 
     const fetchBlogs = useCallback((request: PagedRequest, append: boolean = false) => {
-        setLoading(true);
 
         pageAPI.getPagedBlogs(request)
                 .then((response) => {

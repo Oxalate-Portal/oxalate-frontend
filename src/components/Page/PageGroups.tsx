@@ -98,7 +98,6 @@ export function PageGroups() {
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
             pageGroupMgmtAPI.findAll()
                     .then(response => {
                         setPageGroups(response);

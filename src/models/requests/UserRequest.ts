@@ -1,4 +1,3 @@
 import type {AbstractUser} from "../AbstractUser";
 
-export interface UserRequest extends AbstractUser {
-}
+export type UserRequest = AbstractUser;

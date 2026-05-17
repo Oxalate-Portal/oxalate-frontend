@@ -125,11 +125,11 @@ export function EditPage() {
         let tmpPageId = 0;
         if (!Number.isNaN(parseInt(paramId))) {
             tmpPageId = parseInt(paramId);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setPageId(tmpPageId);
         }
 
         if (tmpPageId > 0) {
-            setLoading(true);
             setCreateNewPage(false);
             setFormTitleKey("EditPage.title.update");
 
@@ -231,6 +231,7 @@ export function EditPage() {
         return Promise.resolve();
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const validateRoleDuplicates = (_: unknown, _value: RoleEnum, _index: number) => {
         const allRolePermissions: RolePermissionResponse[] = pageForm.getFieldValue("rolePermissions");
         const roles: RoleEnum[] = allRolePermissions.map((item: RolePermissionResponse) => item.role);
@@ -317,6 +318,7 @@ export function EditPage() {
                                 <Form.List name={"pageVersions"}
                                            key={"page-versions"}
                                 >
+                                    {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
                                     {(versions, {add: _add, remove: _remove}) => {
                                         return (
                                                 <>

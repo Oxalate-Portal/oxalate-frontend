@@ -66,6 +66,24 @@ export function EditDiveEvent() {
     const [messageApi, contextHolder] = message.useMessage();
     const [notificationModalOpen, setNotificationModalOpen] = useState<boolean>(false);
 
+    // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
+    function nextEventTime(): dayjs.Dayjs {
+        const now = dayjs();
+        let nextEvent: dayjs.Dayjs;
+
+        if (now.minute() % 30 === 0) {
+            nextEvent = now.add(30, "minute");
+        } else {
+            nextEvent = now.add(60 - now.minute() % 30, "minute");
+        }
+
+        return nextEvent;
+    }
+
+    function disabledDate(current: Dayjs): boolean {
+        return current && (blockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
+    }
+
     useEffect(() => {
         function populateOrganizerList(organizers: ListUserResponse[]): void {
             const organizerList = [];
@@ -156,6 +174,7 @@ export function EditDiveEvent() {
             }));
         }
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
         setFrontendValues();
         let tmpDiveEventId = 0;
@@ -225,23 +244,6 @@ export function EditDiveEvent() {
         }
     }, [paramId, t, getFrontendConfigurationValue, getPortalConfigurationValue, diveEventForm]);
 
-    function disabledDate(current: Dayjs): boolean {
-        return current && (blockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
-    }
-
-    // This calculates when the next event could be, general rule is to take current time, take mod 30 on the minutes and add 30 minutes
-    function nextEventTime(): dayjs.Dayjs {
-        const now = dayjs();
-        let nextEvent: dayjs.Dayjs;
-
-        if (now.minute() % 30 === 0) {
-            nextEvent = now.add(30, "minute");
-        } else {
-            nextEvent = now.add(60 - now.minute() % 30, "minute");
-        }
-
-        return nextEvent;
-    }
 
     function validateMaxParticipants(_: unknown, value: number): Promise<void> {
         // Get the selected participant IDs
@@ -255,6 +257,7 @@ export function EditDiveEvent() {
         return Promise.resolve();
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function validateSelectedParticipants(_: unknown, _1: number): Promise<void> {
         // Get the selected participant IDs
         const selectedParticipants = diveEventForm.getFieldValue("participants");

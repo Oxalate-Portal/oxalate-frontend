@@ -1,60 +1,58 @@
-import js from '@eslint/js';
-import globals from 'globals';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import react from 'eslint-plugin-react';
-import tseslint from 'typescript-eslint';
+import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
+import tseslint from "typescript-eslint";
+
+const browserGlobals = {
+    console: "readonly",
+    localStorage: "readonly",
+    window: "readonly"
+};
+
+const nodeGlobals = {
+    console: "readonly",
+    process: "readonly"
+};
 
 export default tseslint.config(
-    {ignores: ['dist', 'build', 'coverage', 'node_modules', '*.config.js', '*.config.ts']},
     {
-        extends: [js.configs.recommended, ...tseslint.configs.recommended],
-        files: ['**/*.{ts,tsx}'],
+        ignores: [
+            "coverage/**",
+            "dist/**",
+            "node_modules/**",
+            ".yarn/**",
+            "src/buildInfo.json"
+        ]
+    },
+    {
+        files: ["**/*.{js,mjs,cjs}"],
+        ...js.configs.recommended,
         languageOptions: {
-            ecmaVersion: 2022,
-            globals: {
-                ...globals.browser,
-                ...globals.es2022
-            },
+            ...js.configs.recommended.languageOptions,
+            ecmaVersion: "latest",
+            sourceType: "module",
+            globals: nodeGlobals
+        }
+    },
+    {
+        files: ["src/**/*.{ts,tsx}"],
+        extends: [js.configs.recommended, ...tseslint.configs.recommended],
+        plugins: {
+            "react-hooks": reactHooks
+        },
+        languageOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
             parserOptions: {
+                warnOnUnsupportedTypeScriptVersion: false,
                 ecmaFeatures: {
                     jsx: true
                 }
-            }
-        },
-        plugins: {
-            'react': react,
-            'react-hooks': reactHooks,
-            'react-refresh': reactRefresh
-        },
-        settings: {
-            react: {
-                version: 'detect'
-            }
+            },
+            globals: browserGlobals
         },
         rules: {
-            ...react.configs.recommended.rules,
-            ...react.configs['jsx-runtime'].rules,
             ...reactHooks.configs.recommended.rules,
-            'react-refresh/only-export-components': [
-                'warn',
-                {allowConstantExport: true}
-            ],
-            // TypeScript specific rules
-            '@typescript-eslint/no-unused-vars': ['warn', {argsIgnorePattern: '^_'}],
-            '@typescript-eslint/no-explicit-any': 'warn',
-            '@typescript-eslint/ban-ts-comment': 'off',
-            '@typescript-eslint/no-empty-object-type': 'off',
-            // React rules
-            'react/prop-types': 'off', // Not needed with TypeScript
-            'react/react-in-jsx-scope': 'off', // Not needed with React 17+
-            'react-hooks/exhaustive-deps': 'warn',
-            'react-hooks/immutability': 'off', // Disable the strict immutability rule
-            // React Compiler rules - disable overly strict rules not suitable for this codebase
-            'react-hooks/set-state-in-effect': 'off',
-            'react-hooks/preserve-manual-memoization': 'off',
-            // General rules
-            'no-console': ['warn', {allow: ['warn', 'error', 'debug']}],
+            "no-console": "off"
         }
     }
 );

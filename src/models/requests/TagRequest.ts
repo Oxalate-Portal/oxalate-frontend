@@ -1,4 +1,3 @@
 import type {TagResponse} from "../responses";
 
-export interface TagRequest extends TagResponse {
-}
+export type TagRequest = TagResponse;

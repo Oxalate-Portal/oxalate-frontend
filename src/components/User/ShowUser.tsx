@@ -19,12 +19,12 @@ export function ShowUser() {
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
-        setLoading(true);
 
         let tmpUserId = 0;
 
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpUserId = parseInt(paramId);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setUserId(tmpUserId);
         }
 

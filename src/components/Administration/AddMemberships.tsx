@@ -36,7 +36,6 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
-        setLoading(true);
         userAPI.findByRole(RoleEnum.ROLE_USER)
                 .then((userResponses) => {
                     setUsers(userResponses);

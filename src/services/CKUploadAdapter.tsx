@@ -2,7 +2,7 @@
  * Modified adapter which includes the pageId and language in the upload request
  */
 
-type CkLoader = {
+export type CkLoader = {
     file: Promise<File>;
     uploadTotal?: number;
     uploaded?: number;

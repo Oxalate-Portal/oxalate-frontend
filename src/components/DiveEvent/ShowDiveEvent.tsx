@@ -22,7 +22,6 @@ export function ShowDiveEvent() {
         }
 
         if (tmpDiveEventId > 0) {
-            setLoading(true);
             console.debug("Fetching dive event with id:", tmpDiveEventId);
             diveEventAPI.findById(tmpDiveEventId, null)
                     .then(response => {
@@ -30,11 +29,14 @@ export function ShowDiveEvent() {
                     })
                     .catch(error => {
                         console.error("Error:", error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
                     });
-            setLoading(false);
         } else {
             console.error("Invalid dive event id:", tmpDiveEventId);
-
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setLoading(false);
         }
     }, [paramId]);
 

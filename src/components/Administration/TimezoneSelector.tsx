@@ -37,7 +37,7 @@ export function TimezoneSelector({selectedValue, onChange}: TimezoneSelectorProp
                         optionFilterProp={"children"}
                         style={{width: "100%"}}
                         filterOption={(input: string, option) =>
-                                (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+                                (String(option?.label ?? "")).toLowerCase().includes(input.toLowerCase())
                         }
                         value={selectedValue}
                         onChange={(value) =>

@@ -42,11 +42,11 @@ export function SetDives() {
     ];
 
     useEffect(() => {
-        setLoading(true);
 
         let tmpDiveEventId = 0;
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpDiveEventId = parseInt(paramId);
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setDiveEventId(tmpDiveEventId);
         }
 

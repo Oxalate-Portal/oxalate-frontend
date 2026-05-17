@@ -11,7 +11,6 @@ export function Forum() {
     const [comments, setComments] = useState<CommentResponse[]>([]);
 
     useEffect(() => {
-        setLoading(true);
 
         Promise.all([
             commentAPI.findAllForParentIdWithDepth(3, 2)
