@@ -1,15 +1,11 @@
 import Axios, {type AxiosInstance, type AxiosResponse} from "axios";
-import type {GetProp, UploadFile, UploadProps} from "antd";
 import type {ActionResponse, AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 // Define the response type for successful uploads
-interface DownloadResponse {
-    fileName: string;
-    fileUrl: string;
+interface UploadResponse {
+    url: string;
 }
-
-type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 class FileTransferAPI {
     private axiosInstance: AxiosInstance;
@@ -31,6 +27,16 @@ class FileTransferAPI {
 
     public async findAllAvatarFiles(): Promise<AvatarFileResponse[]> {
         const response = await this.axiosInstance.get<AvatarFileResponse[]>(FileTransferAPI.AVATAR_PATH);
+        return response.data;
+    }
+
+    public async uploadAvatarFile(uploadFile: File): Promise<UploadResponse> {
+        this.setMultipartFormDataHeader();
+
+        const formData = new FormData();
+        formData.append("uploadFile", uploadFile);
+
+        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(FileTransferAPI.AVATAR_PATH, formData);
         return response.data;
     }
 
@@ -75,13 +81,16 @@ class FileTransferAPI {
      * @param uploadFile - The dive PDF file to upload
      * @returns Promise resolving to the response with file download info
      */
-    public async uploadDiveFile(uploadFile: UploadFile): Promise<DownloadResponse[]> {
+    public async uploadDiveFile(uploadFile: File, eventId: number, diveGroupId: number): Promise<UploadResponse> {
         this.setMultipartFormDataHeader();
 
         const formData = new FormData();
-        formData.append("file", uploadFile as FileType);
+        formData.append("uploadFile", uploadFile);
 
-        const response: AxiosResponse<DownloadResponse[]> = await this.axiosInstance.post(FileTransferAPI.DIVE_FILE_PATH, formData);
+        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
+            `${FileTransferAPI.DIVE_FILE_PATH}?eventId=${eventId}&diveGroupId=${diveGroupId}`,
+            formData
+        );
         return response.data;
     }
 
@@ -106,13 +115,13 @@ class FileTransferAPI {
      * @param uploadFile - The document PDF file to upload
      * @returns Promise resolving to the response with file download info
      */
-    public async uploadDocumentFile(uploadFile: UploadFile): Promise<DownloadResponse[]> {
+    public async uploadDocumentFile(uploadFile: File): Promise<UploadResponse> {
         this.setMultipartFormDataHeader();
 
         const formData = new FormData();
-        formData.append("file", uploadFile as FileType);
+        formData.append("uploadFile", uploadFile);
 
-        const response: AxiosResponse<DownloadResponse[]> = await this.axiosInstance.post(FileTransferAPI.DOCUMENT_PATH, formData);
+        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(FileTransferAPI.DOCUMENT_PATH, formData);
         return response.data;
     }
 

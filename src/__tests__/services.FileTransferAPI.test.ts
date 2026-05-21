@@ -28,6 +28,15 @@ describe('FileTransferAPI', () => {
             const result = await fileTransferAPI.removeAvatarFile(1);
             expect(result).toEqual(mockResponse);
         });
+
+        it('uploadAvatarFileValidOk', async () => {
+            const mockResponse = {url: '/files/avatars/1'};
+            const uploadFile = new File(['avatar'], 'avatar.png', {type: 'image/png'});
+            mock.onPost('/avatars').reply(200, mockResponse);
+
+            const result = await fileTransferAPI.uploadAvatarFile(uploadFile);
+            expect(result).toEqual(mockResponse);
+        });
     });
 
     describe('Certificate files', () => {
@@ -64,6 +73,15 @@ describe('FileTransferAPI', () => {
             const result = await fileTransferAPI.removeDiveFile(1);
             expect(result).toEqual(mockResponse);
         });
+
+        it('uploadDiveFileValidOk', async () => {
+            const mockResponse = {url: '/files/dive-files/1'};
+            const uploadFile = new File(['dive'], 'dive-plan.pdf', {type: 'application/pdf'});
+            mock.onPost('/dive-files?eventId=12&diveGroupId=3').reply(200, mockResponse);
+
+            const result = await fileTransferAPI.uploadDiveFile(uploadFile, 12, 3);
+            expect(result).toEqual(mockResponse);
+        });
     });
 
     describe('Document files', () => {
@@ -80,6 +98,15 @@ describe('FileTransferAPI', () => {
             mock.onDelete('/documents/1').reply(200, mockResponse);
 
             const result = await fileTransferAPI.removeDocumentFile(1);
+            expect(result).toEqual(mockResponse);
+        });
+
+        it('uploadDocumentFileValidOk', async () => {
+            const mockResponse = {url: '/files/documents/2'};
+            const uploadFile = new File(['doc'], 'membership.pdf', {type: 'application/pdf'});
+            mock.onPost('/documents').reply(200, mockResponse);
+
+            const result = await fileTransferAPI.uploadDocumentFile(uploadFile);
             expect(result).toEqual(mockResponse);
         });
     });

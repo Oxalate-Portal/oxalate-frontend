@@ -1795,6 +1795,55 @@
       "tooltip" : "Your dive certifications, max "
     }
   },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profile avatar",
+      "upload" : {
+        "button" : "Upload avatar",
+        "fail" : "Avatar upload failed",
+        "fileTooLarge" : "Avatar file is too large (max 1 MB)",
+        "invalidType" : "Only gif, jpg and png image files are allowed",
+        "success" : "Avatar uploaded successfully"
+      }
+    },
+    "dive" : {
+      "download" : "Download",
+      "fetchFail" : "Failed to load dive files",
+      "table" : {
+        "createdAt" : "Created",
+        "diveGroupId" : "Dive group",
+        "download" : "File",
+        "filename" : "Filename"
+      },
+      "title" : "Dive files",
+      "upload" : {
+        "button" : "Upload dive file",
+        "diveGroupLabel" : "Dive group ID",
+        "fail" : "Dive file upload failed",
+        "fileTooLarge" : "Dive file is too large (max 5 MB)",
+        "invalidDiveGroupId" : "Please set a valid dive group ID",
+        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
+        "success" : "Dive file uploaded successfully"
+      }
+    },
+    "document" : {
+      "download" : "Download",
+      "fetchFail" : "Failed to load document files",
+      "table" : {
+        "createdAt" : "Created",
+        "download" : "File",
+        "filename" : "Filename"
+      },
+      "title" : "Documents",
+      "upload" : {
+        "button" : "Upload document",
+        "fail" : "Document upload failed",
+        "fileTooLarge" : "Document file is too large (max 5 MB)",
+        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
+        "success" : "Document uploaded successfully"
+      }
+    }
+  },
   "UserFields" : {
     "form" : {
       "firstName" : {

@@ -4,10 +4,13 @@ import {userAPI} from "../../services";
 import {message, Space, Spin, Table} from "antd";
 import {useTranslation} from "react-i18next";
 import type {UserResponse} from "../../models";
+import {RoleEnum} from "../../models";
 import {FormPayments} from "./FormPayments";
-import {formatDateTime} from "../../tools";
+import {checkRoles, formatDateTime} from "../../tools";
 import {ProfileCollapse} from "./ProfileCollapse";
 import {FormMemberships} from "./FormMemberships.tsx";
+import {UserDocumentFiles} from "./UserDocumentFiles";
+import {useSession} from "../../session";
 
 export function ShowUser() {
     const {paramId} = useParams<string>();
@@ -17,6 +20,7 @@ export function ShowUser() {
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
+    const {userSession} = useSession();
 
     useEffect(() => {
 
@@ -80,6 +84,11 @@ export function ShowUser() {
                         {userData && <FormMemberships membershipList={userData.memberships}/>}
                         {userData && t("ShowUser.table.user-details")}
                         {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
+                        {userData && <UserDocumentFiles
+                                userId={userId}
+                                username={userData.username}
+                                canUpload={(userSession?.id === userId) || (userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))}
+                        />}
                         {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
                     </Space>
                 </Spin>

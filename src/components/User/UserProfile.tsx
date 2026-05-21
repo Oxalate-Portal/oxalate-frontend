@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Button, Checkbox, Col, Form, Input, message, Modal, Row, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 import {checkRoles} from "../../tools";
-import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./index";
+import {FormMemberships, FormPayments, ProfileCollapse, UserAvatarManager, UserDocumentFiles, UserFields} from "./index";
 import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";
 import {AcceptTerms, HealthStatementConfirmationModal} from "../main";
@@ -171,6 +171,7 @@ export function UserProfile() {
                 <h4>{userSession?.username} {t("User.title")}:</h4>
 
                 <Spin spinning={loading}>
+                    {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id}/>}
                     {workUser && workUser.id > 0 && <Form
                             form={userForm}
                             name={"user-info"}
@@ -327,6 +328,8 @@ export function UserProfile() {
                             }}
                             onCancel={() => setShowHealthStatementModal(false)}
                     />
+
+                    {workUser && <UserDocumentFiles userId={workUser.id} username={workUser.username} canUpload={true}/>}
 
                     {workUser && <ProfileCollapse userId={workUser.id} viewOnly={false}/>}
                 </Spin>

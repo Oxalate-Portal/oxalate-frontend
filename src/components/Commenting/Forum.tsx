@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
 import {commentAPI} from "../../services";
 import type {CommentResponse} from "../../models";
-import {Card, List, Space, Typography} from "antd";
+import {Avatar, Card, List, Space, Typography} from "antd";
 import dayjs from "dayjs";
+import {UserOutlined} from "@ant-design/icons";
+import {resolveCommentAvatarUrl} from "../../tools";
 
 const {Text} = Typography;
 
@@ -61,6 +63,7 @@ export function Forum() {
                                                 style={{width: "100%", marginBottom: 16}}
                                         >
                                             <Space orientation={"horizontal"}>
+                                                <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
                                                 <Text>{comment.username}</Text>
                                                 <Text>
                                                     {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}

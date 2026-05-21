@@ -23,7 +23,7 @@ import {
     UnorderedListOutlined,
     UserOutlined
 } from "@ant-design/icons";
-import {Button, Drawer, Grid, Layout, Menu, type MenuProps, Tooltip} from "antd";
+import {Avatar, Button, Drawer, Grid, Layout, Menu, type MenuProps, Tooltip} from "antd";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
@@ -57,9 +57,11 @@ export function NavigationBar() {
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
     const [forumEnabled, setForumEnabled] = useState<boolean>(false);
     const [blogEnabled, setBlogEnabled] = useState<boolean>(false);
+    const [avatarRefreshKey, setAvatarRefreshKey] = useState<number>(0);
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const avatarUrl = userSession ? localStorage.getItem(`oxalate-avatar-url-${userSession.id}`) : null;
 
     // Get the blog menu items from the hook
     const blogMenuItems = useBlogMenuItems(blogEnabled);
@@ -273,7 +275,7 @@ export function NavigationBar() {
                     {
                         label: userSession ? userSession.firstName + " " + userSession.lastName : "",
                         key: "profile",
-                        icon: <UserOutlined/>,
+                        icon: avatarUrl ? <Avatar size={22} src={avatarUrl}/> : <UserOutlined/>,
                         children: [
                             {
                                 label: (<NavLink to="/users/profile">{t("NavigationBar.action.profile")}</NavLink>),
@@ -309,6 +311,18 @@ export function NavigationBar() {
     ];
 
     useEffect(() => {
+        const onAvatarUpdated = (event: Event) => {
+            const customEvent = event as CustomEvent<{ userId: number; url: string }>;
+
+            if (!userSession || !customEvent.detail || customEvent.detail.userId !== userSession.id) {
+                return;
+            }
+
+            setAvatarRefreshKey((current) => current + 1);
+        };
+
+        window.addEventListener("avatarUpdated", onAvatarUpdated as EventListener);
+
         const fetchPaths = async () => {
             setLoading(true);
             const language = sessionLanguage;
@@ -352,8 +366,9 @@ export function NavigationBar() {
 
         return () => {
             window.removeEventListener("reloadNavigationEvent", fetchPaths);
+            window.removeEventListener("avatarUpdated", onAvatarUpdated as EventListener);
         };
-    }, [userSession, sessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
+    }, [avatarRefreshKey, userSession, sessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
 
     const onClick: MenuProps["onClick"] = e => {
         setCurrent(e.key);
