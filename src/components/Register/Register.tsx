@@ -117,6 +117,7 @@ export function Register() {
                             style={{width: 600, maxWidth: 900}}
                             autoComplete={"off"}
                             scrollToFirstError={true}
+                            initialValues={{privacy: false}}
                     >
                         <h4>{t("Register.form.title")}</h4>
                         <UserFields username={null} userId={0} isOrganizer={false}/>
