@@ -23,7 +23,7 @@ import {
     UnorderedListOutlined,
     UserOutlined
 } from "@ant-design/icons";
-import {Button, Drawer, Grid, Layout, Menu, type MenuProps, Tooltip} from "antd";
+import {Avatar, Button, Drawer, Grid, Layout, Menu, type MenuProps, Tooltip} from "antd";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
@@ -60,6 +60,7 @@ export function NavigationBar() {
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const avatarUrl = userSession?.avatarUrl ?? null;
 
     // Get the blog menu items from the hook
     const blogMenuItems = useBlogMenuItems(blogEnabled);
@@ -273,7 +274,7 @@ export function NavigationBar() {
                     {
                         label: userSession ? userSession.firstName + " " + userSession.lastName : "",
                         key: "profile",
-                        icon: <UserOutlined/>,
+                        icon: avatarUrl ? <Avatar size={22} src={avatarUrl}/> : <UserOutlined/>,
                         children: [
                             {
                                 label: (<NavLink to="/users/profile">{t("NavigationBar.action.profile")}</NavLink>),

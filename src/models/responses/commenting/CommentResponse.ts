@@ -15,7 +15,7 @@ export interface CommentResponse {
     commentStatus: CommentStatusEnum;
     cancelReason: string;
     createdAt: Dayjs;
-    updatedAt: Dayjs|null;
+    modifiedAt: Dayjs | null;
     childComments: CommentResponse[];
     childCount: number;
     userHasReported: boolean;

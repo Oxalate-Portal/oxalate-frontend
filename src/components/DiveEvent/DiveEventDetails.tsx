@@ -8,6 +8,7 @@ import {Space, Spin, Table, Tooltip} from "antd";
 import {LinkOutlined} from "@ant-design/icons";
 import type {ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
+import {DiveEventFiles} from "./DiveEventFiles";
 
 interface DiveEventDetailsProps {
     eventInfo: DiveEventResponse | null;
@@ -199,6 +200,8 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                    key={"parts" + eventInfo.id}
                                    rowKey={(record) => "participant-row-" + record.id}
                             />
+
+                            <DiveEventFiles eventId={eventInfo.id}/>
                         </Space>}
             </Spin>
     );

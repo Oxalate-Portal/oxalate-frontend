@@ -1457,6 +1457,17 @@
         "tooltip" : "Tillåtna typer av dykningar"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Dykfiler stöds",
+        "tooltip" : "Om uppladdning av dykningsrelaterade filer stöds"
+      },
+      "documents-supported" : {
+        "label" : "Dokument stöds",
+        "tooltip" : "Om uppladdning av allmänna dokument stöds"
+      },
+      "title" : "Filinställningar"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Aktivera blogg",
@@ -1793,6 +1804,55 @@
     "profile-certificates-panel" : {
       "header" : "Dykcertifikat",
       "tooltip" : "Dykcertifikat som du har registrerat, max "
+    }
+  },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profilbild",
+      "upload" : {
+        "button" : "Ladda upp avatar",
+        "fail" : "Uppladdning av avatar misslyckades",
+        "fileTooLarge" : "Avatarfilen är för stor (max 1 MB)",
+        "invalidType" : "Endast gif-, jpg- och png-bildfiler är tillåtna",
+        "success" : "Avataren laddades upp"
+      }
+    },
+    "dive" : {
+      "download" : "Ladda ner",
+      "fetchFail" : "Det gick inte att läsa in dykfiler",
+      "table" : {
+        "createdAt" : "Skapad",
+        "diveGroupId" : "Dykgrupp",
+        "download" : "Fil",
+        "filename" : "Filnamn"
+      },
+      "title" : "Dykfiler",
+      "upload" : {
+        "button" : "Ladda upp dykfil",
+        "diveGroupLabel" : "Dykgrupp-ID",
+        "fail" : "Uppladdning av dykfil misslyckades",
+        "fileTooLarge" : "Dykfilen är för stor (max 5 MB)",
+        "invalidDiveGroupId" : "Ange ett giltigt dykgrupp-ID",
+        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
+        "success" : "Dykfilen laddades upp"
+      }
+    },
+    "document" : {
+      "download" : "Ladda ner",
+      "fetchFail" : "Det gick inte att läsa in dokumentfiler",
+      "table" : {
+        "createdAt" : "Skapad",
+        "download" : "Fil",
+        "filename" : "Filnamn"
+      },
+      "title" : "Dokument",
+      "upload" : {
+        "button" : "Ladda upp dokument",
+        "fail" : "Uppladdning av dokument misslyckades",
+        "fileTooLarge" : "Dokumentfilen är för stor (max 5 MB)",
+        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
+        "success" : "Dokumentet laddades upp"
+      }
     }
   },
   "UserFields" : {

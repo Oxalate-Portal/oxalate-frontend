@@ -1457,6 +1457,17 @@
         "tooltip" : "Arten von zulässigen Tauchgängen"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Tauchdateien unterstützt",
+        "tooltip" : "Ob das Hochladen von tauchbezogenen Dateien unterstützt wird"
+      },
+      "documents-supported" : {
+        "label" : "Dokumente unterstützt",
+        "tooltip" : "Ob das Hochladen von allgemeinen Dokumenten unterstützt wird"
+      },
+      "title" : "Dateieinstellungen"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Blog aktivieren",
@@ -1793,6 +1804,55 @@
     "profile-certificates-panel" : {
       "header" : "Tauchzertifikate",
       "tooltip" : "Ihre Tauchzertifikate, die maximum ist "
+    }
+  },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profilbild",
+      "upload" : {
+        "button" : "Avatar hochladen",
+        "fail" : "Avatar-Upload fehlgeschlagen",
+        "fileTooLarge" : "Avatar-Datei ist zu groß (max. 1 MB)",
+        "invalidType" : "Nur gif-, jpg- und png-Bilddateien sind erlaubt",
+        "success" : "Avatar erfolgreich hochgeladen"
+      }
+    },
+    "dive" : {
+      "download" : "Herunterladen",
+      "fetchFail" : "Tauchgangsdateien konnten nicht geladen werden",
+      "table" : {
+        "createdAt" : "Erstellt",
+        "diveGroupId" : "Tauchgruppe",
+        "download" : "Datei",
+        "filename" : "Dateiname"
+      },
+      "title" : "Tauchgangsdateien",
+      "upload" : {
+        "button" : "Tauchgangsdatei hochladen",
+        "diveGroupLabel" : "Tauchgruppen-ID",
+        "fail" : "Upload der Tauchgangsdatei fehlgeschlagen",
+        "fileTooLarge" : "Tauchgangsdatei ist zu groß (max. 5 MB)",
+        "invalidDiveGroupId" : "Bitte geben Sie eine gültige Tauchgruppen-ID ein",
+        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
+        "success" : "Tauchgangsdatei erfolgreich hochgeladen"
+      }
+    },
+    "document" : {
+      "download" : "Herunterladen",
+      "fetchFail" : "Dokumentdateien konnten nicht geladen werden",
+      "table" : {
+        "createdAt" : "Erstellt",
+        "download" : "Datei",
+        "filename" : "Dateiname"
+      },
+      "title" : "Dokumente",
+      "upload" : {
+        "button" : "Dokument hochladen",
+        "fail" : "Dokument-Upload fehlgeschlagen",
+        "fileTooLarge" : "Dokumentdatei ist zu groß (max. 5 MB)",
+        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
+        "success" : "Dokument erfolgreich hochgeladen"
+      }
     }
   },
   "UserFields" : {

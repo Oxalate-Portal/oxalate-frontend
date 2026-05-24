@@ -6,6 +6,7 @@ import {type CommentResponse, type ReportRequest, UpdateStatusEnum} from "../../
 import {commentAPI} from "../../services";
 import {CommentEditor} from "./CommentEditor";
 import {useTranslation} from "react-i18next";
+import {resolveCommentAvatarUrl} from "../../tools";
 
 interface CommentCardProps {
     comment: CommentResponse;
@@ -19,6 +20,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
     const [reportReason, setReportReason] = useState("");
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
+    const avatarImageUrl = resolveCommentAvatarUrl(comment.avatarUrl);
 
     async function handleReport() {
         const reportData: ReportRequest = {
@@ -65,7 +67,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
                 {contextHolder}
                 <Space orientation={"vertical"} size={"large"} style={{width: "100%"}}>
                     <div style={{display: "flex", alignItems: "center", marginBottom: 8}}>
-                        <Avatar icon={<UserOutlined/>} size={40} style={{marginRight: 12}}/>
+                        <Avatar src={avatarImageUrl || undefined} icon={<UserOutlined/>} size={40} style={{marginRight: 12}}/>
                         <div>
                             <Typography.Text strong>{comment.username} (#{comment.id})</Typography.Text>
                             <br/>

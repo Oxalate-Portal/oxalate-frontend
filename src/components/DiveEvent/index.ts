@@ -1,5 +1,6 @@
 export {DiveEvent} from './DiveEvent';
 export {DiveEventDetails} from './DiveEventDetails';
+export {DiveEventFiles} from './DiveEventFiles';
 export {DiveEvents} from './DiveEvents';
 export {DiveEventsTable} from './DiveEventsTable';
 export {EditDiveEvent} from './EditDiveEvent';

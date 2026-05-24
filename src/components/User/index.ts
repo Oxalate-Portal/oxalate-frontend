@@ -8,5 +8,7 @@ export {PasswordFields} from './PasswordFields';
 export {PasswordRules} from './PasswordRules';
 export {ProfileCollapse} from './ProfileCollapse';
 export {ShowUser} from './ShowUser';
+export {UserAvatarManager} from './UserAvatarManager';
+export {UserDocumentFiles} from './UserDocumentFiles';
 export {UserProfile} from './UserProfile.tsx';
 export {UserFields} from './UserFields';

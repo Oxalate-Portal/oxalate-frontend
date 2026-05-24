@@ -1457,6 +1457,17 @@
         "tooltip" : "Sallittujen sukellusten tyypit"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Sukelluslokitiedostot tuettu",
+        "tooltip" : "Onko sukelluksiin liittyvien tiedostojen lataaminen tuettu"
+      },
+      "documents-supported" : {
+        "label" : "Asiakirjat tuettu",
+        "tooltip" : "Onko yleisten asiakirjojen lataaminen tuettu"
+      },
+      "title" : "Tiedostoasetukset"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Ota blogi käyttöön",
@@ -1793,6 +1804,55 @@
     "profile-certificates-panel" : {
       "header" : "Sukellusluokitukset",
       "tooltip" : "Sukellusluokitukset, enintään "
+    }
+  },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profiilikuva",
+      "upload" : {
+        "button" : "Lataa profiilikuva",
+        "fail" : "Profiilikuvan lataus epäonnistui",
+        "fileTooLarge" : "Profiilikuvatiedosto on liian suuri (max 1 MB)",
+        "invalidType" : "Vain gif-, jpg- ja png-kuvatiedostot ovat sallittuja",
+        "success" : "Profiilikuva ladattu onnistuneesti"
+      }
+    },
+    "dive" : {
+      "download" : "Lataa",
+      "fetchFail" : "Sukellustiedostojen lataaminen epäonnistui",
+      "table" : {
+        "createdAt" : "Luotu",
+        "diveGroupId" : "Sukellussarja",
+        "download" : "Tiedosto",
+        "filename" : "Tiedostonimi"
+      },
+      "title" : "Sukellustiedostot",
+      "upload" : {
+        "button" : "Lataa sukellustiedosto",
+        "diveGroupLabel" : "Sukellussarjan tunnus",
+        "fail" : "Sukellustiedoston lataus epäonnistui",
+        "fileTooLarge" : "Sukellustiedosto on liian suuri (max 5 MB)",
+        "invalidDiveGroupId" : "Aseta kelvollinen sukellussarjan tunnus",
+        "invalidType" : "Vain gif-, jpg-, png- ja pdf-tiedostot ovat sallittuja",
+        "success" : "Sukellustiedosto ladattu onnistuneesti"
+      }
+    },
+    "document" : {
+      "download" : "Lataa",
+      "fetchFail" : "Asiakirjatiedostojen lataaminen epäonnistui",
+      "table" : {
+        "createdAt" : "Luotu",
+        "download" : "Tiedosto",
+        "filename" : "Tiedostonimi"
+      },
+      "title" : "Asiakirjat",
+      "upload" : {
+        "button" : "Lataa asiakirja",
+        "fail" : "Asiakirjan lataus epäonnistui",
+        "fileTooLarge" : "Asiakirjatiedosto on liian suuri (max 5 MB)",
+        "invalidType" : "Vain gif-, jpg-, png- ja pdf-tiedostot ovat sallittuja",
+        "success" : "Asiakirja ladattu onnistuneesti"
+      }
     }
   },
   "UserFields" : {

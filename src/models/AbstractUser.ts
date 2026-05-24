@@ -6,6 +6,7 @@ export interface AbstractUser {
     username: string;
     firstName: string;
     lastName: string;
+    avatarUrl: string | null;
     phoneNumber: string;
     registered: Date;
     language: string;

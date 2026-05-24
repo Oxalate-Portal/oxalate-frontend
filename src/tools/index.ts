@@ -35,3 +35,5 @@ export {
     localToUTCDatetime,
     getDefaultMembershipDates
 } from "./DateTimeTool";
+export {getAvatarUploadOutcome} from "./avatarUploadResponse";
+export {resolveCommentAvatarUrl} from "./commentAvatarUrl";

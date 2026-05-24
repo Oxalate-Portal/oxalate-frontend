@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {Button, Checkbox, Col, Form, Input, message, Modal, Row, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 import {checkRoles} from "../../tools";
-import {FormMemberships, FormPayments, ProfileCollapse, UserFields} from "./index";
+import {FormMemberships, FormPayments, ProfileCollapse, UserAvatarManager, UserDocumentFiles, UserFields} from "./index";
 import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";
 import {AcceptTerms, HealthStatementConfirmationModal} from "../main";
@@ -27,6 +27,11 @@ export function UserProfile() {
                 adminUserAPI.findById(userSession?.id, null)
                         .then((response) => {
                             setWorkUser(JSON.parse(JSON.stringify(response)));
+                            // Sync avatar into the shared session so NavigationBar always
+                            // reflects the backend-authoritative URL (including null).
+                            if (userSession.avatarUrl !== response.avatarUrl) {
+                                refreshUserSession({...userSession, avatarUrl: response.avatarUrl});
+                            }
                         })
                         .catch((error) => {
                             console.error("Error fetching:", error);
@@ -39,7 +44,7 @@ export function UserProfile() {
         };
 
         fetchMemberData().catch(console.error);
-    }, [userSession, messageApi]);
+    }, [userSession, messageApi, refreshUserSession]);
 
     function requestStatusUpdate(status: UserStatusEnum) {
         setLoading(true);
@@ -110,6 +115,7 @@ export function UserProfile() {
         const postData: AdminUserRequest = {
             id: workUser.id,
             username: workUser.username,
+            avatarUrl: workUser.avatarUrl,
             firstName: userInfo.firstName,
             lastName: userInfo.lastName,
             status: workUser.status,
@@ -131,6 +137,7 @@ export function UserProfile() {
                         username: response.username,
                         firstName: response.firstName,
                         lastName: response.lastName,
+                        avatarUrl: response.avatarUrl,
                         phoneNumber: response.phoneNumber,
                         registered: response.registered,
                         diveCount: response.diveCount,
@@ -171,6 +178,7 @@ export function UserProfile() {
                 <h4>{userSession?.username} {t("User.title")}:</h4>
 
                 <Spin spinning={loading}>
+                    {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatarUrl}/>}
                     {workUser && workUser.id > 0 && <Form
                             form={userForm}
                             name={"user-info"}
@@ -327,6 +335,10 @@ export function UserProfile() {
                             }}
                             onCancel={() => setShowHealthStatementModal(false)}
                     />
+
+                    {workUser && <UserDocumentFiles userId={workUser.id}
+                                                    creatorName={`${workUser.lastName}, ${workUser.firstName}`}
+                                                    canUpload={true}/>}
 
                     {workUser && <ProfileCollapse userId={workUser.id} viewOnly={false}/>}
                 </Spin>

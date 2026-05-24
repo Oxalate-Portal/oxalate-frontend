@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {UploadOutlined} from "@ant-design/icons";
 import {Button, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
 import {fileTransferAPI} from "../../../services";
-import {type DocumentFileResponse, UploadStatusEnum} from "../../../models";
+import {type DocumentFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from "../../../models";
 import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
@@ -10,12 +10,17 @@ import {useTranslation} from "react-i18next";
 export function DocumentFiles() {
     const [loading, setLoading] = useState<boolean>(true);
     const [documentFiles, setDocumentFiles] = useState<DocumentFileResponse[]>([]);
-    const {userSession} = useSession();
+    const {getPortalConfigurationValue, userSession} = useSession();
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
+    const documentsSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "documents-supported") === "true";
 
     useEffect(() => {
+        if (!documentsSupported) {
+            return;
+        }
+
         fileTransferAPI.findAllDocuments()
                 .then((response) => {
                     setDocumentFiles(response);
@@ -26,7 +31,11 @@ export function DocumentFiles() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [refreshKey]);
+    }, [documentsSupported, refreshKey]);
+
+    if (!documentsSupported) {
+        return null;
+    }
 
     const actionColumnOptions: ActionColumnOptions = {
         onDelete: (id: number) => removeDocument(id)
