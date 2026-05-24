@@ -93,6 +93,14 @@ describe('FileTransferAPI', () => {
             expect(result).toEqual(mockResponse);
         });
 
+        it('should find creator-scoped documents', async () => {
+            const mockResponse = [{id: 2, fileName: 'doc2.pdf'}];
+            mock.onGet('/documents?creatorId=5').reply(200, mockResponse);
+
+            const result = await fileTransferAPI.findAllDocuments(5);
+            expect(result).toEqual(mockResponse);
+        });
+
         it('should remove document file', async () => {
             const mockResponse = {status: 'SUCCESS'};
             mock.onDelete('/documents/1').reply(200, mockResponse);

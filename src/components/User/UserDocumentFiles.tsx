@@ -2,28 +2,41 @@ import {useEffect, useMemo, useState} from "react";
 import {Button, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {fileTransferAPI} from "../../services";
-import {type DocumentFileResponse} from "../../models";
+import {type DocumentFileResponse, PortalConfigGroupEnum} from "../../models";
 import {FileUploadValidationError, validateUploadFile} from "../../tools/FileUploadValidation";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
+import {useSession} from "../../session";
 
 interface UserDocumentFilesProps {
     userId: number;
-    username: string;
+    creatorName: string;
     canUpload: boolean;
 }
 
-export function UserDocumentFiles({userId, username, canUpload}: UserDocumentFilesProps) {
+export function filterDocumentsForCreator(documents: DocumentFileResponse[], creatorName: string): DocumentFileResponse[] {
+    return documents.filter((document) => document.creator === creatorName);
+}
+
+export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocumentFilesProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const [documents, setDocuments] = useState<DocumentFileResponse[]>([]);
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
+    const {getPortalConfigurationValue} = useSession();
+    const documentsSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "documents-supported") === "true";
 
     useEffect(() => {
-        fileTransferAPI.findAllDocuments()
+        if (!documentsSupported) {
+            setDocuments([]);
+            setLoading(false);
+            return;
+        }
+
+        fileTransferAPI.findAllDocuments(userId)
                 .then((response) => {
-                    setDocuments(response.filter((document) => document.creator === username));
+                    setDocuments(filterDocumentsForCreator(response, creatorName));
                 })
                 .catch((error) => {
                     console.error("Error fetching document files", error);
@@ -32,7 +45,11 @@ export function UserDocumentFiles({userId, username, canUpload}: UserDocumentFil
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [messageApi, refreshKey, t, userId, username]);
+    }, [creatorName, documentsSupported, messageApi, refreshKey, t, userId]);
+
+    if (!documentsSupported) {
+        return null;
+    }
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -92,7 +109,7 @@ export function UserDocumentFiles({userId, username, canUpload}: UserDocumentFil
     }, [t]);
 
     return (
-            <Space direction={"vertical"} size={12} style={{width: "100%"}}>
+            <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                 {contextHolder}
                 <Typography.Title level={5}>{t("UserFiles.document.title")}</Typography.Title>
                 {canUpload && (

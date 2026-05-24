@@ -3,6 +3,7 @@ export const PortalConfigGroupEnum = {
     EMAIL: "email",
     GENERAL: "general",
     FRONTEND: "frontend",
+    FILES: "files",
     MEMBERSHIP: "membership",
     PAYMENT: "payment"
 } as const;

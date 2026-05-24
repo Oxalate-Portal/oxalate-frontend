@@ -57,11 +57,10 @@ export function NavigationBar() {
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
     const [forumEnabled, setForumEnabled] = useState<boolean>(false);
     const [blogEnabled, setBlogEnabled] = useState<boolean>(false);
-    const [avatarRefreshKey, setAvatarRefreshKey] = useState<number>(0);
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const avatarUrl = userSession ? localStorage.getItem(`oxalate-avatar-url-${userSession.id}`) : null;
+    const avatarUrl = userSession?.avatarUrl ?? null;
 
     // Get the blog menu items from the hook
     const blogMenuItems = useBlogMenuItems(blogEnabled);
@@ -311,18 +310,6 @@ export function NavigationBar() {
     ];
 
     useEffect(() => {
-        const onAvatarUpdated = (event: Event) => {
-            const customEvent = event as CustomEvent<{ userId: number; url: string }>;
-
-            if (!userSession || !customEvent.detail || customEvent.detail.userId !== userSession.id) {
-                return;
-            }
-
-            setAvatarRefreshKey((current) => current + 1);
-        };
-
-        window.addEventListener("avatarUpdated", onAvatarUpdated as EventListener);
-
         const fetchPaths = async () => {
             setLoading(true);
             const language = sessionLanguage;
@@ -366,9 +353,8 @@ export function NavigationBar() {
 
         return () => {
             window.removeEventListener("reloadNavigationEvent", fetchPaths);
-            window.removeEventListener("avatarUpdated", onAvatarUpdated as EventListener);
         };
-    }, [avatarRefreshKey, userSession, sessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
+    }, [userSession, sessionLanguage, getPortalConfigurationValue, getFrontendConfigurationValue]);
 
     const onClick: MenuProps["onClick"] = e => {
         setCurrent(e.key);

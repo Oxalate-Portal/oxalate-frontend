@@ -105,8 +105,11 @@ class FileTransferAPI {
 
     /* ==== Document file ==== */
 
-    public async findAllDocuments(): Promise<DocumentFileResponse[]> {
-        const response = await this.axiosInstance.get<DocumentFileResponse[]>(FileTransferAPI.DOCUMENT_PATH);
+    public async findAllDocuments(creatorId?: number): Promise<DocumentFileResponse[]> {
+        const path = creatorId === undefined
+            ? FileTransferAPI.DOCUMENT_PATH
+            : `${FileTransferAPI.DOCUMENT_PATH}?creatorId=${creatorId}`;
+        const response = await this.axiosInstance.get<DocumentFileResponse[]>(path);
         return response.data;
     }
 

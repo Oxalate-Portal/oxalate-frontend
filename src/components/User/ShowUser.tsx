@@ -86,7 +86,7 @@ export function ShowUser() {
                         {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
                         {userData && <UserDocumentFiles
                                 userId={userId}
-                                username={userData.username}
+                                creatorName={`${userData.lastName}, ${userData.firstName}`}
                                 canUpload={(userSession?.id === userId) || (userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))}
                         />}
                         {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}

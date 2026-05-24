@@ -1457,6 +1457,17 @@
         "tooltip" : "Tillåtna typer av dykningar"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Dykfiler stöds",
+        "tooltip" : "Om uppladdning av dykningsrelaterade filer stöds"
+      },
+      "documents-supported" : {
+        "label" : "Dokument stöds",
+        "tooltip" : "Om uppladdning av allmänna dokument stöds"
+      },
+      "title" : "Filinställningar"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Aktivera blogg",
@@ -1797,50 +1808,50 @@
   },
   "UserFiles" : {
     "avatar" : {
-      "previewAlt" : "Profile avatar",
+      "previewAlt" : "Profilbild",
       "upload" : {
-        "button" : "Upload avatar",
-        "fail" : "Avatar upload failed",
-        "fileTooLarge" : "Avatar file is too large (max 1 MB)",
-        "invalidType" : "Only gif, jpg and png image files are allowed",
-        "success" : "Avatar uploaded successfully"
+        "button" : "Ladda upp avatar",
+        "fail" : "Uppladdning av avatar misslyckades",
+        "fileTooLarge" : "Avatarfilen är för stor (max 1 MB)",
+        "invalidType" : "Endast gif-, jpg- och png-bildfiler är tillåtna",
+        "success" : "Avataren laddades upp"
       }
     },
     "dive" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load dive files",
+      "download" : "Ladda ner",
+      "fetchFail" : "Det gick inte att läsa in dykfiler",
       "table" : {
-        "createdAt" : "Created",
-        "diveGroupId" : "Dive group",
-        "download" : "File",
-        "filename" : "Filename"
+        "createdAt" : "Skapad",
+        "diveGroupId" : "Dykgrupp",
+        "download" : "Fil",
+        "filename" : "Filnamn"
       },
-      "title" : "Dive files",
+      "title" : "Dykfiler",
       "upload" : {
-        "button" : "Upload dive file",
-        "diveGroupLabel" : "Dive group ID",
-        "fail" : "Dive file upload failed",
-        "fileTooLarge" : "Dive file is too large (max 5 MB)",
-        "invalidDiveGroupId" : "Please set a valid dive group ID",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Dive file uploaded successfully"
+        "button" : "Ladda upp dykfil",
+        "diveGroupLabel" : "Dykgrupp-ID",
+        "fail" : "Uppladdning av dykfil misslyckades",
+        "fileTooLarge" : "Dykfilen är för stor (max 5 MB)",
+        "invalidDiveGroupId" : "Ange ett giltigt dykgrupp-ID",
+        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
+        "success" : "Dykfilen laddades upp"
       }
     },
     "document" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load document files",
+      "download" : "Ladda ner",
+      "fetchFail" : "Det gick inte att läsa in dokumentfiler",
       "table" : {
-        "createdAt" : "Created",
-        "download" : "File",
-        "filename" : "Filename"
+        "createdAt" : "Skapad",
+        "download" : "Fil",
+        "filename" : "Filnamn"
       },
-      "title" : "Documents",
+      "title" : "Dokument",
       "upload" : {
-        "button" : "Upload document",
-        "fail" : "Document upload failed",
-        "fileTooLarge" : "Document file is too large (max 5 MB)",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Document uploaded successfully"
+        "button" : "Ladda upp dokument",
+        "fail" : "Uppladdning av dokument misslyckades",
+        "fileTooLarge" : "Dokumentfilen är för stor (max 5 MB)",
+        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
+        "success" : "Dokumentet laddades upp"
       }
     }
   },

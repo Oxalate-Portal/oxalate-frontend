@@ -1457,6 +1457,17 @@
         "tooltip" : "Qué tipos de eventos de buceo están permitidos"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Archivos de buceo compatibles",
+        "tooltip" : "Si se admite la carga de archivos relacionados con buceo"
+      },
+      "documents-supported" : {
+        "label" : "Documentos compatibles",
+        "tooltip" : "Si se admite la carga de documentos generales"
+      },
+      "title" : "Configuración de archivos"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Habilitar blog",
@@ -1797,50 +1808,50 @@
   },
   "UserFiles" : {
     "avatar" : {
-      "previewAlt" : "Profile avatar",
+      "previewAlt" : "Avatar de perfil",
       "upload" : {
-        "button" : "Upload avatar",
-        "fail" : "Avatar upload failed",
-        "fileTooLarge" : "Avatar file is too large (max 1 MB)",
-        "invalidType" : "Only gif, jpg and png image files are allowed",
-        "success" : "Avatar uploaded successfully"
+        "button" : "Subir avatar",
+        "fail" : "Error al subir el avatar",
+        "fileTooLarge" : "El archivo de avatar es demasiado grande (máx. 1 MB)",
+        "invalidType" : "Solo se permiten archivos de imagen gif, jpg y png",
+        "success" : "Avatar subido correctamente"
       }
     },
     "dive" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load dive files",
+      "download" : "Descargar",
+      "fetchFail" : "Error al cargar los archivos de buceo",
       "table" : {
-        "createdAt" : "Created",
-        "diveGroupId" : "Dive group",
-        "download" : "File",
-        "filename" : "Filename"
+        "createdAt" : "Creado",
+        "diveGroupId" : "Grupo de buceo",
+        "download" : "Archivo",
+        "filename" : "Nombre de archivo"
       },
-      "title" : "Dive files",
+      "title" : "Archivos de buceo",
       "upload" : {
-        "button" : "Upload dive file",
-        "diveGroupLabel" : "Dive group ID",
-        "fail" : "Dive file upload failed",
-        "fileTooLarge" : "Dive file is too large (max 5 MB)",
-        "invalidDiveGroupId" : "Please set a valid dive group ID",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Dive file uploaded successfully"
+        "button" : "Subir archivo de buceo",
+        "diveGroupLabel" : "ID del grupo de buceo",
+        "fail" : "Error al subir el archivo de buceo",
+        "fileTooLarge" : "El archivo de buceo es demasiado grande (máx. 5 MB)",
+        "invalidDiveGroupId" : "Por favor, introduzca un ID de grupo de buceo válido",
+        "invalidType" : "Solo se permiten archivos gif, jpg, png y pdf",
+        "success" : "Archivo de buceo subido correctamente"
       }
     },
     "document" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load document files",
+      "download" : "Descargar",
+      "fetchFail" : "Error al cargar los archivos de documento",
       "table" : {
-        "createdAt" : "Created",
-        "download" : "File",
-        "filename" : "Filename"
+        "createdAt" : "Creado",
+        "download" : "Archivo",
+        "filename" : "Nombre de archivo"
       },
-      "title" : "Documents",
+      "title" : "Documentos",
       "upload" : {
-        "button" : "Upload document",
-        "fail" : "Document upload failed",
-        "fileTooLarge" : "Document file is too large (max 5 MB)",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Document uploaded successfully"
+        "button" : "Subir documento",
+        "fail" : "Error al subir el documento",
+        "fileTooLarge" : "El archivo de documento es demasiado grande (máx. 5 MB)",
+        "invalidType" : "Solo se permiten archivos gif, jpg, png y pdf",
+        "success" : "Documento subido correctamente"
       }
     }
   },

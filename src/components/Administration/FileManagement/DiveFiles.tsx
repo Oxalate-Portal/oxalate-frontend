@@ -1,16 +1,23 @@
 import {useEffect, useState} from "react";
 import {Table, Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
-import {type DiveFileResponse, UploadStatusEnum} from "../../../models";
+import {type DiveFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
 import {useTranslation} from "react-i18next";
+import {useSession} from "../../../session";
 
 export function DiveFiles() {
     const [loading, setLoading] = useState<boolean>(true);
     const [diveFiles, setDiveFiles] = useState<DiveFileResponse[]>([]);
     const {t} = useTranslation();
+    const {getPortalConfigurationValue} = useSession();
+    const diveFilesSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "dive-files-supported") === "true";
 
     useEffect(() => {
+        if (!diveFilesSupported) {
+            return;
+        }
+
         fileTransferAPI.findAllDiveFiles()
                 .then((response) => {
                     setDiveFiles(response);
@@ -21,7 +28,11 @@ export function DiveFiles() {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, []);
+    }, [diveFilesSupported]);
+
+    if (!diveFilesSupported) {
+        return null;
+    }
 
     const columns = [
         {

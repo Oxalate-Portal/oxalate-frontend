@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {Button, InputNumber, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
-import {type DiveFileResponse, RoleEnum} from "../../models";
+import {type DiveFileResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {fileTransferAPI} from "../../services";
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
@@ -20,10 +20,17 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
     const [diveGroupId, setDiveGroupId] = useState<number>(1);
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
-    const {userSession} = useSession();
+    const {getPortalConfigurationValue, userSession} = useSession();
     const canUpload = userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_USER]);
+    const diveFilesSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "dive-files-supported") === "true";
 
     useEffect(() => {
+        if (!diveFilesSupported) {
+            setDiveFiles([]);
+            setLoading(false);
+            return;
+        }
+
         fileTransferAPI.findAllDiveFiles()
                 .then((response) => {
                     setDiveFiles(response.filter((diveFile) => diveFile.eventId === eventId));
@@ -35,7 +42,11 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [eventId, messageApi, refreshKey, t]);
+    }, [diveFilesSupported, eventId, messageApi, refreshKey, t]);
+
+    if (!diveFilesSupported) {
+        return null;
+    }
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -106,7 +117,7 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
     }, [t]);
 
     return (
-            <Space direction={"vertical"} size={12} style={{width: "100%"}}>
+            <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                 {contextHolder}
                 <Typography.Title level={5}>{t("UserFiles.dive.title")}</Typography.Title>
                 {canUpload && (

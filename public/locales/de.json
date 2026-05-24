@@ -1457,6 +1457,17 @@
         "tooltip" : "Arten von zulässigen Tauchgängen"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Tauchdateien unterstützt",
+        "tooltip" : "Ob das Hochladen von tauchbezogenen Dateien unterstützt wird"
+      },
+      "documents-supported" : {
+        "label" : "Dokumente unterstützt",
+        "tooltip" : "Ob das Hochladen von allgemeinen Dokumenten unterstützt wird"
+      },
+      "title" : "Dateieinstellungen"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Blog aktivieren",
@@ -1797,50 +1808,50 @@
   },
   "UserFiles" : {
     "avatar" : {
-      "previewAlt" : "Profile avatar",
+      "previewAlt" : "Profilbild",
       "upload" : {
-        "button" : "Upload avatar",
-        "fail" : "Avatar upload failed",
-        "fileTooLarge" : "Avatar file is too large (max 1 MB)",
-        "invalidType" : "Only gif, jpg and png image files are allowed",
-        "success" : "Avatar uploaded successfully"
+        "button" : "Avatar hochladen",
+        "fail" : "Avatar-Upload fehlgeschlagen",
+        "fileTooLarge" : "Avatar-Datei ist zu groß (max. 1 MB)",
+        "invalidType" : "Nur gif-, jpg- und png-Bilddateien sind erlaubt",
+        "success" : "Avatar erfolgreich hochgeladen"
       }
     },
     "dive" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load dive files",
+      "download" : "Herunterladen",
+      "fetchFail" : "Tauchgangsdateien konnten nicht geladen werden",
       "table" : {
-        "createdAt" : "Created",
-        "diveGroupId" : "Dive group",
-        "download" : "File",
-        "filename" : "Filename"
+        "createdAt" : "Erstellt",
+        "diveGroupId" : "Tauchgruppe",
+        "download" : "Datei",
+        "filename" : "Dateiname"
       },
-      "title" : "Dive files",
+      "title" : "Tauchgangsdateien",
       "upload" : {
-        "button" : "Upload dive file",
-        "diveGroupLabel" : "Dive group ID",
-        "fail" : "Dive file upload failed",
-        "fileTooLarge" : "Dive file is too large (max 5 MB)",
-        "invalidDiveGroupId" : "Please set a valid dive group ID",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Dive file uploaded successfully"
+        "button" : "Tauchgangsdatei hochladen",
+        "diveGroupLabel" : "Tauchgruppen-ID",
+        "fail" : "Upload der Tauchgangsdatei fehlgeschlagen",
+        "fileTooLarge" : "Tauchgangsdatei ist zu groß (max. 5 MB)",
+        "invalidDiveGroupId" : "Bitte geben Sie eine gültige Tauchgruppen-ID ein",
+        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
+        "success" : "Tauchgangsdatei erfolgreich hochgeladen"
       }
     },
     "document" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load document files",
+      "download" : "Herunterladen",
+      "fetchFail" : "Dokumentdateien konnten nicht geladen werden",
       "table" : {
-        "createdAt" : "Created",
-        "download" : "File",
-        "filename" : "Filename"
+        "createdAt" : "Erstellt",
+        "download" : "Datei",
+        "filename" : "Dateiname"
       },
-      "title" : "Documents",
+      "title" : "Dokumente",
       "upload" : {
-        "button" : "Upload document",
-        "fail" : "Document upload failed",
-        "fileTooLarge" : "Document file is too large (max 5 MB)",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Document uploaded successfully"
+        "button" : "Dokument hochladen",
+        "fail" : "Dokument-Upload fehlgeschlagen",
+        "fileTooLarge" : "Dokumentdatei ist zu groß (max. 5 MB)",
+        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
+        "success" : "Dokument erfolgreich hochgeladen"
       }
     }
   },

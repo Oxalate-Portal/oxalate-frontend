@@ -5,30 +5,28 @@ import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import {FileUploadValidationError, validateUploadFile} from "../../tools/FileUploadValidation";
 import {getAvatarUploadOutcome, type UploadAvatarResponse} from "../../tools/avatarUploadResponse";
+import {useSession} from "../../session";
 
 interface UserAvatarManagerProps {
     userId: number;
+    initialAvatarUrl: string | null;
 }
 
-function getAvatarStorageKey(userId: number): string {
-    return `oxalate-avatar-url-${userId}`;
-}
-
-export function UserAvatarManager({userId}: UserAvatarManagerProps) {
+export function UserAvatarManager({userId, initialAvatarUrl}: UserAvatarManagerProps) {
     const {t} = useTranslation();
+    const {userSession, refreshUserSession} = useSession();
     const [messageApi, contextHolder] = message.useMessage();
-    const [avatarUrl, setAvatarUrl] = useState<string | null>(localStorage.getItem(getAvatarStorageKey(userId)));
+    const [uploadedAvatarUrl, setUploadedAvatarUrl] = useState<string | null>(null);
+    const avatarUrl = uploadedAvatarUrl ?? initialAvatarUrl;
 
     function setNewAvatarUrl(url: string) {
-        localStorage.setItem(getAvatarStorageKey(userId), url);
-        setAvatarUrl(url);
+        setUploadedAvatarUrl(url);
 
-        window.dispatchEvent(new CustomEvent("avatarUpdated", {
-            detail: {
-                userId,
-                url
-            }
-        }));
+        // Update the shared session so NavigationBar (and any other consumer) picks
+        // up the new avatar URL immediately without relying on localStorage or events.
+        if (userSession) {
+            refreshUserSession({...userSession, avatarUrl: url});
+        }
     }
 
     const uploadProps: UploadProps = {
@@ -76,7 +74,7 @@ export function UserAvatarManager({userId}: UserAvatarManagerProps) {
     };
 
     return (
-            <Space direction={"vertical"} size={12} style={{marginBottom: 16}}>
+            <Space orientation={"vertical"} size={12} style={{marginBottom: 16}}>
                 {contextHolder}
                 <Space size={16} align={"start"}>
                     {avatarUrl ? (

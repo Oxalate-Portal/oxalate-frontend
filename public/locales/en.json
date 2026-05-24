@@ -1457,6 +1457,17 @@
         "tooltip" : "Which types of dive events are allowed"
       }
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Dive files supported",
+        "tooltip" : "Whether uploading of dive-related files is supported"
+      },
+      "documents-supported" : {
+        "label" : "Documents supported",
+        "tooltip" : "Whether uploading of general documents is supported"
+      },
+      "title" : "File settings"
+    },
     "general" : {
       "blog-enabled" : {
         "label" : "Enable blog",
