@@ -76,6 +76,65 @@ describe('AuthAPI', () => {
         expect(result).toEqual(response);
     });
 
+    // Regression test: privacy must always be an explicit boolean (not null/undefined/missing).
+    // When the user never touches the privacy switch on the registration form, the field defaults
+    // to false via Form initialValues. Without that default the field is omitted from the payload,
+    // which causes the backend to throw HttpMessageNotReadableException because
+    // Java's primitive boolean cannot be deserialized from null.
+    it('should send privacy as explicit false when not set by the user', async () => {
+        const registrationData: RegistrationVO = {
+            username: 'newuser@example.com',
+            password: 'aA1^WWWWWWWWW',
+            firstName: 'New',
+            lastName: 'User',
+            phoneNumber: '123456789012345',
+            nextOfKin: 'Someone',
+            privacy: false,  // default value injected by Form initialValues
+            language: 'fi',
+            approvedTerms: true,
+            healthStatementId: 0,
+            primaryUserType: 'SCUBA_DIVER' as import('../models').UserTypeEnum,
+        };
+
+        const response = {status: 'SUCCESS', token: 'abc123'};
+        mock.onPost('/register').reply(200, response);
+
+        await authAPI.register(registrationData);
+
+        expect(mock.history.post).toHaveLength(1);
+        const sentBody = JSON.parse(mock.history.post[0].data as string) as Record<string, unknown>;
+
+        // privacy MUST be present and be a boolean false – never null, undefined, or missing
+        expect(Object.prototype.hasOwnProperty.call(sentBody, 'privacy')).toBe(true);
+        expect(sentBody['privacy']).toBe(false);
+        expect(typeof sentBody['privacy']).toBe('boolean');
+    });
+
+    it('should send privacy as explicit true when the user opts in', async () => {
+        const registrationData: RegistrationVO = {
+            username: 'newuser@example.com',
+            password: 'aA1^WWWWWWWWW',
+            firstName: 'New',
+            lastName: 'User',
+            phoneNumber: '358407031231',
+            nextOfKin: 'Someone',
+            privacy: true,
+            language: 'fi',
+            approvedTerms: true,
+            healthStatementId: 0,
+            primaryUserType: 'SCUBA_DIVER' as import('../models').UserTypeEnum,
+        };
+
+        const response = {status: 'SUCCESS', token: 'abc123'};
+        mock.onPost('/register').reply(200, response);
+
+        await authAPI.register(registrationData);
+
+        const sentBody = JSON.parse(mock.history.post[0].data as string) as Record<string, unknown>;
+        expect(sentBody['privacy']).toBe(true);
+        expect(typeof sentBody['privacy']).toBe('boolean');
+    });
+
     it('should resend registration email', async () => {
         const token = 'registration-token';
         mock.onPost('/registrations/resend-confirmation').reply(200);
