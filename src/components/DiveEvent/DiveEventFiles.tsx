@@ -26,8 +26,6 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
 
     useEffect(() => {
         if (!diveFilesSupported) {
-            setDiveFiles([]);
-            setLoading(false);
             return;
         }
 
@@ -43,10 +41,6 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
                     setLoading(false);
                 });
     }, [diveFilesSupported, eventId, messageApi, refreshKey, t]);
-
-    if (!diveFilesSupported) {
-        return null;
-    }
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -115,6 +109,10 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
             }
         ];
     }, [t]);
+
+    if (!diveFilesSupported) {
+        return null;
+    }
 
     return (
             <Space orientation={"vertical"} size={12} style={{width: "100%"}}>

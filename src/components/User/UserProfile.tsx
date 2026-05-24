@@ -44,7 +44,7 @@ export function UserProfile() {
         };
 
         fetchMemberData().catch(console.error);
-    }, [userSession, messageApi]);
+    }, [userSession, messageApi, refreshUserSession]);
 
     function requestStatusUpdate(status: UserStatusEnum) {
         setLoading(true);

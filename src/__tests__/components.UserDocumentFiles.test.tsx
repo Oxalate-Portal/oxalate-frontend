@@ -3,6 +3,14 @@ import {type DocumentFileResponse, UploadStatusEnum} from "../models";
 import {render} from "@testing-library/react";
 import {fileTransferAPI} from "../services";
 
+const translateMock = (key: string) => key;
+
+jest.mock("react-i18next", () => ({
+    useTranslation: () => ({
+        t: translateMock
+    })
+}));
+
 jest.mock("../session", () => ({
     useSession: () => ({
         getPortalConfigurationValue: () => "false"

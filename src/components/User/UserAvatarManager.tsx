@@ -13,6 +13,7 @@ interface UserAvatarManagerProps {
 }
 
 export function UserAvatarManager({userId, initialAvatarUrl}: UserAvatarManagerProps) {
+    void userId;
     const {t} = useTranslation();
     const {userSession, refreshUserSession} = useSession();
     const [messageApi, contextHolder] = message.useMessage();

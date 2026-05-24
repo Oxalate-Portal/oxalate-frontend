@@ -29,8 +29,6 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
 
     useEffect(() => {
         if (!documentsSupported) {
-            setDocuments([]);
-            setLoading(false);
             return;
         }
 
@@ -46,10 +44,6 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
                     setLoading(false);
                 });
     }, [creatorName, documentsSupported, messageApi, refreshKey, t, userId]);
-
-    if (!documentsSupported) {
-        return null;
-    }
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -107,6 +101,10 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
             }
         ];
     }, [t]);
+
+    if (!documentsSupported) {
+        return null;
+    }
 
     return (
             <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
