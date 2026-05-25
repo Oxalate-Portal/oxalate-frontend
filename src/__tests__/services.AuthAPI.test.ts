@@ -170,5 +170,26 @@ describe('AuthAPI', () => {
         const result = await authAPI.updatePassword(userId, passwordData);
         expect(result).toEqual(response);
     });
+
+    it('should request email change and return true when backend accepts request', async () => {
+        const requestData = {newEmail: 'new.user@example.com', password: 'ValidPassword1!'};
+        mock.onPost('/email-change/requests').reply(200, true);
+
+        const result = await authAPI.requestEmailChange(requestData);
+
+        expect(result).toBe(true);
+        const sentBody = JSON.parse(mock.history.post[0].data as string) as Record<string, unknown>;
+        expect(sentBody['newEmail']).toBe('new.user@example.com');
+        expect(sentBody['password']).toBe('ValidPassword1!');
+    });
+
+    it('should request email change and return false when backend rejects request', async () => {
+        const requestData = {newEmail: 'taken@example.com', password: 'WrongPassword1!'};
+        mock.onPost('/email-change/requests').reply(200, false);
+
+        const result = await authAPI.requestEmailChange(requestData);
+
+        expect(result).toBe(false);
+    });
 });
 

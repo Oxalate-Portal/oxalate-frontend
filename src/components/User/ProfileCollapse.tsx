@@ -1,5 +1,4 @@
-import {Collapse, Spin, Tooltip} from "antd";
-import type {ItemType} from "rc-collapse/es/interface";
+import {Collapse, type CollapseProps, Spin, Tooltip} from "antd";
 import {Certificates} from "../Certificate";
 import {UserEventList} from "./UserEventList";
 import {useTranslation} from "react-i18next";
@@ -24,7 +23,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
     const [maxCertificates, setMaxCertificates] = useState<number>(0);
     const {getFrontendConfigurationValue} = useSession();
 
-    const profileItems: ItemType[] = [
+    const profileItems: CollapseProps['items'] = [
         {
             key: "profile-certificates",
             label: t("UserEvents.profile-certificates-panel.header"),

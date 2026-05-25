@@ -1732,6 +1732,38 @@
       "confirmHealthStatement" : "Gesundheitserklärung bestätigen",
       "lockAccount" : "Konto sperren"
     },
+    "emailChange" : {
+      "button" : "E-Mail-Adresse ändern",
+      "form" : {
+        "newEmail" : {
+          "label" : "Neue E-Mail-Adresse",
+          "placeholder" : "name@example.com",
+          "rules" : {
+            "email" : "Bitte eine gültige E-Mail-Adresse eingeben",
+            "required" : "Bitte eine neue E-Mail-Adresse eingeben"
+          }
+        },
+        "password" : {
+          "label" : "Aktuelles Passwort",
+          "placeholder" : "Aktuelles Passwort eingeben",
+          "rules" : {
+            "required" : "Bitte Ihr aktuelles Passwort eingeben"
+          }
+        },
+        "submit" : "E-Mail-Änderung anfordern"
+      },
+      "modal" : {
+        "title" : "E-Mail-Adresse ändern"
+      },
+      "result" : {
+        "fail" : "Validierung fehlgeschlagen. Bitte Passwort und E-Mail-Adresse prüfen und erneut versuchen.",
+        "success" : "Anfrage akzeptiert. Bitte neues E-Mail-Postfach prüfen und den Bestätigungslink anklicken."
+      },
+      "confirmation" : {
+        "invalid" : "E-Mail-Änderung fehlgeschlagen oder der Bestätigungslink ist abgelaufen.",
+        "ok" : "E-Mail-Adresse wurde aktualisiert. Bitte melden Sie sich mit der neuen E-Mail-Adresse erneut an."
+      }
+    },
     "form" : {
       "membership" : {
         "label" : "Mitgliedschaft",

@@ -1732,6 +1732,38 @@
       "confirmHealthStatement" : "Confirmar declaración de salud",
       "lockAccount" : "Bloquear cuenta"
     },
+    "emailChange" : {
+      "button" : "Cambiar direccion de correo",
+      "form" : {
+        "newEmail" : {
+          "label" : "Nueva direccion de correo",
+          "placeholder" : "nombre@example.com",
+          "rules" : {
+            "email" : "Introduzca una direccion de correo valida",
+            "required" : "Introduzca una nueva direccion de correo"
+          }
+        },
+        "password" : {
+          "label" : "Contrasena actual",
+          "placeholder" : "Introduzca su contrasena actual",
+          "rules" : {
+            "required" : "Introduzca su contrasena actual"
+          }
+        },
+        "submit" : "Solicitar cambio de correo"
+      },
+      "modal" : {
+        "title" : "Cambiar direccion de correo"
+      },
+      "result" : {
+        "fail" : "La validacion fallo. Revise la contrasena y el correo e intente nuevamente.",
+        "success" : "Solicitud aceptada. Revise su nuevo correo y pulse el enlace de confirmacion."
+      },
+      "confirmation" : {
+        "invalid" : "El cambio de correo fallo o el enlace de confirmacion ha caducado.",
+        "ok" : "La direccion de correo se actualizo. Inicie sesion de nuevo con su nuevo correo."
+      }
+    },
     "form" : {
       "membership" : {
         "label" : "Membresía",

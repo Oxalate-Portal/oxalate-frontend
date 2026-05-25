@@ -1,4 +1,6 @@
 export {Certificates} from '../Certificate/Certificates';
+export {EmailChangeConfirmation} from './EmailChangeConfirmation';
+export {EmailChangeRequestModal} from './EmailChangeRequestModal';
 export {FormMemberships} from './FormMemberships';
 export {FormPayments} from './FormPayments';
 export {LostPassword} from './LostPassword';

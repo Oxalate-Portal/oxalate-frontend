@@ -1732,6 +1732,38 @@
       "confirmHealthStatement" : "Bekräfta hälsodeklaration",
       "lockAccount" : "Lås kontot"
     },
+    "emailChange" : {
+      "button" : "Ändra e-postadress",
+      "form" : {
+        "newEmail" : {
+          "label" : "Ny e-postadress",
+          "placeholder" : "namn@example.com",
+          "rules" : {
+            "email" : "Ange en giltig e-postadress",
+            "required" : "Ange en ny e-postadress"
+          }
+        },
+        "password" : {
+          "label" : "Nuvarande lösenord",
+          "placeholder" : "Ange ditt nuvarande lösenord",
+          "rules" : {
+            "required" : "Ange ditt nuvarande lösenord"
+          }
+        },
+        "submit" : "Begär e-poständring"
+      },
+      "modal" : {
+        "title" : "Ändra e-postadress"
+      },
+      "result" : {
+        "fail" : "Valideringen misslyckades. Kontrollera lösenord och e-postadress och försök igen.",
+        "success" : "Begäran accepterades. Kontrollera din nya e-post och klicka på bekräftelselänken."
+      },
+      "confirmation" : {
+        "invalid" : "E-poständringen misslyckades eller bekräftelselänken har löpt ut.",
+        "ok" : "E-postadressen uppdaterades. Logga in igen med din nya e-postadress."
+      }
+    },
     "form" : {
       "membership" : {
         "label" : "Medlemskap",

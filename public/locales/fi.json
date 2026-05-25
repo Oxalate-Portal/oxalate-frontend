@@ -1732,6 +1732,38 @@
       "confirmHealthStatement" : "Vahvista terveysselvitys",
       "lockAccount" : "Lukitse tili"
     },
+    "emailChange" : {
+      "button" : "Vaihda sähköpostiosoite",
+      "form" : {
+        "newEmail" : {
+          "label" : "Uusi sähköpostiosoite",
+          "placeholder" : "nimi@example.com",
+          "rules" : {
+            "email" : "Anna kelvollinen sähköpostiosoite",
+            "required" : "Anna uusi sähköpostiosoite"
+          }
+        },
+        "password" : {
+          "label" : "Nykyinen salasana",
+          "placeholder" : "Syötä nykyinen salasana",
+          "rules" : {
+            "required" : "Anna nykyinen salasana"
+          }
+        },
+        "submit" : "Pyydä sähköpostiosoitteen vaihtoa"
+      },
+      "modal" : {
+        "title" : "Vaihda sähköpostiosoite"
+      },
+      "result" : {
+        "fail" : "Tarkistus epäonnistui. Tarkista salasana ja sähköpostiosoite ja yritä uudelleen.",
+        "success" : "Pyyntö hyväksyttiin. Tarkista uusi sähköpostiosoite ja vahvista muutos linkistä."
+      },
+      "confirmation" : {
+        "invalid" : "Sähköpostiosoitteen vaihto epäonnistui tai vahvistuslinkki on vanhentunut.",
+        "ok" : "Sähköpostiosoite päivitettiin. Kirjaudu uudelleen sisään uudella sähköpostiosoitteellasi."
+      }
+    },
     "form" : {
       "membership" : {
         "label" : "Jäsenyys",

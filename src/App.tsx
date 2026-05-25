@@ -24,6 +24,7 @@ import {
     EditDiveEvent,
     EditPage,
     EditPageGroup,
+    EmailChangeConfirmation,
     Forum,
     Home,
     LoginWithCaptcha,
@@ -169,6 +170,7 @@ function App() {
                             <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
                             <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>
+                            <Route path="/auth/email-change" element={<EmailChangeConfirmation/>}/>
                             <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
                             <Route path="/auth/reconfirm" element={<LostPassword/>}/>
                             <Route path="/auth/register" element={<Register/>}/>
