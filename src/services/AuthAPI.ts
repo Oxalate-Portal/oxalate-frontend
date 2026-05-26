@@ -1,5 +1,14 @@
 import Axios, {type AxiosInstance} from "axios";
-import type {ActionResponse, LoginRequest, LostPasswordRequest, PasswordResetRequest, RegistrationResponse, RegistrationVO, UserSessionToken} from "../models";
+import type {
+    ActionResponse,
+    EmailChangeRequest,
+    LoginRequest,
+    LostPasswordRequest,
+    PasswordResetRequest,
+    RegistrationResponse,
+    RegistrationVO,
+    UserSessionToken
+} from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
 class AuthAPI {
@@ -38,6 +47,11 @@ class AuthAPI {
     async register(registrationData: RegistrationVO): Promise<RegistrationResponse> {
         const response = await this.axiosInstance.post<RegistrationResponse>("/register", registrationData);
         return response.data;
+    }
+
+    async requestEmailChange(requestData: EmailChangeRequest): Promise<boolean> {
+        const response = await this.axiosInstance.post<boolean>("/email-change/requests", requestData);
+        return response.data === true;
     }
 
     async resendRegistrationEmail(token: string): Promise<boolean> {

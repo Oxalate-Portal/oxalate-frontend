@@ -1,14 +1,18 @@
-import {Form, Input, Select, Space, Switch} from "antd";
+import {Button, Form, Input, Select, Space, Switch} from "antd";
 import {useTranslation} from "react-i18next";
 import {LanguageTool} from "../../tools";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {UserTypeEnum} from "../../models";
+import {EmailChangeRequestModal} from "./EmailChangeRequestModal";
 
 export function UserFields(props: { userId: number; username: string | null; isOrganizer: boolean; }) {
     const {t} = useTranslation();
-    const {getFrontendConfigurationValue} = useSession();
+    const {getFrontendConfigurationValue, userSession} = useSession();
     const [supportedLanguages, setSupportedLanguages] = useState<{ label: string; value: string }[]>([]);
+    const [emailChangeModalOpen, setEmailChangeModalOpen] = useState(false);
+
+    const canChangeOwnEmail = props.username !== null && userSession?.id === props.userId;
 
 
     useEffect(() => {
@@ -26,7 +30,14 @@ export function UserFields(props: { userId: number; username: string | null; isO
                     <span className="ant-form-text">{props.userId}</span>
                 </Form.Item>}
                 {props.username !== null && <Form.Item label={t("UserFields.form.username.label")}>
-                    <span className="ant-form-text">{props.username}</span>
+                    <Space>
+                        <span className="ant-form-text">{props.username}</span>
+                        {canChangeOwnEmail && (
+                                <Button size="small" onClick={() => setEmailChangeModalOpen(true)}>
+                                    {t("User.emailChange.button")}
+                                </Button>
+                        )}
+                    </Space>
                 </Form.Item>}
                 {props.username === null &&
                         <Form.Item name={"username"}
@@ -155,6 +166,10 @@ export function UserFields(props: { userId: number; username: string | null; isO
                         })))
                     ]}/>
                 </Form.Item>
+
+                {canChangeOwnEmail && emailChangeModalOpen && (
+                        <EmailChangeRequestModal open={emailChangeModalOpen} onClose={() => setEmailChangeModalOpen(false)}/>
+                )}
             </>
     );
 }

@@ -4,6 +4,7 @@ export type {CertificateRequest} from './CertificateRequest';
 export type {ConfirmationRequest} from './ConfirmationRequest';
 export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
+export type {EmailChangeRequest} from './EmailChangeRequest';
 export type {EmailNotificationSubscriptionRequest} from './EmailNotificationSubscriptionRequest';
 export type {EmailRequest} from './EmailRequest';
 export type {EventSubscribeRequest} from './EventSubscribeRequest';

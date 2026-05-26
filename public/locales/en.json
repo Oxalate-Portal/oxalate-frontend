@@ -1732,6 +1732,38 @@
       "confirmHealthStatement" : "Confirm health statement",
       "lockAccount" : "Lock account"
     },
+    "emailChange" : {
+      "button" : "Change email-address",
+      "form" : {
+        "newEmail" : {
+          "label" : "New email address",
+          "placeholder" : "name@example.com",
+          "rules" : {
+            "email" : "Please enter a valid email address",
+            "required" : "Please enter a new email address"
+          }
+        },
+        "password" : {
+          "label" : "Current password",
+          "placeholder" : "Enter your current password",
+          "rules" : {
+            "required" : "Please enter your current password"
+          }
+        },
+        "submit" : "Request email change"
+      },
+      "modal" : {
+        "title" : "Change email address"
+      },
+      "result" : {
+        "fail" : "Validation failed. Check your password and email address, then try again.",
+        "success" : "Request accepted. Check your new email inbox and click the confirmation link."
+      },
+      "confirmation" : {
+        "invalid" : "Email change failed or the confirmation link has expired.",
+        "ok" : "Email address updated. Please sign in again with your new email address."
+      }
+    },
     "form" : {
       "membership" : {
         "label" : "Membership",
