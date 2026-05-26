@@ -44,6 +44,16 @@ class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
         return response.data;
     }
 
+    public async joinWaitingList(diveEventId: number): Promise<DiveEventResponse> {
+        const response = await this.axiosInstance.post<DiveEventResponse>("/" + diveEventId + "/waiting-list/join");
+        return response.data;
+    }
+
+    public async leaveWaitingList(diveEventId: number): Promise<DiveEventResponse> {
+        const response = await this.axiosInstance.post<DiveEventResponse>("/" + diveEventId + "/waiting-list/leave");
+        return response.data;
+    }
+
     public async getDiveEventDives(diveEventId: number): Promise<DiveEventListResponse> {
         const response = await this.axiosInstance.get<DiveEventListResponse>("/" + diveEventId + "/dives");
         return response.data;

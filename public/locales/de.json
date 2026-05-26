@@ -636,12 +636,18 @@
     "requiresMembership" : "Für die Teilnahme an einer Veranstaltung ist eine Mitgliedschaft erforderlich",
     "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
     "subscribe" : {
-      "button" : "Am Event teilnehmen",
+      "button" : "Event beitreten",
       "label" : "Am Event teilnehmen",
       "mainText" : "Bitte füllen Sie Folgendes aus, um am Tauch-Event teilzunehmen"
     },
     "unsubscribe" : {
       "button" : "Entferne dich von der Ereignis"
+    },
+    "waitingList" : {
+      "joinButton" : "Warteliste beitreten",
+      "leaveButton" : "Warteliste verlassen",
+      "joinLabel" : "Warteliste beitreten",
+      "joinMainText" : "Die Veranstaltung ist ausgebucht. Du kannst der Warteliste beitreten und wirst benachrichtigt, wenn ein Platz frei wird."
     }
   },
   "DiveEventStatusEnum" : {
@@ -1017,6 +1023,7 @@
       "maxDuration" : "Maximale Dauer, min",
       "organizer" : "Veranstalter",
       "participants" : "Teilnehmer",
+      "waitingList" : "Warteliste",
       "startTime" : "Startzeit",
       "status" : "Status",
       "title" : "Beschreibung",

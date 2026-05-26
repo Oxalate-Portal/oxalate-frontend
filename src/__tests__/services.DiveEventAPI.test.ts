@@ -74,6 +74,24 @@ describe('DiveEventAPI', () => {
         expect(result).toEqual(mockResponse);
     });
 
+    it('should join waiting list for event', async () => {
+        const eventId = 1;
+        const mockResponse = {id: eventId, status: 'PUBLISHED'};
+        mock.onPost(`/${eventId}/waiting-list/join`).reply(200, mockResponse);
+
+        const result = await diveEventAPI.joinWaitingList(eventId);
+        expect(result).toEqual(mockResponse);
+    });
+
+    it('should leave waiting list for event', async () => {
+        const eventId = 1;
+        const mockResponse = {id: eventId, status: 'PUBLISHED'};
+        mock.onPost(`/${eventId}/waiting-list/leave`).reply(200, mockResponse);
+
+        const result = await diveEventAPI.leaveWaitingList(eventId);
+        expect(result).toEqual(mockResponse);
+    });
+
     it('should get dive event dives', async () => {
         const eventId = 1;
         const mockResponse = {dives: [{id: 1, eventId, depth: 20}]};

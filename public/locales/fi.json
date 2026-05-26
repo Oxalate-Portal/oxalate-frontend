@@ -636,12 +636,18 @@
     "requiresMembership" : "Tapahtumaan osallistuminen vaatii jäsenyyden",
     "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
     "subscribe" : {
-      "button" : "Osallistu tapahtumaan",
+      "button" : "Liity tapahtumaan",
       "label" : "Osallistu tapahtumaan",
       "mainText" : "Täytä seuraavat tiedot osallistuaksesi sukellustapahtumaan"
     },
     "unsubscribe" : {
       "button" : "Poista itsesi tapahtumasta"
+    },
+    "waitingList" : {
+      "joinButton" : "Liity jonotuslistalle",
+      "leaveButton" : "Poistu jonotuslistalta",
+      "joinLabel" : "Liity jonotuslistalle",
+      "joinMainText" : "Tapahtuma on taynna. Voit liittya jonotuslistalle ja sinulle ilmoitetaan, jos paikka vapautuu."
     }
   },
   "DiveEventStatusEnum" : {
@@ -1017,6 +1023,7 @@
       "maxDuration" : "Maksimiaika, min",
       "organizer" : "Järjestäjä",
       "participants" : "Osallistujat",
+      "waitingList" : "Jonolista",
       "startTime" : "Ajankohta",
       "status" : "Tila",
       "title" : "Kuvaus",

@@ -636,12 +636,18 @@
     "requiresMembership" : "Joining an event requires membership",
     "requiresPayment" : "Joining an event requires payment",
     "subscribe" : {
-      "button" : "Participate in event",
+      "button" : "Join event",
       "label" : "Participate in event",
       "mainText" : "Please complete the following to participate in the dive event"
     },
     "unsubscribe" : {
       "button" : "Remove yourself from event"
+    },
+    "waitingList" : {
+      "joinButton" : "Join waiting list",
+      "leaveButton" : "Leave waiting list",
+      "joinLabel" : "Join the waiting list",
+      "joinMainText" : "The event is fully booked. You can join the waiting list and will be notified if a spot becomes available."
     }
   },
   "DiveEventStatusEnum" : {
@@ -1017,6 +1023,7 @@
       "maxDuration" : "Maximum time, min",
       "organizer" : "Organizer",
       "participants" : "Participants",
+      "waitingList" : "Waiting list",
       "startTime" : "Start time",
       "status" : "Status",
       "title" : "Description",

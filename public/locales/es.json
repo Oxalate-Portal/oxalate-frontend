@@ -636,12 +636,18 @@
     "requiresMembership" : "Para unirse a un evento se requiere membresía",
     "requiresPayment" : "Para unirse a un evento se requiere un pago",
     "subscribe" : {
-      "button" : "Participar en el evento",
+      "button" : "Unirse al evento",
       "label" : "Participar en el evento",
       "mainText" : "Por favor, complete lo siguiente para participar en el evento de buceo"
     },
     "unsubscribe" : {
       "button" : "Darse de baja del evento"
+    },
+    "waitingList" : {
+      "joinButton" : "Unirse a la lista de espera",
+      "leaveButton" : "Abandonar la lista de espera",
+      "joinLabel" : "Unirse a la lista de espera",
+      "joinMainText" : "El evento esta completo. Puedes unirte a la lista de espera y se te notificara si queda un lugar libre."
     }
   },
   "DiveEventStatusEnum" : {
@@ -1017,6 +1023,7 @@
       "maxDuration" : "Tiempo máximo, min",
       "organizer" : "Organizador",
       "participants" : "Participantes",
+      "waitingList" : "Lista de espera",
       "startTime" : "Hora de inicio",
       "status" : "Estado",
       "title" : "Descripción",
