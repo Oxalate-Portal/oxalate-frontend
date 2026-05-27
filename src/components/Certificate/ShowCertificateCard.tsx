@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {ProtectedImage} from "../main";
 import {fileTransferAPI} from "../../services";
+import {getApiBaseUrl} from "../../services/getApiBaseUrl";
 
 interface ShowCertificateCardProps {
     certificate: CertificateResponse;
@@ -21,7 +22,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
 
     const uploadProps: UploadProps = {
         name: "uploadFile",
-        action: `${import.meta.env.VITE_APP_API_URL}` + "/files/certificates/" + certificate.id,
+        action: `${getApiBaseUrl()}/files/certificates/` + certificate.id,
         showUploadList: false,
         accept: "image/png, image/jpeg, image/jpg",
         withCredentials: true,

@@ -59,7 +59,7 @@ export function Forum() {
                                     <List.Item key={comment.id}>
                                         <Card
                                                 title={comment.title}
-                                                bordered
+                                                variant={"outlined"}
                                                 style={{width: "100%", marginBottom: 16}}
                                         >
                                             <Space orientation={"horizontal"}>

@@ -86,8 +86,7 @@ export function CommentList() {
                         <Col><Select options={userList}
                                      placeholder={t("CommentList.filters.user-name")}
                                      onChange={(value) => handleFilterChange({userId: value})}
-                                     optionFilterProp="label"
-                                     showSearch
+                                     showSearch={{optionFilterProp: "label"}}
                         /></Col>
                         <Col><Input placeholder={t("CommentList.filters.titleSearch")}
                                     onChange={e => handleFilterChange({titleSearch: e.target.value || undefined})}/></Col>

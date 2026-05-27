@@ -31,6 +31,7 @@ import {
 import "ckeditor5/ckeditor5.css";
 import "./ckeditor_dark_theme.css";
 import {CKUploadAdapter} from "../../services";
+import {getApiBaseUrl} from "../../services/getApiBaseUrl";
 import type {UserSessionToken} from "../../models";
 import type {JSX} from "react";
 
@@ -69,7 +70,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
         }
 
         editor.plugins.get("FileRepository").createUploadAdapter = (loader: CkLoader) => {
-            return new CKUploadAdapter(loader, language, pageId, `${import.meta.env.VITE_APP_API_URL}` + "/files/page-files");
+            return new CKUploadAdapter(loader, language, pageId, `${getApiBaseUrl()}/files/page-files`);
         };
     }
 

@@ -23,8 +23,8 @@ export function EmailChangeConfirmation() {
     if (status === "OK") {
         return (
                 <div className="darkDiv">
-                    <Space direction="vertical" size={12}>
-                        <Alert type="success" message={t("User.emailChange.confirmation.ok")}/>
+                    <Space orientation="vertical" size={12}>
+                        <Alert type="success" title={t("User.emailChange.confirmation.ok")}/>
                         <Button type="primary" onClick={() => navigate("/login")}>{t("common.button.login")}</Button>
                     </Space>
                 </div>
@@ -33,8 +33,8 @@ export function EmailChangeConfirmation() {
 
     return (
             <div className="darkDiv">
-                <Space direction="vertical" size={12}>
-                    <Alert type="error" message={t("User.emailChange.confirmation.invalid")}/>
+                <Space orientation="vertical" size={12}>
+                    <Alert type="error" title={t("User.emailChange.confirmation.invalid")}/>
                     <Button onClick={() => navigate("/")}>{t("common.button.back")}</Button>
                 </Space>
             </div>

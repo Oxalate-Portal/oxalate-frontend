@@ -352,13 +352,11 @@ export function DiveEvent() {
                                 value={selectedUserType}
                                 onChange={(val: UserTypeEnum) => setSelectedUserType(val)}
                                 style={{width: "100%"}}
-                        >
-                            {Object.values(UserTypeEnum).map(userTypeEnum => (
-                                    <Select.Option key={userTypeEnum} value={userTypeEnum}>
-                                        {t("UserTypeEnum." + userTypeEnum.toLowerCase())}
-                                    </Select.Option>
-                            ))}
-                        </Select>
+                                options={Object.values(UserTypeEnum).map((userTypeEnum) => ({
+                                    value: userTypeEnum,
+                                    label: t("UserTypeEnum." + userTypeEnum.toLowerCase())
+                                }))}
+                        />
                     </Space>
                 </Modal>
 

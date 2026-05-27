@@ -427,7 +427,7 @@ export function NavigationBar() {
                                     onClose={() => setDrawerOpen(false)}
                                     open={drawerOpen}
                                     styles={{body: {padding: "0"}}}
-                                    width={260}
+                                    size={260}
                             >
                                 <Menu
                                         onClick={onClick}

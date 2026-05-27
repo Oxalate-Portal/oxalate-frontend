@@ -90,13 +90,12 @@ export function AdminMembership() {
                                    message: t("AdminMembership.form.rule.membership-type", {defaultValue: "Please select a membership type"})
                                }]}
                     >
-                        <Select>
-                            {Object.values(MembershipTypeEnum).map((type) => (
-                                    <Select.Option key={type} value={type}>
-                                        {t("MembershipTypeEnum." + type.toLowerCase())}
-                                    </Select.Option>
-                            ))}
-                        </Select>
+                        <Select
+                                options={Object.values(MembershipTypeEnum).map((type) => ({
+                                    value: type,
+                                    label: t("MembershipTypeEnum." + type.toLowerCase())
+                                }))}
+                        />
                     </Form.Item>
                     <Form.Item name={"status"}
                                label={t("AdminMembership.form.membership-status", {defaultValue: "Membership Status"})}
@@ -105,13 +104,12 @@ export function AdminMembership() {
                                    message: t("AdminMembership.form.rule.membership-status", {defaultValue: "Please select a membership status"})
                                }]}
                     >
-                        <Select>
-                            {Object.values(MembershipStatusEnum).map((type) => (
-                                    <Select.Option key={type} value={type}>
-                                        {t("MembershipStatusEnum." + type.toLowerCase())}
-                                    </Select.Option>
-                            ))}
-                        </Select>
+                        <Select
+                                options={Object.values(MembershipStatusEnum).map((type) => ({
+                                    value: type,
+                                    label: t("MembershipStatusEnum." + type.toLowerCase())
+                                }))}
+                        />
                     </Form.Item>
                     <Form.Item>
                         <Button type={"primary"} htmlType="submit">

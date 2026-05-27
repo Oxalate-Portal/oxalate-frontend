@@ -186,14 +186,13 @@ export function AddPayments() {
                         <Select
                                 fieldNames={{label: "name", value: "id"}}
                                 mode="multiple"
-                                optionFilterProp={"name"}
                                 optionLabelProp={"name"}
                                 options={users.map((item) => ({
                                     id: item.id,
                                     name: `${item.name} (${item.id})`,
                                 }))}
                                 placeholder={t("AddPayments.form.name.placeholder")}
-                                showSearch={true}
+                                showSearch={{optionFilterProp: "name"}}
                                 style={{width: "100%"}}
                         />
                     </Form.Item>

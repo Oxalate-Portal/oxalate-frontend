@@ -22,6 +22,7 @@ import TextArea from "antd/es/input/TextArea";
 import {useSession} from "../../session";
 import {localToUTCDatetime} from "../../tools";
 import {AdminNotifications} from "../Notification";
+import {exceedsMaxParticipants, isMaxParticipantsTooLow} from "./editDiveEventValidation";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -143,17 +144,15 @@ export function EditDiveEvent() {
             return marks;
         }
 
-        function setFrontendValues(): void {
+        function setFrontendValues() {
             // Find max-depth from portalConfiguration array and set it to state
             const maxDepth = parseInt(getFrontendConfigurationValue("max-depth"));
             setMaxDepth(maxDepth);
             setDepthMarks(getMarks(10, maxDepth, 10, "m"));
-            diveEventForm.setFieldsValue({maxDepth: maxDepth});
 
             const maxDiveLength = parseInt(getFrontendConfigurationValue("max-dive-length"));
             setMaxDiveLength(maxDiveLength);
             setDiveLengthMarks(getMarks(30, maxDiveLength, 60, " min"));
-            diveEventForm.setFieldsValue({maxDuration: maxDiveLength});
 
             const minEventLength = parseInt(getFrontendConfigurationValue("min-event-length"));
             const maxEventLength = parseInt(getFrontendConfigurationValue("max-event-length"));
@@ -172,11 +171,18 @@ export function EditDiveEvent() {
             setEventTypes(eventTypes.map((type) => {
                 return {value: type, label: t("DiveTypeEnum." + type)};
             }));
+
+            return {
+                maxDepth,
+                maxDiveLength,
+                maxEventLength,
+                maxParticipants
+            };
         }
 
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
-        setFrontendValues();
+        const frontendValues = setFrontendValues();
         let tmpDiveEventId = 0;
 
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
@@ -221,12 +227,13 @@ export function EditDiveEvent() {
                                     type: DiveTypeEnum.SURFACE,
                                     // startTime is a string in the model; store an ISO string
                                     startTime: nextEventTime().toISOString(),
-                                    eventDuration: 6,
-                                    maxDuration: 120,
-                                    maxDepth: 60,
-                                    maxParticipants: 12,
+                                    eventDuration: frontendValues.maxEventLength,
+                                    maxDuration: frontendValues.maxDiveLength,
+                                    maxDepth: frontendValues.maxDepth,
+                                    maxParticipants: frontendValues.maxParticipants,
                                     organizer: null,
                                     participants: [],
+                                    waitingList: [],
                                     status: DiveEventStatusEnum.DRAFTED,
                                     eventCommentId: 0,
                                 }
@@ -247,10 +254,10 @@ export function EditDiveEvent() {
 
     function validateMaxParticipants(_: unknown, value: number): Promise<void> {
         // Get the selected participant IDs
-        const selectedParticipants = diveEventForm.getFieldValue("participants");
+        const selectedParticipants = diveEventForm.getFieldValue("participants") ?? [];
 
         // Ensure that the input value is not less than the number of selected participants
-        if (value < (selectedParticipants.length + 1)) {
+        if (isMaxParticipantsTooLow(selectedParticipants.length, value)) {
             return Promise.reject(t("EditEvent.form.maxDepth.rules.maxParticipants"));
         }
 
@@ -260,12 +267,12 @@ export function EditDiveEvent() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function validateSelectedParticipants(_: unknown, _1: number): Promise<void> {
         // Get the selected participant IDs
-        const selectedParticipants = diveEventForm.getFieldValue("participants");
+        const selectedParticipants = diveEventForm.getFieldValue("participants") ?? [];
         // Get the set maxParticipants value
-        const setMaxParticipants = diveEventForm.getFieldValue("maxParticipants");
+        const setMaxParticipants = diveEventForm.getFieldValue("maxParticipants") ?? 0;
         // Ensure that the input value is not less than the number of selected participants
 
-        if (selectedParticipants.length >= setMaxParticipants) {
+        if (exceedsMaxParticipants(selectedParticipants.length, setMaxParticipants)) {
             return Promise.reject(t("EditEvent.form.maxDepth.rules.maxParticipants"));
         }
 
@@ -547,10 +554,10 @@ export function EditDiveEvent() {
                                 mode="multiple"
                                 options={participantOptions}
                                 placeholder={t("EditEvent.form.participants.placeholder")}
-                                showSearch={true}
-                                filterOption={(input, option) =>
+                                showSearch={{
+                                    filterOption: (input, option) =>
                                         option?.label.toLowerCase().includes(input.toLowerCase()) ?? false
-                                }
+                                }}
                                 style={{
                                     width: "100%"
                                 }}

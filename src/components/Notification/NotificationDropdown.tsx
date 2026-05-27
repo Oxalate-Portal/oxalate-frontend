@@ -171,7 +171,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                                         icon={<RightOutlined/>}
                                         onClick={handleNextNotification}
                                         disabled={selectedNotificationIndex === notifications.length - 1}
-                                        iconPosition="end"
+                                        iconPlacement="end"
                                 >
                                     {t("NotificationDropdown.modal.next")}
                                 </Button>

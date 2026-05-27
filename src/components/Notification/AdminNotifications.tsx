@@ -142,8 +142,7 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
                                                 mode="multiple"
                                                 disabled={sendToAll}
                                                 placeholder={t("AdminNotifications.form.recipients.placeholder")}
-                                                optionFilterProp="label"
-                                                showSearch
+                                                showSearch={{optionFilterProp: "label"}}
                                                 options={users.map(user => ({
                                                     value: user.id,
                                                     label: user.name
