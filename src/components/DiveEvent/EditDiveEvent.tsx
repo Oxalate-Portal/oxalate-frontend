@@ -18,7 +18,6 @@ import {Button, DatePicker, Form, Input, message, Modal, Select, Slider, Space} 
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import TextArea from "antd/es/input/TextArea";
 import {useSession} from "../../session";
 import {localToUTCDatetime} from "../../tools";
 import {AdminNotifications} from "../Notification";
@@ -446,7 +445,7 @@ export function EditDiveEvent() {
                                        message: t("EditEvent.form.description.rules.max")
                                    }
                                ]}>
-                        <TextArea placeholder={t("EditEvent.form.description.placeholder")} rows={6}/>
+                        <Input.TextArea placeholder={t("EditEvent.form.description.placeholder")} rows={6}/>
                     </Form.Item>
                     <Form.Item name={"type"}
                                required={true}

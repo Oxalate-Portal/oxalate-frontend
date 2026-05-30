@@ -4,8 +4,6 @@ import {Button, DatePicker, Space} from "antd";
 import dayjs, {type Dayjs, type ManipulateType} from "dayjs";
 import {ChronoUnitEnum} from "../../models";
 
-const {RangePicker} = DatePicker;
-
 // AntD RangePicker shape we rely on (no generics to avoid TS errors)
 export type RangeValue = [Dayjs | null, Dayjs | null] | null;
 export type OnChange = (dates: RangeValue, dateStrings: [string, string]) => void;
@@ -14,7 +12,7 @@ type Props = {
     periodType: ChronoUnitEnum;
     value?: RangeValue;
     onChange?: OnChange;
-} & Omit<ComponentProps<typeof RangePicker>, "value" | "onChange">;
+} & Omit<ComponentProps<typeof DatePicker.RangePicker>, "value" | "onChange">;
 
 const unitMap: Record<ChronoUnitEnum, ManipulateType> = {
     [ChronoUnitEnum.YEARS]: "year",
@@ -54,7 +52,7 @@ export function ShiftableRangePicker({periodType, value, onChange, ...rest}: Pro
                         disabled={isCurrentInside}
                         onClick={() => shift("past")}
                 />
-                <RangePicker
+                <DatePicker.RangePicker
                         {...rest}
                         value={rangeValue as RangeValue}
                         onChange={onChange}

@@ -70,7 +70,7 @@ function createListUser(id: number, name: string): ListUserResponse {
         id,
         name,
         eventDiveCount: 1,
-        crefatedAt: dayjs().toISOString(),
+        createdAt: dayjs(),
         payments: [{
             id,
             userId: id,
@@ -116,7 +116,7 @@ function createEvent(waitingList: ListUserResponse[]): DiveEventResponse {
         title: "Queue test event",
         description: "Description",
         type: DiveTypeEnum.SURFACE,
-        startTime: dayjs().add(2, "day").toISOString(),
+        startTime: dayjs().add(2, "day"),
         eventDuration: 2,
         maxDuration: 120,
         maxDepth: 20,

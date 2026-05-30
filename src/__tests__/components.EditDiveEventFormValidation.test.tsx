@@ -13,8 +13,8 @@ import {
     UserTypeEnum
 } from "../models";
 import {EditDiveEvent} from "../components";
-import * as test from "node:test";
-import * as test from "node:test";
+
+
 
 type MessageListener = (event: { data: unknown }) => void;
 
@@ -245,7 +245,7 @@ describe("EditDiveEvent Ant Form participant validators", () => {
         updateDiveEventMock.mockResolvedValue({id: 42});
     });
 
-    test("allows submit when selected participants equals max participants", async () => {
+    it("allows submit when selected participants equals max participants", async () => {
         render(<EditDiveEvent/>);
 
         const submitButton = await screen.findByRole("button", {name: "EditEvent.form.submitButton.update"});
@@ -257,7 +257,7 @@ describe("EditDiveEvent Ant Form participant validators", () => {
         expect(screen.queryByText("EditEvent.form.maxDepth.rules.maxParticipants")).toBeNull();
     });
 
-    test("shows validation error when max participants is lowered below selected participants", async () => {
+    it("shows validation error when max participants is lowered below selected participants", async () => {
         render(<EditDiveEvent/>);
 
         await screen.findByRole("button", {name: "EditEvent.form.submitButton.update"});

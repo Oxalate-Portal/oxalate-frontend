@@ -5,9 +5,6 @@ import type {ListUserResponse, MessageRequest} from "../../models";
 import {RoleEnum, UpdateStatusEnum} from "../../models";
 import {notificationAPI, userAPI} from "../../services";
 
-const {TextArea} = Input;
-const {Title} = Typography;
-
 interface AdminNotificationsProps {
     participantIds?: number[];
     onNotificationSent?: () => void;
@@ -90,7 +87,7 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
             <div className={embedded ? "" : "darkDiv"}>
                 {contextHolder}
                 <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
-                    {!embedded && <Title level={2}>{t("AdminNotifications.title")}</Title>}
+                    {!embedded && <Typography.Title level={2}>{t("AdminNotifications.title")}</Typography.Title>}
                     {hasParticipants && (
                             <Typography.Text>
                                 {t("AdminNotifications.participantCount", {count: participantIds.length})}
@@ -165,7 +162,7 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
                                     label={t("AdminNotifications.form.message.label")}
                                     rules={[{required: true, message: t("AdminNotifications.form.message.required")}]}
                             >
-                                <TextArea
+                                <Input.TextArea
                                         rows={6}
                                         placeholder={t("AdminNotifications.form.message.placeholder")}
                                 />
