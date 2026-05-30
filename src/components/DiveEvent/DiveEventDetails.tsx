@@ -201,6 +201,19 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                    rowKey={(record) => "participant-row-" + record.id}
                             />
 
+                            {eventInfo.waitingList && eventInfo.waitingList.length > 0 &&
+                                    <>
+                                        <h5 key={"event-waiting-list-" + eventInfo.id}>{t("EventDetails.waitingList.title")}:
+                                            ({eventInfo.waitingList.length}):</h5>
+
+                                        <Table columns={participantColumns}
+                                               dataSource={eventInfo.waitingList}
+                                               pagination={false}
+                                               key={"waiting-list-" + eventInfo.id}
+                                               rowKey={(record) => "waiting-list-row-" + record.id}
+                                        />
+                                    </>}
+
                             <DiveEventFiles eventId={eventInfo.id}/>
                         </Space>}
             </Spin>

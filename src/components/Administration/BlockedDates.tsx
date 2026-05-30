@@ -11,9 +11,6 @@ import {useTranslation} from "react-i18next";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-const {Item} = Form;
-const { TextArea } = Input;
-
 function BlockedDates() {
     const [loading, setLoading] = useState<boolean>(true);
     const [blockedDates, setBlockedDates] = useState<BlockedDateResponse[]>([]);
@@ -140,7 +137,7 @@ function BlockedDates() {
                             style={{marginBottom: "16px"}}
                     />
                     <Form onFinish={addBlockedDate} layout={"vertical"} form={form}>
-                        <Item label={t("BlockedDates.form.date.label")}
+                        <Form.Item label={t("BlockedDates.form.date.label")}
                               name="blockedDate"
                               rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
                         >
@@ -149,20 +146,20 @@ function BlockedDates() {
                                     placeholder={t("BlockedDates.form.date.placeholder")}
                                     disabledDate={disabledDate}
                             />
-                        </Item>
-                        <Item label={t("BlockedDates.form.reason.label")}
+                        </Form.Item>
+                        <Form.Item label={t("BlockedDates.form.reason.label")}
                               name={"blockedReason"}
                               rules={[{required: true, message: t("BlockedDates.form.reason.rule")}]}>
-                            <TextArea
+                            <Input.TextArea
                                     placeholder={t("BlockedDates.form.reason.placeholder")}
                                     rows={2}
                                     style={{width: "600px"}}/>
-                        </Item>
-                        <Item>
+                        </Form.Item>
+                        <Form.Item>
                             <Button type={"primary"} htmlType="submit">
                                 {t("common.button.add")}
                             </Button>
-                        </Item>
+                        </Form.Item>
                     </Form>
                 </Spin>
             </div>);

@@ -35,7 +35,7 @@ jest.mock("antd", () => {
     InputMock.Password = ({placeholder}: { placeholder?: string }) => <input placeholder={placeholder} type="password"/>;
 
     return {
-        Alert: ({message}: { message: string }) => <div>{message}</div>,
+        Alert: ({message, title}: { message?: string; title?: string }) => <div>{title ?? message}</div>,
         Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
         Form: FormMock,
         Input: InputMock,

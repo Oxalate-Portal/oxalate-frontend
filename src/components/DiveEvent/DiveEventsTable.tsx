@@ -54,7 +54,23 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.participants.length - b.participants.length,
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: DiveEventResponse) => {
-                return (<>{record.participants.length} / {record.maxParticipants}</>);
+                const participantCount = record.participants.length;
+                const isFutureTable = diveEventType === "new";
+                const isFull = isFutureTable && participantCount >= record.maxParticipants;
+                const waitingListCount = record.waitingList?.length || 0;
+
+                return (
+                        <>
+                            <span style={isFull ? {color: "#ff4d4f", fontWeight: 600} : undefined}>
+                                {participantCount} / {record.maxParticipants}
+                            </span>
+                            {isFutureTable && waitingListCount > 0 && (
+                                    <span style={{color: "#faad14", marginLeft: 6}}>
+                                        ({t("Events.table.waitingList")}: {waitingListCount})
+                                    </span>
+                            )}
+                        </>
+                );
             }
         },
         {

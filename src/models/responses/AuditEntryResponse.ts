@@ -1,4 +1,5 @@
 import {AuditLevelEnum} from "../AuditLevelEnum";
+import type {Dayjs} from "dayjs";
 
 export interface AuditEntryResponse {
     id: number;
@@ -9,5 +10,5 @@ export interface AuditEntryResponse {
     userName: string;
     address: string;
     message: string;
-    createdAt: Date;
+    createdAt: Dayjs;
 }

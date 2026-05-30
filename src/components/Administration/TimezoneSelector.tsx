@@ -2,8 +2,6 @@ import {useEffect, useState} from "react";
 import {Select, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 
-const {Option, OptGroup} = Select;
-
 interface TimezoneSelectorProps {
     selectedValue: string;
     onChange: (event: { target: { value: string } }) => void;
@@ -32,30 +30,24 @@ export function TimezoneSelector({selectedValue, onChange}: TimezoneSelectorProp
     return (
             <Spin spinning={loading}>
                 <Select
-                        showSearch
+                        showSearch={{
+                            optionFilterProp: "label",
+                            filterOption: (input, option) =>
+                                    (String(option?.label ?? "")).toLowerCase().includes(input.toLowerCase())
+                        }}
                         placeholder={t("TimezoneSelector.select.placeholder")}
-                        optionFilterProp={"children"}
                         style={{width: "100%"}}
-                        filterOption={(input: string, option) =>
-                                (String(option?.label ?? "")).toLowerCase().includes(input.toLowerCase())
-                        }
+                        options={Object.entries(groupedTimezones).map(([region, timezones]) => ({
+                            label: region,
+                            options: timezones
+                        }))}
                         value={selectedValue}
                         onChange={(value) =>
                                 onChange({
                                     target: {value},
                                 })
                         }
-                >
-                    {Object.entries(groupedTimezones).map(([region, timezones]) => (
-                            <OptGroup key={region} label={region}>
-                                {timezones.map((tz) => (
-                                        <Option key={tz.value} value={tz.value} label={tz.label}>
-                                            {tz.label}
-                                        </Option>
-                                ))}
-                            </OptGroup>
-                    ))}
-                </Select>
+                />
             </Spin>
     );
 }

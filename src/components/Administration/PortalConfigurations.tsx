@@ -7,7 +7,6 @@ import {TimezoneSelector} from "./TimezoneSelector";
 import dayjs from "dayjs";
 import {StarOutlined} from "@ant-design/icons";
 
-const {Text} = Typography;
 
 export function PortalConfigurations() {
     const [portalConfigurations, setPortalConfigurations] = useState<PortalConfigurationResponse[]>([]);
@@ -107,7 +106,7 @@ export function PortalConfigurations() {
                                     value={selectedValues}
                                     onChange={(checkedValues) => handleChange(checkedValues.join(","))}
                             />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
             }
@@ -120,7 +119,7 @@ export function PortalConfigurations() {
                                     checked={currentValue === "true"}
                                     onChange={(checked) => handleChange(checked ? "true" : "false")}
                             />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
             case "date": {
@@ -140,7 +139,7 @@ export function PortalConfigurations() {
                                     value={currentValue}
                                     onChange={(e) => handleChange(e.target.value)}
                             />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
 
@@ -151,7 +150,7 @@ export function PortalConfigurations() {
                                     value={Number(currentValue)}
                                     onChange={(value) => handleChange(value?.toString())}
                             />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
 
@@ -162,7 +161,7 @@ export function PortalConfigurations() {
                                     value={currentValue}
                                     onChange={(e) => handleChange(e.target.value)}
                             />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
 
@@ -170,7 +169,7 @@ export function PortalConfigurations() {
                 return (
                         <>
                             <TimezoneSelector selectedValue={currentValue} onChange={(e) => handleChange(String(e.target.value))}/>
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
 
@@ -225,7 +224,7 @@ export function PortalConfigurations() {
                                          value={currentValue}
                                          onChange={(e) => handleChange(e.target.value)}
                             />
-                            {required && <Text type="danger">{t("PortalConfigurations.must-be-set")}</Text>}
+                            {required && <Typography.Text type="danger">{t("PortalConfigurations.must-be-set")}</Typography.Text>}
                         </>
                 );
             }
@@ -260,7 +259,7 @@ export function PortalConfigurations() {
                 {contextHolder}
                 <Space orientation={"vertical"}>
                     <h4>{t("PortalConfigurations.title")}</h4>
-                    <Text type="secondary">{t("PortalConfigurations.description")}</Text>
+                    <Typography.Text type="secondary">{t("PortalConfigurations.description")}</Typography.Text>
                     <Button onClick={() => reloadConfiguration()}>{t("PortalConfigurations.button.reload")}</Button>
                     <Spin spinning={loading}>
                         <div>
@@ -280,13 +279,13 @@ export function PortalConfigurations() {
                                                                 <Space orientation={"horizontal"} size={4}>
                                                                     <Tooltip
                                                                             title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
-                                                                        <Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Text>
+                                                                        <Typography.Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Typography.Text>
                                                                     </Tooltip>
                                                                     {isModified && <StarOutlined style={{color: "gold"}}/>}
                                                                 </Space>
                                                             </Col>
                                                             <Col span={6}>
-                                                                <Text>{config.defaultValue}</Text>
+                                                                <Typography.Text>{config.defaultValue}</Typography.Text>
                                                             </Col>
                                                             <Col span={6}>
                                                                 {renderEditor(config)}

@@ -61,7 +61,7 @@ export function HealthStatementConfirmationModal({open, onConfirm, onCancel, reg
                     title={t("HealthStatementConfirmationModal.title")}
                     width={"80%"}
             >
-                {error && <Alert type={"error"} message={t("HealthStatementConfirmationModal.error")} style={{marginBottom: 16}}/>}
+                {error && <Alert type={"error"} title={t("HealthStatementConfirmationModal.error")} style={{marginBottom: 16}}/>}
                 <HealthStatementConfirmation/>
             </Modal>
     );

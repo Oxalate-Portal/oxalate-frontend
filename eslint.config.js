@@ -43,6 +43,7 @@ export default tseslint.config(
             ecmaVersion: "latest",
             sourceType: "module",
             parserOptions: {
+                projectService: true,
                 warnOnUnsupportedTypeScriptVersion: false,
                 ecmaFeatures: {
                     jsx: true
@@ -52,6 +53,7 @@ export default tseslint.config(
         },
         rules: {
             ...reactHooks.configs.recommended.rules,
+            "@typescript-eslint/no-deprecated": "warn",
             "no-console": "off"
         }
     }

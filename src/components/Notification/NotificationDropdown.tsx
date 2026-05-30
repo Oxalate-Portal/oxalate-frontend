@@ -7,7 +7,6 @@ import type {MessageResponse} from "../../models";
 import {notificationAPI} from "../../services";
 import dayjs from "dayjs";
 
-const {Text} = Typography;
 
 interface NotificationDropdownProps {
     pollInterval?: number; // in milliseconds, default 5 minutes
@@ -88,7 +87,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
     const dropdownContent = (
             <div style={{width: 350, maxHeight: 400, overflow: "auto", backgroundColor: "#1f1f1f", borderRadius: 8, padding: 8}}>
                 <div style={{padding: "8px 16px", borderBottom: "1px solid #303030"}}>
-                    <Text strong>{t("NotificationDropdown.title")}</Text>
+                    <Typography.Text strong>{t("NotificationDropdown.title")}</Typography.Text>
                 </div>
                 {notifications.length === 0 ? (
                         <Empty
@@ -111,13 +110,13 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                                                 className="notification-item"
                                         >
                                             <List.Item.Meta
-                                                    title={<Text strong>{notification.title}</Text>}
+                                                    title={<Typography.Text strong>{notification.title}</Typography.Text>}
                                                     description={
                                                         <Space orientation={"vertical"} size={0}>
-                                                            <Text type="secondary">{truncateMessage(notification.message)}</Text>
-                                                            <Text type="secondary" style={{fontSize: 12}}>
+                                                            <Typography.Text type="secondary">{truncateMessage(notification.message)}</Typography.Text>
+                                                            <Typography.Text type="secondary" style={{fontSize: 12}}>
                                                                 {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                            </Text>
+                                                            </Typography.Text>
                                                         </Space>
                                                     }
                                             />
@@ -171,7 +170,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                                         icon={<RightOutlined/>}
                                         onClick={handleNextNotification}
                                         disabled={selectedNotificationIndex === notifications.length - 1}
-                                        iconPosition="end"
+                                        iconPlacement="end"
                                 >
                                     {t("NotificationDropdown.modal.next")}
                                 </Button>
@@ -184,9 +183,9 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                 >
                     {selectedNotification && (
                             <Space orientation={"vertical"} style={{width: "100%"}}>
-                                <Text type="secondary">
+                                <Typography.Text type="secondary">
                                     {dayjs(selectedNotification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                </Text>
+                                </Typography.Text>
                                 <div style={{whiteSpace: "pre-wrap"}}>{selectedNotification.message}</div>
                             </Space>
                     )}

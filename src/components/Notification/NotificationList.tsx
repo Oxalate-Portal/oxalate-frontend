@@ -6,7 +6,6 @@ import type {MessageResponse} from "../../models";
 import {notificationAPI} from "../../services";
 import dayjs from "dayjs";
 
-const {Text, Title} = Typography;
 
 const PAGE_SIZE = 100;
 
@@ -57,7 +56,7 @@ export function NotificationList() {
     return (
             <div className="darkDiv">
                 <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
-                    <Title level={2}>{t("NotificationList.title")}</Title>
+                    <Typography.Title level={2}>{t("NotificationList.title")}</Typography.Title>
 
                     <Spin spinning={loading}>
                         <List
@@ -79,7 +78,7 @@ export function NotificationList() {
                                             <List.Item.Meta
                                                     title={
                                                         <Space>
-                                                            <Text strong={!notification.read}>{notification.title}</Text>
+                                                            <Typography.Text strong={!notification.read}>{notification.title}</Typography.Text>
                                                             {!notification.read && (
                                                                     <Tag color="blue">{t("NotificationList.unread")}</Tag>
                                                             )}
@@ -88,9 +87,9 @@ export function NotificationList() {
                                                     description={
                                                         <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
                                                             <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
-                                                            <Text type="secondary" style={{fontSize: 12}}>
+                                                            <Typography.Text type="secondary" style={{fontSize: 12}}>
                                                                 {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                            </Text>
+                                                            </Typography.Text>
                                                         </Space>
                                                     }
                                             />

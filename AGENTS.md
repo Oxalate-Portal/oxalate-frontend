@@ -29,6 +29,8 @@
 - Not every API uses `AbstractAPI`: `src/services/AuthAPI.ts` and `PortalConfigurationAPI.ts` are custom because they have bespoke endpoints and login/config
   flows.
 - Keep model types in `src/models`, usually split into `props/`, `requests/`, and `responses/`, then re-exported through `src/models/index.ts`.
+- Always import the directory, not the individual file, to get the barrel exports. This keeps imports clean and makes it easier to refactor file organization
+  without breaking imports.
 
 ## UI and state patterns to preserve
 
@@ -40,6 +42,25 @@
   route changes.
 - Route guards are thin wrappers in `src/session/{PrivateRoute,OrganizerRoute,AdminRoute}.tsx`; add access control there instead of duplicating role checks in
   pages.
+
+## DateTime/Date handling standards
+
+**All datetime and date handling must be based on Dayjs. This is enforced at the API layer.**
+
+- **DTOs (Requests & Responses)**: All date/datetime fields in request and response models must use `Dayjs` type, never `Date` or `string` (except for non-temporal string fields).
+- **Timezone Strategy**: All datetimes/dates are stored and displayed in the dive site timezone, defined by the `general.timezone` portal configuration value (e.g., `Europe/Helsinki`).
+  - When an operator creates a dive event starting on 31.05.2026 at 10:00, it means 10:00 in the portal's configured timezone.
+- **API Deserialization**: When receiving API responses, the `AbstractAPI` class automatically converts date strings and Date objects to timezone-aware Dayjs instances.
+- **API Serialization**: When sending requests, Dayjs objects are automatically serialized to ISO-8601 strings before transmission.
+- **Date Field Recognition**: The following field names are automatically transformed by the API layer: `createdAt`, `updatedAt`, `modifiedAt`, `deletedAt`, `startTime`, `endTime`, `startDate`, `endDate`, `blockedDate`, `certificationDate`, `eventDateTime`, `lastSeen`, `created`, `modified`.
+- **Immutability**: Date transformations preserve object immutability; responses are never mutated in place.
+- **Testing**: Tests verify immutability and timezone correctness of date transformations (see `src/__tests__/services.dateTransformer.test.ts`).
+- **Global Timezone Context**: The timezone is set globally in `src/services/timezoneContext.ts` during app initialization in `SessionProvider`. This context is used for all API response transformations.
+
+**Adding new date/datetime fields:**
+1. Use `Dayjs` type in model interfaces (both requests and responses)
+2. If the field name doesn't match standard patterns, add it to `DATE_FIELD_PATTERNS` in `src/services/dateTransformer.ts`
+3. The API layer will automatically handle conversion; no manual transformation needed in components
 
 ## Build, test, and debugging workflows
 

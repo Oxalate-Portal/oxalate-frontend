@@ -6,6 +6,7 @@ import {type DocumentFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from
 import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
+import {getApiBaseUrl} from "../../../services/getApiBaseUrl";
 
 export function DocumentFiles() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -55,7 +56,7 @@ export function DocumentFiles() {
 
     const uploadProps: UploadProps = {
         name: "uploadFile",
-        action: `${import.meta.env.VITE_APP_API_URL}` + "/files/documents",
+        action: `${getApiBaseUrl()}/files/documents`,
         headers: {
             authorization: "Bearer " + userSession?.accessToken,
         },

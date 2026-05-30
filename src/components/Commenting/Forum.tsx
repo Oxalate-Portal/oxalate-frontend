@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import {UserOutlined} from "@ant-design/icons";
 import {resolveCommentAvatarUrl} from "../../tools";
 
-const {Text} = Typography;
 
 export function Forum() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -59,15 +58,15 @@ export function Forum() {
                                     <List.Item key={comment.id}>
                                         <Card
                                                 title={comment.title}
-                                                bordered
+                                                variant={"outlined"}
                                                 style={{width: "100%", marginBottom: 16}}
                                         >
                                             <Space orientation={"horizontal"}>
                                                 <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
-                                                <Text>{comment.username}</Text>
-                                                <Text>
+                                                <Typography.Text>{comment.username}</Typography.Text>
+                                                <Typography.Text>
                                                     {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                </Text>
+                                                </Typography.Text>
                                             </Space>
                                             <p style={{marginTop: 8}}>{comment.body}</p>
                                             {/* Render child comments recursively */}

@@ -24,7 +24,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 jest.mock("antd", () => ({
-    Alert: ({message}: { message: string }) => <div>{message}</div>,
+    Alert: ({message, title}: { message?: string; title?: string }) => <div>{title ?? message}</div>,
     Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
     Space: ({children}: { children: ReactNode }) => <div>{children}</div>
 }));

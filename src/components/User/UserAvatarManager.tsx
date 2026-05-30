@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import {FileUploadValidationError, validateUploadFile} from "../../tools/FileUploadValidation";
 import {getAvatarUploadOutcome, type UploadAvatarResponse} from "../../tools/avatarUploadResponse";
 import {useSession} from "../../session";
+import {getApiBaseUrl} from "../../services/getApiBaseUrl";
 
 interface UserAvatarManagerProps {
     userId: number;
@@ -32,7 +33,7 @@ export function UserAvatarManager({userId, initialAvatarUrl}: UserAvatarManagerP
 
     const uploadProps: UploadProps = {
         name: "uploadFile",
-        action: `${import.meta.env.VITE_APP_API_URL}/files/avatars`,
+        action: `${getApiBaseUrl()}/files/avatars`,
         showUploadList: false,
         withCredentials: true,
         accept: "image/gif,image/jpeg,image/jpg,image/png",

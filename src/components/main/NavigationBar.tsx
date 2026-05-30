@@ -35,10 +35,9 @@ import {NotificationDropdown} from "../Notification";
 import {useBlogMenuItems} from "../Blogging";
 import Logo from "../../portal_logo.svg?react";
 
-const {Header} = Layout;
-const {useBreakpoint} = Grid;
-
 export function NavigationBar() {
+    const {Header} = Layout;
+    const {useBreakpoint} = Grid;
     const {
         userSession,
         logoutUser,
@@ -427,7 +426,7 @@ export function NavigationBar() {
                                     onClose={() => setDrawerOpen(false)}
                                     open={drawerOpen}
                                     styles={{body: {padding: "0"}}}
-                                    width={260}
+                                    size={260}
                             >
                                 <Menu
                                         onClick={onClick}

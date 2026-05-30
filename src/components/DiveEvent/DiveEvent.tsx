@@ -7,6 +7,7 @@ import {
     type DiveEventResponse,
     type EventSubscribeRequest,
     type MembershipResponse,
+    MembershipStatusEnum,
     PaymentExpirationTypeEnum,
     type PaymentResponse,
     type PaymentStatusResponse,
@@ -37,6 +38,8 @@ export function DiveEvent() {
     const [loading, setLoading] = useState<boolean>(true);
     const [canSubscribe, setCanSubscribe] = useState(false);
     const [subscribing, setSubscribing] = useState(false);
+    const [isInWaitingList, setIsInWaitingList] = useState(false);
+    const [isEventFull, setIsEventFull] = useState(false);
     const [canUnsubscribe, setCanUnsubscribe] = useState(false);
     const [eventCommenting, setEventCommenting] = useState(false);
     const [missingMembership, setMissingMembership] = useState(false);
@@ -93,9 +96,8 @@ export function DiveEvent() {
             const currentUser = userSession.id;
             const isUserTheOrganizer = diveEvent.organizer?.id === currentUser;
             const isUserAlreadyInEvent = isUserParticipating(userSession, diveEvent);
-            const isEventFull = diveEvent.participants?.length >= diveEvent.maxParticipants;
-            // If any of these are true, the user cannot subscribe (no requirement messages needed)
-            if (isUserTheOrganizer || isUserAlreadyInEvent || isEventFull) {
+            // If any of these are true, the user cannot subscribe directly.
+            if (isUserTheOrganizer || isUserAlreadyInEvent) {
                 return result;
             }
 
@@ -105,14 +107,29 @@ export function DiveEvent() {
             }
 
             // Check if the event requires valid payment
-            if (getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true") {
+            const requiresPayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
+            const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
+
+            let hasActiveMembership = !requiresMembership;
+            if (requiresMembership) {
+                try {
+                    const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
+                    hasActiveMembership = activeMembership.some(membership => membership.status === MembershipStatusEnum.ACTIVE);
+                } catch (error) {
+                    console.error("Error:", error);
+                    hasActiveMembership = false;
+                }
+            }
+
+            let hasValidPayment = !requiresPayment;
+            if (requiresPayment) {
                 try {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
 
                     // Either payment type (one-time or periodical) independently satisfies the requirement.
                     // hasValidPayment becomes true as soon as any enabled type has a valid payment.
-                    let hasValidPayment = false;
+                    hasValidPayment = false;
 
                     const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
                     if (oneTimeEnabled) {
@@ -137,23 +154,21 @@ export function DiveEvent() {
                         }
                     }
 
-                    result.missingPayment = !hasValidPayment;
                 } catch (error) {
                     console.error("Error:", error);
-                    result.missingPayment = true;
+                    hasValidPayment = false;
                 }
             }
 
-            if (getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true") {
-                try {
-                    const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
-                    if (activeMembership.length === 0) {
-                        result.missingMembership = true;
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    result.missingMembership = true;
-                }
+            const membershipOrPaymentRequired = requiresMembership && requiresPayment;
+            if (membershipOrPaymentRequired) {
+                // If both checks are enabled, joining is allowed when at least one prerequisite is valid.
+                const missingBoth = !hasActiveMembership && !hasValidPayment;
+                result.missingMembership = missingBoth;
+                result.missingPayment = missingBoth;
+            } else {
+                result.missingMembership = requiresMembership && !hasActiveMembership;
+                result.missingPayment = requiresPayment && !hasValidPayment;
             }
 
             result.canSubscribe = !result.missingMembership && !result.missingPayment && !result.missingHealthStatement;
@@ -169,18 +184,32 @@ export function DiveEvent() {
             return participants?.indexOf(userSession.id) > -1;
         }
 
+        function isUserWaiting(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): boolean {
+            if (!userSession) {
+                return false;
+            }
+
+            const waitingList = diveEvent.waitingList?.map(user => user.id);
+            return waitingList?.indexOf(userSession.id) > -1;
+        }
+
         // If the event has passed, we don't want to show the subscribe button
         if (diveEvent) {
             if (dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour"))) {
                 // eslint-disable-next-line react-hooks/set-state-in-effect
                 setCanSubscribe(false);
                 setSubscribing(false);
+                setCanUnsubscribe(false);
+                setIsInWaitingList(false);
                 return;
             }
             // Diver can only unsubscribe before the event starts
             if (dayjs().isBefore(dayjs(diveEvent.startTime))) {
                 setCanUnsubscribe(true);
             }
+
+            setIsEventFull((diveEvent.participants?.length || 0) >= diveEvent.maxParticipants);
+            setIsInWaitingList(isUserWaiting(userSession, diveEvent));
 
             isUserAllowedToParticipate(userSession, diveEvent)
                     .then((checkResult: ParticipationCheckResult) => {
@@ -226,6 +255,28 @@ export function DiveEvent() {
                 });
     }
 
+    function joinWaitingList(diveEventId: number) {
+        diveEventAPI.joinWaitingList(diveEventId)
+                .then(response => {
+                    setDiveEvent(response);
+                    setIsInWaitingList(true);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+    }
+
+    function leaveWaitingList(diveEventId: number) {
+        diveEventAPI.leaveWaitingList(diveEventId)
+                .then(response => {
+                    setDiveEvent(response);
+                    setIsInWaitingList(false);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+    }
+
     return (
             <div className={"darkDiv"}>
                 <Spin spinning={loading}>
@@ -249,9 +300,28 @@ export function DiveEvent() {
                                     )}
                                 </Space>
                         )}
-                        {!subscribing && canSubscribe &&
+                        {!subscribing && isInWaitingList && canUnsubscribe &&
                                 <Button
                                         type={"primary"}
+                                        style={{background: "#ff4d4f", borderColor: "#ff4d4f"}}
+                                        onClick={() => leaveWaitingList(diveEventId)}
+                                        key={diveEventId + "-leave-wl-button"}>
+                                    {t("DiveEvent.waitingList.leaveButton")}
+                                </Button>
+                        }
+                        {!subscribing && !isInWaitingList && canSubscribe && isEventFull &&
+                                <Button
+                                        type={"primary"}
+                                        style={{background: "#faad14", borderColor: "#faad14"}}
+                                        onClick={() => joinWaitingList(diveEventId)}
+                                        key={diveEventId + "-join-wl-button"}>
+                                    {t("DiveEvent.waitingList.joinButton")}
+                                </Button>
+                        }
+                        {!subscribing && !isInWaitingList && canSubscribe && !isEventFull &&
+                                <Button
+                                        type={"primary"}
+                                        style={{background: "#52c41a", borderColor: "#52c41a"}}
                                         onClick={() => {
                                             setSelectedUserType(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
                                             setSelectUserTypeOpen(true);
@@ -296,13 +366,11 @@ export function DiveEvent() {
                                 value={selectedUserType}
                                 onChange={(val: UserTypeEnum) => setSelectedUserType(val)}
                                 style={{width: "100%"}}
-                        >
-                            {Object.values(UserTypeEnum).map(userTypeEnum => (
-                                    <Select.Option key={userTypeEnum} value={userTypeEnum}>
-                                        {t("UserTypeEnum." + userTypeEnum.toLowerCase())}
-                                    </Select.Option>
-                            ))}
-                        </Select>
+                                options={Object.values(UserTypeEnum).map((userTypeEnum) => ({
+                                    value: userTypeEnum,
+                                    label: t("UserTypeEnum." + userTypeEnum.toLowerCase())
+                                }))}
+                        />
                     </Space>
                 </Modal>
 

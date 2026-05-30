@@ -7,7 +7,6 @@ import {BlogCard} from "./BlogCard";
 import {BlogControls} from "./BlogControls";
 import {useSession} from "../../session";
 
-const {Title} = Typography;
 
 export function Blog() {
     const {getSessionLanguage} = useSession();
@@ -114,7 +113,7 @@ export function Blog() {
 
     return (
             <div className="darkDiv">
-                <Title level={2}>{t("Blog.title")}</Title>
+                <Typography.Title level={2}>{t("Blog.title")}</Typography.Title>
 
                 <BlogControls
                         sortBy={sortBy}

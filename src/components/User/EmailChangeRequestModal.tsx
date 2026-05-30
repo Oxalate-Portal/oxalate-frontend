@@ -53,12 +53,12 @@ export function EmailChangeRequestModal({open, onClose}: EmailChangeRequestModal
                     footer={null}
                     destroyOnHidden
             >
-                <Space direction="vertical" size={12} style={{width: "100%"}}>
+                <Space orientation="vertical" size={12} style={{width: "100%"}}>
                     {requestAccepted === true && (
-                            <Alert type="success" message={t("User.emailChange.result.success")}/>
+                            <Alert type="success" title={t("User.emailChange.result.success")}/>
                     )}
                     {requestAccepted === false && (
-                            <Alert type="error" message={t("User.emailChange.result.fail")}/>
+                            <Alert type="error" title={t("User.emailChange.result.fail")}/>
                     )}
 
                     {requestAccepted !== true && (

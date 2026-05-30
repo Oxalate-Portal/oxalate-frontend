@@ -2,7 +2,6 @@ import {Button, Col, Input, Row, Select, Space, Switch, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 import {SortDirectionEnum} from "../../models";
 
-const {Text} = Typography;
 
 interface BlogControlsProps {
     sortBy: string;
@@ -53,7 +52,7 @@ export function BlogControls({
             <Row gutter={[16, 16]} align="middle" style={{marginBottom: showLoadMore ? 0 : 16, marginTop: showLoadMore ? 16 : 0}}>
                 <Col xs={24} sm={12} md={6} lg={4}>
                     <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                        <Text type="secondary">{t("BlogControls.sortBy.label")}</Text>
+                        <Typography.Text type="secondary">{t("BlogControls.sortBy.label")}</Typography.Text>
                         <Select
                                 style={{width: "100%"}}
                                 value={sortBy}
@@ -66,7 +65,7 @@ export function BlogControls({
                 </Col>
                 <Col xs={24} sm={12} md={6} lg={4}>
                     <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                        <Text type="secondary">{t("BlogControls.sortDirection.label")}</Text>
+                        <Typography.Text type="secondary">{t("BlogControls.sortDirection.label")}</Typography.Text>
                         <Select
                                 style={{width: "100%"}}
                                 value={sortDirection}
@@ -79,7 +78,7 @@ export function BlogControls({
                 </Col>
                 <Col xs={24} sm={16} md={8} lg={10}>
                     <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                        <Text type="secondary">{t("BlogControls.search.label")}</Text>
+                        <Typography.Text type="secondary">{t("BlogControls.search.label")}</Typography.Text>
                         <Input
                                 placeholder={t("BlogControls.search.placeholder")}
                                 value={searchText}
@@ -90,7 +89,7 @@ export function BlogControls({
                 </Col>
                 <Col xs={24} sm={8} md={4} lg={6}>
                     <Space orientation={"vertical"} size={4}>
-                        <Text type="secondary">{t("BlogControls.caseSensitive.label")}</Text>
+                        <Typography.Text type="secondary">{t("BlogControls.caseSensitive.label")}</Typography.Text>
                         <Space>
                             <Switch
                                     checked={caseSensitive}
