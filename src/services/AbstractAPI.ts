@@ -1,6 +1,8 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {PagedResponse} from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
+import {transformDatesInObject, serializeDayjsInObject} from "./dateTransformer";
+import {getGlobalTimezone} from "./timezoneContext";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {
     protected axiosInstance: AxiosInstance;
@@ -12,10 +14,24 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
         configureAxiosBaseUrl(this.axiosInstance, member);
     }
 
+    /**
+     * Transform response data to convert date strings/Date objects to Dayjs instances
+     */
+    protected transformResponse<T>(data: T): T {
+        return transformDatesInObject(data, getGlobalTimezone());
+    }
+
+    /**
+     * Serialize request data to convert Dayjs objects to ISO strings
+     */
+    protected serializeRequest<T>(data: T): T {
+        return serializeDayjsInObject(data);
+    }
+
     public async findAll(params?: Record<string, string | number>): Promise<RESPONSE[]> {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         const response = await this.axiosInstance.get<RESPONSE[]>("", {params: params});
-        return response.data;
+        return response.data.map((item) => this.transformResponse(item));
     }
 
     /**
@@ -25,7 +41,11 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     public async findPageable(params?: Record<string, string | number>): Promise<PagedResponse<RESPONSE>> {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
         const response = await this.axiosInstance.get<PagedResponse<RESPONSE>>("", {params: params});
-        return response.data;
+        const transformedData = this.transformResponse(response.data.data);
+        return {
+            ...response.data,
+            data: transformedData as RESPONSE[]
+        };
     }
 
     public async findById(id: number, parameters: string | null): Promise<RESPONSE> {
@@ -36,19 +56,21 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
             url = parameters ? url + "?" + parameters : url;
         }
         const response = await this.axiosInstance.get<RESPONSE>(url);
-        return response.data;
+        return this.transformResponse(response.data);
     }
 
     public async create(payload: REQUEST): Promise<RESPONSE> {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        const response = await this.axiosInstance.post<RESPONSE>("", payload);
-        return response.data;
+        const serializedPayload = this.serializeRequest(payload);
+        const response = await this.axiosInstance.post<RESPONSE>("", serializedPayload);
+        return this.transformResponse(response.data);
     }
 
     public async update(payload: REQUEST): Promise<RESPONSE> {
         this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
-        const response = await this.axiosInstance.put<RESPONSE>("", payload);
-        return response.data;
+        const serializedPayload = this.serializeRequest(payload);
+        const response = await this.axiosInstance.put<RESPONSE>("", serializedPayload);
+        return this.transformResponse(response.data);
     }
 
     public async delete(id: number): Promise<boolean> {

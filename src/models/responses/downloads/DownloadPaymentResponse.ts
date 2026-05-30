@@ -1,4 +1,5 @@
 import {PaymentTypeEnum} from "../../PaymentTypeEnum";
+import type {Dayjs} from "dayjs";
 
 export interface DownloadPaymentResponse {
     id: number;
@@ -6,5 +7,5 @@ export interface DownloadPaymentResponse {
     name: string;
     paymentCount: number;
     paymentType: PaymentTypeEnum;
-    created: Date;
+    created: Dayjs;
 }

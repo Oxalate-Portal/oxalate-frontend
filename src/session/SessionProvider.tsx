@@ -8,7 +8,7 @@ import {
     type PortalConfigurationResponse,
     type UserSessionToken
 } from "../models";
-import {authAPI, portalConfigurationAPI} from "../services";
+import {authAPI, portalConfigurationAPI, setGlobalTimezone} from "../services";
 import {SessionContext, type SessionContextType} from "./SessionContext";
 
 interface SessionProviderProps {
@@ -102,6 +102,13 @@ export function SessionProvider({children}: SessionProviderProps) {
                 });
 
     }, [userKey, languageKey, organizationName, portalTimezone]);
+
+    // Set global timezone whenever portal timezone changes
+    useEffect(() => {
+        if (portalTimezone) {
+            setGlobalTimezone(portalTimezone);
+        }
+    }, [portalTimezone]);
 
 
     // Function to handle user login

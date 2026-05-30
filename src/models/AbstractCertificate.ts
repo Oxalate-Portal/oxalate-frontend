@@ -1,3 +1,5 @@
+import type {Dayjs} from "dayjs";
+
 export interface AbstractCertificate {
     id: number;
     userId: number;
@@ -5,5 +7,5 @@ export interface AbstractCertificate {
     certificateName: string;
     certificateId: string;
     diverId: string;
-    certificationDate: string;
+    certificationDate: Dayjs;
 }
