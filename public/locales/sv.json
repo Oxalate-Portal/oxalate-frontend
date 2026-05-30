@@ -995,6 +995,9 @@
     "participants" : {
       "title" : "Deltagare"
     },
+    "waitingList" : {
+      "title" : "Väntelista"
+    },
     "table" : {
       "maxDepth" : "Maxdjup, m",
       "maxDuration" : "Maxtid, min",

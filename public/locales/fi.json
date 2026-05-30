@@ -995,6 +995,9 @@
     "participants" : {
       "title" : "Osallistujat"
     },
+    "waitingList" : {
+      "title" : "Jonotuslista"
+    },
     "table" : {
       "maxDepth" : "Maksimisyvyys, m",
       "maxDuration" : "Maksimiaika, min",

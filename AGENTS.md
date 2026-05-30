@@ -29,6 +29,8 @@
 - Not every API uses `AbstractAPI`: `src/services/AuthAPI.ts` and `PortalConfigurationAPI.ts` are custom because they have bespoke endpoints and login/config
   flows.
 - Keep model types in `src/models`, usually split into `props/`, `requests/`, and `responses/`, then re-exported through `src/models/index.ts`.
+- Always import the directory, not the individual file, to get the barrel exports. This keeps imports clean and makes it easier to refactor file organization
+  without breaking imports.
 
 ## UI and state patterns to preserve
 

@@ -12,7 +12,7 @@ import {
     UserStatusEnum,
     UserTypeEnum
 } from "../models";
-import {EditDiveEvent} from "../components/DiveEvent/EditDiveEvent";
+import {EditDiveEvent} from "../components";
 import * as test from "node:test";
 import * as test from "node:test";
 

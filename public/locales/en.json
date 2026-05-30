@@ -995,6 +995,9 @@
     "participants" : {
       "title" : "Participants"
     },
+    "waitingList" : {
+      "title" : "Waiting list"
+    },
     "table" : {
       "maxDepth" : "Maximum depth, m",
       "maxDuration" : "Maximum time, min",

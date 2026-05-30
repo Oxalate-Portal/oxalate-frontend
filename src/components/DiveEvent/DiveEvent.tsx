@@ -7,6 +7,7 @@ import {
     type DiveEventResponse,
     type EventSubscribeRequest,
     type MembershipResponse,
+    MembershipStatusEnum,
     PaymentExpirationTypeEnum,
     type PaymentResponse,
     type PaymentStatusResponse,
@@ -106,14 +107,29 @@ export function DiveEvent() {
             }
 
             // Check if the event requires valid payment
-            if (getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true") {
+            const requiresPayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
+            const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
+
+            let hasActiveMembership = !requiresMembership;
+            if (requiresMembership) {
+                try {
+                    const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
+                    hasActiveMembership = activeMembership.some(membership => membership.status === MembershipStatusEnum.ACTIVE);
+                } catch (error) {
+                    console.error("Error:", error);
+                    hasActiveMembership = false;
+                }
+            }
+
+            let hasValidPayment = !requiresPayment;
+            if (requiresPayment) {
                 try {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
 
                     // Either payment type (one-time or periodical) independently satisfies the requirement.
                     // hasValidPayment becomes true as soon as any enabled type has a valid payment.
-                    let hasValidPayment = false;
+                    hasValidPayment = false;
 
                     const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
                     if (oneTimeEnabled) {
@@ -138,23 +154,21 @@ export function DiveEvent() {
                         }
                     }
 
-                    result.missingPayment = !hasValidPayment;
                 } catch (error) {
                     console.error("Error:", error);
-                    result.missingPayment = true;
+                    hasValidPayment = false;
                 }
             }
 
-            if (getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true") {
-                try {
-                    const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
-                    if (activeMembership.length === 0) {
-                        result.missingMembership = true;
-                    }
-                } catch (error) {
-                    console.error("Error:", error);
-                    result.missingMembership = true;
-                }
+            const membershipOrPaymentRequired = requiresMembership && requiresPayment;
+            if (membershipOrPaymentRequired) {
+                // If both checks are enabled, joining is allowed when at least one prerequisite is valid.
+                const missingBoth = !hasActiveMembership && !hasValidPayment;
+                result.missingMembership = missingBoth;
+                result.missingPayment = missingBoth;
+            } else {
+                result.missingMembership = requiresMembership && !hasActiveMembership;
+                result.missingPayment = requiresPayment && !hasValidPayment;
             }
 
             result.canSubscribe = !result.missingMembership && !result.missingPayment && !result.missingHealthStatement;

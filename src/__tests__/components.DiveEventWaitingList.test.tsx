@@ -1,12 +1,16 @@
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {DiveEvent} from "../components/DiveEvent/DiveEvent";
+import {DiveEvent} from "../components";
+import {PortalConfigGroupEnum} from "../models";
 
 const mockFindById = jest.fn();
 const mockJoinWaitingList = jest.fn();
 const mockLeaveWaitingList = jest.fn();
 const mockSubscribe = jest.fn();
 const mockUnsubscribe = jest.fn();
+const mockFindMembershipByUserId = jest.fn();
+const mockFindPaymentByUserId = jest.fn();
+const mockGetPortalConfigurationValue = jest.fn();
 
 const baseEvent = {
     id: 123,
@@ -37,15 +41,7 @@ jest.mock("../session", () => ({
             healthStatementId: 1,
             roles: ["ROLE_USER"]
         },
-        getPortalConfigurationValue: (_group: string, key: string) => {
-            if (key === "commenting-enabled") {
-                return "false";
-            }
-            if (key === "commenting-enabled-features") {
-                return "";
-            }
-            return "false";
-        }
+        getPortalConfigurationValue: (...args: unknown[]) => mockGetPortalConfigurationValue(...args)
     })
 }));
 
@@ -58,10 +54,10 @@ jest.mock("../services", () => ({
         unsubscribeUserToEvent: (...args: unknown[]) => mockUnsubscribe(...args)
     },
     membershipAPI: {
-        findByUserId: jest.fn().mockResolvedValue([])
+        findByUserId: (...args: unknown[]) => mockFindMembershipByUserId(...args)
     },
     paymentAPI: {
-        findByUserId: jest.fn().mockResolvedValue({payments: []})
+        findByUserId: (...args: unknown[]) => mockFindPaymentByUserId(...args)
     }
 }));
 
@@ -101,6 +97,20 @@ jest.mock("antd", () => {
 describe("DiveEvent waiting list button", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+
+        mockGetPortalConfigurationValue.mockImplementation((_group: string, key: string) => {
+            if (key === "commenting-enabled") {
+                return "false";
+            }
+            if (key === "commenting-enabled-features") {
+                return "";
+            }
+            return "false";
+        });
+
+        mockFindMembershipByUserId.mockResolvedValue([]);
+        mockFindPaymentByUserId.mockResolvedValue({payments: []});
+
         mockJoinWaitingList.mockResolvedValue({...baseEvent, waitingList: [{id: 1}]});
         mockLeaveWaitingList.mockResolvedValue({...baseEvent, waitingList: []});
     });
@@ -129,6 +139,40 @@ describe("DiveEvent waiting list button", () => {
         fireEvent.click(screen.getByText("DiveEvent.waitingList.leaveButton"));
 
         await waitFor(() => expect(mockLeaveWaitingList).toHaveBeenCalledWith(123));
+    });
+
+    it("shows join button when diver has active membership even if payment is required", async () => {
+        mockFindById.mockResolvedValue({...baseEvent, maxParticipants: 5, waitingList: []});
+        mockFindMembershipByUserId.mockResolvedValue([{id: 58, status: "ACTIVE"}]);
+        mockFindPaymentByUserId.mockResolvedValue({payments: []});
+        mockGetPortalConfigurationValue.mockImplementation((group: string, key: string) => {
+            if (key === "commenting-enabled") {
+                return "false";
+            }
+            if (key === "commenting-enabled-features") {
+                return "";
+            }
+            if (group === PortalConfigGroupEnum.MEMBERSHIP && key === "event-require-membership") {
+                return "true";
+            }
+            if (group === PortalConfigGroupEnum.PAYMENT && key === "event-require-payment") {
+                return "true";
+            }
+            if (group === PortalConfigGroupEnum.PAYMENT && key === "one-time-expiration-type") {
+                return "DISABLED";
+            }
+            if (group === PortalConfigGroupEnum.PAYMENT && key === "periodical-payment-method-type") {
+                return "DISABLED";
+            }
+            return "false";
+        });
+
+        await act(async () => {
+            render(<DiveEvent/>);
+        });
+
+        await waitFor(() => expect(screen.getByText("DiveEvent.subscribe.button")).toBeInTheDocument());
+        expect(screen.queryByText("DiveEvent.requiresPayment")).toBeNull();
     });
 });
 
