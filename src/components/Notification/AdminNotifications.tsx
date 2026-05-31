@@ -8,10 +8,11 @@ import {notificationAPI, userAPI} from "../../services";
 interface AdminNotificationsProps {
     participantIds?: number[];
     onNotificationSent?: () => void;
+    onCancel?: () => void;
     embedded?: boolean;
 }
 
-export function AdminNotifications({participantIds, onNotificationSent, embedded = false}: AdminNotificationsProps) {
+export function AdminNotifications({participantIds, onNotificationSent, onCancel, embedded = false}: AdminNotificationsProps) {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(false);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
@@ -160,7 +161,10 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
                             <Form.Item
                                     name="message"
                                     label={t("AdminNotifications.form.message.label")}
-                                    rules={[{required: true, message: t("AdminNotifications.form.message.required")}]}
+                                    rules={[
+                                        {required: true, message: t("AdminNotifications.form.message.required")},
+                                        {min: 5, message: t("AdminNotifications.form.message.min")}
+                                    ]}
                             >
                                 <Input.TextArea
                                         rows={6}
@@ -176,8 +180,11 @@ export function AdminNotifications({participantIds, onNotificationSent, embedded
                                     <Button onClick={() => {
                                         notificationForm.resetFields();
                                         setSendToAll(false);
+                                        if (onCancel) {
+                                            onCancel();
+                                        }
                                     }}>
-                                        {t("AdminNotifications.form.reset")}
+                                        {embedded ? t("common.button.cancel") : t("AdminNotifications.form.reset")}
                                     </Button>
                                 </Space>
                             </Form.Item>
