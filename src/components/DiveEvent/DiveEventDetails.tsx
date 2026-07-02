@@ -4,11 +4,12 @@ import {useSession} from "../../session";
 import {type DiveEventResponse, type ListUserResponse, RoleEnum} from "../../models";
 import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
-import {Space, Spin, Table, Tooltip} from "antd";
+import {Button, Modal, Space, Spin, Table, Tooltip} from "antd";
 import {LinkOutlined} from "@ant-design/icons";
 import type {ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
 import {DiveEventFiles} from "./DiveEventFiles";
+import {AdminNotifications} from "../Notification";
 
 interface DiveEventDetailsProps {
     eventInfo: DiveEventResponse | null;
@@ -16,8 +17,15 @@ interface DiveEventDetailsProps {
 
 export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
     const [loading, setLoading] = useState(true);
+    const [notificationModalOpen, setNotificationModalOpen] = useState(false);
     const {userSession, getPortalTimezone} = useSession();
     const {t} = useTranslation();
+    const isFutureEvent = !!eventInfo && dayjs(eventInfo.startTime).isAfter(dayjs());
+    const canNotifyParticipants = !!userSession
+            && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
+            && isFutureEvent
+            && !!eventInfo
+            && eventInfo.participants.length > 0;
 
     const columns: ColumnsType<DiveEventResponse> = [
         {
@@ -193,6 +201,10 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                             />
 
                             <h5 key={"event-part-" + eventInfo.id}>{t("EventDetails.participants.title")}: ({eventInfo.participants.length}):</h5>
+                            {canNotifyParticipants &&
+                                   <Button onClick={() => setNotificationModalOpen(true)}>
+                                       {t("EventDetails.notificationModal.button")}
+                                   </Button>}
 
                             <Table columns={participantColumns}
                                    dataSource={eventInfo.participants}
@@ -216,6 +228,23 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
                             <DiveEventFiles eventId={eventInfo.id}/>
                         </Space>}
+                <Modal
+                        title={t("EventDetails.notificationModal.title")}
+                        open={notificationModalOpen}
+                        onCancel={() => setNotificationModalOpen(false)}
+                        footer={null}
+                        width={600}
+                        destroyOnHidden
+                >
+                    {eventInfo && (
+                           <AdminNotifications
+                                   participantIds={eventInfo.participants.map(participant => participant.id)}
+                                   onNotificationSent={() => setNotificationModalOpen(false)}
+                                   onCancel={() => setNotificationModalOpen(false)}
+                                   embedded={true}
+                           />
+                    )}
+                </Modal>
             </Spin>
     );
 }

@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import dayjs from "dayjs";
 import type {ReactNode} from "react";
 import {
@@ -24,6 +24,19 @@ jest.mock("react-router-dom", () => ({
 }));
 
 jest.mock("antd", () => ({
+    Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
+    Modal: ({open, children, title, onCancel}: {
+        open: boolean;
+        children: ReactNode;
+        title: ReactNode;
+        onCancel: () => void;
+    }) => open ? (
+            <div>
+                <h2>{title}</h2>
+                <button onClick={onCancel}>modal-cancel</button>
+                {children}
+            </div>
+    ) : null,
     Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Spin: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Tooltip: ({children}: { children: ReactNode }) => <>{children}</>,
@@ -44,6 +57,10 @@ jest.mock("antd", () => ({
     )
 }));
 
+const mockAdminNotifications = jest.fn(({participantIds}: { participantIds: number[] }) => (
+        <div>admin-notifications-{participantIds.join(",")}</div>
+));
+
 jest.mock("../tools", () => ({
     checkRoles: (haystack: string[] | null, needles: string[]) => !!haystack?.some(role => needles.includes(role)),
     diveTypeEnum2Tag: (type: string) => <span>{type}</span>,
@@ -51,18 +68,24 @@ jest.mock("../tools", () => ({
     userTypeEnum2Tag: (type: string) => <span>{type}</span>
 }));
 
+const mockUserSession = {
+    id: 1,
+    roles: ["ROLE_USER"]
+};
+
 jest.mock("../session", () => ({
     useSession: () => ({
-        userSession: {
-            id: 1,
-            roles: ["ROLE_USER"]
-        },
+        userSession: mockUserSession,
         getPortalTimezone: () => "UTC"
     })
 }));
 
 jest.mock("../components/DiveEvent/DiveEventFiles", () => ({
     DiveEventFiles: () => null
+}));
+
+jest.mock("../components/Notification", () => ({
+    AdminNotifications: (props: { participantIds: number[] }) => mockAdminNotifications(props)
 }));
 
 function createListUser(id: number, name: string): ListUserResponse {
@@ -130,6 +153,11 @@ function createEvent(waitingList: ListUserResponse[]): DiveEventResponse {
 }
 
 describe("DiveEventDetails waiting list", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        mockUserSession.roles = ["ROLE_USER"];
+    });
+
     it("renders a separate waiting-list table when queued divers exist", () => {
         render(<DiveEventDetails eventInfo={createEvent([createListUser(100, "Queued Diver")])}/>);
 
@@ -142,5 +170,44 @@ describe("DiveEventDetails waiting list", () => {
         render(<DiveEventDetails eventInfo={createEvent([])}/>);
 
         expect(screen.queryByText(/EventDetails\.waitingList\.title/)).toBeNull();
+    });
+});
+
+describe("DiveEventDetails participant notifications", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        mockUserSession.roles = ["ROLE_USER"];
+    });
+
+    it("shows notify button only to organizer/admin on future events", () => {
+        mockUserSession.roles = ["ROLE_ORGANIZER"];
+        render(<DiveEventDetails eventInfo={createEvent([createListUser(100, "Queued Diver")])}/>);
+        expect(screen.getByText("EventDetails.notificationModal.button")).toBeInTheDocument();
+    });
+
+    it("does not show notify button for non-organizer roles", () => {
+        render(<DiveEventDetails eventInfo={createEvent([createListUser(100, "Queued Diver")])}/>);
+        expect(screen.queryByText("EventDetails.notificationModal.button")).toBeNull();
+    });
+
+    it("does not show notify button for past events", () => {
+        mockUserSession.roles = ["ROLE_ADMIN"];
+        const event = createEvent([createListUser(100, "Queued Diver")]);
+        event.startTime = dayjs().subtract(2, "day");
+
+        render(<DiveEventDetails eventInfo={event}/>);
+        expect(screen.queryByText("EventDetails.notificationModal.button")).toBeNull();
+    });
+
+    it("opens and closes participant notification modal", () => {
+        mockUserSession.roles = ["ROLE_ADMIN"];
+        render(<DiveEventDetails eventInfo={createEvent([createListUser(100, "Queued Diver")])}/>);
+
+        fireEvent.click(screen.getByText("EventDetails.notificationModal.button"));
+        expect(screen.getByText("EventDetails.notificationModal.title")).toBeInTheDocument();
+        expect(screen.getByText("admin-notifications-10")).toBeInTheDocument();
+
+        fireEvent.click(screen.getByText("modal-cancel"));
+        expect(screen.queryByText("EventDetails.notificationModal.title")).toBeNull();
     });
 });
