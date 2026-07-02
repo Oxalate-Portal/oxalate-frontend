@@ -25,11 +25,21 @@ module.exports = {
         '!src/main.tsx',
         '!src/vite-env.d.ts'
     ],
+    // Transform TypeScript and allow ESM from ant-design packages
     transform: {
         '^.+\\.tsx?$': ['ts-jest', {
             tsconfig: '<rootDir>/tsconfig.jest.json',
             diagnostics: false,
             useESM: true
+        }],
+        // Also allow .js/.jsx files to be transformed
+        '^.+\\.jsx?$': ['ts-jest', {
+            tsconfig: '<rootDir>/tsconfig.jest.json'
         }]
-    }
+    },
+    // Don't ignore ant-design packages - allow ts-jest to transform them
+    transformIgnorePatterns: [
+        'node_modules/(?!(@ant-design|rc-.*|enquire\\.js)/)'
+    ],
+    extensionsToTreatAsEsm: ['.ts', '.tsx']
 };
