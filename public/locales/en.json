@@ -121,6 +121,7 @@
     "form" : {
       "message" : {
         "label" : "Message",
+        "min" : "Message must be at least 5 characters",
         "placeholder" : "Enter the notification message",
         "required" : "Please enter a message"
       },
@@ -977,6 +978,10 @@
   "EventDetails" : {
     "description" : {
       "title" : "Event description"
+    },
+    "notificationModal" : {
+      "button" : "Notify participants",
+      "title" : "Send notification to participants"
     },
     "link" : {
       "tooltip" : "Open event"
