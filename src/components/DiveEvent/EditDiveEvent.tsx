@@ -44,6 +44,7 @@ export function EditDiveEvent() {
     const [maxDiveLength, setMaxDiveLength] = useState<number>(120);
     const [minParticipants, setMinParticipants] = useState<number>(2);
     const [maxParticipants, setMaxParticipants] = useState<number>(20);
+    const [currentMaxParticipants, setCurrentMaxParticipants] = useState<number>(20);
     const [minEventLength, setMinEventLength] = useState<number>(1);
     const [maxEventLength, setMaxEventLength] = useState<number>(6);
     const [eventTypes, setEventTypes] = useState<{ value: string, label: string }[]>([]);
@@ -163,6 +164,7 @@ export function EditDiveEvent() {
             const maxParticipants = parseInt(getFrontendConfigurationValue("max-participants"));
             setMinParticipants(minParticipants);
             setMaxParticipants(maxParticipants);
+            setCurrentMaxParticipants(maxParticipants);
             setParticipantsMarks(getMarks(minParticipants, maxParticipants, 5, ""));
 
             const eventTypes: string[] = getFrontendConfigurationValue("types-of-event").split(",");
@@ -225,7 +227,7 @@ export function EditDiveEvent() {
                                     description: "",
                                     type: DiveTypeEnum.SURFACE,
                                     // startTime is a string in the model; store an ISO string
-                                    startTime: nextEventTime().toISOString(),
+                                    startTime: nextEventTime(),
                                     eventDuration: frontendValues.maxEventLength,
                                     maxDuration: frontendValues.maxDiveLength,
                                     maxDepth: frontendValues.maxDepth,
@@ -296,8 +298,7 @@ export function EditDiveEvent() {
         // Normalize to minute precision
         const normalizedStart = dayjs(submitValues.startTime).second(0).millisecond(0);
         // Shift the datetime to the configured timezone (UTC) and send as ISO string
-        const utcStart = localToUTCDatetime(normalizedStart, getPortalTimezone());
-        submitValues.startTime = utcStart.toISOString();
+        submitValues.startTime = localToUTCDatetime(normalizedStart, getPortalTimezone());
 
         // Check also that the new maxParticipants value is not lower than the current number of participants
         if (submitValues.maxParticipants < submitValues.participants.length) {
@@ -526,7 +527,12 @@ export function EditDiveEvent() {
                                    {validator: validateMaxParticipants}
                                ]}
                     >
-                        <Slider min={minParticipants} max={maxParticipants} step={1} marks={participantsMarks}/>
+                        <Slider min={minParticipants}
+                                max={maxParticipants}
+                                defaultValue={currentMaxParticipants}
+                                step={1}
+                                marks={participantsMarks}
+                        />
                     </Form.Item>
                     <Form.Item name={"status"}
                                required={true}
