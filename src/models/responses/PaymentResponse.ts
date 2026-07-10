@@ -9,5 +9,5 @@ export interface PaymentResponse {
     startDate: Dayjs;
     endDate: Dayjs;
     created: Dayjs;
-    boundEvents: number[];
+    boundEvents: number[] | null;
 }

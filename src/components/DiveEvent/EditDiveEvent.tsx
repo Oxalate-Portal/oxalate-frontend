@@ -9,7 +9,6 @@ import {
     DiveTypeEnum,
     type ListUserResponse,
     type OptionItemVO,
-    PaymentTypeEnum,
     PortalConfigGroupEnum,
     RoleEnum
 } from "../../models";
@@ -21,7 +20,7 @@ import timezone from "dayjs/plugin/timezone";
 import {useSession} from "../../session";
 import {localToUTCDatetime} from "../../tools";
 import {AdminNotifications} from "../Notification";
-import {exceedsMaxParticipants, isMaxParticipantsTooLow} from "./editDiveEventValidation";
+import {buildParticipantOptions, exceedsMaxParticipants, isMaxParticipantsTooLow} from "./editDiveEventValidation";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -44,7 +43,6 @@ export function EditDiveEvent() {
     const [maxDiveLength, setMaxDiveLength] = useState<number>(120);
     const [minParticipants, setMinParticipants] = useState<number>(2);
     const [maxParticipants, setMaxParticipants] = useState<number>(20);
-    const [currentMaxParticipants, setCurrentMaxParticipants] = useState<number>(20);
     const [minEventLength, setMinEventLength] = useState<number>(1);
     const [maxEventLength, setMaxEventLength] = useState<number>(6);
     const [eventTypes, setEventTypes] = useState<{ value: string, label: string }[]>([]);
@@ -95,45 +93,10 @@ export function EditDiveEvent() {
             setOrganizerOptions(organizerList);
         }
 
-        function populateParticipantList(users: ListUserResponse[], thisEventId: number): void {
-            const participantList = [];
+        function populateParticipantList(users: ListUserResponse[], thisEventId: number, currentParticipants: ListUserResponse[] = []): void {
             const requiresMembership = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "event-require-membership") === "true";
             const requiresActivePayment = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "event-require-payment") === "true";
-
-            for (let i = 0; i < users.length; i++) {
-                if ((requiresMembership && !users[i].membershipActive)
-                        || (requiresActivePayment && users[i].payments.length === 0)) {
-                    continue;
-                }
-
-                // Next check of the list of payments of the users are all expired or empty
-                let hasValidPayment = false;
-
-                for (let j = 0; j < users[i].payments.length; j++) {
-                    const payment = users[i].payments[j];
-                    // If the user has an active periodical payment
-                    if (payment.paymentType === PaymentTypeEnum.PERIODICAL
-                            && dayjs(payment.endDate).isAfter(dayjs())) {
-                        hasValidPayment = true;
-                        break;
-                    } else if (payment.paymentType === PaymentTypeEnum.ONE_TIME
-                            && (dayjs(payment.endDate).isAfter(dayjs())
-                                    || payment.endDate === null)
-                            && (payment.paymentCount > 0
-                                    || payment.boundEvents.includes(thisEventId))) {
-                        hasValidPayment = true;
-                        break;
-                    }
-                }
-
-                if (!hasValidPayment) {
-                    continue;
-                }
-
-                participantList.push({value: users[i].id, label: users[i].name + " (" + users[i].id + ")"});
-            }
-
-            setParticipantOptions(participantList);
+            setParticipantOptions(buildParticipantOptions(users, thisEventId, requiresMembership, requiresActivePayment, currentParticipants));
         }
 
         function getMarks(min: number, max: number, step: number, suffix: string): { [key: number]: string } {
@@ -164,7 +127,6 @@ export function EditDiveEvent() {
             const maxParticipants = parseInt(getFrontendConfigurationValue("max-participants"));
             setMinParticipants(minParticipants);
             setMaxParticipants(maxParticipants);
-            setCurrentMaxParticipants(maxParticipants);
             setParticipantsMarks(getMarks(minParticipants, maxParticipants, 5, ""));
 
             const eventTypes: string[] = getFrontendConfigurationValue("types-of-event").split(",");
@@ -201,7 +163,7 @@ export function EditDiveEvent() {
                     .then(([eventResponse, organizerResponses, participantResponses, blockedDatesResponses]) => {
                         setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
                         populateOrganizerList(organizerResponses);
-                        populateParticipantList(participantResponses, tmpDiveEventId);
+                        populateParticipantList(participantResponses, tmpDiveEventId, eventResponse.participants);
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
                         setBlockedDates(dates);
                     })
@@ -529,7 +491,6 @@ export function EditDiveEvent() {
                     >
                         <Slider min={minParticipants}
                                 max={maxParticipants}
-                                defaultValue={currentMaxParticipants}
                                 step={1}
                                 marks={participantsMarks}
                         />
