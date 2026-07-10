@@ -1,4 +1,5 @@
 import type {Dayjs} from "dayjs";
+import {NotificationGroupEnum} from "../NotificationGroupEnum";
 
 export interface MessageRequest {
     id: number;
@@ -9,4 +10,7 @@ export interface MessageRequest {
     createdAt?: Dayjs;
     recipients?: number[];
     sendAll?: boolean;
+    notificationGroup?: NotificationGroupEnum;
+    inactiveDays?: number;
 }
+

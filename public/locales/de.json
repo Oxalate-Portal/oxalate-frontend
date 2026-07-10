@@ -117,12 +117,32 @@
   "AdminNotifications" : {
     "error" : "Benachrichtigungen konnten nicht gesendet werden",
     "errorGetUsers" : "Benutzer konnten nicht abgerufen werden",
+    "errorNoGroup" : "Bitte wählen Sie eine Benachrichtigungsgruppe",
+    "errorNoInactiveDays" : "Bitte geben Sie die Anzahl der Tage für die Auswahl inaktiver Benutzer an",
     "errorNoRecipients" : "Bitte wählen Sie mindestens einen Empfänger aus oder aktivieren Sie 'An alle Benutzer senden'",
     "form" : {
+      "inactiveDays" : {
+        "label" : "Tage der Inaktivität",
+        "min" : "Tage müssen mindestens 1 sein",
+        "placeholder" : "Geben Sie die Anzahl der Tage ein",
+        "required" : "Bitte geben Sie die Anzahl der Tage ein"
+      },
       "message" : {
         "label" : "Nachricht",
+        "min" : "Nachricht muss mindestens 5 Zeichen lang sein",
         "placeholder" : "Geben Sie die Benachrichtigungsnachricht ein",
         "required" : "Bitte geben Sie eine Nachricht ein"
+      },
+      "notificationGroup" : {
+        "label" : "Benachrichtigungsgruppe wählen",
+        "placeholder" : "Wählen Sie eine Benutzergruppe",
+        "required" : "Bitte wählen Sie eine Benachrichtigungsgruppe"
+      },
+      "notificationMode" : {
+        "group" : "Benachrichtigungsgruppe",
+        "label" : "Benachrichtigungsverteilungsmethode",
+        "recipients" : "Bestimmte Benutzer auswählen",
+        "sendAll" : "An alle Benutzer senden"
       },
       "recipients" : {
         "label" : "Empfänger",
@@ -130,15 +150,20 @@
         "required" : "Bitte wählen Sie mindestens einen Empfänger"
       },
       "reset" : "Zurücksetzen",
-      "sendAll" : {
-        "label" : "An alle Benutzer senden"
-      },
       "submit" : "Benachrichtigung senden",
       "title" : {
         "label" : "Titel",
         "placeholder" : "Benachrichtigungstitel eingeben",
         "required" : "Bitte geben Sie einen Titel ein"
       }
+    },
+    "groups" : {
+      "active_membership" : "Benutzer mit aktiver Mitgliedschaft",
+      "all_registered" : "Alle registrierten Benutzer",
+      "inactive_days" : "Benutzer inaktiv für angegebene Tage",
+      "locked_accounts" : "Benutzer mit gesperrten Konten",
+      "never_had_membership" : "Hatten nie eine Mitgliedschaft",
+      "no_active_membership" : "Benutzer ohne aktive Mitgliedschaft"
     },
     "participantCount" : "Benachrichtigung an {{count}} Teilnehmer senden",
     "success" : "Benachrichtigungen erfolgreich gesendet",

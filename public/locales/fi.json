@@ -117,12 +117,32 @@
   "AdminNotifications" : {
     "error" : "Ilmoitusten lähettäminen epäonnistui",
     "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
+    "errorNoGroup" : "Valitse ilmoitusryhmä",
+    "errorNoInactiveDays" : "Syötä päivien määrä passiivisten käyttäjien valinnalle",
     "errorNoRecipients" : "Valitse vähintään yksi vastaanottaja tai valitse 'Lähetä kaikille käyttäjille'",
     "form" : {
+      "inactiveDays" : {
+        "label" : "Päiviä inaktiivisuutta",
+        "min" : "Päivien on oltava vähintään 1",
+        "placeholder" : "Syötä päivien määrä",
+        "required" : "Syötä päivien määrä"
+      },
       "message" : {
         "label" : "Viesti",
+        "min" : "Viesti on oltava vähintään 5 merkkiä",
         "placeholder" : "Syötä ilmoituksen viesti",
         "required" : "Syötä viesti"
+      },
+      "notificationGroup" : {
+        "label" : "Valitse ilmoitusryhmä",
+        "placeholder" : "Valitse käyttäjäryhmä",
+        "required" : "Valitse ilmoitusryhmä"
+      },
+      "notificationMode" : {
+        "group" : "Ilmoitusryhmä",
+        "label" : "Ilmoituksen toimittotapa",
+        "recipients" : "Valitse tietyt käyttäjät",
+        "sendAll" : "Lähetä kaikille käyttäjille"
       },
       "recipients" : {
         "label" : "Vastaanottajat",
@@ -130,15 +150,20 @@
         "required" : "Valitse vähintään yksi vastaanottaja"
       },
       "reset" : "Tyhjennä",
-      "sendAll" : {
-        "label" : "Lähetä kaikille käyttäjille"
-      },
       "submit" : "Lähetä ilmoitus",
       "title" : {
         "label" : "Otsikko",
         "placeholder" : "Syötä ilmoituksen otsikko",
         "required" : "Syötä otsikko"
       }
+    },
+    "groups" : {
+      "active_membership" : "Käyttäjät, joilla on aktiivinen jäsenyys",
+      "all_registered" : "Kaikki rekisteröidyt käyttäjät",
+      "inactive_days" : "Käyttäjät, jotka ovat olleet passiivisia määritettyjen päivien ajan",
+      "locked_accounts" : "Käyttäjät, joilla on lukitut tilit",
+      "never_had_membership" : "Ei koskaan ollut jäsenyyttä",
+      "no_active_membership" : "Käyttäjät, joilla ei ole aktiivista jäsenyyttä"
     },
     "participantCount" : "Lähetetään ilmoitus {{count}} osallistujalle",
     "success" : "Ilmoitukset lähetetty onnistuneesti",
