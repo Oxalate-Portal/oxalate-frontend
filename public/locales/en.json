@@ -117,13 +117,32 @@
   "AdminNotifications" : {
     "error" : "Failed to send notifications",
     "errorGetUsers" : "Failed to get users",
+    "errorNoGroup" : "Please select a notification group",
+    "errorNoInactiveDays" : "Please enter the number of days for inactive user selection",
     "errorNoRecipients" : "Please select at least one recipient or check 'Send to all users'",
     "form" : {
+      "inactiveDays" : {
+        "label" : "Days of inactivity",
+        "min" : "Days must be at least 1",
+        "placeholder" : "Enter number of days",
+        "required" : "Please enter the number of days"
+      },
       "message" : {
         "label" : "Message",
         "min" : "Message must be at least 5 characters",
         "placeholder" : "Enter the notification message",
         "required" : "Please enter a message"
+      },
+      "notificationGroup" : {
+        "label" : "Select notification group",
+        "placeholder" : "Choose a user group",
+        "required" : "Please select a notification group"
+      },
+      "notificationMode" : {
+        "group" : "Notification group",
+        "label" : "Notification delivery method",
+        "recipients" : "Select specific users",
+        "sendAll" : "Send to all users"
       },
       "recipients" : {
         "label" : "Recipients",
@@ -131,15 +150,20 @@
         "required" : "Please select at least one recipient"
       },
       "reset" : "Reset",
-      "sendAll" : {
-        "label" : "Send to all users"
-      },
       "submit" : "Send Notification",
       "title" : {
         "label" : "Title",
         "placeholder" : "Enter notification title",
         "required" : "Please enter a title"
       }
+    },
+    "groups" : {
+      "active_membership" : "Users with active membership",
+      "all_registered" : "All registered users",
+      "inactive_days" : "Users inactive for specified days",
+      "locked_accounts" : "Users with locked accounts",
+      "never_had_membership" : "Never had membership",
+      "no_active_membership" : "Users without active membership"
     },
     "participantCount" : "Sending notification to {{count}} participant(s)",
     "success" : "Notifications sent successfully",

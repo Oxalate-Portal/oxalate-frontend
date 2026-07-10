@@ -117,12 +117,32 @@
   "AdminNotifications" : {
     "error" : "Error al enviar notificaciones",
     "errorGetUsers" : "Error al obtener usuarios",
+    "errorNoGroup" : "Seleccione un grupo de notificaciones",
+    "errorNoInactiveDays" : "Ingrese el número de días para la selección de usuarios inactivos",
     "errorNoRecipients" : "Seleccione al menos un destinatario o marque 'Enviar a todos los usuarios'",
     "form" : {
+      "inactiveDays" : {
+        "label" : "Días de inactividad",
+        "min" : "Los días deben ser al menos 1",
+        "placeholder" : "Ingrese la cantidad de días",
+        "required" : "Ingrese la cantidad de días"
+      },
       "message" : {
         "label" : "Mensaje",
+        "min" : "El mensaje debe tener al menos 5 caracteres",
         "placeholder" : "Ingrese el mensaje de notificación",
         "required" : "Ingrese un mensaje"
+      },
+      "notificationGroup" : {
+        "label" : "Seleccione grupo de notificaciones",
+        "placeholder" : "Seleccione un grupo de usuarios",
+        "required" : "Seleccione un grupo de notificaciones"
+      },
+      "notificationMode" : {
+        "group" : "Grupo de notificaciones",
+        "label" : "Método de entrega de notificaciones",
+        "recipients" : "Seleccione usuarios específicos",
+        "sendAll" : "Enviar a todos los usuarios"
       },
       "recipients" : {
         "label" : "Destinatarios",
@@ -130,15 +150,20 @@
         "required" : "Seleccione al menos un destinatario"
       },
       "reset" : "Restablecer",
-      "sendAll" : {
-        "label" : "Enviar a todos los usuarios"
-      },
       "submit" : "Enviar notificación",
       "title" : {
         "label" : "Título",
         "placeholder" : "Ingrese el título de la notificación",
         "required" : "Ingrese un título"
       }
+    },
+    "groups" : {
+      "active_membership" : "Usuarios con membresía activa",
+      "all_registered" : "Todos los usuarios registrados",
+      "inactive_days" : "Usuarios inactivos durante días especificados",
+      "locked_accounts" : "Usuarios con cuentas bloqueadas",
+      "never_had_membership" : "Nunca tuvo membresía",
+      "no_active_membership" : "Usuarios sin membresía activa"
     },
     "participantCount" : "Enviar notificación a {{count}} participante(s)",
     "success" : "Notificaciones enviadas correctamente",

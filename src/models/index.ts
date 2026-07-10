@@ -28,6 +28,7 @@ export {DownloadTypeEnum} from "./DownloadTypeEnum";
 export {EmailNotificationTypeEnum} from "./EmailNotificationTypeEnum";
 export {MembershipStatusEnum} from "./MembershipStatusEnum";
 export {MembershipTypeEnum} from "./MembershipTypeEnum";
+export {NotificationGroupEnum, NotificationGroupLabels} from "./NotificationGroupEnum";
 export {PageStatusEnum} from "./PageStatusEnum";
 export {PaymentTypeEnum} from "./PaymentTypeEnum";
 export {PaymentExpirationTypeEnum} from "./PaymentExpirationTypeEnum";

@@ -117,12 +117,32 @@
   "AdminNotifications" : {
     "error" : "Misslyckades med att skicka aviseringar",
     "errorGetUsers" : "Misslyckades med att hämta användare",
+    "errorNoGroup" : "Välj en aviseringsgrupp",
+    "errorNoInactiveDays" : "Ange antal dagar för inaktiv användarvalare",
     "errorNoRecipients" : "Välj minst en mottagare eller markera 'Skicka till alla användare'",
     "form" : {
+      "inactiveDays" : {
+        "label" : "Dagar av inaktivitet",
+        "min" : "Dagar måste vara minst 1",
+        "placeholder" : "Ange antal dagar",
+        "required" : "Ange antal dagar"
+      },
       "message" : {
         "label" : "Meddelande",
+        "min" : "Meddelandet måste vara minst 5 tecken",
         "placeholder" : "Ange aviseringsmeddelandet",
         "required" : "Ange ett meddelande"
+      },
+      "notificationGroup" : {
+        "label" : "Välj aviseringsgrupp",
+        "placeholder" : "Välj en användargrupp",
+        "required" : "Välj en aviseringsgrupp"
+      },
+      "notificationMode" : {
+        "group" : "Aviseringsgrupp",
+        "label" : "Aviseringsleveransmetod",
+        "recipients" : "Välj specifika användare",
+        "sendAll" : "Skicka till alla användare"
       },
       "recipients" : {
         "label" : "Mottagare",
@@ -130,15 +150,20 @@
         "required" : "Välj minst en mottagare"
       },
       "reset" : "Återställ",
-      "sendAll" : {
-        "label" : "Skicka till alla användare"
-      },
       "submit" : "Skicka avisering",
       "title" : {
         "label" : "Titel",
         "placeholder" : "Ange aviseringstitel",
         "required" : "Ange en titel"
       }
+    },
+    "groups" : {
+      "active_membership" : "Användare med aktiva medlemskap",
+      "all_registered" : "Alla registrerade användare",
+      "inactive_days" : "Användare inaktiva i angivna dagar",
+      "locked_accounts" : "Användare med låsta konton",
+      "never_had_membership" : "Aldrig haft medlemskap",
+      "no_active_membership" : "Användare utan aktivt medlemskap"
     },
     "participantCount" : "Skickar avisering till {{count}} deltagare",
     "success" : "Aviseringar skickade",
