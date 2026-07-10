@@ -1,10 +1,8 @@
 import {useEffect, useState} from "react";
-import {type RadioChangeEvent, Select} from "antd";
-import {Button, Form, Input, InputNumber, message, Radio, Select, Space, Spin, Typography} from "antd";
+import {Button, Form, Input, InputNumber, message, Radio, type RadioChangeEvent, Select, Space, Spin, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 import type {ListUserResponse, MessageRequest} from "../../models";
-import {RoleEnum, UpdateStatusEnum} from "../../models";
-import {NotificationGroupEnum, NotificationGroupLabels} from "../../models/NotificationGroupEnum";
+import {NotificationGroupEnum, NotificationGroupLabels, RoleEnum, UpdateStatusEnum} from "../../models";
 import {notificationAPI, userAPI} from "../../services";
 
 type NotificationMode = "sendAll" | "recipients" | "group";
