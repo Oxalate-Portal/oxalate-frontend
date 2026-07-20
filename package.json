@@ -45,10 +45,10 @@
     "@ant-design/icons" : "^6.3.2",
     "@ckeditor/ckeditor5-react" : "^11.2.0",
     "@wojtekmaj/react-recaptcha-v3" : "^0.1.4",
-    "antd" : "^6.5.0",
+    "antd" : "^6.5.1",
     "antd-style" : "^4.1.0",
     "axios" : "^1.18.1",
-    "ckeditor5" : "^48.3.0",
+    "ckeditor5" : "^48.3.1",
     "dayjs" : "^1.11.21",
     "dompurify" : "^3.4.12",
     "i18next" : "^26.3.6",
@@ -59,7 +59,7 @@
     "react-csv" : "^2.2.2",
     "react-dom" : "^19.2.7",
     "react-highlight-words" : "^0.21.0",
-    "react-i18next" : "^17.0.9",
+    "react-i18next" : "^17.0.10",
     "react-router-dom" : "^7.18.1"
   },
   "devDependencies" : {
@@ -94,8 +94,8 @@
     "translation-check" : "^1.1.1",
     "ts-jest" : "^29.4.11",
     "typescript" : "^6.0.3",
-    "typescript-eslint" : "^8.63.0",
-    "vite" : "^8.1.4",
+    "typescript-eslint" : "^8.64.0",
+    "vite" : "^8.1.5",
     "vite-plugin-svgr" : "^5.2.0"
   },
   "repository" : {
