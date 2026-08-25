@@ -1,4 +1,4 @@
-import {type ReactNode, useEffect, useState} from "react";
+import {type ReactNode, useCallback, useEffect, useState} from "react";
 import {
     ActionResultEnum,
     type FrontendConfigurationResponse,
@@ -171,11 +171,11 @@ export function SessionProvider({children}: SessionProviderProps) {
         return portalTimezone;
     }
 
-    function getFrontendConfigurationValue(key: string): string {
+    const getFrontendConfigurationValue = useCallback((key: string): string => {
         return frontendConfiguration.find((config) => config.key === key)?.value || "";
-    }
+    }, [frontendConfiguration]);
 
-    function getPortalConfigurationValue(groupKey: PortalConfigGroupEnum, settingKey: string): string {
+    const getPortalConfigurationValue = useCallback((groupKey: PortalConfigGroupEnum, settingKey: string): string => {
         const config = portalConfiguration.find((config) => {
             return config.groupKey === groupKey.valueOf() && config.settingKey === settingKey;
         });
@@ -193,19 +193,15 @@ export function SessionProvider({children}: SessionProviderProps) {
         }
 
         return config.runtimeValue;
-    }
+    }, [portalConfiguration]);
 
-    function getPortalConfiguration(): PortalConfigurationResponse[] {
+    const getPortalConfiguration = useCallback((): PortalConfigurationResponse[] => {
         return portalConfiguration;
-    }
+    }, [portalConfiguration]);
 
     function refreshUserSession(sessionVO: UserSessionToken): void {
         localStorage.setItem(userKey, JSON.stringify(sessionVO));
         setUser(sessionVO);
-    }
-
-    if (loading) {
-        return <div>Loading...</div>;
     }
 
     const contextValue: SessionContextType = {
@@ -223,6 +219,10 @@ export function SessionProvider({children}: SessionProviderProps) {
         logoutUser,
         refreshUserSession
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
             <SessionContext.Provider value={contextValue}>

@@ -1,6 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {type OptionItemVO, type PageGroupRequest, type PageGroupResponse, PageStatusEnum} from "../../models";
 import {Button, Divider, Form, Input, message, Select, Spin} from "antd";
 import {pageGroupMgmtAPI} from "../../services";
@@ -17,8 +17,8 @@ export function EditPageGroup() {
     const [pageGroupForm] = Form.useForm();
     const {getFrontendConfigurationValue} = useSession();
     const [messageApi, contextHolder] = message.useMessage();
-
-    const languageList = getFrontendConfigurationValue("enabled-language").split(",");
+    const enabledLanguages = getFrontendConfigurationValue("enabled-language");
+    const languageList = useMemo(() => enabledLanguages.split(","), [enabledLanguages]);
 
     const [pageGroup, setPageGroup] = useState<PageGroupResponse>({
         id: 0,
@@ -55,7 +55,7 @@ export function EditPageGroup() {
             pageGroupMgmtAPI.findById(tmpPageGroupId, null)
                     .then(response => {
                         // Filter the page group versions to only include the languages that are enabled in the frontend
-                        response.pageGroupVersions = response.pageGroupVersions.filter(pg => languageList.includes(pg.language));
+                        response.pageGroupVersions = response.pageGroupVersions.filter(pg => enabledLanguages.split(",").includes(pg.language));
                         setPageGroup(response);
                     })
                     .catch(error => {
@@ -69,7 +69,9 @@ export function EditPageGroup() {
             setCreateNewPageGroup(true);
             setSendButtonText(t("EditPageGroup.form.button.create"));
         }
-    }, [pageGroupId, paramId, t, languageList]);
+        // The route and configuration value are the only inputs that control the load.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [paramId, enabledLanguages]);
 
     function getErrorMessage(error: unknown): string {
         if (typeof error === "string") {

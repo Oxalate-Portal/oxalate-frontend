@@ -28,7 +28,6 @@ export function EditCertificate() {
     const [submitButtonText, setSubmitButtonText] = useState<string>(t("EditCertificate.form.button.update"));
     const [diveIdRequired, setDiveIdRequired] = useState<boolean>(true);
     const [certificateIdRequired, setCertificateIdRequired] = useState<boolean>(true);
-
     useEffect(() => {
         if (paramId?.length === 0) {
             console.error("Invalid dive event id:", paramId);
@@ -72,7 +71,10 @@ export function EditCertificate() {
             setSubmitButtonText(t("EditCertificate.form.button.add"));
             setLoading(false);
         }
-    }, [paramId, certificateForm, t, messageApi]);
+        // Form, translation, and message instances are stable application services;
+        // excluding them also keeps this load effect safe with test doubles.
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [paramId]);
 
 
     function updateCertificate(postData: CertificateRequest) {

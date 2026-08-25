@@ -11,8 +11,8 @@ export function YearlyDiveStats() {
     const [yearlyDiveData, setYearlyDiveData] = useState<YearlyDiversListResponse[]>([]);
     const [topListSize, setTopListSize] = useState<number>(100);
     const {t} = useTranslation();
-    const [collapseItems, setCollapseItems] = useState<CollapseProps["items"]>([]);
     const {getPortalConfigurationValue} = useSession();
+    const topDiversListSize = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "top-divers-list-size");
 
     const columns: ColumnsType<DiverListItemResponse> = useMemo(() => [
         {
@@ -32,43 +32,35 @@ export function YearlyDiveStats() {
         }
     ], [t]);
 
+    const collapseItems = useMemo<CollapseProps["items"]>(() => yearlyDiveData.map(yearlyData => ({
+        key: yearlyData.year + "-divedata-table",
+        label: yearlyData.year,
+        children: <Table dataSource={yearlyData.divers}
+                         columns={columns}
+                         pagination={{
+                             defaultPageSize: 10,
+                             hideOnSinglePage: true,
+                             showSizeChanger: true,
+                             showQuickJumper: true,
+                             pageSizeOptions: ["5", "10", "20", "30", "50"]
+                         }}
+                         key={"table" + yearlyData.year}
+                         rowKey={(record) => `${yearlyData.year}-diver-${record.userId}`}/>
+    })), [columns, yearlyDiveData]);
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            Promise.all([
-                statsAPI.getYearlyDiverList()
-            ])
-                    .then(([statsRespond]) => {
-                        setYearlyDiveData(statsRespond);
-                        const items = statsRespond.map(yearlyData => ({
-                            key: yearlyData.year + "-divedata-table",
-                            label: yearlyData.year,
-                            children: <Table dataSource={yearlyData.divers}
-                                             columns={columns}
-                                             pagination={{
-                                                 defaultPageSize: 10,
-                                                 hideOnSinglePage: true,
-                                                 showSizeChanger: true,
-                                                 showQuickJumper: true,
-                                                 pageSizeOptions: ["5", "10", "20", "30", "50"]
-                                             }}
-                                             key={"table" + yearlyData.year}
-                                             rowKey={(record) => `${yearlyData.year}-diver-${record.userId}`}/>
-                        }));
-                        setCollapseItems(items);
-
-                        setTopListSize(parseInt(getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "top-divers-list-size")));
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
-        };
-
-        fetchData().catch(console.error);
-    }, [columns, getPortalConfigurationValue]);
+        statsAPI.getYearlyDiverList()
+                .then((statsRespond) => {
+                    setYearlyDiveData(statsRespond);
+                    setTopListSize(parseInt(topDiversListSize));
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+    }, [topDiversListSize]);
 
     return (
             <div className={"darkDiv"}>

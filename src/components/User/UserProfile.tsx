@@ -35,7 +35,7 @@ export function UserProfile() {
                         })
                         .catch((error) => {
                             console.error("Error fetching:", error);
-                            messageApi.error(error);
+                            messageApi.error(error instanceof Error ? error.message : String(error));
                         });
             } else {
                 console.error("No userSession found");
