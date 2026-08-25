@@ -19,7 +19,10 @@ jest.setTimeout(30000);
 if (!globalThis.MessageChannel) {
     class TestMessageChannel {
         port1 = {onmessage: null as ((event: MessageEvent) => void) | null, close: jest.fn()};
-        port2 = {postMessage: jest.fn(), close: jest.fn()};
+        port2 = {
+            postMessage: (data: unknown) => queueMicrotask(() => this.port1.onmessage?.({data})),
+            close: jest.fn()
+        };
     }
 
     globalThis.MessageChannel = TestMessageChannel as never;

@@ -18,9 +18,17 @@ import {PageFiles} from "../components/Administration/FileManagement/PageFiles";
 import {AdminMemberships} from "../components/Administration/AdminMemberships";
 import {AdminOrgUsers} from "../components/Administration/AdminOrgUsers";
 
-const api: Record<string, jest.Mock> = {};
-const makeApi = (name: string) => (api[name] ??= jest.fn().mockResolvedValue([]));
-const service = (name: string, methods: string[]) => Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
+// eslint-disable-next-line no-var
+var api: Record<string, jest.Mock>;
+
+function makeApi(name: string) {
+    api ??= {};
+    return api[name] ??= jest.fn().mockResolvedValue([]);
+}
+
+function service(name: string, methods: string[]) {
+    return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
+}
 const mockGetPortalConfigurationValue = (_group: string, key: string) => key.includes("supported") ? "true" : "YEAR";
 const mockGetFrontendConfigurationValue = () => "en,fi";
 const mockT = (key: string) => key;
@@ -99,7 +107,7 @@ jest.mock("antd", () => {
         dataSource?: unknown[];
         onChange?: (...args: unknown[]) => void
     }) => (
-            <div data-testid="table">{dataSource.map((record, index) => columns.map((column, columnIndex) =>
+            <div data-testid="table">{dataSource.map((record) => columns.map((column, columnIndex) =>
                     <span key={columnIndex}>{column.render ? column.render(undefined, record) : null}</span>))}
                 <button onClick={() => onChange?.({current: 0}, {}, {field: undefined, order: undefined})}>table-change</button>
                 <button onClick={() => onChange?.({current: 1}, {}, [{field: "userName", order: "ascend"}])}>table-sort</button>

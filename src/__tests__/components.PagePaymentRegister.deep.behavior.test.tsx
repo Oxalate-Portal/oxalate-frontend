@@ -16,6 +16,15 @@ jest.setTimeout(30000);
 const mockNavigate = jest.fn();
 let mockParamId = "0";
 const mockMessage = {success: jest.fn(), error: jest.fn()};
+const mockGetPortalConfigurationValue = (group: string, key: string) => {
+    if (group === "MEMBERSHIP" && key === "event-require-membership") return "true";
+    if (key.includes("expiration-type") || key.includes("method-type")) return "PERIODICAL";
+    if (key.includes("expiration-unit") || key.includes("method-unit")) return "YEARS";
+    if (key.includes("start")) return "2024-01-01";
+    if (key.includes("length")) return "1";
+    if (key === "timezone") return "Europe/Helsinki";
+    return "true";
+};
 
 const mockTranslation = {t: (key: string) => key};
 jest.mock("react-i18next", () => ({useTranslation: () => mockTranslation}));
@@ -29,15 +38,7 @@ jest.mock("../session", () => ({
         userSession: {roles: [RoleEnum.ROLE_ADMIN]},
         sessionLanguage: "en",
         getFrontendConfigurationValue: () => "en,fi",
-        getPortalConfigurationValue: (group: string, key: string) => {
-            if (group === "MEMBERSHIP" && key === "event-require-membership") return "true";
-            if (key.includes("expiration-type") || key.includes("method-type")) return "PERIODICAL";
-            if (key.includes("expiration-unit") || key.includes("method-unit")) return "YEARS";
-            if (key.includes("start")) return "2024-01-01";
-            if (key.includes("length")) return "1";
-            if (key === "timezone") return "Europe/Helsinki";
-            return "true";
-        }
+        getPortalConfigurationValue: mockGetPortalConfigurationValue
     })
 }));
 jest.mock("../services", () => ({
@@ -145,14 +146,14 @@ describe("page editors and page listing", () => {
         (pageMgmtAPI.update as jest.Mock).mockResolvedValue({id: 7});
         render(<EditPage/>);
         await screen.findByDisplayValue("English page");
-        const editor = screen.getByRole("textbox", {name: "body editor"});
         await user.click(screen.getByRole("button", {name: "EditPage.form.button.update"}));
         await waitFor(() => expect(pageMgmtAPI.update).toHaveBeenCalled());
         (pageMgmtAPI.update as jest.Mock).mockRejectedValueOnce(new Error("failure"));
         await user.click(screen.getByRole("button", {name: "EditPage.form.button.update"}));
         await waitFor(() => expect(mockMessage.error).toHaveBeenCalled());
-        await user.clear(editor);
-        await user.type(editor, "updated body");
+        const refreshedEditor = screen.getByRole("textbox", {name: "body editor"});
+        await user.clear(refreshedEditor);
+        await user.type(refreshedEditor, "updated body");
         await user.click(screen.getByRole("button", {name: "EditPage.form.button.addPermission"}));
         expect(screen.getAllByText("EditPage.form.rolePermissions.readPermission.label").length).toBeGreaterThan(1);
     });

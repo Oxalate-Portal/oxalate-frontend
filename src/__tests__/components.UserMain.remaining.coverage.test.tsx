@@ -30,13 +30,20 @@ const session = {
     accessToken: "token", roles: ["ROLE_ADMIN"], avatarUrl: null, approvedTerms: false,
     healthStatementId: null, language: "en", memberships: [], payments: []
 } as never;
+const mockGetFrontendConfigurationValue = (key: string) => key === "enabled-language" ? "en,fi" : "3";
+const mockGetPortalConfigurationValue = () => "true";
+const mockLoginUser = jest.fn();
+const mockLogoutUser = jest.fn();
+const mockRefreshUserSession = jest.fn();
+const mockTranslation = {t: (key: string) => key};
 
+jest.mock("react-i18next", () => ({useTranslation: () => mockTranslation}));
 jest.mock("../session", () => ({
     useSession: () => ({
-        userSession: session, sessionLanguage: "en", loginUser: jest.fn(),
-        logoutUser: jest.fn(), refreshUserSession: jest.fn(),
-        getPortalConfigurationValue: () => "true",
-        getFrontendConfigurationValue: (key: string) => key === "enabled-language" ? "en,fi" : "3"
+        userSession: session, sessionLanguage: "en", loginUser: mockLoginUser,
+        logoutUser: mockLogoutUser, refreshUserSession: mockRefreshUserSession,
+        getPortalConfigurationValue: mockGetPortalConfigurationValue,
+        getFrontendConfigurationValue: mockGetFrontendConfigurationValue
     })
 }));
 jest.mock("../services", () => ({
@@ -112,7 +119,7 @@ describe("remaining User and main component paths", () => {
         const user = userEvent.setup();
         session.accessToken = "";
         (authAPI.recoverLostPassword as jest.Mock).mockResolvedValue({status: UpdateStatusEnum.OK});
-        const {rerender} = render(wrap(<LostPassword/>));
+        render(wrap(<LostPassword/>));
         await user.type(screen.getByRole("textbox"), "person@example.com");
         await user.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         await waitFor(() => expect(screen.getByText("LostPassword.updateStatus.ok.text")).toBeInTheDocument());

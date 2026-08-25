@@ -22,9 +22,17 @@ import {AdminMemberships} from "../components/Administration/AdminMemberships";
 import {AdminOrgUser} from "../components/Administration/AdminOrgUser";
 import {AdminOrgUsers} from "../components/Administration/AdminOrgUsers";
 
-const api: Record<string, jest.Mock> = {};
-const makeApi = (name: string) => (api[name] ??= jest.fn().mockResolvedValue([]));
-const service = (name: string, methods: string[]) => Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
+// eslint-disable-next-line no-var
+var api: Record<string, jest.Mock>;
+
+function makeApi(name: string) {
+    api ??= {};
+    return api[name] ??= jest.fn().mockResolvedValue([]);
+}
+
+function service(name: string, methods: string[]) {
+    return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
+}
 const mockGetPortalConfigurationValue = (_group: string, key: string) => key.includes("supported") ? "true" : "YEAR";
 const mockGetFrontendConfigurationValue = () => "en,fi";
 const mockT = (key: string) => key;

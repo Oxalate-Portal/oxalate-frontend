@@ -11,28 +11,37 @@ jest.mock("../services", () => ({
 const stableTranslation = {t: (key: string) => key};
 jest.mock("react-i18next", () => ({useTranslation: () => stableTranslation}));
 
-let finish: ((values: any) => void) | undefined;
+type FormValues = Record<string, unknown>;
+type InputProps = { placeholder?: string };
+type ControlProps = { children?: ReactNode; value?: string; onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void };
+type SelectProps = { options?: Array<{ value: string; label: string }>; onChange?: (value: string) => void; placeholder?: string };
+let finish: ((values: FormValues) => void) | undefined;
 const formApi = {resetFields: jest.fn(), setFieldsValue: jest.fn()};
 jest.mock("antd", () => {
-    const Form = ({children, onFinish}: { children: ReactNode; onFinish: (v: any) => void }) => {
+    const Form = ({children, onFinish}: { children: ReactNode; onFinish: (v: FormValues) => void }) => {
         finish = onFinish;
         return <form>{children}</form>;
     };
     Form.Item = ({children, label}: { children: ReactNode; label?: string }) => <label>{label}{children}</label>;
     Form.useForm = () => [formApi];
-    const Input = ({placeholder}: any) => <input placeholder={placeholder}/>;
-    Input.TextArea = ({placeholder}: any) => <textarea placeholder={placeholder}/>;
-    const Radio = ({children, value, onChange}: any) => <label><input type="radio" value={value} onChange={onChange}/>{children}</label>;
-    Radio.Group = ({children, onChange}: any) => <div>{React.Children.map(children, (c: any) => React.cloneElement(c, {onChange}))}</div>;
+    const Input = ({placeholder}: InputProps) => <input placeholder={placeholder}/>;
+    Input.TextArea = ({placeholder}: InputProps) => <textarea placeholder={placeholder}/>;
+    const Radio = ({children, value, onChange}: ControlProps) => <label><input type="radio" value={value} onChange={onChange}/>{children}</label>;
+    Radio.Group = ({children, onChange}: { children: ReactNode; onChange?: ControlProps["onChange"] }) =>
+            <div>{React.Children.map(children, child => React.isValidElement(child) ? React.cloneElement(child, {onChange}) : child)}</div>;
     return {
-        Button: ({children, onClick, htmlType}: any) => <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>,
-        Form, Input, InputNumber: (p: any) => <input {...p}/>,
+        Button: ({children, onClick, htmlType}: { children: ReactNode; onClick?: () => void; htmlType?: string }) =>
+                <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>,
+        Form, Input, InputNumber: (props: React.InputHTMLAttributes<HTMLInputElement>) => <input {...props}/>,
         Radio,
-        Select: ({options = [], onChange, placeholder}: any) => <select aria-label={placeholder}
-                                                                        onChange={e => onChange?.(e.target.value)}>{options.map((o: any) => <option
+        Select: ({options = [], onChange, placeholder}: SelectProps) => <select aria-label={placeholder}
+                                                                                onChange={e => onChange?.(e.target.value)}>{options.map((o) => <option
                 key={o.value} value={o.value}>{o.label}</option>)}</select>,
-        Space: ({children}: any) => <div>{children}</div>, Spin: ({children}: any) => <div>{children}</div>,
-        Typography: {Title: ({children}: any) => <h2>{children}</h2>, Text: ({children}: any) => <span>{children}</span>},
+        Space: ({children}: { children: ReactNode }) => <div>{children}</div>, Spin: ({children}: { children: ReactNode }) => <div>{children}</div>,
+        Typography: {
+            Title: ({children}: { children: ReactNode }) => <h2>{children}</h2>,
+            Text: ({children}: { children: ReactNode }) => <span>{children}</span>
+        },
         message: {useMessage: () => [{success: jest.fn(), error: jest.fn()}, <i key="holder"/>]}
     };
 });

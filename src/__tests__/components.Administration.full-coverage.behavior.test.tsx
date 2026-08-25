@@ -22,11 +22,19 @@ import {AdminMemberships} from "../components/Administration/AdminMemberships";
 import {AdminOrgUser} from "../components/Administration/AdminOrgUser";
 import {AdminOrgUsers} from "../components/Administration/AdminOrgUsers";
 
-const api: Record<string, jest.Mock> = {};
+// eslint-disable-next-line no-var
+var api: Record<string, jest.Mock>;
 let configMode = "enabled";
 let routeParam = "1";
-const makeApi = (name: string) => (api[name] ??= jest.fn().mockResolvedValue([]));
-const service = (name: string, methods: string[]) => Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
+
+function makeApi(name: string) {
+    api ??= {};
+    return api[name] ??= jest.fn().mockResolvedValue([]);
+}
+
+function service(name: string, methods: string[]) {
+    return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
+}
 const mockGetPortalConfigurationValue = (_group: string, key: string) =>
         configMode === "disabled" && (key === "membership-type" || key === "documents-supported" || key === "dive-files-supported")
                 ? key === "membership-type" ? "DISABLED" : "false" : key.includes("supported") ? "true" : "YEAR";
@@ -109,13 +117,13 @@ jest.mock("antd", () => {
             <select onChange={(e) => onChange?.(e.target.value)}>{options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</select>;
     const Table = ({columns = [], dataSource = [], onChange}: {
         columns?: Array<{
-            render?: (v: unknown, r: any) => ReactNode;
-            filterDropdown?: (p: any) => ReactNode;
+            render?: (v: unknown, r: Record<string, unknown>) => ReactNode;
+            filterDropdown?: (p: Record<string, unknown>) => ReactNode;
             filterIcon?: (v: boolean) => ReactNode;
-            onFilter?: (v: any, r: any) => boolean;
-            sorter?: (a: any, b: any) => number
+            onFilter?: (v: string, r: Record<string, unknown>) => boolean;
+            sorter?: (a: Record<string, unknown>, b: Record<string, unknown>) => number
         }>;
-        dataSource?: any[];
+        dataSource?: Record<string, unknown>[];
         onChange?: (...args: unknown[]) => void
     }) => {
         const record = dataSource[0];

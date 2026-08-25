@@ -11,9 +11,9 @@ import {ShowCertificateCard} from "../components/Certificate/ShowCertificateCard
 import {SortDirectionEnum} from "../models";
 import {certificateAPI, fileTransferAPI, pageAPI} from "../services";
 
-let formProps: { onFinish: (values: never) => void } | undefined;
+const formPropsRef = {current: undefined as { onFinish: (values: never) => void } | undefined};
 let itemRules: unknown[][] = [];
-let uploadProps: { beforeUpload?: (file: { size: number }) => boolean | void; onChange?: (info: never) => void } | undefined;
+const uploadPropsRef = {current: undefined as { beforeUpload?: (file: { size: number }) => boolean | void; onChange?: (info: never) => void } | undefined};
 const messageApi = {success: jest.fn(), error: jest.fn()};
 let mockParam: string | undefined = "4";
 
@@ -46,7 +46,9 @@ jest.mock("antd", () => {
     const passthrough = ({children, ...props}: { children?: ReactNode; [key: string]: unknown }) =>
             <div {...Object.fromEntries(Object.entries(props).filter(([key]) => key === "data-testid"))}>{children}</div>;
     const Form = ({children, onFinish}: { children: ReactNode; onFinish?: (values: never) => void }) => {
-        formProps = {onFinish: onFinish ?? (() => undefined)};
+        // This mock exposes the latest form callback to the test cases.
+        // eslint-disable-next-line react-hooks/immutability
+        formPropsRef.current = {onFinish: onFinish ?? (() => undefined)};
         return <form>{children}</form>;
     };
     Form.useForm = () => [stableCertificateForm];
@@ -60,7 +62,9 @@ jest.mock("antd", () => {
         beforeUpload?: (file: { size: number }) => boolean | void;
         onChange?: (info: never) => void
     }) => {
-        uploadProps = props;
+        // This mock exposes upload callbacks to the test cases.
+        // eslint-disable-next-line react-hooks/immutability
+        uploadPropsRef.current = props;
         return <div>{children}</div>;
     };
     return {
@@ -104,9 +108,9 @@ function MenuProbe() {
 
 beforeEach(() => {
     jest.clearAllMocks();
-    formProps = undefined;
+    formPropsRef.current = undefined;
     itemRules = [];
-    uploadProps = undefined;
+    uploadPropsRef.current = undefined;
     (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValue({content: [blog(1)], page: 0, last: false, total_elements: 1});
     (certificateAPI.findAllByUserId as jest.Mock).mockResolvedValue([certificate()]);
 });
@@ -185,20 +189,20 @@ describe("certificate components", () => {
         (certificateAPI.findById as jest.Mock).mockResolvedValue(certificate(4));
         (certificateAPI.update as jest.Mock).mockResolvedValue({id: 4});
         const {rerender} = render(<EditCertificate/>);
-        await waitFor(() => expect(formProps).toBeDefined());
-        formProps!.onFinish(certificate(4));
+        await waitFor(() => expect(formPropsRef.current).toBeDefined());
+        formPropsRef.current!.onFinish(certificate(4));
         await waitFor(() => expect(messageApi.success).toHaveBeenCalled());
         (certificateAPI.update as jest.Mock).mockRejectedValueOnce(new Error("no update"));
-        formProps!.onFinish(certificate(4));
+        formPropsRef.current!.onFinish(certificate(4));
         await waitFor(() => expect(messageApi.error).toHaveBeenCalled());
         mockParam = "0";
         (certificateAPI.create as jest.Mock).mockResolvedValue({id: 9});
         rerender(<EditCertificate/>);
-        await waitFor(() => expect(formProps).toBeDefined());
-        formProps!.onFinish(certificate(0));
+        await waitFor(() => expect(formPropsRef.current).toBeDefined());
+        formPropsRef.current!.onFinish(certificate(0));
         await waitFor(() => expect(certificateAPI.create).toHaveBeenCalled());
         (certificateAPI.create as jest.Mock).mockResolvedValueOnce({id: 0});
-        formProps!.onFinish(certificate(0));
+        formPropsRef.current!.onFinish(certificate(0));
         await waitFor(() => expect(messageApi.error).toHaveBeenCalled());
         mockParam = "";
         rerender(<EditCertificate/>);
@@ -219,9 +223,9 @@ describe("certificate components", () => {
         (fileTransferAPI.removeCertificateFile as jest.Mock).mockResolvedValueOnce(undefined);
         fireEvent.click(screen.getAllByText("remove photo").at(-1)!);
         await waitFor(() => expect(fileTransferAPI.removeCertificateFile).toHaveBeenCalledWith(3));
-        uploadProps!.beforeUpload!({size: 2 * 1024 * 1024});
-        uploadProps!.onChange!({file: {status: "done", response: {url: "new.jpg"}, name: "cert.jpg"}} as never);
-        uploadProps!.onChange!({file: {status: "error", name: "cert.jpg"}} as never);
+        uploadPropsRef.current!.beforeUpload!({size: 2 * 1024 * 1024});
+        uploadPropsRef.current!.onChange!({file: {status: "done", response: {url: "new.jpg"}, name: "cert.jpg"}} as never);
+        uploadPropsRef.current!.onChange!({file: {status: "error", name: "cert.jpg"}} as never);
         (fileTransferAPI.removeCertificateFile as jest.Mock).mockRejectedValueOnce(new Error("remove failed"));
         render(<ShowCertificateCard certificate={cert} deleteCertificate={jest.fn()} viewOnly={false}/>);
         fireEvent.click(screen.getAllByText("remove photo").at(-1)!);

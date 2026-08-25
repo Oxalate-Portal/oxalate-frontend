@@ -165,7 +165,7 @@ describe("forum and comment administration", () => {
     it("loads users, applies filters, searches, and handles API failures", async () => {
         mockUserAPI.findAll.mockResolvedValueOnce([{id: 1, firstName: "A", lastName: "B", username: ""}]);
         mockCommentAPI.findFilteredComments.mockResolvedValueOnce([comment()]);
-        const {unmount} = render(<CommentList/>);
+        render(<CommentList/>);
         await waitFor(() => expect(screen.getAllByText("CommentList.title").length).toBeGreaterThan(0));
         fireEvent.change(screen.getByPlaceholderText("CommentList.filters.titleSearch"), {target: {value: "x"}});
         fireEvent.change(screen.getByPlaceholderText("CommentList.filters.bodySearch"), {target: {value: "y"}});
