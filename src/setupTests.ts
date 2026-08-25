@@ -51,3 +51,17 @@ if (!window.ResizeObserver) {
     });
 }
 
+if (!globalThis.MessageChannel) {
+    class MessageChannelMock {
+        port1 = {
+            onmessage: null as ((event: MessageEvent) => void) | null,
+            close: jest.fn()
+        };
+        port2 = {
+            postMessage: () => queueMicrotask(() => this.port1.onmessage?.(new MessageEvent("message"))),
+            close: jest.fn()
+        };
+    }
+
+    globalThis.MessageChannel = MessageChannelMock as never;
+}
