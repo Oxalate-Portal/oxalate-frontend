@@ -21,6 +21,9 @@ export type {PaymentRequest} from './PaymentRequest';
 export type {PortalConfigurationRequest} from './PortalConfigurationRequest';
 export type {TagGroupRequest} from './TagGroupRequest';
 export type {TagRequest} from './TagRequest';
+export type {TokenCreateRequest} from './TokenCreateRequest';
+export type {TokenListRequest} from './TokenListRequest';
+export type {TokenRefreshRequest} from './TokenRefreshRequest';
 export type {UserRequest} from './UserRequest';
 
 export * from './commenting';

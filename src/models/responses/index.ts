@@ -25,6 +25,7 @@ export type {RolePermissionResponse} from "./RolePermissionResponse";
 export type {TagGroupResponse} from "./TagGroupResponse";
 export type {TagResponse} from "./TagResponse";
 export type {TermsResponse} from "./TermsResponse";
+export type {TokenResponse} from "./TokenResponse";
 export type {UserResponse} from "./UserResponse";
 
 export * from "./commenting";

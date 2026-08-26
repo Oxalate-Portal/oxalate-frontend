@@ -6,6 +6,7 @@ export {AdminMemberships} from './AdminMemberships';
 export {AdminOrgUser} from './AdminOrgUser';
 export {AdminOrgUsers} from './AdminOrgUsers';
 export {BlockedDates} from './BlockedDates';
+export {AdminTokens} from './AdminTokens';
 export {CommentModeration} from './CommentModeration';
 export {DownloadData} from './DownloadData';
 export {PortalConfigurations} from './PortalConfigurations';

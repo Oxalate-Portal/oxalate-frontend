@@ -12,6 +12,7 @@ import {
     AdminNotifications,
     AdminOrgUser,
     AdminOrgUsers,
+    AdminTokens,
     AdminUploads,
     AuditEvents,
     BlockedDates,
@@ -159,6 +160,7 @@ function App() {
                                     <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
                             {isCommentingEnabled && <Route path="/administration/comment-moderation" element={<AdminRoute><CommentModeration/></AdminRoute>}/>}
                             <Route path="/administration/notifications" element={<OrganizerRoute><AdminNotifications/></OrganizerRoute>}/>
+                            <Route path="/administration/tokens" element={<AdminRoute><AdminTokens/></AdminRoute>}/>
                             <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
                             <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>

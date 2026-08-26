@@ -19,5 +19,6 @@ export {portalConfigurationAPI} from './PortalConfigurationAPI';
 export {statsAPI} from './StatsAPI';
 export {tagGroupAPI} from './TagGroupAPI';
 export {tagsAPI} from './TagsAPI';
+export {tokenAPI} from './TokenAPI';
 export {userAPI} from './UserAPI';
 export {setGlobalTimezone, getGlobalTimezone} from './timezoneContext';
