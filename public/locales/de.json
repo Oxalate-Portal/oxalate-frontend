@@ -309,6 +309,65 @@
       "names" : "Namen"
     }
   },
+  "AdminTokens" : {
+    "title" : "Tokenverwaltung",
+    "table" : {
+      "value" : "Tokenwert",
+      "created" : "Erstellt",
+      "expiration" : "Ablauf",
+      "description" : "Beschreibung",
+      "actions" : "Aktionen"
+    },
+    "filters" : {
+      "value" : "Suchen",
+      "description" : "Beschreibung",
+      "from" : "Von",
+      "to" : "Bis"
+    },
+    "actions" : {
+      "search" : "Suchen",
+      "create" : "Token erstellen",
+      "reload" : "Neu laden",
+      "refresh" : "Erneuern",
+      "invalidate" : "Ungültig machen"
+    },
+    "form" : {
+      "expiration" : "Ablaufdatum",
+      "description" : "Beschreibung",
+      "days" : "Tage"
+    },
+    "create" : {
+      "title" : "Token erstellen"
+    },
+    "refresh" : {
+      "title" : "Token erneuern"
+    },
+    "newToken" : {
+      "title" : "Neuer Token",
+      "warning" : "Kopieren Sie diesen Token jetzt; er wird nicht erneut angezeigt."
+    },
+    "confirm" : {
+      "refresh" : "Diesen Token erneuern?",
+      "invalidate" : "Diesen Token ungültig machen?"
+    },
+    "notifications" : {
+      "created" : "Token erstellt.",
+      "refreshed" : "Token erneuert.",
+      "invalidated" : "Token ungültig gemacht."
+    },
+    "errors" : {
+      "load" : "Token konnten nicht geladen werden.",
+      "create" : "Token konnte nicht erstellt werden.",
+      "refresh" : "Token konnte nicht erneuert werden.",
+      "invalidate" : "Token konnte nicht ungültig gemacht werden."
+    },
+    "validation" : {
+      "expiration" : "Ablauf ist erforderlich.",
+      "future" : "Ablauf muss in der Zukunft liegen.",
+      "description" : "Beschreibung darf höchstens 255 Zeichen enthalten.",
+      "days" : "Tage müssen zwischen 1 und 3650 liegen."
+    }
+  },
   "AdminTags" : {
     "button" : {
       "add-tag" : "Tag hinzufügen",
@@ -1182,6 +1241,7 @@
       "files" : "Dateien",
       "members" : "Mitglieder",
       "notifications" : "Benachrichtigungen",
+      "tokens" : "Tokenverwaltung",
       "payments" : "Zahlungen",
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",

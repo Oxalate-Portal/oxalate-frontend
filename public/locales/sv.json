@@ -309,6 +309,65 @@
       "names" : "Namn"
     }
   },
+  "AdminTokens" : {
+    "title" : "Token management",
+    "table" : {
+      "value" : "Token value",
+      "created" : "Created",
+      "expiration" : "Expiration",
+      "description" : "Description",
+      "actions" : "Actions"
+    },
+    "filters" : {
+      "value" : "Search",
+      "description" : "Description",
+      "from" : "From",
+      "to" : "To"
+    },
+    "actions" : {
+      "search" : "Search",
+      "create" : "Create token",
+      "reload" : "Reload",
+      "refresh" : "Refresh",
+      "invalidate" : "Invalidate"
+    },
+    "form" : {
+      "expiration" : "Expiration date",
+      "description" : "Description",
+      "days" : "Days"
+    },
+    "create" : {
+      "title" : "Create token"
+    },
+    "refresh" : {
+      "title" : "Refresh token"
+    },
+    "newToken" : {
+      "title" : "New token",
+      "warning" : "Copy this token now; it will not be shown again."
+    },
+    "confirm" : {
+      "refresh" : "Refresh this token?",
+      "invalidate" : "Invalidate this token?"
+    },
+    "notifications" : {
+      "created" : "Token created.",
+      "refreshed" : "Token refreshed.",
+      "invalidated" : "Token invalidated."
+    },
+    "errors" : {
+      "load" : "Could not load tokens.",
+      "create" : "Could not create token.",
+      "refresh" : "Could not refresh token.",
+      "invalidate" : "Could not invalidate token."
+    },
+    "validation" : {
+      "expiration" : "Expiration is required.",
+      "future" : "Expiration must be in the future.",
+      "description" : "Description must be at most 255 characters.",
+      "days" : "Days must be between 1 and 3650."
+    }
+  },
   "AdminTags" : {
     "button" : {
       "add-tag" : "Lägg till tagg",
@@ -1182,6 +1241,7 @@
       "files" : "Filer",
       "members" : "Medlemmar",
       "notifications" : "Aviseringar",
+      "tokens" : "Token management",
       "payments" : "Betalningar",
       "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",

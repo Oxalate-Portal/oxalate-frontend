@@ -11,6 +11,7 @@ import {
     FormOutlined,
     GlobalOutlined,
     HistoryOutlined,
+    KeyOutlined,
     LoginOutlined,
     MenuOutlined,
     MessageOutlined,
@@ -161,6 +162,11 @@ export function NavigationBar() {
                                 label: (<NavLink to="/administration/notifications">{t("NavigationBar.administration.notifications")}</NavLink>),
                                 key: "notifications",
                                 icon: <BellOutlined/>
+                            },
+                            {
+                                label: (<NavLink to="/administration/tokens">{t("NavigationBar.administration.tokens")}</NavLink>),
+                                key: "tokens",
+                                icon: <KeyOutlined/>
                             },
                             {
                                 label: (<NavLink
