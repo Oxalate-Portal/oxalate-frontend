@@ -279,6 +279,7 @@
         "title" : "Actualizar"
       },
       "approvedTerms" : "Términos",
+      "certificateClassification" : "Grupo de certificados",
       "firstName" : "Nombre",
       "healthStatementId" : "Declaración de salud",
       "lastName" : "Apellido",
@@ -1144,7 +1145,8 @@
         "period" : "Pago periódico"
       },
       "payments" : "Estado del pago",
-      "userType" : "Tipo de buceo"
+      "userType" : "Tipo de buceo",
+      "certificateClassification" : "Clasificación de certificado"
     },
     "participants" : {
       "title" : "Participantes"
@@ -1836,6 +1838,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "ID de certificación",
+      "classification" : "Clasificación del certificado",
       "certification" : "Certificación de buceo",
       "date" : "Fecha de certificación",
       "diverId" : "ID del buceador",

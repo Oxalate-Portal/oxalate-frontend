@@ -134,6 +134,12 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             )
         },
         {
+            title: t("EventDetails.participantTable.certificateClassification"),
+            dataIndex: "certificateClassificationTitle",
+            key: "certificateClassificationTitle",
+            render: (_: string | null, record: ListUserResponse) => record.certificateClassificationTitle || t("User.form.certificateClassification.none")
+        },
+        {
             title: t("EventDetails.participantTable.eventDiveCount"),
             dataIndex: "eventDiveCount",
             key: "eventDiveCount",

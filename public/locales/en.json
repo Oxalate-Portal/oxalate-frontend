@@ -278,6 +278,7 @@
         "title" : "Update"
       },
       "approvedTerms" : "Terms",
+      "certificateClassification" : "Certificate group",
       "firstName" : "First name",
       "healthStatementId" : "Health statement",
       "lastName" : "Last name",
@@ -1143,7 +1144,8 @@
         "period" : "Periodical payment"
       },
       "payments" : "Payment status",
-      "userType" : "Dive type"
+      "userType" : "Dive type",
+      "certificateClassification" : "Certificate classification"
     },
     "participants" : {
       "title" : "Participants"

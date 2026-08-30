@@ -11,5 +11,6 @@ export interface ListUserResponse {
     payments: PaymentResponse[];
     membershipActive: boolean;
     userType: UserTypeEnum;
+    certificateClassificationTitle: string | null;
     tags?: TagResponse[];
 }

@@ -258,6 +258,19 @@ describe("Administration pages", () => {
         expect(screen.getByText("AdminMembers.title")).toBeInTheDocument();
     });
 
+    it("renders certificate classification in the organization user list", async () => {
+        api["adminUserAPI.findAll"].mockResolvedValue([{
+            id: 2, username: "member", firstName: "A", lastName: "User", status: "ACTIVE",
+            roles: [], privacy: false, payments: [], approvedTerms: false, healthStatementId: null,
+            certificateClassificationTitle: "Open water"
+        }]);
+
+        render(<AdminOrgUsers/>);
+        await flush();
+
+        expect(screen.getByText("Open water")).toBeInTheDocument();
+    });
+
     it("covers membership editing, adding, user actions, and file column branches", async () => {
         const member = {
             id: 1, userId: 2, username: "member", status: "ACTIVE", type: "YEAR",

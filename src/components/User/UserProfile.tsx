@@ -177,7 +177,8 @@ export function UserProfile() {
                 {contextHolder}
                 <h4>{userSession?.username} {t("User.title")}:</h4>
                 {workUser &&
-                        <p>{t("User.form.certificateClassification.label")}: {workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</p>}
+                        <p>{t("User.form.certificateClassification.label")}: <b>{workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</b>
+                        </p>}
 
                 <Spin spinning={loading}>
                     {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatarUrl}/>}

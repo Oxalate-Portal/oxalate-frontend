@@ -278,6 +278,7 @@
         "title" : "Aktualisieren"
       },
       "approvedTerms" : "Bedingungen",
+      "certificateClassification" : "Zertifikatsgruppe",
       "firstName" : "Vorname",
       "healthStatementId" : "Gesundheitserklärung",
       "lastName" : "Nachname",
@@ -1143,7 +1144,8 @@
         "period" : "Periodische Zahlung"
       },
       "payments" : "Zahlungsstatus",
-      "userType" : "Tauchtyp"
+      "userType" : "Tauchtyp",
+      "certificateClassification" : "Zertifikatsklassifikation"
     },
     "participants" : {
       "title" : "Teilnehmer"

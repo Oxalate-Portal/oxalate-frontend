@@ -175,6 +175,7 @@ export function AdminOrgUser() {
                             <Input type="text"/>
                         </Form.Item>
                         <UserFields username={workUser.username} userId={workUser.id} isOrganizer={checkRoles(workUser.roles, [RoleEnum.ROLE_ORGANIZER])}/>
+                        <p>{t("User.form.certificateClassification.label")}: {workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</p>
                         <Form.Item name={"status"} required label={t("AdminOrgUser.form.status.label")}
                                    tooltip={t("AdminOrgUser.form.status.tooltip")}
                                    rules={[

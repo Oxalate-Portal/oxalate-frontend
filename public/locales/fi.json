@@ -279,6 +279,7 @@
         "title" : "Päivitä"
       },
       "approvedTerms" : "Ehdot",
+      "certificateClassification" : "Luokitusryhmä",
       "firstName" : "Etunimi",
       "healthStatementId" : "Terveysselvitys",
       "lastName" : "Sukunimi",
@@ -1144,7 +1145,8 @@
         "period" : "Kausimaksu"
       },
       "payments" : "Maksutilanne",
-      "userType" : "Sukellustyyppi"
+      "userType" : "Sukellustyyppi",
+      "certificateClassification" : "Sukellusluokitus"
     },
     "participants" : {
       "title" : "Osallistujat"
@@ -1836,6 +1838,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Luokitustunnus",
+      "classification" : "Todistuksen luokitus",
       "certification" : "Sukellusluokitus",
       "date" : "Sukellusluokituksen päiväys",
       "diverId" : "Sukeltajatunnus",

@@ -279,6 +279,7 @@
         "title" : "Uppdatera"
       },
       "approvedTerms" : "Vilkor",
+      "certificateClassification" : "Certifikatgrupp",
       "firstName" : "Förnamn",
       "healthStatementId" : "Hälsodeklaration",
       "lastName" : "Efternamn",
@@ -1144,7 +1145,8 @@
         "period" : "Periodisk betalning"
       },
       "payments" : "Betalningssituation",
-      "userType" : "Dyktyp"
+      "userType" : "Dyktyp",
+      "certificateClassification" : "Certifikatklassificering"
     },
     "participants" : {
       "title" : "Deltagare"
@@ -1836,6 +1838,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Certifikatnummer",
+      "classification" : "Certifikatklassificering",
       "certification" : "Dykcertifikat",
       "date" : "Datum för dykcertifikat",
       "diverId" : "Dykarnummer",
