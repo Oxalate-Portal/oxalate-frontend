@@ -55,21 +55,66 @@
       "period" : "Periodisk betalning"
     }
   },
-  "AggregateStats" : {
-    "card" : {
-      "diversByTypePerYear" : "Dykare efter typ per år",
-      "diversPerYear" : "Dykare per år",
-      "eventsByTypePerYear" : "Evenemang efter typ per år",
-      "eventsPerYear" : "Evenemang per år"
-    },
-    "table" : {
-      "type" : "Typ",
-      "value" : "Värde",
-      "year" : "År"
-    }
-  },
   "AdminAudit" : {
     "header" : "Revisionsloggar"
+  },
+  "AdminCertificateClassifications" : {
+    "assignment" : {
+      "certificateId" : "Certifikat-ID",
+      "certificateName" : "Certifikatnamn (alla träffar)",
+      "classification" : "Klassificering",
+      "fail" : "Kunde inte tilldela klassificering",
+      "submit" : "Tilldela",
+      "success" : "Klassificering tilldelad"
+    },
+    "button" : {
+      "add" : "Lägg till klassificering",
+      "refresh" : "Uppdatera"
+    },
+    "delete" : {
+      "confirm" : "Ta bort klassificering?"
+    },
+    "form" : {
+      "description" : "Beskrivning",
+      "title" : "Titel"
+    },
+    "load" : {
+      "fail" : "Kunde inte läsa klassificeringar"
+    },
+    "modal" : {
+      "add" : "Lägg till klassificering",
+      "edit" : "Redigera klassificering"
+    },
+    "popup" : {
+      "add-success" : "Klassificering skapad",
+      "operation-fail" : "Åtgärden misslyckades",
+      "remove-fail" : "Kunde inte ta bort klassificering",
+      "remove-success" : "Klassificering borttagen",
+      "update-success" : "Klassificering uppdaterad"
+    },
+    "replacement" : {
+      "certificateName" : "Ersätt certifikatnamn",
+      "existing" : "Befintliga värden (kommaseparerade)",
+      "existing-placeholder" : "Värde 1, Värde 2",
+      "fail" : "Kunde inte ersätta värden",
+      "new" : "Nytt värde",
+      "organization" : "Ersätt organisationer",
+      "success" : "Värden ersatta"
+    },
+    "table" : {
+      "actions" : "Åtgärder",
+      "description" : "Beskrivning",
+      "titles" : "Titlar"
+    },
+    "tabs" : {
+      "assignment" : "Tilldela klassificering",
+      "classifications" : "Klassificeringar",
+      "replacement" : "Ersätt värden"
+    },
+    "title" : "Hantera certifikatklassificeringar",
+    "validation" : {
+      "required" : "Fältet är obligatoriskt"
+    }
   },
   "AdminMain" : {
     "header" : "Administration",
@@ -223,8 +268,8 @@
         "title" : "Uppdatera"
       },
       "approvedTerms" : "Vilkor",
-      "healthStatementId" : "Hälsodeklaration",
       "firstName" : "Förnamn",
+      "healthStatementId" : "Hälsodeklaration",
       "lastName" : "Efternamn",
       "login" : "Användarnamn",
       "paymentStatus" : "Betalningar",
@@ -307,65 +352,6 @@
       "names" : "Namn"
     }
   },
-  "AdminTokens" : {
-    "title" : "Token management",
-    "table" : {
-      "value" : "Token value",
-      "created" : "Created",
-      "expiration" : "Expiration",
-      "description" : "Description",
-      "actions" : "Actions"
-    },
-    "filters" : {
-      "value" : "Search",
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To"
-    },
-    "actions" : {
-      "search" : "Search",
-      "create" : "Create token",
-      "reload" : "Reload",
-      "refresh" : "Refresh",
-      "invalidate" : "Invalidate"
-    },
-    "form" : {
-      "expiration" : "Expiration date",
-      "description" : "Description",
-      "days" : "Days"
-    },
-    "create" : {
-      "title" : "Create token"
-    },
-    "refresh" : {
-      "title" : "Refresh token"
-    },
-    "newToken" : {
-      "title" : "New token",
-      "warning" : "Copy this token now; it will not be shown again."
-    },
-    "confirm" : {
-      "refresh" : "Refresh this token?",
-      "invalidate" : "Invalidate this token?"
-    },
-    "notifications" : {
-      "created" : "Token created.",
-      "refreshed" : "Token refreshed.",
-      "invalidated" : "Token invalidated."
-    },
-    "errors" : {
-      "load" : "Could not load tokens.",
-      "create" : "Could not create token.",
-      "refresh" : "Could not refresh token.",
-      "invalidate" : "Could not invalidate token."
-    },
-    "validation" : {
-      "expiration" : "Expiration is required.",
-      "future" : "Expiration must be in the future.",
-      "description" : "Description must be at most 255 characters.",
-      "days" : "Days must be between 1 and 3650."
-    }
-  },
   "AdminTags" : {
     "button" : {
       "add-tag" : "Lägg till tagg",
@@ -440,6 +426,65 @@
       "names" : "Namn"
     }
   },
+  "AdminTokens" : {
+    "actions" : {
+      "create" : "Create token",
+      "invalidate" : "Invalidate",
+      "refresh" : "Refresh",
+      "reload" : "Reload",
+      "search" : "Search"
+    },
+    "confirm" : {
+      "invalidate" : "Invalidate this token?",
+      "refresh" : "Refresh this token?"
+    },
+    "create" : {
+      "title" : "Create token"
+    },
+    "errors" : {
+      "create" : "Could not create token.",
+      "invalidate" : "Could not invalidate token.",
+      "load" : "Could not load tokens.",
+      "refresh" : "Could not refresh token."
+    },
+    "filters" : {
+      "description" : "Description",
+      "from" : "From",
+      "to" : "To",
+      "value" : "Search"
+    },
+    "form" : {
+      "days" : "Days",
+      "description" : "Description",
+      "expiration" : "Expiration date"
+    },
+    "newToken" : {
+      "title" : "New token",
+      "warning" : "Copy this token now; it will not be shown again."
+    },
+    "notifications" : {
+      "created" : "Token created.",
+      "invalidated" : "Token invalidated.",
+      "refreshed" : "Token refreshed."
+    },
+    "refresh" : {
+      "title" : "Refresh token"
+    },
+    "table" : {
+      "actions" : "Actions",
+      "created" : "Created",
+      "description" : "Description",
+      "expiration" : "Expiration",
+      "value" : "Token value"
+    },
+    "title" : "Token management",
+    "validation" : {
+      "days" : "Days must be between 1 and 3650.",
+      "description" : "Description must be at most 255 characters.",
+      "expiration" : "Expiration is required.",
+      "future" : "Expiration must be in the future."
+    }
+  },
   "AdminUploads" : {
     "avatar" : {
       "tab-title" : "Avatarfiler"
@@ -501,6 +546,19 @@
       "tab-title" : "Sidfiler"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Dykare efter typ per år",
+      "diversPerYear" : "Dykare per år",
+      "eventsByTypePerYear" : "Evenemang efter typ per år",
+      "eventsPerYear" : "Evenemang per år"
+    },
+    "table" : {
+      "type" : "Typ",
+      "value" : "Värde",
+      "year" : "År"
+    }
+  },
   "AuditEvents" : {
     "filter" : {
       "address" : "IP-adress",
@@ -542,17 +600,17 @@
     "load" : {
       "fail" : "Misslyckades med att ladda blockerade datum"
     },
-    "table" : {
-      "actions" : "Åtgärder",
-      "creator" : "Skapad av",
-      "date" : "Datum",
-      "reason" : "Orsak"
-    },
     "popup" : {
       "add-fail" : "Misslyckades med att lägga till det blockerade datumet",
       "add-success" : "Blockerat datum tillagt framgångsrikt",
       "remove-fail" : "Misslyckades med att ta bort det blockerade datumet",
       "remove-success" : "Blockerat datum borttaget framgångsrikt"
+    },
+    "table" : {
+      "actions" : "Åtgärder",
+      "creator" : "Skapad av",
+      "date" : "Datum",
+      "reason" : "Orsak"
     },
     "title" : "Blockering av datum"
   },
@@ -726,9 +784,9 @@
     },
     "waitingList" : {
       "joinButton" : "Ga med i vantelistan",
-      "leaveButton" : "Lamna vantelistan",
       "joinLabel" : "Ga med i vantelistan",
-      "joinMainText" : "Evenemanget ar fullbokat. Du kan ga med i vantelistan och blir meddelad om en plats blir ledig."
+      "joinMainText" : "Evenemanget ar fullbokat. Du kan ga med i vantelistan och blir meddelad om en plats blir ledig.",
+      "leaveButton" : "Lamna vantelistan"
     }
   },
   "DiveEventStatusEnum" : {
@@ -1059,12 +1117,12 @@
     "description" : {
       "title" : "Evenemangsbeskrivning"
     },
+    "link" : {
+      "tooltip" : "Öppna evenemanget"
+    },
     "notificationModal" : {
       "button" : "Meddela deltagare",
       "title" : "Skicka avisering till deltagare"
-    },
-    "link" : {
-      "tooltip" : "Öppna evenemanget"
     },
     "participantTable" : {
       "createdAt" : "Registrerad",
@@ -1080,9 +1138,6 @@
     "participants" : {
       "title" : "Deltagare"
     },
-    "waitingList" : {
-      "title" : "Väntelista"
-    },
     "table" : {
       "maxDepth" : "Maxdjup, m",
       "maxDuration" : "Maxtid, min",
@@ -1092,7 +1147,10 @@
       "startTime" : "Tidpunkt",
       "type" : "Typ"
     },
-    "title" : "Evenemang"
+    "title" : "Evenemang",
+    "waitingList" : {
+      "title" : "Väntelista"
+    }
   },
   "Events" : {
     "healthStatementRequired" : "Vänligen bekräfta din hälsodeklaration för att komma åt detta evenemang",
@@ -1111,11 +1169,11 @@
       "maxDuration" : "Maxtid, min",
       "organizer" : "Arrangör",
       "participants" : "Deltagare",
-      "waitingList" : "Vantelista",
       "startTime" : "Tidpunkt",
       "status" : "Status",
       "title" : "Beskrivning",
-      "type" : "Typ"
+      "type" : "Typ",
+      "waitingList" : "Vantelista"
     },
     "upcoming" : {
       "title" : "Kommande evenemang"
@@ -1233,6 +1291,7 @@
     "administration" : {
       "audits" : "Revisionshistorik",
       "blocked-dates" : "Datumsblockering",
+      "certificate-classifications" : "Certifikatklassificeringar",
       "comments" : {
         "comment-list" : "Kommentarslista",
         "comment-moderation" : "Komment moderering",
@@ -1242,7 +1301,6 @@
       "files" : "Filer",
       "members" : "Medlemmar",
       "notifications" : "Aviseringar",
-      "tokens" : "Token management",
       "payments" : "Betalningar",
       "portal-configuration" : "Portalinställningar",
       "readFirst" : "Läs först",
@@ -1253,8 +1311,8 @@
         "title" : "Taggar"
       },
       "title" : "Administration",
-      "users" : "Användare",
-      "certificate-classifications" : "Certifikatklassificeringar"
+      "tokens" : "Token management",
+      "users" : "Användare"
     },
     "blog" : {
       "link" : "Blogg",
@@ -1277,21 +1335,6 @@
       "title" : "Sidhantering"
     }
   },
-  "NotificationDropdown" : {
-    "modal" : {
-      "close" : "Stäng",
-      "next" : "Nästa",
-      "previous" : "Föregående"
-    },
-    "noNotifications" : "Inga olästa aviseringar",
-    "title" : "Aviseringar",
-    "viewAll" : "Visa alla aviseringar"
-  },
-  "NotificationList" : {
-    "noNotifications" : "Inga aviseringar",
-    "title" : "Alla aviseringar",
-    "unread" : "Oläst"
-  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -1310,6 +1353,21 @@
         "text" : "Lösenordet har uppdaterats!"
       }
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Stäng",
+      "next" : "Nästa",
+      "previous" : "Föregående"
+    },
+    "noNotifications" : "Inga olästa aviseringar",
+    "title" : "Aviseringar",
+    "viewAll" : "Visa alla aviseringar"
+  },
+  "NotificationList" : {
+    "noNotifications" : "Inga aviseringar",
+    "title" : "Alla aviseringar",
+    "unread" : "Oläst"
   },
   "OngoingEvents" : {
     "results" : {
@@ -1449,8 +1507,8 @@
       "created" : "Skapad",
       "end-date" : "Slutar",
       "name" : "Namn",
-      "paymentCount" : "Antal",
       "payment-type" : "Betalningstyp",
+      "paymentCount" : "Antal",
       "paymentDate" : "Betalningsdatum",
       "start-date" : "Påbörjas"
     }
@@ -1519,6 +1577,17 @@
       },
       "title" : "E-postinställningar"
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Dykfiler stöds",
+        "tooltip" : "Om uppladdning av dykningsrelaterade filer stöds"
+      },
+      "documents-supported" : {
+        "label" : "Dokument stöds",
+        "tooltip" : "Om uppladdning av allmänna dokument stöds"
+      },
+      "title" : "Filinställningar"
+    },
     "frontend" : {
       "max-certificates" : {
         "label" : "Certifikat (max)",
@@ -1553,17 +1622,6 @@
         "label" : "Evenemangstyper",
         "tooltip" : "Tillåtna typer av dykningar"
       }
-    },
-    "files" : {
-      "dive-files-supported" : {
-        "label" : "Dykfiler stöds",
-        "tooltip" : "Om uppladdning av dykningsrelaterade filer stöds"
-      },
-      "documents-supported" : {
-        "label" : "Dokument stöds",
-        "tooltip" : "Om uppladdning av allmänna dokument stöds"
-      },
-      "title" : "Filinställningar"
     },
     "general" : {
       "blog-enabled" : {
@@ -1780,6 +1838,18 @@
       "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
     }
   },
+  "ShowUser" : {
+    "table" : {
+      "diveCount" : "Antal dyk",
+      "email" : "E-post",
+      "memberships" : "Medlemskap",
+      "nextOfKin" : "Kontaktuppgifter till närmaste anhörig",
+      "payments" : "Betalningar",
+      "phonenumber" : "Telefonnummer",
+      "registered" : "Registrerad",
+      "user-details" : "Användardetaljer"
+    }
+  },
   "StatisticsMain" : {
     "reports" : "Rapporter",
     "yearlyStats" : "Årsstatistik"
@@ -1831,6 +1901,10 @@
     },
     "emailChange" : {
       "button" : "Ändra e-postadress",
+      "confirmation" : {
+        "invalid" : "E-poständringen misslyckades eller bekräftelselänken har löpt ut.",
+        "ok" : "E-postadressen uppdaterades. Logga in igen med din nya e-postadress."
+      },
       "form" : {
         "newEmail" : {
           "label" : "Ny e-postadress",
@@ -1855,13 +1929,14 @@
       "result" : {
         "fail" : "Valideringen misslyckades. Kontrollera lösenord och e-postadress och försök igen.",
         "success" : "Begäran accepterades. Kontrollera din nya e-post och klicka på bekräftelselänken."
-      },
-      "confirmation" : {
-        "invalid" : "E-poständringen misslyckades eller bekräftelselänken har löpt ut.",
-        "ok" : "E-postadressen uppdaterades. Logga in igen med din nya e-postadress."
       }
     },
     "form" : {
+      "healthStatement" : {
+        "false" : "Har inte bekräftat hälsodeklarationen",
+        "label" : "Hälsodeklaration",
+        "true" : "Har bekräftat hälsodeklarationen"
+      },
       "membership" : {
         "label" : "Medlemskap",
         "none" : "Inget medlemskap",
@@ -1877,11 +1952,6 @@
       },
       "status" : {
         "label" : "Status"
-      },
-      "healthStatement" : {
-        "false" : "Har inte bekräftat hälsodeklarationen",
-        "label" : "Hälsodeklaration",
-        "true" : "Har bekräftat hälsodeklarationen"
       },
       "terms" : {
         "false" : "Har inte accepterat villkoren",
@@ -1905,18 +1975,6 @@
       "ok" : "Användarinformationen har uppdaterats"
     }
   },
-  "ShowUser" : {
-    "table" : {
-      "diveCount" : "Antal dyk",
-      "email" : "E-post",
-      "memberships" : "Medlemskap",
-      "nextOfKin" : "Kontaktuppgifter till närmaste anhörig",
-      "payments" : "Betalningar",
-      "phonenumber" : "Telefonnummer",
-      "registered" : "Registrerad",
-      "user-details" : "Användardetaljer"
-    }
-  },
   "UserEvents" : {
     "email-subscription-panel" : {
       "header" : "E-postprenumerationer",
@@ -1933,55 +1991,6 @@
     "profile-certificates-panel" : {
       "header" : "Dykcertifikat",
       "tooltip" : "Dykcertifikat som du har registrerat, max "
-    }
-  },
-  "UserFiles" : {
-    "avatar" : {
-      "previewAlt" : "Profilbild",
-      "upload" : {
-        "button" : "Ladda upp avatar",
-        "fail" : "Uppladdning av avatar misslyckades",
-        "fileTooLarge" : "Avatarfilen är för stor (max 1 MB)",
-        "invalidType" : "Endast gif-, jpg- och png-bildfiler är tillåtna",
-        "success" : "Avataren laddades upp"
-      }
-    },
-    "dive" : {
-      "download" : "Ladda ner",
-      "fetchFail" : "Det gick inte att läsa in dykfiler",
-      "table" : {
-        "createdAt" : "Skapad",
-        "diveGroupId" : "Dykgrupp",
-        "download" : "Fil",
-        "filename" : "Filnamn"
-      },
-      "title" : "Dykfiler",
-      "upload" : {
-        "button" : "Ladda upp dykfil",
-        "diveGroupLabel" : "Dykgrupp-ID",
-        "fail" : "Uppladdning av dykfil misslyckades",
-        "fileTooLarge" : "Dykfilen är för stor (max 5 MB)",
-        "invalidDiveGroupId" : "Ange ett giltigt dykgrupp-ID",
-        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
-        "success" : "Dykfilen laddades upp"
-      }
-    },
-    "document" : {
-      "download" : "Ladda ner",
-      "fetchFail" : "Det gick inte att läsa in dokumentfiler",
-      "table" : {
-        "createdAt" : "Skapad",
-        "download" : "Fil",
-        "filename" : "Filnamn"
-      },
-      "title" : "Dokument",
-      "upload" : {
-        "button" : "Ladda upp dokument",
-        "fail" : "Uppladdning av dokument misslyckades",
-        "fileTooLarge" : "Dokumentfilen är för stor (max 5 MB)",
-        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
-        "success" : "Dokumentet laddades upp"
-      }
     }
   },
   "UserFields" : {
@@ -2052,69 +2061,60 @@
       }
     }
   },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profilbild",
+      "upload" : {
+        "button" : "Ladda upp avatar",
+        "fail" : "Uppladdning av avatar misslyckades",
+        "fileTooLarge" : "Avatarfilen är för stor (max 1 MB)",
+        "invalidType" : "Endast gif-, jpg- och png-bildfiler är tillåtna",
+        "success" : "Avataren laddades upp"
+      }
+    },
+    "dive" : {
+      "download" : "Ladda ner",
+      "fetchFail" : "Det gick inte att läsa in dykfiler",
+      "table" : {
+        "createdAt" : "Skapad",
+        "diveGroupId" : "Dykgrupp",
+        "download" : "Fil",
+        "filename" : "Filnamn"
+      },
+      "title" : "Dykfiler",
+      "upload" : {
+        "button" : "Ladda upp dykfil",
+        "diveGroupLabel" : "Dykgrupp-ID",
+        "fail" : "Uppladdning av dykfil misslyckades",
+        "fileTooLarge" : "Dykfilen är för stor (max 5 MB)",
+        "invalidDiveGroupId" : "Ange ett giltigt dykgrupp-ID",
+        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
+        "success" : "Dykfilen laddades upp"
+      }
+    },
+    "document" : {
+      "download" : "Ladda ner",
+      "fetchFail" : "Det gick inte att läsa in dokumentfiler",
+      "table" : {
+        "createdAt" : "Skapad",
+        "download" : "Fil",
+        "filename" : "Filnamn"
+      },
+      "title" : "Dokument",
+      "upload" : {
+        "button" : "Ladda upp dokument",
+        "fail" : "Uppladdning av dokument misslyckades",
+        "fileTooLarge" : "Dokumentfilen är för stor (max 5 MB)",
+        "invalidType" : "Endast gif-, jpg-, png- och pdf-filer är tillåtna",
+        "success" : "Dokumentet laddades upp"
+      }
+    }
+  },
   "UserTypeEnum" : {
     "free_diver" : "Fridykning",
     "non_diver" : "Inte dykare",
     "scuba_diver" : "Apparatdykning",
     "snorkler" : "Snorkling"
-  },
-  "AdminCertificateClassifications" : {
-    "title" : "Hantera certifikatklassificeringar",
-    "tabs" : {
-      "classifications" : "Klassificeringar",
-      "assignment" : "Tilldela klassificering",
-      "replacement" : "Ersätt värden"
-    },
-    "button" : {
-      "add" : "Lägg till klassificering",
-      "refresh" : "Uppdatera"
-    },
-    "table" : {
-      "titles" : "Titlar",
-      "description" : "Beskrivning",
-      "actions" : "Åtgärder"
-    },
-    "modal" : {
-      "add" : "Lägg till klassificering",
-      "edit" : "Redigera klassificering"
-    },
-    "form" : {
-      "title" : "Titel",
-      "description" : "Beskrivning"
-    },
-    "validation" : {
-      "required" : "Fältet är obligatoriskt"
-    },
-    "delete" : {
-      "confirm" : "Ta bort klassificering?"
-    },
-    "load" : {
-      "fail" : "Kunde inte läsa klassificeringar"
-    },
-    "popup" : {
-      "add-success" : "Klassificering skapad",
-      "update-success" : "Klassificering uppdaterad",
-      "remove-success" : "Klassificering borttagen",
-      "remove-fail" : "Kunde inte ta bort klassificering",
-      "operation-fail" : "Åtgärden misslyckades"
-    },
-    "assignment" : {
-      "certificateId" : "Certifikat-ID",
-      "certificateName" : "Certifikatnamn (alla träffar)",
-      "classification" : "Klassificering",
-      "submit" : "Tilldela",
-      "success" : "Klassificering tilldelad",
-      "fail" : "Kunde inte tilldela klassificering"
-    },
-    "replacement" : {
-      "existing" : "Befintliga värden (kommaseparerade)",
-      "existing-placeholder" : "Värde 1, Värde 2",
-      "new" : "Nytt värde",
-      "organization" : "Ersätt organisationer",
-      "certificateName" : "Ersätt certifikatnamn",
-      "success" : "Värden ersatta",
-      "fail" : "Kunde inte ersätta värden"
-    }
   },
   "common" : {
     "button" : {

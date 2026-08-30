@@ -55,21 +55,66 @@
       "period" : "Periodische Zahlung"
     }
   },
-  "AggregateStats" : {
-    "card" : {
-      "diversByTypePerYear" : "Taucher nach Typ pro Jahr",
-      "diversPerYear" : "Taucher pro Jahr",
-      "eventsByTypePerYear" : "Veranstaltungen nach Typ pro Jahr",
-      "eventsPerYear" : "Veranstaltungen pro Jahr"
-    },
-    "table" : {
-      "type" : "Typ",
-      "value" : "Wert",
-      "year" : "Jahr"
-    }
-  },
   "AdminAudit" : {
     "header" : "Audit-Logs"
+  },
+  "AdminCertificateClassifications" : {
+    "assignment" : {
+      "certificateId" : "Zertifikats-ID",
+      "certificateName" : "Zertifikatsname (alle Treffer)",
+      "classification" : "Klassifikation",
+      "fail" : "Zuweisung fehlgeschlagen",
+      "submit" : "Zuweisen",
+      "success" : "Klassifikation zugewiesen"
+    },
+    "button" : {
+      "add" : "Klassifikation hinzufügen",
+      "refresh" : "Aktualisieren"
+    },
+    "delete" : {
+      "confirm" : "Klassifikation löschen?"
+    },
+    "form" : {
+      "description" : "Beschreibung",
+      "title" : "Titel"
+    },
+    "load" : {
+      "fail" : "Klassifikationen konnten nicht geladen werden"
+    },
+    "modal" : {
+      "add" : "Klassifikation hinzufügen",
+      "edit" : "Klassifikation bearbeiten"
+    },
+    "popup" : {
+      "add-success" : "Klassifikation erstellt",
+      "operation-fail" : "Vorgang fehlgeschlagen",
+      "remove-fail" : "Löschen fehlgeschlagen",
+      "remove-success" : "Klassifikation gelöscht",
+      "update-success" : "Klassifikation aktualisiert"
+    },
+    "replacement" : {
+      "certificateName" : "Zertifikatsnamen ersetzen",
+      "existing" : "Bestehende Werte (kommagetrennt)",
+      "existing-placeholder" : "Wert 1, Wert 2",
+      "fail" : "Ersetzen fehlgeschlagen",
+      "new" : "Neuer Wert",
+      "organization" : "Organisationen ersetzen",
+      "success" : "Werte ersetzt"
+    },
+    "table" : {
+      "actions" : "Aktionen",
+      "description" : "Beschreibung",
+      "titles" : "Titel"
+    },
+    "tabs" : {
+      "assignment" : "Klassifikation zuweisen",
+      "classifications" : "Klassifikationen",
+      "replacement" : "Werte ersetzen"
+    },
+    "title" : "Zertifikatsklassifikationen verwalten",
+    "validation" : {
+      "required" : "Dieses Feld ist erforderlich"
+    }
   },
   "AdminMain" : {
     "header" : "Verwaltung",
@@ -223,8 +268,8 @@
         "title" : "Aktualisieren"
       },
       "approvedTerms" : "Bedingungen",
-      "healthStatementId" : "Gesundheitserklärung",
       "firstName" : "Vorname",
+      "healthStatementId" : "Gesundheitserklärung",
       "lastName" : "Nachname",
       "login" : "Benutzername",
       "paymentStatus" : "Zahlungen",
@@ -307,65 +352,6 @@
       "names" : "Namen"
     }
   },
-  "AdminTokens" : {
-    "title" : "Tokenverwaltung",
-    "table" : {
-      "value" : "Tokenwert",
-      "created" : "Erstellt",
-      "expiration" : "Ablauf",
-      "description" : "Beschreibung",
-      "actions" : "Aktionen"
-    },
-    "filters" : {
-      "value" : "Suchen",
-      "description" : "Beschreibung",
-      "from" : "Von",
-      "to" : "Bis"
-    },
-    "actions" : {
-      "search" : "Suchen",
-      "create" : "Token erstellen",
-      "reload" : "Neu laden",
-      "refresh" : "Erneuern",
-      "invalidate" : "Ungültig machen"
-    },
-    "form" : {
-      "expiration" : "Ablaufdatum",
-      "description" : "Beschreibung",
-      "days" : "Tage"
-    },
-    "create" : {
-      "title" : "Token erstellen"
-    },
-    "refresh" : {
-      "title" : "Token erneuern"
-    },
-    "newToken" : {
-      "title" : "Neuer Token",
-      "warning" : "Kopieren Sie diesen Token jetzt; er wird nicht erneut angezeigt."
-    },
-    "confirm" : {
-      "refresh" : "Diesen Token erneuern?",
-      "invalidate" : "Diesen Token ungültig machen?"
-    },
-    "notifications" : {
-      "created" : "Token erstellt.",
-      "refreshed" : "Token erneuert.",
-      "invalidated" : "Token ungültig gemacht."
-    },
-    "errors" : {
-      "load" : "Token konnten nicht geladen werden.",
-      "create" : "Token konnte nicht erstellt werden.",
-      "refresh" : "Token konnte nicht erneuert werden.",
-      "invalidate" : "Token konnte nicht ungültig gemacht werden."
-    },
-    "validation" : {
-      "expiration" : "Ablauf ist erforderlich.",
-      "future" : "Ablauf muss in der Zukunft liegen.",
-      "description" : "Beschreibung darf höchstens 255 Zeichen enthalten.",
-      "days" : "Tage müssen zwischen 1 und 3650 liegen."
-    }
-  },
   "AdminTags" : {
     "button" : {
       "add-tag" : "Tag hinzufügen",
@@ -440,6 +426,65 @@
       "names" : "Namen"
     }
   },
+  "AdminTokens" : {
+    "actions" : {
+      "create" : "Token erstellen",
+      "invalidate" : "Ungültig machen",
+      "refresh" : "Erneuern",
+      "reload" : "Neu laden",
+      "search" : "Suchen"
+    },
+    "confirm" : {
+      "invalidate" : "Diesen Token ungültig machen?",
+      "refresh" : "Diesen Token erneuern?"
+    },
+    "create" : {
+      "title" : "Token erstellen"
+    },
+    "errors" : {
+      "create" : "Token konnte nicht erstellt werden.",
+      "invalidate" : "Token konnte nicht ungültig gemacht werden.",
+      "load" : "Token konnten nicht geladen werden.",
+      "refresh" : "Token konnte nicht erneuert werden."
+    },
+    "filters" : {
+      "description" : "Beschreibung",
+      "from" : "Von",
+      "to" : "Bis",
+      "value" : "Suchen"
+    },
+    "form" : {
+      "days" : "Tage",
+      "description" : "Beschreibung",
+      "expiration" : "Ablaufdatum"
+    },
+    "newToken" : {
+      "title" : "Neuer Token",
+      "warning" : "Kopieren Sie diesen Token jetzt; er wird nicht erneut angezeigt."
+    },
+    "notifications" : {
+      "created" : "Token erstellt.",
+      "invalidated" : "Token ungültig gemacht.",
+      "refreshed" : "Token erneuert."
+    },
+    "refresh" : {
+      "title" : "Token erneuern"
+    },
+    "table" : {
+      "actions" : "Aktionen",
+      "created" : "Erstellt",
+      "description" : "Beschreibung",
+      "expiration" : "Ablauf",
+      "value" : "Tokenwert"
+    },
+    "title" : "Tokenverwaltung",
+    "validation" : {
+      "days" : "Tage müssen zwischen 1 und 3650 liegen.",
+      "description" : "Beschreibung darf höchstens 255 Zeichen enthalten.",
+      "expiration" : "Ablauf ist erforderlich.",
+      "future" : "Ablauf muss in der Zukunft liegen."
+    }
+  },
   "AdminUploads" : {
     "avatar" : {
       "tab-title" : "Avatar-Dateien"
@@ -501,6 +546,19 @@
       "tab-title" : "Seitendateien"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Taucher nach Typ pro Jahr",
+      "diversPerYear" : "Taucher pro Jahr",
+      "eventsByTypePerYear" : "Veranstaltungen nach Typ pro Jahr",
+      "eventsPerYear" : "Veranstaltungen pro Jahr"
+    },
+    "table" : {
+      "type" : "Typ",
+      "value" : "Wert",
+      "year" : "Jahr"
+    }
+  },
   "AuditEvents" : {
     "filter" : {
       "address" : "IP-Adresse",
@@ -542,17 +600,17 @@
     "load" : {
       "fail" : "Fehler beim Laden der gesperrten Daten"
     },
-    "table" : {
-      "actions" : "Aktionen",
-      "creator" : "Erstellt von",
-      "date" : "Datum",
-      "reason" : "Grund"
-    },
     "popup" : {
       "add-fail" : "Das Hinzufügen des gesperrten Datums ist fehlgeschlagen",
       "add-success" : "Gesperrtes Datum erfolgreich hinzugefügt",
       "remove-fail" : "Das Entfernen des gesperrten Datums ist fehlgeschlagen",
       "remove-success" : "Gesperrtes Datum erfolgreich entfernt"
+    },
+    "table" : {
+      "actions" : "Aktionen",
+      "creator" : "Erstellt von",
+      "date" : "Datum",
+      "reason" : "Grund"
     },
     "title" : "Datumsblockierung"
   },
@@ -726,9 +784,9 @@
     },
     "waitingList" : {
       "joinButton" : "Warteliste beitreten",
-      "leaveButton" : "Warteliste verlassen",
       "joinLabel" : "Warteliste beitreten",
-      "joinMainText" : "Die Veranstaltung ist ausgebucht. Du kannst der Warteliste beitreten und wirst benachrichtigt, wenn ein Platz frei wird."
+      "joinMainText" : "Die Veranstaltung ist ausgebucht. Du kannst der Warteliste beitreten und wirst benachrichtigt, wenn ein Platz frei wird.",
+      "leaveButton" : "Warteliste verlassen"
     }
   },
   "DiveEventStatusEnum" : {
@@ -1059,12 +1117,12 @@
     "description" : {
       "title" : "Ereignisbeschreibung"
     },
+    "link" : {
+      "tooltip" : "Ereignis öffnen"
+    },
     "notificationModal" : {
       "button" : "Teilnehmer benachrichtigen",
       "title" : "Benachrichtigung an Teilnehmer senden"
-    },
-    "link" : {
-      "tooltip" : "Ereignis öffnen"
     },
     "participantTable" : {
       "createdAt" : "Registriert am",
@@ -1080,9 +1138,6 @@
     "participants" : {
       "title" : "Teilnehmer"
     },
-    "waitingList" : {
-      "title" : "Warteliste"
-    },
     "table" : {
       "maxDepth" : "Maximale Tiefe, m",
       "maxDuration" : "Maximale Dauer, min",
@@ -1092,7 +1147,10 @@
       "startTime" : "Zeitpunkt",
       "type" : "Typ"
     },
-    "title" : "Ereignis"
+    "title" : "Ereignis",
+    "waitingList" : {
+      "title" : "Warteliste"
+    }
   },
   "Events" : {
     "healthStatementRequired" : "Bitte bestätigen Sie Ihre Gesundheitserklärung, um auf diese Veranstaltung zuzugreifen",
@@ -1111,11 +1169,11 @@
       "maxDuration" : "Maximale Dauer, min",
       "organizer" : "Veranstalter",
       "participants" : "Teilnehmer",
-      "waitingList" : "Warteliste",
       "startTime" : "Startzeit",
       "status" : "Status",
       "title" : "Beschreibung",
-      "type" : "Art"
+      "type" : "Art",
+      "waitingList" : "Warteliste"
     },
     "upcoming" : {
       "title" : "Bevorstehende Veranstaltungen"
@@ -1233,6 +1291,7 @@
     "administration" : {
       "audits" : "Audits",
       "blocked-dates" : "Datumsblockierung",
+      "certificate-classifications" : "Zertifikatsklassifikationen",
       "comments" : {
         "comment-list" : "Kommentarliste",
         "comment-moderation" : "Kommentarmoderation",
@@ -1242,7 +1301,6 @@
       "files" : "Dateien",
       "members" : "Mitglieder",
       "notifications" : "Benachrichtigungen",
-      "tokens" : "Tokenverwaltung",
       "payments" : "Zahlungen",
       "portal-configuration" : "Portal Konfigurationen",
       "readFirst" : "Zuerst lesen",
@@ -1253,8 +1311,8 @@
         "title" : "Schlagwörter"
       },
       "title" : "Verwaltung",
-      "users" : "Benutzer",
-      "certificate-classifications" : "Zertifikatsklassifikationen"
+      "tokens" : "Tokenverwaltung",
+      "users" : "Benutzer"
     },
     "blog" : {
       "link" : "Blog",
@@ -1277,21 +1335,6 @@
       "title" : "Seitenverwaltung"
     }
   },
-  "NotificationDropdown" : {
-    "modal" : {
-      "close" : "Schließen",
-      "next" : "Nächste",
-      "previous" : "Vorherige"
-    },
-    "noNotifications" : "Keine ungelesenen Benachrichtigungen",
-    "title" : "Benachrichtigungen",
-    "viewAll" : "Alle Benachrichtigungen anzeigen"
-  },
-  "NotificationList" : {
-    "noNotifications" : "Keine Benachrichtigungen",
-    "title" : "Alle Benachrichtigungen",
-    "unread" : "Ungelesen"
-  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -1310,6 +1353,21 @@
         "text" : "Passwort erfolgreich aktualisiert!"
       }
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Schließen",
+      "next" : "Nächste",
+      "previous" : "Vorherige"
+    },
+    "noNotifications" : "Keine ungelesenen Benachrichtigungen",
+    "title" : "Benachrichtigungen",
+    "viewAll" : "Alle Benachrichtigungen anzeigen"
+  },
+  "NotificationList" : {
+    "noNotifications" : "Keine Benachrichtigungen",
+    "title" : "Alle Benachrichtigungen",
+    "unread" : "Ungelesen"
   },
   "OngoingEvents" : {
     "results" : {
@@ -1449,8 +1507,8 @@
       "created" : "Erstellt",
       "end-date" : "Endet am",
       "name" : "Name",
-      "paymentCount" : "Anzahl",
       "payment-type" : "Zahlungsart",
+      "paymentCount" : "Anzahl",
       "paymentDate" : "Zahlungstag",
       "start-date" : "Beginnt"
     }
@@ -1519,6 +1577,17 @@
       },
       "title" : "E-Mail-Einstellungen"
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Tauchdateien unterstützt",
+        "tooltip" : "Ob das Hochladen von tauchbezogenen Dateien unterstützt wird"
+      },
+      "documents-supported" : {
+        "label" : "Dokumente unterstützt",
+        "tooltip" : "Ob das Hochladen von allgemeinen Dokumenten unterstützt wird"
+      },
+      "title" : "Dateieinstellungen"
+    },
     "frontend" : {
       "max-certificates" : {
         "label" : "Maximale Anzahl von Zertifikaten",
@@ -1553,17 +1622,6 @@
         "label" : "Veranstaltungstypen",
         "tooltip" : "Arten von zulässigen Tauchgängen"
       }
-    },
-    "files" : {
-      "dive-files-supported" : {
-        "label" : "Tauchdateien unterstützt",
-        "tooltip" : "Ob das Hochladen von tauchbezogenen Dateien unterstützt wird"
-      },
-      "documents-supported" : {
-        "label" : "Dokumente unterstützt",
-        "tooltip" : "Ob das Hochladen von allgemeinen Dokumenten unterstützt wird"
-      },
-      "title" : "Dateieinstellungen"
     },
     "general" : {
       "blog-enabled" : {
@@ -1780,6 +1838,18 @@
       "upload-photo-tooltip" : "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt."
     }
   },
+  "ShowUser" : {
+    "table" : {
+      "diveCount" : "Tauchanzahl",
+      "email" : "E-Mail",
+      "memberships" : "Mitgliedschaften",
+      "nextOfKin" : "Kontaktperson",
+      "payments" : "Zahlungen",
+      "phonenumber" : "Telefonnummer",
+      "registered" : "Registriert am",
+      "user-details" : "Benutzerdetails"
+    }
+  },
   "StatisticsMain" : {
     "reports" : "Berichte",
     "yearlyStats" : "Jahresstatistiken"
@@ -1831,6 +1901,10 @@
     },
     "emailChange" : {
       "button" : "E-Mail-Adresse ändern",
+      "confirmation" : {
+        "invalid" : "E-Mail-Änderung fehlgeschlagen oder der Bestätigungslink ist abgelaufen.",
+        "ok" : "E-Mail-Adresse wurde aktualisiert. Bitte melden Sie sich mit der neuen E-Mail-Adresse erneut an."
+      },
       "form" : {
         "newEmail" : {
           "label" : "Neue E-Mail-Adresse",
@@ -1855,13 +1929,14 @@
       "result" : {
         "fail" : "Validierung fehlgeschlagen. Bitte Passwort und E-Mail-Adresse prüfen und erneut versuchen.",
         "success" : "Anfrage akzeptiert. Bitte neues E-Mail-Postfach prüfen und den Bestätigungslink anklicken."
-      },
-      "confirmation" : {
-        "invalid" : "E-Mail-Änderung fehlgeschlagen oder der Bestätigungslink ist abgelaufen.",
-        "ok" : "E-Mail-Adresse wurde aktualisiert. Bitte melden Sie sich mit der neuen E-Mail-Adresse erneut an."
       }
     },
     "form" : {
+      "healthStatement" : {
+        "false" : "Hat die Gesundheitserklärung nicht bestätigt",
+        "label" : "Gesundheitserklärung",
+        "true" : "Hat die Gesundheitserklärung bestätigt"
+      },
       "membership" : {
         "label" : "Mitgliedschaft",
         "none" : "Keine Mitgliedschaft",
@@ -1877,11 +1952,6 @@
       },
       "status" : {
         "label" : "Status"
-      },
-      "healthStatement" : {
-        "false" : "Hat die Gesundheitserklärung nicht bestätigt",
-        "label" : "Gesundheitserklärung",
-        "true" : "Hat die Gesundheitserklärung bestätigt"
       },
       "terms" : {
         "false" : "Hat die Bedingungen nicht akzeptiert",
@@ -1905,18 +1975,6 @@
       "ok" : "Benutzerdaten erfolgreich aktualisiert"
     }
   },
-  "ShowUser" : {
-    "table" : {
-      "diveCount" : "Tauchanzahl",
-      "email" : "E-Mail",
-      "memberships" : "Mitgliedschaften",
-      "nextOfKin" : "Kontaktperson",
-      "payments" : "Zahlungen",
-      "phonenumber" : "Telefonnummer",
-      "registered" : "Registriert am",
-      "user-details" : "Benutzerdetails"
-    }
-  },
   "UserEvents" : {
     "email-subscription-panel" : {
       "header" : "E-Mail-Abonnement",
@@ -1933,55 +1991,6 @@
     "profile-certificates-panel" : {
       "header" : "Tauchzertifikate",
       "tooltip" : "Ihre Tauchzertifikate, die maximum ist "
-    }
-  },
-  "UserFiles" : {
-    "avatar" : {
-      "previewAlt" : "Profilbild",
-      "upload" : {
-        "button" : "Avatar hochladen",
-        "fail" : "Avatar-Upload fehlgeschlagen",
-        "fileTooLarge" : "Avatar-Datei ist zu groß (max. 1 MB)",
-        "invalidType" : "Nur gif-, jpg- und png-Bilddateien sind erlaubt",
-        "success" : "Avatar erfolgreich hochgeladen"
-      }
-    },
-    "dive" : {
-      "download" : "Herunterladen",
-      "fetchFail" : "Tauchgangsdateien konnten nicht geladen werden",
-      "table" : {
-        "createdAt" : "Erstellt",
-        "diveGroupId" : "Tauchgruppe",
-        "download" : "Datei",
-        "filename" : "Dateiname"
-      },
-      "title" : "Tauchgangsdateien",
-      "upload" : {
-        "button" : "Tauchgangsdatei hochladen",
-        "diveGroupLabel" : "Tauchgruppen-ID",
-        "fail" : "Upload der Tauchgangsdatei fehlgeschlagen",
-        "fileTooLarge" : "Tauchgangsdatei ist zu groß (max. 5 MB)",
-        "invalidDiveGroupId" : "Bitte geben Sie eine gültige Tauchgruppen-ID ein",
-        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
-        "success" : "Tauchgangsdatei erfolgreich hochgeladen"
-      }
-    },
-    "document" : {
-      "download" : "Herunterladen",
-      "fetchFail" : "Dokumentdateien konnten nicht geladen werden",
-      "table" : {
-        "createdAt" : "Erstellt",
-        "download" : "Datei",
-        "filename" : "Dateiname"
-      },
-      "title" : "Dokumente",
-      "upload" : {
-        "button" : "Dokument hochladen",
-        "fail" : "Dokument-Upload fehlgeschlagen",
-        "fileTooLarge" : "Dokumentdatei ist zu groß (max. 5 MB)",
-        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
-        "success" : "Dokument erfolgreich hochgeladen"
-      }
     }
   },
   "UserFields" : {
@@ -2052,69 +2061,60 @@
       }
     }
   },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profilbild",
+      "upload" : {
+        "button" : "Avatar hochladen",
+        "fail" : "Avatar-Upload fehlgeschlagen",
+        "fileTooLarge" : "Avatar-Datei ist zu groß (max. 1 MB)",
+        "invalidType" : "Nur gif-, jpg- und png-Bilddateien sind erlaubt",
+        "success" : "Avatar erfolgreich hochgeladen"
+      }
+    },
+    "dive" : {
+      "download" : "Herunterladen",
+      "fetchFail" : "Tauchgangsdateien konnten nicht geladen werden",
+      "table" : {
+        "createdAt" : "Erstellt",
+        "diveGroupId" : "Tauchgruppe",
+        "download" : "Datei",
+        "filename" : "Dateiname"
+      },
+      "title" : "Tauchgangsdateien",
+      "upload" : {
+        "button" : "Tauchgangsdatei hochladen",
+        "diveGroupLabel" : "Tauchgruppen-ID",
+        "fail" : "Upload der Tauchgangsdatei fehlgeschlagen",
+        "fileTooLarge" : "Tauchgangsdatei ist zu groß (max. 5 MB)",
+        "invalidDiveGroupId" : "Bitte geben Sie eine gültige Tauchgruppen-ID ein",
+        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
+        "success" : "Tauchgangsdatei erfolgreich hochgeladen"
+      }
+    },
+    "document" : {
+      "download" : "Herunterladen",
+      "fetchFail" : "Dokumentdateien konnten nicht geladen werden",
+      "table" : {
+        "createdAt" : "Erstellt",
+        "download" : "Datei",
+        "filename" : "Dateiname"
+      },
+      "title" : "Dokumente",
+      "upload" : {
+        "button" : "Dokument hochladen",
+        "fail" : "Dokument-Upload fehlgeschlagen",
+        "fileTooLarge" : "Dokumentdatei ist zu groß (max. 5 MB)",
+        "invalidType" : "Nur gif-, jpg-, png- und pdf-Dateien sind erlaubt",
+        "success" : "Dokument erfolgreich hochgeladen"
+      }
+    }
+  },
   "UserTypeEnum" : {
     "free_diver" : "Apnoetauchen",
     "non_diver" : "Kein taucher",
     "scuba_diver" : "Gerätetauchen",
     "snorkler" : "Schnorcheln"
-  },
-  "AdminCertificateClassifications" : {
-    "title" : "Zertifikatsklassifikationen verwalten",
-    "tabs" : {
-      "classifications" : "Klassifikationen",
-      "assignment" : "Klassifikation zuweisen",
-      "replacement" : "Werte ersetzen"
-    },
-    "button" : {
-      "add" : "Klassifikation hinzufügen",
-      "refresh" : "Aktualisieren"
-    },
-    "table" : {
-      "titles" : "Titel",
-      "description" : "Beschreibung",
-      "actions" : "Aktionen"
-    },
-    "modal" : {
-      "add" : "Klassifikation hinzufügen",
-      "edit" : "Klassifikation bearbeiten"
-    },
-    "form" : {
-      "title" : "Titel",
-      "description" : "Beschreibung"
-    },
-    "validation" : {
-      "required" : "Dieses Feld ist erforderlich"
-    },
-    "delete" : {
-      "confirm" : "Klassifikation löschen?"
-    },
-    "load" : {
-      "fail" : "Klassifikationen konnten nicht geladen werden"
-    },
-    "popup" : {
-      "add-success" : "Klassifikation erstellt",
-      "update-success" : "Klassifikation aktualisiert",
-      "remove-success" : "Klassifikation gelöscht",
-      "remove-fail" : "Löschen fehlgeschlagen",
-      "operation-fail" : "Vorgang fehlgeschlagen"
-    },
-    "assignment" : {
-      "certificateId" : "Zertifikats-ID",
-      "certificateName" : "Zertifikatsname (alle Treffer)",
-      "classification" : "Klassifikation",
-      "submit" : "Zuweisen",
-      "success" : "Klassifikation zugewiesen",
-      "fail" : "Zuweisung fehlgeschlagen"
-    },
-    "replacement" : {
-      "existing" : "Bestehende Werte (kommagetrennt)",
-      "existing-placeholder" : "Wert 1, Wert 2",
-      "new" : "Neuer Wert",
-      "organization" : "Organisationen ersetzen",
-      "certificateName" : "Zertifikatsnamen ersetzen",
-      "success" : "Werte ersetzt",
-      "fail" : "Ersetzen fehlgeschlagen"
-    }
   },
   "common" : {
     "button" : {
