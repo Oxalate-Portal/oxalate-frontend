@@ -6,6 +6,7 @@ import i18next from "i18next";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {
     AcceptTerms,
+    AdminCertificateClassifications,
     AdminMain,
     AdminMembership,
     AdminMemberships,
@@ -169,6 +170,7 @@ function App() {
                             <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
                             <Route path="/administration/tag-groups" element={<AdminRoute><AdminTagGroups/></AdminRoute>}/>
                             <Route path="/administration/tags" element={<AdminRoute><AdminTags/></AdminRoute>}/>
+                            <Route path="/administration/certificate-classifications" element={<AdminRoute><AdminCertificateClassifications/></AdminRoute>}/>
                             <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
                             <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
                             <Route path="/auth/lost-password" element={<LostPassword/>}/>

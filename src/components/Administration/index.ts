@@ -1,6 +1,7 @@
 export {AddMemberships} from './AddMemberships';
 export {AuditEvents} from './AuditEvents';
 export {AdminMain} from './AdminMain';
+export {AdminCertificateClassifications} from './AdminCertificateClassifications';
 export {AdminMembership} from './AdminMembership';
 export {AdminMemberships} from './AdminMemberships';
 export {AdminOrgUser} from './AdminOrgUser';

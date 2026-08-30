@@ -16,4 +16,5 @@ export interface AbstractUser {
     approvedTerms: boolean;
     healthStatementId: number | null;
     primaryUserType: UserTypeEnum;
+    certificateClassificationTitle: string | null;
 }

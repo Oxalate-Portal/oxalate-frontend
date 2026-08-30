@@ -55,21 +55,76 @@
       "period" : "Periodical payment"
     }
   },
-  "AggregateStats" : {
-    "card" : {
-      "diversByTypePerYear" : "Divers by Type per Year",
-      "diversPerYear" : "Divers per Year",
-      "eventsByTypePerYear" : "Events by Type per Year",
-      "eventsPerYear" : "Events per Year"
-    },
-    "table" : {
-      "type" : "Type",
-      "value" : "Value",
-      "year" : "Year"
-    }
-  },
   "AdminAudit" : {
     "header" : "Audit logs"
+  },
+  "AdminCertificateClassifications" : {
+    "assignment" : {
+      "certificateId" : "Certificate ID",
+      "certificateName" : "Certificate names",
+      "certificateName-placeholder" : "Search and select certificate names",
+      "classification" : "Classification",
+      "fail" : "Failed to assign classification",
+      "submit" : "Assign",
+      "success" : "Classification assigned"
+    },
+    "button" : {
+      "add" : "Add classification",
+      "refresh" : "Refresh"
+    },
+    "delete" : {
+      "confirm" : "Delete classification?"
+    },
+    "form" : {
+      "description" : "Description",
+      "title" : "Title"
+    },
+    "load" : {
+      "fail" : "Failed to load classifications"
+    },
+    "suggestions" : {
+      "fail" : "Failed to load suggestions"
+    },
+    "modal" : {
+      "add" : "Add classification",
+      "edit" : "Edit classification"
+    },
+    "popup" : {
+      "add-success" : "Classification created",
+      "operation-fail" : "Operation failed",
+      "remove-fail" : "Failed to delete classification",
+      "remove-success" : "Classification deleted",
+      "update-success" : "Classification updated"
+    },
+    "replacement" : {
+      "certificateName" : "Replace certificate names",
+      "existing" : "Existing values",
+      "existing-placeholder" : "Search and select values",
+      "fail" : "Failed to replace values",
+      "new" : "New value",
+      "organization" : "Replace organizations",
+      "success" : "Values replaced"
+    },
+    "table" : {
+      "actions" : "Actions",
+      "description" : "Description",
+      "titles" : "Titles",
+      "order" : "Order"
+    },
+    "tabs" : {
+      "assignment" : "Assign classification",
+      "classifications" : "Classifications",
+      "replacement" : "Replace values"
+    },
+    "title" : "Certificate classification management",
+    "order" : {
+      "save" : "Save order",
+      "save-success" : "Order saved",
+      "save-fail" : "Failed to save order"
+    },
+    "validation" : {
+      "required" : "This field is required"
+    }
   },
   "AdminMain" : {
     "header" : "Administration",
@@ -85,7 +140,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Edit",
         "title" : "Action"
       },
       "created" : "Created",
@@ -224,8 +278,9 @@
         "title" : "Update"
       },
       "approvedTerms" : "Terms",
-      "healthStatementId" : "Health statement",
+      "certificateClassification" : "Certificate group",
       "firstName" : "First name",
+      "healthStatementId" : "Health statement",
       "lastName" : "Last name",
       "login" : "Username",
       "paymentStatus" : "Payments",
@@ -302,70 +357,10 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Edit",
         "title" : "Actions"
       },
       "code" : "Code",
       "names" : "Names"
-    }
-  },
-  "AdminTokens" : {
-    "title" : "Token management",
-    "table" : {
-      "value" : "Token value",
-      "created" : "Created",
-      "expiration" : "Expiration",
-      "description" : "Description",
-      "actions" : "Actions"
-    },
-    "filters" : {
-      "value" : "Search",
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To"
-    },
-    "actions" : {
-      "search" : "Search",
-      "create" : "Create token",
-      "reload" : "Reload",
-      "refresh" : "Refresh",
-      "invalidate" : "Invalidate"
-    },
-    "form" : {
-      "expiration" : "Expiration date",
-      "description" : "Description",
-      "days" : "Days"
-    },
-    "create" : {
-      "title" : "Create token"
-    },
-    "refresh" : {
-      "title" : "Refresh token"
-    },
-    "newToken" : {
-      "title" : "New token",
-      "warning" : "Copy this token now; it will not be shown again."
-    },
-    "confirm" : {
-      "refresh" : "Refresh this token?",
-      "invalidate" : "Invalidate this token?"
-    },
-    "notifications" : {
-      "created" : "Token created.",
-      "refreshed" : "Token refreshed.",
-      "invalidated" : "Token invalidated."
-    },
-    "errors" : {
-      "load" : "Could not load tokens.",
-      "create" : "Could not create token.",
-      "refresh" : "Could not refresh token.",
-      "invalidate" : "Could not invalidate token."
-    },
-    "validation" : {
-      "expiration" : "Expiration is required.",
-      "future" : "Expiration must be in the future.",
-      "description" : "Description must be at most 255 characters.",
-      "days" : "Days must be between 1 and 3650."
     }
   },
   "AdminTags" : {
@@ -436,11 +431,69 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Edit",
         "title" : "Actions"
       },
       "code" : "Code",
       "names" : "Names"
+    }
+  },
+  "AdminTokens" : {
+    "actions" : {
+      "create" : "Create token",
+      "invalidate" : "Invalidate",
+      "refresh" : "Refresh",
+      "reload" : "Reload",
+      "search" : "Search"
+    },
+    "confirm" : {
+      "invalidate" : "Invalidate this token?",
+      "refresh" : "Refresh this token?"
+    },
+    "create" : {
+      "title" : "Create token"
+    },
+    "errors" : {
+      "create" : "Could not create token.",
+      "invalidate" : "Could not invalidate token.",
+      "load" : "Could not load tokens.",
+      "refresh" : "Could not refresh token."
+    },
+    "filters" : {
+      "description" : "Description",
+      "from" : "From",
+      "to" : "To",
+      "value" : "Search"
+    },
+    "form" : {
+      "days" : "Days",
+      "description" : "Description",
+      "expiration" : "Expiration date"
+    },
+    "newToken" : {
+      "title" : "New token",
+      "warning" : "Copy this token now; it will not be shown again."
+    },
+    "notifications" : {
+      "created" : "Token created.",
+      "invalidated" : "Token invalidated.",
+      "refreshed" : "Token refreshed."
+    },
+    "refresh" : {
+      "title" : "Refresh token"
+    },
+    "table" : {
+      "actions" : "Actions",
+      "created" : "Created",
+      "description" : "Description",
+      "expiration" : "Expiration",
+      "value" : "Token value"
+    },
+    "title" : "Token management",
+    "validation" : {
+      "days" : "Days must be between 1 and 3650.",
+      "description" : "Description must be at most 255 characters.",
+      "expiration" : "Expiration is required.",
+      "future" : "Expiration must be in the future."
     }
   },
   "AdminUploads" : {
@@ -504,6 +557,19 @@
       "tab-title" : "Page Files"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Divers by Type per Year",
+      "diversPerYear" : "Divers per Year",
+      "eventsByTypePerYear" : "Events by Type per Year",
+      "eventsPerYear" : "Events per Year"
+    },
+    "table" : {
+      "type" : "Type",
+      "value" : "Value",
+      "year" : "Year"
+    }
+  },
   "AuditEvents" : {
     "filter" : {
       "address" : "IP Address",
@@ -545,17 +611,17 @@
     "load" : {
       "fail" : "Failed to load blocked dates"
     },
-    "table" : {
-      "actions" : "Actions",
-      "creator" : "Created by",
-      "date" : "Date",
-      "reason" : "Reason"
-    },
     "popup" : {
       "add-fail" : "Failed to add the blocked date",
       "add-success" : "Blocked date added successfully",
       "remove-fail" : "Failed to remove the blocked date",
       "remove-success" : "Blocked date removed successfully"
+    },
+    "table" : {
+      "actions" : "Actions",
+      "creator" : "Created by",
+      "date" : "Date",
+      "reason" : "Reason"
     },
     "title" : "Date blocking"
   },
@@ -729,9 +795,9 @@
     },
     "waitingList" : {
       "joinButton" : "Join waiting list",
-      "leaveButton" : "Leave waiting list",
       "joinLabel" : "Join the waiting list",
-      "joinMainText" : "The event is fully booked. You can join the waiting list and will be notified if a spot becomes available."
+      "joinMainText" : "The event is fully booked. You can join the waiting list and will be notified if a spot becomes available.",
+      "leaveButton" : "Leave waiting list"
     }
   },
   "DiveEventStatusEnum" : {
@@ -815,6 +881,9 @@
         },
         "tooltip" : "Dive organization name, e.g., PADI, SSI, CMAS, DSAT, DSAC, NAUI, or other"
       }
+    },
+    "suggestions" : {
+      "fail" : "Failed to load certificate suggestions"
     },
     "title" : "Certification information",
     "updateCertificate" : {
@@ -1062,12 +1131,12 @@
     "description" : {
       "title" : "Event description"
     },
+    "link" : {
+      "tooltip" : "Open event"
+    },
     "notificationModal" : {
       "button" : "Notify participants",
       "title" : "Send notification to participants"
-    },
-    "link" : {
-      "tooltip" : "Open event"
     },
     "participantTable" : {
       "createdAt" : "Registration time",
@@ -1078,13 +1147,11 @@
         "period" : "Periodical payment"
       },
       "payments" : "Payment status",
-      "userType" : "Dive type"
+      "userType" : "Dive type",
+      "certificateClassification" : "Certificate classification"
     },
     "participants" : {
       "title" : "Participants"
-    },
-    "waitingList" : {
-      "title" : "Waiting list"
     },
     "table" : {
       "maxDepth" : "Maximum depth, m",
@@ -1095,7 +1162,10 @@
       "startTime" : "Start time",
       "type" : "Type"
     },
-    "title" : "Event"
+    "title" : "Event",
+    "waitingList" : {
+      "title" : "Waiting list"
+    }
   },
   "Events" : {
     "healthStatementRequired" : "Please confirm your health statement to access this event",
@@ -1114,11 +1184,11 @@
       "maxDuration" : "Maximum time, min",
       "organizer" : "Organizer",
       "participants" : "Participants",
-      "waitingList" : "Waiting list",
       "startTime" : "Start time",
       "status" : "Status",
       "title" : "Description",
-      "type" : "Type"
+      "type" : "Type",
+      "waitingList" : "Waiting list"
     },
     "upcoming" : {
       "title" : "Upcoming events"
@@ -1236,6 +1306,7 @@
     "administration" : {
       "audits" : "Audits",
       "blocked-dates" : "Date blocking",
+      "certificate-classifications" : "Certificate classifications",
       "comments" : {
         "comment-list" : "Comment list",
         "comment-moderation" : "Comment moderation",
@@ -1245,7 +1316,6 @@
       "files" : "Files",
       "members" : "Members",
       "notifications" : "Notifications",
-      "tokens" : "Token management",
       "payments" : "Payments",
       "portal-configuration" : "Portal configuration",
       "readFirst" : "Read first",
@@ -1256,6 +1326,7 @@
         "title" : "Tags"
       },
       "title" : "Administration",
+      "tokens" : "Token management",
       "users" : "Users"
     },
     "blog" : {
@@ -1279,21 +1350,6 @@
       "title" : "Page management"
     }
   },
-  "NotificationDropdown" : {
-    "modal" : {
-      "close" : "Close",
-      "next" : "Next",
-      "previous" : "Previous"
-    },
-    "noNotifications" : "No unread notifications",
-    "title" : "Notifications",
-    "viewAll" : "View all notifications"
-  },
-  "NotificationList" : {
-    "noNotifications" : "No notifications",
-    "title" : "All Notifications",
-    "unread" : "Unread"
-  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -1312,6 +1368,21 @@
         "text" : "Password updated successfully!"
       }
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Close",
+      "next" : "Next",
+      "previous" : "Previous"
+    },
+    "noNotifications" : "No unread notifications",
+    "title" : "Notifications",
+    "viewAll" : "View all notifications"
+  },
+  "NotificationList" : {
+    "noNotifications" : "No notifications",
+    "title" : "All Notifications",
+    "unread" : "Unread"
   },
   "OngoingEvents" : {
     "results" : {
@@ -1451,8 +1522,8 @@
       "created" : "Created",
       "end-date" : "Ends at",
       "name" : "Name",
-      "paymentCount" : "Count",
       "payment-type" : "Payment type",
+      "paymentCount" : "Count",
       "paymentDate" : "Payment date",
       "start-date" : "Starts"
     }
@@ -1521,6 +1592,17 @@
       },
       "title" : "Email settings"
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Dive files supported",
+        "tooltip" : "Whether uploading of dive-related files is supported"
+      },
+      "documents-supported" : {
+        "label" : "Documents supported",
+        "tooltip" : "Whether uploading of general documents is supported"
+      },
+      "title" : "File settings"
+    },
     "frontend" : {
       "max-certificates" : {
         "label" : "Max certificates",
@@ -1555,17 +1637,6 @@
         "label" : "Types of events",
         "tooltip" : "Which types of dive events are allowed"
       }
-    },
-    "files" : {
-      "dive-files-supported" : {
-        "label" : "Dive files supported",
-        "tooltip" : "Whether uploading of dive-related files is supported"
-      },
-      "documents-supported" : {
-        "label" : "Documents supported",
-        "tooltip" : "Whether uploading of general documents is supported"
-      },
-      "title" : "File settings"
     },
     "general" : {
       "blog-enabled" : {
@@ -1769,6 +1840,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Certification ID",
+      "classification" : "Certificate classification",
       "certification" : "Diver certification",
       "date" : "Certification date",
       "diverId" : "Diver ID",
@@ -1780,6 +1852,18 @@
       "upload-photo" : "Upload certificate",
       "upload-photo-size-too-big" : "File size is too big, max 1MB allowed",
       "upload-photo-tooltip" : "Upload a photocopy of your certificate, max. 1MB in size. Uploading a second file will overwrite the first one. Only JPEG and PNG files are allowed."
+    }
+  },
+  "ShowUser" : {
+    "table" : {
+      "diveCount" : "Dive count",
+      "email" : "Email",
+      "memberships" : "Memberships",
+      "nextOfKin" : "Next of kin",
+      "payments" : "Payments",
+      "phonenumber" : "Phone number",
+      "registered" : "Registered",
+      "user-details" : "User details"
     }
   },
   "StatisticsMain" : {
@@ -1833,6 +1917,10 @@
     },
     "emailChange" : {
       "button" : "Change email-address",
+      "confirmation" : {
+        "invalid" : "Email change failed or the confirmation link has expired.",
+        "ok" : "Email address updated. Please sign in again with your new email address."
+      },
       "form" : {
         "newEmail" : {
           "label" : "New email address",
@@ -1857,13 +1945,18 @@
       "result" : {
         "fail" : "Validation failed. Check your password and email address, then try again.",
         "success" : "Request accepted. Check your new email inbox and click the confirmation link."
-      },
-      "confirmation" : {
-        "invalid" : "Email change failed or the confirmation link has expired.",
-        "ok" : "Email address updated. Please sign in again with your new email address."
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Most advanced certificate classification",
+        "none" : "No certificate classification"
+      },
+      "healthStatement" : {
+        "false" : "Has not confirmed health statement",
+        "label" : "Health statement",
+        "true" : "Has confirmed health statement"
+      },
       "membership" : {
         "label" : "Membership",
         "none" : "No membership",
@@ -1879,11 +1972,6 @@
       },
       "status" : {
         "label" : "Status"
-      },
-      "healthStatement" : {
-        "false" : "Has not confirmed health statement",
-        "label" : "Health statement",
-        "true" : "Has confirmed health statement"
       },
       "terms" : {
         "false" : "Has not accepted terms and conditions",
@@ -1907,18 +1995,6 @@
       "ok" : "User information updated"
     }
   },
-  "ShowUser" : {
-    "table" : {
-      "diveCount" : "Dive count",
-      "email" : "Email",
-      "memberships" : "Memberships",
-      "nextOfKin" : "Next of kin",
-      "payments" : "Payments",
-      "phonenumber" : "Phone number",
-      "registered" : "Registered",
-      "user-details" : "User details"
-    }
-  },
   "UserEvents" : {
     "email-subscription-panel" : {
       "header" : "Email subscriptions",
@@ -1935,55 +2011,6 @@
     "profile-certificates-panel" : {
       "header" : "Dive certifications",
       "tooltip" : "Your dive certifications, max "
-    }
-  },
-  "UserFiles" : {
-    "avatar" : {
-      "previewAlt" : "Profile avatar",
-      "upload" : {
-        "button" : "Upload avatar",
-        "fail" : "Avatar upload failed",
-        "fileTooLarge" : "Avatar file is too large (max 1 MB)",
-        "invalidType" : "Only gif, jpg and png image files are allowed",
-        "success" : "Avatar uploaded successfully"
-      }
-    },
-    "dive" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load dive files",
-      "table" : {
-        "createdAt" : "Created",
-        "diveGroupId" : "Dive group",
-        "download" : "File",
-        "filename" : "Filename"
-      },
-      "title" : "Dive files",
-      "upload" : {
-        "button" : "Upload dive file",
-        "diveGroupLabel" : "Dive group ID",
-        "fail" : "Dive file upload failed",
-        "fileTooLarge" : "Dive file is too large (max 5 MB)",
-        "invalidDiveGroupId" : "Please set a valid dive group ID",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Dive file uploaded successfully"
-      }
-    },
-    "document" : {
-      "download" : "Download",
-      "fetchFail" : "Failed to load document files",
-      "table" : {
-        "createdAt" : "Created",
-        "download" : "File",
-        "filename" : "Filename"
-      },
-      "title" : "Documents",
-      "upload" : {
-        "button" : "Upload document",
-        "fail" : "Document upload failed",
-        "fileTooLarge" : "Document file is too large (max 5 MB)",
-        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
-        "success" : "Document uploaded successfully"
-      }
     }
   },
   "UserFields" : {
@@ -2054,6 +2081,55 @@
       }
     }
   },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profile avatar",
+      "upload" : {
+        "button" : "Upload avatar",
+        "fail" : "Avatar upload failed",
+        "fileTooLarge" : "Avatar file is too large (max 1 MB)",
+        "invalidType" : "Only gif, jpg and png image files are allowed",
+        "success" : "Avatar uploaded successfully"
+      }
+    },
+    "dive" : {
+      "download" : "Download",
+      "fetchFail" : "Failed to load dive files",
+      "table" : {
+        "createdAt" : "Created",
+        "diveGroupId" : "Dive group",
+        "download" : "File",
+        "filename" : "Filename"
+      },
+      "title" : "Dive files",
+      "upload" : {
+        "button" : "Upload dive file",
+        "diveGroupLabel" : "Dive group ID",
+        "fail" : "Dive file upload failed",
+        "fileTooLarge" : "Dive file is too large (max 5 MB)",
+        "invalidDiveGroupId" : "Please set a valid dive group ID",
+        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
+        "success" : "Dive file uploaded successfully"
+      }
+    },
+    "document" : {
+      "download" : "Download",
+      "fetchFail" : "Failed to load document files",
+      "table" : {
+        "createdAt" : "Created",
+        "download" : "File",
+        "filename" : "Filename"
+      },
+      "title" : "Documents",
+      "upload" : {
+        "button" : "Upload document",
+        "fail" : "Document upload failed",
+        "fileTooLarge" : "Document file is too large (max 5 MB)",
+        "invalidType" : "Only gif, jpg, png and pdf files are allowed",
+        "success" : "Document uploaded successfully"
+      }
+    }
+  },
   "UserTypeEnum" : {
     "free_diver" : "Free diving",
     "non_diver" : "No diver",
@@ -2068,6 +2144,7 @@
       "close" : "Close",
       "confirm" : "I confirm",
       "delete" : "Delete",
+      "edit" : "Edit",
       "held" : "Held",
       "login" : "Log In",
       "logout" : "Log Out",

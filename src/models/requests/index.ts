@@ -1,6 +1,9 @@
 export type {AdminUserRequest} from './AdminUserRequest';
 export type {BlockedDateRequest} from './BlockedDateRequest';
 export type {CertificateRequest} from './CertificateRequest';
+export type {CertificateClassificationRequest} from './CertificateClassificationRequest';
+export type {CertificateClassificationAssignmentRequest} from './CertificateClassificationAssignmentRequest';
+export type {CertificateValueReplacementRequest} from './CertificateValueReplacementRequest';
 export type {ConfirmationRequest} from './ConfirmationRequest';
 export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';

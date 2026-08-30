@@ -133,6 +133,13 @@ export function AdminOrgUsers() {
                     record.lastName.toLowerCase().includes((value as string).toLowerCase())
         },
         {
+            title: t("AdminOrgUsers.table.certificateClassification"),
+            dataIndex: "certificateClassificationTitle",
+            key: "certificateClassificationTitle",
+            render: (_: string | null, record: AdminUserResponse) =>
+                    record.certificateClassificationTitle || t("User.form.certificateClassification.none")
+        },
+        {
             title: t("AdminOrgUsers.table.status"),
             dataIndex: "status",
             key: "status",

@@ -55,21 +55,77 @@
       "period" : "Kausimaksu"
     }
   },
-  "AggregateStats" : {
-    "card" : {
-      "diversByTypePerYear" : "Sukeltajat tyypeittäin vuodessa",
-      "diversPerYear" : "Sukeltajat vuodessa",
-      "eventsByTypePerYear" : "Tapahtumat tyypeittäin vuodessa",
-      "eventsPerYear" : "Tapahtumat vuodessa"
-    },
-    "table" : {
-      "type" : "Tyyppi",
-      "value" : "Arvo",
-      "year" : "Vuosi"
-    }
-  },
   "AdminAudit" : {
     "header" : "Auditointilogit"
+  },
+  "AdminCertificateClassifications" : {
+    "assignment" : {
+      "certificateId" : "Todistuksen tunniste",
+      "classification" : "Todistuksen luokitus",
+      "certificateName" : "Todistusten nimet",
+      "certificateName-placeholder" : "Hae ja valitse todistusten nimiä",
+      "classification" : "Luokitus",
+      "fail" : "Luokituksen määritys epäonnistui",
+      "submit" : "Määritä",
+      "success" : "Luokitus määritetty"
+    },
+    "button" : {
+      "add" : "Lisää luokitus",
+      "refresh" : "Päivitä"
+    },
+    "delete" : {
+      "confirm" : "Poistetaanko luokitus?"
+    },
+    "form" : {
+      "description" : "Kuvaus",
+      "title" : "Nimi"
+    },
+    "load" : {
+      "fail" : "Luokitusten lataus epäonnistui"
+    },
+    "suggestions" : {
+      "fail" : "Ehdotusten lataus epäonnistui"
+    },
+    "modal" : {
+      "add" : "Lisää luokitus",
+      "edit" : "Muokkaa luokitusta"
+    },
+    "popup" : {
+      "add-success" : "Luokitus luotu",
+      "operation-fail" : "Toiminto epäonnistui",
+      "remove-fail" : "Luokituksen poisto epäonnistui",
+      "remove-success" : "Luokitus poistettu",
+      "update-success" : "Luokitus päivitetty"
+    },
+    "replacement" : {
+      "certificateName" : "Korvaa todistusten nimet",
+      "existing" : "Nykyiset arvot",
+      "existing-placeholder" : "Hae ja valitse arvot",
+      "fail" : "Arvojen korvaus epäonnistui",
+      "new" : "Uusi arvo",
+      "organization" : "Korvaa organisaatiot",
+      "success" : "Arvot korvattu"
+    },
+    "table" : {
+      "actions" : "Toiminnot",
+      "description" : "Kuvaus",
+      "titles" : "Nimet",
+      "order" : "Järjestys"
+    },
+    "tabs" : {
+      "assignment" : "Määritä luokitus",
+      "classifications" : "Luokitukset",
+      "replacement" : "Korvaa arvot"
+    },
+    "title" : "Sukellusluokitusten hallinta",
+    "order" : {
+      "save" : "Tallenna järjestys",
+      "save-success" : "Järjestys tallennettu",
+      "save-fail" : "Järjestyksen tallennus epäonnistui"
+    },
+    "validation" : {
+      "required" : "Kenttä on pakollinen"
+    }
   },
   "AdminMain" : {
     "header" : "Ylläpito",
@@ -85,7 +141,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Muokkaa",
         "title" : "Toiminto"
       },
       "created" : "Luotu",
@@ -224,8 +279,9 @@
         "title" : "Päivitä"
       },
       "approvedTerms" : "Ehdot",
-      "healthStatementId" : "Terveysselvitys",
+      "certificateClassification" : "Luokitusryhmä",
       "firstName" : "Etunimi",
+      "healthStatementId" : "Terveysselvitys",
       "lastName" : "Sukunimi",
       "login" : "Tunnus",
       "paymentStatus" : "Maksut",
@@ -302,70 +358,10 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Muokkaa",
         "title" : "Toiminnot"
       },
       "code" : "Koodi",
       "names" : "Nimet"
-    }
-  },
-  "AdminTokens" : {
-    "title" : "Token management",
-    "table" : {
-      "value" : "Token value",
-      "created" : "Created",
-      "expiration" : "Expiration",
-      "description" : "Description",
-      "actions" : "Actions"
-    },
-    "filters" : {
-      "value" : "Search",
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To"
-    },
-    "actions" : {
-      "search" : "Search",
-      "create" : "Create token",
-      "reload" : "Reload",
-      "refresh" : "Refresh",
-      "invalidate" : "Invalidate"
-    },
-    "form" : {
-      "expiration" : "Expiration date",
-      "description" : "Description",
-      "days" : "Days"
-    },
-    "create" : {
-      "title" : "Create token"
-    },
-    "refresh" : {
-      "title" : "Refresh token"
-    },
-    "newToken" : {
-      "title" : "New token",
-      "warning" : "Copy this token now; it will not be shown again."
-    },
-    "confirm" : {
-      "refresh" : "Refresh this token?",
-      "invalidate" : "Invalidate this token?"
-    },
-    "notifications" : {
-      "created" : "Token created.",
-      "refreshed" : "Token refreshed.",
-      "invalidated" : "Token invalidated."
-    },
-    "errors" : {
-      "load" : "Could not load tokens.",
-      "create" : "Could not create token.",
-      "refresh" : "Could not refresh token.",
-      "invalidate" : "Could not invalidate token."
-    },
-    "validation" : {
-      "expiration" : "Expiration is required.",
-      "future" : "Expiration must be in the future.",
-      "description" : "Description must be at most 255 characters.",
-      "days" : "Days must be between 1 and 3650."
     }
   },
   "AdminTags" : {
@@ -436,11 +432,69 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Muokkaa",
         "title" : "Toiminnot"
       },
       "code" : "Koodi",
       "names" : "Nimet"
+    }
+  },
+  "AdminTokens" : {
+    "actions" : {
+      "create" : "Create token",
+      "invalidate" : "Invalidate",
+      "refresh" : "Refresh",
+      "reload" : "Reload",
+      "search" : "Search"
+    },
+    "confirm" : {
+      "invalidate" : "Invalidate this token?",
+      "refresh" : "Refresh this token?"
+    },
+    "create" : {
+      "title" : "Create token"
+    },
+    "errors" : {
+      "create" : "Could not create token.",
+      "invalidate" : "Could not invalidate token.",
+      "load" : "Could not load tokens.",
+      "refresh" : "Could not refresh token."
+    },
+    "filters" : {
+      "description" : "Description",
+      "from" : "From",
+      "to" : "To",
+      "value" : "Search"
+    },
+    "form" : {
+      "days" : "Days",
+      "description" : "Description",
+      "expiration" : "Expiration date"
+    },
+    "newToken" : {
+      "title" : "New token",
+      "warning" : "Copy this token now; it will not be shown again."
+    },
+    "notifications" : {
+      "created" : "Token created.",
+      "invalidated" : "Token invalidated.",
+      "refreshed" : "Token refreshed."
+    },
+    "refresh" : {
+      "title" : "Refresh token"
+    },
+    "table" : {
+      "actions" : "Actions",
+      "created" : "Created",
+      "description" : "Description",
+      "expiration" : "Expiration",
+      "value" : "Token value"
+    },
+    "title" : "Token management",
+    "validation" : {
+      "days" : "Days must be between 1 and 3650.",
+      "description" : "Description must be at most 255 characters.",
+      "expiration" : "Expiration is required.",
+      "future" : "Expiration must be in the future."
     }
   },
   "AdminUploads" : {
@@ -504,6 +558,19 @@
       "tab-title" : "Sivutiedostot"
     }
   },
+  "AggregateStats" : {
+    "card" : {
+      "diversByTypePerYear" : "Sukeltajat tyypeittäin vuodessa",
+      "diversPerYear" : "Sukeltajat vuodessa",
+      "eventsByTypePerYear" : "Tapahtumat tyypeittäin vuodessa",
+      "eventsPerYear" : "Tapahtumat vuodessa"
+    },
+    "table" : {
+      "type" : "Tyyppi",
+      "value" : "Arvo",
+      "year" : "Vuosi"
+    }
+  },
   "AuditEvents" : {
     "filter" : {
       "address" : "IP osoite",
@@ -545,17 +612,17 @@
     "load" : {
       "fail" : "Estettyjen päivämäärien lataus epäonnistui"
     },
-    "table" : {
-      "actions" : "Toiminnot",
-      "creator" : "Luonut",
-      "date" : "Päivämäärä",
-      "reason" : "Syy"
-    },
     "popup" : {
       "add-fail" : "Estetyn päivämäärän lisääminen epäonnistui",
       "add-success" : "Estetty päivämäärä lisätty onnistuneesti",
       "remove-fail" : "Estetyn päivämäärän poistaminen epäonnistui",
       "remove-success" : "Estetty päivämäärä poistettu onnistuneesti"
+    },
+    "table" : {
+      "actions" : "Toiminnot",
+      "creator" : "Luonut",
+      "date" : "Päivämäärä",
+      "reason" : "Syy"
     },
     "title" : "Päivämäärän estäminen"
   },
@@ -729,9 +796,9 @@
     },
     "waitingList" : {
       "joinButton" : "Liity jonotuslistalle",
-      "leaveButton" : "Poistu jonotuslistalta",
       "joinLabel" : "Liity jonotuslistalle",
-      "joinMainText" : "Tapahtuma on taynna. Voit liittya jonotuslistalle ja sinulle ilmoitetaan, jos paikka vapautuu."
+      "joinMainText" : "Tapahtuma on taynna. Voit liittya jonotuslistalle ja sinulle ilmoitetaan, jos paikka vapautuu.",
+      "leaveButton" : "Poistu jonotuslistalta"
     }
   },
   "DiveEventStatusEnum" : {
@@ -815,6 +882,9 @@
         },
         "tooltip" : "Luokitusjärjestön nimi, esim. PADI, SSI, CMAS, DSAT, DSAC, NAUI tai muu"
       }
+    },
+    "suggestions" : {
+      "fail" : "Todistusehdotusten lataaminen epäonnistui"
     },
     "title" : "Luokitustiedot",
     "updateCertificate" : {
@@ -1065,6 +1135,10 @@
     "link" : {
       "tooltip" : "Avaa tapahtuma"
     },
+    "notificationModal" : {
+      "button" : "Ilmoita osallistujille",
+      "title" : "Lähetä ilmoitus osallistujille"
+    },
     "participantTable" : {
       "createdAt" : "Ilmoittautumisaika",
       "eventDiveCount" : "Sukellusmäärä",
@@ -1074,13 +1148,11 @@
         "period" : "Kausimaksu"
       },
       "payments" : "Maksutilanne",
-      "userType" : "Sukellustyyppi"
+      "userType" : "Sukellustyyppi",
+      "certificateClassification" : "Sukellusluokitus"
     },
     "participants" : {
       "title" : "Osallistujat"
-    },
-    "waitingList" : {
-      "title" : "Jonotuslista"
     },
     "table" : {
       "maxDepth" : "Maksimisyvyys, m",
@@ -1091,7 +1163,10 @@
       "startTime" : "Ajankohta",
       "type" : "Tyyppi"
     },
-    "title" : "Tapahtuma"
+    "title" : "Tapahtuma",
+    "waitingList" : {
+      "title" : "Jonotuslista"
+    }
   },
   "Events" : {
     "healthStatementRequired" : "Vahvista terveysselvityksesi päästäksesi tapahtumaan",
@@ -1110,11 +1185,11 @@
       "maxDuration" : "Maksimiaika, min",
       "organizer" : "Järjestäjä",
       "participants" : "Osallistujat",
-      "waitingList" : "Jonolista",
       "startTime" : "Ajankohta",
       "status" : "Tila",
       "title" : "Kuvaus",
-      "type" : "Tyyppi"
+      "type" : "Tyyppi",
+      "waitingList" : "Jonolista"
     },
     "upcoming" : {
       "title" : "Tulevat tapahtumat"
@@ -1232,6 +1307,7 @@
     "administration" : {
       "audits" : "Auditointi",
       "blocked-dates" : "Päivämäärän estäminen",
+      "certificate-classifications" : "Sukellusluokitukset",
       "comments" : {
         "comment-list" : "Kommenttilista",
         "comment-moderation" : "Kommenttimoderointi",
@@ -1241,7 +1317,6 @@
       "files" : "Tiedostot",
       "members" : "Jäsenet",
       "notifications" : "Ilmoitukset",
-      "tokens" : "Token management",
       "payments" : "Maksut",
       "portal-configuration" : "Portaalin asetukset",
       "readFirst" : "Lue ensin",
@@ -1252,6 +1327,7 @@
         "title" : "Tunnisteet"
       },
       "title" : "Ylläpito",
+      "tokens" : "Token management",
       "users" : "Käyttäjät"
     },
     "blog" : {
@@ -1275,21 +1351,6 @@
       "title" : "Sivuhallinta"
     }
   },
-  "NotificationDropdown" : {
-    "modal" : {
-      "close" : "Sulje",
-      "next" : "Seuraava",
-      "previous" : "Edellinen"
-    },
-    "noNotifications" : "Ei lukemattomia ilmoituksia",
-    "title" : "Ilmoitukset",
-    "viewAll" : "Näytä kaikki ilmoitukset"
-  },
-  "NotificationList" : {
-    "noNotifications" : "Ei ilmoituksia",
-    "title" : "Kaikki ilmoitukset",
-    "unread" : "Lukematon"
-  },
   "NewPassword" : {
     "setUpdateStatus" : {
       "update" : {
@@ -1308,6 +1369,21 @@
         "text" : "Salasanan päivitys onnistui!"
       }
     }
+  },
+  "NotificationDropdown" : {
+    "modal" : {
+      "close" : "Sulje",
+      "next" : "Seuraava",
+      "previous" : "Edellinen"
+    },
+    "noNotifications" : "Ei lukemattomia ilmoituksia",
+    "title" : "Ilmoitukset",
+    "viewAll" : "Näytä kaikki ilmoitukset"
+  },
+  "NotificationList" : {
+    "noNotifications" : "Ei ilmoituksia",
+    "title" : "Kaikki ilmoitukset",
+    "unread" : "Lukematon"
   },
   "OngoingEvents" : {
     "results" : {
@@ -1447,8 +1523,8 @@
       "created" : "Luotu",
       "end-date" : "Päättymisaika",
       "name" : "Nimi",
-      "paymentCount" : "Määrä",
       "payment-type" : "Maksutyyppi",
+      "paymentCount" : "Määrä",
       "paymentDate" : "Maksupäiväys",
       "start-date" : "Alkamisaika"
     }
@@ -1517,6 +1593,17 @@
       },
       "title" : "Sähköpostiasetukset"
     },
+    "files" : {
+      "dive-files-supported" : {
+        "label" : "Sukelluslokitiedostot tuettu",
+        "tooltip" : "Onko sukelluksiin liittyvien tiedostojen lataaminen tuettu"
+      },
+      "documents-supported" : {
+        "label" : "Asiakirjat tuettu",
+        "tooltip" : "Onko yleisten asiakirjojen lataaminen tuettu"
+      },
+      "title" : "Tiedostoasetukset"
+    },
     "frontend" : {
       "max-certificates" : {
         "label" : "Luokitukset (max)",
@@ -1551,17 +1638,6 @@
         "label" : "Tapahtumatyypit",
         "tooltip" : "Sallittujen sukellusten tyypit"
       }
-    },
-    "files" : {
-      "dive-files-supported" : {
-        "label" : "Sukelluslokitiedostot tuettu",
-        "tooltip" : "Onko sukelluksiin liittyvien tiedostojen lataaminen tuettu"
-      },
-      "documents-supported" : {
-        "label" : "Asiakirjat tuettu",
-        "tooltip" : "Onko yleisten asiakirjojen lataaminen tuettu"
-      },
-      "title" : "Tiedostoasetukset"
     },
     "general" : {
       "blog-enabled" : {
@@ -1765,6 +1841,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Luokitustunnus",
+      "classification" : "Todistuksen luokitus",
       "certification" : "Sukellusluokitus",
       "date" : "Sukellusluokituksen päiväys",
       "diverId" : "Sukeltajatunnus",
@@ -1776,6 +1853,18 @@
       "upload-photo" : "Lataa luokituskorttikuva",
       "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt.",
       "upload-photo-tooltip" : "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu."
+    }
+  },
+  "ShowUser" : {
+    "table" : {
+      "diveCount" : "Sukellusmäärä",
+      "email" : "Sähköposti",
+      "memberships" : "Jäsenyydet",
+      "nextOfKin" : "Lähiomaisen yhteystiedot",
+      "payments" : "Maksut",
+      "phonenumber" : "Puhelinnumero",
+      "registered" : "Rekisteröitynyt",
+      "user-details" : "Käyttäjätiedot"
     }
   },
   "StatisticsMain" : {
@@ -1829,6 +1918,10 @@
     },
     "emailChange" : {
       "button" : "Vaihda sähköpostiosoite",
+      "confirmation" : {
+        "invalid" : "Sähköpostiosoitteen vaihto epäonnistui tai vahvistuslinkki on vanhentunut.",
+        "ok" : "Sähköpostiosoite päivitettiin. Kirjaudu uudelleen sisään uudella sähköpostiosoitteellasi."
+      },
       "form" : {
         "newEmail" : {
           "label" : "Uusi sähköpostiosoite",
@@ -1853,13 +1946,18 @@
       "result" : {
         "fail" : "Tarkistus epäonnistui. Tarkista salasana ja sähköpostiosoite ja yritä uudelleen.",
         "success" : "Pyyntö hyväksyttiin. Tarkista uusi sähköpostiosoite ja vahvista muutos linkistä."
-      },
-      "confirmation" : {
-        "invalid" : "Sähköpostiosoitteen vaihto epäonnistui tai vahvistuslinkki on vanhentunut.",
-        "ok" : "Sähköpostiosoite päivitettiin. Kirjaudu uudelleen sisään uudella sähköpostiosoitteellasi."
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Edistynein sukellusluokitus",
+        "none" : "Ei sukellusluokitusta"
+      },
+      "healthStatement" : {
+        "false" : "Ei ole vahvistanut terveysselvitystä",
+        "label" : "Terveysselvitys",
+        "true" : "On vahvistanut terveysselvityksen"
+      },
       "membership" : {
         "label" : "Jäsenyys",
         "none" : "Ei jäsenyyttä",
@@ -1875,11 +1973,6 @@
       },
       "status" : {
         "label" : "Status"
-      },
-      "healthStatement" : {
-        "false" : "Ei ole vahvistanut terveysselvitystä",
-        "label" : "Terveysselvitys",
-        "true" : "On vahvistanut terveysselvityksen"
       },
       "terms" : {
         "false" : "Ei ole hyväksynyt ehtoja",
@@ -1903,18 +1996,6 @@
       "ok" : "Käyttäjän tiedot päivitetty"
     }
   },
-  "ShowUser" : {
-    "table" : {
-      "diveCount" : "Sukellusmäärä",
-      "email" : "Sähköposti",
-      "memberships" : "Jäsenyydet",
-      "nextOfKin" : "Lähiomaisen yhteystiedot",
-      "payments" : "Maksut",
-      "phonenumber" : "Puhelinnumero",
-      "registered" : "Rekisteröitynyt",
-      "user-details" : "Käyttäjätiedot"
-    }
-  },
   "UserEvents" : {
     "email-subscription-panel" : {
       "header" : "Sähköpostitilaukset",
@@ -1931,55 +2012,6 @@
     "profile-certificates-panel" : {
       "header" : "Sukellusluokitukset",
       "tooltip" : "Sukellusluokitukset, enintään "
-    }
-  },
-  "UserFiles" : {
-    "avatar" : {
-      "previewAlt" : "Profiilikuva",
-      "upload" : {
-        "button" : "Lataa profiilikuva",
-        "fail" : "Profiilikuvan lataus epäonnistui",
-        "fileTooLarge" : "Profiilikuvatiedosto on liian suuri (max 1 MB)",
-        "invalidType" : "Vain gif-, jpg- ja png-kuvatiedostot ovat sallittuja",
-        "success" : "Profiilikuva ladattu onnistuneesti"
-      }
-    },
-    "dive" : {
-      "download" : "Lataa",
-      "fetchFail" : "Sukellustiedostojen lataaminen epäonnistui",
-      "table" : {
-        "createdAt" : "Luotu",
-        "diveGroupId" : "Sukellussarja",
-        "download" : "Tiedosto",
-        "filename" : "Tiedostonimi"
-      },
-      "title" : "Sukellustiedostot",
-      "upload" : {
-        "button" : "Lataa sukellustiedosto",
-        "diveGroupLabel" : "Sukellussarjan tunnus",
-        "fail" : "Sukellustiedoston lataus epäonnistui",
-        "fileTooLarge" : "Sukellustiedosto on liian suuri (max 5 MB)",
-        "invalidDiveGroupId" : "Aseta kelvollinen sukellussarjan tunnus",
-        "invalidType" : "Vain gif-, jpg-, png- ja pdf-tiedostot ovat sallittuja",
-        "success" : "Sukellustiedosto ladattu onnistuneesti"
-      }
-    },
-    "document" : {
-      "download" : "Lataa",
-      "fetchFail" : "Asiakirjatiedostojen lataaminen epäonnistui",
-      "table" : {
-        "createdAt" : "Luotu",
-        "download" : "Tiedosto",
-        "filename" : "Tiedostonimi"
-      },
-      "title" : "Asiakirjat",
-      "upload" : {
-        "button" : "Lataa asiakirja",
-        "fail" : "Asiakirjan lataus epäonnistui",
-        "fileTooLarge" : "Asiakirjatiedosto on liian suuri (max 5 MB)",
-        "invalidType" : "Vain gif-, jpg-, png- ja pdf-tiedostot ovat sallittuja",
-        "success" : "Asiakirja ladattu onnistuneesti"
-      }
     }
   },
   "UserFields" : {
@@ -2050,6 +2082,55 @@
       }
     }
   },
+  "UserFiles" : {
+    "avatar" : {
+      "previewAlt" : "Profiilikuva",
+      "upload" : {
+        "button" : "Lataa profiilikuva",
+        "fail" : "Profiilikuvan lataus epäonnistui",
+        "fileTooLarge" : "Profiilikuvatiedosto on liian suuri (max 1 MB)",
+        "invalidType" : "Vain gif-, jpg- ja png-kuvatiedostot ovat sallittuja",
+        "success" : "Profiilikuva ladattu onnistuneesti"
+      }
+    },
+    "dive" : {
+      "download" : "Lataa",
+      "fetchFail" : "Sukellustiedostojen lataaminen epäonnistui",
+      "table" : {
+        "createdAt" : "Luotu",
+        "diveGroupId" : "Sukellussarja",
+        "download" : "Tiedosto",
+        "filename" : "Tiedostonimi"
+      },
+      "title" : "Sukellustiedostot",
+      "upload" : {
+        "button" : "Lataa sukellustiedosto",
+        "diveGroupLabel" : "Sukellussarjan tunnus",
+        "fail" : "Sukellustiedoston lataus epäonnistui",
+        "fileTooLarge" : "Sukellustiedosto on liian suuri (max 5 MB)",
+        "invalidDiveGroupId" : "Aseta kelvollinen sukellussarjan tunnus",
+        "invalidType" : "Vain gif-, jpg-, png- ja pdf-tiedostot ovat sallittuja",
+        "success" : "Sukellustiedosto ladattu onnistuneesti"
+      }
+    },
+    "document" : {
+      "download" : "Lataa",
+      "fetchFail" : "Asiakirjatiedostojen lataaminen epäonnistui",
+      "table" : {
+        "createdAt" : "Luotu",
+        "download" : "Tiedosto",
+        "filename" : "Tiedostonimi"
+      },
+      "title" : "Asiakirjat",
+      "upload" : {
+        "button" : "Lataa asiakirja",
+        "fail" : "Asiakirjan lataus epäonnistui",
+        "fileTooLarge" : "Asiakirjatiedosto on liian suuri (max 5 MB)",
+        "invalidType" : "Vain gif-, jpg-, png- ja pdf-tiedostot ovat sallittuja",
+        "success" : "Asiakirja ladattu onnistuneesti"
+      }
+    }
+  },
   "UserTypeEnum" : {
     "free_diver" : "Vapaasukellus",
     "non_diver" : "Ei sukeltaja",
@@ -2064,6 +2145,7 @@
       "close" : "Sulje",
       "confirm" : "Vahvistan",
       "delete" : "Poista",
+      "edit" : "Muokkaa",
       "held" : "Pidetty",
       "login" : "Kirjaudu sisään",
       "logout" : "Kirjaudu ulos",

@@ -116,7 +116,7 @@ export function AdminMemberships() {
             render: (_: string, record: MembershipResponse) => {
                 return (
                         <Space size="small">
-                            <Button type={"primary"} href={"/administration/members/" + record.id + "/edit"}>{t("AdminMembers.table.actions.edit")}</Button>
+                            <Button type={"primary"} href={"/administration/members/" + record.id + "/edit"}>{t("common.button.edit")}</Button>
                         </Space>
                 );
             }

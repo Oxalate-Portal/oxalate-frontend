@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 import type {CertificateRequest} from "../../models";
 import dayjs from "dayjs";
 import {useParams} from "react-router-dom";
-import {Button, Form, Input, message, Space, Spin} from "antd";
+import {AutoComplete, Button, Form, Input, message, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
 import {certificateAPI} from "../../services";
 
@@ -28,6 +28,35 @@ export function EditCertificate() {
     const [submitButtonText, setSubmitButtonText] = useState<string>(t("EditCertificate.form.button.update"));
     const [diveIdRequired, setDiveIdRequired] = useState<boolean>(true);
     const [certificateIdRequired, setCertificateIdRequired] = useState<boolean>(true);
+    const [organizationOptions, setOrganizationOptions] = useState<{ value: string; label: string }[]>([]);
+    const [certificateNameOptions, setCertificateNameOptions] = useState<{ value: string; label: string }[]>([]);
+
+    function searchSuggestions(searchTerm: string, type: "certificateName" | "organization") {
+        if (!searchTerm.trim()) {
+            if (type === "certificateName") {
+                setCertificateNameOptions([]);
+            } else {
+                setOrganizationOptions([]);
+            }
+            return;
+        }
+
+        const search = type === "certificateName"
+                ? certificateAPI.findCertificateNames(searchTerm)
+                : certificateAPI.findOrganizations(searchTerm);
+        search.then(values => {
+            const options = values.map(value => ({value, label: value}));
+            if (type === "certificateName") {
+                setCertificateNameOptions(options);
+            } else {
+                setOrganizationOptions(options);
+            }
+        }).catch(error => {
+            console.error("Failed to retrieve certificate suggestions: " + error);
+            messageApi.error(t("EditCertificate.form.suggestions.fail"));
+        });
+    }
+
     useEffect(() => {
         if (paramId?.length === 0) {
             console.error("Invalid dive event id:", paramId);
@@ -158,7 +187,9 @@ export function EditCertificate() {
                                                    message: t("EditCertificate.form.organization.rules.min")
                                                }
                                            ]}>
-                                    <Input
+                                    <AutoComplete
+                                            options={organizationOptions}
+                                            showSearch={{onSearch: value => searchSuggestions(value, "organization")}}
                                             placeholder={t("EditCertificate.form.organization.placeholder")}/>
                                 </Form.Item>
                                 <Form.Item name={"certificateName"}
@@ -175,7 +206,10 @@ export function EditCertificate() {
                                                    message: t("EditCertificate.form.certificateName.rules.min")
                                                }
                                            ]}>
-                                    <Input placeholder={t("EditCertificate.form.certificateName.placeholder")}/>
+                                    <AutoComplete
+                                            options={certificateNameOptions}
+                                            showSearch={{onSearch: value => searchSuggestions(value, "certificateName")}}
+                                            placeholder={t("EditCertificate.form.certificateName.placeholder")}/>
                                 </Form.Item>
                                 <Form.Item name={"certificateId"}
                                            required={certificateIdRequired}
