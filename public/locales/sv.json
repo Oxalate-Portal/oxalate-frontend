@@ -97,8 +97,8 @@
     },
     "replacement" : {
       "certificateName" : "Ersätt certifikatnamn",
-      "existing" : "Befintliga värden (kommaseparerade)",
-      "existing-placeholder" : "Värde 1, Värde 2",
+      "existing" : "Befintliga värden",
+      "existing-placeholder" : "Sök och välj värden",
       "fail" : "Kunde inte ersätta värden",
       "new" : "Nytt värde",
       "organization" : "Ersätt organisationer",

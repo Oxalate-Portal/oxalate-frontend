@@ -97,8 +97,8 @@
     },
     "replacement" : {
       "certificateName" : "Replace certificate names",
-      "existing" : "Existing values (comma separated)",
-      "existing-placeholder" : "Value 1, Value 2",
+      "existing" : "Existing values",
+      "existing-placeholder" : "Search and select values",
       "fail" : "Failed to replace values",
       "new" : "New value",
       "organization" : "Replace organizations",

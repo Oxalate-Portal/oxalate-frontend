@@ -97,8 +97,8 @@
     },
     "replacement" : {
       "certificateName" : "Korvaa todistusten nimet",
-      "existing" : "Nykyiset arvot (pilkuin eroteltuna)",
-      "existing-placeholder" : "Arvo 1, Arvo 2",
+      "existing" : "Nykyiset arvot",
+      "existing-placeholder" : "Hae ja valitse arvot",
       "fail" : "Arvojen korvaus epäonnistui",
       "new" : "Uusi arvo",
       "organization" : "Korvaa organisaatiot",

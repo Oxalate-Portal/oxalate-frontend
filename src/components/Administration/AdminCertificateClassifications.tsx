@@ -16,8 +16,8 @@ export function AdminCertificateClassifications() {
     const [editing, setEditing] = useState<CertificateClassificationResponse | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
-    const [certificateNameOptions, setCertificateNameOptions] = useState<{ value: string }[]>([]);
-    const [organizationOptions, setOrganizationOptions] = useState<{ value: string }[]>([]);
+    const [certificateNameOptions, setCertificateNameOptions] = useState<{ value: string; label: string }[]>([]);
+    const [organizationOptions, setOrganizationOptions] = useState<{ value: string; label: string }[]>([]);
     const [form] = Form.useForm();
     const [assignmentForm] = Form.useForm();
     const [organizationForm] = Form.useForm();
@@ -115,9 +115,9 @@ export function AdminCertificateClassifications() {
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.assignment.fail")));
     };
 
-    const submitReplacement = (field: "organization" | "certificate-name", values: { existingValues: string; newValue: string }) => {
+    const submitReplacement = (field: "organization" | "certificate-name", values: { existingValues: string[]; newValue: string }) => {
         const payload: CertificateValueReplacementRequest = {
-            existingValues: values.existingValues.split(",").map(value => value.trim()).filter(Boolean),
+            existingValues: values.existingValues,
             newValue: values.newValue.trim()
         };
         const operation = field === "organization"
@@ -139,7 +139,7 @@ export function AdminCertificateClassifications() {
 
         const search = type === "certificateName" ? certificateAPI.findCertificateNames(searchTerm) : certificateAPI.findOrganizations(searchTerm);
         search.then(values => {
-            const options = values.map(value => ({value}));
+            const options = values.map(value => ({value, label: value}));
             if (type === "certificateName") {
                 setCertificateNameOptions(options);
             } else {
@@ -187,9 +187,13 @@ export function AdminCertificateClassifications() {
                                                                                         style={{maxWidth: 500}}>
                         <Form.Item name="existingValues" label={t("AdminCertificateClassifications.replacement.existing")}
                                    rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}>
-                            <AutoComplete
+                            <Select
+                                    mode="multiple"
                                     options={field === "organization" ? organizationOptions : certificateNameOptions}
-                                    showSearch={{onSearch: searchTerm => searchSuggestions(searchTerm, field === "organization" ? "organization" : "certificateName")}}
+                                    showSearch={{
+                                        onSearch: searchTerm => searchSuggestions(searchTerm, field === "organization" ? "organization" : "certificateName"),
+                                        optionFilterProp: "label"
+                                    }}
                                     placeholder={t("AdminCertificateClassifications.replacement.existing-placeholder")}
                             />
                         </Form.Item>

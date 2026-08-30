@@ -111,8 +111,15 @@ jest.mock("antd", () => {
         <input placeholder={placeholder} onChange={event => showSearch?.onSearch?.(event.target.value)}/>
         {options.map(option => <span key={option.value}>{option.value}</span>)}
     </div>;
-    const Select = ({options = [], onChange}: { options?: Array<{ label?: string; value?: string }>; onChange?: (v: string) => void }) =>
-            <select onChange={(e) => onChange?.(e.target.value)}>{options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</select>;
+    const Select = ({options = [], onChange, mode, showSearch}: {
+        options?: Array<{ label?: string; value?: string }>;
+        onChange?: (v: string) => void;
+        mode?: string;
+        showSearch?: { onSearch?: (value: string) => void };
+    }) => <div>
+        {mode === "multiple" && showSearch && <input onChange={event => showSearch.onSearch?.(event.target.value)}/>}
+        <select onChange={(e) => onChange?.(e.target.value)}>{options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</select>
+    </div>;
     const Table = ({columns = [], dataSource = [], onChange}: {
         columns?: Array<{ render?: (v: unknown, r: unknown) => ReactNode }>;
         dataSource?: unknown[];
@@ -253,7 +260,7 @@ describe("Administration pages", () => {
         api["certificateAPI.findOrganizations"].mockResolvedValue(["PADI"]);
         render(<AdminCertificateClassifications/>);
 
-        fireEvent.change(screen.getAllByRole("textbox")[1], {target: {value: "open"}});
+        fireEvent.change(screen.getAllByRole("textbox")[4], {target: {value: "open"}});
         await waitFor(() => expect(screen.getAllByText("Open Water").length).toBeGreaterThan(0));
         expect(api["certificateAPI.findCertificateNames"]).toHaveBeenCalledWith("open");
 
@@ -266,8 +273,8 @@ describe("Administration pages", () => {
         api["certificateAPI.findCertificateNames"].mockRejectedValue(new Error("search failed"));
         render(<AdminCertificateClassifications/>);
 
-        fireEvent.change(screen.getAllByRole("textbox")[1], {target: {value: " "}});
-        fireEvent.change(screen.getAllByRole("textbox")[1], {target: {value: "open"}});
+        fireEvent.change(screen.getAllByRole("textbox")[4], {target: {value: " "}});
+        fireEvent.change(screen.getAllByRole("textbox")[4], {target: {value: "open"}});
         await waitFor(() => expect(api["certificateAPI.findCertificateNames"]).toHaveBeenCalledWith("open"));
     });
 });

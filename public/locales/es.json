@@ -97,8 +97,8 @@
     },
     "replacement" : {
       "certificateName" : "Reemplazar nombres de certificados",
-      "existing" : "Valores existentes (separados por comas)",
-      "existing-placeholder" : "Valor 1, Valor 2",
+      "existing" : "Valores existentes",
+      "existing-placeholder" : "Buscar y seleccionar valores",
       "fail" : "No se pudieron reemplazar",
       "new" : "Nuevo valor",
       "organization" : "Reemplazar organizaciones",
