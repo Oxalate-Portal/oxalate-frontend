@@ -61,7 +61,8 @@
   "AdminCertificateClassifications" : {
     "assignment" : {
       "certificateId" : "Certificate ID",
-      "certificateName" : "Certificate name (all matching)",
+      "certificateName" : "Certificate names",
+      "certificateName-placeholder" : "Search and select certificate names",
       "classification" : "Classification",
       "fail" : "Failed to assign classification",
       "submit" : "Assign",
@@ -107,7 +108,8 @@
     "table" : {
       "actions" : "Actions",
       "description" : "Description",
-      "titles" : "Titles"
+      "titles" : "Titles",
+      "order" : "Order"
     },
     "tabs" : {
       "assignment" : "Assign classification",
@@ -115,6 +117,11 @@
       "replacement" : "Replace values"
     },
     "title" : "Certificate classification management",
+    "order" : {
+      "save" : "Save order",
+      "save-success" : "Order saved",
+      "save-fail" : "Failed to save order"
+    },
     "validation" : {
       "required" : "This field is required"
     }
@@ -1828,6 +1835,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Certification ID",
+      "classification" : "Certificate classification",
       "certification" : "Diver certification",
       "date" : "Certification date",
       "diverId" : "Diver ID",
@@ -1935,6 +1943,10 @@
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Most advanced certificate classification",
+        "none" : "No certificate classification"
+      },
       "healthStatement" : {
         "false" : "Has not confirmed health statement",
         "label" : "Health statement",

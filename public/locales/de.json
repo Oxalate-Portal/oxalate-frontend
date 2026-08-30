@@ -61,7 +61,8 @@
   "AdminCertificateClassifications" : {
     "assignment" : {
       "certificateId" : "Zertifikats-ID",
-      "certificateName" : "Zertifikatsname (alle Treffer)",
+      "certificateName" : "Zertifikatsnamen",
+      "certificateName-placeholder" : "Zertifikatsnamen suchen und auswählen",
       "classification" : "Klassifikation",
       "fail" : "Zuweisung fehlgeschlagen",
       "submit" : "Zuweisen",
@@ -107,7 +108,8 @@
     "table" : {
       "actions" : "Aktionen",
       "description" : "Beschreibung",
-      "titles" : "Titel"
+      "titles" : "Titel",
+      "order" : "Reihenfolge"
     },
     "tabs" : {
       "assignment" : "Klassifikation zuweisen",
@@ -115,6 +117,11 @@
       "replacement" : "Werte ersetzen"
     },
     "title" : "Zertifikatsklassifikationen verwalten",
+    "order" : {
+      "save" : "Reihenfolge speichern",
+      "save-success" : "Reihenfolge gespeichert",
+      "save-fail" : "Reihenfolge konnte nicht gespeichert werden"
+    },
     "validation" : {
       "required" : "Dieses Feld ist erforderlich"
     }
@@ -1828,6 +1835,7 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Zertifikats-ID",
+      "classification" : "Zertifikatsklassifikation",
       "certification" : "Tauchzertifizierung",
       "date" : "Zertifizierungsdatum",
       "diverId" : "Taucher-ID",
@@ -1935,6 +1943,10 @@
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Fortgeschrittenste Zertifikatsklassifikation",
+        "none" : "Keine Zertifikatsklassifikation"
+      },
       "healthStatement" : {
         "false" : "Hat die Gesundheitserklärung nicht bestätigt",
         "label" : "Gesundheitserklärung",

@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {AutoComplete, Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tabs} from "antd";
+import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../session";
 import {certificateAPI, certificateClassificationAPI} from "../../services";
@@ -12,6 +12,8 @@ export function AdminCertificateClassifications() {
     const {getFrontendConfigurationValue} = useSession();
     const [data, setData] = useState<CertificateClassificationResponse[]>([]);
     const [loading, setLoading] = useState(false);
+    const [savingOrder, setSavingOrder] = useState(false);
+    const [draggingId, setDraggingId] = useState<number | null>(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [editing, setEditing] = useState<CertificateClassificationResponse | null>(null);
     const [submitting, setSubmitting] = useState(false);
@@ -82,7 +84,34 @@ export function AdminCertificateClassifications() {
                 .finally(() => setDeletingId(null));
     };
 
+    const moveRow = (sourceId: number, targetId: number) => {
+        if (sourceId === targetId) return;
+        setData(current => {
+            const sourceIndex = current.findIndex(item => item.id === sourceId);
+            const targetIndex = current.findIndex(item => item.id === targetId);
+            if (sourceIndex < 0 || targetIndex < 0) return current;
+            const next = [...current];
+            const [moved] = next.splice(sourceIndex, 1);
+            next.splice(targetIndex, 0, moved);
+            return next;
+        });
+    };
+
+    const saveOrder = () => {
+        setSavingOrder(true);
+        const ordered = data.map((classification, index) => ({...classification, order: data.length - index}));
+        certificateClassificationAPI.reorder(ordered)
+                .then(ok => ok ? message.success(t("AdminCertificateClassifications.order.save-success")) : message.error(t("AdminCertificateClassifications.order.save-fail")))
+                .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.order.save-fail")))
+                .finally(() => setSavingOrder(false));
+    };
+
     const columns = useMemo(() => [
+        {
+            title: t("AdminCertificateClassifications.table.order"),
+            key: "order",
+            render: (_: unknown, record: CertificateClassificationResponse) => record.order
+        },
         {
             title: t("AdminCertificateClassifications.table.titles"),
             key: "titles",
@@ -103,13 +132,14 @@ export function AdminCertificateClassifications() {
                     </Space>
             )
         }
+        // The handlers intentionally use current form and service state without rebuilding columns.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    ], [deletingId, t]);
+    ], [data.length, deletingId, t]);
 
-    const submitAssignment = (values: { certificateId?: number; certificateName?: string; classificationId?: number }) => {
+    const submitAssignment = (values: { certificateId?: number; certificateNames?: string[]; classificationId?: number }) => {
         certificateAPI.updateClassification({
             certificateId: values.certificateId || null,
-            certificateName: values.certificateName || null,
+            certificateNames: values.certificateNames || null,
             classificationId: values.classificationId || null
         }).then(() => message.success(t("AdminCertificateClassifications.assignment.success")))
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.assignment.fail")));
@@ -157,9 +187,26 @@ export function AdminCertificateClassifications() {
                 children: <>
                     <Space style={{marginBottom: 16}}>
                         <Button type="primary" onClick={() => openModal(null)}>{t("AdminCertificateClassifications.button.add")}</Button>
+                        <Button onClick={saveOrder} loading={savingOrder}>{t("AdminCertificateClassifications.order.save")}</Button>
                         <Button onClick={load} loading={loading}>{t("AdminCertificateClassifications.button.refresh")}</Button>
                     </Space>
-                    <Table rowKey="id" loading={loading} dataSource={data} columns={columns} pagination={{pageSize: 10}}/>
+                    <Table<CertificateClassificationResponse>
+                            rowKey="id"
+                            loading={loading}
+                            dataSource={data}
+                            columns={columns}
+                            pagination={{pageSize: 10}}
+                            onRow={record => ({
+                                draggable: true,
+                                onDragStart: () => setDraggingId(record.id),
+                                onDragEnd: () => setDraggingId(null),
+                                onDragOver: event => event.preventDefault(),
+                                onDrop: () => {
+                                    if (draggingId !== null) moveRow(draggingId, record.id);
+                                    setDraggingId(null);
+                                }
+                            })}
+                    />
                 </>
             },
             {
@@ -167,8 +214,16 @@ export function AdminCertificateClassifications() {
                 label: t("AdminCertificateClassifications.tabs.assignment"),
                 children: <Form form={assignmentForm} layout="vertical" onFinish={submitAssignment} style={{maxWidth: 500}}>
                     <Form.Item name="certificateId" label={t("AdminCertificateClassifications.assignment.certificateId")}><Input type="number"/></Form.Item>
-                    <Form.Item name="certificateName" label={t("AdminCertificateClassifications.assignment.certificateName")}>
-                        <AutoComplete options={certificateNameOptions} showSearch={{onSearch: searchTerm => searchSuggestions(searchTerm, "certificateName")}}/>
+                    <Form.Item name="certificateNames" label={t("AdminCertificateClassifications.assignment.certificateName")}>
+                        <Select
+                                mode="multiple"
+                                options={certificateNameOptions}
+                                showSearch={{
+                                    onSearch: searchTerm => searchSuggestions(searchTerm, "certificateName"),
+                                    optionFilterProp: "label"
+                                }}
+                                placeholder={t("AdminCertificateClassifications.assignment.certificateName-placeholder")}
+                        />
                     </Form.Item>
                     <Form.Item name="classificationId" label={t("AdminCertificateClassifications.assignment.classification")}
                                rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}>

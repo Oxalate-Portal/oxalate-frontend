@@ -61,7 +61,9 @@
   "AdminCertificateClassifications" : {
     "assignment" : {
       "certificateId" : "Todistuksen tunniste",
-      "certificateName" : "Todistuksen nimi (kaikki osumat)",
+      "classification" : "Todistuksen luokitus",
+      "certificateName" : "Todistusten nimet",
+      "certificateName-placeholder" : "Hae ja valitse todistusten nimiä",
       "classification" : "Luokitus",
       "fail" : "Luokituksen määritys epäonnistui",
       "submit" : "Määritä",
@@ -107,7 +109,8 @@
     "table" : {
       "actions" : "Toiminnot",
       "description" : "Kuvaus",
-      "titles" : "Nimet"
+      "titles" : "Nimet",
+      "order" : "Järjestys"
     },
     "tabs" : {
       "assignment" : "Määritä luokitus",
@@ -115,6 +118,11 @@
       "replacement" : "Korvaa arvot"
     },
     "title" : "Sukellusluokitusten hallinta",
+    "order" : {
+      "save" : "Tallenna järjestys",
+      "save-success" : "Järjestys tallennettu",
+      "save-fail" : "Järjestyksen tallennus epäonnistui"
+    },
     "validation" : {
       "required" : "Kenttä on pakollinen"
     }
@@ -1935,6 +1943,10 @@
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Edistynein sukellusluokitus",
+        "none" : "Ei sukellusluokitusta"
+      },
       "healthStatement" : {
         "false" : "Ei ole vahvistanut terveysselvitystä",
         "label" : "Terveysselvitys",

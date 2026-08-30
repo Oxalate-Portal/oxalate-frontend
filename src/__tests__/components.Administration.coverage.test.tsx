@@ -277,4 +277,14 @@ describe("Administration pages", () => {
         fireEvent.change(screen.getAllByRole("textbox")[4], {target: {value: "open"}});
         await waitFor(() => expect(api["certificateAPI.findCertificateNames"]).toHaveBeenCalledWith("open"));
     });
+
+    it("renders each classification's persisted order", async () => {
+        api["certificateClassificationAPI.findAll"].mockResolvedValue([
+            {id: 1, order: 1, titles: {en: "First"}, description: "First description"},
+            {id: 2, order: 3, titles: {en: "Third"}, description: "Third description"}
+        ]);
+        render(<AdminCertificateClassifications/>);
+
+        await waitFor(() => expect(screen.getByTestId("table").textContent).toMatch(/1.*First.*3.*Third/));
+    });
 });

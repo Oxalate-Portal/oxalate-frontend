@@ -123,6 +123,8 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
                         <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificateId}</p>
                         <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diverId}</p>
                         <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certificationDate.toString()}</p>
+                        {certificate.classificationTitle &&
+                                <p key={"cert-detail-6"}>{t("ShowCertificateCard.card.classification")}: {certificate.classificationTitle}</p>}
                     </Col>
 
                     {/* Right Column: Certificate photocopy or upload button */}

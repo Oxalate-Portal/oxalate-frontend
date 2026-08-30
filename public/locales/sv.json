@@ -61,7 +61,9 @@
   "AdminCertificateClassifications" : {
     "assignment" : {
       "certificateId" : "Certifikat-ID",
-      "certificateName" : "Certifikatnamn (alla träffar)",
+      "classification" : "Certifikatklassificering",
+      "certificateName" : "Certifikatnamn",
+      "certificateName-placeholder" : "Sök och välj certifikatnamn",
       "classification" : "Klassificering",
       "fail" : "Kunde inte tilldela klassificering",
       "submit" : "Tilldela",
@@ -107,7 +109,8 @@
     "table" : {
       "actions" : "Åtgärder",
       "description" : "Beskrivning",
-      "titles" : "Titlar"
+      "titles" : "Titlar",
+      "order" : "Ordning"
     },
     "tabs" : {
       "assignment" : "Tilldela klassificering",
@@ -115,6 +118,11 @@
       "replacement" : "Ersätt värden"
     },
     "title" : "Hantera certifikatklassificeringar",
+    "order" : {
+      "save" : "Spara ordning",
+      "save-success" : "Ordning sparad",
+      "save-fail" : "Kunde inte spara ordningen"
+    },
     "validation" : {
       "required" : "Fältet är obligatoriskt"
     }
@@ -1935,6 +1943,10 @@
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Mest avancerade certifikatklassificering",
+        "none" : "Ingen certifikatklassificering"
+      },
       "healthStatement" : {
         "false" : "Har inte bekräftat hälsodeklarationen",
         "label" : "Hälsodeklaration",

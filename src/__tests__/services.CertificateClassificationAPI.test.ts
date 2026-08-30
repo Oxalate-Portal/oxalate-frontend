@@ -11,7 +11,7 @@ describe("CertificateClassificationAPI", () => {
     afterEach(() => mock.reset());
 
     it("supports classification CRUD operations", async () => {
-        const classification = {id: 1, titles: {en: "Cave"}, description: "Cave diving"};
+        const classification = {id: 1, order: 1, titles: {en: "Cave"}, description: "Cave diving"};
         mock.onGet("").reply(200, [classification]);
         mock.onGet("/1").reply(200, classification);
         mock.onPost("", classification).reply(200, classification);
@@ -23,5 +23,11 @@ describe("CertificateClassificationAPI", () => {
         await expect(certificateClassificationAPI.create(classification)).resolves.toEqual(classification);
         await expect(certificateClassificationAPI.update(classification)).resolves.toEqual(classification);
         await expect(certificateClassificationAPI.delete(1)).resolves.toBe(true);
+    });
+
+    it("saves the classification order", async () => {
+        const requests = [{id: 1, order: 1, titles: {en: "Cave"}, description: "Cave diving"}];
+        mock.onPut("/order", requests).reply(200);
+        await expect(certificateClassificationAPI.reorder(requests)).resolves.toBe(true);
     });
 });

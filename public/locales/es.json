@@ -61,7 +61,9 @@
   "AdminCertificateClassifications" : {
     "assignment" : {
       "certificateId" : "ID del certificado",
-      "certificateName" : "Nombre del certificado (todas las coincidencias)",
+      "classification" : "Clasificación del certificado",
+      "certificateName" : "Nombres de certificados",
+      "certificateName-placeholder" : "Buscar y seleccionar nombres de certificados",
       "classification" : "Clasificación",
       "fail" : "No se pudo asignar",
       "submit" : "Asignar",
@@ -107,7 +109,8 @@
     "table" : {
       "actions" : "Acciones",
       "description" : "Descripción",
-      "titles" : "Títulos"
+      "titles" : "Títulos",
+      "order" : "Orden"
     },
     "tabs" : {
       "assignment" : "Asignar clasificación",
@@ -115,6 +118,11 @@
       "replacement" : "Reemplazar valores"
     },
     "title" : "Gestión de clasificaciones de certificados",
+    "order" : {
+      "save" : "Guardar orden",
+      "save-success" : "Orden guardado",
+      "save-fail" : "No se pudo guardar el orden"
+    },
     "validation" : {
       "required" : "Este campo es obligatorio"
     }
@@ -1935,6 +1943,10 @@
       }
     },
     "form" : {
+      "certificateClassification" : {
+        "label" : "Clasificación de certificado más avanzada",
+        "none" : "Sin clasificación de certificado"
+      },
       "healthStatement" : {
         "false" : "No ha confirmado la declaración de salud",
         "label" : "Declaración de salud",

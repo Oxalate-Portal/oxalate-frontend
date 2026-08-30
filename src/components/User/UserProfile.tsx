@@ -176,6 +176,8 @@ export function UserProfile() {
             <div className={"darkDiv"}>
                 {contextHolder}
                 <h4>{userSession?.username} {t("User.title")}:</h4>
+                {workUser &&
+                        <p>{t("User.form.certificateClassification.label")}: {workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</p>}
 
                 <Spin spinning={loading}>
                     {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatarUrl}/>}
