@@ -62,5 +62,18 @@ describe('CertificateAPI', () => {
         await certificateAPI.delete(1);
         expect(mock.history.delete).toHaveLength(1);
     });
-});
 
+    it('should update a certificate classification', async () => {
+        const payload = {certificateId: 1, classificationId: 2};
+        mock.onPut('/classification', payload).reply(200);
+        await expect(certificateAPI.updateClassification(payload)).resolves.toBe(true);
+    });
+
+    it('should replace organizations and certificate names', async () => {
+        const payload = {existingValues: ['Old'], newValue: 'New'};
+        mock.onPut('/management/organization', payload).reply(200);
+        mock.onPut('/management/certificate-name', payload).reply(200);
+        await expect(certificateAPI.replaceOrganizations(payload)).resolves.toBe(true);
+        await expect(certificateAPI.replaceCertificateNames(payload)).resolves.toBe(true);
+    });
+});

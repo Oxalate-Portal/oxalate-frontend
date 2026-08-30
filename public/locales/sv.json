@@ -85,7 +85,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Redigera",
         "title" : "Åtgärd"
       },
       "created" : "Skapad",
@@ -302,7 +301,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Redigera",
         "title" : "Åtgärder"
       },
       "code" : "Kod",
@@ -436,7 +434,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Redigera",
         "title" : "Åtgärder"
       },
       "code" : "Kod",
@@ -1062,6 +1059,10 @@
     "description" : {
       "title" : "Evenemangsbeskrivning"
     },
+    "notificationModal" : {
+      "button" : "Meddela deltagare",
+      "title" : "Skicka avisering till deltagare"
+    },
     "link" : {
       "tooltip" : "Öppna evenemanget"
     },
@@ -1252,7 +1253,8 @@
         "title" : "Taggar"
       },
       "title" : "Administration",
-      "users" : "Användare"
+      "users" : "Användare",
+      "certificate-classifications" : "Certifikatklassificeringar"
     },
     "blog" : {
       "link" : "Blogg",
@@ -2056,6 +2058,64 @@
     "scuba_diver" : "Apparatdykning",
     "snorkler" : "Snorkling"
   },
+  "AdminCertificateClassifications" : {
+    "title" : "Hantera certifikatklassificeringar",
+    "tabs" : {
+      "classifications" : "Klassificeringar",
+      "assignment" : "Tilldela klassificering",
+      "replacement" : "Ersätt värden"
+    },
+    "button" : {
+      "add" : "Lägg till klassificering",
+      "refresh" : "Uppdatera"
+    },
+    "table" : {
+      "titles" : "Titlar",
+      "description" : "Beskrivning",
+      "actions" : "Åtgärder"
+    },
+    "modal" : {
+      "add" : "Lägg till klassificering",
+      "edit" : "Redigera klassificering"
+    },
+    "form" : {
+      "title" : "Titel",
+      "description" : "Beskrivning"
+    },
+    "validation" : {
+      "required" : "Fältet är obligatoriskt"
+    },
+    "delete" : {
+      "confirm" : "Ta bort klassificering?"
+    },
+    "load" : {
+      "fail" : "Kunde inte läsa klassificeringar"
+    },
+    "popup" : {
+      "add-success" : "Klassificering skapad",
+      "update-success" : "Klassificering uppdaterad",
+      "remove-success" : "Klassificering borttagen",
+      "remove-fail" : "Kunde inte ta bort klassificering",
+      "operation-fail" : "Åtgärden misslyckades"
+    },
+    "assignment" : {
+      "certificateId" : "Certifikat-ID",
+      "certificateName" : "Certifikatnamn (alla träffar)",
+      "classification" : "Klassificering",
+      "submit" : "Tilldela",
+      "success" : "Klassificering tilldelad",
+      "fail" : "Kunde inte tilldela klassificering"
+    },
+    "replacement" : {
+      "existing" : "Befintliga värden (kommaseparerade)",
+      "existing-placeholder" : "Värde 1, Värde 2",
+      "new" : "Nytt värde",
+      "organization" : "Ersätt organisationer",
+      "certificateName" : "Ersätt certifikatnamn",
+      "success" : "Värden ersatta",
+      "fail" : "Kunde inte ersätta värden"
+    }
+  },
   "common" : {
     "button" : {
       "add" : "Lägg till",
@@ -2064,6 +2124,7 @@
       "close" : "Stäng",
       "confirm" : "Jag bekräftar",
       "delete" : "Ta bort",
+      "edit" : "Redigera",
       "held" : "Hållits",
       "login" : "Logga in",
       "logout" : "Logga ut",

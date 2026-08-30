@@ -85,7 +85,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Bearbeiten",
         "title" : "Aktion"
       },
       "created" : "Erstellt am",
@@ -302,7 +301,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Bearbeiten",
         "title" : "Aktionen"
       },
       "code" : "Code",
@@ -436,7 +434,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Bearbeiten",
         "title" : "Aktionen"
       },
       "code" : "Code",
@@ -1062,6 +1059,10 @@
     "description" : {
       "title" : "Ereignisbeschreibung"
     },
+    "notificationModal" : {
+      "button" : "Teilnehmer benachrichtigen",
+      "title" : "Benachrichtigung an Teilnehmer senden"
+    },
     "link" : {
       "tooltip" : "Ereignis öffnen"
     },
@@ -1252,7 +1253,8 @@
         "title" : "Schlagwörter"
       },
       "title" : "Verwaltung",
-      "users" : "Benutzer"
+      "users" : "Benutzer",
+      "certificate-classifications" : "Zertifikatsklassifikationen"
     },
     "blog" : {
       "link" : "Blog",
@@ -2056,6 +2058,64 @@
     "scuba_diver" : "Gerätetauchen",
     "snorkler" : "Schnorcheln"
   },
+  "AdminCertificateClassifications" : {
+    "title" : "Zertifikatsklassifikationen verwalten",
+    "tabs" : {
+      "classifications" : "Klassifikationen",
+      "assignment" : "Klassifikation zuweisen",
+      "replacement" : "Werte ersetzen"
+    },
+    "button" : {
+      "add" : "Klassifikation hinzufügen",
+      "refresh" : "Aktualisieren"
+    },
+    "table" : {
+      "titles" : "Titel",
+      "description" : "Beschreibung",
+      "actions" : "Aktionen"
+    },
+    "modal" : {
+      "add" : "Klassifikation hinzufügen",
+      "edit" : "Klassifikation bearbeiten"
+    },
+    "form" : {
+      "title" : "Titel",
+      "description" : "Beschreibung"
+    },
+    "validation" : {
+      "required" : "Dieses Feld ist erforderlich"
+    },
+    "delete" : {
+      "confirm" : "Klassifikation löschen?"
+    },
+    "load" : {
+      "fail" : "Klassifikationen konnten nicht geladen werden"
+    },
+    "popup" : {
+      "add-success" : "Klassifikation erstellt",
+      "update-success" : "Klassifikation aktualisiert",
+      "remove-success" : "Klassifikation gelöscht",
+      "remove-fail" : "Löschen fehlgeschlagen",
+      "operation-fail" : "Vorgang fehlgeschlagen"
+    },
+    "assignment" : {
+      "certificateId" : "Zertifikats-ID",
+      "certificateName" : "Zertifikatsname (alle Treffer)",
+      "classification" : "Klassifikation",
+      "submit" : "Zuweisen",
+      "success" : "Klassifikation zugewiesen",
+      "fail" : "Zuweisung fehlgeschlagen"
+    },
+    "replacement" : {
+      "existing" : "Bestehende Werte (kommagetrennt)",
+      "existing-placeholder" : "Wert 1, Wert 2",
+      "new" : "Neuer Wert",
+      "organization" : "Organisationen ersetzen",
+      "certificateName" : "Zertifikatsnamen ersetzen",
+      "success" : "Werte ersetzt",
+      "fail" : "Ersetzen fehlgeschlagen"
+    }
+  },
   "common" : {
     "button" : {
       "add" : "Hinzufügen",
@@ -2064,6 +2124,7 @@
       "close" : "Schließen",
       "confirm" : "Ich bestätige",
       "delete" : "Löschen",
+      "edit" : "Bearbeiten",
       "held" : "Gehalten",
       "login" : "Anmelden",
       "logout" : "Abmelden",

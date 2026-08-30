@@ -85,7 +85,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Muokkaa",
         "title" : "Toiminto"
       },
       "created" : "Luotu",
@@ -302,7 +301,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Muokkaa",
         "title" : "Toiminnot"
       },
       "code" : "Koodi",
@@ -436,7 +434,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Muokkaa",
         "title" : "Toiminnot"
       },
       "code" : "Koodi",
@@ -1062,6 +1059,10 @@
     "description" : {
       "title" : "Tapahtumakuvaus"
     },
+    "notificationModal" : {
+      "button" : "Ilmoita osallistujille",
+      "title" : "Lähetä ilmoitus osallistujille"
+    },
     "link" : {
       "tooltip" : "Avaa tapahtuma"
     },
@@ -1252,7 +1253,8 @@
         "title" : "Tunnisteet"
       },
       "title" : "Ylläpito",
-      "users" : "Käyttäjät"
+      "users" : "Käyttäjät",
+      "certificate-classifications" : "Sukellusluokitukset"
     },
     "blog" : {
       "link" : "Blogi",
@@ -2056,6 +2058,64 @@
     "scuba_diver" : "Laitesukellus",
     "snorkler" : "Snorklaus"
   },
+  "AdminCertificateClassifications" : {
+    "title" : "Sukellusluokitusten hallinta",
+    "tabs" : {
+      "classifications" : "Luokitukset",
+      "assignment" : "Määritä luokitus",
+      "replacement" : "Korvaa arvot"
+    },
+    "button" : {
+      "add" : "Lisää luokitus",
+      "refresh" : "Päivitä"
+    },
+    "table" : {
+      "titles" : "Nimet",
+      "description" : "Kuvaus",
+      "actions" : "Toiminnot"
+    },
+    "modal" : {
+      "add" : "Lisää luokitus",
+      "edit" : "Muokkaa luokitusta"
+    },
+    "form" : {
+      "title" : "Nimi",
+      "description" : "Kuvaus"
+    },
+    "validation" : {
+      "required" : "Kenttä on pakollinen"
+    },
+    "delete" : {
+      "confirm" : "Poistetaanko luokitus?"
+    },
+    "load" : {
+      "fail" : "Luokitusten lataus epäonnistui"
+    },
+    "popup" : {
+      "add-success" : "Luokitus luotu",
+      "update-success" : "Luokitus päivitetty",
+      "remove-success" : "Luokitus poistettu",
+      "remove-fail" : "Luokituksen poisto epäonnistui",
+      "operation-fail" : "Toiminto epäonnistui"
+    },
+    "assignment" : {
+      "certificateId" : "Todistuksen tunniste",
+      "certificateName" : "Todistuksen nimi (kaikki osumat)",
+      "classification" : "Luokitus",
+      "submit" : "Määritä",
+      "success" : "Luokitus määritetty",
+      "fail" : "Luokituksen määritys epäonnistui"
+    },
+    "replacement" : {
+      "existing" : "Nykyiset arvot (pilkuin eroteltuna)",
+      "existing-placeholder" : "Arvo 1, Arvo 2",
+      "new" : "Uusi arvo",
+      "organization" : "Korvaa organisaatiot",
+      "certificateName" : "Korvaa todistusten nimet",
+      "success" : "Arvot korvattu",
+      "fail" : "Arvojen korvaus epäonnistui"
+    }
+  },
   "common" : {
     "button" : {
       "add" : "Lisää",
@@ -2064,6 +2124,7 @@
       "close" : "Sulje",
       "confirm" : "Vahvistan",
       "delete" : "Poista",
+      "edit" : "Muokkaa",
       "held" : "Pidetty",
       "login" : "Kirjaudu sisään",
       "logout" : "Kirjaudu ulos",

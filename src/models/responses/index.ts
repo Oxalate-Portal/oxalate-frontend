@@ -3,6 +3,7 @@ export type {AdminUserResponse} from "./AdminUserResponse";
 export type {AuditEntryResponse} from "./AuditEntryResponse";
 export type {BlockedDateResponse} from "./BlockedDateResponse";
 export type {CertificateResponse} from "./CertificateResponse";
+export type {CertificateClassificationResponse} from "./CertificateClassificationResponse";
 export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
 export type {DiveEventListResponse} from "./DiveEventListResponse";
 export type {DiveEventResponse} from "./DiveEventResponse";

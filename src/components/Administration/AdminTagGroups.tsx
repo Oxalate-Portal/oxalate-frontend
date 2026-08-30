@@ -147,7 +147,7 @@ export function AdminTagGroups() {
                     key: "actions",
                     render: (_: string, record: TagGroupResponse) => (
                             <Space>
-                                <Button type="link" onClick={() => openEdit(record)}>{t("AdminTagGroups.table.actions.edit")}</Button>
+                                <Button type="link" onClick={() => openEdit(record)}>{t("common.button.edit")}</Button>
                                 <Popconfirm
                                         title={t("AdminTagGroups.popconfirm.delete.title")}
                                         okButtonProps={{danger: true, loading: deletingId === record.id}}
