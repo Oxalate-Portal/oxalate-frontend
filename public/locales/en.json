@@ -882,6 +882,9 @@
         "tooltip" : "Dive organization name, e.g., PADI, SSI, CMAS, DSAT, DSAC, NAUI, or other"
       }
     },
+    "suggestions" : {
+      "fail" : "Failed to load certificate suggestions"
+    },
     "title" : "Certification information",
     "updateCertificate" : {
       "add" : {

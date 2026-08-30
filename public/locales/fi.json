@@ -883,6 +883,9 @@
         "tooltip" : "Luokitusjärjestön nimi, esim. PADI, SSI, CMAS, DSAT, DSAC, NAUI tai muu"
       }
     },
+    "suggestions" : {
+      "fail" : "Todistusehdotusten lataaminen epäonnistui"
+    },
     "title" : "Luokitustiedot",
     "updateCertificate" : {
       "add" : {

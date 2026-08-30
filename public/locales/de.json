@@ -882,6 +882,9 @@
         "tooltip" : "Name der Zertifizierungsorganisation, z. B. PADI, SSI, CMAS, DSAT, DSAC, NAUI oder andere"
       }
     },
+    "suggestions" : {
+      "fail" : "Zertifikatsvorschläge konnten nicht geladen werden"
+    },
     "title" : "Zertifikatsinformationen",
     "updateCertificate" : {
       "add" : {

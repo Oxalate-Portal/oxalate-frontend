@@ -34,7 +34,10 @@ jest.mock("../session", () => ({
 }));
 jest.mock("../services", () => ({
     pageAPI: {getPagedBlogs: jest.fn()},
-    certificateAPI: {findById: jest.fn(), findAllByUserId: jest.fn(), update: jest.fn(), create: jest.fn(), delete: jest.fn()},
+    certificateAPI: {
+        findById: jest.fn(), findAllByUserId: jest.fn(), findCertificateNames: jest.fn(), findOrganizations: jest.fn(),
+        update: jest.fn(), create: jest.fn(), delete: jest.fn()
+    },
     fileTransferAPI: {removeCertificateFile: jest.fn()}
 }));
 jest.mock("../services/getApiBaseUrl", () => ({getApiBaseUrl: () => "https://api.test"}));
@@ -57,6 +60,14 @@ jest.mock("antd", () => {
         return <label>{label}{children}</label>;
     };
     const Input = (props: Record<string, unknown>) => <input {...props}/>;
+    const AutoComplete = ({options = [], showSearch, placeholder}: {
+        options?: Array<{ value: string }>;
+        showSearch?: { onSearch?: (value: string) => void };
+        placeholder?: string;
+    }) => <div>
+        <input placeholder={placeholder} onChange={event => showSearch?.onSearch?.(event.target.value)}/>
+        {options.map(option => <span key={option.value}>{option.value}</span>)}
+    </div>;
     const Upload = ({children, ...props}: {
         children: ReactNode;
         beforeUpload?: (file: { size: number }) => boolean | void;
@@ -69,6 +80,7 @@ jest.mock("antd", () => {
     };
     return {
         Form,
+        AutoComplete,
         Button: ({children, onClick, href, disabled}: { children: ReactNode; onClick?: () => void; href?: string; disabled?: boolean }) =>
                 <button onClick={onClick} disabled={disabled} data-href={href}>{children}</button>,
         Card: ({children, title, extra, onClick}: { children: ReactNode; title?: ReactNode; extra?: ReactNode; onClick?: () => void }) =>
@@ -214,6 +226,28 @@ describe("certificate components", () => {
         });
         await expect(validator({getFieldValue: () => ""}).validator({}, "")).rejects.toThrow();
         await expect(validator({getFieldValue: () => "valid"}).validator({}, "valid")).resolves.toBeUndefined();
+    });
+
+    it("searches certificate organizations and names while editing", async () => {
+        mockParam = "0";
+        (certificateAPI.findOrganizations as jest.Mock).mockResolvedValue(["PADI"]);
+        (certificateAPI.findCertificateNames as jest.Mock).mockResolvedValue(["Open Water"]);
+        render(<EditCertificate/>);
+        await waitFor(() => expect(screen.getByText("EditCertificate.title")).toBeInTheDocument());
+
+        fireEvent.change(screen.getByPlaceholderText("EditCertificate.form.organization.placeholder"), {target: {value: "pad"}});
+        fireEvent.change(screen.getByPlaceholderText("EditCertificate.form.certificateName.placeholder"), {target: {value: "open"}});
+
+        await waitFor(() => {
+            expect(certificateAPI.findOrganizations).toHaveBeenCalledWith("pad");
+            expect(certificateAPI.findCertificateNames).toHaveBeenCalledWith("open");
+        });
+        expect(screen.getByText("PADI")).toBeInTheDocument();
+        expect(screen.getByText("Open Water")).toBeInTheDocument();
+
+        (certificateAPI.findOrganizations as jest.Mock).mockRejectedValueOnce(new Error("search failed"));
+        fireEvent.change(screen.getByPlaceholderText("EditCertificate.form.organization.placeholder"), {target: {value: "ssi"}});
+        await waitFor(() => expect(messageApi.error).toHaveBeenCalled());
     });
 
     it("renders certificate photo controls and remove success/failure", async () => {

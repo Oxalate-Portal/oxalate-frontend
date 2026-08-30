@@ -34,7 +34,10 @@ jest.mock("../session", () => ({
 }));
 jest.mock("../services", () => ({
     pageAPI: {getPagedBlogs: jest.fn()},
-    certificateAPI: {findById: jest.fn(), findAllByUserId: jest.fn(), update: jest.fn(), create: jest.fn(), delete: jest.fn()},
+    certificateAPI: {
+        findById: jest.fn(), findAllByUserId: jest.fn(), findCertificateNames: jest.fn(), findOrganizations: jest.fn(),
+        update: jest.fn(), create: jest.fn(), delete: jest.fn()
+    },
     fileTransferAPI: {removeCertificateFile: jest.fn()}
 }));
 jest.mock("../services/getApiBaseUrl", () => ({getApiBaseUrl: () => "https://api.test"}));
@@ -57,6 +60,14 @@ jest.mock("antd", () => {
         return <label>{label}{children}</label>;
     };
     const Input = (props: Record<string, unknown>) => <input {...props}/>;
+    const AutoComplete = ({options = [], showSearch, placeholder}: {
+        options?: Array<{ value: string }>;
+        showSearch?: { onSearch?: (value: string) => void };
+        placeholder?: string;
+    }) => <div>
+        <input placeholder={placeholder} onChange={event => showSearch?.onSearch?.(event.target.value)}/>
+        {options.map(option => <span key={option.value}>{option.value}</span>)}
+    </div>;
     const Upload = ({children, ...props}: {
         children: ReactNode;
         beforeUpload?: (file: { size: number }) => boolean | void;
@@ -69,6 +80,7 @@ jest.mock("antd", () => {
     };
     return {
         Form,
+        AutoComplete,
         Button: ({children, onClick, href, disabled}: { children: ReactNode; onClick?: () => void; href?: string; disabled?: boolean }) =>
                 <button onClick={onClick} disabled={disabled} data-href={href}>{children}</button>,
         Card: ({children, title, extra, onClick}: { children: ReactNode; title?: ReactNode; extra?: ReactNode; onClick?: () => void }) =>
