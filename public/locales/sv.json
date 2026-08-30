@@ -81,6 +81,9 @@
     "load" : {
       "fail" : "Kunde inte läsa klassificeringar"
     },
+    "suggestions" : {
+      "fail" : "Kunde inte läsa förslag"
+    },
     "modal" : {
       "add" : "Lägg till klassificering",
       "edit" : "Redigera klassificering"

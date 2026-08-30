@@ -31,6 +31,20 @@ describe('CertificateAPI', () => {
         expect(result).toEqual(mockResponse);
     });
 
+    it('should find matching certificate names', async () => {
+        const mockResponse = ['Advanced Open Water', 'Open Water'];
+        mock.onGet('/management/certificate-names', {params: {searchTerm: 'open'}}).reply(200, mockResponse);
+
+        await expect(certificateAPI.findCertificateNames('open')).resolves.toEqual(mockResponse);
+    });
+
+    it('should find matching organizations', async () => {
+        const mockResponse = ['DAN', 'PADI'];
+        mock.onGet('/management/organizations', {params: {searchTerm: 'a'}}).reply(200, mockResponse);
+
+        await expect(certificateAPI.findOrganizations('a')).resolves.toEqual(mockResponse);
+    });
+
     it('should find certificate by id', async () => {
         const mockResponse = {id: 1, name: 'Cert1'};
         mock.onGet('/1').reply(200, mockResponse);

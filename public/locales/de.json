@@ -81,6 +81,9 @@
     "load" : {
       "fail" : "Klassifikationen konnten nicht geladen werden"
     },
+    "suggestions" : {
+      "fail" : "Vorschläge konnten nicht geladen werden"
+    },
     "modal" : {
       "add" : "Klassifikation hinzufügen",
       "edit" : "Klassifikation bearbeiten"

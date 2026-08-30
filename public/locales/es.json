@@ -81,6 +81,9 @@
     "load" : {
       "fail" : "No se pudieron cargar las clasificaciones"
     },
+    "suggestions" : {
+      "fail" : "No se pudieron cargar las sugerencias"
+    },
     "modal" : {
       "add" : "Añadir clasificación",
       "edit" : "Editar clasificación"

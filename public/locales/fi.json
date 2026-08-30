@@ -81,6 +81,9 @@
     "load" : {
       "fail" : "Luokitusten lataus epäonnistui"
     },
+    "suggestions" : {
+      "fail" : "Ehdotusten lataus epäonnistui"
+    },
     "modal" : {
       "add" : "Lisää luokitus",
       "edit" : "Muokkaa luokitusta"

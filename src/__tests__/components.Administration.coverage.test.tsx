@@ -17,6 +17,7 @@ import {DocumentFiles} from "../components/Administration/FileManagement/Documen
 import {PageFiles} from "../components/Administration/FileManagement/PageFiles";
 import {AdminMemberships} from "../components/Administration/AdminMemberships";
 import {AdminOrgUsers} from "../components/Administration/AdminOrgUsers";
+import {AdminCertificateClassifications} from "../components/Administration/AdminCertificateClassifications";
 
 // eslint-disable-next-line no-var
 var api: Record<string, jest.Mock>;
@@ -39,6 +40,8 @@ jest.mock("react-router-dom", () => ({
     useParams: () => ({paramId: "1"})
 }));
 jest.mock("../services", () => ({
+    certificateAPI: service("certificateAPI", ["findCertificateNames", "findOrganizations"]),
+    certificateClassificationAPI: service("certificateClassificationAPI", ["findAll"]),
     blockedDatesAPI: service("blockedDatesAPI", ["findAll", "create", "delete"]),
     commentAPI: service("commentAPI", ["getPendingReports"]),
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),
@@ -100,6 +103,14 @@ jest.mock("antd", () => {
     const Input = ({value, onChange, placeholder}: { value?: string; onChange?: (event: { target: { value: string } }) => void; placeholder?: string }) =>
             <input value={value} placeholder={placeholder} onChange={onChange}/>;
     Input.TextArea = Input;
+    const AutoComplete = ({options = [], showSearch, placeholder}: {
+        options?: Array<{ value: string }>;
+        showSearch?: { onSearch?: (value: string) => void };
+        placeholder?: string;
+    }) => <div>
+        <input placeholder={placeholder} onChange={event => showSearch?.onSearch?.(event.target.value)}/>
+        {options.map(option => <span key={option.value}>{option.value}</span>)}
+    </div>;
     const Select = ({options = [], onChange}: { options?: Array<{ label?: string; value?: string }>; onChange?: (v: string) => void }) =>
             <select onChange={(e) => onChange?.(e.target.value)}>{options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</select>;
     const Table = ({columns = [], dataSource = [], onChange}: {
@@ -125,6 +136,7 @@ jest.mock("antd", () => {
     const Space = Object.assign(passthrough, {Compact: passthrough});
     return {
         Form,
+        AutoComplete,
         Button,
         Input,
         Select,
@@ -234,5 +246,28 @@ describe("Administration pages", () => {
         fireEvent.click(screen.getAllByText("modal-ok")[0]);
         fireEvent.click(screen.getAllByText("table-change").at(-1)!);
         await waitFor(() => expect(api["auditAPI.findPageable"]).toHaveBeenCalled());
+    });
+
+    it("renders certificate suggestions returned by the API", async () => {
+        api["certificateAPI.findCertificateNames"].mockResolvedValue(["Open Water"]);
+        api["certificateAPI.findOrganizations"].mockResolvedValue(["PADI"]);
+        render(<AdminCertificateClassifications/>);
+
+        fireEvent.change(screen.getAllByRole("textbox")[1], {target: {value: "open"}});
+        await waitFor(() => expect(screen.getAllByText("Open Water").length).toBeGreaterThan(0));
+        expect(api["certificateAPI.findCertificateNames"]).toHaveBeenCalledWith("open");
+
+        fireEvent.change(screen.getAllByRole("textbox")[2], {target: {value: "padi"}});
+        await waitFor(() => expect(screen.getAllByText("PADI").length).toBeGreaterThan(0));
+        expect(api["certificateAPI.findOrganizations"]).toHaveBeenCalledWith("padi");
+    });
+
+    it("clears empty searches and reports suggestion failures", async () => {
+        api["certificateAPI.findCertificateNames"].mockRejectedValue(new Error("search failed"));
+        render(<AdminCertificateClassifications/>);
+
+        fireEvent.change(screen.getAllByRole("textbox")[1], {target: {value: " "}});
+        fireEvent.change(screen.getAllByRole("textbox")[1], {target: {value: "open"}});
+        await waitFor(() => expect(api["certificateAPI.findCertificateNames"]).toHaveBeenCalledWith("open"));
     });
 });

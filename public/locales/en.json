@@ -81,6 +81,9 @@
     "load" : {
       "fail" : "Failed to load classifications"
     },
+    "suggestions" : {
+      "fail" : "Failed to load suggestions"
+    },
     "modal" : {
       "add" : "Add classification",
       "edit" : "Edit classification"

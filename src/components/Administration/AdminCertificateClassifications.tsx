@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tabs} from "antd";
+import {AutoComplete, Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tabs} from "antd";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../session";
 import {certificateAPI, certificateClassificationAPI} from "../../services";
@@ -16,6 +16,8 @@ export function AdminCertificateClassifications() {
     const [editing, setEditing] = useState<CertificateClassificationResponse | null>(null);
     const [submitting, setSubmitting] = useState(false);
     const [deletingId, setDeletingId] = useState<number | null>(null);
+    const [certificateNameOptions, setCertificateNameOptions] = useState<{ value: string }[]>([]);
+    const [organizationOptions, setOrganizationOptions] = useState<{ value: string }[]>([]);
     const [form] = Form.useForm();
     const [assignmentForm] = Form.useForm();
     const [organizationForm] = Form.useForm();
@@ -125,6 +127,27 @@ export function AdminCertificateClassifications() {
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.replacement.fail")));
     };
 
+    const searchSuggestions = (searchTerm: string, type: "certificateName" | "organization") => {
+        if (!searchTerm.trim()) {
+            if (type === "certificateName") {
+                setCertificateNameOptions([]);
+            } else {
+                setOrganizationOptions([]);
+            }
+            return;
+        }
+
+        const search = type === "certificateName" ? certificateAPI.findCertificateNames(searchTerm) : certificateAPI.findOrganizations(searchTerm);
+        search.then(values => {
+            const options = values.map(value => ({value}));
+            if (type === "certificateName") {
+                setCertificateNameOptions(options);
+            } else {
+                setOrganizationOptions(options);
+            }
+        }).catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.suggestions.fail")));
+    };
+
     return <div className="darkDiv">
         <h4>{t("AdminCertificateClassifications.title")}</h4>
         <Tabs items={[
@@ -144,7 +167,9 @@ export function AdminCertificateClassifications() {
                 label: t("AdminCertificateClassifications.tabs.assignment"),
                 children: <Form form={assignmentForm} layout="vertical" onFinish={submitAssignment} style={{maxWidth: 500}}>
                     <Form.Item name="certificateId" label={t("AdminCertificateClassifications.assignment.certificateId")}><Input type="number"/></Form.Item>
-                    <Form.Item name="certificateName" label={t("AdminCertificateClassifications.assignment.certificateName")}><Input/></Form.Item>
+                    <Form.Item name="certificateName" label={t("AdminCertificateClassifications.assignment.certificateName")}>
+                        <AutoComplete options={certificateNameOptions} showSearch={{onSearch: searchTerm => searchSuggestions(searchTerm, "certificateName")}}/>
+                    </Form.Item>
                     <Form.Item name="classificationId" label={t("AdminCertificateClassifications.assignment.classification")}
                                rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}>
                         <Select options={data.map(item => ({value: item.id, label: Object.values(item.titles || {})[0] || String(item.id)}))}/>
@@ -161,8 +186,13 @@ export function AdminCertificateClassifications() {
                                                                                         form={field === "organization" ? organizationForm : certificateNameForm}
                                                                                         style={{maxWidth: 500}}>
                         <Form.Item name="existingValues" label={t("AdminCertificateClassifications.replacement.existing")}
-                                   rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}><Input
-                                placeholder={t("AdminCertificateClassifications.replacement.existing-placeholder")}/></Form.Item>
+                                   rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}>
+                            <AutoComplete
+                                    options={field === "organization" ? organizationOptions : certificateNameOptions}
+                                    showSearch={{onSearch: searchTerm => searchSuggestions(searchTerm, field === "organization" ? "organization" : "certificateName")}}
+                                    placeholder={t("AdminCertificateClassifications.replacement.existing-placeholder")}
+                            />
+                        </Form.Item>
                         <Form.Item name="newValue" label={t("AdminCertificateClassifications.replacement.new")}
                                    rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}><Input/></Form.Item>
                         <Button htmlType="submit">{t(field === "organization" ? "AdminCertificateClassifications.replacement.organization" : "AdminCertificateClassifications.replacement.certificateName")}</Button>
