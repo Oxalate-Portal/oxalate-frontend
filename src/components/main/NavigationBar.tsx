@@ -137,7 +137,12 @@ export function NavigationBar() {
                                     }
                                 ]
                             },
-
+                            {
+                                label: (<NavLink
+                                        to="/administration/certificate-classifications">{t("NavigationBar.administration.certificate-classifications")}</NavLink>),
+                                key: "certificate-classifications",
+                                icon: <TagsOutlined/>
+                            },
                             {
                                 label: (<NavLink to="/administration/statistics">{t("NavigationBar.administration.stats")}</NavLink>),
                                 key: "stats",

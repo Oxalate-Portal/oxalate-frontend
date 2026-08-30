@@ -8,4 +8,5 @@ export interface AbstractCertificate {
     certificateId: string;
     diverId: string;
     certificationDate: Dayjs;
+    classificationId?: number | null;
 }

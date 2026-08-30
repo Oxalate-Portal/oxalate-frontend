@@ -85,7 +85,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Editar",
         "title" : "acción"
       },
       "created" : "Creado",
@@ -302,7 +301,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Editar",
         "title" : "Acciones"
       },
       "code" : "Código",
@@ -436,7 +434,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Editar",
         "title" : "Acciones"
       },
       "code" : "Código",
@@ -1062,6 +1059,10 @@
     "description" : {
       "title" : "Descripción del evento"
     },
+    "notificationModal" : {
+      "button" : "Notificar a participantes",
+      "title" : "Enviar notificación a participantes"
+    },
     "link" : {
       "tooltip" : "Abrir evento"
     },
@@ -1252,7 +1253,8 @@
         "title" : "Etiquetas"
       },
       "title" : "Administración",
-      "users" : "Usuarios"
+      "users" : "Usuarios",
+      "certificate-classifications" : "Clasificaciones de certificados"
     },
     "blog" : {
       "link" : "Blog",
@@ -2056,6 +2058,64 @@
     "scuba_diver" : "Buceo autónomo",
     "snorkler" : "Snorkel"
   },
+  "AdminCertificateClassifications" : {
+    "title" : "Gestión de clasificaciones de certificados",
+    "tabs" : {
+      "classifications" : "Clasificaciones",
+      "assignment" : "Asignar clasificación",
+      "replacement" : "Reemplazar valores"
+    },
+    "button" : {
+      "add" : "Añadir clasificación",
+      "refresh" : "Actualizar"
+    },
+    "table" : {
+      "titles" : "Títulos",
+      "description" : "Descripción",
+      "actions" : "Acciones"
+    },
+    "modal" : {
+      "add" : "Añadir clasificación",
+      "edit" : "Editar clasificación"
+    },
+    "form" : {
+      "title" : "Título",
+      "description" : "Descripción"
+    },
+    "validation" : {
+      "required" : "Este campo es obligatorio"
+    },
+    "delete" : {
+      "confirm" : "¿Eliminar clasificación?"
+    },
+    "load" : {
+      "fail" : "No se pudieron cargar las clasificaciones"
+    },
+    "popup" : {
+      "add-success" : "Clasificación creada",
+      "update-success" : "Clasificación actualizada",
+      "remove-success" : "Clasificación eliminada",
+      "remove-fail" : "No se pudo eliminar",
+      "operation-fail" : "La operación falló"
+    },
+    "assignment" : {
+      "certificateId" : "ID del certificado",
+      "certificateName" : "Nombre del certificado (todas las coincidencias)",
+      "classification" : "Clasificación",
+      "submit" : "Asignar",
+      "success" : "Clasificación asignada",
+      "fail" : "No se pudo asignar"
+    },
+    "replacement" : {
+      "existing" : "Valores existentes (separados por comas)",
+      "existing-placeholder" : "Valor 1, Valor 2",
+      "new" : "Nuevo valor",
+      "organization" : "Reemplazar organizaciones",
+      "certificateName" : "Reemplazar nombres de certificados",
+      "success" : "Valores reemplazados",
+      "fail" : "No se pudieron reemplazar"
+    }
+  },
   "common" : {
     "button" : {
       "add" : "Agregar",
@@ -2064,6 +2124,7 @@
       "close" : "Cerrar",
       "confirm" : "Confirmo",
       "delete" : "Eliminar",
+      "edit" : "Editar",
       "held" : "Realizado",
       "login" : "Iniciar sesión",
       "logout" : "Cerrar sesión",

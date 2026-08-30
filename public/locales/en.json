@@ -85,7 +85,6 @@
   "AdminMembers" : {
     "table" : {
       "actions" : {
-        "edit" : "Edit",
         "title" : "Action"
       },
       "created" : "Created",
@@ -302,7 +301,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Edit",
         "title" : "Actions"
       },
       "code" : "Code",
@@ -436,7 +434,6 @@
     },
     "table" : {
       "actions" : {
-        "edit" : "Edit",
         "title" : "Actions"
       },
       "code" : "Code",
@@ -1256,7 +1253,8 @@
         "title" : "Tags"
       },
       "title" : "Administration",
-      "users" : "Users"
+      "users" : "Users",
+      "certificate-classifications" : "Certificate classifications"
     },
     "blog" : {
       "link" : "Blog",
@@ -2060,6 +2058,64 @@
     "scuba_diver" : "Scuba diving",
     "snorkler" : "Snorkling"
   },
+  "AdminCertificateClassifications" : {
+    "title" : "Certificate classification management",
+    "tabs" : {
+      "classifications" : "Classifications",
+      "assignment" : "Assign classification",
+      "replacement" : "Replace values"
+    },
+    "button" : {
+      "add" : "Add classification",
+      "refresh" : "Refresh"
+    },
+    "table" : {
+      "titles" : "Titles",
+      "description" : "Description",
+      "actions" : "Actions"
+    },
+    "modal" : {
+      "add" : "Add classification",
+      "edit" : "Edit classification"
+    },
+    "form" : {
+      "title" : "Title",
+      "description" : "Description"
+    },
+    "validation" : {
+      "required" : "This field is required"
+    },
+    "delete" : {
+      "confirm" : "Delete classification?"
+    },
+    "load" : {
+      "fail" : "Failed to load classifications"
+    },
+    "popup" : {
+      "add-success" : "Classification created",
+      "update-success" : "Classification updated",
+      "remove-success" : "Classification deleted",
+      "remove-fail" : "Failed to delete classification",
+      "operation-fail" : "Operation failed"
+    },
+    "assignment" : {
+      "certificateId" : "Certificate ID",
+      "certificateName" : "Certificate name (all matching)",
+      "classification" : "Classification",
+      "submit" : "Assign",
+      "success" : "Classification assigned",
+      "fail" : "Failed to assign classification"
+    },
+    "replacement" : {
+      "existing" : "Existing values (comma separated)",
+      "existing-placeholder" : "Value 1, Value 2",
+      "new" : "New value",
+      "organization" : "Replace organizations",
+      "certificateName" : "Replace certificate names",
+      "success" : "Values replaced",
+      "fail" : "Failed to replace values"
+    }
+  },
   "common" : {
     "button" : {
       "add" : "Add",
@@ -2068,6 +2124,7 @@
       "close" : "Close",
       "confirm" : "I confirm",
       "delete" : "Delete",
+      "edit" : "Edit",
       "held" : "Held",
       "login" : "Log In",
       "logout" : "Log Out",
