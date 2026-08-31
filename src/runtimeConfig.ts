@@ -30,10 +30,10 @@ const defaultConfig: RuntimeConfig = {
     pageTitle: buildValue(typeof __OXALATE_VITE_APP_PAGE_TITLE__ === "undefined" ? undefined : __OXALATE_VITE_APP_PAGE_TITLE__, "Oxalate Portal"),
     copyrightFooter: buildValue(typeof __OXALATE_VITE_APP_COPYRIGHT_FOOTER__ === "undefined" ? undefined : __OXALATE_VITE_APP_COPYRIGHT_FOOTER__),
     poweredByOxalate: buildValue(typeof __OXALATE_VITE_APP_POWERED_BY_OXALATE__ === "undefined" ? undefined : __OXALATE_VITE_APP_POWERED_BY_OXALATE__),
-    backgroundUrl: undefined,
-    faviconUrl: "/favicon.ico",
-    logoUrl: undefined,
-    appleTouchIconUrl: "/logo192.png"
+    backgroundUrl: "/site-files/background.jpg",
+    faviconUrl: "/site-files/favicon.ico",
+    logoUrl: "/site-files/navbar-logo.svg",
+    appleTouchIconUrl: "/site-files/logo192.png"
 };
 
 export const runtimeConfig: RuntimeConfig = {
