@@ -1,12 +1,11 @@
 import {GoogleReCaptchaProvider} from "@wojtekmaj/react-recaptcha-v3";
 import {Login} from "./Login";
+import {runtimeConfig} from "../../runtimeConfig";
 
 export function LoginWithCaptcha() {
-    const captchaKey = import.meta.env.VITE_APP_RECAPTCHA_SITE_KEY as string;
-
     return (
             <GoogleReCaptchaProvider
-                    reCaptchaKey={captchaKey}
+                    reCaptchaKey={runtimeConfig.recaptchaSiteKey}
                     useEnterprise={false}
             >
                 <div className={"darkDiv"}>

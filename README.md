@@ -5,6 +5,7 @@ This is the React-based frontend for the [Oxalate-Portal project](https://github
 There are separate documentation for:
 
 * [Setting up the frontend for testing and production](documentation/installation/index.md)
+* [Customizing branding and runtime configuration](CUSTOMIZATION.md)
 * [User documentation](documentation/user/index.md)
 
 ## Development

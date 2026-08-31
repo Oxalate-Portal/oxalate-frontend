@@ -47,17 +47,23 @@
 
 **All datetime and date handling must be based on Dayjs. This is enforced at the API layer.**
 
-- **DTOs (Requests & Responses)**: All date/datetime fields in request and response models must use `Dayjs` type, never `Date` or `string` (except for non-temporal string fields).
-- **Timezone Strategy**: All datetimes/dates are stored and displayed in the dive site timezone, defined by the `general.timezone` portal configuration value (e.g., `Europe/Helsinki`).
-  - When an operator creates a dive event starting on 31.05.2026 at 10:00, it means 10:00 in the portal's configured timezone.
-- **API Deserialization**: When receiving API responses, the `AbstractAPI` class automatically converts date strings and Date objects to timezone-aware Dayjs instances.
+- **DTOs (Requests & Responses)**: All date/datetime fields in request and response models must use `Dayjs` type, never `Date` or `string` (except for
+  non-temporal string fields).
+- **Timezone Strategy**: All datetimes/dates are stored and displayed in the dive site timezone, defined by the `general.timezone` portal configuration value
+  (e.g., `Europe/Helsinki`).
+    - When an operator creates a dive event starting on 31.05.2026 at 10:00, it means 10:00 in the portal's configured timezone.
+- **API Deserialization**: When receiving API responses, the `AbstractAPI` class automatically converts date strings and Date objects to timezone-aware Dayjs
+  instances.
 - **API Serialization**: When sending requests, Dayjs objects are automatically serialized to ISO-8601 strings before transmission.
-- **Date Field Recognition**: The following field names are automatically transformed by the API layer: `createdAt`, `updatedAt`, `modifiedAt`, `deletedAt`, `startTime`, `endTime`, `startDate`, `endDate`, `blockedDate`, `certificationDate`, `eventDateTime`, `lastSeen`, `created`, `modified`.
+- **Date Field Recognition**: The following field names are automatically transformed by the API layer: `createdAt`, `updatedAt`, `modifiedAt`, `deletedAt`,
+  `startTime`, `endTime`, `startDate`, `endDate`, `blockedDate`, `certificationDate`, `eventDateTime`, `lastSeen`, `created`, `modified`.
 - **Immutability**: Date transformations preserve object immutability; responses are never mutated in place.
 - **Testing**: Tests verify immutability and timezone correctness of date transformations (see `src/__tests__/services.dateTransformer.test.ts`).
-- **Global Timezone Context**: The timezone is set globally in `src/services/timezoneContext.ts` during app initialization in `SessionProvider`. This context is used for all API response transformations.
+- **Global Timezone Context**: The timezone is set globally in `src/services/timezoneContext.ts` during app initialization in `SessionProvider`. This context is
+  used for all API response transformations.
 
 **Adding new date/datetime fields:**
+
 1. Use `Dayjs` type in model interfaces (both requests and responses)
 2. If the field name doesn't match standard patterns, add it to `DATE_FIELD_PATTERNS` in `src/services/dateTransformer.ts`
 3. The API layer will automatically handle conversion; no manual transformation needed in components
@@ -81,8 +87,8 @@
 
 ## Deployment notes that affect code changes
 
-- Vite builds into `build/` (`vite.config.ts`), not `dist/`.
-- The root `Dockerfile` is a static nginx image that copies the already-built `build/` directory and serves it on port `8080`; it does not run the Vite build
+- Vite builds into `dist/` (`vite.config.ts`).
+- The root `Dockerfile` is a static nginx image that copies the already-built `dist/` directory and serves it on port `8080`; it does not run the Vite build
   itself.
 - The README documents a translation inspection UI at `http://localhost:3000/?showtranslations`.
 
@@ -96,7 +102,7 @@
   corresponding service test file.
 - If any visible texts have been added or changed, update the translation files in `public/locales/{de,en,es,fi,sv}.json` and run the parity checker to verify
   consistency.
-- Always verify the updates by running both the tests and linting and type checks: `yarn test`, `yarn lint`, `yarn tsc --noEmit`. If you add new tests,
-  follow the existing patterns for service class testing with mocks.
+- Always verify the updates by running both the tests and linting and type checks: `yarn test`, `yarn lint`, `yarn tsc --noEmit`. If you add new tests, follow
+  the existing patterns for service class testing with mocks.
 - In case of deprecations, never ignore nor remove old code without a clear migration path. Instead, plan for cleanup and include it in the task description so
   that the migration from the deprecated code to the new code becomes a part of the expanded task.

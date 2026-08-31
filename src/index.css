@@ -11,7 +11,7 @@ body {
 .app-container {
     min-height: 1200px;
     text-align: left;
-    background-image: url("background.jpg");
+    background-image: var(--oxalate-background-image, url("./background.jpg"));
     background-size: cover;
     color: white;
 }

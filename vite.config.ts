@@ -6,7 +6,11 @@ export default defineConfig({
     // depending on your application, base can also be "/"
     base: "/",
     define: {
-        __OXALATE_VITE_APP_API_URL__: JSON.stringify(process.env.VITE_APP_API_URL || "")
+        __OXALATE_VITE_APP_API_URL__: JSON.stringify(process.env.VITE_APP_API_URL || ""),
+        __OXALATE_VITE_APP_RECAPTCHA_SITE_KEY__: JSON.stringify(process.env.VITE_APP_RECAPTCHA_SITE_KEY || ""),
+        __OXALATE_VITE_APP_PAGE_TITLE__: JSON.stringify(process.env.VITE_APP_OXALATE_PAGE_TITLE || ""),
+        __OXALATE_VITE_APP_COPYRIGHT_FOOTER__: JSON.stringify(process.env.VITE_APP_OXALATE_COPYRIGHT_FOOTER || ""),
+        __OXALATE_VITE_APP_POWERED_BY_OXALATE__: JSON.stringify(process.env.VITE_APP_POWERED_BY_OXALATE || "")
     },
     plugins: [react(), svgr()],
     resolve: {
@@ -19,6 +23,6 @@ export default defineConfig({
         port: 3000,
     },
     build: {
-        outDir: "build",
+        outDir: "dist",
     }
 });

@@ -16,7 +16,7 @@ ckeditor/node_modules
 /coverage
 
 # production
-/build
+/dist
 
 # IntelliJ
 .idea

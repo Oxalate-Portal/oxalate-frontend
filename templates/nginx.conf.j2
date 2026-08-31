@@ -61,5 +61,9 @@ http {
             root /usr/share/nginx/sites/{{ portal_domain }}/;
             try_files $uri $uri/ /index.html;
         }
+        location = /runtime-config.js {
+            root /usr/share/nginx/sites/{{ portal_domain }}/;
+            add_header Cache-Control "no-store";
+        }
     }
 }

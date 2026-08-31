@@ -35,6 +35,7 @@ import {pageAPI} from "../../services";
 import {NotificationDropdown} from "../Notification";
 import {useBlogMenuItems} from "../Blogging";
 import Logo from "../../portal_logo.svg?react";
+import {runtimeConfig} from "../../runtimeConfig";
 
 export function NavigationBar() {
     const {Header} = Layout;
@@ -399,7 +400,10 @@ export function NavigationBar() {
                     <Tooltip title={organizationName}>
                         <div style={{width: 156, height: 64, marginRight: 20}}>
                             <NavLink to={"/"}>
-                                <Logo style={{width: "100%", height: "100%"}}/>
+                                {runtimeConfig.logoUrl
+                                        ? <img src={runtimeConfig.logoUrl} alt={organizationName}
+                                               style={{width: "100%", height: "100%"}}/>
+                                        : <Logo style={{width: "100%", height: "100%"}}/>}
                             </NavLink>
                         </div>
                     </Tooltip>
