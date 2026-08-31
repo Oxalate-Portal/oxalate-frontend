@@ -81,8 +81,8 @@
 
 ## Deployment notes that affect code changes
 
-- Vite builds into `build/` (`vite.config.ts`), not `dist/`.
-- The root `Dockerfile` is a static nginx image that copies the already-built `build/` directory and serves it on port `8080`; it does not run the Vite build
+- Vite builds into `dist/` (`vite.config.ts`).
+- The root `Dockerfile` is a static nginx image that copies the already-built `dist/` directory and serves it on port `8080`; it does not run the Vite build
   itself.
 - The README documents a translation inspection UI at `http://localhost:3000/?showtranslations`.
 

@@ -88,7 +88,7 @@ modified by creating the appropriate `.env` file as described above.
 
 ### Images
 
-Once you have built the production version of the frontend, you can modify the images in the `build/static/media` directory. The logo is named
+Once you have built the production version of the frontend, you can modify the images in the `dist/static/media` directory. The logo is named
 `portal_logo.*.svg` and the background image is named `background.*.jpg`. The `*` is a hash that is generated when the frontend is built. Just copy your
 images over the existing ones and you're done.
 
