@@ -439,24 +439,24 @@
   },
   "AdminTokens" : {
     "actions" : {
-      "create" : "Token erstellen",
+      "create" : "Zugriffstoken erstellen",
       "invalidate" : "Ungültig machen",
       "refresh" : "Erneuern",
       "reload" : "Neu laden",
       "search" : "Suchen"
     },
     "confirm" : {
-      "invalidate" : "Diesen Token ungültig machen?",
-      "refresh" : "Diesen Token erneuern?"
+      "invalidate" : "Diesen Zugriffstoken ungültig machen?",
+      "refresh" : "Diesen Zugriffstoken erneuern?"
     },
     "create" : {
-      "title" : "Token erstellen"
+      "title" : "Zugriffstoken erstellen"
     },
     "errors" : {
-      "create" : "Token konnte nicht erstellt werden.",
-      "invalidate" : "Token konnte nicht ungültig gemacht werden.",
-      "load" : "Token konnten nicht geladen werden.",
-      "refresh" : "Token konnte nicht erneuert werden."
+      "create" : "Zugriffstoken konnte nicht erstellt werden.",
+      "invalidate" : "Zugriffstoken konnte nicht ungültig gemacht werden.",
+      "load" : "Zugriffstoken konnten nicht geladen werden.",
+      "refresh" : "Zugriffstoken konnte nicht erneuert werden."
     },
     "filters" : {
       "description" : "Beschreibung",
@@ -470,27 +470,27 @@
       "expiration" : "Ablaufdatum"
     },
     "newToken" : {
-      "title" : "Neuer Token",
-      "warning" : "Kopieren Sie diesen Token jetzt; er wird nicht erneut angezeigt."
+      "title" : "Neuer Zugriffstoken",
+      "warning" : "Kopieren Sie diesen Zugriffstoken jetzt; er wird nicht erneut angezeigt."
     },
     "notifications" : {
-      "created" : "Token erstellt.",
-      "invalidated" : "Token ungültig gemacht.",
-      "refreshed" : "Token erneuert."
+      "created" : "Zugriffstoken erstellt.",
+      "invalidated" : "Zugriffstoken ungültig gemacht.",
+      "refreshed" : "Zugriffstoken erneuert."
     },
     "refresh" : {
-      "title" : "Token erneuern"
+      "title" : "Zugriffstoken erneuern"
     },
     "table" : {
       "actions" : "Aktionen",
       "created" : "Erstellt",
       "description" : "Beschreibung",
       "expiration" : "Ablauf",
-      "value" : "Tokenwert"
+      "value" : "Wert des Zugriffstokens"
     },
-    "title" : "Tokenverwaltung",
+    "title" : "Verwaltung von Zugriffstoken",
     "validation" : {
-      "days" : "Tage müssen zwischen 1 und 3650 liegen.",
+      "days" : "Die Anzahl der Tage muss zwischen 1 und 3650 liegen.",
       "description" : "Beschreibung darf höchstens 255 Zeichen enthalten.",
       "expiration" : "Ablauf ist erforderlich.",
       "future" : "Ablauf muss in der Zukunft liegen."

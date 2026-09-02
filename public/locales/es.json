@@ -440,61 +440,61 @@
   },
   "AdminTokens" : {
     "actions" : {
-      "create" : "Create token",
-      "invalidate" : "Invalidate",
-      "refresh" : "Refresh",
-      "reload" : "Reload",
-      "search" : "Search"
+      "create" : "Crear token de acceso",
+      "invalidate" : "Invalidar",
+      "refresh" : "Actualizar",
+      "reload" : "Recargar",
+      "search" : "Buscar"
     },
     "confirm" : {
-      "invalidate" : "Invalidate this token?",
-      "refresh" : "Refresh this token?"
+      "invalidate" : "¿Invalidar este token de acceso?",
+      "refresh" : "¿Actualizar este token de acceso?"
     },
     "create" : {
-      "title" : "Create token"
+      "title" : "Crear token de acceso"
     },
     "errors" : {
-      "create" : "Could not create token.",
-      "invalidate" : "Could not invalidate token.",
-      "load" : "Could not load tokens.",
-      "refresh" : "Could not refresh token."
+      "create" : "No se pudo crear el token de acceso.",
+      "invalidate" : "No se pudo invalidar el token de acceso.",
+      "load" : "No se pudieron cargar los tokens de acceso.",
+      "refresh" : "No se pudo actualizar el token de acceso."
     },
     "filters" : {
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To",
-      "value" : "Search"
+      "description" : "Descripción",
+      "from" : "Desde",
+      "to" : "Hasta",
+      "value" : "Buscar"
     },
     "form" : {
-      "days" : "Days",
-      "description" : "Description",
-      "expiration" : "Expiration date"
+      "days" : "Días",
+      "description" : "Descripción",
+      "expiration" : "Fecha de vencimiento"
     },
     "newToken" : {
-      "title" : "New token",
-      "warning" : "Copy this token now; it will not be shown again."
+      "title" : "Nuevo token de acceso",
+      "warning" : "Copie este token de acceso ahora; no volverá a mostrarse."
     },
     "notifications" : {
-      "created" : "Token created.",
-      "invalidated" : "Token invalidated.",
-      "refreshed" : "Token refreshed."
+      "created" : "Token de acceso creado.",
+      "invalidated" : "Token de acceso invalidado.",
+      "refreshed" : "Token de acceso actualizado."
     },
     "refresh" : {
-      "title" : "Refresh token"
+      "title" : "Actualizar token de acceso"
     },
     "table" : {
-      "actions" : "Actions",
-      "created" : "Created",
-      "description" : "Description",
-      "expiration" : "Expiration",
-      "value" : "Token value"
+      "actions" : "Acciones",
+      "created" : "Creado",
+      "description" : "Descripción",
+      "expiration" : "Vencimiento",
+      "value" : "Valor del token de acceso"
     },
-    "title" : "Token management",
+    "title" : "Gestión de tokens de acceso",
     "validation" : {
-      "days" : "Days must be between 1 and 3650.",
-      "description" : "Description must be at most 255 characters.",
-      "expiration" : "Expiration is required.",
-      "future" : "Expiration must be in the future."
+      "days" : "Los días deben estar entre 1 y 3650.",
+      "description" : "La descripción debe tener como máximo 255 caracteres.",
+      "expiration" : "La fecha de vencimiento es obligatoria.",
+      "future" : "La fecha de vencimiento debe estar en el futuro."
     }
   },
   "AdminUploads" : {

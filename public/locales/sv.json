@@ -440,61 +440,61 @@
   },
   "AdminTokens" : {
     "actions" : {
-      "create" : "Create token",
-      "invalidate" : "Invalidate",
-      "refresh" : "Refresh",
-      "reload" : "Reload",
-      "search" : "Search"
+      "create" : "Skapa åtkomsttoken",
+      "invalidate" : "Ogiltigförklara",
+      "refresh" : "Förnya",
+      "reload" : "Ladda om",
+      "search" : "Sök"
     },
     "confirm" : {
-      "invalidate" : "Invalidate this token?",
-      "refresh" : "Refresh this token?"
+      "invalidate" : "Ogiltigförklara denna åtkomsttoken?",
+      "refresh" : "Förnya denna åtkomsttoken?"
     },
     "create" : {
-      "title" : "Create token"
+      "title" : "Skapa åtkomsttoken"
     },
     "errors" : {
-      "create" : "Could not create token.",
-      "invalidate" : "Could not invalidate token.",
-      "load" : "Could not load tokens.",
-      "refresh" : "Could not refresh token."
+      "create" : "Det gick inte att skapa åtkomsttoken.",
+      "invalidate" : "Det gick inte att ogiltigförklara åtkomsttoken.",
+      "load" : "Det gick inte att läsa in åtkomsttoken.",
+      "refresh" : "Det gick inte att förnya åtkomsttoken."
     },
     "filters" : {
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To",
-      "value" : "Search"
+      "description" : "Beskrivning",
+      "from" : "Från",
+      "to" : "Till",
+      "value" : "Sök"
     },
     "form" : {
-      "days" : "Days",
-      "description" : "Description",
-      "expiration" : "Expiration date"
+      "days" : "Dagar",
+      "description" : "Beskrivning",
+      "expiration" : "Förfallodatum"
     },
     "newToken" : {
-      "title" : "New token",
-      "warning" : "Copy this token now; it will not be shown again."
+      "title" : "Ny åtkomsttoken",
+      "warning" : "Kopiera denna åtkomsttoken nu; den visas inte igen."
     },
     "notifications" : {
-      "created" : "Token created.",
-      "invalidated" : "Token invalidated.",
-      "refreshed" : "Token refreshed."
+      "created" : "Åtkomsttoken skapad.",
+      "invalidated" : "Åtkomsttoken ogiltigförklarad.",
+      "refreshed" : "Åtkomsttoken förnyad."
     },
     "refresh" : {
-      "title" : "Refresh token"
+      "title" : "Förnya åtkomsttoken"
     },
     "table" : {
-      "actions" : "Actions",
-      "created" : "Created",
-      "description" : "Description",
-      "expiration" : "Expiration",
-      "value" : "Token value"
+      "actions" : "Åtgärder",
+      "created" : "Skapad",
+      "description" : "Beskrivning",
+      "expiration" : "Förfallodatum",
+      "value" : "Åtkomsttokenvärde"
     },
-    "title" : "Token management",
+    "title" : "Hantering av åtkomsttoken",
     "validation" : {
-      "days" : "Days must be between 1 and 3650.",
-      "description" : "Description must be at most 255 characters.",
-      "expiration" : "Expiration is required.",
-      "future" : "Expiration must be in the future."
+      "days" : "Antalet dagar måste vara mellan 1 och 3650.",
+      "description" : "Beskrivningen får innehålla högst 255 tecken.",
+      "expiration" : "Förfallodatum måste anges.",
+      "future" : "Förfallodatum måste ligga i framtiden."
     }
   },
   "AdminUploads" : {

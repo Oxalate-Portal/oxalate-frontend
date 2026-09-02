@@ -440,61 +440,61 @@
   },
   "AdminTokens" : {
     "actions" : {
-      "create" : "Create token",
-      "invalidate" : "Invalidate",
-      "refresh" : "Refresh",
-      "reload" : "Reload",
-      "search" : "Search"
+      "create" : "Luo käyttöoikeustunnus",
+      "invalidate" : "Mitätöi",
+      "refresh" : "Päivitä",
+      "reload" : "Lataa uudelleen",
+      "search" : "Hae"
     },
     "confirm" : {
-      "invalidate" : "Invalidate this token?",
-      "refresh" : "Refresh this token?"
+      "invalidate" : "Mitätöidäänkö tämä käyttöoikeustunnus?",
+      "refresh" : "Päivitetäänkö tämä käyttöoikeustunnus?"
     },
     "create" : {
-      "title" : "Create token"
+      "title" : "Luo käyttöoikeustunnus"
     },
     "errors" : {
-      "create" : "Could not create token.",
-      "invalidate" : "Could not invalidate token.",
-      "load" : "Could not load tokens.",
-      "refresh" : "Could not refresh token."
+      "create" : "Käyttöoikeustunnusta ei voitu luoda.",
+      "invalidate" : "Käyttöoikeustunnusta ei voitu mitätöidä.",
+      "load" : "Käyttöoikeustunnuksia ei voitu ladata.",
+      "refresh" : "Käyttöoikeustunnusta ei voitu päivittää."
     },
     "filters" : {
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To",
-      "value" : "Search"
+      "description" : "Kuvaus",
+      "from" : "Alkaen",
+      "to" : "Päättyen",
+      "value" : "Haku"
     },
     "form" : {
-      "days" : "Days",
-      "description" : "Description",
-      "expiration" : "Expiration date"
+      "days" : "Päivät",
+      "description" : "Kuvaus",
+      "expiration" : "Vanhenemispäivä"
     },
     "newToken" : {
-      "title" : "New token",
-      "warning" : "Copy this token now; it will not be shown again."
+      "title" : "Uusi käyttöoikeustunnus",
+      "warning" : "Kopioi tämä käyttöoikeustunnus nyt; sitä ei näytetä enää uudelleen."
     },
     "notifications" : {
-      "created" : "Token created.",
-      "invalidated" : "Token invalidated.",
-      "refreshed" : "Token refreshed."
+      "created" : "Käyttöoikeustunnus luotu.",
+      "invalidated" : "Käyttöoikeustunnus mitätöity.",
+      "refreshed" : "Käyttöoikeustunnus päivitetty."
     },
     "refresh" : {
-      "title" : "Refresh token"
+      "title" : "Päivitä käyttöoikeustunnus"
     },
     "table" : {
-      "actions" : "Actions",
-      "created" : "Created",
-      "description" : "Description",
-      "expiration" : "Expiration",
-      "value" : "Token value"
+      "actions" : "Toiminnot",
+      "created" : "Luotu",
+      "description" : "Kuvaus",
+      "expiration" : "Vanheneminen",
+      "value" : "Käyttöoikeustunnuksen arvo"
     },
-    "title" : "Token management",
+    "title" : "Käyttöoikeustunnusten hallinta",
     "validation" : {
-      "days" : "Days must be between 1 and 3650.",
-      "description" : "Description must be at most 255 characters.",
-      "expiration" : "Expiration is required.",
-      "future" : "Expiration must be in the future."
+      "days" : "Päivien määrän on oltava 1–3650.",
+      "description" : "Kuvauksessa saa olla enintään 255 merkkiä.",
+      "expiration" : "Vanhenemispäivä on pakollinen.",
+      "future" : "Vanhenemispäivän on oltava tulevaisuudessa."
     }
   },
   "AdminUploads" : {
