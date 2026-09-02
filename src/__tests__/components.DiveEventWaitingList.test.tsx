@@ -1,7 +1,7 @@
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
 import {DiveEvent} from "../components";
-import {PortalConfigGroupEnum} from "../models";
+import {PaymentTypeEnum, PortalConfigGroupEnum} from "../models";
 
 const mockFindById = jest.fn();
 const mockJoinWaitingList = jest.fn();
@@ -94,6 +94,7 @@ jest.mock("antd", () => {
     };
 });
 
+
 describe("DiveEvent waiting list button", () => {
     beforeEach(() => {
         jest.clearAllMocks();
@@ -141,10 +142,21 @@ describe("DiveEvent waiting list button", () => {
         await waitFor(() => expect(mockLeaveWaitingList).toHaveBeenCalledWith(123));
     });
 
-    it("shows join button when diver has active membership even if payment is required", async () => {
+    it("hides join button when payment count is zero even with active membership", async () => {
         mockFindById.mockResolvedValue({...baseEvent, maxParticipants: 5, waitingList: []});
         mockFindMembershipByUserId.mockResolvedValue([{id: 58, status: "ACTIVE"}]);
-        mockFindPaymentByUserId.mockResolvedValue({payments: []});
+        mockFindPaymentByUserId.mockResolvedValue({
+            payments: [{
+                id: 760,
+                userId: 1,
+                paymentType: PaymentTypeEnum.ONE_TIME,
+                paymentCount: 0,
+                startDate: "2026-01-01",
+                endDate: "2099-01-01",
+                created: "2026-09-02T15:09:30.011Z",
+                boundEvents: []
+            }]
+        });
         mockGetPortalConfigurationValue.mockImplementation((group: string, key: string) => {
             if (key === "commenting-enabled") {
                 return "false";
@@ -158,12 +170,6 @@ describe("DiveEvent waiting list button", () => {
             if (group === PortalConfigGroupEnum.PAYMENT && key === "event-require-payment") {
                 return "true";
             }
-            if (group === PortalConfigGroupEnum.PAYMENT && key === "one-time-expiration-type") {
-                return "DISABLED";
-            }
-            if (group === PortalConfigGroupEnum.PAYMENT && key === "periodical-payment-method-type") {
-                return "DISABLED";
-            }
             return "false";
         });
 
@@ -171,8 +177,7 @@ describe("DiveEvent waiting list button", () => {
             render(<DiveEvent/>);
         });
 
-        await waitFor(() => expect(screen.getByText("DiveEvent.subscribe.button")).toBeInTheDocument());
-        expect(screen.queryByText("DiveEvent.requiresPayment")).toBeNull();
+        await waitFor(() => expect(screen.getByText("DiveEvent.requiresPayment")).toBeInTheDocument());
+        expect(screen.queryByText("DiveEvent.subscribe.button")).toBeNull();
     });
 });
-
