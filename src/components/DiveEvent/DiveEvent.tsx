@@ -127,8 +127,8 @@ export function DiveEvent() {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
 
-                    // Either payment type (one-time or periodical) independently satisfies the requirement.
-                    // hasValidPayment becomes true as soon as any enabled type has a valid payment.
+                    // Either payment type (one-time or periodical) can satisfy the payment requirement.
+                    // A one-time payment must still have remaining uses.
                     hasValidPayment = false;
 
                     const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
@@ -161,16 +161,8 @@ export function DiveEvent() {
                 }
             }
 
-            const membershipOrPaymentRequired = requiresMembership && requiresPayment;
-            if (membershipOrPaymentRequired) {
-                // If both checks are enabled, joining is allowed when at least one prerequisite is valid.
-                const missingBoth = !hasActiveMembership && !hasValidPayment;
-                result.missingMembership = missingBoth;
-                result.missingPayment = missingBoth;
-            } else {
-                result.missingMembership = requiresMembership && !hasActiveMembership;
-                result.missingPayment = requiresPayment && !hasValidPayment;
-            }
+            result.missingMembership = requiresMembership && !hasActiveMembership;
+            result.missingPayment = requiresPayment && !hasValidPayment;
 
             result.canSubscribe = !result.missingMembership && !result.missingPayment && !result.missingHealthStatement;
             return result;
