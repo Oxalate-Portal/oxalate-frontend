@@ -1327,7 +1327,7 @@
         "title" : "Taggar"
       },
       "title" : "Administration",
-      "tokens" : "Token management",
+      "tokens" : "Hantering av åtkomsttoken",
       "users" : "Användare"
     },
     "blog" : {
