@@ -99,7 +99,10 @@ jobs:
       - name: Build production package
         run: |
           yarn install --immutable
-          yarn build:production
+          yarn prebuild "${newVersion}"
+          yarn env-cmd -f .env.production vite build
+        env:
+          newVersion: ${{ steps.newVer.outputs.newVersion }}
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
