@@ -36,11 +36,15 @@ function getCurrentVersionString(currentVersion, latestTag) {
 
 const versionFilePath = path.resolve(__dirname, 'VERSION');
 const currentVersion = fs.readFileSync(versionFilePath, 'utf8').trim();
+const requestedVersion = process.argv[2]?.trim();
 
-gitFetch();
+let nextVersion = requestedVersion;
+if (!nextVersion) {
+    gitFetch();
 
-const latestTag = getLatestTag();
-const nextVersion = getCurrentVersionString(currentVersion, latestTag);
+    const latestTag = getLatestTag();
+    nextVersion = getCurrentVersionString(currentVersion, latestTag);
+}
 
 const buildTime = new Date().toISOString();
 const buildTimeFormatted = dayjs(buildTime).format("YYYY.MM.DD HH:mm")
