@@ -1,4 +1,4 @@
-import {Avatar, Button, Card, message, Modal, Space, Typography} from "antd";
+import {Avatar, Button, Card, message, Modal, Popover, Space, Typography} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
 import {useState} from "react";
@@ -67,7 +67,18 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
                 {contextHolder}
                 <Space orientation={"vertical"} size={"large"} style={{width: "100%"}}>
                     <div style={{display: "flex", alignItems: "center", marginBottom: 8}}>
-                        <Avatar src={avatarImageUrl || undefined} icon={<UserOutlined/>} size={40} style={{marginRight: 12}}/>
+                        <Popover
+                                content={
+                                    <div style={{display: "flex", flexDirection: "column", alignItems: "center", gap: 8}}>
+                                        <Avatar src={avatarImageUrl || undefined} icon={<UserOutlined/>} size={300}/>
+                                        <Typography.Text strong>{comment.username}</Typography.Text>
+                                    </div>
+                                }
+                                trigger="hover"
+                                placement="bottomLeft"
+                        >
+                            <Avatar src={avatarImageUrl || undefined} icon={<UserOutlined/>} size={40} style={{marginRight: 12}}/>
+                        </Popover>
                         <div>
                             <Typography.Text strong>{comment.username} (#{comment.id})</Typography.Text>
                             <br/>
