@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import type {CertificateResponse} from "../../models";
 import {Button, Space} from "antd";
 import {ShowCertificateCard} from "./ShowCertificateCard";
+import {EditCertificate} from "./EditCertificate";
 import {certificateAPI} from "../../services";
 import {useSession} from "../../session";
 
@@ -16,6 +17,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     const [maxCertificates, setMaxCertificates] = useState<number>(0);
     const {t} = useTranslation();
     const [loading, setLoading] = useState(true);
+    const [addOpen, setAddOpen] = useState(false);
     const {getFrontendConfigurationValue} = useSession();
 
     useEffect(() => {
@@ -57,6 +59,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     }
 
     return (
+            <>
             <Space orientation={"vertical"} size={12}>
                 {!loading && certificates.length > 0 && certificates.map(certificate =>
                         <ShowCertificateCard certificate={certificate}
@@ -67,7 +70,14 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
                 )}
                 {!viewOnly
                         && certificates.length < maxCertificates
-                        && <Button type={"primary"} href={"/users/certificates/0"}>{t("Certificates.panel.addButton")}</Button>}
+                        && <Button type={"primary"} onClick={() => setAddOpen(true)}>{t("Certificates.panel.addButton")}</Button>}
             </Space>
+                <EditCertificate
+                        certificateId={0}
+                        open={addOpen}
+                        onClose={() => setAddOpen(false)}
+                        onSaved={() => setAddOpen(false)}
+                />
+            </>
     );
 }

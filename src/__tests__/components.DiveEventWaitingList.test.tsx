@@ -61,15 +61,24 @@ jest.mock("../services", () => ({
     }
 }));
 
-jest.mock("../components/DiveEvent/DiveEventDetails", () => ({
-    DiveEventDetails: () => <div>details</div>
-}));
-
 jest.mock("../components/Commenting", () => ({
     CommentCanvas: () => <div>comment-canvas</div>
 }));
 
+jest.mock("../components/DiveEvent/DiveEventFiles", () => ({
+    DiveEventFiles: () => null
+}));
+
+jest.mock("../components/DiveEvent/DiveEventDetails", () => ({
+    DiveEventDetails: () => null
+}));
+
+jest.mock("../components/Notification", () => ({
+    AdminNotifications: () => null
+}));
+
 jest.mock("../components/main", () => ({
+    ...jest.requireActual("../components/main"),
     HealthStatementConfirmationModal: () => null
 }));
 
@@ -79,18 +88,27 @@ jest.mock("react-i18next", () => ({
     })
 }));
 
+jest.mock("@ant-design/icons", () => ({
+    LinkOutlined: () => <span>link</span>
+}));
+
 jest.mock("antd", () => {
     const SelectMock = ({children}: { children: ReactNode }) => <div>{children}</div>;
     SelectMock.Option = ({children}: { children: ReactNode }) => <div>{children}</div>;
 
     return {
+        message: {useMessage: () => [{success: jest.fn(), error: jest.fn()}, <span key="message-holder"/>]},
         Alert: ({title}: { title: string }) => <div>{title}</div>,
         Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
         Divider: ({children}: { children: ReactNode }) => <div>{children}</div>,
         Modal: ({open, children}: { open: boolean; children: ReactNode }) => open ? <div>{children}</div> : null,
         Select: SelectMock,
         Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
-        Spin: ({children}: { children: ReactNode }) => <div>{children}</div>
+        Spin: ({children}: { children: ReactNode }) => <div>{children}</div>,
+        Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (
+                <div>{dataSource.map((record, index) => <div key={String(record.id ?? index)}>{Object.values(record).map(String).join(" ")}</div>)}</div>
+        ),
+        Tooltip: ({children}: { children: ReactNode }) => <>{children}</>
     };
 });
 

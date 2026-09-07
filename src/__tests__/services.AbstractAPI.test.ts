@@ -1,4 +1,4 @@
-import {AbstractAPI} from '../services/AbstractAPI';
+import {AbstractAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
 
 interface TestRequest {

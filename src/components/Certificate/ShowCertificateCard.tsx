@@ -6,6 +6,7 @@ import {useState} from "react";
 import {ProtectedImage} from "../main";
 import {fileTransferAPI} from "../../services";
 import {getApiBaseUrl} from "../../services/getApiBaseUrl";
+import {EditCertificate} from "./EditCertificate";
 
 interface ShowCertificateCardProps {
     certificate: CertificateResponse;
@@ -18,6 +19,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificatePhotoUrl);
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
+    const [editOpen, setEditOpen] = useState<boolean>(false);
     const [messageApi, contextHolder] = message.useMessage();
 
     const uploadProps: UploadProps = {
@@ -49,7 +51,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
         if (deleteCertificate) {
             return (
                     <Space orientation={"horizontal"} size={12}>
-                        <Button type={"primary"} htmlType={"submit"} href={"/users/certificates/" + certificate.id}>
+                        <Button type={"primary"} onClick={() => setEditOpen(true)}>
                             {t("common.button.update")}
                         </Button>
                         <Button danger type={"primary"} onClick={() => deleteCertificate(certificate)}>
@@ -115,6 +117,11 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
                     extra={showExtras()}
             >
                 {contextHolder}
+                <EditCertificate
+                        certificateId={certificate.id}
+                        open={editOpen}
+                        onClose={() => setEditOpen(false)}
+                />
                 <Row gutter={16}>
                     {/* Left Column: Certificate details */}
                     <Col span={12}>

@@ -1,10 +1,6 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {BlogCard} from "../components/Blogging/BlogCard";
-import {BlogControls} from "../components/Blogging/BlogControls";
-import {BlogMenuItem} from "../components/Blogging/BlogMenuItem";
-import {PasswordFields} from "../components/User/PasswordFields";
-import {PasswordRules} from "../components/User/PasswordRules";
+import {BlogCard, BlogControls, BlogMenuItem, PasswordFields, PasswordRules} from "../components";
 import {SortDirectionEnum} from "../models";
 import {pageAPI} from "../services";
 

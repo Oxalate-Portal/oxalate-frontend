@@ -1,25 +1,36 @@
 import {useTranslation} from "react-i18next";
 import type {CertificateRequest} from "../../models";
 import dayjs from "dayjs";
-import {useParams} from "react-router-dom";
-import {AutoComplete, Button, Form, Input, message, Space, Spin} from "antd";
+import {AutoComplete, Button, Form, Input, message, Modal, Space, Spin} from "antd";
 import {useEffect, useState} from "react";
 import {certificateAPI} from "../../services";
 
-export function EditCertificate() {
-    const {paramId} = useParams();
+interface EditCertificateProps {
+    certificateId: number;
+    open: boolean;
+    onClose: () => void;
+    onSaved?: () => void;
+}
+
+function formatFetchedCertificationDate(date: CertificateRequest["certificationDate"] | string): string {
+    if (typeof date === "string") {
+        return date;
+    }
+
+    return date.toISOString().slice(0, 10);
+}
+
+export function EditCertificate({certificateId, open, onClose, onSaved}: EditCertificateProps) {
     const {t} = useTranslation();
-    const [certificateId, setCertificateId] = useState<number>(0);
     const [messageApi, contextHolder] = message.useMessage();
 
     const emptyCertificate: CertificateRequest = {
         id: 0,
-        userId: 0,
         organization: "",
         certificateName: "",
         certificateId: "",
         diverId: "",
-        certificationDate: dayjs().format("YYYY-MM-DD")
+        certificationDate: dayjs()
     };
 
     const [certificateForm] = Form.useForm();
@@ -58,34 +69,28 @@ export function EditCertificate() {
     }
 
     useEffect(() => {
-        if (paramId?.length === 0) {
-            console.error("Invalid dive event id:", paramId);
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setLoading(false);
+        if (!open) {
             return;
         }
 
-        let tmpCertificateId = 0;
-
-        if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
-            tmpCertificateId = parseInt(paramId);
-            setCertificateId(tmpCertificateId);
-        }
-
         // ID 0 means that we're supposed to create a new certificate
-        if (tmpCertificateId !== 0) {
-            certificateAPI.findById(tmpCertificateId, null)
+        if (certificateId !== 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setLoading(true);
+            certificateAPI.findById(certificateId, null)
                     .then((result) => {
                         const formData: CertificateRequest = {
                             id: result.id,
-                            userId: result.userId,
                             organization: result.organization,
                             certificateName: result.certificateName,
                             certificateId: result.certificateId,
                             diverId: result.diverId,
                             certificationDate: result.certificationDate
                         };
-                        certificateForm.setFieldsValue(formData);
+                        certificateForm.setFieldsValue({
+                            ...formData,
+                            certificationDate: formatFetchedCertificationDate(result.certificationDate)
+                        });
                         // TODO investigate why the form doesn't get updated automatically when setting the certificate data with this
                         setCertificate(formData);
                     })
@@ -97,13 +102,13 @@ export function EditCertificate() {
                         setLoading(false);
                     });
         } else {
+            setCertificate(emptyCertificate);
             setSubmitButtonText(t("EditCertificate.form.button.add"));
             setLoading(false);
         }
-        // Form, translation, and message instances are stable application services;
-        // excluding them also keeps this load effect safe with test doubles.
+        // Form, translation, and message instances are stable application services.
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [paramId]);
+    }, [certificateId, open]);
 
 
     function updateCertificate(postData: CertificateRequest) {
@@ -115,6 +120,8 @@ export function EditCertificate() {
                         // If we get back the same ID as we sent, we assume the update was successful
                         if (response.id === certificateId) {
                             messageApi.success(t("EditCertificate.updateCertificate.update.ok"));
+                            onSaved?.();
+                            onClose();
                         } else {
                             messageApi.error(t("EditCertificate.updateCertificate.update.fail"));
                         }
@@ -132,6 +139,8 @@ export function EditCertificate() {
                         // If we get back an non-zero positive ID as we sent, we assume the update was successful
                         if (!isNaN(response.id) && response.id > 0) {
                             messageApi.success(t("EditCertificate.updateCertificate.add.ok"));
+                            onSaved?.();
+                            onClose();
                         } else {
                             messageApi.error(t("EditCertificate.updateCertificate.add.fail"));
                         }
@@ -151,10 +160,15 @@ export function EditCertificate() {
     }
 
     return (
-            <div className="darkDiv">
+            <Modal
+                    title={t("EditCertificate.title")}
+                    open={open}
+                    onCancel={onClose}
+                    footer={null}
+                    destroyOnHidden
+                    width={800}
+            >
                 {contextHolder}
-                <h4>{t("EditCertificate.title")}</h4>
-                <p>{certificate.id}</p>
                 <Spin spinning={loading}>
                     {certificate && !loading &&
                             <Form
@@ -163,7 +177,14 @@ export function EditCertificate() {
                                     labelCol={{span: 8}}
                                     wrapperCol={{span: 12}}
                                     style={{maxWidth: 800}}
-                                    initialValues={certificate}
+                                    initialValues={{
+                                        ...certificate,
+                                        certificationDate: certificate.id === 0
+                                                ? typeof certificate.certificationDate === "string"
+                                                        ? certificate.certificationDate
+                                                        : certificate.certificationDate.format("YYYY-MM-DD")
+                                                : formatFetchedCertificationDate(certificate.certificationDate)
+                                    }}
                                     onFinish={updateCertificate}
                                     onFinishFailed={updateCertificateFailed}
                                     autoComplete="off"
@@ -284,7 +305,7 @@ export function EditCertificate() {
                                                    message: t("EditCertificate.form.certificationDate.rules.max")
                                                },
                                                {
-                                                   pattern: new RegExp(/^[0-9]{4}-([0-1])?[0-9]-([0-3])?[0-9]$/),
+                                                   pattern: /^\d{4}-\d{2}-\d{2}$/,
                                                    message: t("EditCertificate.form.certificationDate.rules.pattern")
                                                }
                                            ]}>
@@ -304,6 +325,6 @@ export function EditCertificate() {
                                 </Space>
                             </Form>}
                 </Spin>
-            </div>
+            </Modal>
     );
 }

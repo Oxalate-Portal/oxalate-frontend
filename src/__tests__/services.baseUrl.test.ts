@@ -1,5 +1,4 @@
-import {AbstractAPI} from "../services/AbstractAPI";
-import {authAPI, downloadAPI, emailNotificationSubscriptionAPI, fileTransferAPI, portalConfigurationAPI} from "../services";
+import {AbstractAPI, authAPI, downloadAPI, emailNotificationSubscriptionAPI, fileTransferAPI, portalConfigurationAPI} from "../services";
 import MockAdapter from "axios-mock-adapter";
 
 interface AxiosBackedService {

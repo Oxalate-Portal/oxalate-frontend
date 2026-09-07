@@ -1,15 +1,8 @@
 import {fireEvent, render, renderHook, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {Blog} from "../components/Blogging/Blog";
-import {BlogCard} from "../components/Blogging/BlogCard";
-import {BlogControls} from "../components/Blogging/BlogControls";
-import {BlogMenuItem} from "../components/Blogging/BlogMenuItem";
-import {useBlogMenuItems} from "../components/Blogging/useBlogMenuItems";
-import {Certificates} from "../components/Certificate/Certificates";
-import {EditCertificate} from "../components/Certificate/EditCertificate";
-import {ShowCertificateCard} from "../components/Certificate/ShowCertificateCard";
+import {Blog, BlogCard, BlogControls, BlogMenuItem, Certificates, EditCertificate, ShowCertificateCard, useBlogMenuItems} from "../components";
 import {SortDirectionEnum} from "../models";
-import {certificateAPI, fileTransferAPI, pageAPI} from "../services";
+import {certificateAPI, fileTransferAPI, pageAPI, transformDatesInObject} from "../services";
 
 const formPropsRef = {current: undefined as { onFinish: (values: never) => void } | undefined};
 let itemRules: unknown[][] = [];
@@ -38,9 +31,10 @@ jest.mock("../services", () => ({
         findById: jest.fn(), findAllByUserId: jest.fn(), findCertificateNames: jest.fn(), findOrganizations: jest.fn(),
         update: jest.fn(), create: jest.fn(), delete: jest.fn()
     },
-    fileTransferAPI: {removeCertificateFile: jest.fn()}
+    fileTransferAPI: {removeCertificateFile: jest.fn()},
+    getApiBaseUrl: () => "https://api.test",
+    transformDatesInObject: jest.requireActual("../services/dateTransformer").transformDatesInObject
 }));
-jest.mock("../services/getApiBaseUrl", () => ({getApiBaseUrl: () => "https://api.test"}));
 jest.mock("../components/main", () => ({
     ProtectedImage: ({onRemove, viewOnly, alt}: { onRemove: () => void; viewOnly: boolean; alt: string }) =>
             <div><img alt={alt}/>{!viewOnly && <button onClick={onRemove}>remove photo</button>}</div>
@@ -80,6 +74,7 @@ jest.mock("antd", () => {
     };
     return {
         Form,
+        Modal: ({children}: { children: ReactNode }) => <>{children}</>,
         AutoComplete,
         Button: ({children, onClick, href, disabled}: { children: ReactNode; onClick?: () => void; href?: string; disabled?: boolean }) =>
                 <button onClick={onClick} disabled={disabled} data-href={href}>{children}</button>,
@@ -200,7 +195,7 @@ describe("certificate components", () => {
         mockParam = "4";
         (certificateAPI.findById as jest.Mock).mockResolvedValue(certificate(4));
         (certificateAPI.update as jest.Mock).mockResolvedValue({id: 4});
-        const {rerender} = render(<EditCertificate/>);
+        const {rerender} = render(<EditCertificate certificateId={4} open onClose={jest.fn()}/>);
         await waitFor(() => expect(formPropsRef.current).toBeDefined());
         formPropsRef.current!.onFinish(certificate(4));
         await waitFor(() => expect(messageApi.success).toHaveBeenCalled());
@@ -209,17 +204,14 @@ describe("certificate components", () => {
         await waitFor(() => expect(messageApi.error).toHaveBeenCalled());
         mockParam = "0";
         (certificateAPI.create as jest.Mock).mockResolvedValue({id: 9});
-        rerender(<EditCertificate/>);
+        rerender(<EditCertificate certificateId={0} open onClose={jest.fn()}/>);
         await waitFor(() => expect(formPropsRef.current).toBeDefined());
         formPropsRef.current!.onFinish(certificate(0));
         await waitFor(() => expect(certificateAPI.create).toHaveBeenCalled());
         (certificateAPI.create as jest.Mock).mockResolvedValueOnce({id: 0});
         formPropsRef.current!.onFinish(certificate(0));
         await waitFor(() => expect(messageApi.error).toHaveBeenCalled());
-        mockParam = "";
-        rerender(<EditCertificate/>);
-        await waitFor(() => expect(screen.getByText("EditCertificate.title")).toBeInTheDocument());
-        mockParam = "0";
+        rerender(<EditCertificate certificateId={0} open onClose={jest.fn()}/>);
         // Exercise both cross-field validators with empty and valid counterpart values.
         const validator = itemRules.flat().find(rule => typeof rule === "function") as ((args: { getFieldValue: (name: string) => string }) => {
             validator: (rule: unknown, value: string) => Promise<void>
@@ -228,12 +220,25 @@ describe("certificate components", () => {
         await expect(validator({getFieldValue: () => "valid"}).validator({}, "valid")).resolves.toBeUndefined();
     });
 
+    it("keeps a fetched date-only certification date unchanged in the form", async () => {
+        const transformedCertificate = {
+            ...certificate(142),
+            certificationDate: transformDatesInObject({certificationDate: "2017-01-01"}, "Europe/Helsinki").certificationDate
+        };
+        (certificateAPI.findById as jest.Mock).mockResolvedValue(transformedCertificate);
+
+        render(<EditCertificate certificateId={142} open onClose={jest.fn()}/>);
+
+        await waitFor(() => expect(stableCertificateForm.setFieldsValue).toHaveBeenCalledWith(expect.objectContaining({
+            certificationDate: "2017-01-01"
+        })));
+    });
+
     it("searches certificate organizations and names while editing", async () => {
         mockParam = "0";
         (certificateAPI.findOrganizations as jest.Mock).mockResolvedValue(["PADI"]);
         (certificateAPI.findCertificateNames as jest.Mock).mockResolvedValue(["Open Water"]);
-        render(<EditCertificate/>);
-        await waitFor(() => expect(screen.getByText("EditCertificate.title")).toBeInTheDocument());
+        render(<EditCertificate certificateId={0} open onClose={jest.fn()}/>);
 
         fireEvent.change(screen.getByPlaceholderText("EditCertificate.form.organization.placeholder"), {target: {value: "pad"}});
         fireEvent.change(screen.getByPlaceholderText("EditCertificate.form.certificateName.placeholder"), {target: {value: "open"}});

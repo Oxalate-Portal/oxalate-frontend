@@ -1,6 +1,6 @@
 import {act, fireEvent, render, screen} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {AdminNotifications} from "../components/Notification/AdminNotifications";
+import {AdminNotifications} from "../components";
 import {UpdateStatusEnum} from "../models";
 
 const mockCreateBulkNotifications = jest.fn();

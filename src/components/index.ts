@@ -1,4 +1,5 @@
 export * from './Administration';
+export * from './Blogging';
 export * from './Certificate';
 export * from './Commenting';
 export * from './DiveEvent';

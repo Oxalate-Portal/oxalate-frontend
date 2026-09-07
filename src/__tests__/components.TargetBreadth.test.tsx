@@ -2,17 +2,19 @@ import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
 import axios from "axios";
 import {authAPI, pageAPI, paymentAPI, statsAPI} from "../services";
-import {HealthStatementConfirmation} from "../components/main/HealthStatementConfirmation";
-import {Home} from "../components/main/Home";
-import {ProtectedImage} from "../components/main/ProtectedImage";
-import {PastDiveEvents} from "../components/DiveEvent/PastDiveEvents";
-import {Registration} from "../components/Register/Registration";
-import {ResendRegistrationEmail} from "../components/Register/ResendRegistrationEmail";
-import {PasswordFields} from "../components/User/PasswordFields";
-import {PasswordRules} from "../components/User/PasswordRules";
-import {Page} from "../components/Page/Page";
-import {Payments} from "../components/Payment/Payments";
-import {AggregateStats} from "../components/Statistics/AggregateStats";
+import {
+    AggregateStats,
+    HealthStatementConfirmation,
+    Home,
+    Page,
+    PasswordFields,
+    PasswordRules,
+    PastDiveEvents,
+    Payments,
+    ProtectedImage,
+    Registration,
+    ResendRegistrationEmail
+} from "../components";
 
 const stableTranslation = {t: (key: string) => key};
 jest.mock("react-i18next", () => ({useTranslation: () => stableTranslation}));
@@ -28,11 +30,20 @@ jest.mock("../session", () => ({
         getPortalConfigurationValue: () => "true"
     })
 }));
-jest.mock("../components/Page", () => ({Page: ({pageId}: { pageId: number }) => <div>page-{pageId}</div>}));
 jest.mock("../components/DiveEvent/DiveEventsTable", () => ({
     DiveEventsTable: ({diveEventType, title}: { diveEventType: string; title: string }) =>
             <div>{diveEventType}-{title}</div>
 }));
+jest.mock("../components/Page", () => {
+    const actual = jest.requireActual("../components/Page");
+    return {
+        ...actual,
+        Page: ({pageId, ...props}: { pageId: number; [key: string]: unknown }) =>
+                pageId === 1 || pageId === 3
+                        ? <div>page-{pageId}</div>
+                        : <actual.Page pageId={pageId} {...props}/>
+    };
+});
 jest.mock("../components/Payment/ListPayments", () => ({ListPayments: () => <div>payment-list</div>}));
 jest.mock("../components/Payment/AddPayments", () => ({AddPayments: () => <div>add-payments</div>}));
 jest.mock("@ant-design/charts", () => ({Column: () => <div>column-chart</div>, Line: () => <div>line-chart</div>}));

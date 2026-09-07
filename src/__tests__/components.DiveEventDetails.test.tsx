@@ -24,6 +24,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 jest.mock("antd", () => ({
+    message: {useMessage: () => [{success: jest.fn(), error: jest.fn()}, <span key="message-holder"/>]},
     Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
     Modal: ({open, children, title, onCancel}: {
         open: boolean;
@@ -76,7 +77,8 @@ const mockUserSession = {
 jest.mock("../session", () => ({
     useSession: () => ({
         userSession: mockUserSession,
-        getPortalTimezone: () => "UTC"
+        getPortalTimezone: () => "UTC",
+        getPortalConfigurationValue: () => "false"
     })
 }));
 

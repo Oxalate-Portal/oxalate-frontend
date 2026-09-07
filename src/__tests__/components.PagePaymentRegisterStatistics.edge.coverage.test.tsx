@@ -1,18 +1,20 @@
 import {cleanup, render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type {ReactNode} from "react";
-import {Page} from "../components/Page/Page";
-import {PageBodyEditor} from "../components/Page/PageBodyEditor";
-import {EditPage} from "../components/Page/EditPage";
-import {EditPageGroup} from "../components/Page/EditPageGroup";
-import {PaymentListTable} from "../components/Payment/PaymentListTable";
-import {Payments} from "../components/Payment/Payments";
-import {Registration} from "../components/Register/Registration";
-import {ResendRegistrationEmail} from "../components/Register/ResendRegistrationEmail";
-import {AggregateStats} from "../components/Statistics/AggregateStats";
-import {BiannualEventReportTable} from "../components/Statistics/BiannualEventReportTable";
+import {
+    AggregateStats,
+    BiannualEventReportTable,
+    EditPage,
+    EditPageGroup,
+    Page,
+    PageBodyEditor,
+    PaymentListTable,
+    Payments,
+    Registration,
+    ResendRegistrationEmail
+} from "../components";
 import {PageStatusEnum, PaymentTypeEnum, RoleEnum} from "../models";
-import {authAPI, pageAPI, pageGroupMgmtAPI, pageMgmtAPI, paymentAPI, statsAPI} from "../services";
+import {authAPI, pageAPI, pageGroupMgmtAPI, pageMgmtAPI, paymentAPI, statsAPI, userAPI} from "../services";
 
 jest.setTimeout(30000);
 
@@ -35,7 +37,7 @@ jest.mock("../session", () => ({
         userSession: {roles: [RoleEnum.ROLE_ADMIN]},
         getFrontendConfigurationValue: () => "en,fi",
         getPortalConfigurationValue: (_group: string, key: string) =>
-                key === "single-payment-enabled" ? "true" : "false"
+                key === "single-payment-enabled" ? "true" : key === "timezone" ? "UTC" : "false"
     })
 }));
 jest.mock("../services", () => ({
@@ -48,12 +50,12 @@ jest.mock("../services", () => ({
         update: jest.fn()
     },
     statsAPI: {getAggregates: jest.fn()},
-    authAPI: {resendRegistrationEmail: jest.fn()}
+    authAPI: {resendRegistrationEmail: jest.fn()},
+    userAPI: {findByRole: jest.fn()}
 }));
-jest.mock("../components/Payment/ListPayments", () => ({
-    ListPayments: () => <div>active payments</div>
-}));
-jest.mock("../components/Payment/AddPayments", () => ({
+jest.mock("../components/Payment", () => ({
+    ...jest.requireActual("../components/Payment"),
+    ListPayments: () => <div>active payments</div>,
     AddPayments: () => <div>add payments</div>
 }));
 jest.mock("@ant-design/charts", () => ({
@@ -100,6 +102,7 @@ beforeEach(() => {
     (pageGroupMgmtAPI.update as jest.Mock).mockResolvedValue({id: 2});
     (paymentAPI.resetAllPayments as jest.Mock).mockResolvedValue(true);
     (authAPI.resendRegistrationEmail as jest.Mock).mockResolvedValue(true);
+    (userAPI.findByRole as jest.Mock).mockResolvedValue([]);
     (statsAPI.getAggregates as jest.Mock).mockResolvedValue({
         eventsPerYear: [{year: 2024, value: 3}],
         diversPerYear: [{year: 2024, value: 2}],

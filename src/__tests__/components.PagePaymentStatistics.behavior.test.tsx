@@ -1,20 +1,22 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {PageGroups} from "../components/Page/PageGroups";
-import {Pages} from "../components/Page/Pages";
-import {EditPage} from "../components/Page/EditPage";
-import {EditPageGroup} from "../components/Page/EditPageGroup";
-import {PageBodyEditor} from "../components/Page/PageBodyEditor";
-import {AddPayments} from "../components/Payment/AddPayments";
-import {ListPayments} from "../components/Payment/ListPayments";
-import {PaymentListTable} from "../components/Payment/PaymentListTable";
-import {Register} from "../components/Register/Register";
-import {AggregateStats} from "../components/Statistics/AggregateStats";
-import {BiannualEventReportTable} from "../components/Statistics/BiannualEventReportTable";
-import {DiveEventReport} from "../components/Statistics/DiveEventReport";
-import {YearlyDiveStats} from "../components/Statistics/YearlyDiveStats";
-import {YearlyStats} from "../components/Statistics/YearlyStats";
-import {MainAdminStatistics} from "../components/Statistics/MainAdminStatistics";
+import {
+    AddPayments,
+    AggregateStats,
+    BiannualEventReportTable,
+    DiveEventReport,
+    EditPage,
+    EditPageGroup,
+    ListPayments,
+    MainAdminStatistics,
+    PageBodyEditor,
+    PageGroups,
+    Pages,
+    PaymentListTable,
+    Register,
+    YearlyDiveStats,
+    YearlyStats
+} from "../components";
 import {pageGroupMgmtAPI, pageMgmtAPI, paymentAPI, statsAPI, userAPI} from "../services";
 import {PageStatusEnum, PaymentTypeEnum, RoleEnum} from "../models";
 

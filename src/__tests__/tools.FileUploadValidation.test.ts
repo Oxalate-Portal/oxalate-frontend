@@ -1,4 +1,4 @@
-import {FileUploadValidationError, validateUploadFile} from '../tools/FileUploadValidation';
+import {FileUploadValidationError, validateUploadFile} from '../tools';
 
 describe('FileUploadValidation', () => {
     it('uploadAvatarFileValidOk', () => {

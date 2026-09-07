@@ -1,11 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
-import {AdminRoute} from "../session/AdminRoute";
-import {OrganizerRoute} from "../session/OrganizerRoute";
-import {PrivateRoute} from "../session/PrivateRoute";
-import {AuthVerify} from "../session/AuthVerify";
+import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "../session";
 import {RoleEnum} from "../models";
-import {useSession} from "../session/useSession";
 
 jest.mock("../session/useSession", () => ({
     useSession: jest.fn()

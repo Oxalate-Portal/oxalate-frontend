@@ -1,4 +1,4 @@
-import {resolveCommentAvatarUrl} from "../tools/commentAvatarUrl";
+import {resolveCommentAvatarUrl} from "../tools";
 
 describe("resolveCommentAvatarUrl", () => {
     it("returns null when avatarUrl is nullish or empty", () => {

@@ -5,22 +5,26 @@ import {MemoryRouter, Route, Routes} from "react-router-dom";
 import dayjs from "dayjs";
 import {ChronoUnitEnum, MembershipTypeEnum, PaymentTypeEnum, RoleEnum, UpdateStatusEnum} from "../models";
 import {adminUserAPI, authAPI, diveEventAPI, fileTransferAPI, pageAPI, userAPI} from "../services";
-import {FormMemberships} from "../components/User/FormMemberships";
-import {FormPayments} from "../components/User/FormPayments";
-import {LostPassword} from "../components/User/LostPassword";
-import {NewPassword} from "../components/User/NewPassword";
-import {Password} from "../components/User/Password";
-import {ShowUser} from "../components/User/ShowUser";
-import {UserAvatarManager} from "../components/User/UserAvatarManager";
-import {filterDocumentsForCreator, UserDocumentFiles} from "../components/User/UserDocumentFiles";
-import {UserEventList} from "../components/User/UserEventList";
-import {UserProfile} from "../components/User/UserProfile";
-import {AcceptTerms} from "../components/main/AcceptTerms";
-import {HealthStatementConfirmationModal} from "../components/main/HealthStatementConfirmationModal";
-import {Login} from "../components/main/Login";
-import {NavigationBar} from "../components/main/NavigationBar";
-import {ShiftableRangePicker} from "../components/main/ShiftableRangePicker";
-import {LoginWithCaptcha, OxalateFooter} from "../components/main";
+import {
+    AcceptTerms,
+    filterDocumentsForCreator,
+    FormMemberships,
+    FormPayments,
+    HealthStatementConfirmationModal,
+    Login,
+    LoginWithCaptcha,
+    LostPassword,
+    NavigationBar,
+    NewPassword,
+    OxalateFooter,
+    Password,
+    ShiftableRangePicker,
+    ShowUser,
+    UserAvatarManager,
+    UserDocumentFiles,
+    UserEventList,
+    UserProfile
+} from "../components";
 
 jest.setTimeout(30000);
 
@@ -53,10 +57,17 @@ jest.mock("../services", () => ({
 }));
 jest.mock("../components/Page", () => ({Page: () => <div>page content</div>}));
 jest.mock("../components/Certificate", () => ({Certificates: () => <div>certificates</div>}));
-jest.mock("../components/User/EmailSubscriptionCard", () => ({EmailSubscriptionCard: () => <div>subscriptions</div>}));
-jest.mock("../components/User/UserFields", () => ({UserFields: () => <div>fields</div>}));
-jest.mock("../components/Notification", () => ({NotificationDropdown: () => <button>notifications</button>}));
-jest.mock("../components/Blogging", () => ({useBlogMenuItems: () => []}));
+jest.mock("../components/User/UserFields", () => ({
+    UserFields: () => <div>fields</div>
+}));
+jest.mock("../components/Notification", () => ({
+    ...jest.requireActual("../components/Notification"),
+    NotificationDropdown: () => <button>notifications</button>
+}));
+jest.mock("../components/Blogging", () => ({
+    ...jest.requireActual("../components/Blogging"),
+    useBlogMenuItems: () => []
+}));
 
 const wrap = (element: React.ReactNode) => <MemoryRouter>{element}</MemoryRouter>;
 if (!globalThis.MessageChannel) {

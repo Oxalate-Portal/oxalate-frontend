@@ -1,7 +1,6 @@
 import {act} from 'react';
 import {createRoot, type Root} from 'react-dom/client';
-import {SessionProvider} from '../session/SessionProvider';
-import {useSession} from '../session/useSession';
+import {SessionProvider, useSession} from '../session';
 import {portalConfigurationAPI} from '../services';
 
 function FrontendConfigProbe() {

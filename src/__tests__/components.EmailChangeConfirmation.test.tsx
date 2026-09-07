@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {EmailChangeConfirmation} from "../components/User/EmailChangeConfirmation";
+import {EmailChangeConfirmation} from "../components";
 
 const mockNavigate = jest.fn();
 const mockLogoutUser = jest.fn();

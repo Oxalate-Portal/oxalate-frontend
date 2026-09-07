@@ -1,27 +1,30 @@
 import React, {type ReactNode} from "react";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import dayjs from "dayjs";
-import {AdminMain} from "../components/Administration/AdminMain";
-import {DownloadData} from "../components/Administration/DownloadData";
-import {TimezoneSelector} from "../components/Administration/TimezoneSelector";
-import {CommentModeration} from "../components/Administration/CommentModeration";
-import {BlockedDates} from "../components/Administration/BlockedDates";
-import {PortalConfigurations} from "../components/Administration/PortalConfigurations";
-import {AdminTagGroups} from "../components/Administration/AdminTagGroups";
-import {AdminTags} from "../components/Administration/AdminTags";
-import {AuditEvents} from "../components/Administration/AuditEvents";
-import {AdminUploads} from "../components/Administration/FileManagement/AdminUploads";
-import {AvatarFiles} from "../components/Administration/FileManagement/AvatarFiles";
-import {CertificateFiles} from "../components/Administration/FileManagement/CertificateFiles";
-import {DiveFiles} from "../components/Administration/FileManagement/DiveFiles";
-import {DocumentFiles} from "../components/Administration/FileManagement/DocumentFiles";
-import {PageFiles} from "../components/Administration/FileManagement/PageFiles";
-import {AddMemberships} from "../components/Administration/AddMemberships";
-import {AdminMembership} from "../components/Administration/AdminMembership";
-import {AdminMemberships} from "../components/Administration/AdminMemberships";
-import {AdminOrgUser} from "../components/Administration/AdminOrgUser";
-import {AdminOrgUsers} from "../components/Administration/AdminOrgUsers";
-import {commonFileColumns, createActionColumn} from "../components/Administration/FileManagement/commonColumns";
+import {
+    AddMemberships,
+    AdminMain,
+    AdminMembership,
+    AdminMemberships,
+    AdminOrgUser,
+    AdminOrgUsers,
+    AdminTagGroups,
+    AdminTags,
+    AdminUploads,
+    AuditEvents,
+    AvatarFiles,
+    BlockedDates,
+    CertificateFiles,
+    CommentModeration,
+    commonFileColumns,
+    createActionColumn,
+    DiveFiles,
+    DocumentFiles,
+    DownloadData,
+    PageFiles,
+    PortalConfigurations,
+    TimezoneSelector
+} from "../components";
 
 // eslint-disable-next-line no-var
 var api: Record<string, jest.Mock>;

@@ -1,3 +1,5 @@
+export {AdminTagGroups} from "./AdminTagGroups";
+export {AdminTags} from './AdminTags';
 export {AddMemberships} from './AddMemberships';
 export {AuditEvents} from './AuditEvents';
 export {AdminMain} from './AdminMain';
