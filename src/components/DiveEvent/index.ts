@@ -7,3 +7,9 @@ export {EditDiveEvent} from './EditDiveEvent';
 export {PastDiveEvents} from './PastDiveEvents';
 export {SetDives} from './SetDives';
 export {ShowDiveEvent} from './ShowDiveEvent';
+export {
+    buildParticipantOptions,
+    exceedsMaxParticipants,
+    hasValidPaymentForEvent,
+    isMaxParticipantsTooLow
+} from './editDiveEventValidation';

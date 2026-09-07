@@ -31,6 +31,8 @@
 - Keep model types in `src/models`, usually split into `props/`, `requests/`, and `responses/`, then re-exported through `src/models/index.ts`.
 - Always import the directory, not the individual file, to get the barrel exports. This keeps imports clean and makes it easier to refactor file organization
   without breaking imports.
+- Test files must use the nearest available barrel import for components, services, models, session utilities, and tools; extend the barrel when a tested
+  export is not yet exposed.
 
 ## UI and state patterns to preserve
 

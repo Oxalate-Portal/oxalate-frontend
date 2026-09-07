@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {Form} from "antd";
 import type {ReactNode} from "react";
-import {UserFields} from "../components/User/UserFields";
+import {UserFields} from "../components";
 
 jest.mock("antd", () => {
     const FormMock = ({children}: { children: ReactNode }) => <div>{children}</div>;

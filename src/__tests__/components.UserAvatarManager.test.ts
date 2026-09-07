@@ -1,4 +1,4 @@
-import {getAvatarUploadOutcome} from "../tools/avatarUploadResponse";
+import {getAvatarUploadOutcome} from "../tools";
 
 describe("UserAvatarManager upload response handling", () => {
     it("returns success with url when backend response contains url", () => {

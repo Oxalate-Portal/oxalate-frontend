@@ -1,8 +1,6 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {AdminNotifications} from "../components/Notification/AdminNotifications";
-import {NotificationDropdown} from "../components/Notification/NotificationDropdown";
-import {CommentModerationActions} from "../components/Commenting/CommentModerationActions";
+import {AdminNotifications, CommentModerationActions, NotificationDropdown} from "../components";
 import {NotificationGroupEnum, UpdateStatusEnum} from "../models";
 
 let formFinish: ((values: never) => void) | undefined;

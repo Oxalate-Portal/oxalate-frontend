@@ -1,4 +1,4 @@
-import {type CkLoader, CKUploadAdapter} from "../services/CKUploadAdapter";
+import {type CkLoader, CKUploadAdapter} from "../services";
 
 class MockXHR {
     responseType = "";

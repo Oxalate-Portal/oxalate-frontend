@@ -1,7 +1,7 @@
 import Axios, {type AxiosInstance} from "axios";
 import type {PagedResponse} from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
-import {transformDatesInObject, serializeDayjsInObject} from "./dateTransformer";
+import {serializeDayjsInObject, transformDatesInObject} from "./dateTransformer";
 import {getGlobalTimezone} from "./timezoneContext";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {

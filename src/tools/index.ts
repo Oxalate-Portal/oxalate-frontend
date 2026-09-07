@@ -37,3 +37,4 @@ export {
 } from "./DateTimeTool";
 export {getAvatarUploadOutcome} from "./avatarUploadResponse";
 export {resolveCommentAvatarUrl} from "./commentAvatarUrl";
+export {FileUploadValidationError, validateUploadFile} from "./FileUploadValidation";

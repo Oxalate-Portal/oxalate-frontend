@@ -1,13 +1,7 @@
 import {cleanup, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type {ReactNode} from "react";
-import {AddPayments} from "../components/Payment/AddPayments";
-import {PaymentListTable} from "../components/Payment/PaymentListTable";
-import {EditPage} from "../components/Page/EditPage";
-import {EditPageGroup} from "../components/Page/EditPageGroup";
-import {PageBodyEditor} from "../components/Page/PageBodyEditor";
-import {Pages} from "../components/Page/Pages";
-import {Register} from "../components/Register/Register";
+import {AddPayments, EditPage, EditPageGroup, PageBodyEditor, Pages, PaymentListTable, Register} from "../components";
 import {PageStatusEnum, PaymentTypeEnum, ResultEnum, RoleEnum, UpdateStatusEnum} from "../models";
 import {authAPI, pageGroupMgmtAPI, pageMgmtAPI, paymentAPI, userAPI} from "../services";
 

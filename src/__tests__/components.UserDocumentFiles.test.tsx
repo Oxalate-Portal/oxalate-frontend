@@ -1,4 +1,4 @@
-import {filterDocumentsForCreator, UserDocumentFiles} from "../components/User/UserDocumentFiles";
+import {filterDocumentsForCreator, UserDocumentFiles} from "../components";
 import {type DocumentFileResponse, UploadStatusEnum} from "../models";
 import {render} from "@testing-library/react";
 import {fileTransferAPI} from "../services";

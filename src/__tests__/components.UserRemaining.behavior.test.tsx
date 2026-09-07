@@ -1,17 +1,19 @@
 import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
-import {FormMemberships} from "../components/User/FormMemberships";
-import {FormPayments} from "../components/User/FormPayments";
-import {LostPassword} from "../components/User/LostPassword";
-import {NewPassword} from "../components/User/NewPassword";
-import {Password} from "../components/User/Password";
-import {ProfileCollapse} from "../components/User/ProfileCollapse";
-import {ShowUser} from "../components/User/ShowUser";
-import {UserAvatarManager} from "../components/User/UserAvatarManager";
-import {UserDocumentFiles} from "../components/User/UserDocumentFiles";
-import {UserEventList} from "../components/User/UserEventList";
-import {UserProfile} from "../components/User/UserProfile";
+import {
+    FormMemberships,
+    FormPayments,
+    LostPassword,
+    NewPassword,
+    Password,
+    ProfileCollapse,
+    ShowUser,
+    UserAvatarManager,
+    UserDocumentFiles,
+    UserEventList,
+    UserProfile
+} from "../components";
 import {MembershipTypeEnum, PaymentTypeEnum, RoleEnum, UpdateStatusEnum} from "../models";
 import {adminUserAPI, authAPI, diveEventAPI, fileTransferAPI, userAPI} from "../services";
 
@@ -53,17 +55,7 @@ jest.mock("../services", () => ({
     userAPI: {findById: jest.fn(), updateUserStatus: jest.fn(), acceptTerms: jest.fn()}
 }));
 jest.mock("../components/Certificate", () => ({Certificates: () => <div>certificates</div>}));
-jest.mock("../components/User/EmailSubscriptionCard", () => ({EmailSubscriptionCard: () => <div>subscriptions</div>}));
 jest.mock("../components/User/UserFields", () => ({
-    UserFields: ({isOrganizer}: { isOrganizer: boolean }) =>
-            <div data-testid="user-fields">{isOrganizer ? "organizer" : "user"}</div>
-}));
-jest.mock("../components/User/index", () => ({
-    FormMemberships: () => <div>memberships</div>,
-    FormPayments: () => <div>payments</div>,
-    ProfileCollapse: () => <div>profile-collapse</div>,
-    UserAvatarManager: () => <div>avatar-manager</div>,
-    UserDocumentFiles: () => <div>documents</div>,
     UserFields: ({isOrganizer}: { isOrganizer: boolean }) =>
             <div data-testid="user-fields">{isOrganizer ? "organizer" : "user"}</div>
 }));

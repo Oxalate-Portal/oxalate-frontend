@@ -1,14 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {type ReactNode} from "react";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
-import {DiveEvent} from "../components/DiveEvent/DiveEvent";
-import {DiveEventDetails} from "../components/DiveEvent/DiveEventDetails";
-import {DiveEventFiles} from "../components/DiveEvent/DiveEventFiles";
-import {DiveEvents} from "../components/DiveEvent/DiveEvents";
-import {DiveEventsTable} from "../components/DiveEvent/DiveEventsTable";
-import {EditDiveEvent} from "../components/DiveEvent/EditDiveEvent";
-import {SetDives} from "../components/DiveEvent/SetDives";
-import {ShowDiveEvent} from "../components/DiveEvent/ShowDiveEvent";
+import {DiveEvent, DiveEventDetails, DiveEventFiles, DiveEvents, DiveEventsTable, EditDiveEvent, SetDives, ShowDiveEvent} from "../components";
 
 const api: Record<string, jest.Mock> = {};
 const fn = (name: string) => (api[name] ??= jest.fn());

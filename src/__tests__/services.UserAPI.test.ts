@@ -1,8 +1,8 @@
 /// <reference types="jest" />
 import {userAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
-import {RoleEnum, UserStatusEnum} from '../models';
 import type {AdminUserRequest, ConfirmationRequest} from '../models';
+import {RoleEnum, UserStatusEnum} from '../models';
 
 describe('UserAPI', () => {
     let mock: MockAdapter;

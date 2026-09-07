@@ -1,8 +1,8 @@
 /// <reference types="jest" />
 import {paymentAPI} from '../services';
 import MockAdapter from 'axios-mock-adapter';
-import {PaymentTypeEnum} from '../models';
 import type {PaymentRequest} from '../models';
+import {PaymentTypeEnum} from '../models';
 
 describe('PaymentAPI', () => {
     let mock: MockAdapter;

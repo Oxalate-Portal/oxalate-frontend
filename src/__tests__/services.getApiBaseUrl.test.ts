@@ -1,4 +1,4 @@
-import {getApiBaseUrl, resolveApiBaseUrl} from '../services/getApiBaseUrl';
+import {getApiBaseUrl, resolveApiBaseUrl} from '../services';
 
 describe('resolveApiBaseUrl', () => {
     it('prefers explicit global, then Vite env, then process env, then same-origin fallback', () => {

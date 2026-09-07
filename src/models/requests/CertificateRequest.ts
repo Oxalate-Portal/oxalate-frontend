@@ -1,3 +1,3 @@
 import type {AbstractCertificate} from "../AbstractCertificate";
 
-export type CertificateRequest = AbstractCertificate;
+export type CertificateRequest = Omit<AbstractCertificate, "userId">;

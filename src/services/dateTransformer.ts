@@ -72,8 +72,9 @@ export function transformDatesInObject<T>(obj: T, timezone: string): T {
             if (value === null || value === undefined) {
                 transformed[key] = value;
             } else if (typeof value === "string" && isDateString(value)) {
-                // Convert ISO string to Dayjs in the specified timezone
-                transformed[key] = dayjs(value).tz(timezone);
+                // Anchor date-only values at UTC midnight so timezone conversion cannot change the calendar date.
+                const dateValue = value.includes("T") ? value : `${value}T00:00:00Z`;
+                transformed[key] = dayjs(dateValue).tz(timezone);
             } else if (value instanceof Date) {
                 // Convert Date to Dayjs in the specified timezone
                 transformed[key] = dayjs(value).tz(timezone);

@@ -13,16 +13,18 @@ import {
     AdminNotifications,
     AdminOrgUser,
     AdminOrgUsers,
+    AdminTagGroups,
+    AdminTags,
     AdminTokens,
     AdminUploads,
     AuditEvents,
     BlockedDates,
+    Blog,
     CommentList,
     CommentModeration,
     DiveEvent,
     DiveEvents,
     DownloadData,
-    EditCertificate,
     EditDiveEvent,
     EditPage,
     EditPageGroup,
@@ -56,9 +58,6 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import {MembershipTypeEnum, PortalConfigGroupEnum} from "./models";
-import {AdminTags} from "./components/Administration/AdminTags";
-import {AdminTagGroups} from "./components/Administration/AdminTagGroups";
-import {Blog} from "./components/Blogging";
 
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
@@ -194,7 +193,6 @@ function App() {
                             <Route path="/registration" element={<Registration/>}/>
                             <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>
                             <Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>
-                            <Route path="/users/certificates/:paramId" element={<PrivateRoute><EditCertificate/></PrivateRoute>}/>
                             <Route path="/users/profile" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
                         </Routes>
                         <OxalateFooter/>

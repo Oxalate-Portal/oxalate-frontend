@@ -5,22 +5,24 @@ import {MessageChannel as NodeMessageChannel} from "worker_threads";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import dayjs from "dayjs";
 import {ChronoUnitEnum, EmailNotificationTypeEnum, MembershipTypeEnum, UpdateStatusEnum} from "../models";
-import {EmailSubscriptionCard} from "../components/User/EmailSubscriptionCard";
-import {FormMemberships} from "../components/User/FormMemberships";
-import {FormPayments} from "../components/User/FormPayments";
-import {LostPassword} from "../components/User/LostPassword";
-import {NewPassword} from "../components/User/NewPassword";
-import {Password} from "../components/User/Password";
-import {ProfileCollapse} from "../components/User/ProfileCollapse";
-import {ShowUser} from "../components/User/ShowUser";
-import {UserDocumentFiles} from "../components/User/UserDocumentFiles";
-import {UserEventList} from "../components/User/UserEventList";
-import {UserAvatarManager} from "../components/User/UserAvatarManager";
-import {AcceptTerms} from "../components/main/AcceptTerms";
-import {HealthStatementConfirmationModal} from "../components/main/HealthStatementConfirmationModal";
-import {Login} from "../components/main/Login";
-import {ShiftableRangePicker} from "../components/main/ShiftableRangePicker";
-import {UserProfile} from "../components/User/UserProfile";
+import {
+    AcceptTerms,
+    EmailSubscriptionCard,
+    FormMemberships,
+    FormPayments,
+    HealthStatementConfirmationModal,
+    Login,
+    LostPassword,
+    NewPassword,
+    Password,
+    ProfileCollapse,
+    ShiftableRangePicker,
+    ShowUser,
+    UserAvatarManager,
+    UserDocumentFiles,
+    UserEventList,
+    UserProfile
+} from "../components";
 import {adminUserAPI, authAPI, diveEventAPI, emailNotificationSubscriptionAPI, fileTransferAPI, pageAPI, userAPI} from "../services";
 
 jest.setTimeout(30000);
@@ -57,7 +59,10 @@ jest.mock("../services", () => ({
 }));
 jest.mock("../components/Page", () => ({Page: () => <div>page</div>}));
 jest.mock("../components/Certificate", () => ({Certificates: () => <div>certificates</div>}));
-jest.mock("../components/main/ProtectedImage", () => ({ProtectedImage: ({alt}: { alt: string }) => <img alt={alt}/>}));
+jest.mock("../components/main", () => ({
+    ...jest.requireActual("../components/main"),
+    ProtectedImage: ({alt}: { alt: string }) => <img alt={alt}/>
+}));
 
 const wrap = (node: React.ReactNode) => <MemoryRouter>{node}</MemoryRouter>;
 if (!globalThis.MessageChannel) {

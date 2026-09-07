@@ -1,15 +1,17 @@
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
-import {CommentCanvas} from "../components/Commenting/CommentCanvas";
-import {CommentCard} from "../components/Commenting/CommentCard";
-import {CommentEditor} from "../components/Commenting/CommentEditor";
-import {CommentList} from "../components/Commenting/CommentList";
-import {CommentModerationActions} from "../components/Commenting/CommentModerationActions";
-import {DisplayCommentThread} from "../components/Commenting/DisplayCommentThread";
-import {Forum} from "../components/Commenting/Forum";
-import {ReportCard} from "../components/Commenting/ReportCard";
-import {NotificationDropdown} from "../components/Notification/NotificationDropdown";
-import {NotificationList} from "../components/Notification/NotificationList";
+import {
+    CommentCanvas,
+    CommentCard,
+    CommentEditor,
+    CommentList,
+    CommentModerationActions,
+    DisplayCommentThread,
+    Forum,
+    NotificationDropdown,
+    NotificationList,
+    ReportCard
+} from "../components";
 import {UpdateStatusEnum} from "../models";
 
 jest.mock("../services", () => ({

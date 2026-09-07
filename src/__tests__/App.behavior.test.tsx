@@ -35,6 +35,7 @@ jest.mock("antd", () => ({
 }));
 
 jest.mock("../components", () => {
+    const actual = jest.requireActual("../components");
     const names = [
         "AcceptTerms", "AdminMain", "AdminMembership", "AdminMemberships", "AdminNotifications",
         "AdminOrgUser", "AdminOrgUsers", "AdminUploads", "AuditEvents", "BlockedDates",
@@ -45,19 +46,17 @@ jest.mock("../components", () => {
         "Pages", "Password", "PastDiveEvents", "Payments", "PortalConfigurations", "Register",
         "Registration", "SetDives", "ShowDiveEvent", "ShowUser", "UserProfile", "YearlyDiveStats"
     ];
-    return Object.fromEntries(names.map(name => [
+    return {
+        ...actual,
+        ...Object.fromEntries(names.map(name => [
         name,
         ({registration}: { registration?: boolean }) =>
                 <div data-testid={name}>{registration === false ? "terms" : name}</div>
-    ]));
+        ])),
+        AdminTags: () => <div data-testid="AdminTags"/>,
+        AdminTagGroups: () => <div data-testid="AdminTagGroups"/>
+    };
 });
-
-jest.mock("../components/Administration/AdminTags", () => ({
-    AdminTags: () => <div data-testid="AdminTags"/>
-}));
-jest.mock("../components/Administration/AdminTagGroups", () => ({
-    AdminTagGroups: () => <div data-testid="AdminTagGroups"/>
-}));
 jest.mock("../components/Blogging", () => ({
     Blog: () => <div data-testid="Blog"/>
 }));

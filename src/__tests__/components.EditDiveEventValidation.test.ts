@@ -1,10 +1,5 @@
 import dayjs from "dayjs";
-import {
-    buildParticipantOptions,
-    exceedsMaxParticipants,
-    hasValidPaymentForEvent,
-    isMaxParticipantsTooLow
-} from "../components/DiveEvent/editDiveEventValidation";
+import {buildParticipantOptions, exceedsMaxParticipants, hasValidPaymentForEvent, isMaxParticipantsTooLow} from "../components";
 import type {ListUserResponse} from "../models";
 import {PaymentTypeEnum, UserTypeEnum} from "../models";
 
@@ -284,5 +279,4 @@ describe("buildParticipantOptions", () => {
         expect(buildParticipantOptions([], eventId, false, false)).toHaveLength(0);
     });
 });
-
 

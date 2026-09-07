@@ -1,4 +1,4 @@
-import {transformDatesInObject, serializeDayjsInObject} from "../services/dateTransformer";
+import {serializeDayjsInObject, transformDatesInObject} from "../services";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";

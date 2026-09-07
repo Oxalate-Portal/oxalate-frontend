@@ -1,5 +1,5 @@
+import type {CkLoader} from '../services';
 import {CKUploadAdapter} from '../services';
-import type {CkLoader} from '../services/CKUploadAdapter';
 
 describe('CKUploadAdapter', () => {
     let adapter: CKUploadAdapter;

@@ -15,7 +15,6 @@ import {
 import {EditDiveEvent} from "../components";
 
 
-
 type MessageListener = (event: { data: unknown }) => void;
 
 class MockMessagePort {
