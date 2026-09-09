@@ -58,7 +58,7 @@
   instances.
 - **API Serialization**: When sending requests, Dayjs objects are automatically serialized to ISO-8601 strings before transmission.
 - **Date Field Recognition**: The following field names are automatically transformed by the API layer: `createdAt`, `updatedAt`, `modifiedAt`, `deletedAt`,
-  `startTime`, `endTime`, `startDate`, `endDate`, `blockedDate`, `certificationDate`, `eventDateTime`, `lastSeen`, `created`, `modified`.
+  `startTime`, `endTime`, `startDate`, `endDate`, `blockedDate`, `certificationDate`, `eventDateTime`, `joinedAt`, `lastSeen`, `created`, `modified`.
 - **Immutability**: Date transformations preserve object immutability; responses are never mutated in place.
 - **Testing**: Tests verify immutability and timezone correctness of date transformations (see `src/__tests__/services.dateTransformer.test.ts`).
 - **Global Timezone Context**: The timezone is set globally in `src/services/timezoneContext.ts` during app initialization in `SessionProvider`. This context is

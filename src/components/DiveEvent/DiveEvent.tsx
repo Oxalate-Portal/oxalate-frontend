@@ -1,10 +1,11 @@
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
-import {diveEventAPI, membershipAPI, paymentAPI} from "../../services";
+import {diveEventAPI, diveGroupAPI, membershipAPI, paymentAPI} from "../../services";
 import {
     type DiveEventResponse,
+    type DiveGroupResponse,
     type EventSubscribeRequest,
     type MembershipResponse,
     MembershipStatusEnum,
@@ -13,10 +14,14 @@ import {
     type PaymentStatusResponse,
     PaymentTypeEnum,
     PortalConfigGroupEnum,
+    RoleEnum,
     type UserSessionToken,
     UserTypeEnum
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
+import {DiveGroupFormModal} from "./DiveGroupFormModal";
+import {DiveGroupTable, findDiveGroupOwnedByUser} from "./DiveGroupTable";
+import {checkRoles} from "../../tools";
 import dayjs from "dayjs";
 import {Alert, Button, Divider, Modal, Select, Space, Spin} from "antd";
 import {CommentCanvas} from "../Commenting";
@@ -49,6 +54,10 @@ export function DiveEvent() {
     // Add modal state + selected user type
     const [selectUserTypeOpen, setSelectUserTypeOpen] = useState(false);
     const [selectedUserType, setSelectedUserType] = useState<UserTypeEnum>(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
+    // Dive group state
+    const [diveGroups, setDiveGroups] = useState<DiveGroupResponse[]>([]);
+    const [diveGroupsLoading, setDiveGroupsLoading] = useState<boolean>(false);
+    const [diveGroupModalOpen, setDiveGroupModalOpen] = useState<boolean>(false);
 
     useEffect(() => {
         if (paramId?.length === 0) {
@@ -270,6 +279,68 @@ export function DiveEvent() {
                 });
     }
 
+    const loadDiveGroups = useCallback(async (eventId: number): Promise<void> => {
+        setDiveGroupsLoading(true);
+
+        try {
+            const groups = await diveGroupAPI.getDiveGroupsByEventId(eventId);
+            setDiveGroups(Array.isArray(groups) ? groups : []);
+        } catch (error) {
+            console.error("Error:", error);
+            setDiveGroups([]);
+        } finally {
+            setDiveGroupsLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (diveEventId > 0 && (userSession?.id ?? 0) > 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            loadDiveGroups(diveEventId);
+        }
+    }, [diveEventId, userSession?.id, loadDiveGroups]);
+
+    async function joinDiveGroup(diveGroupId: number): Promise<void> {
+        try {
+            await diveGroupAPI.joinDiveGroup(diveGroupId);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+
+        await loadDiveGroups(diveEventId);
+    }
+
+    async function leaveDiveGroup(diveGroupId: number): Promise<void> {
+        try {
+            await diveGroupAPI.leaveDiveGroup(diveGroupId);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+
+        await loadDiveGroups(diveEventId);
+    }
+
+    async function deleteDiveGroup(diveGroupId: number): Promise<void> {
+        try {
+            await diveGroupAPI.deleteDiveGroup(diveGroupId);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+
+        await loadDiveGroups(diveEventId);
+    }
+
+    function onDiveGroupCreated(): void {
+        setDiveGroupModalOpen(false);
+        loadDiveGroups(diveEventId);
+    }
+
+    const currentUserId = userSession?.id ?? 0;
+    const ownsDiveGroup = findDiveGroupOwnedByUser(diveGroups, currentUserId) !== null;
+    const canAssignDiveGroupOwner = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]);
+    const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
+    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !ownsDiveGroup;
+
     return (
             <div className={"darkDiv"}>
                 <Spin spinning={loading}>
@@ -293,46 +364,68 @@ export function DiveEvent() {
                                     )}
                                 </Space>
                         )}
-                        {!subscribing && isInWaitingList && canUnsubscribe &&
-                                <Button
-                                        type={"primary"}
-                                        style={{background: "#ff4d4f", borderColor: "#ff4d4f"}}
-                                        onClick={() => leaveWaitingList(diveEventId)}
-                                        key={diveEventId + "-leave-wl-button"}>
-                                    {t("DiveEvent.waitingList.leaveButton")}
-                                </Button>
-                        }
-                        {!subscribing && !isInWaitingList && canSubscribe && isEventFull &&
-                                <Button
-                                        type={"primary"}
-                                        style={{background: "#faad14", borderColor: "#faad14"}}
-                                        onClick={() => joinWaitingList(diveEventId)}
-                                        key={diveEventId + "-join-wl-button"}>
-                                    {t("DiveEvent.waitingList.joinButton")}
-                                </Button>
-                        }
-                        {!subscribing && !isInWaitingList && canSubscribe && !isEventFull &&
-                                <Button
-                                        type={"primary"}
-                                        style={{background: "#52c41a", borderColor: "#52c41a"}}
-                                        onClick={() => {
-                                            setSelectedUserType(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
-                                            setSelectUserTypeOpen(true);
-                                        }}
-                                        key={diveEventId + "-sub-button"}>
-                                    {t("DiveEvent.subscribe.button")}
-                                </Button>
-                        }
-                        {subscribing && canUnsubscribe &&
-                                <Button
-                                        type={"primary"}
-                                        onClick={() => unSubscribeEvent(diveEventId)}
-                                        key={diveEventId + "unsub-button"}>{t("DiveEvent.unsubscribe.button")}</Button>
+                        <Space key={"diveEventButtonRow"}>
+                            {!subscribing && isInWaitingList && canUnsubscribe &&
+                                    <Button
+                                            type={"primary"}
+                                            style={{background: "#ff4d4f", borderColor: "#ff4d4f"}}
+                                            onClick={() => leaveWaitingList(diveEventId)}
+                                            key={diveEventId + "-leave-wl-button"}>
+                                        {t("DiveEvent.waitingList.leaveButton")}
+                                    </Button>
+                            }
+                            {!subscribing && !isInWaitingList && canSubscribe && isEventFull &&
+                                    <Button
+                                            type={"primary"}
+                                            style={{background: "#faad14", borderColor: "#faad14"}}
+                                            onClick={() => joinWaitingList(diveEventId)}
+                                            key={diveEventId + "-join-wl-button"}>
+                                        {t("DiveEvent.waitingList.joinButton")}
+                                    </Button>
+                            }
+                            {!subscribing && !isInWaitingList && canSubscribe && !isEventFull &&
+                                    <Button
+                                            type={"primary"}
+                                            style={{background: "#52c41a", borderColor: "#52c41a"}}
+                                            onClick={() => {
+                                                setSelectedUserType(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
+                                                setSelectUserTypeOpen(true);
+                                            }}
+                                            key={diveEventId + "-sub-button"}>
+                                        {t("DiveEvent.subscribe.button")}
+                                    </Button>
+                            }
+                            {subscribing && canUnsubscribe &&
+                                    <Button
+                                            type={"primary"}
+                                            onClick={() => unSubscribeEvent(diveEventId)}
+                                            key={diveEventId + "unsub-button"}>{t("DiveEvent.unsubscribe.button")}</Button>
+                            }
+                            {canCreateDiveGroup &&
+                                    <Button
+                                            onClick={() => setDiveGroupModalOpen(true)}
+                                            key={diveEventId + "-create-dive-group-button"}>
+                                        {t("DiveEvent.diveGroup.createButton")}
+                                    </Button>
+                            }
+                        </Space>
+
+                        {userSession && diveGroups.length > 0 &&
+                                <DiveGroupTable
+                                        diveGroups={diveGroups}
+                                        loading={diveGroupsLoading}
+                                        currentUserId={currentUserId}
+                                        canJoinDiveGroup={hasJoinedEvent}
+                                        onJoin={joinDiveGroup}
+                                        onLeave={leaveDiveGroup}
+                                        onDelete={deleteDiveGroup}
+                                        key={diveEventId + "-dive-group-table"}/>
                         }
 
                         {diveEvent && (diveEventId > 0) && eventCommenting &&
                                 <>
-                                    <Divider titlePlacement={"left"} orientation={"horizontal"} key={"diveEventCommentDivider"}>Comments</Divider>
+                                    <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                             key={"diveEventCommentDivider"}>{t("DiveEvent.comments")}</Divider>
                                     {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
                                     <CommentCanvas commentId={diveEvent.eventCommentId}
                                                    allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())}/>
@@ -372,6 +465,15 @@ export function DiveEvent() {
                         onConfirm={() => setShowHealthStatementModal(false)}
                         onCancel={() => setShowHealthStatementModal(false)}
                         registration={false}
+                />
+
+                <DiveGroupFormModal
+                        open={diveGroupModalOpen}
+                        eventId={diveEventId}
+                        participants={diveEvent?.participants ?? []}
+                        canAssignOwner={canAssignDiveGroupOwner}
+                        onCancel={() => setDiveGroupModalOpen(false)}
+                        onCreated={onDiveGroupCreated}
                 />
             </div>
     );

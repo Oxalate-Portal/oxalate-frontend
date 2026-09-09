@@ -61,7 +61,6 @@
   "AdminCertificateClassifications" : {
     "assignment" : {
       "certificateId" : "Certifikat-ID",
-      "classification" : "Certifikatklassificering",
       "certificateName" : "Certifikatnamn",
       "certificateName-placeholder" : "Sök och välj certifikatnamn",
       "classification" : "Klassificering",
@@ -83,12 +82,14 @@
     "load" : {
       "fail" : "Kunde inte läsa klassificeringar"
     },
-    "suggestions" : {
-      "fail" : "Kunde inte läsa förslag"
-    },
     "modal" : {
       "add" : "Lägg till klassificering",
       "edit" : "Redigera klassificering"
+    },
+    "order" : {
+      "save" : "Spara ordning",
+      "save-fail" : "Kunde inte spara ordningen",
+      "save-success" : "Ordning sparad"
     },
     "popup" : {
       "add-success" : "Klassificering skapad",
@@ -106,11 +107,14 @@
       "organization" : "Ersätt organisationer",
       "success" : "Värden ersatta"
     },
+    "suggestions" : {
+      "fail" : "Kunde inte läsa förslag"
+    },
     "table" : {
       "actions" : "Åtgärder",
       "description" : "Beskrivning",
-      "titles" : "Titlar",
-      "order" : "Ordning"
+      "order" : "Ordning",
+      "titles" : "Titlar"
     },
     "tabs" : {
       "assignment" : "Tilldela klassificering",
@@ -118,11 +122,6 @@
       "replacement" : "Ersätt värden"
     },
     "title" : "Hantera certifikatklassificeringar",
-    "order" : {
-      "save" : "Spara ordning",
-      "save-success" : "Ordning sparad",
-      "save-fail" : "Kunde inte spara ordningen"
-    },
     "validation" : {
       "required" : "Fältet är obligatoriskt"
     }
@@ -783,6 +782,51 @@
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Godkänn hälsodeklaration",
+    "comments" : "Kommentarer",
+    "diveGroup" : {
+      "createButton" : "Skapa dykgrupp",
+      "error" : {
+        "create" : "Det gick inte att skapa dykgruppen"
+      },
+      "form" : {
+        "name" : {
+          "label" : "Dykgruppens namn",
+          "placeholder" : "Till exempel Team Sidemount",
+          "rules" : {
+            "maxLength" : "Dykgruppens namn får vara högst 255 tecken långt",
+            "required" : "Dykgruppens namn är obligatoriskt"
+          },
+          "tooltip" : "Namnet som de övriga deltagarna i dykevenemanget känner igen din dykgrupp med"
+        },
+        "owner" : {
+          "label" : "Dykgruppens ägare",
+          "placeholder" : "Välj dykgruppens ägare",
+          "tooltip" : "Deltagaren som äger och hanterar dykgruppen. Om fältet lämnas tomt blir du själv ägare"
+        },
+        "submit" : "Skapa dykgrupp"
+      },
+      "members" : {
+        "empty" : "Dykgruppen har inga medlemmar",
+        "joinedAt" : "Anslöt sig",
+        "name" : "Namn",
+        "owner" : "Ägare",
+        "userType" : "Deltagandetyp"
+      },
+      "modal" : {
+        "title" : "Skapa en ny dykgrupp"
+      },
+      "table" : {
+        "action" : "Åtgärd",
+        "deleteButton" : "Radera dykgrupp",
+        "deleteConfirm" : "Är du säker på att du vill radera den här dykgruppen?",
+        "joinButton" : "Gå med i dykgruppen",
+        "leaveButton" : "Lämna dykgruppen",
+        "memberCount" : "Medlemmar",
+        "name" : "Dykgruppens namn",
+        "owner" : "Ägare",
+        "title" : "Dykgrupper"
+      }
+    },
     "requiresHealthStatement" : "För att delta i ett evenemang krävs att hälsodeklarationen är godkänd",
     "requiresMembership" : "För att delta i ett evenemang krävs medlemskap",
     "requiresPayment" : "För att delta i ett evenemang krävs betalning",
@@ -1140,6 +1184,7 @@
       "title" : "Skicka avisering till deltagare"
     },
     "participantTable" : {
+      "certificateClassification" : "Certifikatklassificering",
       "createdAt" : "Registrerad",
       "eventDiveCount" : "Antal dykningar",
       "name" : "Namn",
@@ -1148,8 +1193,7 @@
         "period" : "Periodisk betalning"
       },
       "payments" : "Betalningssituation",
-      "userType" : "Dyktyp",
-      "certificateClassification" : "Certifikatklassificering"
+      "userType" : "Dyktyp"
     },
     "participants" : {
       "title" : "Deltagare"
@@ -1841,8 +1885,8 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Certifikatnummer",
-      "classification" : "Certifikatklassificering",
       "certification" : "Dykcertifikat",
+      "classification" : "Certifikatklassificering",
       "date" : "Datum för dykcertifikat",
       "diverId" : "Dykarnummer",
       "organization" : "Certifieringsorganisation",
