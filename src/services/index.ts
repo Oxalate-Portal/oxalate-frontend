@@ -8,6 +8,7 @@ export {CKUploadAdapter} from './CKUploadAdapter';
 export type {CkLoader} from './CKUploadAdapter';
 export {commentAPI} from './CommentAPI';
 export {diveEventAPI} from './DiveEventAPI';
+export {diveGroupAPI} from './DiveGroupAPI';
 export {downloadAPI} from './DownloadAPI';
 export {emailNotificationSubscriptionAPI} from './EmailNotificationSubscriptionAPI';
 export {fileTransferAPI} from './FileTransferAPI';

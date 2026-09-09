@@ -82,12 +82,14 @@
     "load" : {
       "fail" : "Klassifikationen konnten nicht geladen werden"
     },
-    "suggestions" : {
-      "fail" : "Vorschläge konnten nicht geladen werden"
-    },
     "modal" : {
       "add" : "Klassifikation hinzufügen",
       "edit" : "Klassifikation bearbeiten"
+    },
+    "order" : {
+      "save" : "Reihenfolge speichern",
+      "save-fail" : "Reihenfolge konnte nicht gespeichert werden",
+      "save-success" : "Reihenfolge gespeichert"
     },
     "popup" : {
       "add-success" : "Klassifikation erstellt",
@@ -105,11 +107,14 @@
       "organization" : "Organisationen ersetzen",
       "success" : "Werte ersetzt"
     },
+    "suggestions" : {
+      "fail" : "Vorschläge konnten nicht geladen werden"
+    },
     "table" : {
       "actions" : "Aktionen",
       "description" : "Beschreibung",
-      "titles" : "Titel",
-      "order" : "Reihenfolge"
+      "order" : "Reihenfolge",
+      "titles" : "Titel"
     },
     "tabs" : {
       "assignment" : "Klassifikation zuweisen",
@@ -117,11 +122,6 @@
       "replacement" : "Werte ersetzen"
     },
     "title" : "Zertifikatsklassifikationen verwalten",
-    "order" : {
-      "save" : "Reihenfolge speichern",
-      "save-success" : "Reihenfolge gespeichert",
-      "save-fail" : "Reihenfolge konnte nicht gespeichert werden"
-    },
     "validation" : {
       "required" : "Dieses Feld ist erforderlich"
     }
@@ -782,6 +782,51 @@
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Gesundheitserklärung genehmigen",
+    "comments" : "Kommentare",
+    "diveGroup" : {
+      "createButton" : "Tauchgruppe erstellen",
+      "error" : {
+        "create" : "Das Erstellen der Tauchgruppe ist fehlgeschlagen"
+      },
+      "form" : {
+        "name" : {
+          "label" : "Name der Tauchgruppe",
+          "placeholder" : "Zum Beispiel Team Sidemount",
+          "rules" : {
+            "maxLength" : "Der Name der Tauchgruppe darf höchstens 255 Zeichen lang sein",
+            "required" : "Der Name der Tauchgruppe ist erforderlich"
+          },
+          "tooltip" : "Der Name, an dem die anderen Teilnehmer der Tauchveranstaltung deine Tauchgruppe erkennen"
+        },
+        "owner" : {
+          "label" : "Eigentümer der Tauchgruppe",
+          "placeholder" : "Eigentümer der Tauchgruppe auswählen",
+          "tooltip" : "Der Teilnehmer, dem die Tauchgruppe gehört und der sie verwaltet. Bleibt das Feld leer, wirst du selbst Eigentümer"
+        },
+        "submit" : "Tauchgruppe erstellen"
+      },
+      "members" : {
+        "empty" : "Die Tauchgruppe hat keine Mitglieder",
+        "joinedAt" : "Beigetreten am",
+        "name" : "Name",
+        "owner" : "Eigentümer",
+        "userType" : "Teilnahmeart"
+      },
+      "modal" : {
+        "title" : "Eine neue Tauchgruppe erstellen"
+      },
+      "table" : {
+        "action" : "Aktion",
+        "deleteButton" : "Tauchgruppe löschen",
+        "deleteConfirm" : "Möchtest du diese Tauchgruppe wirklich löschen?",
+        "joinButton" : "Tauchgruppe beitreten",
+        "leaveButton" : "Tauchgruppe verlassen",
+        "memberCount" : "Mitglieder",
+        "name" : "Name der Tauchgruppe",
+        "owner" : "Eigentümer",
+        "title" : "Tauchgruppen"
+      }
+    },
     "requiresHealthStatement" : "Für die Teilnahme an einer Veranstaltung muss die Gesundheitserklärung genehmigt werden",
     "requiresMembership" : "Für die Teilnahme an einer Veranstaltung ist eine Mitgliedschaft erforderlich",
     "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
@@ -1139,6 +1184,7 @@
       "title" : "Benachrichtigung an Teilnehmer senden"
     },
     "participantTable" : {
+      "certificateClassification" : "Zertifikatsklassifikation",
       "createdAt" : "Registriert am",
       "eventDiveCount" : "Tauchanzahl",
       "name" : "Name",
@@ -1147,8 +1193,7 @@
         "period" : "Periodische Zahlung"
       },
       "payments" : "Zahlungsstatus",
-      "userType" : "Tauchtyp",
-      "certificateClassification" : "Zertifikatsklassifikation"
+      "userType" : "Tauchtyp"
     },
     "participants" : {
       "title" : "Teilnehmer"
@@ -1840,8 +1885,8 @@
   "ShowCertificateCard" : {
     "card" : {
       "certificateId" : "Zertifikats-ID",
-      "classification" : "Zertifikatsklassifikation",
       "certification" : "Tauchzertifizierung",
+      "classification" : "Zertifikatsklassifikation",
       "date" : "Zertifizierungsdatum",
       "diverId" : "Taucher-ID",
       "organization" : "Zertifizierungsstelle",

@@ -7,6 +7,8 @@ export type {CertificateClassificationResponse} from "./CertificateClassificatio
 export type {DiveEventListItemResponse} from "./DiveEventListItemResponse";
 export type {DiveEventListResponse} from "./DiveEventListResponse";
 export type {DiveEventResponse} from "./DiveEventResponse";
+export type {DiveGroupMemberResponse} from "./DiveGroupMemberResponse";
+export type {DiveGroupResponse} from "./DiveGroupResponse";
 export type {ListUserResponse} from "./ListUserResponse";
 export type {EmailNotificationSubscriptionResponse} from "./EmailNotificationSubscriptionResponse";
 export type {FrontendConfigurationResponse} from "./FrontendConfigurationResponse";

@@ -10,6 +10,7 @@ const mockSubscribe = jest.fn();
 const mockUnsubscribe = jest.fn();
 const mockFindMembershipByUserId = jest.fn();
 const mockFindPaymentByUserId = jest.fn();
+const mockGetDiveGroupsByEventId = jest.fn();
 const mockGetPortalConfigurationValue = jest.fn();
 
 const baseEvent = {
@@ -58,6 +59,9 @@ jest.mock("../services", () => ({
     },
     paymentAPI: {
         findByUserId: (...args: unknown[]) => mockFindPaymentByUserId(...args)
+    },
+    diveGroupAPI: {
+        getDiveGroupsByEventId: (...args: unknown[]) => mockGetDiveGroupsByEventId(...args)
     }
 }));
 
@@ -96,12 +100,19 @@ jest.mock("antd", () => {
     const SelectMock = ({children}: { children: ReactNode }) => <div>{children}</div>;
     SelectMock.Option = ({children}: { children: ReactNode }) => <div>{children}</div>;
 
+    const FormMock = ({children}: { children: ReactNode }) => <form>{children}</form>;
+    FormMock.Item = ({children}: { children: ReactNode }) => <div>{children}</div>;
+    FormMock.useForm = () => [{resetFields: jest.fn(), setFieldsValue: jest.fn(), getFieldValue: jest.fn()}];
+
     return {
         message: {useMessage: () => [{success: jest.fn(), error: jest.fn()}, <span key="message-holder"/>]},
         Alert: ({title}: { title: string }) => <div>{title}</div>,
         Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
         Divider: ({children}: { children: ReactNode }) => <div>{children}</div>,
+        Form: FormMock,
+        Input: (props: Record<string, unknown>) => <input {...props}/>,
         Modal: ({open, children}: { open: boolean; children: ReactNode }) => open ? <div>{children}</div> : null,
+        Popconfirm: ({children}: { children: ReactNode }) => <div>{children}</div>,
         Select: SelectMock,
         Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
         Spin: ({children}: { children: ReactNode }) => <div>{children}</div>,
@@ -129,6 +140,7 @@ describe("DiveEvent waiting list button", () => {
 
         mockFindMembershipByUserId.mockResolvedValue([]);
         mockFindPaymentByUserId.mockResolvedValue({payments: []});
+        mockGetDiveGroupsByEventId.mockResolvedValue([]);
 
         mockJoinWaitingList.mockResolvedValue({...baseEvent, waitingList: [{id: 1}]});
         mockLeaveWaitingList.mockResolvedValue({...baseEvent, waitingList: []});

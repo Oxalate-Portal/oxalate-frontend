@@ -3,6 +3,8 @@ export {DiveEventDetails} from './DiveEventDetails';
 export {DiveEventFiles} from './DiveEventFiles';
 export {DiveEvents} from './DiveEvents';
 export {DiveEventsTable} from './DiveEventsTable';
+export {DiveGroupFormModal} from './DiveGroupFormModal';
+export {DiveGroupTable, findDiveGroupOfUser, findDiveGroupOwnedByUser, isMemberOfDiveGroup} from './DiveGroupTable';
 export {EditDiveEvent} from './EditDiveEvent';
 export {PastDiveEvents} from './PastDiveEvents';
 export {SetDives} from './SetDives';

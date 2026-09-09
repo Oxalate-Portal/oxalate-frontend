@@ -17,6 +17,7 @@ const DATE_FIELD_PATTERNS = [
     "blockedDate",
     "certificationDate",
     "eventDateTime",
+    "joinedAt",
     "lastSeen",
     "created",
     "modified",
