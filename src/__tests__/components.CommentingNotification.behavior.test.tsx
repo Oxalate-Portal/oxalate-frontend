@@ -15,6 +15,7 @@ import {
 import {UpdateStatusEnum} from "../models";
 
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     commentAPI: {
         findAllForParentId: jest.fn(), create: jest.fn(), report: jest.fn(),
         cancelReport: jest.fn(), rejectComment: jest.fn(), rejectReports: jest.fn(),

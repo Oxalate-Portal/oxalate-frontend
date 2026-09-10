@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from "react";
-import {Badge, Button, Dropdown, Empty, List, Modal, Space, Typography} from "antd";
+import {Badge, Button, Dropdown, Empty, Listy, Modal, Space, Spin, Typography} from "antd";
 import {BellOutlined, LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
@@ -95,34 +95,31 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                                 style={{padding: 24}}
                         />
                 ) : (
-                        <List
-                                loading={loading}
-                                dataSource={notifications}
-                                renderItem={(notification, index) => (
-                                        <List.Item
-                                                key={notification.id}
-                                                onClick={() => handleNotificationClick(notification, index)}
-                                                style={{
-                                                    cursor: "pointer",
-                                                    padding: "12px 16px",
-                                                    borderBottom: "1px solid #303030"
-                                                }}
-                                                className="notification-item"
-                                        >
-                                            <List.Item.Meta
-                                                    title={<Typography.Text strong>{notification.title}</Typography.Text>}
-                                                    description={
-                                                        <Space orientation={"vertical"} size={0}>
-                                                            <Typography.Text type="secondary">{truncateMessage(notification.message)}</Typography.Text>
-                                                            <Typography.Text type="secondary" style={{fontSize: 12}}>
-                                                                {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                            </Typography.Text>
-                                                        </Space>
-                                                    }
-                                            />
-                                        </List.Item>
-                                )}
-                        />
+                        <Spin spinning={loading}>
+                            <Listy
+                                    items={notifications}
+                                    rowKey={(notification) => notification.id}
+                                    itemRender={(notification, index) => (
+                                            <div
+                                                    onClick={() => handleNotificationClick(notification, index)}
+                                                    style={{
+                                                        cursor: "pointer",
+                                                        padding: "12px 16px",
+                                                        borderBottom: "1px solid #303030"
+                                                    }}
+                                                    className="notification-item"
+                                            >
+                                                <Typography.Text strong>{notification.title}</Typography.Text>
+                                                <Space orientation={"vertical"} size={0}>
+                                                    <Typography.Text type="secondary">{truncateMessage(notification.message)}</Typography.Text>
+                                                    <Typography.Text type="secondary" style={{fontSize: 12}}>
+                                                        {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
+                                                    </Typography.Text>
+                                                </Space>
+                                            </div>
+                                    )}
+                            />
+                        </Spin>
                 )}
                 <div style={{padding: "8px 16px", borderTop: "1px solid #303030", textAlign: "center"}}>
                     <NavLink to="/notifications" onClick={() => setDropdownOpen(false)}>

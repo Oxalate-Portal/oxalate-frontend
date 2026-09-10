@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {List, Pagination, Space, Spin, Tag, Typography} from "antd";
+import {Empty, Listy, Pagination, Space, Spin, Tag, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 import {useLocation} from "react-router-dom";
 import type {MessageResponse} from "../../models";
@@ -59,43 +59,38 @@ export function NotificationList() {
                     <Typography.Title level={2}>{t("NotificationList.title")}</Typography.Title>
 
                     <Spin spinning={loading}>
-                        <List
-                                dataSource={paginatedNotifications}
-                                locale={{emptyText: t("NotificationList.noNotifications")}}
-                                renderItem={(notification) => (
-                                        <List.Item
-                                                key={notification.id}
-                                                onClick={() => handleMarkAsRead(notification)}
-                                                style={{
-                                                    cursor: notification.read ? "default" : "pointer",
-                                                    backgroundColor: notification.read ? "transparent" : "rgba(80, 176, 255, 0.1)",
-                                                    padding: "16px",
-                                                    marginBottom: "8px",
-                                                    borderRadius: "8px",
-                                                    border: "1px solid #303030"
-                                                }}
-                                        >
-                                            <List.Item.Meta
-                                                    title={
-                                                        <Space>
-                                                            <Typography.Text strong={!notification.read}>{notification.title}</Typography.Text>
-                                                            {!notification.read && (
-                                                                    <Tag color="blue">{t("NotificationList.unread")}</Tag>
-                                                            )}
-                                                        </Space>
-                                                    }
-                                                    description={
-                                                        <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                                                            <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
-                                                            <Typography.Text type="secondary" style={{fontSize: 12}}>
-                                                                {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                            </Typography.Text>
-                                                        </Space>
-                                                    }
-                                            />
-                                        </List.Item>
-                                )}
-                        />
+                        {paginatedNotifications.length === 0 ? (
+                                <Empty description={t("NotificationList.noNotifications")}/>
+                        ) : (
+                                <Listy
+                                        items={paginatedNotifications}
+                                        rowKey={(notification) => notification.id}
+                                        itemRender={(notification) => (
+                                                <div
+                                                        onClick={() => handleMarkAsRead(notification)}
+                                                        style={{
+                                                            cursor: notification.read ? "default" : "pointer",
+                                                            backgroundColor: notification.read ? "transparent" : "rgba(80, 176, 255, 0.1)",
+                                                            padding: "16px",
+                                                            marginBottom: "8px",
+                                                            borderRadius: "8px",
+                                                            border: "1px solid #303030"
+                                                        }}
+                                                >
+                                                    <Space>
+                                                        <Typography.Text strong={!notification.read}>{notification.title}</Typography.Text>
+                                                        {!notification.read && <Tag color="blue">{t("NotificationList.unread")}</Tag>}
+                                                    </Space>
+                                                    <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
+                                                        <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
+                                                        <Typography.Text type="secondary" style={{fontSize: 12}}>
+                                                            {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
+                                                        </Typography.Text>
+                                                    </Space>
+                                                </div>
+                                        )}
+                                />
+                        )}
 
                         {notifications.length > PAGE_SIZE && (
                                 <div style={{textAlign: "center", marginTop: 16}}>

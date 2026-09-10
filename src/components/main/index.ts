@@ -1,4 +1,5 @@
 export {AcceptTerms} from "./AcceptTerms";
+export {ErrorBoundary} from "./ErrorBoundary";
 export {HealthStatementConfirmationModal} from "./HealthStatementConfirmationModal";
 export {HealthStatementConfirmation} from "./HealthStatementConfirmation";
 export {Home} from "./Home";

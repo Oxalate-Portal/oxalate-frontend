@@ -31,11 +31,9 @@ class AuthAPI {
             const session: UserSessionToken = response.data;
             localStorage.setItem(this.userKey, JSON.stringify(session));
         } else {
-            if (response.status !== 200) {
-                console.error("The response status was " + response.status + ": " + JSON.stringify(response));
-            } else {
-                console.error("The response did not contain data.token: " + JSON.stringify(response));
-            }
+            // OWASP A09:2025 - never log the response body, it carries the user id, roles and other PII into
+            // the browser console and into any console-capturing telemetry.
+            console.error("Login did not produce a usable session, status: " + response.status);
         }
         return response.data;
     }

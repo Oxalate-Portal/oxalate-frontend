@@ -45,6 +45,7 @@ jest.mock("react-router-dom", () => ({
     useParams: () => ({paramId: "1"})
 }));
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     blockedDatesAPI: service("blockedDatesAPI", ["findAll", "create", "delete"]),
     commentAPI: service("commentAPI", ["getPendingReports"]),
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),

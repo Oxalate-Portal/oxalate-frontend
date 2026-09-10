@@ -24,6 +24,7 @@ jest.mock("../session", () => ({
 }));
 
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     fileTransferAPI: {
         findAllDocuments: jest.fn(),
         findAllDiveFiles: jest.fn(),

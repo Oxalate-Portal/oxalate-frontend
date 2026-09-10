@@ -48,6 +48,7 @@ jest.mock("../session", () => ({
     useSession: () => sessionHook
 }));
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     authAPI: {recoverLostPassword: jest.fn(), resetPassword: jest.fn(), updatePassword: jest.fn()},
     adminUserAPI: {findById: jest.fn(), update: jest.fn()},
     diveEventAPI: {findAllDiveEventListItemsByUser: jest.fn()},

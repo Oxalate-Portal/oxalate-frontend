@@ -5,8 +5,7 @@ import {type DiveFileResponse, PortalConfigGroupEnum, RoleEnum} from "../../mode
 import {fileTransferAPI} from "../../services";
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
-import {checkRoles} from "../../tools";
-import {FileUploadValidationError, validateUploadFile} from "../../tools/FileUploadValidation";
+import {checkRoles, FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useSession} from "../../session";
 
 interface DiveEventFilesProps {

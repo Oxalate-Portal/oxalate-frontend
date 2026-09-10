@@ -12,6 +12,7 @@ jest.mock("../services", () => ({
 
 jest.mock("../session", () => ({
     useSession: () => ({
+        userSession: {id: 10},
         getPortalTimezone: () => "Europe/Helsinki"
     })
 }));
@@ -224,11 +225,12 @@ describe("DiveGroupFormModal", () => {
         jest.clearAllMocks();
     });
 
-    function renderModal(open: boolean, canAssignOwner: boolean) {
+    function renderModal(open: boolean, canAssignOwner: boolean, diveGroups: DiveGroupResponse[] = []) {
         return render(<DiveGroupFormModal
                 open={open}
                 eventId={42}
                 participants={participants}
+                diveGroups={diveGroups}
                 canAssignOwner={canAssignOwner}
                 onCancel={onCancel}
                 onCreated={onCreated}/>);
@@ -240,18 +242,39 @@ describe("DiveGroupFormModal", () => {
         expect(screen.queryByText("DiveEvent.diveGroup.modal.title")).toBeNull();
     });
 
-    it("renders the name field without the owner field for a regular user", () => {
+    it("renders a disabled owner field for a regular user", () => {
         renderModal(true, false);
 
         expect(screen.getByText("DiveEvent.diveGroup.modal.title")).toBeInTheDocument();
         expect(screen.getByText("DiveEvent.diveGroup.form.name.label")).toBeInTheDocument();
-        expect(screen.queryByText("DiveEvent.diveGroup.form.owner.label")).toBeNull();
+        expect(screen.getByText("DiveEvent.diveGroup.form.owner.label")).toBeInTheDocument();
+        expect(screen.getByRole("combobox")).toBeDisabled();
     });
 
     it("renders the owner field for organizers and administrators", () => {
         renderModal(true, true);
 
         expect(screen.getByText("DiveEvent.diveGroup.form.owner.label")).toBeInTheDocument();
+    });
+
+    it("only offers participants who are not already in a dive group", async () => {
+        renderModal(true, true, [diveGroup()]);
+
+        fireEvent.mouseDown(screen.getByRole("combobox"));
+
+        await waitFor(() => expect(screen.getByText("Diver Twenty")).toBeInTheDocument());
+        expect(screen.queryByText("Owner Ten")).toBeNull();
+    });
+
+    it("defaults the owner to the current user", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup());
+
+        renderModal(true, true);
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 10}));
     });
 
     it("validates that the name is required", async () => {
@@ -293,7 +316,7 @@ describe("DiveGroupFormModal", () => {
 
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
 
-        fireEvent.mouseDown(screen.getByText("DiveEvent.diveGroup.form.owner.placeholder"));
+        fireEvent.mouseDown(screen.getByRole("combobox"));
         await waitFor(() => expect(screen.getByText("Diver Twenty")).toBeInTheDocument());
         fireEvent.click(screen.getByText("Diver Twenty"));
 

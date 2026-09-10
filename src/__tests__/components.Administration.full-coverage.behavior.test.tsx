@@ -1,4 +1,4 @@
-import React, {type ReactNode} from "react";
+import {type ReactNode} from "react";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import dayjs from "dayjs";
 import {
@@ -49,6 +49,7 @@ jest.mock("react-router-dom", () => ({
     useParams: () => ({paramId: routeParam})
 }));
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     blockedDatesAPI: service("blockedDatesAPI", ["findAll", "create", "delete"]),
     commentAPI: service("commentAPI", ["getPendingReports"]),
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),

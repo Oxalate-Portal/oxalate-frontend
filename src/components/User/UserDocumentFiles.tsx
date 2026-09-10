@@ -3,7 +3,7 @@ import {Button, message, Space, Table, Typography, Upload, type UploadProps} fro
 import {UploadOutlined} from "@ant-design/icons";
 import {fileTransferAPI} from "../../services";
 import {type DocumentFileResponse, PortalConfigGroupEnum} from "../../models";
-import {FileUploadValidationError, validateUploadFile} from "../../tools/FileUploadValidation";
+import {FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";

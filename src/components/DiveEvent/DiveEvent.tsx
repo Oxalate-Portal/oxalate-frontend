@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {diveEventAPI, diveGroupAPI, membershipAPI, paymentAPI} from "../../services";
@@ -20,7 +20,7 @@ import {
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import {DiveGroupFormModal} from "./DiveGroupFormModal";
-import {DiveGroupTable, findDiveGroupOwnedByUser} from "./DiveGroupTable";
+import {DiveGroupTable, findDiveGroupOfUser, findDiveGroupOwnedByUser} from "./DiveGroupTable";
 import {checkRoles} from "../../tools";
 import dayjs from "dayjs";
 import {Alert, Button, Divider, Modal, Select, Space, Spin} from "antd";
@@ -32,6 +32,24 @@ interface ParticipationCheckResult {
     missingMembership: boolean;
     missingPayment: boolean;
     missingHealthStatement: boolean;
+}
+
+async function loadDiveGroups(
+        eventId: number,
+        setDiveGroupsLoading: (loading: boolean) => void,
+        setDiveGroups: (groups: DiveGroupResponse[]) => void
+): Promise<void> {
+    setDiveGroupsLoading(true);
+
+    try {
+        const groups = await diveGroupAPI.getDiveGroupsByEventId(eventId);
+        setDiveGroups(Array.isArray(groups) ? groups : []);
+    } catch (error) {
+        console.error("Error:", error);
+        setDiveGroups([]);
+    } finally {
+        setDiveGroupsLoading(false);
+    }
 }
 
 export function DiveEvent() {
@@ -245,16 +263,15 @@ export function DiveEvent() {
                 });
     }
 
-    function unSubscribeEvent(diveEventId: number) {
-        diveEventAPI.unsubscribeUserToEvent(diveEventId)
-                .then(response => {
-                    setDiveEvent(response);
-                    setSubscribing(false);
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-
-                });
+    async function unSubscribeEvent(diveEventId: number): Promise<void> {
+        try {
+            const response = await diveEventAPI.unsubscribeUserToEvent(diveEventId);
+            setDiveEvent(response);
+            setSubscribing(false);
+            await loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
 
     function joinWaitingList(diveEventId: number) {
@@ -279,26 +296,11 @@ export function DiveEvent() {
                 });
     }
 
-    const loadDiveGroups = useCallback(async (eventId: number): Promise<void> => {
-        setDiveGroupsLoading(true);
-
-        try {
-            const groups = await diveGroupAPI.getDiveGroupsByEventId(eventId);
-            setDiveGroups(Array.isArray(groups) ? groups : []);
-        } catch (error) {
-            console.error("Error:", error);
-            setDiveGroups([]);
-        } finally {
-            setDiveGroupsLoading(false);
-        }
-    }, []);
-
     useEffect(() => {
         if (diveEventId > 0 && (userSession?.id ?? 0) > 0) {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            loadDiveGroups(diveEventId);
+            loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
         }
-    }, [diveEventId, userSession?.id, loadDiveGroups]);
+    }, [diveEventId, userSession?.id]);
 
     async function joinDiveGroup(diveGroupId: number): Promise<void> {
         try {
@@ -307,7 +309,7 @@ export function DiveEvent() {
             console.error("Error:", error);
         }
 
-        await loadDiveGroups(diveEventId);
+        await loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
     }
 
     async function leaveDiveGroup(diveGroupId: number): Promise<void> {
@@ -317,7 +319,7 @@ export function DiveEvent() {
             console.error("Error:", error);
         }
 
-        await loadDiveGroups(diveEventId);
+        await loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
     }
 
     async function deleteDiveGroup(diveGroupId: number): Promise<void> {
@@ -327,19 +329,20 @@ export function DiveEvent() {
             console.error("Error:", error);
         }
 
-        await loadDiveGroups(diveEventId);
+        await loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
     }
 
     function onDiveGroupCreated(): void {
         setDiveGroupModalOpen(false);
-        loadDiveGroups(diveEventId);
+        loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
     }
 
     const currentUserId = userSession?.id ?? 0;
     const ownsDiveGroup = findDiveGroupOwnedByUser(diveGroups, currentUserId) !== null;
+    const belongsToDiveGroup = findDiveGroupOfUser(diveGroups, currentUserId) !== null;
     const canAssignDiveGroupOwner = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]);
     const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
-    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !ownsDiveGroup;
+    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !belongsToDiveGroup && !ownsDiveGroup;
 
     return (
             <div className={"darkDiv"}>
@@ -471,6 +474,7 @@ export function DiveEvent() {
                         open={diveGroupModalOpen}
                         eventId={diveEventId}
                         participants={diveEvent?.participants ?? []}
+                        diveGroups={diveGroups}
                         canAssignOwner={canAssignDiveGroupOwner}
                         onCancel={() => setDiveGroupModalOpen(false)}
                         onCreated={onDiveGroupCreated}

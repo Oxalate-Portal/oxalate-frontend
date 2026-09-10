@@ -49,11 +49,16 @@ jest.mock("react-router-dom", () => ({
     useNavigate: () => jest.fn()
 }));
 jest.mock("../tools", () => ({
+    FileUploadValidationError: {INVALID_TYPE: "INVALID_TYPE", FILE_TOO_LARGE: "FILE_TOO_LARGE"},
     checkRoles: () => session.organizer,
     diveTypeEnum2Tag: (v: string) => <span>{v}</span>,
     diveEventStatusEnum2Tag: (v: string) => <span>{v}</span>,
     userTypeEnum2Tag: (v: string) => <span>{v}</span>,
     paymentTypeEnum2Tag: (v: string) => <span>{v}</span>,
+    validateUploadFile: (file: Pick<File, "name" | "size" | "type">) =>
+            file.type === "application/pdf" || file.name.endsWith(".pdf")
+                    ? {valid: true}
+                    : {valid: false, error: "INVALID_TYPE"},
     localToUTCDatetime: (v: unknown) => v,
     getApiBaseUrl: () => "http://api"
 }));
