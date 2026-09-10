@@ -3,10 +3,10 @@ import {UploadOutlined, UserOutlined} from "@ant-design/icons";
 import {ProtectedImage} from "../main";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {FileUploadValidationError, validateUploadFile} from "../../tools/FileUploadValidation";
+import {FileUploadValidationError, validateUploadFile} from "../../tools";
 import {getAvatarUploadOutcome, type UploadAvatarResponse} from "../../tools/avatarUploadResponse";
 import {useSession} from "../../session";
-import {getApiBaseUrl} from "../../services/getApiBaseUrl";
+import {getApiBaseUrl} from "../../services";
 
 interface UserAvatarManagerProps {
     userId: number;

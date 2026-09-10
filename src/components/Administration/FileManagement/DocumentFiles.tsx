@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react";
 import {UploadOutlined} from "@ant-design/icons";
 import {Button, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
-import {fileTransferAPI} from "../../../services";
+import {fileTransferAPI, getApiBaseUrl} from "../../../services";
 import {type DocumentFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from "../../../models";
 import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
-import {getApiBaseUrl} from "../../../services/getApiBaseUrl";
 
 export function DocumentFiles() {
     const [loading, setLoading] = useState<boolean>(true);

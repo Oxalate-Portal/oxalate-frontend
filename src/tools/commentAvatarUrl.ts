@@ -1,4 +1,4 @@
-import {getApiBaseUrl} from "../services/getApiBaseUrl";
+import {getApiBaseUrl} from "../services";
 
 export function resolveCommentAvatarUrl(avatarUrl?: string | null, apiBaseUrl = getApiBaseUrl()): string | null {
     if (!avatarUrl) {

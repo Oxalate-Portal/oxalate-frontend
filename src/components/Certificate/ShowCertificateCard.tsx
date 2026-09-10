@@ -4,8 +4,7 @@ import {Button, Card, Col, message, Row, Space, Spin, Tooltip, Upload, type Uplo
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 import {ProtectedImage} from "../main";
-import {fileTransferAPI} from "../../services";
-import {getApiBaseUrl} from "../../services/getApiBaseUrl";
+import {fileTransferAPI, getApiBaseUrl} from "../../services";
 import {EditCertificate} from "./EditCertificate";
 
 interface ShowCertificateCardProps {

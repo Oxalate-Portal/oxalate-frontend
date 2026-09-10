@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import {BrowserRouter} from "react-router-dom";
 import {SessionProvider} from "./session";
+import {ErrorBoundary} from "./components";
 import {I18nextProvider} from "react-i18next";
 import i18n from "./i18n";
 import {runtimeConfig} from "./runtimeConfig";
@@ -19,12 +20,14 @@ if (runtimeConfig.backgroundUrl) {
 
 createRoot(document.getElementById('root')!).render(
         <React.StrictMode>
-            <I18nextProvider i18n={i18n}>
-                <SessionProvider>
-                    <BrowserRouter>
-                        <App/>
-                    </BrowserRouter>
-                </SessionProvider>
-            </I18nextProvider>
+            <ErrorBoundary>
+                <I18nextProvider i18n={i18n}>
+                    <SessionProvider>
+                        <BrowserRouter>
+                            <App/>
+                        </BrowserRouter>
+                    </SessionProvider>
+                </I18nextProvider>
+            </ErrorBoundary>
         </React.StrictMode>
 );

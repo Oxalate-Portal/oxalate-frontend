@@ -25,7 +25,7 @@ import {
 } from "../components";
 
 // eslint-disable-next-line no-var
-var api: Record<string, jest.Mock>;
+let api: Record<string, jest.Mock>;
 let configMode = "enabled";
 let routeParam = "1";
 

@@ -30,8 +30,7 @@ import {
 } from "ckeditor5";
 import "ckeditor5/ckeditor5.css";
 import "./ckeditor_dark_theme.css";
-import {CKUploadAdapter} from "../../services";
-import {getApiBaseUrl} from "../../services/getApiBaseUrl";
+import {CKUploadAdapter, getApiBaseUrl} from "../../services";
 import type {UserSessionToken} from "../../models";
 import type {JSX} from "react";
 

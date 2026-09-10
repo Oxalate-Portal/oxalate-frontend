@@ -1,7 +1,6 @@
 import dayjs from "dayjs";
-import {PaymentTypeEnum} from "../../models/PaymentTypeEnum";
-import type {ListUserResponse} from "../../models/responses/ListUserResponse";
-import type {OptionItemVO} from "../../models/OptionItemVO";
+import type {ListUserResponse, OptionItemVO} from "../../models";
+import {PaymentTypeEnum} from "../../models";
 
 export function isMaxParticipantsTooLow(selectedParticipantsCount: number, configuredMaxParticipants: number): boolean {
     return configuredMaxParticipants < selectedParticipantsCount;
