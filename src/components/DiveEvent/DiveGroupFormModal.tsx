@@ -1,13 +1,16 @@
 import {Button, Form, Input, Modal, Select} from "antd";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {diveGroupAPI} from "../../services";
+import {useSession} from "../../session";
 import type {DiveGroupRequest, DiveGroupResponse, ListUserResponse} from "../../models";
+import {isMemberOfDiveGroup} from "./DiveGroupTable";
 
 interface DiveGroupFormModalProps {
     open: boolean;
     eventId: number;
     participants: ListUserResponse[];
+    diveGroups: DiveGroupResponse[];
     canAssignOwner: boolean;
     onCancel: () => void;
     onCreated: (diveGroup: DiveGroupResponse) => void;
@@ -18,11 +21,24 @@ interface DiveGroupFormData {
     ownerId?: number | null;
 }
 
-export function DiveGroupFormModal({open, eventId, participants, canAssignOwner, onCancel, onCreated}: DiveGroupFormModalProps) {
+export function DiveGroupFormModal({open, eventId, participants, diveGroups, canAssignOwner, onCancel, onCreated}: DiveGroupFormModalProps) {
     const {t} = useTranslation();
+    const {userSession} = useSession();
     const [form] = Form.useForm<DiveGroupFormData>();
     const [submitting, setSubmitting] = useState(false);
     const [failed, setFailed] = useState(false);
+    const availableParticipants = participants.filter((participant) =>
+            !diveGroups.some((diveGroup) => isMemberOfDiveGroup(diveGroup, participant.id))
+    );
+    const ownerOptions = canAssignOwner
+            ? availableParticipants
+            : availableParticipants.filter((participant) => participant.id === userSession?.id);
+
+    useEffect(() => {
+        if (open && userSession?.id) {
+            form.setFieldsValue({ownerId: userSession.id});
+        }
+    }, [form, open, userSession?.id]);
 
     function handleCancel(): void {
         form.resetFields();
@@ -82,22 +98,21 @@ export function DiveGroupFormModal({open, eventId, participants, canAssignOwner,
                         <Input placeholder={t("DiveEvent.diveGroup.form.name.placeholder")}/>
                     </Form.Item>
 
-                    {canAssignOwner && (
-                            <Form.Item
-                                    name={"ownerId"}
-                                    label={t("DiveEvent.diveGroup.form.owner.label")}
-                                    tooltip={t("DiveEvent.diveGroup.form.owner.tooltip")}
-                            >
-                                <Select
-                                        allowClear
-                                        placeholder={t("DiveEvent.diveGroup.form.owner.placeholder")}
-                                        options={participants.map((participant) => ({
-                                            value: participant.id,
-                                            label: participant.name
-                                        }))}
-                                />
-                            </Form.Item>
-                    )}
+                    <Form.Item
+                            name={"ownerId"}
+                            label={t("DiveEvent.diveGroup.form.owner.label")}
+                            tooltip={t("DiveEvent.diveGroup.form.owner.tooltip")}
+                    >
+                        <Select
+                                allowClear={canAssignOwner}
+                                disabled={!canAssignOwner}
+                                placeholder={t("DiveEvent.diveGroup.form.owner.placeholder")}
+                                options={ownerOptions.map((participant) => ({
+                                    value: participant.id,
+                                    label: participant.name
+                                }))}
+                        />
+                    </Form.Item>
 
                     {failed && <div role={"alert"}>{t("DiveEvent.diveGroup.error.create")}</div>}
 

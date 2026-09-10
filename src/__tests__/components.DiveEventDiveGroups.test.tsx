@@ -8,6 +8,7 @@ const mockGetDiveGroupsByEventId = jest.fn();
 const mockJoinDiveGroup = jest.fn();
 const mockLeaveDiveGroup = jest.fn();
 const mockDeleteDiveGroup = jest.fn();
+const mockUnsubscribe = jest.fn();
 const mockGetPortalConfigurationValue = jest.fn();
 const mockCheckRoles = jest.fn();
 
@@ -66,7 +67,7 @@ jest.mock("../services", () => ({
         joinWaitingList: jest.fn(),
         leaveWaitingList: jest.fn(),
         subscribeUserToEvent: jest.fn(),
-        unsubscribeUserToEvent: jest.fn()
+        unsubscribeUserToEvent: (...args: unknown[]) => mockUnsubscribe(...args)
     },
     membershipAPI: {findByUserId: jest.fn().mockResolvedValue([])},
     paymentAPI: {findByUserId: jest.fn().mockResolvedValue({payments: []})},
@@ -83,6 +84,8 @@ jest.mock("../components/DiveEvent/DiveEventDetails", () => ({DiveEventDetails: 
 jest.mock("../components/main", () => ({HealthStatementConfirmationModal: () => null}));
 
 jest.mock("../components/DiveEvent/DiveGroupTable", () => ({
+    findDiveGroupOfUser: (diveGroups: DiveGroupResponse[], userId: number) =>
+            diveGroups.find((diveGroup) => (diveGroup.members ?? []).some((member) => member.userId === userId)) ?? null,
     findDiveGroupOwnedByUser: (diveGroups: DiveGroupResponse[], userId: number) =>
             diveGroups.find((diveGroup) => diveGroup.ownerId === userId) ?? null,
     DiveGroupTable: ({diveGroups, loading, currentUserId, onJoin, onLeave, onDelete}: {
@@ -155,6 +158,7 @@ describe("DiveEvent dive groups", () => {
         mockJoinDiveGroup.mockResolvedValue(group());
         mockLeaveDiveGroup.mockResolvedValue({status: "OK", message: ""});
         mockDeleteDiveGroup.mockResolvedValue({status: "OK", message: ""});
+        mockUnsubscribe.mockResolvedValue(baseEvent);
     });
 
     it("loads the dive groups of the event for an authenticated user", async () => {
@@ -193,6 +197,18 @@ describe("DiveEvent dive groups", () => {
 
     it("hides the create button when the user already owns a dive group in the event", async () => {
         mockGetDiveGroupsByEventId.mockResolvedValue([group({ownerId: 1, ownerName: "Me"})]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.queryByText("DiveEvent.diveGroup.createButton")).toBeNull();
+    });
+
+    it("hides the create button when the user belongs to a dive group", async () => {
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({
+            ownerId: 20,
+            members: [{userId: 1, name: "Me", userType: "SCUBA_DIVER", owner: false, joinedAt: null}]
+        })]);
 
         await renderDiveEvent();
 
@@ -289,6 +305,24 @@ describe("DiveEvent dive groups", () => {
 
         expect(mockLeaveDiveGroup).toHaveBeenCalledWith(7);
         expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(2);
+    });
+
+    it("reloads the dive groups after unsubscribing from the event", async () => {
+        mockGetDiveGroupsByEventId
+                .mockResolvedValueOnce([group()])
+                .mockResolvedValueOnce([]);
+        mockUnsubscribe.mockResolvedValue({...baseEvent, participants: [{id: 20, name: "Diver Twenty"}]});
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        await act(async () => {
+            fireEvent.click(screen.getByText("DiveEvent.unsubscribe.button"));
+        });
+
+        expect(mockUnsubscribe).toHaveBeenCalledWith(42);
+        expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(2);
+        await waitFor(() => expect(screen.queryByTestId("dive-group-table")).toBeNull());
     });
 
     it("deletes a dive group and reloads the list", async () => {

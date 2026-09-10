@@ -20,7 +20,7 @@ import {
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import {DiveGroupFormModal} from "./DiveGroupFormModal";
-import {DiveGroupTable, findDiveGroupOwnedByUser} from "./DiveGroupTable";
+import {DiveGroupTable, findDiveGroupOfUser, findDiveGroupOwnedByUser} from "./DiveGroupTable";
 import {checkRoles} from "../../tools";
 import dayjs from "dayjs";
 import {Alert, Button, Divider, Modal, Select, Space, Spin} from "antd";
@@ -250,6 +250,7 @@ export function DiveEvent() {
                 .then(response => {
                     setDiveEvent(response);
                     setSubscribing(false);
+                    return loadDiveGroups(diveEventId);
                 })
                 .catch(error => {
                     console.error("Error:", error);
@@ -337,9 +338,10 @@ export function DiveEvent() {
 
     const currentUserId = userSession?.id ?? 0;
     const ownsDiveGroup = findDiveGroupOwnedByUser(diveGroups, currentUserId) !== null;
+    const belongsToDiveGroup = findDiveGroupOfUser(diveGroups, currentUserId) !== null;
     const canAssignDiveGroupOwner = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]);
     const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
-    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !ownsDiveGroup;
+    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !belongsToDiveGroup && !ownsDiveGroup;
 
     return (
             <div className={"darkDiv"}>
@@ -471,6 +473,7 @@ export function DiveEvent() {
                         open={diveGroupModalOpen}
                         eventId={diveEventId}
                         participants={diveEvent?.participants ?? []}
+                        diveGroups={diveGroups}
                         canAssignOwner={canAssignDiveGroupOwner}
                         onCancel={() => setDiveGroupModalOpen(false)}
                         onCreated={onDiveGroupCreated}
