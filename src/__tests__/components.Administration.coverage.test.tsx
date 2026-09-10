@@ -22,7 +22,7 @@ import {
 } from "../components";
 
 // eslint-disable-next-line no-var
-let api: Record<string, jest.Mock>;
+var api: Record<string, jest.Mock>;
 
 function makeApi(name: string) {
     api ??= {};
@@ -42,6 +42,7 @@ jest.mock("react-router-dom", () => ({
     useParams: () => ({paramId: "1"})
 }));
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     certificateAPI: service("certificateAPI", ["findCertificateNames", "findOrganizations"]),
     certificateClassificationAPI: service("certificateClassificationAPI", ["findAll"]),
     blockedDatesAPI: service("blockedDatesAPI", ["findAll", "create", "delete"]),

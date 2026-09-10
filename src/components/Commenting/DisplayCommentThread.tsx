@@ -1,6 +1,6 @@
 import {useState} from "react";
 import type {CommentResponse} from "../../models";
-import {Button, List, Typography} from "antd";
+import {Button, Listy, Typography} from "antd";
 import {CommentCard} from "./CommentCard";
 import {CommentEditor} from "./CommentEditor";
 
@@ -37,10 +37,11 @@ export function DisplayCommentThread({comment, depth = 0, refreshCommentList}: D
             <div>
                 {parentIsRootComment && hasChildComments ? (
                         <>
-                            <List
-                                    dataSource={comment.childComments}
-                                    renderItem={(child) => (
-                                            <List.Item key={child.id} style={{width: "100%"}}>
+                            <Listy
+                                    items={comment.childComments}
+                                    rowKey={(child) => child.id}
+                                    itemRender={(child) => (
+                                            <div style={{width: "100%"}}>
                                                 <div style={{width: "100%"}}>
                                                     <CommentCard comment={child} refreshCommentList={refreshCommentList}/>
                                                     {child.childComments.length > 0 && (
@@ -60,17 +61,18 @@ export function DisplayCommentThread({comment, depth = 0, refreshCommentList}: D
                                                             </div>
                                                     )}
                                                 </div>
-                                            </List.Item>
+                                            </div>
                                     )}
                             />
                             <Button type={"primary"} onClick={() => setExpanded(!expanded)}>{expanded ? "Hide" : "Add a new comment"}</Button>
                             {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
                         </>
                 ) : (
-                        <List
-                                dataSource={[comment]}
-                                renderItem={(item) => (
-                                        <List.Item key={item.id} style={{width: "100%"}}>
+                        <Listy
+                                items={[comment]}
+                                rowKey={(item) => item.id}
+                                itemRender={(item) => (
+                                        <div style={{width: "100%"}}>
                                             <div style={{width: "100%"}}>
                                                 <CommentCard comment={item} refreshCommentList={refreshCommentList}/>
 
@@ -91,7 +93,7 @@ export function DisplayCommentThread({comment, depth = 0, refreshCommentList}: D
                                                         </div>
                                                 )}
                                             </div>
-                                        </List.Item>
+                                        </div>
                                 )}
                         />
                 )}

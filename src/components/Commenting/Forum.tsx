@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {commentAPI} from "../../services";
 import type {CommentResponse} from "../../models";
-import {Avatar, Card, List, Space, Typography} from "antd";
+import {Avatar, Card, Listy, Space, Typography} from "antd";
 import dayjs from "dayjs";
 import {UserOutlined} from "@ant-design/icons";
 import {resolveCommentAvatarUrl} from "../../tools";
@@ -52,29 +52,27 @@ export function Forum() {
 
         return (
                 <div className={"darkDiv"}>
-                    {!loading && <List
-                            dataSource={groupedComments[parentId]}
-                            renderItem={(comment) => (
-                                    <List.Item key={comment.id}>
-                                        <Card
-                                                title={comment.title}
-                                                variant={"outlined"}
-                                                style={{width: "100%", marginBottom: 16}}
-                                        >
-                                            <Space orientation={"horizontal"}>
-                                                <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
-                                                <Typography.Text>{comment.username}</Typography.Text>
-                                                <Typography.Text>
-                                                    {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                </Typography.Text>
-                                            </Space>
-                                            <p style={{marginTop: 8}}>{comment.body}</p>
-                                            {/* Render child comments recursively */}
-                                            <div style={{marginLeft: 24}}>
-                                                {renderComments(comment.id)}
-                                            </div>
-                                        </Card>
-                                    </List.Item>
+                    {!loading && <Listy
+                            items={groupedComments[parentId]}
+                            rowKey={(comment) => comment.id}
+                            itemRender={(comment) => (
+                                    <Card
+                                            title={comment.title}
+                                            variant={"outlined"}
+                                            style={{width: "100%", marginBottom: 16}}
+                                    >
+                                        <Space orientation={"horizontal"}>
+                                            <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
+                                            <Typography.Text>{comment.username}</Typography.Text>
+                                            <Typography.Text>
+                                                {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
+                                            </Typography.Text>
+                                        </Space>
+                                        <p style={{marginTop: 8}}>{comment.body}</p>
+                                        <div style={{marginLeft: 24}}>
+                                            {renderComments(comment.id)}
+                                        </div>
+                                    </Card>
                             )}/>}
                 </div>);
     };

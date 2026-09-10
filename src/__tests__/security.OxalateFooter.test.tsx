@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {OxalateFooter} from "../components";
+import {OxalateFooter} from "../components/main/OxalateFooter";
 import {runtimeConfig} from "../runtimeConfig";
 
 jest.mock("../buildInfo.json", () => ({version: "1.2.3", buildTime: "2026-01-01"}), {virtual: true});

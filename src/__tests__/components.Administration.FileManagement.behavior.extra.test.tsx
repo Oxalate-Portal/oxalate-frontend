@@ -1,4 +1,4 @@
-import React, {type ReactNode} from "react";
+import {type ReactNode} from "react";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import dayjs from "dayjs";
 import {
@@ -27,7 +27,7 @@ import {
 } from "../components";
 
 // eslint-disable-next-line no-var
-let api: Record<string, jest.Mock>;
+var api: Record<string, jest.Mock>;
 let mockRolesAllowed = false;
 
 function makeApi(name: string) {
@@ -48,6 +48,7 @@ jest.mock("react-router-dom", () => ({
     useParams: () => ({paramId: "1"})
 }));
 jest.mock("../services", () => ({
+    getApiBaseUrl: () => "http://api",
     blockedDatesAPI: service("blockedDatesAPI", ["findAll", "create", "delete"]),
     commentAPI: service("commentAPI", ["getPendingReports"]),
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),

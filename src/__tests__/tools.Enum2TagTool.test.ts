@@ -63,7 +63,7 @@ describe("Enum2TagTool", () => {
             [DiveTypeEnum.CURRENT, "gold"],
             [DiveTypeEnum.OPEN_AND_CAVE, "green"],
             [DiveTypeEnum.OPEN_WATER, "volcano"],
-            [DiveTypeEnum.SURFACE, "pink-inverse"]
+            [DiveTypeEnum.SURFACE, "pink"]
         ];
         cases.forEach(([type, color], index) => {
             it(`renders ${type} with ${color}`, () => {
@@ -166,7 +166,7 @@ describe("Enum2TagTool", () => {
             [CommentStatusEnum.PUBLISHED, "green"],
             [CommentStatusEnum.HELD_FOR_MODERATION, "orange"],
             [CommentStatusEnum.REJECTED, "red"],
-            [CommentStatusEnum.CANCELLED, "red-inverse"]
+            [CommentStatusEnum.CANCELLED, "red"]
         ];
         cases.forEach(([status, color]) => {
             it(`renders ${status} with ${color}`, () => {

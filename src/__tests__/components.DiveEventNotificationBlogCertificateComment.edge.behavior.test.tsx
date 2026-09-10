@@ -54,9 +54,11 @@ jest.mock("antd", () => {
             <div>{dataSource.map((item, index) => renderItem(item, index))}</div>;
     List.Item = ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <div onClick={onClick}>{children}</div>;
     List.Item.Meta = ({title, description}: { title: ReactNode; description: ReactNode }) => <div>{title}{description}</div>;
+    const Listy = ({items = [], itemRender}: { items?: never[]; itemRender: (item: never, index: number) => ReactNode }) =>
+            <div>{items.map((item, index) => itemRender(item, index))}</div>;
     return {
         Alert: passthrough, Badge: passthrough, Button, Card: passthrough, Col: passthrough, Empty: passthrough,
-        Form, Input, InputNumber: Input, List, Modal, Radio,
+        Form, Input, InputNumber: Input, List, Listy, Modal, Radio,
         Select, Space: passthrough, Spin: passthrough, Table: passthrough, Typography: {Title: passthrough, Text: passthrough, Paragraph: passthrough},
         Dropdown, message: {useMessage: () => [mockMessageApi, <span key="message-context"/>]},
         DatePicker: passthrough

@@ -42,6 +42,7 @@ export function diveEventStatusEnum2Tag(status: DiveEventStatusEnum, t: TFunctio
 
 export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
+    let variant: "solid" | undefined;
     const labelText = t("DiveTypeEnum." + type.toLowerCase());
 
     switch (type) {
@@ -61,13 +62,14 @@ export function diveTypeEnum2Tag(type: DiveTypeEnum, t: TFunction, recordId: num
             color = "volcano";
             break;
         case DiveTypeEnum.SURFACE:
-            color = "pink-inverse";
+            color = "pink";
+            variant = "solid";
             break;
         default:
             color = "red";
     }
 
-    return (<Tag color={color} key={`divetype-${recordId}`}>{labelText}</Tag>);
+    return (<Tag color={color} variant={variant} key={`divetype-${recordId}`}>{labelText}</Tag>);
 }
 
 export function membershipStatusEnum2Tag(status: MembershipStatusEnum, t: TFunction, recordId: number): JSX.Element {
@@ -208,6 +210,7 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
 
 export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, recordId: number): JSX.Element {
     let color: PresetColorType;
+    let variant: "solid" | undefined;
     const label = t("CommentStatusEnum." + status.toLowerCase());
 
     switch(status) {
@@ -224,14 +227,15 @@ export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, r
             color = "red";
             break;
         case CommentStatusEnum.CANCELLED:
-            color = "red-inverse";
+            color = "red";
+            variant = "solid";
             break;
         default:
             color = "cyan";
             break;
     }
 
-    return (<Tag color={color} key={"comment-status-" + recordId}>{label}</Tag>);
+    return (<Tag color={color} variant={variant} key={"comment-status-" + recordId}>{label}</Tag>);
 }
 
 export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordId: number): JSX.Element {

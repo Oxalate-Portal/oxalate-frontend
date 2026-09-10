@@ -23,8 +23,13 @@ jest.mock("../session", () => ({
 }));
 
 jest.mock("../tools", () => ({
+    FileUploadValidationError: {INVALID_TYPE: "INVALID_TYPE", FILE_TOO_LARGE: "FILE_TOO_LARGE"},
     checkRoles: (roles: string[], requiredRoles: string[]) =>
-        roles.some(role => requiredRoles.includes(role))
+        roles.some(role => requiredRoles.includes(role)),
+    validateUploadFile: (file: Pick<File, "name" | "size" | "type">) =>
+        file.type === "application/pdf" || file.name.endsWith(".pdf")
+            ? {valid: true}
+            : {valid: false, error: "INVALID_TYPE"}
 }));
 
 jest.mock("../services", () => ({
