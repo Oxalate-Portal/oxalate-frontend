@@ -823,7 +823,9 @@
         "leaveButton" : "Salir del grupo de buceo",
         "memberCount" : "Miembros",
         "name" : "Nombre del grupo de buceo",
+        "order" : "Orden",
         "owner" : "Propietario",
+        "reorderHint" : "Arrastra las filas para cambiar el orden de los grupos de buceo",
         "title" : "Grupos de buceo"
       }
     },

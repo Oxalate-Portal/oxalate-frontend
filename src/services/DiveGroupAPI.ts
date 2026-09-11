@@ -1,5 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import type {ActionResponse, DiveGroupRequest, DiveGroupResponse, DiveGroupUpdateRequest} from "../models";
+import type {ActionResponse, DiveGroupOrderRequest, DiveGroupRequest, DiveGroupResponse, DiveGroupUpdateRequest} from "../models";
 
 class DiveGroupAPI extends AbstractAPI<DiveGroupRequest, DiveGroupResponse> {
     public async getDiveGroupsByEventId(eventId: number): Promise<DiveGroupResponse[]> {
@@ -25,6 +25,17 @@ class DiveGroupAPI extends AbstractAPI<DiveGroupRequest, DiveGroupResponse> {
     public async deleteDiveGroup(diveGroupId: number): Promise<ActionResponse> {
         const response = await this.axiosInstance.delete<ActionResponse>("/" + diveGroupId);
         return response.data;
+    }
+
+    /**
+     * Sets the order of the dive groups of a dive event. The list must contain every dive group of the event exactly
+     * once; the position in the list becomes the new order of the group. Only the organizer of the dive event, or an
+     * administrator, is allowed to do this by the backend.
+     */
+    public async reorderDiveGroups(eventId: number, diveGroupIds: number[]): Promise<DiveGroupResponse[]> {
+        const diveGroupOrderRequest: DiveGroupOrderRequest = {diveGroupIds: diveGroupIds};
+        const response = await this.axiosInstance.put<DiveGroupResponse[]>("/events/" + eventId + "/order", this.serializeRequest(diveGroupOrderRequest));
+        return response.data.map((diveGroup) => this.transformResponse(diveGroup));
     }
 
     public async joinDiveGroup(diveGroupId: number): Promise<DiveGroupResponse> {

@@ -10,9 +10,8 @@ const USER_KEY = "user";
  * mirrored session in `localStorage` never expired on its own, which is both a confusing failure mode and a
  * way for a shared machine to keep showing another person's identity.
  *
- * The backend answers unauthenticated requests with 401, and 403 both for "not logged in" and for "logged in
- * but not allowed". Clearing the session on every 403 would log people out whenever they merely lacked a
- * permission, so a 403 only ends the session when the stored session has actually expired.
+ * The backend answers unauthenticated requests with 401 and can answer revoked or invalid sessions with 403.
+ * When the frontend has a stored session, either response means that the session must be re-established.
  */
 export function isSessionExpired(now: number = Date.now()): boolean {
     const rawSession = localStorage.getItem(USER_KEY);
@@ -44,7 +43,7 @@ export function shouldTerminateSession(status: number | undefined): boolean {
         return true;
     }
 
-    return status === 403 && isSessionExpired();
+    return status === 403;
 }
 
 function terminateSession(): void {

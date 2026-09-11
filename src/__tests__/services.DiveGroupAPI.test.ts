@@ -177,4 +177,41 @@ describe('DiveGroupAPI', () => {
 
         await expect(diveGroupAPI.deleteDiveGroup(999)).rejects.toThrow();
     });
+
+    it('should set the order of the dive groups of an event', async () => {
+        const reordered = [
+            {...rawDiveGroup, id: 2, groupOrder: 1},
+            {...rawDiveGroup, id: 1, groupOrder: 2}
+        ];
+        mock.onPut('/events/42/order').reply(200, reordered);
+
+        const result = await diveGroupAPI.reorderDiveGroups(42, [2, 1]);
+
+        expect(result.map((diveGroup) => diveGroup.id)).toEqual([2, 1]);
+        expect(result.map((diveGroup) => diveGroup.groupOrder)).toEqual([1, 2]);
+        expect(dayjs.isDayjs(result[0].createdAt)).toBe(true);
+        expect(mock.history.put[0].url).toBe('/events/42/order');
+        expect(JSON.parse(mock.history.put[0].data)).toEqual({diveGroupIds: [2, 1]});
+    });
+
+    it('should send an empty order list unchanged', async () => {
+        mock.onPut('/events/7/order').reply(200, []);
+
+        const result = await diveGroupAPI.reorderDiveGroups(7, []);
+
+        expect(result).toEqual([]);
+        expect(JSON.parse(mock.history.put[0].data)).toEqual({diveGroupIds: []});
+    });
+
+    it('should propagate errors when the dive group order is rejected', async () => {
+        mock.onPut('/events/42/order').reply(400, {status: UpdateStatusEnum.FAIL, message: 'Invalid order'});
+
+        await expect(diveGroupAPI.reorderDiveGroups(42, [1])).rejects.toThrow();
+    });
+
+    it('should propagate errors when the caller may not set the dive group order', async () => {
+        mock.onPut('/events/42/order').reply(403);
+
+        await expect(diveGroupAPI.reorderDiveGroups(42, [1, 2])).rejects.toThrow();
+    });
 });

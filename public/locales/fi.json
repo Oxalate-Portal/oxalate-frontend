@@ -823,7 +823,9 @@
         "leaveButton" : "Poistu sukellusryhmästä",
         "memberCount" : "Jäseniä",
         "name" : "Sukellusryhmän nimi",
+        "order" : "Järjestys",
         "owner" : "Omistaja",
+        "reorderHint" : "Vedä rivejä muuttaaksesi sukellusryhmien järjestystä",
         "title" : "Sukellusryhmät"
       }
     },

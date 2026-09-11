@@ -8,6 +8,7 @@ export type {ConfirmationRequest} from './ConfirmationRequest';
 export type {DiveEventListRequest} from './DiveEventListRequest';
 export type {DiveEventRequest} from './DiveEventRequest';
 export type {DiveGroupRequest} from './DiveGroupRequest';
+export type {DiveGroupOrderRequest} from './DiveGroupOrderRequest';
 export type {DiveGroupUpdateRequest} from './DiveGroupUpdateRequest';
 export type {EmailChangeRequest} from './EmailChangeRequest';
 export type {EmailNotificationSubscriptionRequest} from './EmailNotificationSubscriptionRequest';

@@ -823,7 +823,9 @@
         "leaveButton" : "Lämna dykgruppen",
         "memberCount" : "Medlemmar",
         "name" : "Dykgruppens namn",
+        "order" : "Ordning",
         "owner" : "Ägare",
+        "reorderHint" : "Dra raderna för att ändra dykgruppernas ordning",
         "title" : "Dykgrupper"
       }
     },

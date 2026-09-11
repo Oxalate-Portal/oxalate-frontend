@@ -1,5 +1,13 @@
 import {act, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
-import {DiveGroupFormModal, DiveGroupTable, findDiveGroupOfUser, findDiveGroupOwnedByUser, isMemberOfDiveGroup} from "../components";
+import {
+    DiveGroupFormModal,
+    DiveGroupTable,
+    findDiveGroupOfUser,
+    findDiveGroupOwnedByUser,
+    isMemberOfDiveGroup,
+    moveDiveGroup,
+    sortDiveGroupsByOrder
+} from "../components";
 import type {DiveGroupResponse, ListUserResponse} from "../models";
 
 const mockCreateDiveGroup = jest.fn();
@@ -30,6 +38,7 @@ function diveGroup(overrides: Partial<DiveGroupResponse> = {}): DiveGroupRespons
         name: "Team Sidemount",
         ownerId: 10,
         ownerName: "Owner Ten",
+        groupOrder: 1,
         createdAt: "2026-05-30T12:00:00Z",
         updatedAt: null,
         members: [
@@ -71,26 +80,72 @@ describe("dive group helpers", () => {
         expect(findDiveGroupOwnedByUser(groups, 20)?.id).toBe(2);
         expect(findDiveGroupOwnedByUser(groups, 99)).toBeNull();
     });
+
+    it("sorts the dive groups by their order without mutating the input", () => {
+        const groups = [diveGroup({id: 1, groupOrder: 3}), diveGroup({id: 2, groupOrder: 1}), diveGroup({id: 3, groupOrder: 2})];
+
+        expect(sortDiveGroupsByOrder(groups).map((group) => group.id)).toEqual([2, 3, 1]);
+        expect(groups.map((group) => group.id)).toEqual([1, 2, 3]);
+    });
+
+    it("keeps the received order when the groups have no order", () => {
+        const groups = [diveGroup({id: 5, groupOrder: undefined as never}), diveGroup({id: 6, groupOrder: undefined as never})];
+
+        expect(sortDiveGroupsByOrder(groups).map((group) => group.id)).toEqual([5, 6]);
+    });
+
+    it("moves a dive group to the position of the drop target", () => {
+        const groups = [diveGroup({id: 1}), diveGroup({id: 2}), diveGroup({id: 3})];
+
+        expect(moveDiveGroup(groups, 3, 1).map((group) => group.id)).toEqual([3, 1, 2]);
+        expect(moveDiveGroup(groups, 1, 3).map((group) => group.id)).toEqual([2, 3, 1]);
+    });
+
+    it("returns the same list when the move changes nothing", () => {
+        const groups = [diveGroup({id: 1}), diveGroup({id: 2})];
+
+        expect(moveDiveGroup(groups, 1, 1)).toBe(groups);
+        expect(moveDiveGroup(groups, 99, 1)).toBe(groups);
+        expect(moveDiveGroup(groups, 1, 99)).toBe(groups);
+    });
 });
 
 describe("DiveGroupTable", () => {
     const onJoin = jest.fn();
     const onLeave = jest.fn();
     const onDelete = jest.fn();
+    const onReorder = jest.fn();
 
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    function renderTable(diveGroups: DiveGroupResponse[], currentUserId: number, canJoinDiveGroup = true) {
+    function renderTable(diveGroups: DiveGroupResponse[], currentUserId: number, canJoinDiveGroup = true, canReorderDiveGroups = false) {
         return render(<DiveGroupTable
                 diveGroups={diveGroups}
                 loading={false}
                 currentUserId={currentUserId}
                 canJoinDiveGroup={canJoinDiveGroup}
+                canReorderDiveGroups={canReorderDiveGroups}
                 onJoin={onJoin}
                 onLeave={onLeave}
-                onDelete={onDelete}/>);
+                onDelete={onDelete}
+                onReorder={onReorder}/>);
+    }
+
+    function rowOf(name: string): HTMLElement {
+        return screen.getByText(name).closest("tr") as HTMLElement;
+    }
+
+    function renderedGroupNames(): string[] {
+        return Array.from(document.querySelectorAll("tbody.ant-table-tbody tr td:nth-child(3)"))
+                .map((cell) => cell.textContent ?? "");
+    }
+
+    function dragRowOnto(sourceName: string, targetName: string) {
+        fireEvent.dragStart(rowOf(sourceName));
+        fireEvent.dragOver(rowOf(targetName));
+        fireEvent.drop(rowOf(targetName));
     }
 
     it("renders the dive group with its name, owner and member count", () => {
@@ -99,7 +154,8 @@ describe("DiveGroupTable", () => {
         expect(screen.getByText("DiveEvent.diveGroup.table.title")).toBeInTheDocument();
         expect(screen.getByText("Team Sidemount")).toBeInTheDocument();
         expect(screen.getByText("Owner Ten")).toBeInTheDocument();
-        expect(screen.getByText("1")).toBeInTheDocument();
+        // The order column and the member count column both render a 1 for a single group with a single member
+        expect(screen.getAllByText("1")).toHaveLength(2);
     });
 
     it("renders an empty owner name when the group has none", () => {
@@ -214,6 +270,144 @@ describe("DiveGroupTable", () => {
         fireEvent.click(screen.getByLabelText("Expand row"));
 
         await waitFor(() => expect(screen.getByText("DiveEvent.diveGroup.members.empty")).toBeInTheDocument());
+    });
+
+    // ------------------------------------------------------------------
+    // Dive group order
+    // ------------------------------------------------------------------
+
+    const orderedGroups = () => [
+        diveGroup({id: 1, name: "Team One", groupOrder: 1, ownerId: 10, ownerName: "Owner Ten"}),
+        diveGroup({id: 2, name: "Team Two", groupOrder: 2, ownerId: 20, ownerName: "Owner Twenty"}),
+        diveGroup({id: 3, name: "Team Three", groupOrder: 3, ownerId: 30, ownerName: "Owner Thirty"})
+    ];
+
+    it("renders the dive groups in the order set by the organizer", () => {
+        const groups = [
+            diveGroup({id: 1, name: "Team One", groupOrder: 3}),
+            diveGroup({id: 2, name: "Team Two", groupOrder: 1}),
+            diveGroup({id: 3, name: "Team Three", groupOrder: 2})
+        ];
+
+        renderTable(groups, 99);
+
+        expect(renderedGroupNames()).toEqual(["Team Two", "Team Three", "Team One"]);
+    });
+
+    it("does not make the rows draggable for a user who may not reorder", () => {
+        renderTable(orderedGroups(), 99);
+
+        expect(rowOf("Team One")).not.toHaveAttribute("draggable");
+        expect(screen.getByText("DiveEvent.diveGroup.table.title")).toBeInTheDocument();
+    });
+
+    it("does not offer reordering when there is only a single dive group", () => {
+        renderTable([diveGroup({id: 1, name: "Team One"})], 99, true, true);
+
+        expect(rowOf("Team One")).not.toHaveAttribute("draggable");
+    });
+
+    it("makes the rows draggable and shows the hint for the organizer", () => {
+        renderTable(orderedGroups(), 99, true, true);
+
+        expect(rowOf("Team One")).toHaveAttribute("draggable", "true");
+        expect(screen.getByText("DiveEvent.diveGroup.table.title - DiveEvent.diveGroup.table.reorderHint")).toBeInTheDocument();
+    });
+
+    it("reorders the dive groups by dragging a row onto another one", () => {
+        renderTable(orderedGroups(), 99, true, true);
+
+        dragRowOnto("Team Three", "Team One");
+
+        expect(renderedGroupNames()).toEqual(["Team Three", "Team One", "Team Two"]);
+        expect(onReorder).toHaveBeenCalledWith([3, 1, 2]);
+    });
+
+    it("renumbers the order column after a reorder", () => {
+        renderTable(orderedGroups(), 99, true, true);
+
+        dragRowOnto("Team Three", "Team One");
+
+        const orderCells = Array.from(document.querySelectorAll("tbody.ant-table-tbody tr td:nth-child(2)")).map((cell) => cell.textContent);
+        expect(orderCells).toEqual(["1", "2", "3"]);
+        expect(rowOf("Team Three").querySelector("td:nth-child(2)")?.textContent).toBe("1");
+    });
+
+    it("does not report a reorder when a row is dropped on itself", () => {
+        renderTable(orderedGroups(), 99, true, true);
+
+        dragRowOnto("Team Two", "Team Two");
+
+        expect(onReorder).not.toHaveBeenCalled();
+        expect(renderedGroupNames()).toEqual(["Team One", "Team Two", "Team Three"]);
+    });
+
+    it("ignores a drop that was not preceded by a drag", () => {
+        renderTable(orderedGroups(), 99, true, true);
+
+        fireEvent.drop(rowOf("Team Two"));
+
+        expect(onReorder).not.toHaveBeenCalled();
+    });
+
+    it("ignores a drop after the drag was ended", () => {
+        renderTable(orderedGroups(), 99, true, true);
+
+        fireEvent.dragStart(rowOf("Team Three"));
+        fireEvent.dragEnd(rowOf("Team Three"));
+        fireEvent.drop(rowOf("Team One"));
+
+        expect(onReorder).not.toHaveBeenCalled();
+        expect(renderedGroupNames()).toEqual(["Team One", "Team Two", "Team Three"]);
+    });
+
+    it("adopts the order returned by the backend after a reorder", () => {
+        const {rerender} = render(<DiveGroupTable
+                diveGroups={orderedGroups()}
+                loading={false}
+                currentUserId={99}
+                canJoinDiveGroup={true}
+                canReorderDiveGroups={true}
+                onJoin={onJoin}
+                onLeave={onLeave}
+                onDelete={onDelete}
+                onReorder={onReorder}/>);
+
+        dragRowOnto("Team Three", "Team One");
+        expect(renderedGroupNames()).toEqual(["Team Three", "Team One", "Team Two"]);
+
+        rerender(<DiveGroupTable
+                diveGroups={[
+                    diveGroup({id: 2, name: "Team Two", groupOrder: 1, ownerId: 20, ownerName: "Owner Twenty"}),
+                    diveGroup({id: 1, name: "Team One", groupOrder: 2, ownerId: 10, ownerName: "Owner Ten"}),
+                    diveGroup({id: 3, name: "Team Three", groupOrder: 3, ownerId: 30, ownerName: "Owner Thirty"})
+                ]}
+                loading={false}
+                currentUserId={99}
+                canJoinDiveGroup={true}
+                canReorderDiveGroups={true}
+                onJoin={onJoin}
+                onLeave={onLeave}
+                onDelete={onDelete}
+                onReorder={onReorder}/>);
+
+        expect(renderedGroupNames()).toEqual(["Team Two", "Team One", "Team Three"]);
+    });
+
+    it("reorders even when no reorder handler is supplied", () => {
+        render(<DiveGroupTable
+                diveGroups={orderedGroups()}
+                loading={false}
+                currentUserId={99}
+                canJoinDiveGroup={true}
+                canReorderDiveGroups={true}
+                onJoin={onJoin}
+                onLeave={onLeave}
+                onDelete={onDelete}/>);
+
+        dragRowOnto("Team Three", "Team One");
+
+        expect(renderedGroupNames()).toEqual(["Team Three", "Team One", "Team Two"]);
     });
 });
 
