@@ -19,6 +19,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [selectedNotificationIndex, setSelectedNotificationIndex] = useState<number>(0);
     const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const [markingAllAsRead, setMarkingAllAsRead] = useState<boolean>(false);
 
     const fetchUnreadNotifications = useCallback(async () => {
         try {
@@ -63,6 +64,23 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
         }
     };
 
+    const handleMarkAllAsRead = async () => {
+        const unreadNotificationIds = notifications.map(notification => notification.id);
+        if (unreadNotificationIds.length === 0) {
+            return;
+        }
+
+        try {
+            setMarkingAllAsRead(true);
+            await notificationAPI.markNotificationsAsRead({messageIds: unreadNotificationIds});
+            setNotifications([]);
+        } catch (error) {
+            console.error("Failed to mark all notifications as read:", error);
+        } finally {
+            setMarkingAllAsRead(false);
+        }
+    };
+
     const handlePreviousNotification = () => {
         if (selectedNotificationIndex > 0) {
             setSelectedNotificationIndex(prev => prev - 1);
@@ -87,7 +105,17 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
     const dropdownContent = (
             <div style={{width: 350, maxHeight: 400, overflow: "auto", backgroundColor: "#1f1f1f", borderRadius: 8, padding: 8}}>
                 <div style={{padding: "8px 16px", borderBottom: "1px solid #303030"}}>
-                    <Typography.Text strong>{t("NotificationDropdown.title")}</Typography.Text>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8}}>
+                        <Typography.Text strong>{t("NotificationDropdown.title")}</Typography.Text>
+                        <Button
+                                size="small"
+                                onClick={() => void handleMarkAllAsRead()}
+                                loading={markingAllAsRead}
+                                disabled={notifications.length === 0}
+                        >
+                            {t("NotificationDropdown.markAllAsRead")}
+                        </Button>
+                    </div>
                 </div>
                 {notifications.length === 0 ? (
                         <Empty

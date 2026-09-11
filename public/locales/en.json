@@ -1417,6 +1417,7 @@
     }
   },
   "NotificationDropdown" : {
+    "markAllAsRead" : "Mark all as read",
     "modal" : {
       "close" : "Close",
       "next" : "Next",
@@ -1427,6 +1428,7 @@
     "viewAll" : "View all notifications"
   },
   "NotificationList" : {
+    "markAllAsRead" : "Mark all as read",
     "noNotifications" : "No notifications",
     "title" : "All Notifications",
     "unread" : "Unread"
