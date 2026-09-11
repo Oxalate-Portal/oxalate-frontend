@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Empty, Listy, Pagination, Space, Spin, Tag, Typography} from "antd";
+import {Button, Empty, Listy, Pagination, Space, Spin, Tag, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 import {useLocation} from "react-router-dom";
 import type {MessageResponse} from "../../models";
@@ -15,6 +15,7 @@ export function NotificationList() {
     const [notifications, setNotifications] = useState<MessageResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [markingAllAsRead, setMarkingAllAsRead] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchAllNotifications = async () => {
@@ -48,6 +49,25 @@ export function NotificationList() {
         }
     };
 
+    const handleMarkAllAsRead = async () => {
+        const unreadNotificationIds = notifications
+                .filter(notification => !notification.read)
+                .map(notification => notification.id);
+        if (unreadNotificationIds.length === 0) {
+            return;
+        }
+
+        try {
+            setMarkingAllAsRead(true);
+            await notificationAPI.markNotificationsAsRead({messageIds: unreadNotificationIds});
+            setNotifications(prev => prev.map(notification => ({...notification, read: true})));
+        } catch (error) {
+            console.error("Failed to mark all notifications as read:", error);
+        } finally {
+            setMarkingAllAsRead(false);
+        }
+    };
+
     const paginatedNotifications = notifications.slice(
             (currentPage - 1) * PAGE_SIZE,
             currentPage * PAGE_SIZE
@@ -56,7 +76,16 @@ export function NotificationList() {
     return (
             <div className="darkDiv">
                 <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
-                    <Typography.Title level={2}>{t("NotificationList.title")}</Typography.Title>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                        <Typography.Title level={2} style={{margin: 0}}>{t("NotificationList.title")}</Typography.Title>
+                        <Button
+                                onClick={() => void handleMarkAllAsRead()}
+                                loading={markingAllAsRead}
+                                disabled={!notifications.some(notification => !notification.read)}
+                        >
+                            {t("NotificationList.markAllAsRead")}
+                        </Button>
+                    </div>
 
                     <Spin spinning={loading}>
                         {paginatedNotifications.length === 0 ? (

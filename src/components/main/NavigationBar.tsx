@@ -423,7 +423,7 @@ export function NavigationBar() {
                 {/* Notification bell for logged in users */}
                 {userSession && (
                         <div style={{marginRight: screens.md ? 0 : 16}}>
-                            <NotificationDropdown/>
+                            <NotificationDropdown pollInterval={30_000}/>
                         </div>
                 )}
 

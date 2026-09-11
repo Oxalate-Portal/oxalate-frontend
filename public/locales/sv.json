@@ -1417,6 +1417,7 @@
     }
   },
   "NotificationDropdown" : {
+    "markAllAsRead" : "Markera alla som lästa",
     "modal" : {
       "close" : "Stäng",
       "next" : "Nästa",
@@ -1427,6 +1428,7 @@
     "viewAll" : "Visa alla aviseringar"
   },
   "NotificationList" : {
+    "markAllAsRead" : "Markera alla som lästa",
     "noNotifications" : "Inga aviseringar",
     "title" : "Alla aviseringar",
     "unread" : "Oläst"

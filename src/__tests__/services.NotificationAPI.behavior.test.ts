@@ -28,7 +28,7 @@ describe("NotificationAPI", () => {
     });
 
     it("marks notifications read and creates single notifications", async () => {
-        const markRead = {ids: [1, 2]} as unknown as MarkReadRequest;
+        const markRead: MarkReadRequest = {messageIds: [1, 2]};
         const message = {id: 0, title: "Reminder", message: "Hello", creator: 7} as MessageRequest;
         mock.onPost("/mark-read").reply(200, {status: "OK"});
         mock.onPost("/create").reply(200, {...message, id: 9});

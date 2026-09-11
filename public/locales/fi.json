@@ -1417,6 +1417,7 @@
     }
   },
   "NotificationDropdown" : {
+    "markAllAsRead" : "Merkitse kaikki luetuiksi",
     "modal" : {
       "close" : "Sulje",
       "next" : "Seuraava",
@@ -1427,6 +1428,7 @@
     "viewAll" : "Näytä kaikki ilmoitukset"
   },
   "NotificationList" : {
+    "markAllAsRead" : "Merkitse kaikki luetuiksi",
     "noNotifications" : "Ei ilmoituksia",
     "title" : "Kaikki ilmoitukset",
     "unread" : "Lukematon"

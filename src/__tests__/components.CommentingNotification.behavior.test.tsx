@@ -191,6 +191,23 @@ describe("notification list and dropdown", () => {
         await waitFor(() => expect(mockNotificationAPI.getAllNotifications).toHaveBeenCalledTimes(2));
     });
 
+    it("marks all unread notifications as read from the notification list", async () => {
+        mockNotificationAPI.getAllNotifications.mockResolvedValueOnce([
+            notification(1, true),
+            notification(2),
+            notification(3)
+        ]);
+        render(<MemoryRouter><NotificationList/></MemoryRouter>);
+        await waitFor(() => expect(screen.getByText("Notice 2")).toBeInTheDocument());
+
+        fireEvent.click(screen.getByRole("button", {name: "NotificationList.markAllAsRead"}));
+
+        await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({
+            messageIds: [2, 3]
+        }));
+        expect(screen.queryAllByText("NotificationList.unread")).toHaveLength(0);
+    });
+
     it("fetches unread notifications, opens details, navigates, and handles read failures", async () => {
         mockNotificationAPI.getUnreadNotifications.mockResolvedValueOnce([notification(1), notification(2)]);
         render(<MemoryRouter><NotificationDropdown pollInterval={100000}/></MemoryRouter>);
@@ -202,5 +219,19 @@ describe("notification list and dropdown", () => {
         mockNotificationAPI.markNotificationsAsRead.mockRejectedValueOnce(new Error("offline"));
         fireEvent.click(screen.getAllByText("Notice 2")[0]);
         await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledTimes(2));
+    });
+
+    it("marks all unread notifications as read from the notification dropdown", async () => {
+        mockNotificationAPI.getUnreadNotifications.mockResolvedValueOnce([notification(1), notification(2)]);
+        render(<MemoryRouter><NotificationDropdown pollInterval={100000}/></MemoryRouter>);
+        await waitFor(() => expect(mockNotificationAPI.getUnreadNotifications).toHaveBeenCalled());
+
+        fireEvent.click(screen.getByRole("img"));
+        fireEvent.click(screen.getByRole("button", {name: "NotificationDropdown.markAllAsRead"}));
+
+        await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({
+            messageIds: [1, 2]
+        }));
+        expect(screen.getByText("NotificationDropdown.noNotifications")).toBeInTheDocument();
     });
 });
