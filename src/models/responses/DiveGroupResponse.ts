@@ -7,6 +7,7 @@ export interface DiveGroupResponse {
     name: string;
     ownerId: number;
     ownerName: string | null;
+    groupOrder: number;
     createdAt: Dayjs;
     updatedAt: Dayjs | null;
     members: DiveGroupMemberResponse[];

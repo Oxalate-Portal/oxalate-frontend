@@ -1,3 +1,4 @@
+import {useEffect, useState} from "react";
 import {Button, Popconfirm, Space, Table} from "antd";
 import type {ColumnsType} from "antd/es/table";
 import {useTranslation} from "react-i18next";
@@ -11,9 +12,11 @@ interface DiveGroupTableProps {
     loading: boolean;
     currentUserId: number;
     canJoinDiveGroup: boolean;
+    canReorderDiveGroups?: boolean;
     onJoin: (diveGroupId: number) => void;
     onLeave: (diveGroupId: number) => void;
     onDelete: (diveGroupId: number) => void;
+    onReorder?: (diveGroupIds: number[]) => void;
 }
 
 export function isMemberOfDiveGroup(diveGroup: DiveGroupResponse, userId: number): boolean {
@@ -28,11 +31,78 @@ export function findDiveGroupOwnedByUser(diveGroups: DiveGroupResponse[], userId
     return diveGroups.find((diveGroup) => diveGroup.ownerId === userId) ?? null;
 }
 
-export function DiveGroupTable({diveGroups, loading, currentUserId, canJoinDiveGroup, onJoin, onLeave, onDelete}: DiveGroupTableProps) {
+/**
+ * Sorts the dive groups by the order set by the organizer. Groups without an order keep the order in which they
+ * were received, which is the creation order returned by the backend.
+ */
+export function sortDiveGroupsByOrder(diveGroups: DiveGroupResponse[]): DiveGroupResponse[] {
+    return [...diveGroups].sort((first, second) => (first.groupOrder ?? 0) - (second.groupOrder ?? 0));
+}
+
+/**
+ * Moves the dragged dive group to the position of the dive group it was dropped on and returns the new list. The
+ * given list is returned unchanged when the move is a no-op.
+ */
+export function moveDiveGroup(diveGroups: DiveGroupResponse[], sourceId: number, targetId: number): DiveGroupResponse[] {
+    if (sourceId === targetId) {
+        return diveGroups;
+    }
+
+    const sourceIndex = diveGroups.findIndex((diveGroup) => diveGroup.id === sourceId);
+    const targetIndex = diveGroups.findIndex((diveGroup) => diveGroup.id === targetId);
+
+    if (sourceIndex < 0 || targetIndex < 0) {
+        return diveGroups;
+    }
+
+    const reordered = [...diveGroups];
+    const [moved] = reordered.splice(sourceIndex, 1);
+    reordered.splice(targetIndex, 0, moved);
+    return reordered;
+}
+
+export function DiveGroupTable({
+                                   diveGroups,
+                                   loading,
+                                   currentUserId,
+                                   canJoinDiveGroup,
+                                   canReorderDiveGroups = false,
+                                   onJoin,
+                                   onLeave,
+                                   onDelete,
+                                   onReorder
+                               }: DiveGroupTableProps) {
     const {t} = useTranslation();
     const {getPortalTimezone} = useSession();
+    const [orderedDiveGroups, setOrderedDiveGroups] = useState<DiveGroupResponse[]>(() => sortDiveGroupsByOrder(diveGroups));
+    const [draggedDiveGroupId, setDraggedDiveGroupId] = useState<number | null>(null);
 
-    const belongsToAnyGroup = findDiveGroupOfUser(diveGroups, currentUserId) !== null;
+    useEffect(() => {
+        // The parent reloads the dive groups after every change, which is an external synchronization
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setOrderedDiveGroups(sortDiveGroupsByOrder(diveGroups));
+    }, [diveGroups]);
+
+    const belongsToAnyGroup = findDiveGroupOfUser(orderedDiveGroups, currentUserId) !== null;
+    const reorderingEnabled = canReorderDiveGroups && orderedDiveGroups.length > 1;
+
+    function dropOnDiveGroup(targetDiveGroupId: number): void {
+        const sourceDiveGroupId = draggedDiveGroupId;
+        setDraggedDiveGroupId(null);
+
+        if (sourceDiveGroupId === null) {
+            return;
+        }
+
+        const reordered = moveDiveGroup(orderedDiveGroups, sourceDiveGroupId, targetDiveGroupId);
+
+        if (reordered === orderedDiveGroups) {
+            return;
+        }
+
+        setOrderedDiveGroups(reordered);
+        onReorder?.(reordered.map((diveGroup) => diveGroup.id));
+    }
 
     const memberColumns: ColumnsType<DiveGroupMemberResponse> = [
         {
@@ -63,6 +133,11 @@ export function DiveGroupTable({diveGroups, loading, currentUserId, canJoinDiveG
     ];
 
     const diveGroupColumns: ColumnsType<DiveGroupResponse> = [
+        {
+            title: t("DiveEvent.diveGroup.table.order"),
+            key: "groupOrder",
+            render: (_: string, _diveGroup: DiveGroupResponse, index: number) => index + 1
+        },
         {
             title: t("DiveEvent.diveGroup.table.name"),
             dataIndex: "name",
@@ -126,11 +201,20 @@ export function DiveGroupTable({diveGroups, loading, currentUserId, canJoinDiveG
     return (
             <Table<DiveGroupResponse>
                     columns={diveGroupColumns}
-                    dataSource={diveGroups}
+                    dataSource={orderedDiveGroups}
                     loading={loading}
                     rowKey={"id"}
                     pagination={false}
-                    title={() => t("DiveEvent.diveGroup.table.title")}
+                    title={() => reorderingEnabled
+                            ? t("DiveEvent.diveGroup.table.title") + " - " + t("DiveEvent.diveGroup.table.reorderHint")
+                            : t("DiveEvent.diveGroup.table.title")}
+                    onRow={(diveGroup: DiveGroupResponse) => reorderingEnabled ? {
+                        draggable: true,
+                        onDragStart: () => setDraggedDiveGroupId(diveGroup.id),
+                        onDragEnd: () => setDraggedDiveGroupId(null),
+                        onDragOver: (event) => event.preventDefault(),
+                        onDrop: () => dropOnDiveGroup(diveGroup.id)
+                    } : {}}
                     expandable={{
                         expandedRowRender: (diveGroup: DiveGroupResponse) => (
                                 <Table<DiveGroupMemberResponse>

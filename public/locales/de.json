@@ -823,7 +823,9 @@
         "leaveButton" : "Tauchgruppe verlassen",
         "memberCount" : "Mitglieder",
         "name" : "Name der Tauchgruppe",
+        "order" : "Reihenfolge",
         "owner" : "Eigentümer",
+        "reorderHint" : "Ziehe die Zeilen, um die Reihenfolge der Tauchgruppen zu ändern",
         "title" : "Tauchgruppen"
       }
     },

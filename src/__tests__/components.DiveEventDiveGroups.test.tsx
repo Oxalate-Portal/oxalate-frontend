@@ -8,6 +8,7 @@ const mockGetDiveGroupsByEventId = jest.fn();
 const mockJoinDiveGroup = jest.fn();
 const mockLeaveDiveGroup = jest.fn();
 const mockDeleteDiveGroup = jest.fn();
+const mockReorderDiveGroups = jest.fn();
 const mockUnsubscribe = jest.fn();
 const mockGetPortalConfigurationValue = jest.fn();
 const mockCheckRoles = jest.fn();
@@ -75,7 +76,8 @@ jest.mock("../services", () => ({
         getDiveGroupsByEventId: (...args: unknown[]) => mockGetDiveGroupsByEventId(...args),
         joinDiveGroup: (...args: unknown[]) => mockJoinDiveGroup(...args),
         leaveDiveGroup: (...args: unknown[]) => mockLeaveDiveGroup(...args),
-        deleteDiveGroup: (...args: unknown[]) => mockDeleteDiveGroup(...args)
+        deleteDiveGroup: (...args: unknown[]) => mockDeleteDiveGroup(...args),
+        reorderDiveGroups: (...args: unknown[]) => mockReorderDiveGroups(...args)
     }
 }));
 
@@ -88,21 +90,26 @@ jest.mock("../components/DiveEvent/DiveGroupTable", () => ({
             diveGroups.find((diveGroup) => (diveGroup.members ?? []).some((member) => member.userId === userId)) ?? null,
     findDiveGroupOwnedByUser: (diveGroups: DiveGroupResponse[], userId: number) =>
             diveGroups.find((diveGroup) => diveGroup.ownerId === userId) ?? null,
-    DiveGroupTable: ({diveGroups, loading, currentUserId, onJoin, onLeave, onDelete}: {
+    DiveGroupTable: ({diveGroups, loading, currentUserId, canReorderDiveGroups, onJoin, onLeave, onDelete, onReorder}: {
         diveGroups: DiveGroupResponse[];
         loading: boolean;
         currentUserId: number;
+        canReorderDiveGroups: boolean;
         onJoin: (id: number) => void;
         onLeave: (id: number) => void;
         onDelete: (id: number) => void;
+        onReorder: (diveGroupIds: number[]) => void;
     }) => (
             <div data-testid="dive-group-table">
                 <span>groups:{diveGroups.length}</span>
                 <span>loading:{String(loading)}</span>
                 <span>user:{currentUserId}</span>
+                <span>canReorder:{String(canReorderDiveGroups)}</span>
+                <span>order:{diveGroups.map((diveGroup) => diveGroup.id).join(",")}</span>
                 <button onClick={() => onJoin(7)}>table-join</button>
                 <button onClick={() => onLeave(7)}>table-leave</button>
                 <button onClick={() => onDelete(7)}>table-delete</button>
+                <button onClick={() => onReorder([8, 7])}>table-reorder</button>
             </div>
     )
 }));
@@ -158,6 +165,7 @@ describe("DiveEvent dive groups", () => {
         mockJoinDiveGroup.mockResolvedValue(group());
         mockLeaveDiveGroup.mockResolvedValue({status: "OK", message: ""});
         mockDeleteDiveGroup.mockResolvedValue({status: "OK", message: ""});
+        mockReorderDiveGroups.mockResolvedValue([]);
         mockUnsubscribe.mockResolvedValue(baseEvent);
     });
 
@@ -382,5 +390,89 @@ describe("DiveEvent dive groups", () => {
 
         await waitFor(() => expect(mockGetDiveGroupsByEventId).toHaveBeenCalled());
         expect(screen.queryByTestId("dive-group-table")).toBeNull();
+    });
+
+    // ------------------------------------------------------------------
+    // Dive group order
+    // ------------------------------------------------------------------
+
+    it("does not offer reordering to a plain member", async () => {
+        mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.getByText("canReorder:false")).toBeInTheDocument();
+    });
+
+    it("does not offer reordering to an organizer of another dive event", async () => {
+        session.userSession = {id: 1, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
+        // The event is organized by user 99, not by the current user
+        mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.getByText("canReorder:false")).toBeInTheDocument();
+    });
+
+    it("offers reordering to the organizer of the dive event", async () => {
+        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
+        mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.getByText("canReorder:true")).toBeInTheDocument();
+    });
+
+    it("offers reordering to an administrator who does not organize the event", async () => {
+        session.userSession = {id: 1, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ADMIN"]};
+        mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ADMIN"));
+        mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.getByText("canReorder:true")).toBeInTheDocument();
+    });
+
+    it("persists a new dive group order and uses the returned order", async () => {
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({id: 7}), group({id: 8, ownerId: 30, ownerName: "Diver Thirty"})]);
+        mockReorderDiveGroups.mockResolvedValue([group({id: 8, ownerId: 30, ownerName: "Diver Thirty"}), group({id: 7})]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.getByText("order:7,8")).toBeInTheDocument();
+
+        await act(async () => {
+            fireEvent.click(screen.getByText("table-reorder"));
+        });
+
+        expect(mockReorderDiveGroups).toHaveBeenCalledWith(42, [8, 7]);
+        expect(screen.getByText("order:8,7")).toBeInTheDocument();
+        // The authoritative order came with the response, so no extra reload is needed
+        expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(1);
+    });
+
+    it("reloads the dive groups when persisting the order fails", async () => {
+        jest.spyOn(console, "error").mockImplementation(() => undefined);
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({id: 7}), group({id: 8, ownerId: 30, ownerName: "Diver Thirty"})]);
+        mockReorderDiveGroups.mockRejectedValue(new Error("reorder failed"));
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+
+        await act(async () => {
+            fireEvent.click(screen.getByText("table-reorder"));
+        });
+
+        expect(mockReorderDiveGroups).toHaveBeenCalledWith(42, [8, 7]);
+        expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(2);
+        expect(screen.getByText("order:7,8")).toBeInTheDocument();
     });
 });

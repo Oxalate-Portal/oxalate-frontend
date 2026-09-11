@@ -332,6 +332,19 @@ export function DiveEvent() {
         await loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
     }
 
+    async function reorderDiveGroups(diveGroupIds: number[]): Promise<void> {
+        try {
+            const reordered = await diveGroupAPI.reorderDiveGroups(diveEventId, diveGroupIds);
+            setDiveGroups(reordered);
+            return;
+        } catch (error) {
+            console.error("Error:", error);
+        }
+
+        // The optimistic order of the table is discarded by reloading the authoritative order from the backend
+        await loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
+    }
+
     function onDiveGroupCreated(): void {
         setDiveGroupModalOpen(false);
         loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups);
@@ -341,6 +354,10 @@ export function DiveEvent() {
     const ownsDiveGroup = findDiveGroupOwnedByUser(diveGroups, currentUserId) !== null;
     const belongsToDiveGroup = findDiveGroupOfUser(diveGroups, currentUserId) !== null;
     const canAssignDiveGroupOwner = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]);
+    // The backend only lets the organizer of this very dive event, or an administrator, set the dive group order
+    const canReorderDiveGroups = currentUserId > 0
+            && (checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN])
+                    || (checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ORGANIZER]) && diveEvent?.organizer?.id === currentUserId));
     const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
     const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !belongsToDiveGroup && !ownsDiveGroup;
 
@@ -419,9 +436,11 @@ export function DiveEvent() {
                                         loading={diveGroupsLoading}
                                         currentUserId={currentUserId}
                                         canJoinDiveGroup={hasJoinedEvent}
+                                        canReorderDiveGroups={canReorderDiveGroups}
                                         onJoin={joinDiveGroup}
                                         onLeave={leaveDiveGroup}
                                         onDelete={deleteDiveGroup}
+                                        onReorder={reorderDiveGroups}
                                         key={diveEventId + "-dive-group-table"}/>
                         }
 

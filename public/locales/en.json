@@ -823,7 +823,9 @@
         "leaveButton" : "Leave dive group",
         "memberCount" : "Members",
         "name" : "Dive group name",
+        "order" : "Order",
         "owner" : "Owner",
+        "reorderHint" : "Drag the rows to change the order of the dive groups",
         "title" : "Dive groups"
       }
     },
