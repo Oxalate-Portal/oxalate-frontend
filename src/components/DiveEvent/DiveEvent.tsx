@@ -20,7 +20,7 @@ import {
 } from "../../models";
 import {DiveEventDetails} from "./DiveEventDetails";
 import {DiveGroupFormModal} from "./DiveGroupFormModal";
-import {DiveGroupTable, findDiveGroupOfUser, findDiveGroupOwnedByUser} from "./DiveGroupTable";
+import {DiveGroupTable, findDiveGroupOfUser, findDiveGroupOwnedByUser, isMemberOfDiveGroup} from "./DiveGroupTable";
 import {checkRoles} from "../../tools";
 import dayjs from "dayjs";
 import {Alert, Button, Divider, Modal, Select, Space, Spin} from "antd";
@@ -149,6 +149,7 @@ export function DiveEvent() {
             }
 
             let hasValidPayment = !requiresPayment;
+
             if (requiresPayment) {
                 try {
                     const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
@@ -353,13 +354,22 @@ export function DiveEvent() {
     const currentUserId = userSession?.id ?? 0;
     const ownsDiveGroup = findDiveGroupOwnedByUser(diveGroups, currentUserId) !== null;
     const belongsToDiveGroup = findDiveGroupOfUser(diveGroups, currentUserId) !== null;
-    const canAssignDiveGroupOwner = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER]);
+    const isEventOrganizer = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ORGANIZER])
+            && diveEvent?.organizer?.id === currentUserId;
+    const isAdministrator = checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN]);
+    const canAssignDiveGroupOwner = isAdministrator || isEventOrganizer;
     // The backend only lets the organizer of this very dive event, or an administrator, set the dive group order
     const canReorderDiveGroups = currentUserId > 0
-            && (checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ADMIN])
-                    || (checkRoles(userSession?.roles ?? null, [RoleEnum.ROLE_ORGANIZER]) && diveEvent?.organizer?.id === currentUserId));
+            && (isAdministrator || isEventOrganizer);
     const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
-    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0 && hasJoinedEvent && !belongsToDiveGroup && !ownsDiveGroup;
+    const hasAvailableDiveGroupOwner = (diveEvent?.participants ?? []).some((participant) =>
+            !diveGroups.some((diveGroup) => diveGroup.ownerId === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
+    ) || (diveEvent?.organizer !== null && diveEvent?.organizer !== undefined
+            && !diveGroups.some((diveGroup) => diveGroup.ownerId === diveEvent.organizer.id
+                    || isMemberOfDiveGroup(diveGroup, diveEvent.organizer.id)));
+    const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0
+            && hasAvailableDiveGroupOwner
+            && (canAssignDiveGroupOwner || (hasJoinedEvent && !belongsToDiveGroup && !ownsDiveGroup));
 
     return (
             <div className={"darkDiv"}>
@@ -493,6 +503,7 @@ export function DiveEvent() {
                         open={diveGroupModalOpen}
                         eventId={diveEventId}
                         participants={diveEvent?.participants ?? []}
+                        eventOrganizer={diveEvent?.organizer}
                         diveGroups={diveGroups}
                         canAssignOwner={canAssignDiveGroupOwner}
                         onCancel={() => setDiveGroupModalOpen(false)}

@@ -430,6 +430,18 @@ describe("DiveGroupFormModal", () => {
                 onCreated={onCreated}/>);
     }
 
+    function renderOrganizerModal() {
+        return render(<DiveGroupFormModal
+                open={true}
+                eventId={42}
+                participants={participants}
+                eventOrganizer={{id: 99, firstName: "Event", lastName: "Organizer"} as never}
+                diveGroups={[]}
+                canAssignOwner={true}
+                onCancel={onCancel}
+                onCreated={onCreated}/>);
+    }
+
     it("renders nothing when closed", () => {
         renderModal(false, false);
 
@@ -517,6 +529,20 @@ describe("DiveGroupFormModal", () => {
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
         await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 20}));
+    });
+
+    it("allows the event organizer to be selected as owner", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup({ownerId: 99, ownerName: "Event Organizer"}));
+
+        renderOrganizerModal();
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Organizer group"}});
+        fireEvent.mouseDown(screen.getByRole("combobox"));
+        await waitFor(() => expect(screen.getByText("Event Organizer")).toBeInTheDocument());
+        fireEvent.click(screen.getByText("Event Organizer"));
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Organizer group", ownerId: 99}));
     });
 
     it("shows an error when the creation fails", async () => {
