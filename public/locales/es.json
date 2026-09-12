@@ -832,6 +832,8 @@
     "requiresHealthStatement" : "Para unirse a un evento se requiere que la declaración de salud esté aprobada",
     "requiresMembership" : "Para unirse a un evento se requiere membresía",
     "requiresPayment" : "Para unirse a un evento se requiere un pago",
+    "requiresMembershipAtEvent" : "Para unirse a un evento se requiere una membresía válida cuando tenga lugar el evento",
+    "requiresPaymentAtEvent" : "Para unirse a un evento se requiere un pago válido cuando tenga lugar el evento",
     "subscribe" : {
       "button" : "Unirse al evento",
       "label" : "Participar en el evento",

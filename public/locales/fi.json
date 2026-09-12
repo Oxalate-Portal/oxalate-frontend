@@ -832,6 +832,8 @@
     "requiresHealthStatement" : "Tapahtumaan osallistuminen vaatii terveysselostuksen hyväksymistä",
     "requiresMembership" : "Tapahtumaan osallistuminen vaatii jäsenyyden",
     "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
+    "requiresMembershipAtEvent" : "Tapahtumaan osallistuminen vaatii tapahtuman aikana voimassa olevan jäsenyyden",
+    "requiresPaymentAtEvent" : "Tapahtumaan osallistuminen vaatii tapahtuman aikana voimassa olevan maksun",
     "subscribe" : {
       "button" : "Liity tapahtumaan",
       "label" : "Osallistu tapahtumaan",

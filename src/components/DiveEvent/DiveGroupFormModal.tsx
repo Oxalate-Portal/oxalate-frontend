@@ -1,15 +1,16 @@
 import {Button, Form, Input, Modal, Select} from "antd";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {diveGroupAPI} from "../../services";
 import {useSession} from "../../session";
-import type {DiveGroupRequest, DiveGroupResponse, ListUserResponse} from "../../models";
+import type {DiveGroupRequest, DiveGroupResponse, ListUserResponse, UserResponse} from "../../models";
 import {isMemberOfDiveGroup} from "./DiveGroupTable";
 
 interface DiveGroupFormModalProps {
     open: boolean;
     eventId: number;
     participants: ListUserResponse[];
+    eventOrganizer?: UserResponse | null;
     diveGroups: DiveGroupResponse[];
     canAssignOwner: boolean;
     onCancel: () => void;
@@ -21,24 +22,28 @@ interface DiveGroupFormData {
     ownerId?: number | null;
 }
 
-export function DiveGroupFormModal({open, eventId, participants, diveGroups, canAssignOwner, onCancel, onCreated}: DiveGroupFormModalProps) {
+export function DiveGroupFormModal({open, eventId, participants, eventOrganizer, diveGroups, canAssignOwner, onCancel, onCreated}: DiveGroupFormModalProps) {
     const {t} = useTranslation();
     const {userSession} = useSession();
     const [form] = Form.useForm<DiveGroupFormData>();
     const [submitting, setSubmitting] = useState(false);
     const [failed, setFailed] = useState(false);
-    const availableParticipants = participants.filter((participant) =>
-            !diveGroups.some((diveGroup) => isMemberOfDiveGroup(diveGroup, participant.id))
-    );
-    const ownerOptions = canAssignOwner
-            ? availableParticipants
-            : availableParticipants.filter((participant) => participant.id === userSession?.id);
+    const availableParticipants = useMemo(() => participants.filter((participant) =>
+            !diveGroups.some((diveGroup) => diveGroup.ownerId === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
+    ), [diveGroups, participants]);
+    const availableOwners = useMemo(() => eventOrganizer && !diveGroups.some((diveGroup) =>
+            diveGroup.ownerId === eventOrganizer.id || isMemberOfDiveGroup(diveGroup, eventOrganizer.id))
+            ? [...availableParticipants, {id: eventOrganizer.id, name: eventOrganizer.firstName + " " + eventOrganizer.lastName}]
+            : availableParticipants, [availableParticipants, diveGroups, eventOrganizer]);
+    const ownerOptions = useMemo(() => canAssignOwner
+            ? availableOwners
+            : availableParticipants.filter((participant) => participant.id === userSession?.id), [availableOwners, availableParticipants, canAssignOwner, userSession?.id]);
 
     useEffect(() => {
-        if (open && userSession?.id) {
+        if (open && userSession?.id && ownerOptions.some((participant) => participant.id === userSession.id)) {
             form.setFieldsValue({ownerId: userSession.id});
         }
-    }, [form, open, userSession?.id]);
+    }, [form, open, ownerOptions, userSession?.id]);
 
     function handleCancel(): void {
         form.resetFields();
@@ -102,6 +107,9 @@ export function DiveGroupFormModal({open, eventId, participants, diveGroups, can
                             name={"ownerId"}
                             label={t("DiveEvent.diveGroup.form.owner.label")}
                             tooltip={t("DiveEvent.diveGroup.form.owner.tooltip")}
+                            rules={canAssignOwner
+                                    ? [{required: true, message: t("DiveEvent.diveGroup.form.owner.placeholder")}]
+                                    : undefined}
                     >
                         <Select
                                 allowClear={canAssignOwner}

@@ -832,6 +832,8 @@
     "requiresHealthStatement" : "För att delta i ett evenemang krävs att hälsodeklarationen är godkänd",
     "requiresMembership" : "För att delta i ett evenemang krävs medlemskap",
     "requiresPayment" : "För att delta i ett evenemang krävs betalning",
+    "requiresMembershipAtEvent" : "För att delta i ett evenemang krävs ett medlemskap som är giltigt när evenemanget äger rum",
+    "requiresPaymentAtEvent" : "För att delta i ett evenemang krävs en betalning som är giltig när evenemanget äger rum",
     "subscribe" : {
       "button" : "Ga med i eventet",
       "label" : "Delta i evenemanget",

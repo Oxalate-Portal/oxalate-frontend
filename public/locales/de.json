@@ -832,6 +832,8 @@
     "requiresHealthStatement" : "Für die Teilnahme an einer Veranstaltung muss die Gesundheitserklärung genehmigt werden",
     "requiresMembership" : "Für die Teilnahme an einer Veranstaltung ist eine Mitgliedschaft erforderlich",
     "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
+    "requiresMembershipAtEvent" : "Für die Teilnahme an einer Veranstaltung ist eine zum Veranstaltungszeitpunkt gültige Mitgliedschaft erforderlich",
+    "requiresPaymentAtEvent" : "Für die Teilnahme an einer Veranstaltung ist eine zum Veranstaltungszeitpunkt gültige Zahlung erforderlich",
     "subscribe" : {
       "button" : "Event beitreten",
       "label" : "Am Event teilnehmen",

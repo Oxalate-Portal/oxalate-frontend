@@ -54,7 +54,7 @@ jest.mock("../session", () => ({
     useSession: () => ({
         userSession: session.userSession,
         getPortalTimezone: () => "Europe/Helsinki",
-        getPortalConfigurationValue: (...args: unknown[]) => mockGetPortalConfigurationValue(...args)
+        getPortalConfigurationValue: mockGetPortalConfigurationValue
     })
 }));
 
@@ -86,6 +86,8 @@ jest.mock("../components/DiveEvent/DiveEventDetails", () => ({DiveEventDetails: 
 jest.mock("../components/main", () => ({HealthStatementConfirmationModal: () => null}));
 
 jest.mock("../components/DiveEvent/DiveGroupTable", () => ({
+    isMemberOfDiveGroup: (diveGroup: DiveGroupResponse, userId: number) =>
+            (diveGroup.members ?? []).some((member) => member.userId === userId),
     findDiveGroupOfUser: (diveGroups: DiveGroupResponse[], userId: number) =>
             diveGroups.find((diveGroup) => (diveGroup.members ?? []).some((member) => member.userId === userId)) ?? null,
     findDiveGroupOwnedByUser: (diveGroups: DiveGroupResponse[], userId: number) =>
@@ -115,11 +117,12 @@ jest.mock("../components/DiveEvent/DiveGroupTable", () => ({
 }));
 
 jest.mock("../components/DiveEvent/DiveGroupFormModal", () => ({
-    DiveGroupFormModal: ({open, eventId, canAssignOwner, participants, onCancel, onCreated}: {
+    DiveGroupFormModal: ({open, eventId, canAssignOwner, participants, eventOrganizer, onCancel, onCreated}: {
         open: boolean;
         eventId: number;
         canAssignOwner: boolean;
         participants: Array<{ id: number }>;
+        eventOrganizer?: { id: number };
         onCancel: () => void;
         onCreated: () => void;
     }) => open ? (
@@ -127,6 +130,7 @@ jest.mock("../components/DiveEvent/DiveGroupFormModal", () => ({
                 <span>event:{eventId}</span>
                 <span>assignOwner:{String(canAssignOwner)}</span>
                 <span>participants:{participants.length}</span>
+                <span>organizer:{eventOrganizer?.id ?? "none"}</span>
                 <button onClick={onCancel}>modal-cancel</button>
                 <button onClick={onCreated}>modal-created</button>
             </div>
@@ -224,6 +228,21 @@ describe("DiveEvent dive groups", () => {
         expect(screen.queryByText("DiveEvent.diveGroup.createButton")).toBeNull();
     });
 
+    it("hides the create button for an administrator when every owner candidate already has a group", async () => {
+        session.userSession = {id: 50, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ADMIN"]};
+        mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ADMIN"));
+        mockGetDiveGroupsByEventId.mockResolvedValue([
+            group({ownerId: 1, ownerName: "Diver One"}),
+            group({id: 8, ownerId: 20, ownerName: "Diver Twenty"}),
+            group({id: 9, ownerId: 99, ownerName: "Event Organizer"})
+        ]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-table")).toBeInTheDocument());
+        expect(screen.queryByText("DiveEvent.diveGroup.createButton")).toBeNull();
+    });
+
     it("does not load dive groups nor show the create button for an anonymous visitor", async () => {
         session.userSession = null;
 
@@ -252,6 +271,7 @@ describe("DiveEvent dive groups", () => {
         await waitFor(() => expect(screen.getByTestId("dive-group-modal")).toBeInTheDocument());
         expect(screen.getByText("event:42")).toBeInTheDocument();
         expect(screen.getByText("participants:2")).toBeInTheDocument();
+        expect(screen.getByText("organizer:99")).toBeInTheDocument();
         expect(screen.getByText("assignOwner:false")).toBeInTheDocument();
 
         fireEvent.click(screen.getByText("modal-cancel"));
@@ -260,6 +280,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("allows organizers and administrators to assign the dive group owner", async () => {
+        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
         mockCheckRoles.mockReturnValue(true);
 
         await renderDiveEvent();
@@ -268,6 +289,21 @@ describe("DiveEvent dive groups", () => {
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.createButton"));
 
         await waitFor(() => expect(screen.getByText("assignOwner:true")).toBeInTheDocument());
+    });
+
+    it("allows the event organizer to create a dive group without joining the event", async () => {
+        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
+        mockFindById.mockResolvedValue({...baseEvent, participants: [{id: 1, name: "Diver One"}, {id: 20, name: "Diver Twenty"}]});
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByText("DiveEvent.diveGroup.createButton")).toBeInTheDocument());
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.createButton"));
+
+        expect(screen.getByText("assignOwner:true")).toBeInTheDocument();
+        expect(screen.getByText("participants:2")).toBeInTheDocument();
+        expect(screen.getByText("organizer:99")).toBeInTheDocument();
     });
 
     it("closes the modal and reloads the dive groups after a group was created", async () => {
