@@ -31,8 +31,11 @@ interface ParticipationCheckResult {
     canSubscribe: boolean;
     missingMembership: boolean;
     missingPayment: boolean;
+    paymentCheckCompleted: boolean;
     missingHealthStatement: boolean;
 }
+
+const PAYMENT_CHECK_TIMEOUT_MS = 10000;
 
 async function loadDiveGroups(
         eventId: number,
@@ -67,6 +70,7 @@ export function DiveEvent() {
     const [eventCommenting, setEventCommenting] = useState(false);
     const [missingMembership, setMissingMembership] = useState(false);
     const [missingPayment, setMissingPayment] = useState(false);
+    const [paymentCheckCompleted, setPaymentCheckCompleted] = useState(false);
     const [missingHealthStatement, setMissingHealthStatement] = useState(false);
     const [showHealthStatementModal, setShowHealthStatementModal] = useState(false);
     // Add modal state + selected user type
@@ -108,11 +112,14 @@ export function DiveEvent() {
     }, [paramId]);
 
     useEffect(() => {
+        let active = true;
+
         async function isUserAllowedToParticipate(userSession: UserSessionToken | null, diveEvent: DiveEventResponse): Promise<ParticipationCheckResult> {
             const result: ParticipationCheckResult = {
                 canSubscribe: false,
                 missingMembership: false,
                 missingPayment: false,
+                paymentCheckCompleted: false,
                 missingHealthStatement: false,
             };
 
@@ -141,7 +148,12 @@ export function DiveEvent() {
             if (requiresMembership) {
                 try {
                     const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
-                    hasActiveMembership = activeMembership.some(membership => membership.status === MembershipStatusEnum.ACTIVE);
+                    const eventDate = dayjs(diveEvent.startTime);
+                    hasActiveMembership = activeMembership.some(membership =>
+                            membership.status === MembershipStatusEnum.ACTIVE
+                            && (membership.startDate === null || !dayjs(membership.startDate).isAfter(eventDate))
+                            && (membership.endDate === null || !dayjs(membership.endDate).isBefore(eventDate))
+                    );
                 } catch (error) {
                     console.error("Error:", error);
                     hasActiveMembership = false;
@@ -151,9 +163,16 @@ export function DiveEvent() {
             let hasValidPayment = !requiresPayment;
 
             if (requiresPayment) {
+                let timeoutId: ReturnType<typeof setTimeout> | undefined;
                 try {
-                    const paymentStatusResponse: PaymentStatusResponse = await paymentAPI.findByUserId(userSession.id);
+                    const paymentStatusResponse: PaymentStatusResponse = await Promise.race([
+                        paymentAPI.findByUserId(userSession.id),
+                        new Promise<PaymentStatusResponse>((_, reject) => {
+                            timeoutId = setTimeout(() => reject(new Error("Payment status request timed out")), PAYMENT_CHECK_TIMEOUT_MS);
+                        })
+                    ]);
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
+                    const eventDate = dayjs(diveEvent.startTime);
 
                     // Either payment type (one-time or periodical) can satisfy the payment requirement.
                     // A one-time payment must still have remaining uses.
@@ -165,7 +184,8 @@ export function DiveEvent() {
                                 payment.paymentType === PaymentTypeEnum.ONE_TIME
                                 && payment.paymentCount !== null
                                 && payment.paymentCount > 0
-                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime)))
+                                && (payment.startDate === null || !dayjs(payment.startDate).isAfter(eventDate))
+                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(eventDate))
                         );
                         if (validOneTimePayments.length > 0) {
                             hasValidPayment = true;
@@ -176,7 +196,8 @@ export function DiveEvent() {
                     if (periodicalEnabled) {
                         const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIODICAL);
                         const validPeriodicalPayment = periodicalPayments.find(payment =>
-                                !dayjs(payment.endDate).isBefore(dayjs(diveEvent.startTime))
+                                (payment.startDate === null || !dayjs(payment.startDate).isAfter(eventDate))
+                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(eventDate))
                         );
                         if (validPeriodicalPayment) {
                             hasValidPayment = true;
@@ -186,7 +207,14 @@ export function DiveEvent() {
                 } catch (error) {
                     console.error("Error:", error);
                     hasValidPayment = false;
+                } finally {
+                    if (timeoutId !== undefined) {
+                        clearTimeout(timeoutId);
+                    }
                 }
+                result.paymentCheckCompleted = true;
+            } else {
+                result.paymentCheckCompleted = true;
             }
 
             result.missingMembership = requiresMembership && !hasActiveMembership;
@@ -232,11 +260,16 @@ export function DiveEvent() {
             setIsEventFull((diveEvent.participants?.length || 0) >= diveEvent.maxParticipants);
             setIsInWaitingList(isUserWaiting(userSession, diveEvent));
 
+            setPaymentCheckCompleted(false);
             isUserAllowedToParticipate(userSession, diveEvent)
                     .then((checkResult: ParticipationCheckResult) => {
+                        if (!active) {
+                            return;
+                        }
                         setCanSubscribe(checkResult.canSubscribe);
                         setMissingMembership(checkResult.missingMembership);
                         setMissingPayment(checkResult.missingPayment);
+                        setPaymentCheckCompleted(checkResult.paymentCheckCompleted);
                         setMissingHealthStatement(checkResult.missingHealthStatement);
                     });
             setSubscribing(isUserParticipating(userSession, diveEvent));
@@ -246,6 +279,10 @@ export function DiveEvent() {
                 && (getPortalConfigurationValue(PortalConfigGroupEnum.COMMENTING, "commenting-enabled-features").includes("event"))) {
             setEventCommenting(true);
         }
+
+        return () => {
+            active = false;
+        };
     }, [userSession, diveEvent, getPortalConfigurationValue]);
 
 
@@ -362,11 +399,12 @@ export function DiveEvent() {
     const canReorderDiveGroups = currentUserId > 0
             && (isAdministrator || isEventOrganizer);
     const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
+    const eventOrganizerId = diveEvent?.organizer?.id;
     const hasAvailableDiveGroupOwner = (diveEvent?.participants ?? []).some((participant) =>
             !diveGroups.some((diveGroup) => diveGroup.ownerId === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
-    ) || (diveEvent?.organizer !== null && diveEvent?.organizer !== undefined
-            && !diveGroups.some((diveGroup) => diveGroup.ownerId === diveEvent.organizer.id
-                    || isMemberOfDiveGroup(diveGroup, diveEvent.organizer.id)));
+    ) || (eventOrganizerId !== undefined
+            && !diveGroups.some((diveGroup) => diveGroup.ownerId === eventOrganizerId
+                    || isMemberOfDiveGroup(diveGroup, eventOrganizerId)));
     const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0
             && hasAvailableDiveGroupOwner
             && (canAssignDiveGroupOwner || (hasJoinedEvent && !belongsToDiveGroup && !ownsDiveGroup));
@@ -379,10 +417,10 @@ export function DiveEvent() {
                         {!subscribing && !canSubscribe && (missingMembership || missingPayment || missingHealthStatement) && (
                                 <Space orientation={"vertical"}>
                                     {missingMembership && (
-                                            <Alert type={"warning"} showIcon title={t("DiveEvent.requiresMembership")}/>
+                                            <Alert type={"warning"} showIcon title={t("DiveEvent.requiresMembershipAtEvent")}/>
                                     )}
-                                    {missingPayment && (
-                                            <Alert type={"warning"} showIcon title={t("DiveEvent.requiresPayment")}/>
+                                    {paymentCheckCompleted && missingPayment && (
+                                            <Alert type={"warning"} showIcon title={t("DiveEvent.requiresPaymentAtEvent")}/>
                                     )}
                                     {missingHealthStatement && (
                                             <Space>

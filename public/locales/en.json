@@ -832,6 +832,8 @@
     "requiresHealthStatement" : "Joining an event requires that the health statement is approved",
     "requiresMembership" : "Joining an event requires membership",
     "requiresPayment" : "Joining an event requires payment",
+    "requiresMembershipAtEvent" : "Joining an event requires a membership valid when the event takes place",
+    "requiresPaymentAtEvent" : "Joining an event requires a payment valid when the event takes place",
     "subscribe" : {
       "button" : "Join event",
       "label" : "Participate in event",

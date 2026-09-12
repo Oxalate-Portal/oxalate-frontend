@@ -54,7 +54,7 @@ jest.mock("../session", () => ({
     useSession: () => ({
         userSession: session.userSession,
         getPortalTimezone: () => "Europe/Helsinki",
-        getPortalConfigurationValue: (...args: unknown[]) => mockGetPortalConfigurationValue(...args)
+        getPortalConfigurationValue: mockGetPortalConfigurationValue
     })
 }));
 
