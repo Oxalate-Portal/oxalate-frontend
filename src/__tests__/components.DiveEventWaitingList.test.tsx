@@ -104,6 +104,7 @@ jest.mock("antd", () => {
     const FormMock = ({children}: { children: ReactNode }) => <form>{children}</form>;
     FormMock.Item = ({children}: { children: ReactNode }) => <div>{children}</div>;
     FormMock.useForm = () => [{resetFields: jest.fn(), setFieldsValue: jest.fn(), getFieldValue: jest.fn()}];
+    FormMock.useWatch = () => undefined;
 
     return {
         message: {useMessage: () => [{success: jest.fn(), error: jest.fn()}, <span key="message-holder"/>]},

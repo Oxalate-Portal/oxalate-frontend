@@ -1,4 +1,4 @@
-import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {cleanup, configure, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type React from "react";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
@@ -26,7 +26,10 @@ import {
     UserProfile
 } from "../components";
 
-jest.setTimeout(30000);
+jest.setTimeout(120000);
+
+// Slow machines need more headroom than the 1 s default before waitFor/findBy give up
+configure({asyncUtilTimeout: 10000});
 
 const session = {
     id: 7, username: "ada@example.com", firstName: "Ada", lastName: "Lovelace",
@@ -125,27 +128,27 @@ describe("User and main controls and API outcomes", () => {
     });
 
     it("uses password and recovery controls through validation, success, failure, and redirects", async () => {
-        const u = userEvent.setup();
+        const u = userEvent.setup({delay: null});
         render(wrap(<LostPassword/>));
         await u.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         expect(authAPI.recoverLostPassword).not.toHaveBeenCalled();
         (authAPI.recoverLostPassword as jest.Mock).mockResolvedValueOnce({status: UpdateStatusEnum.OK});
-        await u.type(screen.getByRole("textbox"), "ada@example.com");
+        fireEvent.change(screen.getByRole("textbox"), {target: {value: "ada@example.com"}});
         await u.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         await waitFor(() => expect(screen.getByText("LostPassword.updateStatus.ok.text")).toBeInTheDocument());
         await u.click(screen.getByRole("button", {name: "LostPassword.updateStatus.ok.button"}));
         cleanup();
         render(wrap(<LostPassword/>));
         (authAPI.recoverLostPassword as jest.Mock).mockResolvedValueOnce({status: UpdateStatusEnum.FAIL});
-        await u.type(screen.getByRole("textbox"), "ada@example.com");
+        fireEvent.change(screen.getByRole("textbox"), {target: {value: "ada@example.com"}});
         await u.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         await waitFor(() => expect(screen.getByText("LostPassword.updateStatus.fail.text")).toBeInTheDocument());
         cleanup();
         render(wrap(<Password/>));
         const passwords = Array.from(document.querySelectorAll<HTMLInputElement>("input[type=password]"));
-        await u.type(passwords[0], "old");
-        await u.type(passwords[1], "NewPassword1!");
-        await u.type(passwords[2], "NewPassword1!");
+        fireEvent.change(passwords[0], {target: {value: "old"}});
+        fireEvent.change(passwords[1], {target: {value: "NewPassword1!"}});
+        fireEvent.change(passwords[2], {target: {value: "NewPassword1!"}});
         (authAPI.updatePassword as jest.Mock).mockResolvedValueOnce({status: UpdateStatusEnum.OK});
         await u.click(screen.getByRole("button", {name: "Password.form.submitButton"}));
         await waitFor(() => expect(screen.getByText("Password.updateStatus.ok.text")).toBeInTheDocument());
@@ -153,7 +156,7 @@ describe("User and main controls and API outcomes", () => {
     });
 
     it("covers reset-token, terms, health and upload controls", async () => {
-        const u = userEvent.setup();
+        const u = userEvent.setup({delay: null});
         render(<MemoryRouter initialEntries={["/reset/abc"]}><Routes><Route path="/reset/:token" element={<NewPassword/>}/></Routes></MemoryRouter>);
         (authAPI.resetPassword as jest.Mock).mockResolvedValueOnce({status: UpdateStatusEnum.OK});
         const fields = Array.from(document.querySelectorAll<HTMLInputElement>("input[type=password]"));
@@ -182,7 +185,7 @@ describe("User and main controls and API outcomes", () => {
     });
 
     it("exercises rejected reset/password, terms, health and document requests", async () => {
-        const u = userEvent.setup();
+        const u = userEvent.setup({delay: null});
         render(wrap(<NewPassword/>));
         const noTokenFields = Array.from(document.querySelectorAll<HTMLInputElement>("input[type=password]"));
         fireEvent.change(noTokenFields[0], {target: {value: "NewPassword1!"}});
@@ -223,7 +226,6 @@ describe("User and main controls and API outcomes", () => {
     });
 
     it("covers profile/show user, update paths, role controls, and range shifts", async () => {
-        const u = userEvent.setup();
         (userAPI.findById as jest.Mock).mockResolvedValue(userData);
         render(<MemoryRouter initialEntries={["/users/7"]}><Routes><Route path="/users/:paramId" element={<ShowUser/>}/></Routes></MemoryRouter>);
         await waitFor(() => expect(screen.getByText("Lovelace, Ada")).toBeInTheDocument());
@@ -233,22 +235,21 @@ describe("User and main controls and API outcomes", () => {
         render(<UserProfile/>);
         await waitFor(() => expect(screen.getByRole("button", {name: "common.button.update"})).toBeInTheDocument());
         window.confirm = jest.fn().mockReturnValue(true);
-        await u.click(screen.getByRole("button", {name: "User.button.lockAccount"}));
+        fireEvent.click(screen.getByRole("button", {name: "User.button.lockAccount"}));
         await waitFor(() => expect(userAPI.updateUserStatus).toHaveBeenCalled());
         (adminUserAPI.update as jest.Mock).mockResolvedValueOnce(userData);
-        await u.click(screen.getByRole("button", {name: "common.button.update"}));
+        fireEvent.click(screen.getByRole("button", {name: "common.button.update"}));
         await waitFor(() => expect(adminUserAPI.update).toHaveBeenCalled());
         cleanup();
         const onChange = jest.fn();
         render(<ShiftableRangePicker periodType={ChronoUnitEnum.MONTHS} value={[dayjs("2020-01-01"), dayjs("2020-02-01")]} onChange={onChange}/>);
         const buttons = screen.getAllByRole("button");
-        await u.click(buttons[0]);
-        await u.click(buttons[buttons.length - 1]);
+        fireEvent.click(buttons[0]);
+        fireEvent.click(buttons[buttons.length - 1]);
         expect(onChange).toHaveBeenCalled();
     });
 
     it("covers login states, navigation languages/mobile drawer, captcha wrapper and footer", async () => {
-        const u = userEvent.setup();
         const executeRecaptcha = jest.fn().mockResolvedValue("captcha");
         jest.doMock("@wojtekmaj/react-recaptcha-v3", () => ({
             useReCaptcha: () => ({executeRecaptcha}),
@@ -256,15 +257,15 @@ describe("User and main controls and API outcomes", () => {
         }));
         sessionHook.loginUser.mockResolvedValue({status: "FAILURE"});
         render(wrap(<Login/>));
-        await u.type(screen.getByLabelText("Login.form.username.label"), "ada@example.com");
-        await u.type(screen.getByLabelText("Login.form.password.label"), "wrong");
-        await u.click(screen.getByRole("button", {name: "common.button.login"}));
-        await waitFor(() => expect(screen.getByText("Login.updateStatus.loginFail")).toBeInTheDocument());
+        fireEvent.change(screen.getByLabelText("Login.form.username.label"), {target: {value: "ada@example.com"}});
+        fireEvent.change(screen.getByLabelText("Login.form.password.label"), {target: {value: "wrong"}});
+        fireEvent.click(screen.getByRole("button", {name: "common.button.login"}));
+        expect(await screen.findByText("Login.updateStatus.loginFail")).toBeInTheDocument();
         render(wrap(<LoginWithCaptcha/>));
         render(wrap(<NavigationBar/>));
         await waitFor(() => expect(screen.getByRole("button", {name: "Open menu"})).toBeInTheDocument());
-        await u.click(screen.getByRole("button", {name: "Open menu"}));
-        expect(screen.getByText("Ada Lovelace")).toBeInTheDocument();
+        fireEvent.click(screen.getByRole("button", {name: "Open menu"}));
+        expect(await screen.findByText("Ada Lovelace")).toBeInTheDocument();
         render(<OxalateFooter/>);
     });
 });

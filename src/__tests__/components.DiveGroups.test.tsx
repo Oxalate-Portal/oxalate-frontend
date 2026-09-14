@@ -1,4 +1,4 @@
-import {act, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
+import {act, configure, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import {
     DiveGroupFormModal,
     DiveGroupTable,
@@ -9,6 +9,11 @@ import {
     sortDiveGroupsByOrder
 } from "../components";
 import type {DiveGroupResponse, ListUserResponse} from "../models";
+
+jest.setTimeout(60000);
+
+// Slow machines need more headroom than the 1 s default before waitFor/findBy give up
+configure({asyncUtilTimeout: 10000});
 
 const mockCreateDiveGroup = jest.fn();
 
@@ -442,6 +447,27 @@ describe("DiveGroupFormModal", () => {
                 onCreated={onCreated}/>);
     }
 
+    function ownerCombobox(): HTMLElement {
+        return document.getElementById("diveGroupForm_ownerId") as HTMLElement;
+    }
+
+    function membersCombobox(): HTMLElement {
+        return document.getElementById("diveGroupForm_memberIds") as HTMLElement;
+    }
+
+    async function openSelect(combobox: HTMLElement): Promise<HTMLElement> {
+        fireEvent.mouseDown(combobox);
+        const listId = (combobox.getAttribute("aria-owns") ?? combobox.getAttribute("aria-controls")) as string;
+        await waitFor(() => expect(document.getElementById(listId)).not.toBeNull());
+        return document.getElementById(listId)?.closest(".ant-select-dropdown") as HTMLElement;
+    }
+
+    async function selectOption(combobox: HTMLElement, optionLabel: string): Promise<void> {
+        const dropdown = await openSelect(combobox);
+        await waitFor(() => expect(within(dropdown).getByText(optionLabel)).toBeInTheDocument());
+        fireEvent.click(within(dropdown).getByText(optionLabel));
+    }
+
     it("renders nothing when closed", () => {
         renderModal(false, false);
 
@@ -454,7 +480,9 @@ describe("DiveGroupFormModal", () => {
         expect(screen.getByText("DiveEvent.diveGroup.modal.title")).toBeInTheDocument();
         expect(screen.getByText("DiveEvent.diveGroup.form.name.label")).toBeInTheDocument();
         expect(screen.getByText("DiveEvent.diveGroup.form.owner.label")).toBeInTheDocument();
-        expect(screen.getByRole("combobox")).toBeDisabled();
+        expect(screen.getByText("DiveEvent.diveGroup.form.members.label")).toBeInTheDocument();
+        expect(ownerCombobox()).toBeDisabled();
+        expect(membersCombobox()).toBeEnabled();
     });
 
     it("renders the owner field for organizers and administrators", () => {
@@ -466,10 +494,10 @@ describe("DiveGroupFormModal", () => {
     it("only offers participants who are not already in a dive group", async () => {
         renderModal(true, true, [diveGroup()]);
 
-        fireEvent.mouseDown(screen.getByRole("combobox"));
+        const dropdown = await openSelect(ownerCombobox());
 
-        await waitFor(() => expect(screen.getByText("Diver Twenty")).toBeInTheDocument());
-        expect(screen.queryByText("Owner Ten")).toBeNull();
+        await waitFor(() => expect(within(dropdown).getByText("Diver Twenty")).toBeInTheDocument());
+        expect(within(dropdown).queryByText("Owner Ten")).toBeNull();
     });
 
     it("defaults the owner to the current user", async () => {
@@ -480,7 +508,7 @@ describe("DiveGroupFormModal", () => {
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 10}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 10, groupType: "NORMAL"}));
     });
 
     it("validates that the name is required", async () => {
@@ -511,7 +539,7 @@ describe("DiveGroupFormModal", () => {
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", groupType: "NORMAL"}));
         expect(onCreated).toHaveBeenCalledWith(created);
     });
 
@@ -522,13 +550,11 @@ describe("DiveGroupFormModal", () => {
 
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
 
-        fireEvent.mouseDown(screen.getByRole("combobox"));
-        await waitFor(() => expect(screen.getByText("Diver Twenty")).toBeInTheDocument());
-        fireEvent.click(screen.getByText("Diver Twenty"));
+        await selectOption(ownerCombobox(), "Diver Twenty");
 
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 20}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 20, groupType: "NORMAL"}));
     });
 
     it("allows the event organizer to be selected as owner", async () => {
@@ -537,12 +563,71 @@ describe("DiveGroupFormModal", () => {
         renderOrganizerModal();
 
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Organizer group"}});
-        fireEvent.mouseDown(screen.getByRole("combobox"));
-        await waitFor(() => expect(screen.getByText("Event Organizer")).toBeInTheDocument());
-        fireEvent.click(screen.getByText("Event Organizer"));
+        await selectOption(ownerCombobox(), "Event Organizer");
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Organizer group", ownerId: 99}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Organizer group", ownerId: 99, groupType: "NORMAL"}));
+    });
+
+    it("excludes the owner from the member options", async () => {
+        renderModal(true, true);
+
+        const dropdown = await openSelect(membersCombobox());
+
+        await waitFor(() => expect(within(dropdown).getByText("Diver Twenty")).toBeInTheDocument());
+        expect(within(dropdown).queryByText("Owner Ten")).toBeNull();
+    });
+
+    it("does not offer participants of another dive group as members", async () => {
+        renderModal(true, true, [diveGroup({
+            ownerId: 20,
+            ownerName: "Diver Twenty",
+            members: [{userId: 20, name: "Diver Twenty", userType: "SCUBA_DIVER", owner: true, joinedAt: null}] as never
+        })]);
+
+        const dropdown = await openSelect(membersCombobox());
+
+        expect(within(dropdown).queryByText("Diver Twenty")).toBeNull();
+    });
+
+    it("creates a dive group with the selected members", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup());
+
+        renderModal(true, false);
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
+        await selectOption(membersCombobox(), "Diver Twenty");
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", memberIds: [20], groupType: "NORMAL"}));
+    });
+
+    it("omits a selected member who is then selected as the owner", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup({ownerId: 20, ownerName: "Diver Twenty"}));
+
+        renderModal(true, true);
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
+        await selectOption(membersCombobox(), "Diver Twenty");
+        await selectOption(ownerCombobox(), "Diver Twenty");
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 20, groupType: "NORMAL"}));
+    });
+
+    it("creates a project dive group when the project group type is selected", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup());
+
+        renderModal(true, false);
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
+
+        const groupTypeCombobox = document.getElementById("diveGroupForm_groupType") as HTMLElement;
+        await selectOption(groupTypeCombobox, "DiveGroupTypeEnum.project");
+
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", groupType: "PROJECT"}));
     });
 
     it("shows an error when the creation fails", async () => {

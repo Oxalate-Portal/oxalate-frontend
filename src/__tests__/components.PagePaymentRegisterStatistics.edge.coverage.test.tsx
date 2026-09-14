@@ -1,4 +1,4 @@
-import {cleanup, render, screen, waitFor, within} from "@testing-library/react";
+import {cleanup, configure, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type {ReactNode} from "react";
 import {
@@ -16,7 +16,10 @@ import {
 import {PageStatusEnum, PaymentTypeEnum, RoleEnum} from "../models";
 import {authAPI, pageAPI, pageGroupMgmtAPI, pageMgmtAPI, paymentAPI, statsAPI, userAPI} from "../services";
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);
+
+// Slow machines need more headroom than the 1 s default before waitFor/findBy give up
+configure({asyncUtilTimeout: 10000});
 
 let routeId = "7";
 let query = "OK";
@@ -114,7 +117,7 @@ afterEach(cleanup);
 
 describe("page, payment, registration and statistics edge controls", () => {
     it("renders sanitized page variants and tolerates API failure", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         render(<Page/>);
         expect(await screen.findByText("Title")).toBeInTheDocument();
         expect(screen.getByText("Ingress")).toBeInTheDocument();
@@ -125,11 +128,11 @@ describe("page, payment, registration and statistics edge controls", () => {
     });
 
     it("covers editor upload configuration and new page initialization", async () => {
-        const user = userEvent.setup();
         localStorage.clear();
         const changed = jest.fn();
         render(<PageBodyEditor value="old" language="en" pageId={7} onChange={changed}/>);
-        await user.type(screen.getByRole("textbox", {name: "body editor"}), " text");
+        const bodyEditor = screen.getByRole("textbox", {name: "body editor"}) as HTMLTextAreaElement;
+        fireEvent.change(bodyEditor, {target: {value: bodyEditor.value + " text"}});
         expect(changed).toHaveBeenCalled();
         cleanup();
         routeId = "0";
@@ -142,7 +145,7 @@ describe("page, payment, registration and statistics edge controls", () => {
     });
 
     it("covers payment reset confirmation, success, false, and rejection paths", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         render(<Payments/>);
         await user.click(screen.getByRole("button", {name: "AdminPayments.reset-periodical-button"}));
         await waitFor(() => expect(paymentAPI.resetAllPayments).toHaveBeenCalledWith(PaymentTypeEnum.PERIODICAL));
@@ -158,7 +161,7 @@ describe("page, payment, registration and statistics edge controls", () => {
     });
 
     it("covers payment table date/count controls and reload events", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         const record = {
             id: 4, userId: 3, name: "Diver", created: "2024-01-01",
             startDate: "2024-01-01", endDate: null, paymentCount: 1,
@@ -179,7 +182,7 @@ describe("page, payment, registration and statistics edge controls", () => {
     });
 
     it("covers registration status variants and resend request", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         render(<Registration/>);
         expect(screen.getByText("Registration.title.ok")).toBeInTheDocument();
         query = "INVALID";

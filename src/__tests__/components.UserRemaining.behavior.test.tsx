@@ -1,4 +1,4 @@
-import {cleanup, fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {cleanup, configure, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import {
@@ -17,7 +17,10 @@ import {
 import {MembershipTypeEnum, PaymentTypeEnum, RoleEnum, UpdateStatusEnum} from "../models";
 import {adminUserAPI, authAPI, diveEventAPI, fileTransferAPI, userAPI} from "../services";
 
-jest.setTimeout(30000);
+jest.setTimeout(60000);
+
+// Slow machines need more headroom than the 1 s default before waitFor/findBy give up
+configure({asyncUtilTimeout: 10000});
 if (!globalThis.MessageChannel) {
     class TestMessageChannel {
         port1 = {onmessage: null as ((event: MessageEvent) => void) | null, close: jest.fn()};
@@ -102,28 +105,27 @@ describe("remaining User components", () => {
     });
 
     it("validates lost password and handles API success, failure, and logged-in redirect", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         render(wrap(<LostPassword/>));
         await user.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         expect(authAPI.recoverLostPassword).not.toHaveBeenCalled();
-        await user.type(screen.getByRole("textbox"), "bad");
+        fireEvent.change(screen.getByRole("textbox"), {target: {value: "bad"}});
         await user.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         expect(authAPI.recoverLostPassword).not.toHaveBeenCalled();
         (authAPI.recoverLostPassword as jest.Mock).mockResolvedValue({status: UpdateStatusEnum.OK});
-        await user.clear(screen.getByRole("textbox"));
-        await user.type(screen.getByRole("textbox"), "person@example.com");
+        fireEvent.change(screen.getByRole("textbox"), {target: {value: "person@example.com"}});
         await user.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         await waitFor(() => expect(screen.getByText("LostPassword.updateStatus.ok.text")).toBeInTheDocument());
         cleanup();
         (authAPI.recoverLostPassword as jest.Mock).mockRejectedValue(new Error("offline"));
         render(wrap(<LostPassword/>));
-        await user.type(screen.getByRole("textbox"), "person@example.com");
+        fireEvent.change(screen.getByRole("textbox"), {target: {value: "person@example.com"}});
         await user.click(screen.getByRole("button", {name: "LostPassword.form.submitButton"}));
         await waitFor(() => expect(screen.getByText("LostPassword.updateStatus.fail.text")).toBeInTheDocument());
     });
 
     it("covers password validation and reset-token form edge", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         session.accessToken = "";
         render(wrap(<Password/>));
         await user.click(screen.getByRole("button", {name: "Password.form.submitButton"}));

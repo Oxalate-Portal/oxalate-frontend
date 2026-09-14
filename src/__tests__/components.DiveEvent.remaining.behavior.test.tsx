@@ -85,6 +85,7 @@ jest.mock("antd", () => {
     </form>;
     Form.Item = ({children}: any) => <div>{children}</div>;
     Form.useForm = () => [mockForm];
+    Form.useWatch = () => undefined;
     const Modal = ({open, children, onOk, onCancel}: any) => open ? <div role="dialog">{children}
         <button onClick={onOk}>modal-ok</button>
         <button onClick={onCancel}>modal-cancel</button>
