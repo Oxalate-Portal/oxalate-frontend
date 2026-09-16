@@ -24,7 +24,7 @@
     "lint:style:fix" : "eslint --no-config-lookup -c eslint.stylistic.config.mjs src/ --fix",
     "typecheck" : "tsc -p tsconfig.app.json --noEmit",
     "verify:translations" : "node tools/verifyTranslationParity.cjs",
-    "ratchet" : "node tools/qualityRatchet.cjs",
+    "ratchet" : "yarn prebuild && node tools/qualityRatchet.cjs",
     "ratchet:update" : "node tools/qualityRatchet.cjs --update",
     "verify" : "yarn lint && yarn verify:translations && yarn ratchet && yarn test:coverage && yarn build:test",
     "preview" : "vite preview"
