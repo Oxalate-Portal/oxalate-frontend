@@ -166,7 +166,7 @@ export function DiveEvent() {
                 let timeoutId: ReturnType<typeof setTimeout> | undefined;
                 try {
                     const paymentStatusResponse: PaymentStatusResponse = await Promise.race([
-                        paymentAPI.findByUserId(userSession.id),
+                        paymentAPI.findCurrentAndFutureByUserId(userSession.id),
                         new Promise<PaymentStatusResponse>((_, reject) => {
                             timeoutId = setTimeout(() => reject(new Error("Payment status request timed out")), PAYMENT_CHECK_TIMEOUT_MS);
                         })
@@ -489,6 +489,7 @@ export function DiveEvent() {
                                         onLeave={leaveDiveGroup}
                                         onDelete={deleteDiveGroup}
                                         onReorder={reorderDiveGroups}
+                                        onFilesChanged={() => loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups)}
                                         key={diveEventId + "-dive-group-table"}/>
                         }
 

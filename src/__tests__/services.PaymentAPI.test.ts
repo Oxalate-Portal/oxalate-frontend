@@ -49,6 +49,15 @@ describe('PaymentAPI', () => {
         expect(result).toEqual(mockResponse);
     });
 
+    it('should find current and future payments by user id', async () => {
+        const userId = 1;
+        const mockResponse = {userId, status: 'OK', payments: []};
+        mock.onGet(`/user/${userId}/current-and-future`).reply(200, mockResponse);
+
+        const result = await paymentAPI.findCurrentAndFutureByUserId(userId);
+        expect(result).toEqual(mockResponse);
+    });
+
     it('should find all payments', async () => {
         const mockResponse = [{id: 1, status: 'ACTIVE'}, {id: 2, status: 'INACTIVE'}];
         mock.onGet('').reply(200, mockResponse);
@@ -81,4 +90,3 @@ describe('PaymentAPI', () => {
         expect(mock.history.delete).toHaveLength(1);
     });
 });
-

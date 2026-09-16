@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Käyttäjien maksutietojen päivitys epäonnistui",
+      "mismatch" : "Maksu on päällekkäinen olemassa olevan maksun kanssa, eikä sitä lisätty",
       "ok" : "Käyttäjien maksutiedot päivitetty"
     },
     "status" : {
@@ -788,7 +789,22 @@
       "error" : {
         "create" : "Sukellusryhmän luonti epäonnistui"
       },
+      "files" : {
+        "empty" : "Sukellusryhmä ei ole ladannut sukellussuunnitelmia",
+        "none" : "Ei tiedostoja",
+        "title" : "Ryhmän lataamat sukellussuunnitelmat",
+        "uploaded" : "Ladattu"
+      },
       "form" : {
+        "groupType" : {
+          "label" : "Sukellusryhmän tyyppi",
+          "tooltip" : "Suorittaako sukellusryhmä tavallisen sukelluksen vai erityisen projektisukelluksen"
+        },
+        "members" : {
+          "label" : "Sukellusryhmän jäsenet",
+          "placeholder" : "Valitse sukellusryhmään lisättävät osallistujat",
+          "tooltip" : "Sukellustapahtuman osallistujat, jotka lisätään sukellusryhmään heti. Vain osallistujat, jotka eivät vielä kuulu mihinkään sukellusryhmään, voidaan valita"
+        },
         "name" : {
           "label" : "Sukellusryhmän nimi",
           "placeholder" : "Esimerkiksi Team Sidemount",
@@ -819,6 +835,8 @@
         "action" : "Toiminto",
         "deleteButton" : "Poista sukellusryhmä",
         "deleteConfirm" : "Haluatko varmasti poistaa tämän sukellusryhmän?",
+        "diveFiles" : "Sukellussuunnitelmat",
+        "groupType" : "Sukellustyyppi",
         "joinButton" : "Liity sukellusryhmään",
         "leaveButton" : "Poistu sukellusryhmästä",
         "memberCount" : "Jäseniä",
@@ -855,6 +873,10 @@
     "held" : "Pidetty",
     "published" : "Julkaistu",
     "unknown" : "Tuntematon"
+  },
+  "DiveGroupTypeEnum" : {
+    "normal" : "Tavallinen sukellus",
+    "project" : "Projektisukellus"
   },
   "DiveTypeEnum" : {
     "boat" : "Sukellusta veneestä",

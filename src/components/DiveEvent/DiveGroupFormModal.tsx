@@ -3,7 +3,7 @@ import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {diveGroupAPI} from "../../services";
 import {useSession} from "../../session";
-import type {DiveGroupRequest, DiveGroupResponse, ListUserResponse, UserResponse} from "../../models";
+import {type DiveGroupRequest, type DiveGroupResponse, DiveGroupTypeEnum, type ListUserResponse, type UserResponse} from "../../models";
 import {isMemberOfDiveGroup} from "./DiveGroupTable";
 
 interface DiveGroupFormModalProps {
@@ -19,7 +19,9 @@ interface DiveGroupFormModalProps {
 
 interface DiveGroupFormData {
     name: string;
+    groupType?: DiveGroupTypeEnum;
     ownerId?: number | null;
+    memberIds?: number[];
 }
 
 export function DiveGroupFormModal({open, eventId, participants, eventOrganizer, diveGroups, canAssignOwner, onCancel, onCreated}: DiveGroupFormModalProps) {
@@ -38,6 +40,10 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
     const ownerOptions = useMemo(() => canAssignOwner
             ? availableOwners
             : availableParticipants.filter((participant) => participant.id === userSession?.id), [availableOwners, availableParticipants, canAssignOwner, userSession?.id]);
+    const selectedOwnerId = Form.useWatch("ownerId", form);
+    const effectiveOwnerId = selectedOwnerId ?? userSession?.id;
+    const memberOptions = useMemo(() => availableParticipants.filter((participant) => participant.id !== effectiveOwnerId),
+            [availableParticipants, effectiveOwnerId]);
 
     useEffect(() => {
         if (open && userSession?.id && ownerOptions.some((participant) => participant.id === userSession.id)) {
@@ -57,11 +63,18 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
 
         const diveGroupRequest: DiveGroupRequest = {
             eventId: eventId,
-            name: values.name
+            name: values.name,
+            groupType: values.groupType ?? DiveGroupTypeEnum.NORMAL
         };
 
         if (canAssignOwner && values.ownerId) {
             diveGroupRequest.ownerId = values.ownerId;
+        }
+
+        const memberIds = (values.memberIds ?? []).filter((memberId) => memberId !== effectiveOwnerId);
+
+        if (memberIds.length > 0) {
+            diveGroupRequest.memberIds = memberIds;
         }
 
         try {
@@ -104,6 +117,20 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
                     </Form.Item>
 
                     <Form.Item
+                            name={"groupType"}
+                            label={t("DiveEvent.diveGroup.form.groupType.label")}
+                            tooltip={t("DiveEvent.diveGroup.form.groupType.tooltip")}
+                            initialValue={DiveGroupTypeEnum.NORMAL}
+                    >
+                        <Select
+                                options={Object.values(DiveGroupTypeEnum).map((groupType) => ({
+                                    value: groupType,
+                                    label: t("DiveGroupTypeEnum." + groupType.toLowerCase())
+                                }))}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
                             name={"ownerId"}
                             label={t("DiveEvent.diveGroup.form.owner.label")}
                             tooltip={t("DiveEvent.diveGroup.form.owner.tooltip")}
@@ -116,6 +143,22 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
                                 disabled={!canAssignOwner}
                                 placeholder={t("DiveEvent.diveGroup.form.owner.placeholder")}
                                 options={ownerOptions.map((participant) => ({
+                                    value: participant.id,
+                                    label: participant.name
+                                }))}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                            name={"memberIds"}
+                            label={t("DiveEvent.diveGroup.form.members.label")}
+                            tooltip={t("DiveEvent.diveGroup.form.members.tooltip")}
+                    >
+                        <Select
+                                mode={"multiple"}
+                                allowClear
+                                placeholder={t("DiveEvent.diveGroup.form.members.placeholder")}
+                                options={memberOptions.map((participant) => ({
                                     value: participant.id,
                                     label: participant.name
                                 }))}

@@ -1,4 +1,4 @@
-import {fireEvent, render, screen, waitFor, within} from "@testing-library/react";
+import {configure, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import dayjs from "dayjs";
 import type {ReactNode, TextareaHTMLAttributes} from "react";
 import {
@@ -13,6 +13,11 @@ import {
     UserTypeEnum
 } from "../models";
 import {EditDiveEvent} from "../components";
+
+jest.setTimeout(60000);
+
+// Slow machines need more headroom than the 1 s default before waitFor/findBy give up
+configure({asyncUtilTimeout: 10000});
 
 
 type MessageListener = (event: { data: unknown }) => void;

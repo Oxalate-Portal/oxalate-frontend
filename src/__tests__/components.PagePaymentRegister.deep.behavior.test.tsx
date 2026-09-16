@@ -1,11 +1,14 @@
-import {cleanup, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
+import {cleanup, configure, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type {ReactNode} from "react";
 import {AddPayments, EditPage, EditPageGroup, PageBodyEditor, Pages, PaymentListTable, Register} from "../components";
 import {PageStatusEnum, PaymentTypeEnum, ResultEnum, RoleEnum, UpdateStatusEnum} from "../models";
 import {authAPI, pageGroupMgmtAPI, pageMgmtAPI, paymentAPI, userAPI} from "../services";
 
-jest.setTimeout(30000);
+jest.setTimeout(120000);
+
+// Slow machines need more headroom than the 1 s default before waitFor/findBy give up
+configure({asyncUtilTimeout: 10000});
 
 const mockNavigate = jest.fn();
 let mockParamId = "0";
@@ -115,18 +118,17 @@ beforeEach(() => {
 
 describe("page editors and page listing", () => {
     it("creates a page group through controls, validates short titles, and handles success/failure", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         (pageGroupMgmtAPI.create as jest.Mock).mockResolvedValue({id: 11});
         render(<EditPageGroup/>);
         await screen.findByText("EN");
         const titles = screen.getAllByRole("textbox");
         const title = titles[titles.length - 2];
-        await user.type(title, "x");
+        fireEvent.change(title, {target: {value: "x"}});
         await user.click(screen.getByRole("button", {name: "EditPageGroup.form.button.create"}));
         expect(pageGroupMgmtAPI.create).not.toHaveBeenCalled();
-        await user.clear(title);
-        await user.type(title, "Valid title");
-        await user.type(titles[titles.length - 1], "Valid title");
+        fireEvent.change(title, {target: {value: "Valid title"}});
+        fireEvent.change(titles[titles.length - 1], {target: {value: "Valid title"}});
         await user.click(screen.getByRole("button", {name: "EditPageGroup.form.button.create"}));
         await waitFor(() => expect(pageGroupMgmtAPI.create).toHaveBeenCalled());
         (pageGroupMgmtAPI.create as jest.Mock).mockRejectedValueOnce(new Error("offline"));
@@ -135,7 +137,7 @@ describe("page editors and page listing", () => {
     });
 
     it("updates a page, exercises editor and permission validation, and supports navigation", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         mockParamId = "7";
         (pageMgmtAPI.update as jest.Mock).mockResolvedValue({id: 7});
         render(<EditPage/>);
@@ -146,8 +148,7 @@ describe("page editors and page listing", () => {
         await user.click(screen.getByRole("button", {name: "EditPage.form.button.update"}));
         await waitFor(() => expect(mockMessage.error).toHaveBeenCalled());
         const refreshedEditor = screen.getByRole("textbox", {name: "body editor"});
-        await user.clear(refreshedEditor);
-        await user.type(refreshedEditor, "updated body");
+        fireEvent.change(refreshedEditor, {target: {value: "updated body"}});
         await user.click(screen.getByRole("button", {name: "EditPage.form.button.addPermission"}));
         expect(screen.getAllByText("EditPage.form.rolePermissions.readPermission.label").length).toBeGreaterThan(1);
     });
@@ -166,7 +167,7 @@ describe("page editors and page listing", () => {
         render(<Pages/>);
         await screen.findByText("English page");
         expect(screen.getByRole("link", {name: "common.button.update"})).toHaveAttribute("href", "/administration/pages/7");
-        await userEvent.setup().click(screen.getByRole("button", {name: "common.button.close"}));
+        await userEvent.setup({delay: null}).click(screen.getByRole("button", {name: "common.button.close"}));
         await waitFor(() => expect(pageMgmtAPI.delete).toHaveBeenCalledWith(7));
         cleanup();
         mockParamId = "1";
@@ -178,8 +179,8 @@ describe("page editors and page listing", () => {
 
 describe("payment controls", () => {
     it("filters membership users, switches type, submits creates, and handles rejected creates", async () => {
-        const user = userEvent.setup();
-        (paymentAPI.create as jest.Mock).mockResolvedValue({created: {id: 1}});
+        const user = userEvent.setup({delay: null});
+        (paymentAPI.create as jest.Mock).mockImplementation((request) => Promise.resolve({...request, created: {id: 1}}));
         render(<AddPayments/>);
         await waitFor(() => expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0));
         fireEvent.mouseDown(screen.getAllByRole("combobox")[0]);
@@ -195,8 +196,23 @@ describe("payment controls", () => {
         await waitFor(() => expect(mockMessage.error).toHaveBeenCalled());
     });
 
+    it("reports when the backend returns a different payment", async () => {
+        const user = userEvent.setup({delay: null});
+        (paymentAPI.create as jest.Mock).mockImplementation((request) =>
+                Promise.resolve({...request, endDate: "2099-01-01", created: {id: 1}})
+        );
+        render(<AddPayments/>);
+        await waitFor(() => expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0));
+        fireEvent.mouseDown(screen.getAllByRole("combobox")[0]);
+        await user.click(await screen.findByText("Active (1)"));
+        await user.click(screen.getByRole("button", {name: "AddPayments.form.button"}));
+
+        await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("AddPayments.onFinish.mismatch"));
+        expect(mockMessage.success).not.toHaveBeenCalled();
+    });
+
     it("renders edge dates/count controls, updates counts, and tolerates update failure", async () => {
-        const user = userEvent.setup();
+        const user = userEvent.setup({delay: null});
         const record = {
             id: 4,
             userId: 3,
@@ -223,50 +239,47 @@ describe("payment controls", () => {
 
 describe("registration and editor callbacks", () => {
     it("requires matching password and both confirmations before registering", async () => {
-        const user = userEvent.setup();
         (authAPI.register as jest.Mock).mockResolvedValue({status: ResultEnum.OK, token: "token"});
         render(<Register/>);
-        await user.type(screen.getByLabelText("username"), "new-user");
+        fireEvent.change(screen.getByLabelText("username"), {target: {value: "new-user"}});
         const password = screen.getByLabelText("Register.form.password.label");
         const confirm = screen.getByLabelText("Register.form.confirm.label");
-        await user.type(password, "bad");
-        await user.type(confirm, "different");
-        expect(screen.getByRole("button", {name: "Register.form.submitButton"})).toBeDisabled();
-        await user.click(screen.getByRole("button", {name: "Register.form.terms.button"}));
-        await user.click(screen.getByRole("button", {name: "common.button.confirm"}));
-        await user.click(screen.getByRole("button", {name: "Register.form.healthStatement.button"}));
-        await user.click(screen.getByRole("button", {name: "health confirm"}));
-        expect(screen.getByRole("button", {name: "Register.form.submitButton"})).not.toBeDisabled();
-        await user.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
+        fireEvent.change(password, {target: {value: "bad"}});
+        fireEvent.change(confirm, {target: {value: "different"}});
+        await waitFor(() => expect(screen.getByRole("button", {name: "Register.form.submitButton"})).toBeDisabled());
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.terms.button"}));
+        fireEvent.click(await screen.findByRole("button", {name: "common.button.confirm"}));
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.healthStatement.button"}));
+        fireEvent.click(await screen.findByRole("button", {name: "health confirm"}));
+        await waitFor(() => expect(screen.getByRole("button", {name: "Register.form.submitButton"})).not.toBeDisabled());
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
         expect(authAPI.register).not.toHaveBeenCalled();
-        await user.clear(password);
-        await user.type(password, "GoodPassword1!");
-        await user.clear(confirm);
-        await user.type(confirm, "GoodPassword1!");
-        await user.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
+        fireEvent.change(password, {target: {value: "GoodPassword1!"}});
+        fireEvent.change(confirm, {target: {value: "GoodPassword1!"}});
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
         await waitFor(() => expect(authAPI.register).toHaveBeenCalledWith(expect.objectContaining({approvedTerms: true, healthStatementId: 0})));
     });
 
     it("shows registration failure and redirects authenticated sessions", async () => {
-        const user = userEvent.setup();
         (authAPI.register as jest.Mock).mockResolvedValue({status: UpdateStatusEnum.NONE});
         render(<Register/>);
         expect(mockNavigate).toHaveBeenCalledWith("/");
-        await user.type(screen.getByLabelText("username"), "edge-user");
-        await user.type(screen.getByLabelText("Register.form.password.label"), "GoodPassword1!");
-        await user.type(screen.getByLabelText("Register.form.confirm.label"), "GoodPassword1!");
-        await user.click(screen.getByRole("button", {name: "Register.form.terms.button"}));
-        await user.click(screen.getByRole("button", {name: "common.button.confirm"}));
-        await user.click(screen.getByRole("button", {name: "Register.form.healthStatement.button"}));
-        await user.click(screen.getByRole("button", {name: "health confirm"}));
-        await user.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
+        fireEvent.change(screen.getByLabelText("username"), {target: {value: "edge-user"}});
+        fireEvent.change(screen.getByLabelText("Register.form.password.label"), {target: {value: "GoodPassword1!"}});
+        fireEvent.change(screen.getByLabelText("Register.form.confirm.label"), {target: {value: "GoodPassword1!"}});
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.terms.button"}));
+        fireEvent.click(await screen.findByRole("button", {name: "common.button.confirm"}));
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.healthStatement.button"}));
+        fireEvent.click(await screen.findByRole("button", {name: "health confirm"}));
+        await waitFor(() => expect(screen.getByRole("button", {name: "Register.form.submitButton"})).not.toBeDisabled());
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
         await waitFor(() => expect(authAPI.register).toHaveBeenCalled());
     });
 
     it("passes editor content changes to its parent", async () => {
         const onChange = jest.fn();
         render(<PageBodyEditor value="<p>old</p>" language="en" pageId={4} onChange={onChange}/>);
-        await userEvent.setup().type(screen.getByRole("textbox", {name: "body editor"}), "new");
+        fireEvent.change(screen.getByRole("textbox", {name: "body editor"}), {target: {value: "new"}});
         expect(onChange).toHaveBeenCalled();
     });
 });

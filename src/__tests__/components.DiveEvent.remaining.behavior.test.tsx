@@ -85,6 +85,7 @@ jest.mock("antd", () => {
     </form>;
     Form.Item = ({children}: any) => <div>{children}</div>;
     Form.useForm = () => [mockForm];
+    Form.useWatch = () => undefined;
     const Modal = ({open, children, onOk, onCancel}: any) => open ? <div role="dialog">{children}
         <button onClick={onOk}>modal-ok</button>
         <button onClick={onCancel}>modal-cancel</button>
@@ -235,6 +236,27 @@ describe("remaining DiveEvent behavior", () => {
         await flush();
         fireEvent.click(screen.getByText("DiveEvent.approveHealthStatement"));
         expect(screen.getByText("health-modal")).toBeInTheDocument();
+    });
+
+    it("allows joining an event when a payment starts before its future event date", async () => {
+        session.payment = true;
+        fn("diveEventAPI.findById").mockResolvedValue(event({startTime: "2028-09-23T09:00:00Z"}));
+        fn("paymentAPI.findCurrentAndFutureByUserId").mockResolvedValue({
+            userId: 7,
+            status: "OK",
+            payments: [{
+                paymentType: "PERIODICAL",
+                paymentCount: null,
+                startDate: "2028-01-01",
+                endDate: "2029-01-01"
+            }]
+        });
+
+        render(<DiveEvent/>);
+
+        await waitFor(() => expect(fn("paymentAPI.findCurrentAndFutureByUserId")).toHaveBeenCalledWith(7));
+        expect(screen.getByText("DiveEvent.subscribe.button")).toBeInTheDocument();
+        expect(fn("paymentAPI.findByUserId")).not.toHaveBeenCalled();
     });
 
     it("sets and updates dives while protecting zero counts", async () => {

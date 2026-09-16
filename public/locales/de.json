@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Aktualisierung der Zahlungsinformationen der Benutzer fehlgeschlagen",
+      "mismatch" : "Die Zahlung überschneidet sich mit einer bestehenden Zahlung und wurde nicht hinzugefügt",
       "ok" : "Zahlungsinformationen der Benutzer aktualisiert"
     },
     "status" : {
@@ -788,7 +789,22 @@
       "error" : {
         "create" : "Das Erstellen der Tauchgruppe ist fehlgeschlagen"
       },
+      "files" : {
+        "empty" : "Die Tauchgruppe hat keine Tauchpläne hochgeladen",
+        "none" : "Keine",
+        "title" : "Von der Gruppe hochgeladene Tauchpläne",
+        "uploaded" : "Hochgeladen"
+      },
       "form" : {
+        "groupType" : {
+          "label" : "Typ der Tauchgruppe",
+          "tooltip" : "Ob die Tauchgruppe einen normalen Tauchgang oder einen speziellen Projekttauchgang durchführt"
+        },
+        "members" : {
+          "label" : "Mitglieder der Tauchgruppe",
+          "placeholder" : "Teilnehmer auswählen, die der Tauchgruppe hinzugefügt werden",
+          "tooltip" : "Teilnehmer der Tauchveranstaltung, die der Tauchgruppe sofort hinzugefügt werden. Es können nur Teilnehmer ausgewählt werden, die noch keiner Tauchgruppe angehören"
+        },
         "name" : {
           "label" : "Name der Tauchgruppe",
           "placeholder" : "Zum Beispiel Team Sidemount",
@@ -819,6 +835,8 @@
         "action" : "Aktion",
         "deleteButton" : "Tauchgruppe löschen",
         "deleteConfirm" : "Möchtest du diese Tauchgruppe wirklich löschen?",
+        "diveFiles" : "Tauchpläne",
+        "groupType" : "Tauchgangstyp",
         "joinButton" : "Tauchgruppe beitreten",
         "leaveButton" : "Tauchgruppe verlassen",
         "memberCount" : "Mitglieder",
@@ -855,6 +873,10 @@
     "held" : "Abgehalten",
     "published" : "Veröffentlicht",
     "unknown" : "Unbekannt"
+  },
+  "DiveGroupTypeEnum" : {
+    "normal" : "Normaler Tauchgang",
+    "project" : "Projekttauchgang"
   },
   "DiveTypeEnum" : {
     "boat" : "Tauchen vom Boot",

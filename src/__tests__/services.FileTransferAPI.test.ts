@@ -8,6 +8,7 @@ describe('FileTransferAPI', () => {
         mock = new MockAdapter(fileTransferAPI['axiosInstance']);
     });
 
+
     afterEach(() => {
         mock.reset();
     });
@@ -77,7 +78,11 @@ describe('FileTransferAPI', () => {
         it('uploadDiveFileValidOk', async () => {
             const mockResponse = {url: '/files/dive-files/1'};
             const uploadFile = new File(['dive'], 'dive-plan.pdf', {type: 'application/pdf'});
-            mock.onPost('/dive-files?eventId=12&diveGroupId=3').reply(200, mockResponse);
+            mock.onPost('/dive-files?eventId=12&diveGroupId=3').reply((config) => {
+                expect(config.data).toBeInstanceOf(FormData);
+                expect(config.headers?.['Content-Type']).toContain('multipart/form-data');
+                return [200, mockResponse];
+            });
 
             const result = await fileTransferAPI.uploadDiveFile(uploadFile, 12, 3);
             expect(result).toEqual(mockResponse);
@@ -137,4 +142,3 @@ describe('FileTransferAPI', () => {
         });
     });
 });
-

@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Error al actualizar la información de pago del usuario",
+      "mismatch" : "El pago se solapa con un pago existente y no se añadió",
       "ok" : "Información de pago del usuario actualizada"
     },
     "status" : {
@@ -788,7 +789,22 @@
       "error" : {
         "create" : "No se ha podido crear el grupo de buceo"
       },
+      "files" : {
+        "empty" : "El grupo de buceo no ha subido ningún plan de buceo",
+        "none" : "Ninguno",
+        "title" : "Planes de buceo subidos por el grupo",
+        "uploaded" : "Subidos"
+      },
       "form" : {
+        "groupType" : {
+          "label" : "Tipo de grupo de buceo",
+          "tooltip" : "Si el grupo de buceo realiza un buceo normal o un buceo especial de proyecto"
+        },
+        "members" : {
+          "label" : "Miembros del grupo de buceo",
+          "placeholder" : "Selecciona los participantes que se añadirán al grupo de buceo",
+          "tooltip" : "Participantes del evento de buceo que se añaden inmediatamente al grupo de buceo. Solo se pueden seleccionar participantes que aún no pertenecen a ningún grupo de buceo"
+        },
         "name" : {
           "label" : "Nombre del grupo de buceo",
           "placeholder" : "Por ejemplo Team Sidemount",
@@ -819,6 +835,8 @@
         "action" : "Acción",
         "deleteButton" : "Eliminar grupo de buceo",
         "deleteConfirm" : "¿Seguro que quieres eliminar este grupo de buceo?",
+        "diveFiles" : "Planes de buceo",
+        "groupType" : "Tipo de buceo",
         "joinButton" : "Unirse al grupo de buceo",
         "leaveButton" : "Salir del grupo de buceo",
         "memberCount" : "Miembros",
@@ -855,6 +873,10 @@
     "held" : "Realizado",
     "published" : "Publicado",
     "unknown" : "Desconocido"
+  },
+  "DiveGroupTypeEnum" : {
+    "normal" : "Buceo normal",
+    "project" : "Buceo de proyecto"
   },
   "DiveTypeEnum" : {
     "boat" : "Buceo desde barco",

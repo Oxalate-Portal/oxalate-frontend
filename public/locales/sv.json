@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Misslyckades med att uppdatera användarnas betalningsinformation",
+      "mismatch" : "Betalningen överlappar en befintlig betalning och lades inte till",
       "ok" : "Användarnas betalningsinformation uppdaterad"
     },
     "status" : {
@@ -788,7 +789,22 @@
       "error" : {
         "create" : "Det gick inte att skapa dykgruppen"
       },
+      "files" : {
+        "empty" : "Dykgruppen har inte laddat upp några dykplaner",
+        "none" : "Inga",
+        "title" : "Dykplaner uppladdade av gruppen",
+        "uploaded" : "Uppladdade"
+      },
       "form" : {
+        "groupType" : {
+          "label" : "Dykgruppens typ",
+          "tooltip" : "Om dykgruppen utför ett normalt dyk eller ett särskilt projektdyk"
+        },
+        "members" : {
+          "label" : "Dykgruppens medlemmar",
+          "placeholder" : "Välj deltagarna som läggs till i dykgruppen",
+          "tooltip" : "Deltagare i dykevenemanget som genast läggs till i dykgruppen. Endast deltagare som ännu inte hör till någon dykgrupp kan väljas"
+        },
         "name" : {
           "label" : "Dykgruppens namn",
           "placeholder" : "Till exempel Team Sidemount",
@@ -819,6 +835,8 @@
         "action" : "Åtgärd",
         "deleteButton" : "Radera dykgrupp",
         "deleteConfirm" : "Är du säker på att du vill radera den här dykgruppen?",
+        "diveFiles" : "Dykplaner",
+        "groupType" : "Dyktyp",
         "joinButton" : "Gå med i dykgruppen",
         "leaveButton" : "Lämna dykgruppen",
         "memberCount" : "Medlemmar",
@@ -855,6 +873,10 @@
     "held" : "Genomförd",
     "published" : "Publicerad",
     "unknown" : "Okänd"
+  },
+  "DiveGroupTypeEnum" : {
+    "normal" : "Normalt dyk",
+    "project" : "Projektdyk"
   },
   "DiveTypeEnum" : {
     "boat" : "Dykning från båt",

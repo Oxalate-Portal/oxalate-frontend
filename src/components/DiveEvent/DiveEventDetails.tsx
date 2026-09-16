@@ -8,7 +8,6 @@ import {Button, Modal, Space, Spin, Table, Tooltip} from "antd";
 import {LinkOutlined} from "@ant-design/icons";
 import type {ColumnsType} from "antd/es/table";
 import dayjs from "dayjs";
-import {DiveEventFiles} from "./DiveEventFiles";
 import {AdminNotifications} from "../Notification";
 
 interface DiveEventDetailsProps {
@@ -231,8 +230,6 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                                rowKey={(record) => "waiting-list-row-" + record.id}
                                         />
                                     </>}
-
-                            <DiveEventFiles eventId={eventInfo.id}/>
                         </Space>}
                 <Modal
                         title={t("EventDetails.notificationModal.title")}

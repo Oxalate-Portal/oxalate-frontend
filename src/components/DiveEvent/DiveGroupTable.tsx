@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
-import {Button, Popconfirm, Space, Table} from "antd";
+import {Button, Popconfirm, Space, Table, Typography} from "antd";
 import type {ColumnsType} from "antd/es/table";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
 import {userTypeEnum2Tag} from "../../tools";
-import type {DiveGroupMemberResponse, DiveGroupResponse} from "../../models";
+import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum} from "../../models";
+import {ProtectedImage} from "../main";
+import {DiveEventFiles} from "./DiveEventFiles";
 
 interface DiveGroupTableProps {
     diveGroups: DiveGroupResponse[];
@@ -17,10 +19,42 @@ interface DiveGroupTableProps {
     onLeave: (diveGroupId: number) => void;
     onDelete: (diveGroupId: number) => void;
     onReorder?: (diveGroupIds: number[]) => void;
+    onFilesChanged?: () => void | Promise<void>;
 }
 
 export function isMemberOfDiveGroup(diveGroup: DiveGroupResponse, userId: number): boolean {
     return (diveGroup.members ?? []).some((member) => member.userId === userId);
+}
+
+export function isImageDiveFile(diveFile: DiveFileResponse): boolean {
+    return (diveFile.mimetype ?? "").startsWith("image/");
+}
+
+/**
+ * Lists the dive files uploaded by the members of a dive group. Images are displayed inline with the shared
+ * ProtectedImage component, other files are rendered as download links.
+ */
+export function DiveGroupFileList({diveFiles}: { diveFiles: DiveFileResponse[] }) {
+    const {t} = useTranslation();
+
+    if (diveFiles.length === 0) {
+        return <Typography.Text type={"secondary"}>{t("DiveEvent.diveGroup.files.empty")}</Typography.Text>;
+    }
+
+    return (
+            <Space orientation={"vertical"} size={8}>
+                <Typography.Text strong>{t("DiveEvent.diveGroup.files.title")}</Typography.Text>
+                {diveFiles.map((diveFile) => isImageDiveFile(diveFile)
+                        ? <ProtectedImage
+                                key={diveFile.id}
+                                imageUrl={diveFile.url}
+                                alt={diveFile.filename}
+                                style={{maxWidth: 240}}/>
+                        : <a key={diveFile.id} href={diveFile.url} target={"_blank"} rel={"noreferrer"}>
+                            {diveFile.filename}
+                        </a>)}
+            </Space>
+    );
 }
 
 export function findDiveGroupOfUser(diveGroups: DiveGroupResponse[], userId: number): DiveGroupResponse | null {
@@ -70,7 +104,8 @@ export function DiveGroupTable({
                                    onJoin,
                                    onLeave,
                                    onDelete,
-                                   onReorder
+                                   onReorder,
+                                   onFilesChanged
                                }: DiveGroupTableProps) {
     const {t} = useTranslation();
     const {getPortalTimezone} = useSession();
@@ -150,6 +185,21 @@ export function DiveGroupTable({
             render: (_: string, diveGroup: DiveGroupResponse) => diveGroup.ownerName ?? ""
         },
         {
+            title: t("DiveEvent.diveGroup.table.groupType"),
+            dataIndex: "groupType",
+            key: "groupType",
+            render: (_: string, diveGroup: DiveGroupResponse) =>
+                    t("DiveGroupTypeEnum." + (diveGroup.groupType ?? DiveGroupTypeEnum.NORMAL).toLowerCase())
+        },
+        {
+            title: t("DiveEvent.diveGroup.table.diveFiles"),
+            dataIndex: "diveFiles",
+            key: "diveFiles",
+            render: (_: string, diveGroup: DiveGroupResponse) => (diveGroup.diveFiles ?? []).length > 0
+                    ? t("DiveEvent.diveGroup.files.uploaded") + " (" + (diveGroup.diveFiles ?? []).length + ")"
+                    : t("DiveEvent.diveGroup.files.none")
+        },
+        {
             title: t("DiveEvent.diveGroup.table.memberCount"),
             dataIndex: "members",
             key: "members",
@@ -217,14 +267,22 @@ export function DiveGroupTable({
                     } : {}}
                     expandable={{
                         expandedRowRender: (diveGroup: DiveGroupResponse) => (
-                                <Table<DiveGroupMemberResponse>
-                                        columns={memberColumns}
-                                        dataSource={diveGroup.members ?? []}
-                                        rowKey={"userId"}
-                                        pagination={false}
-                                        size={"small"}
-                                        locale={{emptyText: t("DiveEvent.diveGroup.members.empty")}}
-                                />
+                                <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
+                                    <Table<DiveGroupMemberResponse>
+                                            columns={memberColumns}
+                                            dataSource={diveGroup.members ?? []}
+                                            rowKey={"userId"}
+                                            pagination={false}
+                                            size={"small"}
+                                            locale={{emptyText: t("DiveEvent.diveGroup.members.empty")}}
+                                    />
+                                    <DiveEventFiles
+                                            eventId={diveGroup.eventId}
+                                            diveGroup={diveGroup}
+                                            currentUserId={currentUserId}
+                                            onUploaded={onFilesChanged}/>
+                                    <DiveGroupFileList diveFiles={diveGroup.diveFiles ?? []}/>
+                                </Space>
                         )
                     }}
             />

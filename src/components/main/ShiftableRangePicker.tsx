@@ -34,7 +34,6 @@ export function ShiftableRangePicker({periodType, value, onChange, ...rest}: Pro
             !now.isAfter(end!, "day");
 
     function shift(direction: "past" | "future") {
-        console.debug("Shifting range", direction, "Start:", start?.format("YYYY-MM-DD"), "End:", end?.format("YYYY-MM-DD"), "Unit:", unit, "PeriodType:", periodType);
         if (!hasRange) return;
         const delta = direction === "past" ? -1 : 1;
         const newRange: [Dayjs, Dayjs] = [start!.add(delta, unit), end!.add(delta, unit)];

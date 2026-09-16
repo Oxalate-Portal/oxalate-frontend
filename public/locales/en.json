@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Failed to update user payment information",
+      "mismatch" : "The payment overlaps an existing payment and was not added",
       "ok" : "User payment information updated"
     },
     "status" : {
@@ -788,7 +789,22 @@
       "error" : {
         "create" : "Creating the dive group failed"
       },
+      "files" : {
+        "empty" : "The dive group has not uploaded any dive plans",
+        "none" : "None",
+        "title" : "Dive plans uploaded by the group",
+        "uploaded" : "Uploaded"
+      },
       "form" : {
+        "groupType" : {
+          "label" : "Dive group type",
+          "tooltip" : "Whether the dive group performs a normal dive or a special project dive"
+        },
+        "members" : {
+          "label" : "Dive group members",
+          "placeholder" : "Select the participants to add to the dive group",
+          "tooltip" : "Participants of the dive event who are added to the dive group right away. Only participants who do not yet belong to a dive group can be selected"
+        },
         "name" : {
           "label" : "Dive group name",
           "placeholder" : "For example Team Sidemount",
@@ -819,6 +835,8 @@
         "action" : "Action",
         "deleteButton" : "Delete dive group",
         "deleteConfirm" : "Are you sure you want to delete this dive group?",
+        "diveFiles" : "Dive plans",
+        "groupType" : "Dive type",
         "joinButton" : "Join dive group",
         "leaveButton" : "Leave dive group",
         "memberCount" : "Members",
@@ -855,6 +873,10 @@
     "held" : "Held",
     "published" : "Published",
     "unknown" : "Unknown"
+  },
+  "DiveGroupTypeEnum" : {
+    "normal" : "Normal dive",
+    "project" : "Project dive"
   },
   "DiveTypeEnum" : {
     "boat" : "Diving from boat",

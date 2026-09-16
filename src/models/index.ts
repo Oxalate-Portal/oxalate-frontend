@@ -24,6 +24,7 @@ export {CommentStatusEnum} from "./CommentStatusEnum";
 export {CommentTypeEnum} from "./CommentTypeEnum";
 export {DiveEventStatusEnum} from "./DiveEventStatusEnum";
 export {DiveTypeEnum} from "./DiveTypeEnum";
+export {DiveGroupTypeEnum} from "./DiveGroupTypeEnum";
 export {DownloadTypeEnum} from "./DownloadTypeEnum";
 export {EmailNotificationTypeEnum} from "./EmailNotificationTypeEnum";
 export {MembershipStatusEnum} from "./MembershipStatusEnum";
