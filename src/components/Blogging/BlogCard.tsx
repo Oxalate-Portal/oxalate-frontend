@@ -23,48 +23,48 @@ export function BlogCard({blog, expanded, onClick}: BlogCardProps) {
     }
 
     const formattedDate = blog.modifiedAt
-            ? dayjs(blog.modifiedAt).format("YYYY-MM-DD HH:mm")
-            : dayjs(blog.createdAt).format("YYYY-MM-DD HH:mm");
+        ? dayjs(blog.modifiedAt).format("YYYY-MM-DD HH:mm")
+        : dayjs(blog.createdAt).format("YYYY-MM-DD HH:mm");
 
     const dateLabel = blog.modifiedAt
-            ? t("BlogCard.updated")
-            : t("BlogCard.published");
+        ? t("BlogCard.updated")
+        : t("BlogCard.published");
 
     return (
-            <Card
-                    hoverable
-                    onClick={onClick}
-                    style={{
-                        marginBottom: 16,
-                        cursor: "pointer",
-                        width: "100%"
-                    }}
-            >
-                <h4
-                        style={{margin: "0 0 8px 0", fontSize: "20px", fontWeight: 600}}
-                        dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.title)}}
+        <Card
+            hoverable
+            onClick={onClick}
+            style={{
+                marginBottom: 16,
+                cursor: "pointer",
+                width: "100%"
+            }}
+        >
+            <h4
+                style={{margin: "0 0 8px 0", fontSize: "20px", fontWeight: 600}}
+                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.title)}}
+            />
+            <Typography.Text type="secondary">{dateLabel} {formattedDate}</Typography.Text>
+
+            {pageVersion.ingress && (
+                <p
+                    style={{marginTop: 12, fontWeight: "bold"}}
+                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.ingress)}}
                 />
-                <Typography.Text type="secondary">{dateLabel} {formattedDate}</Typography.Text>
+            )}
 
-                {pageVersion.ingress && (
-                        <p
-                                style={{marginTop: 12, fontWeight: "bold"}}
-                                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.ingress)}}
-                        />
-                )}
+            {expanded && pageVersion.body && (
+                <div
+                    style={{marginTop: 12}}
+                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.body)}}
+                />
+            )}
 
-                {expanded && pageVersion.body && (
-                        <div
-                                style={{marginTop: 12}}
-                                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageVersion.body)}}
-                        />
-                )}
-
-                {!expanded && (
-                        <Typography.Text type="secondary" style={{display: "block", marginTop: 12}}>
-                            {t("BlogCard.clickToExpand")}
-                        </Typography.Text>
-                )}
-            </Card>
+            {!expanded && (
+                <Typography.Text type="secondary" style={{display: "block", marginTop: 12}}>
+                    {t("BlogCard.clickToExpand")}
+                </Typography.Text>
+            )}
+        </Card>
     );
 }

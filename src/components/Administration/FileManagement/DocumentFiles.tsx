@@ -22,15 +22,15 @@ export function DocumentFiles() {
         }
 
         fileTransferAPI.findAllDocuments()
-                .then((response) => {
-                    setDocumentFiles(response);
-                })
-                .catch((error) => {
-                    console.error("Error fetching document files", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setDocumentFiles(response);
+            })
+            .catch((error) => {
+                console.error("Error fetching document files", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [documentsSupported, refreshKey]);
 
     if (!documentsSupported) {
@@ -47,8 +47,8 @@ export function DocumentFiles() {
             dataIndex: "status",
             key: "status",
             render: (status: UploadStatusEnum) => (
-                    <Typography.Text>{status}</Typography.Text>
-            ),
+                <Typography.Text>{status}</Typography.Text>
+            )
         },
         ...createActionColumn(t, actionColumnOptions)
     ];
@@ -57,7 +57,7 @@ export function DocumentFiles() {
         name: "uploadFile",
         action: `${getApiBaseUrl()}/files/documents`,
         headers: {
-            authorization: "Bearer " + userSession?.accessToken,
+            authorization: "Bearer " + userSession?.accessToken
         },
         onChange(info) {
             if (info.file.status === "done") {
@@ -74,44 +74,44 @@ export function DocumentFiles() {
     function removeDocument(id: number) {
         setLoading(true);
         fileTransferAPI.removeDocumentFile(id)
-                .then(() => {
-                    setRefreshKey((prevKey) => prevKey + 1);
-                    messageApi.success(t("AdminUploads.document.delete.successful"));
-                })
-                .catch((error) => {
-                    console.error("Error removing document", error);
-                    messageApi.error(t("AdminUploads.document.delete.fail"));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(() => {
+                setRefreshKey((prevKey) => prevKey + 1);
+                messageApi.success(t("AdminUploads.document.delete.successful"));
+            })
+            .catch((error) => {
+                console.error("Error removing document", error);
+                messageApi.error(t("AdminUploads.document.delete.fail"));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
-            <Space orientation={"vertical"} size={"middle"}>
-                {contextHolder}
-                <Upload {...uploadProps} key={"upload-document-" + refreshKey}>
-                    <Button icon={<UploadOutlined/>}>
-                        {t("AdminUploads.document.upload.button")}
-                    </Button>
-                </Upload>
-                {!loading &&
-                        <Table
-                                columns={columns}
-                                dataSource={documentFiles}
-                                rowKey="id"
-                                loading={loading}
-                                bordered
-                                key={"upload-table-document"}
-                                pagination={{
-                                    defaultPageSize: 10,
-                                    hideOnSinglePage: true,
-                                    showSizeChanger: true,
-                                    showQuickJumper: true,
-                                    pageSizeOptions: ["5", "10", "20", "30", "50"]
-                                }}
-                        />
-                }
-            </Space>
+        <Space orientation={"vertical"} size={"middle"}>
+            {contextHolder}
+            <Upload {...uploadProps} key={"upload-document-" + refreshKey}>
+                <Button icon={<UploadOutlined/>}>
+                    {t("AdminUploads.document.upload.button")}
+                </Button>
+            </Upload>
+            {!loading &&
+                <Table
+                    columns={columns}
+                    dataSource={documentFiles}
+                    rowKey="id"
+                    loading={loading}
+                    bordered
+                    key={"upload-table-document"}
+                    pagination={{
+                        defaultPageSize: 10,
+                        hideOnSinglePage: true,
+                        showSizeChanger: true,
+                        showQuickJumper: true,
+                        pageSizeOptions: ["5", "10", "20", "30", "50"]
+                    }}
+                />
+            }
+        </Space>
     );
 }

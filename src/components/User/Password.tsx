@@ -25,25 +25,25 @@ export function Password() {
         };
 
         authAPI.updatePassword(userSession?.id, postData)
-                .then((response) => {
+            .then((response) => {
 
-                    if (response && response.status === UpdateStatusEnum.OK) {
-                        setUpdateStatus({
-                            status: UpdateStatusEnum.OK,
-                            message: t("Password.setUpdateStatus.update.ok")
-                        });
-                    } else {
-                        console.error("Failed to update user, error: " + response?.message);
-                        setUpdateStatus({
-                            status: UpdateStatusEnum.FAIL,
-                            message: t("Password.setUpdateStatus.update.fail")
-                        });
-                    }
-                })
-                .catch(e => {
-                    console.error("Failed to authorize", e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
-                });
+                if (response && response.status === UpdateStatusEnum.OK) {
+                    setUpdateStatus({
+                        status: UpdateStatusEnum.OK,
+                        message: t("Password.setUpdateStatus.update.ok")
+                    });
+                } else {
+                    console.error("Failed to update user, error: " + response?.message);
+                    setUpdateStatus({
+                        status: UpdateStatusEnum.FAIL,
+                        message: t("Password.setUpdateStatus.update.fail")
+                    });
+                }
+            })
+            .catch(e => {
+                console.error("Failed to authorize", e);
+                setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+            });
         setLoading(false);
     };
 
@@ -72,45 +72,45 @@ export function Password() {
     }
 
     return (
-            <Spin spinning={loading}>
-                <div className={"darkDiv"}>
-                    <PasswordRules/>
-                    <Form
-                            form={updatePasswordForm}
-                            name={"update-password"}
-                            labelCol={{span: 8}}
-                            wrapperCol={{span: 12}}
-                            style={{maxWidth: 800}}
-                            initialValues={{
-                                oldPassword: "",
-                                newPassword: "",
-                                confirmPassword: ""
-                            }}
-                            onFinish={updatePassword}
-                            onFinishFailed={updatePasswordFailed}
-                            autoComplete={"off"}
-                            scrollToFirstError={true}>
-                        <Form.Item
-                                name="oldPassword"
-                                label={t("Password.form.oldPassword.label")}
-                                wrapperCol={{span: 12}}
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: t("Password.form.oldPassword.rules.required")
-                                    }
-                                ]}>
-                            <Input.Password/>
-                        </Form.Item>
-                        <PasswordFields/>
-                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                            <Button
-                                    type={"primary"}
-                                    htmlType={"submit"}
-                                    disabled={loading}
-                            >{t("Password.form.submitButton")}</Button>
-                        </Space>
-                    </Form>
-                </div>
-            </Spin>);
+        <Spin spinning={loading}>
+            <div className={"darkDiv"}>
+                <PasswordRules/>
+                <Form
+                    form={updatePasswordForm}
+                    name={"update-password"}
+                    labelCol={{span: 8}}
+                    wrapperCol={{span: 12}}
+                    style={{maxWidth: 800}}
+                    initialValues={{
+                        oldPassword: "",
+                        newPassword: "",
+                        confirmPassword: ""
+                    }}
+                    onFinish={updatePassword}
+                    onFinishFailed={updatePasswordFailed}
+                    autoComplete={"off"}
+                    scrollToFirstError={true}>
+                    <Form.Item
+                        name="oldPassword"
+                        label={t("Password.form.oldPassword.label")}
+                        wrapperCol={{span: 12}}
+                        rules={[
+                            {
+                                required: true,
+                                message: t("Password.form.oldPassword.rules.required")
+                            }
+                        ]}>
+                        <Input.Password/>
+                    </Form.Item>
+                    <PasswordFields/>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                        <Button
+                            type={"primary"}
+                            htmlType={"submit"}
+                            disabled={loading}
+                        >{t("Password.form.submitButton")}</Button>
+                    </Space>
+                </Form>
+            </div>
+        </Spin>);
 }

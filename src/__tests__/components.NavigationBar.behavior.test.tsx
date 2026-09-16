@@ -10,7 +10,7 @@ const mockSession = {
     sessionLanguage: "en",
     organizationName: "Test Portal",
     setSessionLanguage: jest.fn(),
-    getPortalConfigurationValue: jest.fn((group: string, key: string) => {
+    getPortalConfigurationValue: jest.fn((...[, key]: [string, string]) => {
         if (key === "membership-type") return "PERIODICAL";
         if (key === "commenting-enabled") return "true";
         if (key === "commenting-enabled-features") return "forum";
@@ -23,7 +23,7 @@ const mockSession = {
 jest.mock("react-i18next", () => ({useTranslation: () => ({t: (key: string) => key})}));
 jest.mock("react-router-dom", () => ({
     NavLink: ({children, to, onClick}: { children: ReactNode; to: string; onClick?: () => void }) =>
-            <a href={to} onClick={onClick}>{children}</a>
+        <a href={to} onClick={onClick}>{children}</a>
 }));
 jest.mock("../session", () => ({useSession: () => mockSession}));
 jest.mock("../services", () => ({pageAPI: {getNavigationItems: jest.fn()}}));
@@ -37,10 +37,10 @@ jest.mock("../../portal_logo.svg?react", () => () => <span>logo</span>);
 jest.mock("@ant-design/icons", () => new Proxy({}, {get: () => () => <span/>}));
 jest.mock("antd", () => {
     const renderItems = (items: Array<{ key?: string; label?: ReactNode; children?: Array<unknown> }>): ReactNode[] =>
-            items.flatMap(item => [
-                <button key={item.key} onClick={() => mockMenuClick?.({key: item.key})}>{item.label}</button>,
-                ...(item.children ? renderItems(item.children as Array<{ key?: string; label?: ReactNode; children?: Array<unknown> }>) : [])
-            ]);
+        items.flatMap(item => [
+            <button key={item.key} onClick={() => mockMenuClick?.({key: item.key})}>{item.label}</button>,
+            ...(item.children ? renderItems(item.children as Array<{ key?: string; label?: ReactNode; children?: Array<unknown> }>) : [])
+        ]);
     let mockMenuClick: ((event: { key?: string }) => void) | undefined;
     const Menu = ({items = [], onClick}: {
         items?: Array<{ key?: string; label?: ReactNode; children?: Array<unknown> }>;
@@ -53,11 +53,11 @@ jest.mock("antd", () => {
     return {
         Avatar: () => <span>avatar</span>,
         Button: ({children, onClick, "aria-label": ariaLabel}: { children?: ReactNode; onClick?: () => void; "aria-label"?: string }) =>
-                <button aria-label={ariaLabel} onClick={onClick}>{children}</button>,
+            <button aria-label={ariaLabel} onClick={onClick}>{children}</button>,
         Drawer: ({children, open, onClose}: { children: ReactNode; open?: boolean; onClose?: () => void }) =>
-                open ? <aside>
-                    <button onClick={onClose}>close</button>
-                    {children}</aside> : null,
+            open ? <aside>
+                <button onClick={onClose}>close</button>
+                {children}</aside> : null,
         Grid: {useBreakpoint: () => ({md: mockDesktop.value})},
         Layout: {Header},
         Menu,

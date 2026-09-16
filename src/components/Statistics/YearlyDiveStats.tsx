@@ -50,25 +50,25 @@ export function YearlyDiveStats() {
 
     useEffect(() => {
         statsAPI.getYearlyDiverList()
-                .then((statsRespond) => {
-                    setYearlyDiveData(statsRespond);
-                    setTopListSize(parseInt(topDiversListSize));
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((statsRespond) => {
+                setYearlyDiveData(statsRespond);
+                setTopListSize(parseInt(topDiversListSize));
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [topDiversListSize]);
 
     return (
-            <div className={"darkDiv"}>
-                <h5>{t("StatsYearlyDives.title-1") + topListSize + t("StatsYearlyDives.title-2")}</h5>
+        <div className={"darkDiv"}>
+            <h5>{t("StatsYearlyDives.title-1") + topListSize + t("StatsYearlyDives.title-2")}</h5>
 
-                <Spin spinning={loading}>
-                    {!loading && yearlyDiveData.length > 0 && <Collapse items={collapseItems}/>}
-                </Spin>
-            </div>
+            <Spin spinning={loading}>
+                {!loading && yearlyDiveData.length > 0 && <Collapse items={collapseItems}/>}
+            </Spin>
+        </div>
     );
 }

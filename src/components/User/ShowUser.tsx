@@ -28,6 +28,7 @@ export function ShowUser() {
 
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpUserId = parseInt(paramId);
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setUserId(tmpUserId);
         }
@@ -35,23 +36,23 @@ export function ShowUser() {
         if (tmpUserId > 0) {
 
             userAPI.findById(tmpUserId, null)
-                    .then((response) => {
-                        setUserData(response);
-                        setTableData([
-                            {id: 1, name: t("ShowUser.table.email"), value: response.username},
-                            {id: 2, name: t("ShowUser.table.phonenumber"), value: response.phoneNumber},
-                            {id: 3, name: t("ShowUser.table.registered"), value: formatDateTime(response.registered)},
-                            {id: 4, name: t("ShowUser.table.diveCount"), value: response.diveCount},
-                            {id: 5, name: t("ShowUser.table.nextOfKin"), value: response.nextOfKin},
-                        ]);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        messageApi.error(t("ShowUser.fetchUserData.fail"));
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then((response) => {
+                    setUserData(response);
+                    setTableData([
+                        {id: 1, name: t("ShowUser.table.email"), value: response.username},
+                        {id: 2, name: t("ShowUser.table.phonenumber"), value: response.phoneNumber},
+                        {id: 3, name: t("ShowUser.table.registered"), value: formatDateTime(response.registered)},
+                        {id: 4, name: t("ShowUser.table.diveCount"), value: response.diveCount},
+                        {id: 5, name: t("ShowUser.table.nextOfKin"), value: response.nextOfKin}
+                    ]);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    messageApi.error(t("ShowUser.fetchUserData.fail"));
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         } else {
             messageApi.error(t("ShowUser.userId.fail"));
             setLoading(false);
@@ -68,30 +69,30 @@ export function ShowUser() {
         {
             title: "Value",
             dataIndex: "value",
-            key: "value",
+            key: "value"
         }
     ];
 
     return (
-            <div className={"darkDiv"}>
-                {contextHolder}
-                <Spin spinning={loading}>
-                    <Space orientation="vertical" size="large" style={{width: "100%"}}>
-                        {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
-                        {userData && t("ShowUser.table.payments")}
-                        {userData && <FormPayments userData={userData}/>}
-                        {userData && t("ShowUser.table.memberships")}
-                        {userData && <FormMemberships membershipList={userData.memberships}/>}
-                        {userData && t("ShowUser.table.user-details")}
-                        {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
-                        {userData && <UserDocumentFiles
-                                userId={userId}
-                                creatorName={`${userData.lastName}, ${userData.firstName}`}
-                                canUpload={(userSession?.id === userId) || (userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))}
-                        />}
-                        {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
-                    </Space>
-                </Spin>
-            </div>
+        <div className={"darkDiv"}>
+            {contextHolder}
+            <Spin spinning={loading}>
+                <Space orientation="vertical" size="large" style={{width: "100%"}}>
+                    {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
+                    {userData && t("ShowUser.table.payments")}
+                    {userData && <FormPayments userData={userData}/>}
+                    {userData && t("ShowUser.table.memberships")}
+                    {userData && <FormMemberships membershipList={userData.memberships}/>}
+                    {userData && t("ShowUser.table.user-details")}
+                    {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
+                    {userData && <UserDocumentFiles
+                        userId={userId}
+                        creatorName={`${userData.lastName}, ${userData.firstName}`}
+                        canUpload={(userSession?.id === userId) || (userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))}
+                    />}
+                    {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}
+                </Space>
+            </Spin>
+        </div>
     );
 }

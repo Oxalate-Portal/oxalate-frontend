@@ -39,6 +39,7 @@ export function AdminTokens() {
 
     // Loading is intentionally triggered when the component mounts.
     useEffect(() => {
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         void load();
     }, [load]);
@@ -51,9 +52,9 @@ export function AdminTokens() {
             const tokenDescription = token.description?.toLowerCase() || "";
             const createdOrExpiry = `${token.createdAt} ${token.expiresAt}`.toLowerCase();
             const inDateRange = !dateRange ||
-                    (dayjs(token.expiresAt).isAfter(dateRange[0]) && dayjs(token.expiresAt).isBefore(dateRange[1]));
+                (dayjs(token.expiresAt).isAfter(dateRange[0]) && dayjs(token.expiresAt).isBefore(dateRange[1]));
             return (!value || tokenValue.includes(value) || createdOrExpiry.includes(value)) &&
-                    (!description || tokenDescription.includes(description)) && inDateRange;
+                (!description || tokenDescription.includes(description)) && inDateRange;
         });
     }, [allTokens, dateRange, descriptionQuery, query]);
 

@@ -25,7 +25,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
     async function handleReport() {
         const reportData: ReportRequest = {
             commentId: comment.id,
-            reportReason,
+            reportReason
         };
         commentAPI.report(reportData)
                 .then((response) => {

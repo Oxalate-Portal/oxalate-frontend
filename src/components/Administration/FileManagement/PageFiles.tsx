@@ -13,15 +13,15 @@ export function PageFiles() {
 
     useEffect(() => {
         fileTransferAPI.findAllPageFiles()
-                .then((response) => {
-                    setPageFiles(response);
-                })
-                .catch((error) => {
-                    console.error("Error fetching page files", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setPageFiles(response);
+            })
+            .catch((error) => {
+                console.error("Error fetching page files", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     const columns = [
@@ -29,13 +29,13 @@ export function PageFiles() {
             title: t("AdminUploads.page-file.page-id"),
             dataIndex: "pageId",
             key: "pageId",
-            render: (pageId: number) => <Link to={"/pages/" + pageId}>{pageId}</Link>,
+            render: (pageId: number) => <Link to={"/pages/" + pageId}>{pageId}</Link>
         },
         {
             title: t("AdminUploads.page-file.language"),
             dataIndex: "language",
             key: "language",
-            render: (language: string) => <Typography.Text>{language}</Typography.Text>,
+            render: (language: string) => <Typography.Text>{language}</Typography.Text>
         },
         {
             title: "Status",
@@ -55,29 +55,29 @@ export function PageFiles() {
                 }
 
                 return (
-                        <Tag color={color} key={status}>
-                            {status}
-                        </Tag>
+                    <Tag color={color} key={status}>
+                        {status}
+                    </Tag>
                 );
-            },
+            }
         },
         ...commonFileColumns(t, {showPreview: true})
     ];
 
     return (
-            <Table
-                    columns={columns}
-                    dataSource={pageFiles}
-                    rowKey="id"
-                    loading={loading}
-                    bordered
-                    pagination={{
-                        defaultPageSize: 10,
-                        hideOnSinglePage: true,
-                        showSizeChanger: true,
-                        showQuickJumper: true,
-                        pageSizeOptions: ["5", "10", "20", "30", "50"]
-                    }}
-            />
+        <Table
+            columns={columns}
+            dataSource={pageFiles}
+            rowKey="id"
+            loading={loading}
+            bordered
+            pagination={{
+                defaultPageSize: 10,
+                hideOnSinglePage: true,
+                showSizeChanger: true,
+                showQuickJumper: true,
+                pageSizeOptions: ["5", "10", "20", "30", "50"]
+            }}
+        />
     );
 }

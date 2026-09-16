@@ -23,7 +23,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
     const [maxCertificates, setMaxCertificates] = useState<number>(0);
     const {getFrontendConfigurationValue} = useSession();
 
-    const profileItems: CollapseProps['items'] = [
+    const profileItems: CollapseProps["items"] = [
         {
             key: "profile-certificates",
             label: t("UserEvents.profile-certificates-panel.header"),

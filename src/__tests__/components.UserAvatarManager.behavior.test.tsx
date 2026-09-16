@@ -60,12 +60,12 @@ describe("UserAvatarManager upload behavior", () => {
         expect(mockRefreshUserSession).toHaveBeenCalledWith({id: 4, avatarUrl: "/new.png"});
         expect(mockMessage.success).toHaveBeenCalledWith("UserFiles.avatar.upload.success");
 
-        act(() => mockUploadProps.onChange?.({file: {status: "done", response: {error: {message: "Rejected"}}}));
+        act(() => mockUploadProps.onChange?.({file: {status: "done", response: {error: {message: "Rejected"}}}}));
         expect(mockMessage.error).toHaveBeenCalledWith("Rejected");
         act(() => mockUploadProps.onChange?.({file: {status: "done", response: {}}}));
         expect(mockMessage.error).toHaveBeenCalledWith("UserFiles.avatar.upload.fail");
         act(() => mockUploadProps.onChange?.({file: {status: "error"}}));
         expect(mockMessage.error).toHaveBeenCalledWith("UserFiles.avatar.upload.fail");
     })
-        ;
-    });
+    ;
+});

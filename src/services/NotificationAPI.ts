@@ -31,9 +31,9 @@ class NotificationAPI extends AbstractAPI<MessageRequest, MessageResponse> {
     private getNoCacheConfig() {
         return {
             headers: {
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': '0'
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0"
             },
             params: {
                 _t: Date.now() // Cache-busting timestamp

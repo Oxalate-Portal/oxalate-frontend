@@ -23,32 +23,32 @@ export function AdminOrgUsers() {
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                    <div style={{padding: 8}}>
-                        <Input
-                                placeholder={t("AdminOrgUsers.table.username")}
-                                value={selectedKeys[0]}
-                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                                onPressEnter={() => confirm()}
-                                style={{marginBottom: 8, display: "block"}}
-                        />
-                        <Space>
-                            <Button
-                                    type={"primary"}
-                                    onClick={() => confirm()}
-                                    icon={<SearchOutlined/>}
-                                    size="small"
-                                    style={{width: 90}}
-                            >
-                                {t("common.button.search")}
-                            </Button>
-                            <Button onClick={() => {
-                                clearFilters?.();
-                                confirm();
-                            }} size="small" style={{width: 90}}>
-                                {t("common.button.reset")}
-                            </Button>
-                        </Space>
-                    </div>
+                <div style={{padding: 8}}>
+                    <Input
+                        placeholder={t("AdminOrgUsers.table.username")}
+                        value={selectedKeys[0]}
+                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{marginBottom: 8, display: "block"}}
+                    />
+                    <Space>
+                        <Button
+                            type={"primary"}
+                            onClick={() => confirm()}
+                            icon={<SearchOutlined/>}
+                            size="small"
+                            style={{width: 90}}
+                        >
+                            {t("common.button.search")}
+                        </Button>
+                        <Button onClick={() => {
+                            clearFilters?.();
+                            confirm();
+                        }} size="small" style={{width: 90}}>
+                            {t("common.button.reset")}
+                        </Button>
+                    </Space>
+                </div>
             ),
             filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
             onFilter: (value: boolean | Key, record: AdminUserResponse) => record.username.toLowerCase().includes((value as string).toLowerCase()),
@@ -63,36 +63,36 @@ export function AdminOrgUsers() {
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.firstName.localeCompare(b.firstName),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                    <div style={{padding: 8}}>
-                        <Input
-                                placeholder={t("AdminOrgUsers.table.firstName")}
-                                value={selectedKeys[0]}
-                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                                onPressEnter={() => confirm()}
-                                style={{marginBottom: 8, display: "block"}}
-                        />
-                        <Space>
-                            <Button
-                                    type={"primary"}
-                                    onClick={() => confirm()}
-                                    icon={<SearchOutlined/>}
-                                    size="small"
-                                    style={{width: 90}}
-                            >
-                                {t("common.button.search")}
-                            </Button>
-                            <Button onClick={() => {
-                                clearFilters?.();
-                                confirm();
-                            }} size="small" style={{width: 90}}>
-                                {t("common.button.reset")}
-                            </Button>
-                        </Space>
-                    </div>
+                <div style={{padding: 8}}>
+                    <Input
+                        placeholder={t("AdminOrgUsers.table.firstName")}
+                        value={selectedKeys[0]}
+                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{marginBottom: 8, display: "block"}}
+                    />
+                    <Space>
+                        <Button
+                            type={"primary"}
+                            onClick={() => confirm()}
+                            icon={<SearchOutlined/>}
+                            size="small"
+                            style={{width: 90}}
+                        >
+                            {t("common.button.search")}
+                        </Button>
+                        <Button onClick={() => {
+                            clearFilters?.();
+                            confirm();
+                        }} size="small" style={{width: 90}}>
+                            {t("common.button.reset")}
+                        </Button>
+                    </Space>
+                </div>
             ),
             filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
             onFilter: (value: boolean | Key, record: AdminUserResponse) =>
-                    record.firstName.toLowerCase().includes((value as string).toLowerCase())
+                record.firstName.toLowerCase().includes((value as string).toLowerCase())
         },
         {
             title: t("AdminOrgUsers.table.lastName"),
@@ -101,43 +101,43 @@ export function AdminOrgUsers() {
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.lastName.localeCompare(b.lastName),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                    <div style={{padding: 8}}>
-                        <Input
-                                placeholder={t("AdminOrgUsers.table.lastName")}
-                                value={selectedKeys[0]}
-                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                                onPressEnter={() => confirm()}
-                                style={{marginBottom: 8, display: "block"}}
-                        />
-                        <Space>
-                            <Button
-                                    type={"primary"}
-                                    onClick={() => confirm()}
-                                    icon={<SearchOutlined/>}
-                                    size="small"
-                                    style={{width: 90}}
-                            >
-                                {t("common.button.search")}
-                            </Button>
-                            <Button onClick={() => {
-                                clearFilters?.();
-                                confirm();
-                            }} size="small" style={{width: 90}}>
-                                {t("common.button.reset")}
-                            </Button>
-                        </Space>
-                    </div>
+                <div style={{padding: 8}}>
+                    <Input
+                        placeholder={t("AdminOrgUsers.table.lastName")}
+                        value={selectedKeys[0]}
+                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{marginBottom: 8, display: "block"}}
+                    />
+                    <Space>
+                        <Button
+                            type={"primary"}
+                            onClick={() => confirm()}
+                            icon={<SearchOutlined/>}
+                            size="small"
+                            style={{width: 90}}
+                        >
+                            {t("common.button.search")}
+                        </Button>
+                        <Button onClick={() => {
+                            clearFilters?.();
+                            confirm();
+                        }} size="small" style={{width: 90}}>
+                            {t("common.button.reset")}
+                        </Button>
+                    </Space>
+                </div>
             ),
             filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
             onFilter: (value: boolean | Key, record: AdminUserResponse) =>
-                    record.lastName.toLowerCase().includes((value as string).toLowerCase())
+                record.lastName.toLowerCase().includes((value as string).toLowerCase())
         },
         {
             title: t("AdminOrgUsers.table.certificateClassification"),
             dataIndex: "certificateClassificationTitle",
             key: "certificateClassificationTitle",
             render: (_: string | null, record: AdminUserResponse) =>
-                    record.certificateClassificationTitle || t("User.form.certificateClassification.none")
+                record.certificateClassificationTitle || t("User.form.certificateClassification.none")
         },
         {
             title: t("AdminOrgUsers.table.status"),
@@ -154,7 +154,7 @@ export function AdminOrgUsers() {
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: AdminUserResponse) => {
                 return record.approvedTerms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
-                        <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
+                    <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
             }
         },
         {
@@ -180,90 +180,90 @@ export function AdminOrgUsers() {
             dataIndex: "roles",
             key: "roles",
             render: (_: string, record: AdminUserResponse) => (
-                    <>
-                        {record.roles
-                                .slice()
-                                .sort((a, b) => a.localeCompare(b))
-                                .map((role) => roleEnum2Tag(role, t, record.id))}
-                    </>
-            ),
+                <>
+                    {record.roles
+                        .slice()
+                        .sort((a, b) => a.localeCompare(b))
+                        .map((role) => roleEnum2Tag(role, t, record.id))}
+                </>
+            )
         },
         {
             title: t("AdminOrgUsers.table.paymentStatus"),
             dataIndex: "payments",
             key: "payments",
             render: (_: string, record: AdminUserResponse) => (
-                    <>
-                        {record.payments.map((payment: PaymentResponse) => {
-                            if (dayjs(payment.startDate).isAfter(dayjs())
-                                    || dayjs(payment.endDate).isBefore(dayjs())) {
-                                return null;
-                            }
+                <>
+                    {record.payments.map((payment: PaymentResponse) => {
+                        if (dayjs(payment.startDate).isAfter(dayjs())
+                            || dayjs(payment.endDate).isBefore(dayjs())) {
+                            return null;
+                        }
 
-                            let color = "";
-                            let paymentTypeLabel = "";
+                        let color = "";
+                        let paymentTypeLabel = "";
 
-                            if (payment.paymentType === PaymentTypeEnum.PERIODICAL) {
-                                color = "green";
-                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL);
-                            }
-                            if (payment.paymentType === PaymentTypeEnum.ONE_TIME) {
-                                color = "blue";
-                                paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
-                            }
+                        if (payment.paymentType === PaymentTypeEnum.PERIODICAL) {
+                            color = "green";
+                            paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL);
+                        }
+                        if (payment.paymentType === PaymentTypeEnum.ONE_TIME) {
+                            color = "blue";
+                            paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
+                        }
 
-                            return (
-                                    <Tag color={color} key={"payment-" + payment.paymentType + "-" + payment.id}>
-                                        {paymentTypeLabel}
-                                    </Tag>
-                            );
-                        })}
-                    </>
+                        return (
+                            <Tag color={color} key={"payment-" + payment.paymentType + "-" + payment.id}>
+                                {paymentTypeLabel}
+                            </Tag>
+                        );
+                    })}
+                </>
             )
         },
         {
             title: t("AdminOrgUsers.table.action.title"),
             key: "action",
             render: (_: string, record: AdminUserResponse) => (
-                    <Space size="middle">
-                        {record.status !== "ANONYMIZED" &&
-                                <Link to={"/administration/users/" + record.id}><Button>{t("AdminOrgUsers.table.action.button")}</Button></Link>}
-                    </Space>
-            ),
+                <Space size="middle">
+                    {record.status !== "ANONYMIZED" &&
+                        <Link to={"/administration/users/" + record.id}><Button>{t("AdminOrgUsers.table.action.button")}</Button></Link>}
+                </Space>
+            )
         }
     ];
 
     useEffect(() => {
         adminUserAPI.findAll()
-                .then(response => {
-                    setUserList(response);
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(response => {
+                setUserList(response);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     function invalidateTermAgreements() {
         if (window.confirm(t("AdminOrgUsers.invalidateTermAgreements.confirm"))) {
             setLoading(true);
             userAPI.resetTerms()
-                    .then(response => {
-                        if (response) {
-                            messageApi.success(t("AdminOrgUsers.invalidateTermAgreements.ok"));
-                        } else {
-                            messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
-                        }
-                    })
-                    .catch(e => {
+                .then(response => {
+                    if (response) {
+                        messageApi.success(t("AdminOrgUsers.invalidateTermAgreements.ok"));
+                    } else {
                         messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
-                        console.error("Failed to reset term agreements, error: " + e.message);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                    }
+                })
+                .catch(e => {
+                    messageApi.error(t("AdminOrgUsers.invalidateTermAgreements.fail"));
+                    console.error("Failed to reset term agreements, error: " + e.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         }
     }
 
@@ -271,49 +271,49 @@ export function AdminOrgUsers() {
         if (window.confirm(t("AdminOrgUsers.invalidateHealthStatementAgreements.confirm"))) {
             setLoading(true);
             userAPI.resetHealthStatement()
-                    .then((response: boolean) => {
-                        if (response) {
-                            messageApi.success(t("AdminOrgUsers.invalidateHealthStatementAgreements.ok"));
-                        } else {
-                            messageApi.error(t("AdminOrgUsers.invalidateHealthStatementAgreements.fail"));
-                        }
-                    })
-                    .catch((e: Error) => {
+                .then((response: boolean) => {
+                    if (response) {
+                        messageApi.success(t("AdminOrgUsers.invalidateHealthStatementAgreements.ok"));
+                    } else {
                         messageApi.error(t("AdminOrgUsers.invalidateHealthStatementAgreements.fail"));
-                        console.error("Failed to reset health statement agreements, error: " + e.message);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                    }
+                })
+                .catch((e: Error) => {
+                    messageApi.error(t("AdminOrgUsers.invalidateHealthStatementAgreements.fail"));
+                    console.error("Failed to reset health statement agreements, error: " + e.message);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         }
     }
 
     return (
-            <div className={"darkDiv"}>
-                {contextHolder}
-                <h4>{t("AdminOrgUsers.title")}</h4>
-                <Spin spinning={loading}>
-                    {userList && <Table dataSource={userList}
-                                        rowKey="id"
-                                        columns={userListColumns}
-                                        pagination={{
-                                            defaultPageSize: 5,
-                                            hideOnSinglePage: true,
-                                            showSizeChanger: true,
-                                            showQuickJumper: true,
-                                            total: userList.length,
-                                            pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
-                                        }}/>}
-                    {!userList && <p>{t("AdminOrgUsers.search.spinText")}</p>}
-                    <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.terms.resetDivider")}</Divider>
-                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                        <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>
-                    </Space>
-                    <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.healthStatement.resetDivider")}</Divider>
-                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                        <Button danger={true} type={"primary"}
-                                onClick={() => invalidateHealthStatementAgreements()}>{t("AdminOrgUsers.healthStatement.resetButton")}</Button>
-                    </Space>
-                </Spin>
-            </div>);
+        <div className={"darkDiv"}>
+            {contextHolder}
+            <h4>{t("AdminOrgUsers.title")}</h4>
+            <Spin spinning={loading}>
+                {userList && <Table dataSource={userList}
+                                    rowKey="id"
+                                    columns={userListColumns}
+                                    pagination={{
+                                        defaultPageSize: 5,
+                                        hideOnSinglePage: true,
+                                        showSizeChanger: true,
+                                        showQuickJumper: true,
+                                        total: userList.length,
+                                        pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
+                                    }}/>}
+                {!userList && <p>{t("AdminOrgUsers.search.spinText")}</p>}
+                <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.terms.resetDivider")}</Divider>
+                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                    <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>
+                </Space>
+                <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.healthStatement.resetDivider")}</Divider>
+                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                    <Button danger={true} type={"primary"}
+                            onClick={() => invalidateHealthStatementAgreements()}>{t("AdminOrgUsers.healthStatement.resetButton")}</Button>
+                </Space>
+            </Spin>
+        </div>);
 }

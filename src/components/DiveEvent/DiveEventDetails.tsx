@@ -53,12 +53,12 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         {
             title: t("EventDetails.table.maxDuration"),
             dataIndex: "maxDuration",
-            key: "maxDuration",
+            key: "maxDuration"
         },
         {
             title: t("EventDetails.table.maxDepth"),
             dataIndex: "maxDepth",
-            key: "maxDepth",
+            key: "maxDepth"
         },
         {
             title: t("EventDetails.table.type"),
@@ -142,7 +142,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.participantTable.eventDiveCount"),
             dataIndex: "eventDiveCount",
             key: "eventDiveCount",
-            sorter: (a: ListUserResponse, b: ListUserResponse) => a.eventDiveCount - b.eventDiveCount,
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.eventDiveCount - b.eventDiveCount
         },
         {
             title: t("EventDetails.participantTable.createdAt"),
@@ -178,6 +178,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
     useEffect(() => {
         if (!eventInfo || eventInfo.participants === undefined || eventInfo.organizer === undefined) {
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setLoading(true);
         } else {

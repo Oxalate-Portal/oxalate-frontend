@@ -22,7 +22,7 @@ export function ProtectedImage({imageUrl, alt, style, onRemove, preview, viewOnl
             try {
                 const response = await axios.get(imageUrl, {
                     withCredentials: true,
-                    responseType: "blob", // Important to get the response as a Blob (binary data)
+                    responseType: "blob" // Important to get the response as a Blob (binary data)
                 });
 
                 // Create a local URL for the downloaded file and set it as the source
@@ -61,7 +61,7 @@ export function ProtectedImage({imageUrl, alt, style, onRemove, preview, viewOnl
                                     right: 8,
                                     fontSize: "24px",
                                     color: "black",
-                                    cursor: "pointer",
+                                    cursor: "pointer"
                                 }}
                         />
                 )}

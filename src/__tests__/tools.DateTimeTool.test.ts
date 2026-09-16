@@ -54,7 +54,7 @@ describe("DateTimeTool", () => {
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "month",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "0",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2020-01-01",
-                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1"
             };
             const cfg = {...base, ...overrides};
             return (group: PortalConfigGroupEnum, key: string) => cfg[`${group}.${key}`];
@@ -74,7 +74,7 @@ describe("DateTimeTool", () => {
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "YEARS",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {endDate} = getDefaultMembershipDates(getCfg);
             expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-01-01");
@@ -85,7 +85,7 @@ describe("DateTimeTool", () => {
             const getCfg = makeConfig({
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "month",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {endDate} = getDefaultMembershipDates(getCfg);
             expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2023-02-28");
@@ -96,7 +96,7 @@ describe("DateTimeTool", () => {
             const getCfg = makeConfig({
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "month",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {endDate} = getDefaultMembershipDates(getCfg);
             expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2024-02-29");
@@ -107,7 +107,7 @@ describe("DateTimeTool", () => {
             const getCfg = makeConfig({
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "year",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {endDate} = getDefaultMembershipDates(getCfg);
             expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-02-28");
@@ -116,7 +116,7 @@ describe("DateTimeTool", () => {
         it("returns null end date for disabled/perpetual", () => {
             setNow("2025-05-15T00:00:00Z");
             const getCfg = makeConfig({
-                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERPETUAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERPETUAL
             });
             const {endDate} = getDefaultMembershipDates(getCfg);
             expect(endDate).toBeNull();
@@ -130,7 +130,7 @@ describe("DateTimeTool", () => {
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "1",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "1",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-12-29",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {startDate, endDate} = getDefaultMembershipDates(getCfg);
             expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-01-01");
@@ -145,7 +145,7 @@ describe("DateTimeTool", () => {
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "2",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "1",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-12-29",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {startDate, endDate} = getDefaultMembershipDates(getCfg);
             expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-01-01");
@@ -160,7 +160,7 @@ describe("DateTimeTool", () => {
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "3",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "5",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-04-25",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {startDate, endDate} = getDefaultMembershipDates(getCfg);
             expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2024-05-01");
@@ -175,7 +175,7 @@ describe("DateTimeTool", () => {
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "3",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "1",
                 [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-04-25",
-                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId,
+                [`${PortalConfigGroupEnum.GENERAL}.timezone`]: timezoneId
             });
             const {startDate, endDate} = getDefaultMembershipDates(getCfg);
             expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-10-01");

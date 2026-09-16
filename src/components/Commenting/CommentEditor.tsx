@@ -23,7 +23,7 @@ export function CommentEditor({parentCommentId, refreshCommentList}: CommentEdit
             commentType: CommentTypeEnum.USER_COMMENT,
             title: title,
             body: body,
-            parentCommentId: parentCommentId,
+            parentCommentId: parentCommentId
         };
 
         setSubmitting(true);

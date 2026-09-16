@@ -239,7 +239,8 @@ export function UserProfile() {
                         </Form.Item>
                         <Form.Item label={t("User.form.healthStatement.label")} key={"healthStatement"}>
                             <Space size={12}>
-                                <span className="ant-form-text">{workUser.healthStatementId !== null ? t("User.form.healthStatement.true") : t("User.form.healthStatement.false")}</span>
+                            <span
+                                    className="ant-form-text">{workUser.healthStatementId !== null ? t("User.form.healthStatement.true") : t("User.form.healthStatement.false")}</span>
                                 {workUser.healthStatementId === null && <Button type={"default"}
                                                                                 onClick={() => setShowHealthStatementModal(true)}>{t("User.button.confirmHealthStatement")}</Button>}
                             </Space>

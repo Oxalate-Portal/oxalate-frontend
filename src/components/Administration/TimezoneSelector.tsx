@@ -14,40 +14,40 @@ export function TimezoneSelector({selectedValue, onChange}: TimezoneSelectorProp
 
     useEffect(() => {
         fetch("/data/timezones.json")
-                .then((response) => response.json())
-                .then((data) => {
-                    setGroupedTimezones(data);
-                })
-                .catch((error) => {
-                    window.confirm("We failed to fetch the timezones, should be proceed?");
-                    console.error("Error fetching timezones:", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => response.json())
+            .then((data) => {
+                setGroupedTimezones(data);
+            })
+            .catch((error) => {
+                window.confirm("We failed to fetch the timezones, should be proceed?");
+                console.error("Error fetching timezones:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     return (
-            <Spin spinning={loading}>
-                <Select
-                        showSearch={{
-                            optionFilterProp: "label",
-                            filterOption: (input, option) =>
-                                    (String(option?.label ?? "")).toLowerCase().includes(input.toLowerCase())
-                        }}
-                        placeholder={t("TimezoneSelector.select.placeholder")}
-                        style={{width: "100%"}}
-                        options={Object.entries(groupedTimezones).map(([region, timezones]) => ({
-                            label: region,
-                            options: timezones
-                        }))}
-                        value={selectedValue}
-                        onChange={(value) =>
-                                onChange({
-                                    target: {value},
-                                })
-                        }
-                />
-            </Spin>
+        <Spin spinning={loading}>
+            <Select
+                showSearch={{
+                    optionFilterProp: "label",
+                    filterOption: (input, option) =>
+                        (String(option?.label ?? "")).toLowerCase().includes(input.toLowerCase())
+                }}
+                placeholder={t("TimezoneSelector.select.placeholder")}
+                style={{width: "100%"}}
+                options={Object.entries(groupedTimezones).map(([region, timezones]) => ({
+                    label: region,
+                    options: timezones
+                }))}
+                value={selectedValue}
+                onChange={(value) =>
+                    onChange({
+                        target: {value}
+                    })
+                }
+            />
+        </Spin>
     );
 }

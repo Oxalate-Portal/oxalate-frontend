@@ -62,7 +62,7 @@ export function PortalConfigurations() {
 
         portalConfigurationAPI.updateConfigurationValue({
             id: config.id,
-            value: config.runtimeValue,
+            value: config.runtimeValue
         })
                 .then(() => {
                     messageApi.success(t("PortalConfigurations.update-ok"));
@@ -179,7 +179,7 @@ export function PortalConfigurations() {
                 if (config.settingKey === "membership-type") {
                     enumOptions = Object.values(MembershipTypeEnum).map((type) => ({
                         label: t("MembershipTypeEnum." + type.toLowerCase()),
-                        value: type.toString(),
+                        value: type.toString()
                     }));
 
                     if (currentValue === config.defaultValue) {
@@ -188,7 +188,7 @@ export function PortalConfigurations() {
                 } else if (config.settingKey === "membership-period-unit") {
                     enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
                         label: t("ChronoUnitEnum." + type.toLowerCase()),
-                        value: type.toString(),
+                        value: type.toString()
                     }));
 
                     if (currentValue === config.defaultValue) {
@@ -198,7 +198,7 @@ export function PortalConfigurations() {
                         || (config.settingKey === "one-time-expiration-type")) {
                     enumOptions = Object.values(PaymentExpirationTypeEnum).map((type) => ({
                         label: t("PaymentExpirationType." + type.toLowerCase()),
-                        value: type.toString(),
+                        value: type.toString()
                     }));
 
                     if (currentValue === config.defaultValue) {
@@ -208,7 +208,7 @@ export function PortalConfigurations() {
                         || config.settingKey === "one-time-expiration-unit") {
                     enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
                         label: t("ChronoUnitEnum." + type.toLowerCase()),
-                        value: type.toString(),
+                        value: type.toString()
                     }));
 
                     if (currentValue === config.defaultValue) {
@@ -300,7 +300,7 @@ export function PortalConfigurations() {
                                                             </Col>
                                                         </Row>
                                                     </div>
-                                            )
+                                            );
                                         })}
                                     </div>
                             ))}

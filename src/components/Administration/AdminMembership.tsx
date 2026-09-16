@@ -35,11 +35,13 @@ export function AdminMembership() {
                         messageApi.error(t("AdminMembership.message.no-membership", {defaultValue: "Failed to fetch membership data"}));
                     })
                     .finally(() => {
+                        // eslint-disable-next-line react-hooks/set-state-in-effect
                         setLoading(false);
                     });
         } else {
             console.error("Invalid membership id:", paramId);
             messageApi.error(t("AdminMembership.message.invalid-user-id", {defaultValue: "Invalid user ID"}));
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setLoading(false);
         }

@@ -22,22 +22,22 @@ export function EmailChangeConfirmation() {
 
     if (status === "OK") {
         return (
-                <div className="darkDiv">
-                    <Space orientation="vertical" size={12}>
-                        <Alert type="success" title={t("User.emailChange.confirmation.ok")}/>
-                        <Button type="primary" onClick={() => navigate("/login")}>{t("common.button.login")}</Button>
-                    </Space>
-                </div>
+            <div className="darkDiv">
+                <Space orientation="vertical" size={12}>
+                    <Alert type="success" title={t("User.emailChange.confirmation.ok")}/>
+                    <Button type="primary" onClick={() => navigate("/login")}>{t("common.button.login")}</Button>
+                </Space>
+            </div>
         );
     }
 
     return (
-            <div className="darkDiv">
-                <Space orientation="vertical" size={12}>
-                    <Alert type="error" title={t("User.emailChange.confirmation.invalid")}/>
-                    <Button onClick={() => navigate("/")}>{t("common.button.back")}</Button>
-                </Space>
-            </div>
+        <div className="darkDiv">
+            <Space orientation="vertical" size={12}>
+                <Alert type="error" title={t("User.emailChange.confirmation.invalid")}/>
+                <Button onClick={() => navigate("/")}>{t("common.button.back")}</Button>
+            </Space>
+        </div>
     );
 }
 

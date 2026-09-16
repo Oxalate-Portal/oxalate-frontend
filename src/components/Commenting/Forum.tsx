@@ -16,15 +16,15 @@ export function Forum() {
         Promise.all([
             commentAPI.findAllForParentIdWithDepth(3, 2)
         ])
-                .then(([rootComment]) => {
-                    setComments(rootComment.childComments);
-                })
-                .catch((error) => {
-                    console.error("Failed to load comments:", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(([rootComment]) => {
+                setComments(rootComment.childComments);
+            })
+            .catch((error) => {
+                console.error("Failed to load comments:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     // Organize comments by parentCommentId
@@ -51,36 +51,36 @@ export function Forum() {
         }
 
         return (
-                <div className={"darkDiv"}>
-                    {!loading && <Listy
-                            items={groupedComments[parentId]}
-                            rowKey={(comment) => comment.id}
-                            itemRender={(comment) => (
-                                    <Card
-                                            title={comment.title}
-                                            variant={"outlined"}
-                                            style={{width: "100%", marginBottom: 16}}
-                                    >
-                                        <Space orientation={"horizontal"}>
-                                            <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
-                                            <Typography.Text>{comment.username}</Typography.Text>
-                                            <Typography.Text>
-                                                {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
-                                            </Typography.Text>
-                                        </Space>
-                                        <p style={{marginTop: 8}}>{comment.body}</p>
-                                        <div style={{marginLeft: 24}}>
-                                            {renderComments(comment.id)}
-                                        </div>
-                                    </Card>
-                            )}/>}
-                </div>);
+            <div className={"darkDiv"}>
+                {!loading && <Listy
+                    items={groupedComments[parentId]}
+                    rowKey={(comment) => comment.id}
+                    itemRender={(comment) => (
+                        <Card
+                            title={comment.title}
+                            variant={"outlined"}
+                            style={{width: "100%", marginBottom: 16}}
+                        >
+                            <Space orientation={"horizontal"}>
+                                <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
+                                <Typography.Text>{comment.username}</Typography.Text>
+                                <Typography.Text>
+                                    {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
+                                </Typography.Text>
+                            </Space>
+                            <p style={{marginTop: 8}}>{comment.body}</p>
+                            <div style={{marginLeft: 24}}>
+                                {renderComments(comment.id)}
+                            </div>
+                        </Card>
+                    )}/>}
+            </div>);
     };
 
     return (
-            <div className={"darkDiv"}>
-                <h1>Forum Topics</h1>
-                {renderComments(3)} {/* Render top-level comments (parentCommentId: null) */}
-            </div>
+        <div className={"darkDiv"}>
+            <h1>Forum Topics</h1>
+            {renderComments(3)} {/* Render top-level comments (parentCommentId: null) */}
+        </div>
     );
 }

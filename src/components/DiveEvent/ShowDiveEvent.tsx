@@ -24,27 +24,29 @@ export function ShowDiveEvent() {
         if (tmpDiveEventId > 0) {
             console.debug("Fetching dive event with id:", tmpDiveEventId);
             diveEventAPI.findById(tmpDiveEventId, null)
-                    .then(response => {
-                        setDiveEvent(response);
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then(response => {
+                    setDiveEvent(response);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                })
+                .finally(() => {
+                    // eslint-disable-next-line react-hooks/set-state-in-effect
+                    setLoading(false);
+                });
         } else {
             console.error("Invalid dive event id:", tmpDiveEventId);
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setLoading(false);
         }
     }, [paramId]);
 
     return (
-            <div className={"darkDiv"}>
-                <Spin spinning={loading}>
-                    {!loading && diveEvent && <DiveEventDetails eventInfo={diveEvent} key={diveEvent.id}/>}
-                </Spin>
-            </div>
+        <div className={"darkDiv"}>
+            <Spin spinning={loading}>
+                {!loading && diveEvent && <DiveEventDetails eventInfo={diveEvent} key={diveEvent.id}/>}
+            </Spin>
+        </div>
     );
 }

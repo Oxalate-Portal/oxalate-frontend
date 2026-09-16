@@ -19,21 +19,21 @@ jest.mock("antd", () => {
         onFinish?: (values: unknown) => void;
         onFinishFailed?: (error: unknown) => void
     }) =>
-            <form onSubmit={event => {
-                event.preventDefault();
-                onFinish?.({username: "user@example.com", password: "secret"});
-            }}>
-                {children}
-                <button type="button" data-testid="form-submit" onClick={() => onFinish?.({username: "user@example.com", password: "secret"})}/>
-                <button type="button" data-testid="invalid-submit" onClick={() => onFinishFailed?.({errorFields: [{errors: ["required"]}]})}/>
-            </form>;
+        <form onSubmit={event => {
+            event.preventDefault();
+            onFinish?.({username: "user@example.com", password: "secret"});
+        }}>
+            {children}
+            <button type="button" data-testid="form-submit" onClick={() => onFinish?.({username: "user@example.com", password: "secret"})}/>
+            <button type="button" data-testid="invalid-submit" onClick={() => onFinishFailed?.({errorFields: [{errors: ["required"]}]})}/>
+        </form>;
     Form.Item = ({children}: { children: ReactNode }) => <div>{children}</div>;
     const Input = (props: Record<string, unknown>) => <input {...props}/>;
     Input.Password = Input;
     return {
         Alert: ({title, action}: { title: string; action: ReactNode }) => <div role="alert">{title}{action}</div>,
         Button: ({children, onClick, htmlType}: { children: ReactNode; onClick?: () => void; htmlType?: string }) =>
-                <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>,
+            <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>,
         Form,
         Input,
         Row: ({children}: { children: ReactNode }) => <div>{children}</div>,
@@ -51,7 +51,7 @@ describe("Login behavior", () => {
     it("reports missing recaptcha and validation failures", async () => {
         const error = jest.spyOn(console, "error").mockImplementation(() => undefined);
         mockRecaptchaEnabled = false;
-        const {container} = render(<Login/>);
+        render(<Login/>);
         fireEvent.click(screen.getByTestId("form-submit"));
         fireEvent.click(screen.getByTestId("invalid-submit"));
         await waitFor(() => expect(error).toHaveBeenCalledWith("Did not executeRecaptcha"));
@@ -61,7 +61,7 @@ describe("Login behavior", () => {
 
     it("logs in with a recaptcha token and navigates on success", async () => {
         mockLoginUser.mockResolvedValue({status: "SUCCESS"});
-        const {container} = render(<Login/>);
+        render(<Login/>);
         fireEvent.click(screen.getByTestId("form-submit"));
         await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
         expect(mockLoginUser).toHaveBeenCalledWith({
@@ -72,7 +72,7 @@ describe("Login behavior", () => {
 
     it("shows a failure alert and supports back and forgot-password navigation", async () => {
         mockLoginUser.mockResolvedValue({status: "FAILURE"});
-        const {container} = render(<Login/>);
+        render(<Login/>);
         fireEvent.click(screen.getByText("Login.form.button.forgotPassword"));
         expect(mockNavigate).toHaveBeenCalledWith("/auth/lost-password");
         fireEvent.click(screen.getByTestId("form-submit"));

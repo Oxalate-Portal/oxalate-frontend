@@ -16,32 +16,32 @@ export function DiveEventReport() {
         const fetchData = async () => {
             setLoading(true);
             statsAPI.getDiveEventReports()
-                    .then(response => {
-                        setEventReports(response);
-                        const items = response.map(report => ({
-                            key: report.period,
-                            label: report.period,
-                            children: <BiannualEventReportTable events={report.events} childKey={report.period} key={report.period + "-item"}/>
-                        }));
-                        setCollapseItems(items);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then(response => {
+                    setEventReports(response);
+                    const items = response.map(report => ({
+                        key: report.period,
+                        label: report.period,
+                        children: <BiannualEventReportTable events={report.events} childKey={report.period} key={report.period + "-item"}/>
+                    }));
+                    setCollapseItems(items);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         };
 
         fetchData().catch(console.error);
     }, []);
 
     return (
-            <div>
-                <h4>{t("ReportEvents.title")}</h4>
-                <Spin spinning={loading}>
-                    {eventReports.length > 0 && <Collapse items={collapseItems}/>}
-                </Spin>
-            </div>
+        <div>
+            <h4>{t("ReportEvents.title")}</h4>
+            <Spin spinning={loading}>
+                {eventReports.length > 0 && <Collapse items={collapseItems}/>}
+            </Spin>
+        </div>
     );
 }

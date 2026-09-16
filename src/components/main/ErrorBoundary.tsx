@@ -12,28 +12,28 @@ const fallbackMessages = [
     {
         language: "de",
         title: "Etwas ist schiefgelaufen",
-        description: "Die Seite konnte nicht angezeigt werden. Bitte laden Sie die Seite neu und versuchen Sie es erneut.",
+        description: "Die Seite konnte nicht angezeigt werden. Bitte laden Sie die Seite neu und versuchen Sie es erneut."
     },
     {
         language: "en",
         title: "Something went wrong",
-        description: "The page could not be displayed. Please reload the page and try again.",
+        description: "The page could not be displayed. Please reload the page and try again."
     },
     {
         language: "es",
         title: "Algo salió mal",
-        description: "No se pudo mostrar la página. Vuelve a cargar la página e inténtalo de nuevo.",
+        description: "No se pudo mostrar la página. Vuelve a cargar la página e inténtalo de nuevo."
     },
     {
         language: "fi",
         title: "Jokin meni pieleen",
-        description: "Sivua ei voitu näyttää. Lataa sivu uudelleen ja yritä uudestaan.",
+        description: "Sivua ei voitu näyttää. Lataa sivu uudelleen ja yritä uudestaan."
     },
     {
         language: "sv",
         title: "Något gick fel",
-        description: "Sidan kunde inte visas. Ladda om sidan och försök igen.",
-    },
+        description: "Sidan kunde inte visas. Ladda om sidan och försök igen."
+    }
 ];
 
 /**
@@ -62,17 +62,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     render(): ReactNode {
         if (this.state.hasError) {
             return (
-                    <div role="alert" style={{padding: "2rem", textAlign: "center"}}>
-                        {fallbackMessages.map(({language, title, description}) => (
-                                <div key={language} lang={language}>
-                                    <h1>{title}</h1>
-                                    <p>{description}</p>
-                                </div>
-                        ))}
-                        <button type="button" onClick={() => window.location.reload()}>
-                            Neu laden / Reload / Recargar / Lataa uudelleen / Ladda om
-                        </button>
-                    </div>
+                <div role="alert" style={{padding: "2rem", textAlign: "center"}}>
+                    {fallbackMessages.map(({language, title, description}) => (
+                        <div key={language} lang={language}>
+                            <h1>{title}</h1>
+                            <p>{description}</p>
+                        </div>
+                    ))}
+                    <button type="button" onClick={() => window.location.reload()}>
+                        Neu laden / Reload / Recargar / Lataa uudelleen / Ladda om
+                    </button>
+                </div>
             );
         }
 

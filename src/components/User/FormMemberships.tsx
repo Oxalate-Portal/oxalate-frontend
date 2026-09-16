@@ -15,74 +15,74 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
     const columns = [
         {
             title: t("FormMemberships.table.id"),
-            dataIndex: 'id',
-            key: 'membership-id',
-            sorter: (a: MembershipResponse, b: MembershipResponse) => a.id - b.id,
+            dataIndex: "id",
+            key: "membership-id",
+            sorter: (a: MembershipResponse, b: MembershipResponse) => a.id - b.id
         },
         {
             title: t("FormMemberships.table.type"),
-            dataIndex: 'type',
-            key: 'membership-type',
+            dataIndex: "type",
+            key: "membership-type",
             render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id),
-            sorter: (a: MembershipResponse, b: MembershipResponse) => a.type.localeCompare(b.type),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => a.type.localeCompare(b.type)
         },
         {
             title: t("FormMemberships.table.status"),
-            dataIndex: 'status',
-            key: 'membership-status',
+            dataIndex: "status",
+            key: "membership-status",
             render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id),
-            sorter: (a: MembershipResponse, b: MembershipResponse) => a.status.localeCompare(b.status),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => a.status.localeCompare(b.status)
         },
         {
             title: t("FormMemberships.table.start-date"),
-            dataIndex: 'startDate',
-            key: 'membership-startDate',
+            dataIndex: "startDate",
+            key: "membership-startDate",
             render: (date: Date, record: MembershipResponse) => {
                 return (
-                        <>
-                            {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
-                                    ? dayjs(date).format("YYYY-MM-DD")
-                                    : "-"}
-                        </>)
+                    <>
+                        {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
+                            ? dayjs(date).format("YYYY-MM-DD")
+                            : "-"}
+                    </>);
             },
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix(),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix()
         },
         {
             title: t("FormMemberships.table.end-date"),
-            dataIndex: 'endDate',
-            key: 'membership-endDate',
+            dataIndex: "endDate",
+            key: "membership-endDate",
             render: (date: Date, record: MembershipResponse) => {
                 return (
-                        <>
-                            {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
-                                    ? dayjs(date).format("YYYY-MM-DD")
-                                    : "-"}
-                        </>)
+                    <>
+                        {record.type === MembershipTypeEnum.DURATIONAL || record.type === MembershipTypeEnum.PERIODICAL
+                            ? dayjs(date).format("YYYY-MM-DD")
+                            : "-"}
+                    </>);
             },
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).unix() - dayjs(b.endDate).unix(),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).unix() - dayjs(b.endDate).unix()
         },
         {
             title: t("FormMemberships.table.created"),
-            dataIndex: 'created',
-            key: 'membership-created',
+            dataIndex: "created",
+            key: "membership-created",
             render: (date: Date) => {
                 return (<>
                     {date !== null ? dayjs(date).format("YYYY-MM-DD HH:mm") : "-"}
-                </>)
+                </>);
             },
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).unix() - dayjs(b.created).unix(),
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).unix() - dayjs(b.created).unix()
         }
     ];
 
     return (
-            <>
-                <Table
-                        columns={columns}
-                        dataSource={sortedMembershipList}
-                        pagination={false}
-                        rowKey={(record) => record.id} key={"membership-table"}
-                        bordered={true}
-                />
-            </>
+        <>
+            <Table
+                columns={columns}
+                dataSource={sortedMembershipList}
+                pagination={false}
+                rowKey={(record) => record.id} key={"membership-table"}
+                bordered={true}
+            />
+        </>
     );
 }

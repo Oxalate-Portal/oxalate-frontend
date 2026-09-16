@@ -14,22 +14,22 @@ jest.mock("../services", () => ({
 }));
 jest.mock("antd", () => {
     const FormItem = ({children, label}: { children: ReactNode; label?: string }) =>
-            <label>{label}{children}</label>;
+        <label>{label}{children}</label>;
     const Form = ({children}: { children: ReactNode }) => <form>{children}</form>;
     Form.Item = FormItem;
     const passthrough = ({children, ...props}: { children?: ReactNode; [key: string]: unknown }) =>
-            <div {...Object.fromEntries(Object.entries(props).filter(([key]) => ["data-testid"].includes(key)))}>{children}</div>;
+        <div {...Object.fromEntries(Object.entries(props).filter(([key]) => ["data-testid"].includes(key)))}>{children}</div>;
     return {
         Form, Input: Object.assign(({...props}: { [key: string]: unknown }) =>
-                <input data-testid="search" {...props}/>, {Password: () => <input type="password"/>}),
+            <input data-testid="search" {...props}/>, {Password: () => <input type="password"/>}),
         Card: ({children, title, extra, onClick}: { children: ReactNode; title?: ReactNode; extra?: ReactNode; onClick?: () => void }) =>
-                <section onClick={onClick}><h2>{title}</h2>{extra}{children}</section>,
+            <section onClick={onClick}><h2>{title}</h2>{extra}{children}</section>,
         Typography: {Text: ({children}: { children: ReactNode }) => <span>{children}</span>},
         Row: passthrough, Col: passthrough, Space: passthrough, Select: passthrough,
         InputNumber: passthrough, Switch: ({checked, onChange}: { checked: boolean; onChange: (v: boolean) => void }) =>
-                <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)}/>,
+            <input type="checkbox" checked={checked} onChange={e => onChange(e.target.checked)}/>,
         Button: ({children, onClick, disabled}: { children: ReactNode; onClick?: () => void; disabled?: boolean }) =>
-                <button onClick={onClick} disabled={disabled}>{children}</button>,
+            <button onClick={onClick} disabled={disabled}>{children}</button>,
         Spin: passthrough
     };
 });

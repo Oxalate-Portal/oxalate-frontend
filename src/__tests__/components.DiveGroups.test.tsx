@@ -127,15 +127,15 @@ describe("DiveGroupTable", () => {
 
     function renderTable(diveGroups: DiveGroupResponse[], currentUserId: number, canJoinDiveGroup = true, canReorderDiveGroups = false) {
         return render(<DiveGroupTable
-                diveGroups={diveGroups}
-                loading={false}
-                currentUserId={currentUserId}
-                canJoinDiveGroup={canJoinDiveGroup}
-                canReorderDiveGroups={canReorderDiveGroups}
-                onJoin={onJoin}
-                onLeave={onLeave}
-                onDelete={onDelete}
-                onReorder={onReorder}/>);
+            diveGroups={diveGroups}
+            loading={false}
+            currentUserId={currentUserId}
+            canJoinDiveGroup={canJoinDiveGroup}
+            canReorderDiveGroups={canReorderDiveGroups}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            onDelete={onDelete}
+            onReorder={onReorder}/>);
     }
 
     function rowOf(name: string): HTMLElement {
@@ -144,7 +144,7 @@ describe("DiveGroupTable", () => {
 
     function renderedGroupNames(): string[] {
         return Array.from(document.querySelectorAll("tbody.ant-table-tbody tr td:nth-child(3)"))
-                .map((cell) => cell.textContent ?? "");
+            .map((cell) => cell.textContent ?? "");
     }
 
     function dragRowOnto(sourceName: string, targetName: string) {
@@ -368,47 +368,47 @@ describe("DiveGroupTable", () => {
 
     it("adopts the order returned by the backend after a reorder", () => {
         const {rerender} = render(<DiveGroupTable
-                diveGroups={orderedGroups()}
-                loading={false}
-                currentUserId={99}
-                canJoinDiveGroup={true}
-                canReorderDiveGroups={true}
-                onJoin={onJoin}
-                onLeave={onLeave}
-                onDelete={onDelete}
-                onReorder={onReorder}/>);
+            diveGroups={orderedGroups()}
+            loading={false}
+            currentUserId={99}
+            canJoinDiveGroup={true}
+            canReorderDiveGroups={true}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            onDelete={onDelete}
+            onReorder={onReorder}/>);
 
         dragRowOnto("Team Three", "Team One");
         expect(renderedGroupNames()).toEqual(["Team Three", "Team One", "Team Two"]);
 
         rerender(<DiveGroupTable
-                diveGroups={[
-                    diveGroup({id: 2, name: "Team Two", groupOrder: 1, ownerId: 20, ownerName: "Owner Twenty"}),
-                    diveGroup({id: 1, name: "Team One", groupOrder: 2, ownerId: 10, ownerName: "Owner Ten"}),
-                    diveGroup({id: 3, name: "Team Three", groupOrder: 3, ownerId: 30, ownerName: "Owner Thirty"})
-                ]}
-                loading={false}
-                currentUserId={99}
-                canJoinDiveGroup={true}
-                canReorderDiveGroups={true}
-                onJoin={onJoin}
-                onLeave={onLeave}
-                onDelete={onDelete}
-                onReorder={onReorder}/>);
+            diveGroups={[
+                diveGroup({id: 2, name: "Team Two", groupOrder: 1, ownerId: 20, ownerName: "Owner Twenty"}),
+                diveGroup({id: 1, name: "Team One", groupOrder: 2, ownerId: 10, ownerName: "Owner Ten"}),
+                diveGroup({id: 3, name: "Team Three", groupOrder: 3, ownerId: 30, ownerName: "Owner Thirty"})
+            ]}
+            loading={false}
+            currentUserId={99}
+            canJoinDiveGroup={true}
+            canReorderDiveGroups={true}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            onDelete={onDelete}
+            onReorder={onReorder}/>);
 
         expect(renderedGroupNames()).toEqual(["Team Two", "Team One", "Team Three"]);
     });
 
     it("reorders even when no reorder handler is supplied", () => {
         render(<DiveGroupTable
-                diveGroups={orderedGroups()}
-                loading={false}
-                currentUserId={99}
-                canJoinDiveGroup={true}
-                canReorderDiveGroups={true}
-                onJoin={onJoin}
-                onLeave={onLeave}
-                onDelete={onDelete}/>);
+            diveGroups={orderedGroups()}
+            loading={false}
+            currentUserId={99}
+            canJoinDiveGroup={true}
+            canReorderDiveGroups={true}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            onDelete={onDelete}/>);
 
         dragRowOnto("Team Three", "Team One");
 
@@ -426,25 +426,25 @@ describe("DiveGroupFormModal", () => {
 
     function renderModal(open: boolean, canAssignOwner: boolean, diveGroups: DiveGroupResponse[] = []) {
         return render(<DiveGroupFormModal
-                open={open}
-                eventId={42}
-                participants={participants}
-                diveGroups={diveGroups}
-                canAssignOwner={canAssignOwner}
-                onCancel={onCancel}
-                onCreated={onCreated}/>);
+            open={open}
+            eventId={42}
+            participants={participants}
+            diveGroups={diveGroups}
+            canAssignOwner={canAssignOwner}
+            onCancel={onCancel}
+            onCreated={onCreated}/>);
     }
 
     function renderOrganizerModal() {
         return render(<DiveGroupFormModal
-                open={true}
-                eventId={42}
-                participants={participants}
-                eventOrganizer={{id: 99, firstName: "Event", lastName: "Organizer"} as never}
-                diveGroups={[]}
-                canAssignOwner={true}
-                onCancel={onCancel}
-                onCreated={onCreated}/>);
+            open={true}
+            eventId={42}
+            participants={participants}
+            eventOrganizer={{id: 99, firstName: "Event", lastName: "Organizer"} as never}
+            diveGroups={[]}
+            canAssignOwner={true}
+            onCancel={onCancel}
+            onCreated={onCreated}/>);
     }
 
     function ownerCombobox(): HTMLElement {

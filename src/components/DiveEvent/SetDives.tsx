@@ -33,10 +33,10 @@ export function SetDives() {
             title: t("SetDives.table.action"),
             key: "action",
             render: (_: string, record: DiveCountItemVO) => (
-                    <Space size={"middle"}>
-                        <DownOutlined onClick={() => changeDiveCount(record, -1)}/>
-                        <UpOutlined onClick={() => changeDiveCount(record, 1)}/>
-                    </Space>
+                <Space size={"middle"}>
+                    <DownOutlined onClick={() => changeDiveCount(record, -1)}/>
+                    <UpOutlined onClick={() => changeDiveCount(record, 1)}/>
+                </Space>
             )
         }
     ];
@@ -46,22 +46,23 @@ export function SetDives() {
         let tmpDiveEventId = 0;
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpDiveEventId = parseInt(paramId);
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setDiveEventId(tmpDiveEventId);
         }
 
         if (tmpDiveEventId > 0) {
             diveEventAPI.getDiveEventDives(tmpDiveEventId)
-                    .then((response) => {
-                        // We do this in order to avoid any references
-                        setEventDives(JSON.parse(JSON.stringify(response)));
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then((response) => {
+                    // We do this in order to avoid any references
+                    setEventDives(JSON.parse(JSON.stringify(response)));
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         } else {
             // No valid dive event ID, nothing to load
         }
@@ -87,30 +88,30 @@ export function SetDives() {
                 dives: eventDives.dives
             };
             diveEventAPI.updateDiveEventDives(diveEventId, updatedDives)
-                    .then((response) => {
-                        // We do this in order to avoid any references
-                        setEventDives(JSON.parse(JSON.stringify(response)));
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                        setModified(false);
-                    });
+                .then((response) => {
+                    // We do this in order to avoid any references
+                    setEventDives(JSON.parse(JSON.stringify(response)));
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                    setModified(false);
+                });
         }
     }
 
     return (
-            <div className={"darkDiv"}>
-                <Spin spinning={loading}>
-                    {eventDives?.dives.length === 0 && <p>{t("SetDives.noDives")}</p>}
-                    {eventDives && <Table dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="userId" pagination={false}/>}
-                    {eventDives && <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right"}}>
-                        {modified && <Button type={"primary"} onClick={() => updateEventDives()} style={{margin: 8}}>{t("common.button.save")}</Button>}
-                        <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>
-                    </Space>}
-                </Spin>
-            </div>
+        <div className={"darkDiv"}>
+            <Spin spinning={loading}>
+                {eventDives?.dives.length === 0 && <p>{t("SetDives.noDives")}</p>}
+                {eventDives && <Table dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="userId" pagination={false}/>}
+                {eventDives && <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right"}}>
+                    {modified && <Button type={"primary"} onClick={() => updateEventDives()} style={{margin: 8}}>{t("common.button.save")}</Button>}
+                    <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>
+                </Space>}
+            </Spin>
+        </div>
     );
 }

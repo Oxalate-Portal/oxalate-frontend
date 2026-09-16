@@ -43,9 +43,9 @@ describe("UserFields email change visibility", () => {
         mockedUserSession.id = currentSessionUserId;
 
         render(
-                <Form>
-                    <UserFields userId={100} username={"self@example.com"} isOrganizer={false}/>
-                </Form>
+            <Form>
+                <UserFields userId={100} username={"self@example.com"} isOrganizer={false}/>
+            </Form>
         );
 
         expect(screen.getByText("User.emailChange.button")).toBeInTheDocument();
@@ -56,9 +56,9 @@ describe("UserFields email change visibility", () => {
         mockedUserSession.id = currentSessionUserId;
 
         render(
-                <Form>
-                    <UserFields userId={101} username={"other@example.com"} isOrganizer={false}/>
-                </Form>
+            <Form>
+                <UserFields userId={101} username={"other@example.com"} isOrganizer={false}/>
+            </Form>
         );
 
         expect(screen.queryByText("User.emailChange.button")).toBeNull();

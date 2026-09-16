@@ -10,6 +10,7 @@
 // The rules below encode the settings already declared in .editorconfig for TS/TSX
 // (indent_size = 4, indent_style = space, max_line_length = 160), which no tool reads today.
 import stylistic from "@stylistic/eslint-plugin";
+import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -24,7 +25,11 @@ export default tseslint.config(
         },
         {
             files: ["src/**/*.{ts,tsx}"],
-            plugins: {"@stylistic": stylistic},
+            plugins: {
+                "@stylistic": stylistic,
+                "@typescript-eslint": tseslint.plugin,
+                "react-hooks": reactHooks
+            },
             languageOptions: {
                 parser: tseslint.parser,
                 ecmaVersion: "latest",
@@ -32,6 +37,9 @@ export default tseslint.config(
                 parserOptions: {
                     ecmaFeatures: {jsx: true}
                 }
+            },
+            linterOptions: {
+                reportUnusedDisableDirectives: "off"
             },
             rules: {
                 "@stylistic/indent": ["error", 4, {SwitchCase: 1}],

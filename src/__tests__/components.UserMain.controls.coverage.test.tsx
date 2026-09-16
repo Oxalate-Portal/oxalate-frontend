@@ -37,7 +37,7 @@ const session = {
     approvedTerms: false, healthStatementId: null, language: "en", memberships: [], payments: []
 };
 const sessionHook = {
-    userSession: session, sessionLanguage: "en", organizationName: "Oxalate",
+    userSession: session as typeof session | null, sessionLanguage: "en", organizationName: "Oxalate",
     logoutUser: jest.fn(), loginUser: jest.fn(), refreshUserSession: jest.fn(), setSessionLanguage: jest.fn(),
     getPortalConfigurationValue: jest.fn((group: string, key: string) => {
         if (group === "MEMBERSHIP" && key === "membership-type") return "DURATIONAL";

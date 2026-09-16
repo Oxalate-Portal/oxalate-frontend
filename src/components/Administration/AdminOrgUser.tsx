@@ -21,7 +21,7 @@ export function AdminOrgUser() {
         {value: UserStatusEnum.REGISTERED, label: t("common.userStatus.registered")},
         {value: UserStatusEnum.ACTIVE, label: t("common.userStatus.active")},
         {value: UserStatusEnum.LOCKED, label: t("common.userStatus.locked")},
-        {value: UserStatusEnum.ANONYMIZED, label: t("common.userStatus.anonymized")},
+        {value: UserStatusEnum.ANONYMIZED, label: t("common.userStatus.anonymized")}
     ];
 
     useEffect(() => {
@@ -33,25 +33,25 @@ export function AdminOrgUser() {
 
         if (tmpUserId > 0) {
             userAPI.findAdminUserById(tmpUserId)
-                    .then(response => {
+                .then(response => {
 
-                        if (response == null ||
-                                response.status == null ||
-                                response.status === "ANONYMIZED") {
-                            setInvalidForm(true);
-                            setBlockSendEmail(true);
-                        } else {
-                            setInvalidForm(false);
-                        }
+                    if (response == null ||
+                        response.status == null ||
+                        response.status === "ANONYMIZED") {
+                        setInvalidForm(true);
+                        setBlockSendEmail(true);
+                    } else {
+                        setInvalidForm(false);
+                    }
 
-                        setWorkUser(response);
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                    setWorkUser(response);
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         } else {
             console.error("Invalid user id:", tmpUserId);
         }
@@ -69,16 +69,16 @@ export function AdminOrgUser() {
         setLoading(true);
 
         authAPI.recoverLostPassword({email: workUser.username})
-                .then((response) => {
-                    if (response.status === ResultEnum.OK) {
-                        alert(t("AdminOrgUser.sendPasswordEmail.ok"));
-                    } else {
-                        alert(t("AdminOrgUser.sendPasswordEmail.fail"));
-                    }
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                if (response.status === ResultEnum.OK) {
+                    alert(t("AdminOrgUser.sendPasswordEmail.ok"));
+                } else {
+                    alert(t("AdminOrgUser.sendPasswordEmail.fail"));
+                }
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     function updateUser(userInfo: AdminUserResponse) {
@@ -93,8 +93,8 @@ export function AdminOrgUser() {
 
         // If the organizer role has been added for an user with privacy turned on, then we should emit a warning that it will be turned off
         if (workUser && workUser.privacy
-                && userInfo.roles.includes(RoleEnum.ROLE_ORGANIZER)
-                && !workUser.roles.includes(RoleEnum.ROLE_ORGANIZER)) {
+            && userInfo.roles.includes(RoleEnum.ROLE_ORGANIZER)
+            && !workUser.roles.includes(RoleEnum.ROLE_ORGANIZER)) {
             if (!window.confirm(t("AdminOrgUser.updateUser.confirmOrganizer"))) {
                 setLoading(false);
                 return;
@@ -119,17 +119,17 @@ export function AdminOrgUser() {
         };
 
         userAPI.adminUpdateUser(postData)
-                .then((response) => {
-                    setWorkUser(response);
-                    messageApi.success(t("AdminOrgUser.updateUser.ok"));
-                })
-                .catch(e => {
-                    console.error("Failed to update user, error: " + e.message);
-                    messageApi.error(t("AdminOrgUser.updateUser.fail"));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setWorkUser(response);
+                messageApi.success(t("AdminOrgUser.updateUser.ok"));
+            })
+            .catch(e => {
+                console.error("Failed to update user, error: " + e.message);
+                messageApi.error(t("AdminOrgUser.updateUser.fail"));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     function updateUserFailed(errorInfo: { errorFields: { errors: string[] }[] }) {
@@ -137,90 +137,90 @@ export function AdminOrgUser() {
     }
 
     return (
-            <div className={"darkDiv"}>
-                {contextHolder}
-                <Spin spinning={loading}>
-                    {workUser && workUser.id > 0 && <Form
-                            form={userForm}
-                            name={"admin-user-edit"}
-                            labelCol={{span: 8}}
-                            wrapperCol={{span: 12}}
-                            style={{maxWidth: 800}}
-                            initialValues={{
-                                id: workUser.id,
-                                username: workUser.username,
-                                firstName: workUser.firstName,
-                                lastName: workUser.lastName,
-                                status: workUser.status,
-                                phoneNumber: workUser.phoneNumber,
-                                privacy: workUser.privacy,
-                                nextOfKin: workUser.nextOfKin,
-                                registered: workUser.registered,
-                                roles: workUser.roles,
-                                language: workUser.language,
-                                // add missing fields so Select shows the current value
-                                primaryUserType: workUser.primaryUserType,
-                                approvedTerms: workUser.approvedTerms
-                            }}
-                            onFinish={updateUser}
-                            onFinishFailed={updateUserFailed}
-                            scrollToFirstError={true}
-                            autoComplete={"off"}
-                            disabled={invalidForm}
-                    >
-                        <Form.Item name={"id"} label="ID" style={{display: "none"}}>
-                            <Input type="text"/>
-                        </Form.Item>
-                        <Form.Item name={"username"} label="ID" style={{display: "none"}}>
-                            <Input type="text"/>
-                        </Form.Item>
-                        <UserFields username={workUser.username} userId={workUser.id} isOrganizer={checkRoles(workUser.roles, [RoleEnum.ROLE_ORGANIZER])}/>
-                        <p>{t("User.form.certificateClassification.label")}: {workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</p>
-                        <Form.Item name={"status"} required label={t("AdminOrgUser.form.status.label")}
-                                   tooltip={t("AdminOrgUser.form.status.tooltip")}
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: t("AdminOrgUser.form.status.rule1")
-                                       }
-                                   ]}>
-                            <Select options={statusTypes}/>
-                        </Form.Item>
-                        <Form.Item name={"roles"} label={t("AdminOrgUser.form.roles.label")}>
-                            <Checkbox.Group style={{width: "100%"}}>
-                                <Row>
-                                    <Col span={6}>
-                                        <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}}>{t("common.roles.role_user")}</Checkbox>
-                                    </Col>
-                                    <Col span={12}>
-                                        <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}}>{t("common.roles.role_organizer")}</Checkbox>
-                                    </Col>
-                                    <Col span={6}>
-                                        <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}}>{t("common.roles.role_admin")}</Checkbox>
-                                    </Col>
-                                </Row>
-                            </Checkbox.Group>
-                        </Form.Item>
+        <div className={"darkDiv"}>
+            {contextHolder}
+            <Spin spinning={loading}>
+                {workUser && workUser.id > 0 && <Form
+                    form={userForm}
+                    name={"admin-user-edit"}
+                    labelCol={{span: 8}}
+                    wrapperCol={{span: 12}}
+                    style={{maxWidth: 800}}
+                    initialValues={{
+                        id: workUser.id,
+                        username: workUser.username,
+                        firstName: workUser.firstName,
+                        lastName: workUser.lastName,
+                        status: workUser.status,
+                        phoneNumber: workUser.phoneNumber,
+                        privacy: workUser.privacy,
+                        nextOfKin: workUser.nextOfKin,
+                        registered: workUser.registered,
+                        roles: workUser.roles,
+                        language: workUser.language,
+                        // add missing fields so Select shows the current value
+                        primaryUserType: workUser.primaryUserType,
+                        approvedTerms: workUser.approvedTerms
+                    }}
+                    onFinish={updateUser}
+                    onFinishFailed={updateUserFailed}
+                    scrollToFirstError={true}
+                    autoComplete={"off"}
+                    disabled={invalidForm}
+                >
+                    <Form.Item name={"id"} label="ID" style={{display: "none"}}>
+                        <Input type="text"/>
+                    </Form.Item>
+                    <Form.Item name={"username"} label="ID" style={{display: "none"}}>
+                        <Input type="text"/>
+                    </Form.Item>
+                    <UserFields username={workUser.username} userId={workUser.id} isOrganizer={checkRoles(workUser.roles, [RoleEnum.ROLE_ORGANIZER])}/>
+                    <p>{t("User.form.certificateClassification.label")}: {workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</p>
+                    <Form.Item name={"status"} required label={t("AdminOrgUser.form.status.label")}
+                               tooltip={t("AdminOrgUser.form.status.tooltip")}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: t("AdminOrgUser.form.status.rule1")
+                                   }
+                               ]}>
+                        <Select options={statusTypes}/>
+                    </Form.Item>
+                    <Form.Item name={"roles"} label={t("AdminOrgUser.form.roles.label")}>
+                        <Checkbox.Group style={{width: "100%"}}>
+                            <Row>
+                                <Col span={6}>
+                                    <Checkbox value="ROLE_USER" style={{lineHeight: "32px"}}>{t("common.roles.role_user")}</Checkbox>
+                                </Col>
+                                <Col span={12}>
+                                    <Checkbox value="ROLE_ORGANIZER" style={{lineHeight: "32px"}}>{t("common.roles.role_organizer")}</Checkbox>
+                                </Col>
+                                <Col span={6}>
+                                    <Checkbox value="ROLE_ADMIN" style={{lineHeight: "32px"}}>{t("common.roles.role_admin")}</Checkbox>
+                                </Col>
+                            </Row>
+                        </Checkbox.Group>
+                    </Form.Item>
 
-                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                            <Button
-                                    type={"primary"}
-                                    htmlType={"submit"}
-                                    disabled={loading}
-                            >{t("AdminOrgUser.form.button.update")}</Button>
-                            <Button
-                                    type={"default"}
-                                    htmlType={"reset"}
-                                    disabled={loading}
-                            >{t("AdminOrgUser.form.button.reset")}</Button>
-                            <Button
-                                    type={"dashed"}
-                                    danger onClick={sendPasswordEmail}
-                                    disabled={loading}
-                            >{t("AdminOrgUser.form.button.sendPasswordEmail")}</Button>
-                        </Space>
-                    </Form>}
-                </Spin>
-            </div>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                        <Button
+                            type={"primary"}
+                            htmlType={"submit"}
+                            disabled={loading}
+                        >{t("AdminOrgUser.form.button.update")}</Button>
+                        <Button
+                            type={"default"}
+                            htmlType={"reset"}
+                            disabled={loading}
+                        >{t("AdminOrgUser.form.button.reset")}</Button>
+                        <Button
+                            type={"dashed"}
+                            danger onClick={sendPasswordEmail}
+                            disabled={loading}
+                        >{t("AdminOrgUser.form.button.sendPasswordEmail")}</Button>
+                    </Space>
+                </Form>}
+            </Spin>
+        </div>
     );
 }

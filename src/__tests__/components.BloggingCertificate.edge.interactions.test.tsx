@@ -44,6 +44,7 @@ jest.mock("antd", () => {
             <div {...Object.fromEntries(Object.entries(props).filter(([key]) => key === "data-testid"))}>{children}</div>;
     const Form = ({children, onFinish}: { children: ReactNode; onFinish?: (values: never) => void }) => {
         // This mock exposes the latest form callback to the test cases.
+
         // eslint-disable-next-line react-hooks/immutability
         formPropsRef.current = {onFinish: onFinish ?? (() => undefined)};
         return <form>{children}</form>;
@@ -68,6 +69,7 @@ jest.mock("antd", () => {
         onChange?: (info: never) => void
     }) => {
         // This mock exposes upload callbacks to the test cases.
+
         // eslint-disable-next-line react-hooks/immutability
         uploadPropsRef.current = props;
         return <div>{children}</div>;

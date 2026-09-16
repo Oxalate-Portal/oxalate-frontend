@@ -41,7 +41,7 @@ function BlockedDates() {
 
     async function addBlockedDate(values: { blockedDate: Date, blockedReason: string }) {
         // Ensure blockedDate is a Date object
-        const dateString = dayjs(values.blockedDate).format('YYYY-MM-DD');
+        const dateString = dayjs(values.blockedDate).format("YYYY-MM-DD");
 
         const blockedDate = dayjs(dateString);
 
@@ -93,17 +93,17 @@ function BlockedDates() {
             key: "blockedDate",
             render: (value: Date) => dayjs(value).format("YYYY-MM-DD"),
             sorter: (a, b) => dayjs(a.blockedDate).unix() - dayjs(b.blockedDate).unix(),
-            defaultSortOrder: "ascend",
+            defaultSortOrder: "ascend"
         },
         {
             title: t("BlockedDates.table.creator"),
             dataIndex: "creatorName",
-            key: "creatorName",
+            key: "creatorName"
         },
         {
             title: t("BlockedDates.table.reason"),
             dataIndex: "reason",
-            key: "reason",
+            key: "reason"
         },
         {
             title: t("BlockedDates.table.actions"),
@@ -119,8 +119,8 @@ function BlockedDates() {
                             {t("common.button.delete")}
                         </Button>
                     </Popconfirm>
-            ),
-        },
+            )
+        }
     ];
 
     return (

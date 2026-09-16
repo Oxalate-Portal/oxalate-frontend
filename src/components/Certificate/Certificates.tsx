@@ -21,6 +21,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     const {getFrontendConfigurationValue} = useSession();
 
     useEffect(() => {
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setMaxCertificates(parseInt(getFrontendConfigurationValue("max-certificates")));
 

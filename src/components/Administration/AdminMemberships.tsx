@@ -38,36 +38,36 @@ export function AdminMemberships() {
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                    <div style={{padding: 8}}>
-                        <Input
-                                placeholder={t("AdminMembers.table.username")}
-                                value={selectedKeys[0]}
-                                onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                                onPressEnter={() => confirm()}
-                                style={{marginBottom: 8, display: "block"}}
-                        />
-                        <Space>
-                            <Button
-                                    type={"primary"}
-                                    onClick={() => confirm()}
-                                    icon={<SearchOutlined/>}
-                                    size="small"
-                                    style={{width: 90}}
-                            >
-                                {t("common.button.search")}
-                            </Button>
-                            <Button onClick={() => {
-                                clearFilters?.();
-                                confirm();
-                            }} size="small" style={{width: 90}}>
-                                {t("common.button.reset")}
-                            </Button>
-                        </Space>
-                    </div>
+                <div style={{padding: 8}}>
+                    <Input
+                        placeholder={t("AdminMembers.table.username")}
+                        value={selectedKeys[0]}
+                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                        onPressEnter={() => confirm()}
+                        style={{marginBottom: 8, display: "block"}}
+                    />
+                    <Space>
+                        <Button
+                            type={"primary"}
+                            onClick={() => confirm()}
+                            icon={<SearchOutlined/>}
+                            size="small"
+                            style={{width: 90}}
+                        >
+                            {t("common.button.search")}
+                        </Button>
+                        <Button onClick={() => {
+                            clearFilters?.();
+                            confirm();
+                        }} size="small" style={{width: 90}}>
+                            {t("common.button.reset")}
+                        </Button>
+                    </Space>
+                </div>
             ),
             filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
             onFilter: (value: boolean | Key, record: MembershipResponse) =>
-                    record.username.toLowerCase().includes((value as string).toLowerCase()),
+                record.username.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: string, record: MembershipResponse) => {
                 return (<Link to={"/users/" + record.userId + "/show"}>{record.username}</Link>);
             }
@@ -108,16 +108,16 @@ export function AdminMemberships() {
             key: "created",
             sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.created).valueOf() - dayjs(b.created).valueOf(),
             sortDirections: ["descend", "ascend"],
-            render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm"),
+            render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm")
         },
         {
             title: t("AdminMembers.table.actions.title"),
             key: "actions",
             render: (_: string, record: MembershipResponse) => {
                 return (
-                        <Space size="small">
-                            <Button type={"primary"} href={"/administration/members/" + record.id + "/edit"}>{t("common.button.edit")}</Button>
-                        </Space>
+                    <Space size="small">
+                        <Button type={"primary"} href={"/administration/members/" + record.id + "/edit"}>{t("common.button.edit")}</Button>
+                    </Space>
                 );
             }
         }
@@ -127,49 +127,49 @@ export function AdminMemberships() {
         Promise.all([
             membershipAPI.findAll()
         ])
-                .then(([membershipResponses]) => {
-                    setMembershipList(membershipResponses);
-                })
-                .catch((error) => {
-                    console.error("Failed to load members", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(([membershipResponses]) => {
+                setMembershipList(membershipResponses);
+            })
+            .catch((error) => {
+                console.error("Failed to load members", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     function fetchMembershipList() {
         setLoading(true);
         membershipAPI.findAll()
-                .then((membershipResponses) => {
-                    setMembershipList(membershipResponses);
-                })
-                .catch((error) => {
-                    console.error("Failed to load members", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((membershipResponses) => {
+                setMembershipList(membershipResponses);
+            })
+            .catch((error) => {
+                console.error("Failed to load members", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     return (
-            <div className={"darkDiv"}>
-                <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
-                    <h1>{t("AdminMembers.title")}</h1>
+        <div className={"darkDiv"}>
+            <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
+                <h1>{t("AdminMembers.title")}</h1>
 
-                    <Table columns={memberListColumns}
-                           dataSource={membershipList}
-                           loading={loading} rowKey="id"
-                           pagination={{
-                               defaultPageSize: 10,
-                               hideOnSinglePage: true,
-                               showSizeChanger: true,
-                               showQuickJumper: true,
-                               pageSizeOptions: ["5", "10", "20", "30", "50"]
-                           }}
-                    />
-                    <AddMemberships onMembershipAdded={fetchMembershipList}/>
-                </Space>
-            </div>
+                <Table columns={memberListColumns}
+                       dataSource={membershipList}
+                       loading={loading} rowKey="id"
+                       pagination={{
+                           defaultPageSize: 10,
+                           hideOnSinglePage: true,
+                           showSizeChanger: true,
+                           showQuickJumper: true,
+                           pageSizeOptions: ["5", "10", "20", "30", "50"]
+                       }}
+                />
+                <AddMemberships onMembershipAdded={fetchMembershipList}/>
+            </Space>
+        </div>
     );
 }

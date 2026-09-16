@@ -10,7 +10,7 @@ import {ErrorBoundary} from "../components";
  */
 describe("OWASP A10: rendering failures are contained", () => {
     const consoleError = jest.spyOn(console, "error")
-            .mockImplementation(() => undefined);
+        .mockImplementation(() => undefined);
 
     afterAll(() => consoleError.mockRestore());
 

@@ -49,72 +49,72 @@ export function BlogControls({
     ];
 
     return (
-            <Row gutter={[16, 16]} align="middle" style={{marginBottom: showLoadMore ? 0 : 16, marginTop: showLoadMore ? 16 : 0}}>
-                <Col xs={24} sm={12} md={6} lg={4}>
-                    <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                        <Typography.Text type="secondary">{t("BlogControls.sortBy.label")}</Typography.Text>
-                        <Select
-                                style={{width: "100%"}}
-                                value={sortBy}
-                                onChange={onSortByChange}
-                                options={sortByOptions}
-                                placeholder={t("BlogControls.sortBy.placeholder")}
-                                disabled={sortControlsDisabled}
+        <Row gutter={[16, 16]} align="middle" style={{marginBottom: showLoadMore ? 0 : 16, marginTop: showLoadMore ? 16 : 0}}>
+            <Col xs={24} sm={12} md={6} lg={4}>
+                <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
+                    <Typography.Text type="secondary">{t("BlogControls.sortBy.label")}</Typography.Text>
+                    <Select
+                        style={{width: "100%"}}
+                        value={sortBy}
+                        onChange={onSortByChange}
+                        options={sortByOptions}
+                        placeholder={t("BlogControls.sortBy.placeholder")}
+                        disabled={sortControlsDisabled}
+                    />
+                </Space>
+            </Col>
+            <Col xs={24} sm={12} md={6} lg={4}>
+                <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
+                    <Typography.Text type="secondary">{t("BlogControls.sortDirection.label")}</Typography.Text>
+                    <Select
+                        style={{width: "100%"}}
+                        value={sortDirection}
+                        onChange={onSortDirectionChange}
+                        options={sortDirectionOptions}
+                        placeholder={t("BlogControls.sortDirection.placeholder")}
+                        disabled={sortControlsDisabled}
+                    />
+                </Space>
+            </Col>
+            <Col xs={24} sm={16} md={8} lg={10}>
+                <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
+                    <Typography.Text type="secondary">{t("BlogControls.search.label")}</Typography.Text>
+                    <Input
+                        placeholder={t("BlogControls.search.placeholder")}
+                        value={searchText}
+                        onChange={(e) => onSearchChange(e.target.value)}
+                        allowClear
+                    />
+                </Space>
+            </Col>
+            <Col xs={24} sm={8} md={4} lg={6}>
+                <Space orientation={"vertical"} size={4}>
+                    <Typography.Text type="secondary">{t("BlogControls.caseSensitive.label")}</Typography.Text>
+                    <Space>
+                        <Switch
+                            checked={caseSensitive}
+                            onChange={onCaseSensitiveChange}
+                            unCheckedChildren={t("common.switch.off")}
+                            checkedChildren={t("common.switch.on")}
+                            style={{
+                                backgroundColor: caseSensitive ? "#52c41a" : "#ff4d4f"
+                            }}
                         />
                     </Space>
+                </Space>
+            </Col>
+            {showLoadMore && (
+                <Col xs={24} style={{textAlign: "center", marginTop: 16}}>
+                    <Button
+                        type="primary"
+                        onClick={onLoadMore}
+                        loading={loading}
+                        disabled={!hasMore}
+                    >
+                        {hasMore ? t("BlogControls.loadMore") : t("BlogControls.noMore")}
+                    </Button>
                 </Col>
-                <Col xs={24} sm={12} md={6} lg={4}>
-                    <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                        <Typography.Text type="secondary">{t("BlogControls.sortDirection.label")}</Typography.Text>
-                        <Select
-                                style={{width: "100%"}}
-                                value={sortDirection}
-                                onChange={onSortDirectionChange}
-                                options={sortDirectionOptions}
-                                placeholder={t("BlogControls.sortDirection.placeholder")}
-                                disabled={sortControlsDisabled}
-                        />
-                    </Space>
-                </Col>
-                <Col xs={24} sm={16} md={8} lg={10}>
-                    <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                        <Typography.Text type="secondary">{t("BlogControls.search.label")}</Typography.Text>
-                        <Input
-                                placeholder={t("BlogControls.search.placeholder")}
-                                value={searchText}
-                                onChange={(e) => onSearchChange(e.target.value)}
-                                allowClear
-                        />
-                    </Space>
-                </Col>
-                <Col xs={24} sm={8} md={4} lg={6}>
-                    <Space orientation={"vertical"} size={4}>
-                        <Typography.Text type="secondary">{t("BlogControls.caseSensitive.label")}</Typography.Text>
-                        <Space>
-                            <Switch
-                                    checked={caseSensitive}
-                                    onChange={onCaseSensitiveChange}
-                                    unCheckedChildren={t("common.switch.off")}
-                                    checkedChildren={t("common.switch.on")}
-                                    style={{
-                                        backgroundColor: caseSensitive ? "#52c41a" : "#ff4d4f"
-                                    }}
-                            />
-                        </Space>
-                    </Space>
-                </Col>
-                {showLoadMore && (
-                        <Col xs={24} style={{textAlign: "center", marginTop: 16}}>
-                            <Button
-                                    type="primary"
-                                    onClick={onLoadMore}
-                                    loading={loading}
-                                    disabled={!hasMore}
-                            >
-                                {hasMore ? t("BlogControls.loadMore") : t("BlogControls.noMore")}
-                            </Button>
-                        </Col>
-                )}
-            </Row>
+            )}
+        </Row>
     );
 }

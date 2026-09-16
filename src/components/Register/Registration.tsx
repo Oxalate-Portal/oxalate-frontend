@@ -7,9 +7,9 @@ export function Registration() {
     const {t} = useTranslation();
 
     return (
-            <div className="darkDiv">
-                {registrationStatus === "OK" && <h4>{t("Registration.title.ok")}</h4>}
-                {registrationStatus === "INVALID" && <h4>{t("Registration.title.invalid")}</h4>}
-            </div>
+        <div className="darkDiv">
+            {registrationStatus === "OK" && <h4>{t("Registration.title.ok")}</h4>}
+            {registrationStatus === "INVALID" && <h4>{t("Registration.title.invalid")}</h4>}
+        </div>
     );
 }

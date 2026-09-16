@@ -24,4 +24,4 @@ class EmailNotificationSubscriptionAPI {
     }
 }
 
-export const emailNotificationSubscriptionAPI = new EmailNotificationSubscriptionAPI("/email-notification-subscriptions")
+export const emailNotificationSubscriptionAPI = new EmailNotificationSubscriptionAPI("/email-notification-subscriptions");

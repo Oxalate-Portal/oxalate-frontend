@@ -13,20 +13,20 @@ export function ResendRegistrationEmail({token}: ResendRegistrationEmailProps) {
 
     async function requestEmailResend() {
         authAPI.resendRegistrationEmail(token)
-                .then((response) => {
-                    if (response) {
-                        setResendSuccess(true);
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
+            .then((response) => {
+                if (response) {
+                    setResendSuccess(true);
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     return (
-            <>
-                <p>{t("ResendRegistrationEmail.text.notReceived")}</p>
-                {resendSuccess && <Button block={true} onClick={requestEmailResend}>{t("common.button.send")}</Button>}
-                {!resendSuccess && <Alert type={"error"} title={t("ResendRegistrationEmail.text.fail")}/>}
-            </>);
+        <>
+            <p>{t("ResendRegistrationEmail.text.notReceived")}</p>
+            {resendSuccess && <Button block={true} onClick={requestEmailResend}>{t("common.button.send")}</Button>}
+            {!resendSuccess && <Alert type={"error"} title={t("ResendRegistrationEmail.text.fail")}/>}
+        </>);
 }

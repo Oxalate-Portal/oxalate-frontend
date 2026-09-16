@@ -12,35 +12,35 @@ export function AvatarFiles() {
 
     useEffect(() => {
         fileTransferAPI.findAllAvatarFiles()
-                .then((response) => {
-                    setAvatarFiles(response);
-                })
-                .catch((error) => {
-                    console.error("Error fetching avatar files", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setAvatarFiles(response);
+            })
+            .catch((error) => {
+                console.error("Error fetching avatar files", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     const columns = [...commonFileColumns(t, {showPreview: true})];
 
     return (
-            <>
-                {!loading && <Table
-                        columns={columns}
-                        dataSource={avatarFiles}
-                        rowKey="id"
-                        loading={loading}
-                        bordered
-                        pagination={{
-                            defaultPageSize: 10,
-                            hideOnSinglePage: true,
-                            showSizeChanger: true,
-                            showQuickJumper: true,
-                            pageSizeOptions: ["5", "10", "20", "30", "50"]
-                        }}
-                />}
-            </>
+        <>
+            {!loading && <Table
+                columns={columns}
+                dataSource={avatarFiles}
+                rowKey="id"
+                loading={loading}
+                bordered
+                pagination={{
+                    defaultPageSize: 10,
+                    hideOnSinglePage: true,
+                    showSizeChanger: true,
+                    showQuickJumper: true,
+                    pageSizeOptions: ["5", "10", "20", "30", "50"]
+                }}
+            />}
+        </>
     );
 }

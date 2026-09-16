@@ -51,6 +51,9 @@ export default tseslint.config(
             },
             globals: browserGlobals
         },
+        linterOptions: {
+            reportUnusedDisableDirectives: "off"
+        },
         rules: {
             ...reactHooks.configs.recommended.rules,
             "@typescript-eslint/no-deprecated": "warn",

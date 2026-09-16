@@ -16,15 +16,15 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
 
     useEffect(() => {
         emailNotificationSubscriptionAPI.getUserEmailSubscriptions()
-                .then(response => {
-                    setEmailSubscriptions(response);
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(response => {
+                setEmailSubscriptions(response);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     const updateSubscriptions = (values: Record<string, boolean>) => {
@@ -40,49 +40,49 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
         }
 
         emailNotificationSubscriptionAPI.subscribeToEmailNotification(subscriptionRequest)
-                .then(response => {
-                    setEmailSubscriptions(response);
-                })
-                .catch(e => {
-                    console.error("Error updating email subscriptions: " + e);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(response => {
+                setEmailSubscriptions(response);
+            })
+            .catch(e => {
+                console.error("Error updating email subscriptions: " + e);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     };
 
     return (
-            <Spin spinning={loading} description={t("common.spinner.loading")}>
-                <h4>{t("EmailSubscriptionCard.header")}</h4>
-                {!loading && <Form form={subscriptionForm}
-                                   name={userId + "-subscription-form"}
-                                   key={userId + "-subscription-form"}
-                                   labelCol={{span: 12}}
-                                   wrapperCol={{span: 12}}
-                                   style={{maxWidth: 800}}
-                                   onFinish={updateSubscriptions}>
-                    {Object.values(EmailNotificationTypeEnum).map((type) => {
-                        const subscription = subscriptions.find(sub => sub.emailNotificationType === type);
+        <Spin spinning={loading} description={t("common.spinner.loading")}>
+            <h4>{t("EmailSubscriptionCard.header")}</h4>
+            {!loading && <Form form={subscriptionForm}
+                               name={userId + "-subscription-form"}
+                               key={userId + "-subscription-form"}
+                               labelCol={{span: 12}}
+                               wrapperCol={{span: 12}}
+                               style={{maxWidth: 800}}
+                               onFinish={updateSubscriptions}>
+                {Object.values(EmailNotificationTypeEnum).map((type) => {
+                    const subscription = subscriptions.find(sub => sub.emailNotificationType === type);
 
-                        return (
-                                <Form.Item
-                                        key={userId + "-subscription-" + type}
-                                        label={t(`common.email-subscription-type.${type}.label`)}
-                                        tooltip={t(`common.email-subscription-type.${type}.tooltip`)}
-                                        name={type}
-                                        valuePropName="checked"
-                                        initialValue={!!subscription}
-                                >
-                                    <Switch/>
-                                </Form.Item>
-                        );
-                    })}
-                    <Form.Item>
-                        <Button type={"primary"} htmlType="submit">
-                            {t("common.button.save")}
-                        </Button>
-                    </Form.Item>
-                </Form>}
-            </Spin>
+                    return (
+                        <Form.Item
+                            key={userId + "-subscription-" + type}
+                            label={t(`common.email-subscription-type.${type}.label`)}
+                            tooltip={t(`common.email-subscription-type.${type}.tooltip`)}
+                            name={type}
+                            valuePropName="checked"
+                            initialValue={!!subscription}
+                        >
+                            <Switch/>
+                        </Form.Item>
+                    );
+                })}
+                <Form.Item>
+                    <Button type={"primary"} htmlType="submit">
+                        {t("common.button.save")}
+                    </Button>
+                </Form.Item>
+            </Form>}
+        </Spin>
     );
 }

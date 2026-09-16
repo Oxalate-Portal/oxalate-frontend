@@ -15,17 +15,17 @@ jest.mock("../services", () => ({
 jest.mock("react-i18next", () => ({useTranslation: () => ({t: (key: string) => key})}));
 jest.mock("antd", () => {
     const Form = ({children, onFinish}: { children: ReactNode; onFinish?: (values: unknown) => void }) =>
-            <form onSubmit={event => {
-                event.preventDefault();
-                onFinish?.({
-                    search: "token", description: "description",
-                    expiresAt: dayjs("2027-01-01"), days: 30
-                });
-            }}>{children}</form>;
+        <form onSubmit={event => {
+            event.preventDefault();
+            onFinish?.({
+                search: "token", description: "description",
+                expiresAt: dayjs("2027-01-01"), days: 30
+            });
+        }}>{children}</form>;
     Form.Item = ({children}: { children: ReactNode }) => <div>{children}</div>;
     Form.useForm = () => [{resetFields: jest.fn()}];
     const Button = ({children, onClick, htmlType}: { children: ReactNode; onClick?: () => void; htmlType?: string }) =>
-            <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>;
+        <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>;
     const Input = ({placeholder}: { placeholder?: string }) => <input placeholder={placeholder}/>;
     Input.TextArea = Input;
     const DatePicker = () => <input/>;
@@ -34,12 +34,12 @@ jest.mock("antd", () => {
         dataSource?: Array<Record<string, unknown>>;
         columns?: Array<{ render?: (value: unknown, record: Record<string, unknown>) => ReactNode }>
     }) =>
-            <div data-testid="token-table">{dataSource.map(record => <div key={String(record.tokenId)}>
-                {columns.map((column, index) => <span key={index}>{column.render?.(record.tokenValue, record)}</span>)}
-            </div>)}</div>;
+        <div data-testid="token-table">{dataSource.map(record => <div key={String(record.tokenId)}>
+            {columns.map((column, index) => <span key={index}>{column.render?.(record.tokenValue, record)}</span>)}
+        </div>)}</div>;
     const Modal = ({open, children}: { open?: boolean; children: ReactNode }) => open ? <div role="dialog">{children}</div> : null;
     const Popconfirm = ({children, onConfirm}: { children: ReactNode; onConfirm?: () => void }) =>
-            <span onClick={onConfirm}>{children}</span>;
+        <span onClick={onConfirm}>{children}</span>;
     return {
         Button, DatePicker, Form, Input, Modal, Popconfirm,
         Space: ({children}: { children: ReactNode }) => <span>{children}</span>, Table,

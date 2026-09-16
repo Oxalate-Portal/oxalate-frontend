@@ -14,17 +14,17 @@ export function CommentModeration() {
     const fetchPendingReports = useCallback(() => {
 
         commentAPI.getPendingReports()
-                .then(response => {
-                    setCommentReports(response);
-                    messageApi.success(t("CommentModeration.messages.success"));
-                })
-                .catch(error => {
-                    console.error("Failed to fetch pending reports:", error);
-                    messageApi.error(t("CommentModeration.messages.fail"));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(response => {
+                setCommentReports(response);
+                messageApi.success(t("CommentModeration.messages.success"));
+            })
+            .catch(error => {
+                console.error("Failed to fetch pending reports:", error);
+                messageApi.error(t("CommentModeration.messages.fail"));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [messageApi, t]);
 
     useEffect(() => {
@@ -32,46 +32,46 @@ export function CommentModeration() {
     }, [fetchPendingReports]);
 
     return (
-            <Spin spinning={loading}>
-                {contextHolder}
-                <div className="darkDiv">
-                    <Space orientation={"vertical"}
-                           style={{width: "100%"}}
-                           size={"middle"}>
-                        <h4>{t("CommentModeration.title")}</h4>
-                        {pendingCommentReports.length > 0 ? (
-                                pendingCommentReports.map(moderatedComment => {
-                                    const itemLabel = moderatedComment.title.length > 0 ? moderatedComment.title : moderatedComment.body.substring(0, 40) + "...";
-                                    const items: CollapseProps["items"] = [
-                                        {
-                                            key: "comment-" + moderatedComment.id,
-                                            label: itemLabel,
-                                            children: <CommentCard comment={moderatedComment} refreshCommentList={() => fetchPendingReports()}
-                                                                   displayOnly={true}/>,
-                                        },
-                                        {
-                                            key: "reports-" + moderatedComment.id,
-                                            label: t("CommentModeration.collapse.reports.label"),
-                                            children: moderatedComment.reports.map(report => (
-                                                    <ReportCard key={report.id} report={report} refreshModerationList={() => fetchPendingReports()}/>
-                                            )),
-                                        },
-                                        {
-                                            key: "actions-" + moderatedComment.id,
-                                            label: t("CommentModeration.collapse.actions.label"),
-                                            children: <CommentModerationActions commentId={moderatedComment.id}
-                                                                                refreshModerationList={() => fetchPendingReports()}
-                                                                                childCount={moderatedComment.childCount}/>,
-                                        },
-                                    ];
+        <Spin spinning={loading}>
+            {contextHolder}
+            <div className="darkDiv">
+                <Space orientation={"vertical"}
+                       style={{width: "100%"}}
+                       size={"middle"}>
+                    <h4>{t("CommentModeration.title")}</h4>
+                    {pendingCommentReports.length > 0 ? (
+                        pendingCommentReports.map(moderatedComment => {
+                            const itemLabel = moderatedComment.title.length > 0 ? moderatedComment.title : moderatedComment.body.substring(0, 40) + "...";
+                            const items: CollapseProps["items"] = [
+                                {
+                                    key: "comment-" + moderatedComment.id,
+                                    label: itemLabel,
+                                    children: <CommentCard comment={moderatedComment} refreshCommentList={() => fetchPendingReports()}
+                                                           displayOnly={true}/>
+                                },
+                                {
+                                    key: "reports-" + moderatedComment.id,
+                                    label: t("CommentModeration.collapse.reports.label"),
+                                    children: moderatedComment.reports.map(report => (
+                                        <ReportCard key={report.id} report={report} refreshModerationList={() => fetchPendingReports()}/>
+                                    ))
+                                },
+                                {
+                                    key: "actions-" + moderatedComment.id,
+                                    label: t("CommentModeration.collapse.actions.label"),
+                                    children: <CommentModerationActions commentId={moderatedComment.id}
+                                                                        refreshModerationList={() => fetchPendingReports()}
+                                                                        childCount={moderatedComment.childCount}/>
+                                }
+                            ];
 
-                                    return <Collapse key={moderatedComment.id} items={items} defaultActiveKey={["actions-" + moderatedComment.id]}/>;
-                                })
-                        ) : (
-                                <p>No pending reports.</p>
-                        )}
-                    </Space>
-                </div>
-            </Spin>
+                            return <Collapse key={moderatedComment.id} items={items} defaultActiveKey={["actions-" + moderatedComment.id]}/>;
+                        })
+                    ) : (
+                        <p>No pending reports.</p>
+                    )}
+                </Space>
+            </div>
+        </Spin>
     );
 }

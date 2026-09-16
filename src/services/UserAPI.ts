@@ -31,7 +31,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
     }
 
     public async findAdminUserById(userId: number): Promise<AdminUserResponse> {
-        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
         const response = await this.axiosInstance.get<AdminUserResponse>("/" + userId);
         return response.data;
     }
@@ -48,7 +48,7 @@ class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
 
     // TODO Convert the post data to an interface, requires reworking of the whole user data handling starting with AbstractUser
     public async adminUpdateUser(postData: AdminUserRequest) {
-        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
         const response = await this.axiosInstance.put<AdminUserResponse>("", postData);
         return response.data;
     }

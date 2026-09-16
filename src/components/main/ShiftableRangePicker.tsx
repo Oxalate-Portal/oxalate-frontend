@@ -29,9 +29,9 @@ export function ShiftableRangePicker({periodType, value, onChange, ...rest}: Pro
     const now = dayjs();
 
     const isCurrentInside =
-            hasRange &&
-            !now.isBefore(start!, "day") &&
-            !now.isAfter(end!, "day");
+        hasRange &&
+        !now.isBefore(start!, "day") &&
+        !now.isAfter(end!, "day");
 
     function shift(direction: "past" | "future") {
         if (!hasRange) return;
@@ -39,27 +39,27 @@ export function ShiftableRangePicker({periodType, value, onChange, ...rest}: Pro
         const newRange: [Dayjs, Dayjs] = [start!.add(delta, unit), end!.add(delta, unit)];
         const formatStr = typeof rest.format === "string" ? rest.format : "YYYY-MM-DD";
         onChange?.(
-                newRange,
-                [newRange[0].format(formatStr), newRange[1].format(formatStr)]
+            newRange,
+            [newRange[0].format(formatStr), newRange[1].format(formatStr)]
         );
     }
 
     return (
-            <Space>
-                <Button
-                        icon={<ArrowLeftOutlined/>}
-                        disabled={isCurrentInside}
-                        onClick={() => shift("past")}
-                />
-                <DatePicker.RangePicker
-                        {...rest}
-                        value={rangeValue as RangeValue}
-                        onChange={onChange}
-                />
-                <Button
-                        icon={<ArrowRightOutlined/>}
-                        onClick={() => shift("future")}
-                />
-            </Space>
+        <Space>
+            <Button
+                icon={<ArrowLeftOutlined/>}
+                disabled={isCurrentInside}
+                onClick={() => shift("past")}
+            />
+            <DatePicker.RangePicker
+                {...rest}
+                value={rangeValue as RangeValue}
+                onChange={onChange}
+            />
+            <Button
+                icon={<ArrowRightOutlined/>}
+                onClick={() => shift("future")}
+            />
+        </Space>
     );
 }

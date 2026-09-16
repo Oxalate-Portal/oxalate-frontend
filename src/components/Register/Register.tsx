@@ -27,8 +27,8 @@ export function Register() {
         // redirect to home if already logged in
         if (userSession) navigate("/");
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [navigate]);
+
+    }, [navigate, userSession]);
 
     async function onFinish(regData: {
         username: string;
@@ -55,20 +55,20 @@ export function Register() {
             approvedTerms: acceptedTerms === true,
             healthStatementId: healthStatementId ?? null
         })
-                .then(registrationResponse => {
-                    if (registrationResponse.status === ResultEnum.OK) {
-                        localStorage.setItem("oxalateRegistrationStatus", JSON.stringify(registrationResponse));
-                        setRegistrationStatus({status: UpdateStatusEnum.OK, message: t("Register.success.message")} as ActionResponse);
-                        setRegistrationResult(registrationResponse);
-                    } else {
-                        console.error("The register response did not contain known status: " + JSON.stringify(registrationResponse));
-                        setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as ActionResponse);
-                    }
-                })
-                .catch(error => {
-                    console.error("Failed to register new user: " + error);
+            .then(registrationResponse => {
+                if (registrationResponse.status === ResultEnum.OK) {
+                    localStorage.setItem("oxalateRegistrationStatus", JSON.stringify(registrationResponse));
+                    setRegistrationStatus({status: UpdateStatusEnum.OK, message: t("Register.success.message")} as ActionResponse);
+                    setRegistrationResult(registrationResponse);
+                } else {
+                    console.error("The register response did not contain known status: " + JSON.stringify(registrationResponse));
                     setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as ActionResponse);
-                });
+                }
+            })
+            .catch(error => {
+                console.error("Failed to register new user: " + error);
+                setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as ActionResponse);
+            });
 
         setLoading(false);
     }
@@ -80,17 +80,17 @@ export function Register() {
 
     if (registrationStatus.status === UpdateStatusEnum.OK && registrationResult !== null) {
         return (
-                <div className={"darkDiv"}>
-                    <Row justify={"center"}>
-                        <div style={{width: 400}}>
-                            <Alert type={"success"}
-                                   title={t("Register.success.message")}/>
-                            <Row justify={"center"} align={"middle"} style={{minHeight: "10vh"}}>
-                                <ResendRegistrationEmail token={registrationResult.token}/>
-                            </Row>
-                        </div>
-                    </Row>
-                </div>
+            <div className={"darkDiv"}>
+                <Row justify={"center"}>
+                    <div style={{width: 400}}>
+                        <Alert type={"success"}
+                               title={t("Register.success.message")}/>
+                        <Row justify={"center"} align={"middle"} style={{minHeight: "10vh"}}>
+                            <ResendRegistrationEmail token={registrationResult.token}/>
+                        </Row>
+                    </div>
+                </Row>
+            </div>
         );
     } else if (registrationStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={"darkDiv"}>
@@ -104,110 +104,109 @@ export function Register() {
     }
 
     return (
-            <div className={"darkDiv"}>
-                <Row justify={"center"} align={"top"} style={{minHeight: "100vh"}}>
-                    <Form
-                            form={registrationForm}
-                            name={"basic"}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                            layout={"vertical"}
-                            labelCol={{span: 12}}
-                            wrapperCol={{span: 24}}
-                            style={{width: 600, maxWidth: 900}}
-                            autoComplete={"off"}
-                            scrollToFirstError={true}
-                            initialValues={{privacy: false}}
-                    >
-                        <h4>{t("Register.form.title")}</h4>
-                        <UserFields username={null} userId={0} isOrganizer={false}/>
-                        <Form.Item name={"password"}
-                                   label={t("Register.form.password.label")}
-                                   tooltip={t("Register.form.password.tooltip")}
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: t("Register.form.password.rules.required")
-                                       },
-                                       {
-                                           min: 10,
-                                           message: t("Register.form.password.rules.min")
-                                       },
-                                       {
-                                           pattern: new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_-])/),
-                                           message: t("Register.form.password.rules.pattern")
+        <div className={"darkDiv"}>
+            <Row justify={"center"} align={"top"} style={{minHeight: "100vh"}}>
+                <Form
+                    form={registrationForm}
+                    name={"basic"}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    layout={"vertical"}
+                    labelCol={{span: 12}}
+                    wrapperCol={{span: 24}}
+                    style={{width: 600, maxWidth: 900}}
+                    autoComplete={"off"}
+                    scrollToFirstError={true}
+                    initialValues={{privacy: false}}
+                >
+                    <h4>{t("Register.form.title")}</h4>
+                    <UserFields username={null} userId={0} isOrganizer={false}/>
+                    <Form.Item name={"password"}
+                               label={t("Register.form.password.label")}
+                               tooltip={t("Register.form.password.tooltip")}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: t("Register.form.password.rules.required")
+                                   },
+                                   {
+                                       min: 10,
+                                       message: t("Register.form.password.rules.min")
+                                   },
+                                   {
+                                       pattern: new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_-])/),
+                                       message: t("Register.form.password.rules.pattern")
+                                   }
+                               ]}>
+                        <Input.Password/>
+                    </Form.Item>
+                    <Form.Item name={"confirm"}
+                               label={t("Register.form.confirm.label")}
+                               dependencies={["password"]}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: t("Register.form.confirm.rules.required")
+                                   },
+                                   ({getFieldValue}) => ({
+                                       validator(_, value) {
+                                           if (!value || getFieldValue("password") === value) {
+                                               return Promise.resolve();
+                                           }
+                                           return Promise.reject(new Error(t("Register.form.confirm.rules.nomatch")));
                                        }
-                                   ]}>
-                            <Input.Password/>
-                        </Form.Item>
-                        <Form.Item name={"confirm"}
-                                   label={t("Register.form.confirm.label")}
-                                   dependencies={["password"]}
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: t("Register.form.confirm.rules.required")
-                                       },
-                                       ({getFieldValue}) => ({
-                                           validator(_, value) {
-                                               if (!value || getFieldValue("password") === value) {
-                                                   return Promise.resolve();
-                                               }
-                                               return Promise.reject(new Error(t("Register.form.confirm.rules.nomatch")));
-                                           },
-                                       }),
-                                   ]}>
-                            <Input.Password/>
-                        </Form.Item>
-                        <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
-                            <Space orientation={"horizontal"}>
-                                {t("Register.form.terms.text")}
-                                <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
-                                {acceptedTerms === true && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
-                                {acceptedTerms === false && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
-                            </Space>
-                            <Space orientation={"horizontal"}>
-                                {t("Register.form.healthStatement.text")}
-                                <Button type={"default"} onClick={() => setShowHealthStatement(true)}>{t("Register.form.healthStatement.button")}</Button>
-                                {healthStatementId !== undefined && healthStatementId !== null && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
-                                {(healthStatementId === undefined || healthStatementId === null) && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
-                            </Space>
-                            <Button
-                                    type={"primary"}
-                                    htmlType={"submit"}
-                                    disabled={!acceptedTerms || healthStatementId === undefined || healthStatementId === null || loading}
-                            >{t("Register.form.submitButton")}</Button>
+                                   })
+                               ]}>
+                        <Input.Password/>
+                    </Form.Item>
+                    <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
+                        <Space orientation={"horizontal"}>
+                            {t("Register.form.terms.text")}
+                            <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
+                            {acceptedTerms === true && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                            {acceptedTerms === false && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
                         </Space>
-                    </Form>
-                    <Modal cancelText={t("common.button.reject")}
-                           okText={t("common.button.confirm")}
-                           onCancel={() => {
-                               setAcceptedTerms(false);
-                               setShowTerms(false);
-                           }}
-                           onOk={() => {
-                               setAcceptedTerms(true);
-                               setShowTerms(false);
-                           }}
-                           open={showTerms}
-                           title={t("Register.form.terms.title")}
-                           width={"80%"}>
-                        <AcceptTerms registration={true}/>
-                    </Modal>
-                    <HealthStatementConfirmationModal
-                            open={showHealthStatement}
-                            onConfirm={() => {
-                                setHealthStatementId(0);
-                                setShowHealthStatement(false);
-                            }}
-                            onCancel={() => {
-                                setHealthStatementId(null);
-                                setShowHealthStatement(false);
-                            }}
-                            registration={true}
-                    />
-                </Row>
-            </div>
+                        <Space orientation={"horizontal"}>
+                            {t("Register.form.healthStatement.text")}
+                            <Button type={"default"} onClick={() => setShowHealthStatement(true)}>{t("Register.form.healthStatement.button")}</Button>
+                            {healthStatementId !== undefined && healthStatementId !== null && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
+                            {(healthStatementId === undefined || healthStatementId === null) && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
+                        </Space>
+                        <Button
+                            type={"primary"}
+                            htmlType={"submit"}
+                            disabled={!acceptedTerms || healthStatementId === undefined || healthStatementId === null || loading}
+                        >{t("Register.form.submitButton")}</Button>
+                    </Space>
+                </Form>
+                <Modal cancelText={t("common.button.reject")}
+                       okText={t("common.button.confirm")}
+                       onCancel={() => {
+                           setAcceptedTerms(false);
+                           setShowTerms(false);
+                       }}
+                       onOk={() => {
+                           setAcceptedTerms(true);
+                           setShowTerms(false);
+                       }}
+                       open={showTerms}
+                       title={t("Register.form.terms.title")}
+                       width={"80%"}>
+                    <AcceptTerms registration={true}/>
+                </Modal>
+                <HealthStatementConfirmationModal
+                    open={showHealthStatement}
+                    onConfirm={() => {
+                        setHealthStatementId(0);
+                        setShowHealthStatement(false);
+                    }}
+                    onCancel={() => {
+                        setHealthStatementId(null);
+                        setShowHealthStatement(false);
+                    }}
+                    registration={true}
+                />
+            </Row>
+        </div>
     );
 }
-

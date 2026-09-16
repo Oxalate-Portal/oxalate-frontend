@@ -24,79 +24,79 @@ export function DisplayCommentThread({comment, depth = 0, refreshCommentList}: D
 
     if (parentIsRootComment && !hasChildComments) {
         return (
-                <div>
-                    <Button type={"primary"} onClick={() => setExpanded(!expanded)}>
-                        {expanded ? "Hide" : "Be first to comment"}
-                    </Button>
-                    {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
-                </div>
+            <div>
+                <Button type={"primary"} onClick={() => setExpanded(!expanded)}>
+                    {expanded ? "Hide" : "Be first to comment"}
+                </Button>
+                {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
+            </div>
         );
     }
 
     return (
-            <div>
-                {parentIsRootComment && hasChildComments ? (
-                        <>
-                            <Listy
-                                    items={comment.childComments}
-                                    rowKey={(child) => child.id}
-                                    itemRender={(child) => (
-                                            <div style={{width: "100%"}}>
-                                                <div style={{width: "100%"}}>
-                                                    <CommentCard comment={child} refreshCommentList={refreshCommentList}/>
-                                                    {child.childComments.length > 0 && (
-                                                            <div style={{marginLeft: 20}}>
-                                                                <Button
-                                                                        type="link"
-                                                                        onClick={() => setExpanded(!expanded)}
-                                                                        style={{marginBottom: 8}}
-                                                                >
-                                                                    {expanded ? "Hide Replies" : `Show Replies (${child.childComments.length})`}
-                                                                </Button>
+        <div>
+            {parentIsRootComment && hasChildComments ? (
+                <>
+                    <Listy
+                        items={comment.childComments}
+                        rowKey={(child) => child.id}
+                        itemRender={(child) => (
+                            <div style={{width: "100%"}}>
+                                <div style={{width: "100%"}}>
+                                    <CommentCard comment={child} refreshCommentList={refreshCommentList}/>
+                                    {child.childComments.length > 0 && (
+                                        <div style={{marginLeft: 20}}>
+                                            <Button
+                                                type="link"
+                                                onClick={() => setExpanded(!expanded)}
+                                                style={{marginBottom: 8}}
+                                            >
+                                                {expanded ? "Hide Replies" : `Show Replies (${child.childComments.length})`}
+                                            </Button>
 
-                                                                {expanded && child.childComments.map((child) => (
-                                                                        <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
-                                                                                              refreshCommentList={refreshCommentList}/>
-                                                                ))}
-                                                            </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                    )}
-                            />
-                            <Button type={"primary"} onClick={() => setExpanded(!expanded)}>{expanded ? "Hide" : "Add a new comment"}</Button>
-                            {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
-                        </>
-                ) : (
-                        <Listy
-                                items={[comment]}
-                                rowKey={(item) => item.id}
-                                itemRender={(item) => (
-                                        <div style={{width: "100%"}}>
-                                            <div style={{width: "100%"}}>
-                                                <CommentCard comment={item} refreshCommentList={refreshCommentList}/>
-
-                                                {hasChildComments && (
-                                                        <div style={{marginLeft: 20}}>
-                                                            <Button
-                                                                    type="link"
-                                                                    onClick={() => setExpanded(!expanded)}
-                                                                    style={{marginBottom: 8}}
-                                                            >
-                                                                {expanded ? "Hide Replies" : `Show Replies (${item.childComments.length})`}
-                                                            </Button>
-
-                                                            {expanded && item.childComments.map((child) => (
-                                                                    <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
-                                                                                          refreshCommentList={refreshCommentList}/>
-                                                            ))}
-                                                        </div>
-                                                )}
-                                            </div>
+                                            {expanded && child.childComments.map((child) => (
+                                                <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
+                                                                      refreshCommentList={refreshCommentList}/>
+                                            ))}
                                         </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
+                    />
+                    <Button type={"primary"} onClick={() => setExpanded(!expanded)}>{expanded ? "Hide" : "Add a new comment"}</Button>
+                    {expanded && <CommentEditor parentCommentId={comment.parentCommentId} refreshCommentList={refreshCommentList}/>}
+                </>
+            ) : (
+                <Listy
+                    items={[comment]}
+                    rowKey={(item) => item.id}
+                    itemRender={(item) => (
+                        <div style={{width: "100%"}}>
+                            <div style={{width: "100%"}}>
+                                <CommentCard comment={item} refreshCommentList={refreshCommentList}/>
+
+                                {hasChildComments && (
+                                    <div style={{marginLeft: 20}}>
+                                        <Button
+                                            type="link"
+                                            onClick={() => setExpanded(!expanded)}
+                                            style={{marginBottom: 8}}
+                                        >
+                                            {expanded ? "Hide Replies" : `Show Replies (${item.childComments.length})`}
+                                        </Button>
+
+                                        {expanded && item.childComments.map((child) => (
+                                            <DisplayCommentThread key={child.id} comment={child} depth={depth + 1}
+                                                                  refreshCommentList={refreshCommentList}/>
+                                        ))}
+                                    </div>
                                 )}
-                        />
-                )}
-            </div>
+                            </div>
+                        </div>
+                    )}
+                />
+            )}
+        </div>
     );
 }
