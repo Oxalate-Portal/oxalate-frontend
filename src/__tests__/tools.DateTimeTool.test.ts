@@ -1,7 +1,15 @@
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import {formatDateTime, formatDateTimeWithMs, getDefaultMembershipDates, localToUTCDate, localToUTCDatetime} from "../tools";
+import {
+    formatDateTime,
+    formatDateTimeWithMs,
+    getDefaultMembershipDates,
+    getDefaultOneTimePaymentDates,
+    getDefaultPeriodPaymentDates,
+    localToUTCDate,
+    localToUTCDatetime
+} from "../tools/DateTimeTool";
 import {MembershipTypeEnum, PortalConfigGroupEnum} from "../models";
 
 dayjs.extend(timezone);
@@ -13,6 +21,7 @@ describe("DateTimeTool", () => {
         const sample = new Date(Date.UTC(2025, 0, 1, 3, 4, 5));
         const expected = `${sample.getFullYear()}-${String(sample.getMonth() + 1).padStart(2, "0")}-${String(sample.getDate()).padStart(2, "0")} ${String(sample.getHours()).padStart(2, "0")}:${String(sample.getMinutes()).padStart(2, "0")}`;
         expect(formatDateTime(sample)).toBe(expected);
+        expect(formatDateTime("2025-01-01T03:04:05Z")).toContain("2025-01-01");
     });
 
     it("formats stringified dates and keeps ms", () => {
@@ -20,6 +29,7 @@ describe("DateTimeTool", () => {
         const parsed = new Date(sample);
         const expectedMs = `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, "0")}-${String(parsed.getDate()).padStart(2, "0")} ${String(parsed.getHours()).padStart(2, "0")}:${String(parsed.getMinutes()).padStart(2, "0")}:${String(parsed.getSeconds()).padStart(2, "0")}:${String(parsed.getMilliseconds()).padStart(3, "0")}`;
         expect(formatDateTimeWithMs(sample)).toBe(expectedMs);
+        expect(formatDateTimeWithMs(dayjs(sample))).toBe(expectedMs);
     });
 
     it("converts local date to timezone-aware UTC midnight", () => {
@@ -170,6 +180,64 @@ describe("DateTimeTool", () => {
             const {startDate, endDate} = getDefaultMembershipDates(getCfg);
             expect(startDate.tz(timezoneId).format("YYYY-MM-DD")).toBe("2025-10-01");
             expect(endDate?.tz(timezoneId).format("YYYY-MM-DD")).toBe("2026-01-01");
+        });
+
+        it("computes weekly periods and clamps invalid start points", () => {
+            setNow("2025-12-30T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "weeks",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start-point`]: "9"
+            });
+            const {startDate, endDate} = getDefaultMembershipDates(getCfg);
+            expect(startDate.isBefore(endDate)).toBe(true);
+            expect(endDate?.diff(startDate, "week")).toBe(1);
+        });
+
+        it("uses current date for disabled membership and supports payment expiry wrappers", () => {
+            setNow("2025-05-15T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.DISABLED
+            });
+            expect(getDefaultMembershipDates(getCfg).endDate).toBeNull();
+            const paymentCfg = (group: PortalConfigGroupEnum, key: string) =>
+                getCfg(group === PortalConfigGroupEnum.PAYMENT ? PortalConfigGroupEnum.MEMBERSHIP : group, key);
+            expect(getDefaultPeriodPaymentDates(paymentCfg).startDate).toBeDefined();
+            expect(getDefaultOneTimePaymentDates(paymentCfg).startDate).toBeDefined();
+        });
+
+        it("returns both dates for an unknown period type", () => {
+            setNow("2025-05-15T00:00:00Z");
+            const getCfg = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: "UNKNOWN"
+            });
+            const result = getDefaultMembershipDates(getCfg);
+            expect(result.endDate).toBe(result.startDate);
+        });
+
+        it("supports generic period units and durational non-month units", () => {
+            setNow("2025-05-15T00:00:00Z");
+            const generic = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-type`]: MembershipTypeEnum.PERIODICAL,
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "days",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "7",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-start`]: "2025-05-01"
+            });
+            const genericResult = getDefaultMembershipDates(generic);
+            expect(genericResult.endDate?.isAfter(genericResult.startDate)).toBe(true);
+
+            const durational = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "weeks",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "2"
+            });
+            const durationalResult = getDefaultMembershipDates(durational);
+            expect(durationalResult.endDate?.diff(durationalResult.startDate, "week")).toBe(2);
+
+            const longMonth = makeConfig({
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-unit`]: "months",
+                [`${PortalConfigGroupEnum.MEMBERSHIP}.membership-period-length`]: "13"
+            });
+            expect(getDefaultMembershipDates(longMonth).endDate).toBeDefined();
         });
     });
 });

@@ -17,6 +17,20 @@ describe("dateTransformer", () => {
     const testTimezone = "Europe/Helsinki";
 
     describe("transformDatesInObject", () => {
+        it("leaves null, primitives, invalid date strings, and non-date objects unchanged", () => {
+            expect(transformDatesInObject(null, testTimezone)).toBeNull();
+            expect(transformDatesInObject("2026-05-30", testTimezone)).toBe("2026-05-30");
+            const alreadyParsed = dayjs("2026-05-30");
+            const input = {
+                createdAt: "not-a-date",
+                startDate: alreadyParsed,
+                nested: {when: new Date("2026-05-30T12:00:00Z")}
+            };
+            const result = transformDatesInObject(input, testTimezone);
+            expect(result.createdAt).toBe("not-a-date");
+            expect(expectDayjs(result.startDate).toISOString()).toBe(alreadyParsed.toISOString());
+            expect(expectDayjs(result.nested.when).format).toBeDefined();
+        });
         it("converts ISO string dates to Dayjs in the specified timezone", () => {
             const input = {
                 id: 1,
@@ -182,6 +196,15 @@ describe("dateTransformer", () => {
     });
 
     describe("serializeDayjsInObject", () => {
+        it("handles root values and nested nulls without changing non-Dayjs objects", () => {
+            const value = dayjs("2026-05-30T12:00:00Z");
+            expect(serializeDayjsInObject(value)).toBe(value.toISOString());
+            expect(serializeDayjsInObject(null)).toBeNull();
+            expect(serializeDayjsInObject(42)).toBe(42);
+            expect(serializeDayjsInObject({nested: {value: null, text: "plain"}})).toEqual({
+                nested: {value: null, text: "plain"}
+            });
+        });
         it("converts Dayjs objects to ISO strings", () => {
             const dayjsObj = dayjs("2026-05-30T12:00:00Z");
             const input = {

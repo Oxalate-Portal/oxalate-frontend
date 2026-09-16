@@ -31,10 +31,10 @@ module.exports = {
     // not fail today. Raise them as coverage improves -- never lower them to make a build pass.
     coverageThreshold: {
         global: {
-            statements: 85,
-            branches: 71,
-            functions: 77,
-            lines: 85
+            statements: 90,
+            branches: 78,
+            functions: 84,
+            lines: 90
         }
     },
     // Transform TypeScript and allow ESM from ant-design packages

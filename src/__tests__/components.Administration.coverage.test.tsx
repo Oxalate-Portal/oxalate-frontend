@@ -43,8 +43,8 @@ jest.mock("react-router-dom", () => ({
 }));
 jest.mock("../services", () => ({
     getApiBaseUrl: () => "http://api",
-    certificateAPI: service("certificateAPI", ["findCertificateNames", "findOrganizations"]),
-    certificateClassificationAPI: service("certificateClassificationAPI", ["findAll"]),
+    certificateAPI: service("certificateAPI", ["findCertificateNames", "findOrganizations", "updateClassification", "replaceOrganizations", "replaceCertificateNames"]),
+    certificateClassificationAPI: service("certificateClassificationAPI", ["findAll", "create", "update", "delete", "reorder"]),
     blockedDatesAPI: service("blockedDatesAPI", ["findAll", "create", "delete"]),
     commentAPI: service("commentAPI", ["getPendingReports"]),
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),
@@ -90,7 +90,10 @@ jest.mock("antd", () => {
     const Form = ({children, onFinish}: { children: ReactNode; onFinish?: (v: unknown) => void }) => (
             <form onSubmit={(event) => {
                 event.preventDefault();
-                onFinish?.({});
+                onFinish?.({
+                    certificateId: 7, certificateNames: ["Open Water"], classificationId: 2,
+                    existingValues: ["old"], newValue: " new "
+                });
             }}>{children}</form>
     );
     Form.Item = ({children}: { children: ReactNode }) => <div>{children}</div>;
@@ -98,7 +101,11 @@ jest.mock("antd", () => {
         resetFields: jest.fn(),
         setFieldsValue: jest.fn(),
         getFieldValue: jest.fn(() => ""),
-        validateFields: jest.fn().mockResolvedValue({code: "x", names: [{value: "X"}], type: "USER"})
+        validateFields: jest.fn().mockResolvedValue({
+            code: "x", names: [{value: "X"}], type: "USER",
+            titles: [{value: "Title"}], description: "Description",
+            existingValues: ["old"], newValue: " new "
+        })
     }];
     Form.useWatch = jest.fn(() => undefined);
     const Button = ({children, onClick, htmlType}: { children: ReactNode; onClick?: () => void; htmlType?: string }) =>
@@ -123,13 +130,19 @@ jest.mock("antd", () => {
         {mode === "multiple" && showSearch && <input onChange={event => showSearch.onSearch?.(event.target.value)}/>}
         <select onChange={(e) => onChange?.(e.target.value)}>{options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}</select>
     </div>;
-    const Table = ({columns = [], dataSource = [], onChange}: {
+    const Table = ({columns = [], dataSource = [], onChange, onRow}: {
         columns?: Array<{ render?: (v: unknown, r: unknown) => ReactNode }>;
         dataSource?: unknown[];
         onChange?: (...args: unknown[]) => void
+        onRow?: (record: unknown) => { onDragStart?: () => void; onDragEnd?: () => void; onDragOver?: (event: unknown) => void; onDrop?: () => void }
     }) => (
             <div data-testid="table">{dataSource.map((record) => columns.map((column, columnIndex) =>
-                    <span key={columnIndex}>{column.render ? column.render(undefined, record) : null}</span>))}
+                    <span key={columnIndex}>{column.render ? column.render((record as { names?: unknown }).names, record) : null}</span>).concat([
+                <button key="drag-start" onClick={() => onRow?.(record)?.onDragStart?.()}>row-drag-start</button>,
+                <button key="drag-end" onClick={() => onRow?.(record)?.onDragEnd?.()}>row-drag-end</button>,
+                <button key="drag-over" onClick={() => onRow?.(record)?.onDragOver?.({preventDefault: jest.fn()})}>row-drag-over</button>,
+                <button key="drop" onClick={() => onRow?.(record)?.onDrop?.()}>row-drop</button>
+            ]))}
                 <button onClick={() => onChange?.({current: 0}, {}, {field: undefined, order: undefined})}>table-change</button>
                 <button onClick={() => onChange?.({current: 1}, {}, [{field: "userName", order: "ascend"}])}>table-sort</button>
             </div>
@@ -227,6 +240,31 @@ describe("Administration pages", () => {
         expect(screen.getAllByTestId("table").length).toBeGreaterThan(0);
     });
 
+    it("renders portal configuration editors for each supported value type", async () => {
+        api["portalConfigurationAPI.findAllPortalConfigurations"].mockResolvedValue([
+            {id: 1, groupKey: "general", settingKey: "array", valueType: "array", runtimeValue: "A", defaultValue: "A,B", requiredRuntime: false},
+            {id: 2, groupKey: "general", settingKey: "boolean", valueType: "boolean", runtimeValue: "false", defaultValue: "false", requiredRuntime: false},
+            {id: 3, groupKey: "general", settingKey: "date", valueType: "date", runtimeValue: "2026-01-01", defaultValue: "", requiredRuntime: false},
+            {id: 4, groupKey: "general", settingKey: "email", valueType: "email", runtimeValue: "a@example.com", defaultValue: "", requiredRuntime: false},
+            {id: 5, groupKey: "general", settingKey: "number", valueType: "number", runtimeValue: "2", defaultValue: "1", requiredRuntime: false},
+            {id: 6, groupKey: "general", settingKey: "string", valueType: "string", runtimeValue: "text", defaultValue: "", requiredRuntime: false},
+            {id: 7, groupKey: "general", settingKey: "timezone", valueType: "timezone", runtimeValue: "UTC", defaultValue: "UTC", requiredRuntime: false},
+            {
+                id: 8,
+                groupKey: "membership",
+                settingKey: "membership-type",
+                valueType: "enum",
+                runtimeValue: "PERIODICAL",
+                defaultValue: "DISABLED",
+                requiredRuntime: false
+            }
+        ]);
+        render(<PortalConfigurations/>);
+        await flush();
+        expect(screen.getByText("PortalConfigurations.general.title")).toBeInTheDocument();
+        expect(screen.getAllByRole("button").length).toBeGreaterThan(2);
+    });
+
     it("renders membership and organization administration views", async () => {
         api["membershipAPI.findByMemberId"].mockResolvedValue({
             id: 1, userId: 2, username: "member", status: "ACTIVE", type: "YEAR",
@@ -255,6 +293,64 @@ describe("Administration pages", () => {
         fireEvent.click(screen.getAllByText("modal-ok")[0]);
         fireEvent.click(screen.getAllByText("table-change").at(-1)!);
         await waitFor(() => expect(api["auditAPI.findPageable"]).toHaveBeenCalled());
+    });
+
+    it("updates and deletes tags and creates a tag group from the tag editor", async () => {
+        api["tagGroupAPI.findAll"].mockResolvedValue([{id: 1, code: "g", names: {en: "Group"}, type: "USER"}]);
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tagGroupId: 1}]);
+        api["tagsAPI.update"].mockResolvedValue({});
+
+        api["tagsAPI.delete"].mockResolvedValue(true);
+        api["tagGroupAPI.create"].mockResolvedValue({id: 3, code: "new-group", names: {en: "New"}, type: "USER"});
+        render(<AdminTags/>);
+        await waitFor(() => expect(screen.getByTestId("table")).toBeInTheDocument());
+
+        fireEvent.click(screen.getByText("common.button.edit"));
+        fireEvent.click(screen.getByText("modal-ok"));
+        await waitFor(() => expect(api["tagsAPI.update"]).toHaveBeenCalledWith(expect.objectContaining({
+            id: 2, code: "x", names: {en: "X", fi: ""}
+        })));
+
+        fireEvent.click(screen.getByText("common.button.delete"));
+        await waitFor(() => expect(api["tagsAPI.delete"]).toHaveBeenCalledWith(2));
+        api["tagsAPI.delete"].mockResolvedValue(false);
+        fireEvent.click(screen.getByText("common.button.delete"));
+        await waitFor(() => expect(api["tagsAPI.delete"]).toHaveBeenCalledTimes(2));
+
+        fireEvent.click(screen.getByText("common.button.edit"));
+        fireEvent.click(screen.getByText("AdminTags.form.tagGroup.new-group"));
+        fireEvent.click(screen.getAllByText("modal-ok").at(-1)!);
+        await waitFor(() => expect(api["tagGroupAPI.create"]).toHaveBeenCalledWith(expect.objectContaining({
+            id: 0, code: "x", names: {en: "X", fi: ""}
+        })));
+    });
+
+    it("handles tag and group loading failures and delete failures", async () => {
+        api["tagsAPI.findAll"].mockRejectedValue(new Error("tags unavailable"));
+        api["tagGroupAPI.findAll"].mockRejectedValue(new Error("groups unavailable"));
+        render(<AdminTags/>);
+        await flush();
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 4, code: "broken", names: {en: "Broken"}}]);
+        api["tagGroupAPI.findAll"].mockResolvedValue([]);
+        api["tagsAPI.delete"].mockRejectedValue(new Error("delete failed"));
+        render(<AdminTags/>);
+        await waitFor(() => expect(screen.getAllByText("common.button.delete").length).toBeGreaterThan(0));
+        fireEvent.click(screen.getAllByText("common.button.delete").at(-1)!);
+        await waitFor(() => expect(api["tagsAPI.delete"]).toHaveBeenCalledWith(4));
+    });
+
+    it("reports tag-group creation failures and allows editor cancellation", async () => {
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 5, code: "tag", names: {en: "Tag"}}]);
+        api["tagGroupAPI.findAll"].mockResolvedValue([]);
+        api["tagGroupAPI.create"].mockRejectedValue(new Error("group create failed"));
+        render(<AdminTags/>);
+        await waitFor(() => expect(screen.getByTestId("table")).toBeInTheDocument());
+        fireEvent.click(screen.getByText("common.button.edit"));
+        fireEvent.click(screen.getByText("AdminTags.form.tagGroup.new-group"));
+        fireEvent.click(screen.getAllByText("modal-ok").at(-1)!);
+        await waitFor(() => expect(api["tagGroupAPI.create"]).toHaveBeenCalled());
+        fireEvent.click(screen.getAllByText("modal-cancel").at(-1)!);
+        fireEvent.click(screen.getAllByText("modal-cancel").at(-1)!);
     });
 
     it("renders certificate suggestions returned by the API", async () => {
@@ -288,5 +384,116 @@ describe("Administration pages", () => {
         render(<AdminCertificateClassifications/>);
 
         await waitFor(() => expect(screen.getByTestId("table").textContent).toMatch(/1.*First.*3.*Third/));
+        fireEvent.click(screen.getAllByText("row-drag-start")[0]);
+        fireEvent.click(screen.getAllByText("row-drag-over")[0]);
+        fireEvent.click(screen.getAllByText("row-drag-end")[0]);
+        fireEvent.click(screen.getAllByText("row-drag-start")[0]);
+        fireEvent.click(screen.getAllByText("row-drop")[1]);
+    });
+
+    it("creates, reorders, edits, and deletes classifications", async () => {
+        api["certificateClassificationAPI.findAll"].mockResolvedValue([
+            {id: 1, order: 1, titles: {en: "First"}, description: "First description"},
+            {id: 2, order: 2, titles: {en: "Second"}, description: "Second description"}
+        ]);
+        api["certificateClassificationAPI.create"].mockResolvedValue({});
+        api["certificateClassificationAPI.update"].mockResolvedValue({});
+        api["certificateClassificationAPI.delete"].mockResolvedValue(true);
+        api["certificateClassificationAPI.reorder"].mockResolvedValue(true);
+        render(<AdminCertificateClassifications/>);
+        await waitFor(() => expect(screen.getByText("First")).toBeInTheDocument());
+
+        fireEvent.click(screen.getByText("AdminCertificateClassifications.button.add"));
+        fireEvent.click(screen.getByText("modal-ok"));
+        await waitFor(() => expect(api["certificateClassificationAPI.create"]).toHaveBeenCalledWith(expect.objectContaining({
+            id: null, titles: {en: "Title", fi: ""}, description: "Description"
+        })));
+
+        fireEvent.click(screen.getByText("AdminCertificateClassifications.order.save"));
+        await waitFor(() => expect(api["certificateClassificationAPI.reorder"]).toHaveBeenCalled());
+        fireEvent.click(screen.getAllByText("common.button.edit")[0]);
+        fireEvent.click(screen.getByText("modal-ok"));
+        await waitFor(() => expect(api["certificateClassificationAPI.update"]).toHaveBeenCalled());
+        fireEvent.click(screen.getAllByText("common.button.delete")[0]);
+        await waitFor(() => expect(api["certificateClassificationAPI.delete"]).toHaveBeenCalledWith(1));
+    });
+
+    it("submits assignment and replacement forms with trimmed values", async () => {
+        api["certificateAPI.updateClassification"].mockResolvedValue({});
+        api["certificateAPI.replaceOrganizations"].mockResolvedValue({});
+        api["certificateAPI.replaceCertificateNames"].mockResolvedValue({});
+        render(<AdminCertificateClassifications/>);
+
+        const submitButtons = screen.getAllByRole("button", {name: /AdminCertificateClassifications/});
+        submitButtons.forEach(button => fireEvent.click(button));
+        await waitFor(() => {
+            expect(api["certificateAPI.updateClassification"]).toHaveBeenCalledWith({
+                certificateId: 7, certificateNames: ["Open Water"], classificationId: 2
+            });
+            expect(api["certificateAPI.replaceOrganizations"]).toHaveBeenCalledWith({
+                existingValues: ["old"], newValue: "new"
+            });
+            expect(api["certificateAPI.replaceCertificateNames"]).toHaveBeenCalledWith({
+                existingValues: ["old"], newValue: "new"
+            });
+        });
+    });
+
+    it("reports classification operation failures and unsuccessful deletes", async () => {
+        api["certificateClassificationAPI.findAll"].mockResolvedValue([
+            {id: 9, order: 1, titles: {en: "Existing"}, description: ""}
+        ]);
+        api["certificateClassificationAPI.create"].mockRejectedValue(new Error("create failed"));
+        api["certificateClassificationAPI.update"].mockRejectedValue(new Error("update failed"));
+        api["certificateClassificationAPI.delete"].mockResolvedValue(false);
+        api["certificateClassificationAPI.reorder"].mockRejectedValue(new Error("reorder failed"));
+        render(<AdminCertificateClassifications/>);
+        await waitFor(() => expect(screen.getByText("Existing")).toBeInTheDocument());
+
+        fireEvent.click(screen.getByText("AdminCertificateClassifications.button.add"));
+        fireEvent.click(screen.getByText("modal-ok"));
+        await waitFor(() => expect(api["certificateClassificationAPI.create"]).toHaveBeenCalled());
+
+        fireEvent.click(screen.getByText("common.button.edit"));
+        fireEvent.click(screen.getByText("modal-ok"));
+        await waitFor(() => expect(api["certificateClassificationAPI.update"]).toHaveBeenCalled());
+
+        fireEvent.click(screen.getByText("common.button.delete"));
+        await waitFor(() => expect(api["certificateClassificationAPI.delete"]).toHaveBeenCalledWith(9));
+        fireEvent.click(screen.getByText("AdminCertificateClassifications.order.save"));
+        await waitFor(() => expect(api["certificateClassificationAPI.reorder"]).toHaveBeenCalled());
+    });
+
+    it("handles classification loading and deletion exceptions", async () => {
+        api["certificateClassificationAPI.findAll"].mockRejectedValue(new Error("classification load failed"));
+        render(<AdminCertificateClassifications/>);
+        await flush();
+        expect(api["certificateClassificationAPI.findAll"]).toHaveBeenCalled();
+
+        api["certificateClassificationAPI.findAll"].mockResolvedValue([
+            {id: 10, order: 1, titles: {en: "Delete me"}, description: ""}
+        ]);
+        api["certificateClassificationAPI.delete"].mockRejectedValue(new Error("delete failed"));
+        render(<AdminCertificateClassifications/>);
+        await waitFor(() => expect(screen.getByText("Delete me")).toBeInTheDocument());
+        fireEvent.click(screen.getByText("common.button.delete"));
+        await waitFor(() => expect(api["certificateClassificationAPI.delete"]).toHaveBeenCalledWith(10));
+    });
+
+    it("reports assignment, replacement, and suggestion failures", async () => {
+        api["certificateAPI.updateClassification"].mockRejectedValue(new Error("assignment failed"));
+        api["certificateAPI.replaceOrganizations"].mockRejectedValue(new Error("organization failed"));
+        api["certificateAPI.replaceCertificateNames"].mockRejectedValue(new Error("name failed"));
+        api["certificateAPI.findCertificateNames"].mockRejectedValue(new Error("suggestion failed"));
+        render(<AdminCertificateClassifications/>);
+
+        const submitButtons = screen.getAllByRole("button", {name: /AdminCertificateClassifications/});
+        submitButtons.forEach(button => fireEvent.click(button));
+        fireEvent.change(screen.getAllByRole("textbox")[4], {target: {value: " "}});
+        fireEvent.change(screen.getAllByRole("textbox")[4], {target: {value: "term"}});
+        await waitFor(() => expect(api["certificateAPI.findCertificateNames"]).toHaveBeenCalledWith("term"));
+        expect(api["certificateAPI.updateClassification"]).toHaveBeenCalled();
+        expect(api["certificateAPI.replaceOrganizations"]).toHaveBeenCalled();
+        expect(api["certificateAPI.replaceCertificateNames"]).toHaveBeenCalled();
     });
 });
