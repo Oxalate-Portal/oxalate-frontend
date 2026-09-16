@@ -32,16 +32,16 @@ jest.mock("../session", () => ({
 }));
 jest.mock("../components/DiveEvent/DiveEventsTable", () => ({
     DiveEventsTable: ({diveEventType, title}: { diveEventType: string; title: string }) =>
-            <div>{diveEventType}-{title}</div>
+        <div>{diveEventType}-{title}</div>
 }));
 jest.mock("../components/Page", () => {
     const actual = jest.requireActual("../components/Page");
     return {
         ...actual,
         Page: ({pageId, ...props}: { pageId: number; [key: string]: unknown }) =>
-                pageId === 1 || pageId === 3
-                        ? <div>page-{pageId}</div>
-                        : <actual.Page pageId={pageId} {...props}/>
+            pageId === 1 || pageId === 3
+                ? <div>page-{pageId}</div>
+                : <actual.Page pageId={pageId} {...props}/>
     };
 });
 jest.mock("../components/Payment/ListPayments", () => ({ListPayments: () => <div>payment-list</div>}));

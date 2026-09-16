@@ -16,36 +16,36 @@ export function Payments() {
         if (window.confirm(t("AdminPayments.confirmInvalidate"))) {
             setLoading(true);
             paymentAPI.resetAllPayments(type)
-                    .then((result) => {
-                        if (result) {
-                            window.dispatchEvent(new Event("updatePaymentList-" + type));
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Failed to reset payments:", error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then((result) => {
+                    if (result) {
+                        window.dispatchEvent(new Event("updatePaymentList-" + type));
+                    }
+                })
+                .catch((error) => {
+                    console.error("Failed to reset payments:", error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         }
     }
 
     return (
-            <div style={{justifyContent: "center"}} className={"darkDiv"}>
-                <Spin spinning={loading}>
-                    <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.activeDivider")}</Divider>
-                    <ListPayments/>
-                    <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.yearlyResetDivider")}</Divider>
-                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+        <div style={{justifyContent: "center"}} className={"darkDiv"}>
+            <Spin spinning={loading}>
+                <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.activeDivider")}</Divider>
+                <ListPayments/>
+                <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.yearlyResetDivider")}</Divider>
+                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                    <Button danger={true} type={"primary"}
+                            onClick={() => invalidatePayments(PaymentTypeEnum.PERIODICAL)}>{t("AdminPayments.reset-periodical-button")}</Button>
+                    {getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "single-payment-enabled") === "true" &&
                         <Button danger={true} type={"primary"}
-                                onClick={() => invalidatePayments(PaymentTypeEnum.PERIODICAL)}>{t("AdminPayments.reset-periodical-button")}</Button>
-                        {getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "single-payment-enabled") === "true" &&
-                                <Button danger={true} type={"primary"}
-                                        onClick={() => invalidatePayments(PaymentTypeEnum.ONE_TIME)}>{t("AdminPayments.reset-one-time-button")}</Button>}
-                    </Space>
-                    <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.addPaymentsDivider")}</Divider>
-                    <AddPayments/>
-                </Spin>
-            </div>
+                                onClick={() => invalidatePayments(PaymentTypeEnum.ONE_TIME)}>{t("AdminPayments.reset-one-time-button")}</Button>}
+                </Space>
+                <Divider titlePlacement={"left"} orientation={"horizontal"}>{t("AdminPayments.addPaymentsDivider")}</Divider>
+                <AddPayments/>
+            </Spin>
+        </div>
     );
 }

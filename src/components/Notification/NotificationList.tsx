@@ -42,7 +42,7 @@ export function NotificationList() {
             await notificationAPI.markNotificationsAsRead({messageIds: [notification.id]});
             // Update local state
             setNotifications(prev =>
-                    prev.map(n => n.id === notification.id ? {...n, read: true} : n)
+                prev.map(n => n.id === notification.id ? {...n, read: true} : n)
             );
         } catch (error) {
             console.error("Failed to mark notification as read:", error);
@@ -51,8 +51,8 @@ export function NotificationList() {
 
     const handleMarkAllAsRead = async () => {
         const unreadNotificationIds = notifications
-                .filter(notification => !notification.read)
-                .map(notification => notification.id);
+            .filter(notification => !notification.read)
+            .map(notification => notification.id);
         if (unreadNotificationIds.length === 0) {
             return;
         }
@@ -69,71 +69,71 @@ export function NotificationList() {
     };
 
     const paginatedNotifications = notifications.slice(
-            (currentPage - 1) * PAGE_SIZE,
-            currentPage * PAGE_SIZE
+        (currentPage - 1) * PAGE_SIZE,
+        currentPage * PAGE_SIZE
     );
 
     return (
-            <div className="darkDiv">
-                <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
-                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                        <Typography.Title level={2} style={{margin: 0}}>{t("NotificationList.title")}</Typography.Title>
-                        <Button
-                                onClick={() => void handleMarkAllAsRead()}
-                                loading={markingAllAsRead}
-                                disabled={!notifications.some(notification => !notification.read)}
-                        >
-                            {t("NotificationList.markAllAsRead")}
-                        </Button>
-                    </div>
+        <div className="darkDiv">
+            <Space orientation={"vertical"} size={16} style={{width: "100%"}}>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <Typography.Title level={2} style={{margin: 0}}>{t("NotificationList.title")}</Typography.Title>
+                    <Button
+                        onClick={() => void handleMarkAllAsRead()}
+                        loading={markingAllAsRead}
+                        disabled={!notifications.some(notification => !notification.read)}
+                    >
+                        {t("NotificationList.markAllAsRead")}
+                    </Button>
+                </div>
 
-                    <Spin spinning={loading}>
-                        {paginatedNotifications.length === 0 ? (
-                                <Empty description={t("NotificationList.noNotifications")}/>
-                        ) : (
-                                <Listy
-                                        items={paginatedNotifications}
-                                        rowKey={(notification) => notification.id}
-                                        itemRender={(notification) => (
-                                                <div
-                                                        onClick={() => handleMarkAsRead(notification)}
-                                                        style={{
-                                                            cursor: notification.read ? "default" : "pointer",
-                                                            backgroundColor: notification.read ? "transparent" : "rgba(80, 176, 255, 0.1)",
-                                                            padding: "16px",
-                                                            marginBottom: "8px",
-                                                            borderRadius: "8px",
-                                                            border: "1px solid #303030"
-                                                        }}
-                                                >
-                                                    <Space>
-                                                        <Typography.Text strong={!notification.read}>{notification.title}</Typography.Text>
-                                                        {!notification.read && <Tag color="blue">{t("NotificationList.unread")}</Tag>}
-                                                    </Space>
-                                                    <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
-                                                        <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
-                                                        <Typography.Text type="secondary" style={{fontSize: 12}}>
-                                                            {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                        </Typography.Text>
-                                                    </Space>
-                                                </div>
-                                        )}
-                                />
-                        )}
-
-                        {notifications.length > PAGE_SIZE && (
-                                <div style={{textAlign: "center", marginTop: 16}}>
-                                    <Pagination
-                                            current={currentPage}
-                                            total={notifications.length}
-                                            pageSize={PAGE_SIZE}
-                                            onChange={setCurrentPage}
-                                            showSizeChanger={false}
-                                    />
+                <Spin spinning={loading}>
+                    {paginatedNotifications.length === 0 ? (
+                        <Empty description={t("NotificationList.noNotifications")}/>
+                    ) : (
+                        <Listy
+                            items={paginatedNotifications}
+                            rowKey={(notification) => notification.id}
+                            itemRender={(notification) => (
+                                <div
+                                    onClick={() => handleMarkAsRead(notification)}
+                                    style={{
+                                        cursor: notification.read ? "default" : "pointer",
+                                        backgroundColor: notification.read ? "transparent" : "rgba(80, 176, 255, 0.1)",
+                                        padding: "16px",
+                                        marginBottom: "8px",
+                                        borderRadius: "8px",
+                                        border: "1px solid #303030"
+                                    }}
+                                >
+                                    <Space>
+                                        <Typography.Text strong={!notification.read}>{notification.title}</Typography.Text>
+                                        {!notification.read && <Tag color="blue">{t("NotificationList.unread")}</Tag>}
+                                    </Space>
+                                    <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
+                                        <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
+                                        <Typography.Text type="secondary" style={{fontSize: 12}}>
+                                            {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
+                                        </Typography.Text>
+                                    </Space>
                                 </div>
-                        )}
-                    </Spin>
-                </Space>
-            </div>
+                            )}
+                        />
+                    )}
+
+                    {notifications.length > PAGE_SIZE && (
+                        <div style={{textAlign: "center", marginTop: 16}}>
+                            <Pagination
+                                current={currentPage}
+                                total={notifications.length}
+                                pageSize={PAGE_SIZE}
+                                onChange={setCurrentPage}
+                                showSizeChanger={false}
+                            />
+                        </div>
+                    )}
+                </Spin>
+            </Space>
+        </div>
     );
 }

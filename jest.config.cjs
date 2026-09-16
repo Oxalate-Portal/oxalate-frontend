@@ -26,6 +26,17 @@ module.exports = {
         '!src/main.tsx',
         '!src/vite-env.d.ts'
     ],
+    // Ratcheted coverage floor. The target is 90% on every metric (see ../TODO-20260916.md); these
+    // numbers are the measured actuals rounded down, so the build fails on a regression but does
+    // not fail today. Raise them as coverage improves -- never lower them to make a build pass.
+    coverageThreshold: {
+        global: {
+            statements: 90,
+            branches: 78,
+            functions: 84,
+            lines: 90
+        }
+    },
     // Transform TypeScript and allow ESM from ant-design packages
     transform: {
         '^.+\\.tsx?$': ['ts-jest', {

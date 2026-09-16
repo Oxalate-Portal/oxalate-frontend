@@ -51,11 +51,19 @@ export default tseslint.config(
             },
             globals: browserGlobals
         },
+        linterOptions: {
+            reportUnusedDisableDirectives: "off"
+        },
         rules: {
             ...reactHooks.configs.recommended.rules,
             "@typescript-eslint/no-deprecated": "warn",
             "no-console": "off"
         }
+    },
+    {
+        files: ["src/__tests__/**/*.{ts,tsx}"],
+        rules: {
+            "no-var": "off"
+        }
     }
 );
-

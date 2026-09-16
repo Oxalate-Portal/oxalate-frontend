@@ -7,24 +7,24 @@ import type {AggregateResponse, EventPeriodReportResponse, MultiYearValueRespons
 
 class StatsAPI extends AbstractAPI<void, MultiYearValueResponse[]> {
     public async getYearlyDiverList(): Promise<YearlyDiversListResponse[]> {
-        const response = await this.axiosInstance.get<YearlyDiversListResponse[]>('/yearly-diver-list');
+        const response = await this.axiosInstance.get<YearlyDiversListResponse[]>("/yearly-diver-list");
         return response.data;
     }
 
     public async getDiveEventReports(): Promise<EventPeriodReportResponse[]> {
-        const response = await this.axiosInstance.get<EventPeriodReportResponse[]>('/event-report');
+        const response = await this.axiosInstance.get<EventPeriodReportResponse[]>("/event-report");
         return response.data;
     }
 
     public async getYearlyStatsData(type: string): Promise<MultiYearValueResponse[]> {
-        const response = await this.axiosInstance.get<MultiYearValueResponse[]>('/yearly-' + type);
+        const response = await this.axiosInstance.get<MultiYearValueResponse[]>("/yearly-" + type);
         return response.data;
     }
 
     public async getAggregates(): Promise<AggregateResponse> {
-        const response = await this.axiosInstance.get<AggregateResponse>('/yearly-aggregates');
+        const response = await this.axiosInstance.get<AggregateResponse>("/yearly-aggregates");
         return response.data;
     }
 }
 
-export const statsAPI = new StatsAPI('/stats');
+export const statsAPI = new StatsAPI("/stats");

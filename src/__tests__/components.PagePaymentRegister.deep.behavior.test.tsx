@@ -63,17 +63,17 @@ jest.mock("../components/User", () => ({
 jest.mock("../components/main", () => ({
     AcceptTerms: () => <span>terms content</span>,
     HealthStatementConfirmationModal: ({open, onConfirm, onCancel}: { open: boolean; onConfirm: () => void; onCancel: () => void }) =>
-            open ? <div>
-                <button onClick={onConfirm}>health confirm</button>
-                <button onClick={onCancel}>health cancel</button>
-            </div> : null,
+        open ? <div>
+            <button onClick={onConfirm}>health confirm</button>
+            <button onClick={onCancel}>health cancel</button>
+        </div> : null,
     ShiftableRangePicker: ({onChange}: { onChange: (value: unknown[]) => void }) =>
-            <button onClick={() => onChange([])}>change dates</button>
+        <button onClick={() => onChange([])}>change dates</button>
 }));
 jest.mock("@ckeditor/ckeditor5-react", () => ({
     CKEditor: ({data, onChange}: { data: string; onChange: (_event: unknown, editor: { getData: () => string }) => void }) =>
-            <textarea aria-label="body editor" defaultValue={data}
-                      onChange={event => onChange(event, {getData: () => event.target.value})}/>
+        <textarea aria-label="body editor" defaultValue={data}
+                  onChange={event => onChange(event, {getData: () => event.target.value})}/>
 }));
 jest.mock("antd", () => {
     const actual = jest.requireActual("antd");
@@ -199,7 +199,7 @@ describe("payment controls", () => {
     it("reports when the backend returns a different payment", async () => {
         const user = userEvent.setup({delay: null});
         (paymentAPI.create as jest.Mock).mockImplementation((request) =>
-                Promise.resolve({...request, endDate: "2099-01-01", created: {id: 1}})
+            Promise.resolve({...request, endDate: "2099-01-01", created: {id: 1}})
         );
         render(<AddPayments/>);
         await waitFor(() => expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0));

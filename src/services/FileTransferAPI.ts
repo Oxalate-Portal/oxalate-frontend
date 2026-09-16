@@ -8,12 +8,12 @@ interface UploadResponse {
 }
 
 class FileTransferAPI {
+    private static readonly AVATAR_PATH: string = "/avatars";
+    private static readonly CERTIFICATE_PATH: string = "/certificates";
+    private static readonly DOCUMENT_PATH: string = "/documents";
+    private static readonly DIVE_FILE_PATH: string = "/dive-files";
+    private static readonly PAGE_FILE_PATH: string = "/page-files";
     private axiosInstance: AxiosInstance;
-    private static  readonly AVATAR_PATH: string = "/avatars";
-    private static  readonly CERTIFICATE_PATH: string = "/certificates";
-    private static  readonly DOCUMENT_PATH: string = "/documents";
-    private static  readonly DIVE_FILE_PATH: string = "/dive-files";
-    private static  readonly PAGE_FILE_PATH: string = "/page-files";
 
     constructor() {
         this.axiosInstance = Axios.create({

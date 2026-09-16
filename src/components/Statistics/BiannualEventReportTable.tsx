@@ -46,10 +46,10 @@ export function BiannualEventReportTable({events, childKey}: BiannualEventReport
             dataIndex: "diveCount",
             key: childKey + "-diveCount",
             sorter: (a: EventReportResponse, b: EventReportResponse) => a.diveCount - b.diveCount
-        },
+        }
     ];
 
     return (
-            <Table dataSource={events} columns={eventColumns} pagination={false} key={childKey + "-table"} rowKey="eventId"/>
+        <Table dataSource={events} columns={eventColumns} pagination={false} key={childKey + "-table"} rowKey="eventId"/>
     );
 }

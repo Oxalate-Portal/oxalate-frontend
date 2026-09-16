@@ -73,34 +73,34 @@ export function Pages() {
             dataIndex: "rolePermissions",
             key: "rolePermissions",
             render: (_: string, record: PageResponse) => (
-                    <>
-                        {record.rolePermissions
-                                .slice()
-                                .sort((a, b) => a.role.localeCompare(b.role))
-                                .map((rolePermission: RolePermissionResponse) =>
-                                        roleEnum2Tag(rolePermission.role, t, rolePermission.id)
-                                )}
-                    </>
-            ),
+                <>
+                    {record.rolePermissions
+                        .slice()
+                        .sort((a, b) => a.role.localeCompare(b.role))
+                        .map((rolePermission: RolePermissionResponse) =>
+                            roleEnum2Tag(rolePermission.role, t, rolePermission.id)
+                        )}
+                </>
+            )
         },
         {
             title: "",
             key: "action",
             render: (_: string, record: PageResponse) => (
-                    <Space size={"middle"}>
-                        {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
-                                && isAllowedToEditPage(userSession, record.rolePermissions) &&
-                                <>
-                                    <Link to={"/administration/pages/" + record.id}><Button
-                                            type={"primary"}>{t("common.button.update")}</Button></Link>
-                                    {pageGroupId !== 1 &&
-                                            record.status !== PageStatusEnum.DELETED &&
-                                            <Button danger type={"primary"}
-                                                    onClick={() => closePage(record.id)}>{t("common.button.close")}</Button>}
-                                </>
-                        }
-                    </Space>
-            ),
+                <Space size={"middle"}>
+                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
+                        && isAllowedToEditPage(userSession, record.rolePermissions) &&
+                        <>
+                            <Link to={"/administration/pages/" + record.id}><Button
+                                type={"primary"}>{t("common.button.update")}</Button></Link>
+                            {pageGroupId !== 1 &&
+                                record.status !== PageStatusEnum.DELETED &&
+                                <Button danger type={"primary"}
+                                        onClick={() => closePage(record.id)}>{t("common.button.close")}</Button>}
+                        </>
+                    }
+                </Space>
+            )
         }
     ];
 
@@ -113,63 +113,64 @@ export function Pages() {
         let tmpPageGroupId = 0;
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpPageGroupId = parseInt(paramId);
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setPageGroupId(tmpPageGroupId);
         }
 
         pageGroupMgmtAPI.findById(tmpPageGroupId, null)
-                .then(response => {
-                    setPages(response.pages);
+            .then(response => {
+                setPages(response.pages);
 
-                    let lang = "fi";
+                let lang = "fi";
 
-                    if (sessionLanguage) {
-                        lang = sessionLanguage;
-                    }
+                if (sessionLanguage) {
+                    lang = sessionLanguage;
+                }
 
-                    setPageGroupTitle(getPageGroupTitleByLanguage(lang, response));
-                })
-                .catch(error => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+                setPageGroupTitle(getPageGroupTitleByLanguage(lang, response));
+            })
+            .catch(error => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [paramId, sessionLanguage]);
 
     function closePage(pageId: number) {
         if (window.confirm(t("Pages.closePage.confirm") + pageId + "?")) {
             pageMgmtAPI.delete(pageId)
-                    .then((result: boolean) => {
-                        if (result) {
-                            messageApi.success(t("Pages.updateStatus.ok"));
-                            window.dispatchEvent(new Event("reloadNavigationEvent"));
-                        } else {
-                            messageApi.error(t("Pages.updateStatus.fail"));
-                        }
-                    })
-                    .catch((e) => {
-                        console.error(e);
-                        messageApi.error(e);
-                    });
+                .then((result: boolean) => {
+                    if (result) {
+                        messageApi.success(t("Pages.updateStatus.ok"));
+                        window.dispatchEvent(new Event("reloadNavigationEvent"));
+                    } else {
+                        messageApi.error(t("Pages.updateStatus.fail"));
+                    }
+                })
+                .catch((e) => {
+                    console.error(e);
+                    messageApi.error(e);
+                });
         }
     }
 
     return (
-            <div className={"darkDiv"}>
-                {contextHolder}
-                <h4>{pageGroupTitle}-{t("Pages.title")}</h4>
+        <div className={"darkDiv"}>
+            {contextHolder}
+            <h4>{pageGroupTitle}-{t("Pages.title")}</h4>
 
-                {pages && pages.length === 0 && <Alert key={"info"} showIcon={true} title={t("Pages.alert.noPages")}/>}
-                {pages && pages.length > 0 && <Spin spinning={loading}>
-                    {pages && pages.length > 0 && <Table dataSource={pages} columns={columns} pagination={false} rowKey="id"/>}
-                </Spin>}
+            {pages && pages.length === 0 && <Alert key={"info"} showIcon={true} title={t("Pages.alert.noPages")}/>}
+            {pages && pages.length > 0 && <Spin spinning={loading}>
+                {pages && pages.length > 0 && <Table dataSource={pages} columns={columns} pagination={false} rowKey="id"/>}
+            </Spin>}
 
-                {pageGroupId !== 1 &&
-                        <Space orientation={"horizontal"} size={12} style={{width: "98%", justifyContent: "right", margin: 12}}>
-                            <Link to={"/administration/pages/0?pageGroupId=" + pageGroupId}><Button
-                                    type={"primary"}>{t("Pages.button.addPage")}</Button></Link>
-                        </Space>}
-            </div>
+            {pageGroupId !== 1 &&
+                <Space orientation={"horizontal"} size={12} style={{width: "98%", justifyContent: "right", margin: 12}}>
+                    <Link to={"/administration/pages/0?pageGroupId=" + pageGroupId}><Button
+                        type={"primary"}>{t("Pages.button.addPage")}</Button></Link>
+                </Space>}
+        </div>
     );
 }

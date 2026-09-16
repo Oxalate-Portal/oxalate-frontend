@@ -41,7 +41,7 @@ function BlockedDates() {
 
     async function addBlockedDate(values: { blockedDate: Date, blockedReason: string }) {
         // Ensure blockedDate is a Date object
-        const dateString = dayjs(values.blockedDate).format('YYYY-MM-DD');
+        const dateString = dayjs(values.blockedDate).format("YYYY-MM-DD");
 
         const blockedDate = dayjs(dateString);
 
@@ -93,17 +93,17 @@ function BlockedDates() {
             key: "blockedDate",
             render: (value: Date) => dayjs(value).format("YYYY-MM-DD"),
             sorter: (a, b) => dayjs(a.blockedDate).unix() - dayjs(b.blockedDate).unix(),
-            defaultSortOrder: "ascend",
+            defaultSortOrder: "ascend"
         },
         {
             title: t("BlockedDates.table.creator"),
             dataIndex: "creatorName",
-            key: "creatorName",
+            key: "creatorName"
         },
         {
             title: t("BlockedDates.table.reason"),
             dataIndex: "reason",
-            key: "reason",
+            key: "reason"
         },
         {
             title: t("BlockedDates.table.actions"),
@@ -119,8 +119,8 @@ function BlockedDates() {
                             {t("common.button.delete")}
                         </Button>
                     </Popconfirm>
-            ),
-        },
+            )
+        }
     ];
 
     return (
@@ -138,8 +138,8 @@ function BlockedDates() {
                     />
                     <Form onFinish={addBlockedDate} layout={"vertical"} form={form}>
                         <Form.Item label={t("BlockedDates.form.date.label")}
-                              name="blockedDate"
-                              rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
+                                   name="blockedDate"
+                                   rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
                         >
                             <DatePicker
                                     format="YYYY-MM-DD"
@@ -148,8 +148,8 @@ function BlockedDates() {
                             />
                         </Form.Item>
                         <Form.Item label={t("BlockedDates.form.reason.label")}
-                              name={"blockedReason"}
-                              rules={[{required: true, message: t("BlockedDates.form.reason.rule")}]}>
+                                   name={"blockedReason"}
+                                   rules={[{required: true, message: t("BlockedDates.form.reason.rule")}]}>
                             <Input.TextArea
                                     placeholder={t("BlockedDates.form.reason.placeholder")}
                                     rows={2}

@@ -21,6 +21,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
     const {getFrontendConfigurationValue} = useSession();
 
     useEffect(() => {
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setMaxCertificates(parseInt(getFrontendConfigurationValue("max-certificates")));
 
@@ -60,18 +61,18 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
 
     return (
             <>
-            <Space orientation={"vertical"} size={12}>
-                {!loading && certificates.length > 0 && certificates.map(certificate =>
-                        <ShowCertificateCard certificate={certificate}
-                                             deleteCertificate={viewOnly ? null : deleteCertificate}
-                                             key={certificate.id}
-                                             viewOnly={viewOnly}
-                        />
-                )}
-                {!viewOnly
-                        && certificates.length < maxCertificates
-                        && <Button type={"primary"} onClick={() => setAddOpen(true)}>{t("Certificates.panel.addButton")}</Button>}
-            </Space>
+                <Space orientation={"vertical"} size={12}>
+                    {!loading && certificates.length > 0 && certificates.map(certificate =>
+                            <ShowCertificateCard certificate={certificate}
+                                                 deleteCertificate={viewOnly ? null : deleteCertificate}
+                                                 key={certificate.id}
+                                                 viewOnly={viewOnly}
+                            />
+                    )}
+                    {!viewOnly
+                            && certificates.length < maxCertificates
+                            && <Button type={"primary"} onClick={() => setAddOpen(true)}>{t("Certificates.panel.addButton")}</Button>}
+                </Space>
                 <EditCertificate
                         certificateId={0}
                         open={addOpen}

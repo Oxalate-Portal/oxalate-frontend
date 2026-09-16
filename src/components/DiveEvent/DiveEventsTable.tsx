@@ -26,7 +26,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             dataIndex: "startTime",
             key: "startTime",
             sorter: (a: DiveEventResponse, b: DiveEventResponse) =>
-                    dayjs(a.startTime).valueOf() - dayjs(b.startTime).valueOf(),
+                dayjs(a.startTime).valueOf() - dayjs(b.startTime).valueOf(),
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: DiveEventResponse) => {
                 return (<div>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</div>);
@@ -60,16 +60,16 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                 const waitingListCount = record.waitingList?.length || 0;
 
                 return (
-                        <>
-                            <span style={isFull ? {color: "#ff4d4f", fontWeight: 600} : undefined}>
-                                {participantCount} / {record.maxParticipants}
+                    <>
+                        <span style={isFull ? {color: "#ff4d4f", fontWeight: 600} : undefined}>
+                            {participantCount} / {record.maxParticipants}
+                        </span>
+                        {isFutureTable && waitingListCount > 0 && (
+                            <span style={{color: "#faad14", marginLeft: 6}}>
+                                ({t("Events.table.waitingList")}: {waitingListCount})
                             </span>
-                            {isFutureTable && waitingListCount > 0 && (
-                                    <span style={{color: "#faad14", marginLeft: 6}}>
-                                        ({t("Events.table.waitingList")}: {waitingListCount})
-                                    </span>
-                            )}
-                        </>
+                        )}
+                    </>
                 );
             }
         },
@@ -126,20 +126,20 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             key: "action",
             render: (_: string, record: DiveEventResponse) => {
                 const openButton = (
-                        <Link to={"/events/" + record.id}>
-                            <Button type={"primary"}>{t("common.button.open")}</Button>
-                        </Link>
+                    <Link to={"/events/" + record.id}>
+                        <Button type={"primary"}>{t("common.button.open")}</Button>
+                    </Link>
                 );
 
                 if (diveEventType === "new" || diveEventType === "ongoing") {
                     return (<>
                         <Space size={"middle"}>
                             {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN]) &&
-                                    <Link to={"/events/" + record.id + "/edit"}>
-                                        <Button style={{
-                                            background: "green",
-                                            borderColor: "white"
-                                        }}>{t("common.button.update")}</Button></Link>}
+                                <Link to={"/events/" + record.id + "/edit"}>
+                                    <Button style={{
+                                        background: "green",
+                                        borderColor: "white"
+                                    }}>{t("common.button.update")}</Button></Link>}
                             {record.status === DiveEventStatusEnum.PUBLISHED && openButton}
                         </Space>
                     </>);
@@ -150,7 +150,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                         </Space>
                     </>);
                 }
-            },
+            }
         }
     ];
 
@@ -168,34 +168,34 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
         }
 
         diveEventResponses
-                .then((response) => {
-                    setDiveEvents(response);
-                })
-                .catch((error: Error) => {
-                    console.error("Failed to fetch events for type: " + diveEventType, error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setDiveEvents(response);
+            })
+            .catch((error: Error) => {
+                console.error("Failed to fetch events for type: " + diveEventType, error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [diveEventType]);
 
     return (
-            <>
-                <h4>{title}</h4>
-                <Spin spinning={loading}>
-                    {!loading && diveEvents && diveEvents.length > 0 && <Table
-                            dataSource={diveEvents}
-                            rowKey={"id"}
-                            columns={diveEventColumns}
-                            pagination={{
-                                defaultPageSize: 10,
-                                hideOnSinglePage: false,
-                                showSizeChanger: true,
-                                showQuickJumper: true,
-                                total: diveEvents.length,
-                                pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
-                            }}/>}
-                </Spin>
-            </>
+        <>
+            <h4>{title}</h4>
+            <Spin spinning={loading}>
+                {!loading && diveEvents && diveEvents.length > 0 && <Table
+                    dataSource={diveEvents}
+                    rowKey={"id"}
+                    columns={diveEventColumns}
+                    pagination={{
+                        defaultPageSize: 10,
+                        hideOnSinglePage: false,
+                        showSizeChanger: true,
+                        showQuickJumper: true,
+                        total: diveEvents.length,
+                        pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
+                    }}/>}
+            </Spin>
+        </>
     );
 }

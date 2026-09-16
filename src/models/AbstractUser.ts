@@ -6,7 +6,7 @@ export interface AbstractUser {
     username: string;
     firstName: string;
     lastName: string;
-    avatarUrl: string | null;
+    avatarUrl?: string | null;
     phoneNumber: string;
     registered: Date;
     language: string;
@@ -16,5 +16,5 @@ export interface AbstractUser {
     approvedTerms: boolean;
     healthStatementId: number | null;
     primaryUserType: UserTypeEnum;
-    certificateClassificationTitle: string | null;
+    certificateClassificationTitle?: string | null;
 }

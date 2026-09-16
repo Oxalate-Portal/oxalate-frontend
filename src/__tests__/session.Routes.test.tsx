@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {MemoryRouter} from "react-router-dom";
 import {AdminRoute, AuthVerify, OrganizerRoute, PrivateRoute, useSession} from "../session";
-import {RoleEnum} from "../models";
+import {ActionResultEnum, RoleEnum} from "../models";
 
 jest.mock("../session/useSession", () => ({
     useSession: jest.fn()
@@ -28,13 +28,41 @@ describe("session route guards", () => {
     });
 
     it("allows an authenticated user through PrivateRoute", () => {
-        mockedUseSession.mockReturnValue({userSession: {roles: []}} as ReturnType<typeof useSession>);
+        mockedUseSession.mockReturnValue({
+            userSession: {roles: []} as never,
+            sessionLanguage: "en",
+            organizationName: "",
+            portalTimezone: "UTC",
+            getSessionLanguage: () => "en"
+            , setSessionLanguage: () => undefined,
+            getPortalTimezone: () => "UTC",
+            getFrontendConfigurationValue: () => "",
+            getPortalConfigurationValue: () => "",
+            getPortalConfiguration: () => [],
+            loginUser: async () => ({status: ActionResultEnum.SUCCESS, message: ""}),
+            logoutUser: () => undefined,
+            refreshUserSession: () => undefined
+        } as ReturnType<typeof useSession>);
         renderRoute(<PrivateRoute>{child}</PrivateRoute>);
         expect(screen.getByTestId("protected")).toBeInTheDocument();
     });
 
     it("allows only administrators through AdminRoute", () => {
-        mockedUseSession.mockReturnValue({userSession: {roles: [RoleEnum.ROLE_ADMIN]}} as ReturnType<typeof useSession>);
+        mockedUseSession.mockReturnValue({
+            userSession: {roles: [RoleEnum.ROLE_ADMIN]} as never,
+            sessionLanguage: "en",
+            organizationName: "",
+            portalTimezone: "UTC",
+            getSessionLanguage: () => "en"
+            , setSessionLanguage: () => undefined,
+            getPortalTimezone: () => "UTC",
+            getFrontendConfigurationValue: () => "",
+            getPortalConfigurationValue: () => "",
+            getPortalConfiguration: () => [],
+            loginUser: async () => ({status: ActionResultEnum.SUCCESS, message: ""}),
+            logoutUser: () => undefined,
+            refreshUserSession: () => undefined
+        } as ReturnType<typeof useSession>);
         renderRoute(<AdminRoute>{child}</AdminRoute>);
         expect(screen.getByTestId("protected")).toBeInTheDocument();
 

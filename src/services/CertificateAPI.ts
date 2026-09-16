@@ -3,7 +3,7 @@ import type {CertificateClassificationAssignmentRequest, CertificateRequest, Cer
 
 export class CertificateAPI extends AbstractAPI<CertificateRequest, CertificateResponse> {
     public async findAllByUserId(userId: number): Promise<CertificateResponse[]> {
-        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
         const response = await this.axiosInstance.get<CertificateResponse[]>("/user/" + userId);
         return response.data;
     }

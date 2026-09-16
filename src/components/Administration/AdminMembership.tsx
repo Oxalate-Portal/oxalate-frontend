@@ -19,27 +19,29 @@ export function AdminMembership() {
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             const membershipId = parseInt(paramId);
             membershipAPI.findByMemberId(membershipId)
-                .then((response) => {
-                    // Convert date strings to Dayjs instances (guarding nullable endDate)
-                    const converted = {
-                        ...response,
-                        startDate: dayjs(response.startDate),
-                        endDate: response.endDate ? dayjs(response.endDate) : null
-                    } as MembershipResponse;
-                    setMembership(converted);
-                    // update form values so AntD sees Dayjs values
-                    form.setFieldsValue(converted);
-                })
-                .catch((error) => {
-                    console.error("Error fetching membership:", error);
-                    messageApi.error(t("AdminMembership.message.no-membership", {defaultValue: "Failed to fetch membership data"}));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+                    .then((response) => {
+                        // Convert date strings to Dayjs instances (guarding nullable endDate)
+                        const converted = {
+                            ...response,
+                            startDate: dayjs(response.startDate),
+                            endDate: response.endDate ? dayjs(response.endDate) : null
+                        } as MembershipResponse;
+                        setMembership(converted);
+                        // update form values so AntD sees Dayjs values
+                        form.setFieldsValue(converted);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching membership:", error);
+                        messageApi.error(t("AdminMembership.message.no-membership", {defaultValue: "Failed to fetch membership data"}));
+                    })
+                    .finally(() => {
+                        // eslint-disable-next-line react-hooks/set-state-in-effect
+                        setLoading(false);
+                    });
         } else {
             console.error("Invalid membership id:", paramId);
             messageApi.error(t("AdminMembership.message.invalid-user-id", {defaultValue: "Invalid user ID"}));
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setLoading(false);
         }
@@ -55,8 +57,8 @@ export function AdminMembership() {
             userId: membership.userId,
             status: values.status,
             type: values.type,
-            startDate: membership.startDate.format("YYYY-MM-DD"),
-            endDate: membership.endDate.format("YYYY-MM-DD")
+            startDate: membership.startDate,
+            endDate: membership.endDate
         };
 
         membershipAPI.update(updatedMembership)

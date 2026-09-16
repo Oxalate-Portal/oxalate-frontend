@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {type ReactNode} from "react";
+import {type ReactNode} from "react";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import {DiveEvent, DiveEventDetails, DiveEventFiles, DiveEvents, DiveEventsTable, EditDiveEvent, SetDives, ShowDiveEvent} from "../components";
 
 const api: Record<string, jest.Mock> = {};
 const fn = (name: string) => (api[name] ??= jest.fn());
 const session = {
-    userSession: {id: 7, roles: ["ROLE_USER"], healthStatementId: 1, primaryUserType: "SCUBA_DIVER"},
+    userSession: {id: 7, roles: ["ROLE_USER"], healthStatementId: 1 as number | null, primaryUserType: "SCUBA_DIVER"},
     organizer: false,
     membership: false,
     payment: false,

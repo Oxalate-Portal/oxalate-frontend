@@ -90,6 +90,7 @@ export function DiveEvent() {
         let tmpEventId = 0;
         if (paramId !== undefined && !Number.isNaN(parseInt(paramId))) {
             tmpEventId = parseInt(paramId);
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setDiveEventId(tmpEventId);
         }
@@ -120,7 +121,7 @@ export function DiveEvent() {
                 missingMembership: false,
                 missingPayment: false,
                 paymentCheckCompleted: false,
-                missingHealthStatement: false,
+                missingHealthStatement: false
             };
 
             if (!userSession) {
@@ -245,6 +246,7 @@ export function DiveEvent() {
         // If the event has passed, we don't want to show the subscribe button
         if (diveEvent) {
             if (dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour"))) {
+
                 // eslint-disable-next-line react-hooks/set-state-in-effect
                 setCanSubscribe(false);
                 setSubscribing(false);

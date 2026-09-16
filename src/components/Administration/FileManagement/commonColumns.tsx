@@ -17,30 +17,30 @@ export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFile
             title: t("AdminUploads.common-file-column-title.filename"),
             dataIndex: "filename",
             key: "filename",
-            render: (text: string) => <span>{text}</span>,
+            render: (text: string) => <span>{text}</span>
         },
         {
             title: t("AdminUploads.common-file-column-title.filesize"),
             dataIndex: "filesize",
             key: "filesize",
-            render: (size: number) => <span>{(size / 1024).toFixed(2)} KB</span>,
+            render: (size: number) => <span>{(size / 1024).toFixed(2)} KB</span>
         },
         {
             title: t("AdminUploads.common-file-column-title.creator"),
             dataIndex: "creator",
-            key: "creator",
+            key: "creator"
         },
         {
             title: t("AdminUploads.common-file-column-title.created-at"),
             dataIndex: "createdAt",
             key: "createdAt",
-            render: (date: Date) => <span>{dayjs(date).format("YYYY.MM.DD HH:mm")}</span>,
+            render: (date: Date) => <span>{dayjs(date).format("YYYY.MM.DD HH:mm")}</span>
         },
         {
             title: t("AdminUploads.common-file-column-title.download-link"),
             dataIndex: "url",
             key: "url",
-            render: (url: string) => <Link to={url}><CloudDownloadOutlined style={{fontSize: '24px'}} /></Link>,
+            render: (url: string) => <Link to={url}><CloudDownloadOutlined style={{fontSize: "24px"}}/></Link>
         },
         {
             title: t("AdminUploads.common-file-column-title.view"),
@@ -49,13 +49,13 @@ export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFile
             render: (url: string) => (
                     showPreview ? (
                             <ProtectedImage
-                                    style={{ width: "150px" }}
+                                    style={{width: "150px"}}
                                     imageUrl={url}
                                     alt="file"
                                     preview={showPreview}
                             />
                     ) : (
-                            <FileOutlined style={{ fontSize: '24px' }} />
+                            <FileOutlined style={{fontSize: "24px"}}/>
                     )
             )
         }
@@ -85,7 +85,7 @@ export function createActionColumn(t: TFunction, {onEdit, onDelete}: ActionColum
                                 </Button>
                         )}
                     </Space>
-            ),
-        },
+            )
+        }
     ];
 }

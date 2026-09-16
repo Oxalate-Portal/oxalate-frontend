@@ -6,10 +6,11 @@ interface FileUploadRule {
     allowedExtensions: string[];
 }
 
-export enum FileUploadValidationError {
-    INVALID_TYPE = "INVALID_TYPE",
-    FILE_TOO_LARGE = "FILE_TOO_LARGE"
-}
+export const FileUploadValidationError = {
+    INVALID_TYPE: "INVALID_TYPE",
+    FILE_TOO_LARGE: "FILE_TOO_LARGE"
+} as const;
+export type FileUploadValidationError = typeof FileUploadValidationError[keyof typeof FileUploadValidationError];
 
 export interface FileUploadValidationResult {
     valid: boolean;
@@ -61,4 +62,3 @@ export function validateUploadFile(file: Pick<File, "name" | "size" | "type">, u
 
     return {valid: true};
 }
-

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
 import {DiveEvent} from "../components";
@@ -219,7 +220,7 @@ describe("DiveEvent dive groups", () => {
     it("hides the create button when the user belongs to a dive group", async () => {
         mockGetDiveGroupsByEventId.mockResolvedValue([group({
             ownerId: 20,
-            members: [{userId: 1, name: "Me", userType: "SCUBA_DIVER", owner: false, joinedAt: null}]
+            members: [{userId: 1, name: "Me", userType: "SCUBA_DIVER", owner: false, joinedAt: dayjs()}]
         })]);
 
         await renderDiveEvent();

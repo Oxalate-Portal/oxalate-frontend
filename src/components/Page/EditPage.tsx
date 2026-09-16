@@ -24,9 +24,9 @@ export function EditPage() {
     const languageConfig = getFrontendConfigurationValue("enabled-language");
     const languageList = useMemo(() => {
         return languageConfig
-                .split(",")
-                .map((language) => language.trim())
-                .filter(Boolean);
+            .split(",")
+            .map((language) => language.trim())
+            .filter(Boolean);
     }, [languageConfig]);
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -94,7 +94,7 @@ export function EditPage() {
     const statusOptions: OptionItemVO[] = [
         {value: PageStatusEnum.DRAFTED, label: t("common.pages.status.drafted")},
         {value: PageStatusEnum.PUBLISHED, label: t("common.pages.status.published")},
-        {value: PageStatusEnum.DELETED, label: t("common.pages.status.deleted")},
+        {value: PageStatusEnum.DELETED, label: t("common.pages.status.deleted")}
     ];
 
     const roleOptions: OptionItemVO[] = [
@@ -125,6 +125,7 @@ export function EditPage() {
         let tmpPageId = 0;
         if (!Number.isNaN(parseInt(paramId))) {
             tmpPageId = parseInt(paramId);
+
             // eslint-disable-next-line react-hooks/set-state-in-effect
             setPageId(tmpPageId);
         }
@@ -137,34 +138,34 @@ export function EditPage() {
                 pageGroupMgmtAPI.findAll(),
                 pageMgmtAPI.findById(tmpPageId, null)
             ])
-                    .then(([pageGroups, pageResponse]) => {
-                        populatePageGroups(pageGroups);
-                        // Filter the page versions to match the enabled languages
-                        pageResponse.pageVersions = pageResponse.pageVersions.filter((pageVersion) => languageList.includes(pageVersion.language));
-                        setPageData(pageResponse);
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then(([pageGroups, pageResponse]) => {
+                    populatePageGroups(pageGroups);
+                    // Filter the page versions to match the enabled languages
+                    pageResponse.pageVersions = pageResponse.pageVersions.filter((pageVersion) => languageList.includes(pageVersion.language));
+                    setPageData(pageResponse);
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         } else {
             setCreateNewPage(true);
 
             pageGroupMgmtAPI.findAll()
-                    .then((result) => {
-                        // Page group selection box data
-                        populatePageGroups(result);
-                        setCreateNewPage(true);
-                        setSendButtonText(t("EditPage.form.button.create"));
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then((result) => {
+                    // Page group selection box data
+                    populatePageGroups(result);
+                    setCreateNewPage(true);
+                    setSendButtonText(t("EditPage.form.button.create"));
+                })
+                .catch((error) => {
+                    console.error(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         }
     }, [paramId, sessionLanguage, t, languageList]);
 
@@ -173,42 +174,42 @@ export function EditPage() {
 
         if (createNewPage) {
             pageMgmtAPI.create(formData)
-                    .then((response: PageResponse) => {
-                        // If we get back an ID, we assume the creation was successful
-                        if (response && response.id > 0) {
-                            messageApi.success(t("EditPage.onFinish.create.ok"));
-                            setPageId(response.id);
-                            setPageData(response);
-                        } else {
-                            messageApi.error(t("EditPage.onFinish.create.fail"));
-                        }
-                    })
-                    .catch(e => {
-                        console.error(e);
-                        messageApi.error(e);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then((response: PageResponse) => {
+                    // If we get back an ID, we assume the creation was successful
+                    if (response && response.id > 0) {
+                        messageApi.success(t("EditPage.onFinish.create.ok"));
+                        setPageId(response.id);
+                        setPageData(response);
+                    } else {
+                        messageApi.error(t("EditPage.onFinish.create.fail"));
+                    }
+                })
+                .catch(e => {
+                    console.error(e);
+                    messageApi.error(e);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         } else {
             pageMgmtAPI.update(formData)
-                    .then((response) => {
-                        // If we get back the same ID as we sent, we assume the update was successful
-                        if (response && response.id === pageId) {
-                            messageApi.success(t("EditPage.onFinish.update.ok"));
-                        } else {
-                            messageApi.error(t("EditPage.onFinish.update.fail"));
-                        }
-                        setLoading(false);
-                    })
-                    .catch(e => {
-                        console.error(e);
-                        messageApi.error(e);
-                        setLoading(false);
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then((response) => {
+                    // If we get back the same ID as we sent, we assume the update was successful
+                    if (response && response.id === pageId) {
+                        messageApi.success(t("EditPage.onFinish.update.ok"));
+                    } else {
+                        messageApi.error(t("EditPage.onFinish.update.fail"));
+                    }
+                    setLoading(false);
+                })
+                .catch(e => {
+                    console.error(e);
+                    messageApi.error(e);
+                    setLoading(false);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         }
     }
 
@@ -230,6 +231,7 @@ export function EditPage() {
 
         return Promise.resolve();
     };
+
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const validateRoleDuplicates = (_: unknown, _value: RoleEnum, _index: number) => {
@@ -261,307 +263,307 @@ export function EditPage() {
     }
 
     return (
-            <div className={"darkDiv"} key={"pageDiv"}>
-                {contextHolder}
-                <h4 key={"pageHeader"}>{t(formTitleKey)}</h4>
-                <Space orientation={"vertical"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                    {pageId == 0 &&
-                            <Alert type={"warning"}
-                                   showIcon
-                                   title={t("EditPage.description")}
-                            />
-                    }
-                    {!loading && pageData &&
-                            <Form
-                                    form={pageForm}
-                                    labelCol={{span: 8}}
-                                    wrapperCol={{span: 22}}
-                                    style={{maxWidth: 1800}}
-                                    name={"PageForm"}
-                                    autoComplete={"off"}
-                                    initialValues={pageData}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                            >
-                                <Form.Item name={"id"} hidden={true} key={"page-id"}>
-                                    <Input type={"text"}/>
-                                </Form.Item>
-                                <Form.Item name={"status"}
-                                           required
-                                           label={t("EditPage.form.status.label")}
-                                           tooltip={t("EditPage.form.status.tooltip")}
-                                           key={"page-status"}
-                                           rules={[
-                                               {
-                                                   required: true,
-                                                   message: t("EditPage.form.status.rules.required")
-                                               }
-                                           ]}
-                                >
-                                    <Select options={statusOptions}/>
-                                </Form.Item>
-                                <Form.Item name={"pageGroupId"}
-                                           label={t("EditPage.form.pageGroupId.label")}
-                                           tooltip={t("EditPage.form.pageGroupId.tooltip")}
-                                           key={"page-pageGroupId"}
-                                           rules={[
-                                               {
-                                                   required: true,
-                                                   message: t("EditPage.form.pageGroupId.rules.required")
-                                               }
-                                           ]}
-                                >
-                                    <Select options={pageGroupOptions} placeholder={t("EditPage.form.pageGroupId.placeholder")}/>
-                                </Form.Item>
-                                <Divider titlePlacement={"left"} orientation={"horizontal"}
-                                         key={"page-lang-divider"}>{t("EditPage.form.divider.languages")}</Divider>
-                                <Form.List name={"pageVersions"}
-                                           key={"page-versions"}
-                                >
-                                    {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
-                                    {(versions, {add: _add, remove: _remove}) => {
-                                        return (
-                                                <>
-                                                    {versions.map((_pageVersion, index) => {
-                                                        const uniqueKey = `pageVersion-${index}-${pageData.pageVersions[index].language}`;
+        <div className={"darkDiv"} key={"pageDiv"}>
+            {contextHolder}
+            <h4 key={"pageHeader"}>{t(formTitleKey)}</h4>
+            <Space orientation={"vertical"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                {pageId == 0 &&
+                    <Alert type={"warning"}
+                           showIcon
+                           title={t("EditPage.description")}
+                    />
+                }
+                {!loading && pageData &&
+                    <Form
+                        form={pageForm}
+                        labelCol={{span: 8}}
+                        wrapperCol={{span: 22}}
+                        style={{maxWidth: 1800}}
+                        name={"PageForm"}
+                        autoComplete={"off"}
+                        initialValues={pageData}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                    >
+                        <Form.Item name={"id"} hidden={true} key={"page-id"}>
+                            <Input type={"text"}/>
+                        </Form.Item>
+                        <Form.Item name={"status"}
+                                   required
+                                   label={t("EditPage.form.status.label")}
+                                   tooltip={t("EditPage.form.status.tooltip")}
+                                   key={"page-status"}
+                                   rules={[
+                                       {
+                                           required: true,
+                                           message: t("EditPage.form.status.rules.required")
+                                       }
+                                   ]}
+                        >
+                            <Select options={statusOptions}/>
+                        </Form.Item>
+                        <Form.Item name={"pageGroupId"}
+                                   label={t("EditPage.form.pageGroupId.label")}
+                                   tooltip={t("EditPage.form.pageGroupId.tooltip")}
+                                   key={"page-pageGroupId"}
+                                   rules={[
+                                       {
+                                           required: true,
+                                           message: t("EditPage.form.pageGroupId.rules.required")
+                                       }
+                                   ]}
+                        >
+                            <Select options={pageGroupOptions} placeholder={t("EditPage.form.pageGroupId.placeholder")}/>
+                        </Form.Item>
+                        <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                 key={"page-lang-divider"}>{t("EditPage.form.divider.languages")}</Divider>
+                        <Form.List name={"pageVersions"}
+                                   key={"page-versions"}
+                        >
+                            {}
+                            {/* eslint-disable-next-line @typescript-eslint/no-unused-vars */}
+                            {(versions, {add: _add, remove: _remove}) => {
+                                return (
+                                    <>
+                                        {versions.map((_pageVersion, index) => {
+                                            const uniqueKey = `pageVersion-${index}-${pageData.pageVersions[index].language}`;
 
-                                                        return (<div key={uniqueKey}>
-                                                            <Divider titlePlacement={"left"} orientation={"horizontal"}
-                                                                     key={uniqueKey + "-divider"}>{pageData.pageVersions[index].language.toUpperCase()}</Divider>
-                                                            <Form.Item
-                                                                    name={[index, "id"]}
-                                                                    label={"ID"}
-                                                                    key={uniqueKey + "-id"}
-                                                                    hidden={true}
-                                                            >
-                                                                <Input type={"text"} disabled={true} key={uniqueKey + "-id-input"}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "pageId"]}
-                                                                    label={"Page ID"}
-                                                                    key={uniqueKey + "-pageId"}
-                                                                    hidden={true}
-                                                            >
-                                                                <Input type={"text"} disabled={true} key={uniqueKey + "-pageId-input"}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "language"]}
-                                                                    label={"Language"}
-                                                                    key={uniqueKey + "-language"}
-                                                                    hidden={true}
-                                                            >
-                                                                <Input type={"text"} disabled={true} key={uniqueKey + "-language-input"}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "title"]}
-                                                                    label={t("EditPage.form.page-versions.title.label")}
-                                                                    key={uniqueKey + "title"}
-                                                                    rules={[
-                                                                        {
-                                                                            required: true,
-                                                                            message: t("EditPage.form.page-versions.title.rules.required")
-                                                                        },
-                                                                        {
-                                                                            min: 2,
-                                                                            message: t("EditPage.form.page-versions.title.rules.min")
-                                                                        }
-                                                                    ]}
-                                                            >
-                                                                <Input type={"text"} key={uniqueKey + "title-input"}
-                                                                       placeholder={t("EditPage.form.page-versions.title.placeholder")}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "ingress"]}
-                                                                    label={t("EditPage.form.page-versions.ingress.label")}
-                                                                    key={uniqueKey + "ingress"}
-                                                            >
-                                                                <Input type={"text"} key={uniqueKey + "ingress-input"}
-                                                                       placeholder={t("EditPage.form.page-versions.ingress.placeholder")}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "body"]}
-                                                                    label={t("EditPage.form.page-versions.body.label")}
-                                                                    key={uniqueKey + "body"}
-                                                                    rules={[
-                                                                        {validator: validatePageEditorContent}
-                                                                    ]}
-                                                            >
-                                                                <PageBodyEditor key={uniqueKey + "body-editor"}
-                                                                                language={pageData.pageVersions[index].language}
-                                                                                pageId={pageData.pageVersions[index].pageId}
-                                                                                onChange={(data: string) => pageForm.setFieldsValue({"index": {body: data}})}
-                                                                                value={pageForm.getFieldValue(["index", "body"])}
-                                                                />
-                                                            </Form.Item>
-                                                        </div>);
-                                                    })}
-                                                </>
-                                        );
-                                    }}
-                                </Form.List>
-
-                                <Divider titlePlacement={"left"} orientation={"horizontal"}
-                                         key={"divider-roles"}>{t("EditPage.form.divider.permissions")}</Divider>
-                                <Form.List name={"rolePermissions"}
-                                           key={"page-roles"}
-                                >
-                                    {(rolePermissions, {add, remove}) => {
-                                        return (
-                                                <>
-                                                    {rolePermissions.map((rolePermission, index) => {
-                                                        const uniqueKey = `pageRole-${index}`;
-                                                        let isDisabledRole = false;
-                                                        // This will freeze the role of the user so that it can not be modified
-                                                        if (userRole === pageForm.getFieldValue(["rolePermissions", index, "role"])) {
-                                                            isDisabledRole = true;
+                                            return (<div key={uniqueKey}>
+                                                <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                                         key={uniqueKey + "-divider"}>{pageData.pageVersions[index].language.toUpperCase()}</Divider>
+                                                <Form.Item
+                                                    name={[index, "id"]}
+                                                    label={"ID"}
+                                                    key={uniqueKey + "-id"}
+                                                    hidden={true}
+                                                >
+                                                    <Input type={"text"} disabled={true} key={uniqueKey + "-id-input"}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "pageId"]}
+                                                    label={"Page ID"}
+                                                    key={uniqueKey + "-pageId"}
+                                                    hidden={true}
+                                                >
+                                                    <Input type={"text"} disabled={true} key={uniqueKey + "-pageId-input"}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "language"]}
+                                                    label={"Language"}
+                                                    key={uniqueKey + "-language"}
+                                                    hidden={true}
+                                                >
+                                                    <Input type={"text"} disabled={true} key={uniqueKey + "-language-input"}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "title"]}
+                                                    label={t("EditPage.form.page-versions.title.label")}
+                                                    key={uniqueKey + "title"}
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: t("EditPage.form.page-versions.title.rules.required")
+                                                        },
+                                                        {
+                                                            min: 2,
+                                                            message: t("EditPage.form.page-versions.title.rules.min")
                                                         }
+                                                    ]}
+                                                >
+                                                    <Input type={"text"} key={uniqueKey + "title-input"}
+                                                           placeholder={t("EditPage.form.page-versions.title.placeholder")}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "ingress"]}
+                                                    label={t("EditPage.form.page-versions.ingress.label")}
+                                                    key={uniqueKey + "ingress"}
+                                                >
+                                                    <Input type={"text"} key={uniqueKey + "ingress-input"}
+                                                           placeholder={t("EditPage.form.page-versions.ingress.placeholder")}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "body"]}
+                                                    label={t("EditPage.form.page-versions.body.label")}
+                                                    key={uniqueKey + "body"}
+                                                    rules={[
+                                                        {validator: validatePageEditorContent}
+                                                    ]}
+                                                >
+                                                    <PageBodyEditor key={uniqueKey + "body-editor"}
+                                                                    language={pageData.pageVersions[index].language}
+                                                                    pageId={pageData.pageVersions[index].pageId}
+                                                                    onChange={(data: string) => pageForm.setFieldsValue({"index": {body: data}})}
+                                                                    value={pageForm.getFieldValue(["index", "body"])}
+                                                    />
+                                                </Form.Item>
+                                            </div>);
+                                        })}
+                                    </>
+                                );
+                            }}
+                        </Form.List>
 
-                                                        return (<div key={uniqueKey}>
-                                                            <Form.Item
-                                                                    name={[index, "id"]}
-                                                                    label={"ID"}
-                                                                    key={uniqueKey + "-id"}
-                                                                    hidden={true}
-                                                            >
-                                                                <Input type={"text"} disabled={true} key={uniqueKey + "-id-item"}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    wrapperCol={{offset: 8, span: 12,}}
-                                                                    key={uniqueKey + "-divider"}
-                                                            >
-                                                                <Divider titlePlacement={"left"} orientation={"horizontal"}
-                                                                         key={uniqueKey + "-divider-item"}></Divider>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "readPermission"]}
-                                                                    label={t("EditPage.form.rolePermissions.readPermission.label")}
-                                                                    valuePropName={"checked"}
-                                                                    key={uniqueKey + "-read"}
-                                                                    tooltip={t("EditPage.form.rolePermissions.readPermission.tooltip")}
-                                                                    rules={[
-                                                                        {
-                                                                            required: true,
-                                                                            message: t("EditPage.form.rolePermissions.readPermission.rules.required")
-                                                                        },
-                                                                        {
-                                                                            validator: (rule, value) => validatePermissions(rule, value, index)
-                                                                        }
-                                                                    ]}
-                                                            >
-                                                                <Checkbox style={{lineHeight: "32px"}} key={uniqueKey + "-read-check"}
-                                                                          disabled={isDisabledRole}/>
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "writePermission"]}
-                                                                    label={t("EditPage.form.rolePermissions.writePermission.label")}
-                                                                    valuePropName={"checked"}
-                                                                    key={uniqueKey + "-write"}
-                                                                    tooltip={t("EditPage.form.rolePermissions.writePermission.tooltip")}
-                                                                    dependencies={[index, "role"]}
-                                                                    rules={[
-                                                                        {validator: (rule, value) => validatePermissions(rule, value, index)}
-                                                                    ]}
-                                                            >
-                                                                <Checkbox
-                                                                        style={{lineHeight: "32px"}}
-                                                                        key={uniqueKey + "-write-check"}
-                                                                        disabled={isDisabledRole ||
-                                                                                pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_ANONYMOUS ||
-                                                                                pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_USER}
-                                                                />
-                                                            </Form.Item>
-                                                            <Form.Item
-                                                                    name={[index, "role"]}
-                                                                    label={t("EditPage.form.rolePermissions.role.label")}
-                                                                    key={uniqueKey + "-role"}
-                                                                    tooltip={t("EditPage.form.rolePermissions.role.tooltip")}
-                                                                    rules={[
-                                                                        {
-                                                                            required: true,
-                                                                            message: t("EditPage.form.rolePermissions.role.rules.required")
-                                                                        },
-                                                                        {
-                                                                            validator: (rule, value) => validateRoleDuplicates(rule, value, index)
-                                                                        }
-                                                                    ]}
-                                                            >
-                                                                <Select
-                                                                        options={roleOptions}
-                                                                        key={uniqueKey + "-role-select"}
-                                                                        disabled={isDisabledRole}
-                                                                        onChange={(value: RoleEnum) => {
-                                                                            if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
-                                                                                pageForm.setFieldValue(["rolePermissions", index, "writePermission"], false);
-                                                                            }
-                                                                        }}
-                                                                />
-                                                            </Form.Item>
-                                                            {rolePermissions.length > 1 && !isDisabledRole &&
-                                                                    <Form.Item wrapperCol={{offset: 8, span: 12,}}
-                                                                               key={uniqueKey + "-button"}
-                                                                    >
-                                                                        <Button
-                                                                                danger
-                                                                                onClick={() => remove(rolePermission.name)}
-                                                                                key={uniqueKey + "-button-remove"}
-                                                                        >
-                                                                            {t("common.button.delete")}
-                                                                        </Button>
-                                                                    </Form.Item>}
-                                                        </div>);
-                                                    })}
-                                                    {rolePermissions.length < 4 && <Form.Item wrapperCol={{offset: 8, span: 12,}}>
-                                                        <Button type={"dashed"} onClick={() => add()} block>
-                                                            {t("EditPage.form.button.addPermission")}
+                        <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                 key={"divider-roles"}>{t("EditPage.form.divider.permissions")}</Divider>
+                        <Form.List name={"rolePermissions"}
+                                   key={"page-roles"}
+                        >
+                            {(rolePermissions, {add, remove}) => {
+                                return (
+                                    <>
+                                        {rolePermissions.map((rolePermission, index) => {
+                                            const uniqueKey = `pageRole-${index}`;
+                                            let isDisabledRole = false;
+                                            // This will freeze the role of the user so that it can not be modified
+                                            if (userRole === pageForm.getFieldValue(["rolePermissions", index, "role"])) {
+                                                isDisabledRole = true;
+                                            }
+
+                                            return (<div key={uniqueKey}>
+                                                <Form.Item
+                                                    name={[index, "id"]}
+                                                    label={"ID"}
+                                                    key={uniqueKey + "-id"}
+                                                    hidden={true}
+                                                >
+                                                    <Input type={"text"} disabled={true} key={uniqueKey + "-id-item"}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    wrapperCol={{offset: 8, span: 12}}
+                                                    key={uniqueKey + "-divider"}
+                                                >
+                                                    <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                                             key={uniqueKey + "-divider-item"}></Divider>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "readPermission"]}
+                                                    label={t("EditPage.form.rolePermissions.readPermission.label")}
+                                                    valuePropName={"checked"}
+                                                    key={uniqueKey + "-read"}
+                                                    tooltip={t("EditPage.form.rolePermissions.readPermission.tooltip")}
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: t("EditPage.form.rolePermissions.readPermission.rules.required")
+                                                        },
+                                                        {
+                                                            validator: (rule, value) => validatePermissions(rule, value, index)
+                                                        }
+                                                    ]}
+                                                >
+                                                    <Checkbox style={{lineHeight: "32px"}} key={uniqueKey + "-read-check"}
+                                                              disabled={isDisabledRole}/>
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "writePermission"]}
+                                                    label={t("EditPage.form.rolePermissions.writePermission.label")}
+                                                    valuePropName={"checked"}
+                                                    key={uniqueKey + "-write"}
+                                                    tooltip={t("EditPage.form.rolePermissions.writePermission.tooltip")}
+                                                    dependencies={[index, "role"]}
+                                                    rules={[
+                                                        {validator: (rule, value) => validatePermissions(rule, value, index)}
+                                                    ]}
+                                                >
+                                                    <Checkbox
+                                                        style={{lineHeight: "32px"}}
+                                                        key={uniqueKey + "-write-check"}
+                                                        disabled={isDisabledRole ||
+                                                            pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_ANONYMOUS ||
+                                                            pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_USER}
+                                                    />
+                                                </Form.Item>
+                                                <Form.Item
+                                                    name={[index, "role"]}
+                                                    label={t("EditPage.form.rolePermissions.role.label")}
+                                                    key={uniqueKey + "-role"}
+                                                    tooltip={t("EditPage.form.rolePermissions.role.tooltip")}
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: t("EditPage.form.rolePermissions.role.rules.required")
+                                                        },
+                                                        {
+                                                            validator: (rule, value) => validateRoleDuplicates(rule, value, index)
+                                                        }
+                                                    ]}
+                                                >
+                                                    <Select
+                                                        options={roleOptions}
+                                                        key={uniqueKey + "-role-select"}
+                                                        disabled={isDisabledRole}
+                                                        onChange={(value: RoleEnum) => {
+                                                            if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
+                                                                pageForm.setFieldValue(["rolePermissions", index, "writePermission"], false);
+                                                            }
+                                                        }}
+                                                    />
+                                                </Form.Item>
+                                                {rolePermissions.length > 1 && !isDisabledRole &&
+                                                    <Form.Item wrapperCol={{offset: 8, span: 12}}
+                                                               key={uniqueKey + "-button"}
+                                                    >
+                                                        <Button
+                                                            danger
+                                                            onClick={() => remove(rolePermission.name)}
+                                                            key={uniqueKey + "-button-remove"}
+                                                        >
+                                                            {t("common.button.delete")}
                                                         </Button>
                                                     </Form.Item>}
-                                                </>
-                                        );
-                                    }}
-                                </Form.List>
+                                            </div>);
+                                        })}
+                                        {rolePermissions.length < 4 && <Form.Item wrapperCol={{offset: 8, span: 12}}>
+                                            <Button type={"dashed"} onClick={() => add()} block>
+                                                {t("EditPage.form.button.addPermission")}
+                                            </Button>
+                                        </Form.Item>}
+                                    </>
+                                );
+                            }}
+                        </Form.List>
 
-                                <Divider titlePlacement={"left"} orientation={"horizontal"}
-                                         key={"page-meta-divider"}>{t("EditPage.form.divider.metadata")}</Divider>
-                                <Form.Item
-                                        name={"creator"}
-                                        label={t("EditPage.form.metadata.creator")}
-                                        key={"page-creator"}>
-                                    <Input type={"text"} disabled={true}/>
-                                </Form.Item>
-                                <Form.Item
-                                        name={"createdAt"}
-                                        label={t("EditPage.form.metadata.createdAt")}
-                                        key={"page-createdAt"}>
-                                    <Input type={"text"} disabled={true}/>
-                                </Form.Item>
-                                <Form.Item
-                                        name={"modifier"}
-                                        label={t("EditPage.form.metadata.modifier")}
-                                        key={"page-modifier"}>
-                                    <Input type={"text"} disabled={true}/>
-                                </Form.Item>
-                                <Form.Item
-                                        name={"modifiedAt"}
-                                        label={t("EditPage.form.metadata.modifiedAt")}
-                                        key={"page-modifiedAt"}>
-                                    <Input type={"text"} disabled={true}/>
-                                </Form.Item>
-                                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                                    <Button
-                                            type={"primary"}
-                                            htmlType={"submit"}
-                                            disabled={loading}
-                                    >{sendButtonText}</Button>
-                                    <Button
-                                            type={"default"}
-                                            htmlType={"reset"}
-                                            disabled={loading}
-                                    >{t("common.button.reset")}</Button>
-                                </Space>
-                            </Form>
-                    }
-                </Space>
-            </div>
+                        <Divider titlePlacement={"left"} orientation={"horizontal"}
+                                 key={"page-meta-divider"}>{t("EditPage.form.divider.metadata")}</Divider>
+                        <Form.Item
+                            name={"creator"}
+                            label={t("EditPage.form.metadata.creator")}
+                            key={"page-creator"}>
+                            <Input type={"text"} disabled={true}/>
+                        </Form.Item>
+                        <Form.Item
+                            name={"createdAt"}
+                            label={t("EditPage.form.metadata.createdAt")}
+                            key={"page-createdAt"}>
+                            <Input type={"text"} disabled={true}/>
+                        </Form.Item>
+                        <Form.Item
+                            name={"modifier"}
+                            label={t("EditPage.form.metadata.modifier")}
+                            key={"page-modifier"}>
+                            <Input type={"text"} disabled={true}/>
+                        </Form.Item>
+                        <Form.Item
+                            name={"modifiedAt"}
+                            label={t("EditPage.form.metadata.modifiedAt")}
+                            key={"page-modifiedAt"}>
+                            <Input type={"text"} disabled={true}/>
+                        </Form.Item>
+                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                            <Button
+                                type={"primary"}
+                                htmlType={"submit"}
+                                disabled={loading}
+                            >{sendButtonText}</Button>
+                            <Button
+                                type={"default"}
+                                htmlType={"reset"}
+                                disabled={loading}
+                            >{t("common.button.reset")}</Button>
+                        </Space>
+                    </Form>
+                }
+            </Space>
+        </div>
     );
 }
-

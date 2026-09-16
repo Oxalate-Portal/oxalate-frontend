@@ -17,9 +17,9 @@ jest.mock("../session", () => ({
     useSession: () => ({
         userSession: {accessToken: "token"},
         getPortalConfigurationValue: (_group: string, key: string) =>
-                key === "documents-supported"
-                        ? String(mockSession.documentsSupported)
-                        : String(mockSession.diveFilesSupported)
+            key === "documents-supported"
+                ? String(mockSession.documentsSupported)
+                : String(mockSession.diveFilesSupported)
     })
 }));
 
@@ -36,9 +36,9 @@ jest.mock("antd", () => ({
     Button: ({children}: { children: ReactNode }) => <button>{children}</button>,
     Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (
-            <div data-testid="file-table">
-                {dataSource.map(file => <div key={String(file.id)}>{String(file.filename)}</div>)}
-            </div>
+        <div data-testid="file-table">
+            {dataSource.map(file => <div key={String(file.id)}>{String(file.filename)}</div>)}
+        </div>
     ),
     Typography: {
         Text: ({children}: { children: ReactNode }) => <span>{children}</span>

@@ -43,30 +43,30 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
             } else if (info.file.status === "error") {
                 messageApi.error(`${info.file.name} file upload failed.`);
             }
-        },
+        }
     };
 
     function showExtras() {
         if (deleteCertificate) {
             return (
-                    <Space orientation={"horizontal"} size={12}>
-                        <Button type={"primary"} onClick={() => setEditOpen(true)}>
-                            {t("common.button.update")}
-                        </Button>
-                        <Button danger type={"primary"} onClick={() => deleteCertificate(certificate)}>
-                            {t("common.button.delete")}
-                        </Button>
-                        <div>
-                            <Upload {...uploadProps}>
-                                <Button icon={<UploadOutlined/>}>
-                                    {t("ShowCertificateCard.card.upload-photo")}
-                                </Button>
-                            </Upload>&nbsp;
-                            <Tooltip title={t("ShowCertificateCard.card.upload-photo-tooltip")}>
-                                <QuestionCircleOutlined/>
-                            </Tooltip>
-                        </div>
-                    </Space>
+                <Space orientation={"horizontal"} size={12}>
+                    <Button type={"primary"} onClick={() => setEditOpen(true)}>
+                        {t("common.button.update")}
+                    </Button>
+                    <Button danger type={"primary"} onClick={() => deleteCertificate(certificate)}>
+                        {t("common.button.delete")}
+                    </Button>
+                    <div>
+                        <Upload {...uploadProps}>
+                            <Button icon={<UploadOutlined/>}>
+                                {t("ShowCertificateCard.card.upload-photo")}
+                            </Button>
+                        </Upload>&nbsp;
+                        <Tooltip title={t("ShowCertificateCard.card.upload-photo-tooltip")}>
+                            <QuestionCircleOutlined/>
+                        </Tooltip>
+                    </div>
+                </Space>
             );
         }
 
@@ -76,32 +76,32 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     function removeCertificatePhoto() {
         setLoading(true);
         fileTransferAPI.removeCertificateFile(certificate.id)
-                .then(() => {
-                    messageApi.success(t("ShowCertificateCard.card.remove-photo-success"));
-                    setCertificatePhotoUrl(null);
-                    setRefreshKey((prevKey) => prevKey + 1);
-                })
-                .catch((error) => {
-                    console.error("Error removing certificate photo:", error);
-                    messageApi.error(t("ShowCertificateCard.card.remove-photo-fail"));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then(() => {
+                messageApi.success(t("ShowCertificateCard.card.remove-photo-success"));
+                setCertificatePhotoUrl(null);
+                setRefreshKey((prevKey) => prevKey + 1);
+            })
+            .catch((error) => {
+                console.error("Error removing certificate photo:", error);
+                messageApi.error(t("ShowCertificateCard.card.remove-photo-fail"));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }
 
     // Function to show the certificate photocopy or upload button
     function renderCertificatePhoto() {
         if (certificatePhotoUrl) {
             return (
-                    <ProtectedImage
-                            key={"cert-photo-" + refreshKey}
-                            imageUrl={certificatePhotoUrl}
-                            style={{width: "250px"}}
-                            alt={t("ShowCertificateCard.card.certificatePhoto")}
-                            onRemove={removeCertificatePhoto}
-                            viewOnly={viewOnly}
-                    />
+                <ProtectedImage
+                    key={"cert-photo-" + refreshKey}
+                    imageUrl={certificatePhotoUrl}
+                    style={{width: "250px"}}
+                    alt={t("ShowCertificateCard.card.certificatePhoto")}
+                    onRemove={removeCertificatePhoto}
+                    viewOnly={viewOnly}
+                />
             );
         } else {
             return null;
@@ -109,37 +109,37 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     }
 
     return (
-            <Card
-                    key={certificate.id}
-                    title={t("ShowCertificateCard.card.title") + certificate.certificateName}
-                    style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 800}}
-                    extra={showExtras()}
-            >
-                {contextHolder}
-                <EditCertificate
-                        certificateId={certificate.id}
-                        open={editOpen}
-                        onClose={() => setEditOpen(false)}
-                />
-                <Row gutter={16}>
-                    {/* Left Column: Certificate details */}
-                    <Col span={12}>
-                        <p key={"cert-detail-1"}>{t("ShowCertificateCard.card.organization")}: {certificate.organization}</p>
-                        <p key={"cert-detail-2"}>{t("ShowCertificateCard.card.certification")}: {certificate.certificateName}</p>
-                        <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificateId}</p>
-                        <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diverId}</p>
-                        <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certificationDate.toString()}</p>
-                        {certificate.classificationTitle &&
-                                <p key={"cert-detail-6"}>{t("ShowCertificateCard.card.classification")}: {certificate.classificationTitle}</p>}
-                    </Col>
+        <Card
+            key={certificate.id}
+            title={t("ShowCertificateCard.card.title") + certificate.certificateName}
+            style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: 800}}
+            extra={showExtras()}
+        >
+            {contextHolder}
+            <EditCertificate
+                certificateId={certificate.id}
+                open={editOpen}
+                onClose={() => setEditOpen(false)}
+            />
+            <Row gutter={16}>
+                {/* Left Column: Certificate details */}
+                <Col span={12}>
+                    <p key={"cert-detail-1"}>{t("ShowCertificateCard.card.organization")}: {certificate.organization}</p>
+                    <p key={"cert-detail-2"}>{t("ShowCertificateCard.card.certification")}: {certificate.certificateName}</p>
+                    <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificateId}</p>
+                    <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diverId}</p>
+                    <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certificationDate.toString()}</p>
+                    {certificate.classificationTitle &&
+                        <p key={"cert-detail-6"}>{t("ShowCertificateCard.card.classification")}: {certificate.classificationTitle}</p>}
+                </Col>
 
-                    {/* Right Column: Certificate photocopy or upload button */}
-                    <Col span={12}>
-                        <Spin spinning={loading}>
-                            {renderCertificatePhoto()}
-                        </Spin>
-                    </Col>
-                </Row>
-            </Card>
+                {/* Right Column: Certificate photocopy or upload button */}
+                <Col span={12}>
+                    <Spin spinning={loading}>
+                        {renderCertificatePhoto()}
+                    </Spin>
+                </Col>
+            </Row>
+        </Card>
     );
 }

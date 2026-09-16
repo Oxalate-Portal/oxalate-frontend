@@ -103,118 +103,118 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
     const selectedNotification = notifications[selectedNotificationIndex];
 
     const dropdownContent = (
-            <div style={{width: 350, maxHeight: 400, overflow: "auto", backgroundColor: "#1f1f1f", borderRadius: 8, padding: 8}}>
-                <div style={{padding: "8px 16px", borderBottom: "1px solid #303030"}}>
-                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8}}>
-                        <Typography.Text strong>{t("NotificationDropdown.title")}</Typography.Text>
-                        <Button
-                                size="small"
-                                onClick={() => void handleMarkAllAsRead()}
-                                loading={markingAllAsRead}
-                                disabled={notifications.length === 0}
-                        >
-                            {t("NotificationDropdown.markAllAsRead")}
-                        </Button>
-                    </div>
-                </div>
-                {notifications.length === 0 ? (
-                        <Empty
-                                description={t("NotificationDropdown.noNotifications")}
-                                style={{padding: 24}}
-                        />
-                ) : (
-                        <Spin spinning={loading}>
-                            <Listy
-                                    items={notifications}
-                                    rowKey={(notification) => notification.id}
-                                    itemRender={(notification, index) => (
-                                            <div
-                                                    onClick={() => handleNotificationClick(notification, index)}
-                                                    style={{
-                                                        cursor: "pointer",
-                                                        padding: "12px 16px",
-                                                        borderBottom: "1px solid #303030"
-                                                    }}
-                                                    className="notification-item"
-                                            >
-                                                <Typography.Text strong>{notification.title}</Typography.Text>
-                                                <Space orientation={"vertical"} size={0}>
-                                                    <Typography.Text type="secondary">{truncateMessage(notification.message)}</Typography.Text>
-                                                    <Typography.Text type="secondary" style={{fontSize: 12}}>
-                                                        {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                                    </Typography.Text>
-                                                </Space>
-                                            </div>
-                                    )}
-                            />
-                        </Spin>
-                )}
-                <div style={{padding: "8px 16px", borderTop: "1px solid #303030", textAlign: "center"}}>
-                    <NavLink to="/notifications" onClick={() => setDropdownOpen(false)}>
-                        {t("NotificationDropdown.viewAll")}
-                    </NavLink>
+        <div style={{width: 350, maxHeight: 400, overflow: "auto", backgroundColor: "#1f1f1f", borderRadius: 8, padding: 8}}>
+            <div style={{padding: "8px 16px", borderBottom: "1px solid #303030"}}>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8}}>
+                    <Typography.Text strong>{t("NotificationDropdown.title")}</Typography.Text>
+                    <Button
+                        size="small"
+                        onClick={() => void handleMarkAllAsRead()}
+                        loading={markingAllAsRead}
+                        disabled={notifications.length === 0}
+                    >
+                        {t("NotificationDropdown.markAllAsRead")}
+                    </Button>
                 </div>
             </div>
+            {notifications.length === 0 ? (
+                <Empty
+                    description={t("NotificationDropdown.noNotifications")}
+                    style={{padding: 24}}
+                />
+            ) : (
+                <Spin spinning={loading}>
+                    <Listy
+                        items={notifications}
+                        rowKey={(notification) => notification.id}
+                        itemRender={(notification, index) => (
+                            <div
+                                onClick={() => handleNotificationClick(notification, index)}
+                                style={{
+                                    cursor: "pointer",
+                                    padding: "12px 16px",
+                                    borderBottom: "1px solid #303030"
+                                }}
+                                className="notification-item"
+                            >
+                                <Typography.Text strong>{notification.title}</Typography.Text>
+                                <Space orientation={"vertical"} size={0}>
+                                    <Typography.Text type="secondary">{truncateMessage(notification.message)}</Typography.Text>
+                                    <Typography.Text type="secondary" style={{fontSize: 12}}>
+                                        {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
+                                    </Typography.Text>
+                                </Space>
+                            </div>
+                        )}
+                    />
+                </Spin>
+            )}
+            <div style={{padding: "8px 16px", borderTop: "1px solid #303030", textAlign: "center"}}>
+                <NavLink to="/notifications" onClick={() => setDropdownOpen(false)}>
+                    {t("NotificationDropdown.viewAll")}
+                </NavLink>
+            </div>
+        </div>
     );
 
     return (
-            <>
-                <Dropdown
-                        open={dropdownOpen}
-                        onOpenChange={setDropdownOpen}
-                        popupRender={() => dropdownContent}
-                        trigger={["click"]}
-                        placement="bottomRight"
-                >
-                    <Badge count={notifications.length} size="small" offset={[-5, 5]}>
-                        <BellOutlined
-                                style={{
-                                    fontSize: 20,
-                                    cursor: "pointer",
-                                    color: "#E0E0E0",
-                                    padding: "8px"
-                                }}
-                        />
-                    </Badge>
-                </Dropdown>
+        <>
+            <Dropdown
+                open={dropdownOpen}
+                onOpenChange={setDropdownOpen}
+                popupRender={() => dropdownContent}
+                trigger={["click"]}
+                placement="bottomRight"
+            >
+                <Badge count={notifications.length} size="small" offset={[-5, 5]}>
+                    <BellOutlined
+                        style={{
+                            fontSize: 20,
+                            cursor: "pointer",
+                            color: "#E0E0E0",
+                            padding: "8px"
+                        }}
+                    />
+                </Badge>
+            </Dropdown>
 
-                <Modal
-                        title={selectedNotification?.title}
-                        open={modalOpen}
-                        onCancel={() => setModalOpen(false)}
-                        footer={
-                            <Space>
-                                <Button
-                                        icon={<LeftOutlined/>}
-                                        onClick={handlePreviousNotification}
-                                        disabled={selectedNotificationIndex === 0}
-                                >
-                                    {t("NotificationDropdown.modal.previous")}
-                                </Button>
-                                <Button
-                                        icon={<RightOutlined/>}
-                                        onClick={handleNextNotification}
-                                        disabled={selectedNotificationIndex === notifications.length - 1}
-                                        iconPlacement="end"
-                                >
-                                    {t("NotificationDropdown.modal.next")}
-                                </Button>
-                                <Button type="primary" onClick={() => setModalOpen(false)}>
-                                    {t("NotificationDropdown.modal.close")}
-                                </Button>
-                            </Space>
-                        }
-                        width={600}
-                >
-                    {selectedNotification && (
-                            <Space orientation={"vertical"} style={{width: "100%"}}>
-                                <Typography.Text type="secondary">
-                                    {dayjs(selectedNotification.createdAt).format("YYYY-MM-DD HH:mm")}
-                                </Typography.Text>
-                                <div style={{whiteSpace: "pre-wrap"}}>{selectedNotification.message}</div>
-                            </Space>
-                    )}
-                </Modal>
-            </>
+            <Modal
+                title={selectedNotification?.title}
+                open={modalOpen}
+                onCancel={() => setModalOpen(false)}
+                footer={
+                    <Space>
+                        <Button
+                            icon={<LeftOutlined/>}
+                            onClick={handlePreviousNotification}
+                            disabled={selectedNotificationIndex === 0}
+                        >
+                            {t("NotificationDropdown.modal.previous")}
+                        </Button>
+                        <Button
+                            icon={<RightOutlined/>}
+                            onClick={handleNextNotification}
+                            disabled={selectedNotificationIndex === notifications.length - 1}
+                            iconPlacement="end"
+                        >
+                            {t("NotificationDropdown.modal.next")}
+                        </Button>
+                        <Button type="primary" onClick={() => setModalOpen(false)}>
+                            {t("NotificationDropdown.modal.close")}
+                        </Button>
+                    </Space>
+                }
+                width={600}
+            >
+                {selectedNotification && (
+                    <Space orientation={"vertical"} style={{width: "100%"}}>
+                        <Typography.Text type="secondary">
+                            {dayjs(selectedNotification.createdAt).format("YYYY-MM-DD HH:mm")}
+                        </Typography.Text>
+                        <div style={{whiteSpace: "pre-wrap"}}>{selectedNotification.message}</div>
+                    </Space>
+                )}
+            </Modal>
+        </>
     );
 }

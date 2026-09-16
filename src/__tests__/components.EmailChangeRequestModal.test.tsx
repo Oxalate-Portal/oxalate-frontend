@@ -45,11 +45,11 @@ jest.mock("antd", () => {
             title: ReactNode;
             onCancel: () => void;
         }) => open ? (
-                <div>
-                    <h1>{title}</h1>
-                    <button onClick={onCancel}>modal-cancel</button>
-                    {children}
-                </div>
+            <div>
+                <h1>{title}</h1>
+                <button onClick={onCancel}>modal-cancel</button>
+                {children}
+            </div>
         ) : null,
         Space: ({children}: { children: ReactNode }) => <div>{children}</div>
     };

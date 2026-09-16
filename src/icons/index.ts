@@ -1,1 +1,1 @@
-export {BlogOutlined} from './BlogOutlined';
+export {BlogOutlined} from "./BlogOutlined";

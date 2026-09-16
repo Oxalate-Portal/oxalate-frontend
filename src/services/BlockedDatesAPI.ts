@@ -4,4 +4,4 @@ import type {BlockedDateRequest, BlockedDateResponse} from "../models";
 export class BlockedDatesAPI extends AbstractAPI<BlockedDateRequest, BlockedDateResponse> {
 }
 
-export const blockedDatesAPI = new BlockedDatesAPI('/blocked-dates');
+export const blockedDatesAPI = new BlockedDatesAPI("/blocked-dates");

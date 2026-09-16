@@ -4,13 +4,13 @@ import {runtimeConfig} from "../../runtimeConfig";
 
 export function LoginWithCaptcha() {
     return (
-            <GoogleReCaptchaProvider
-                    reCaptchaKey={runtimeConfig.recaptchaSiteKey}
-                    useEnterprise={false}
-            >
-                <div className={"darkDiv"}>
-                    <Login/>
-                </div>
-            </GoogleReCaptchaProvider>
+        <GoogleReCaptchaProvider
+            reCaptchaKey={runtimeConfig.recaptchaSiteKey}
+            useEnterprise={false}
+        >
+            <div className={"darkDiv"}>
+                <Login/>
+            </div>
+        </GoogleReCaptchaProvider>
     );
 }

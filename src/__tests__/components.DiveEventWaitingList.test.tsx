@@ -119,7 +119,7 @@ jest.mock("antd", () => {
         Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
         Spin: ({children}: { children: ReactNode }) => <div>{children}</div>,
         Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (
-                <div>{dataSource.map((record, index) => <div key={String(record.id ?? index)}>{Object.values(record).map(String).join(" ")}</div>)}</div>
+            <div>{dataSource.map((record, index) => <div key={String(record.id ?? index)}>{Object.values(record).map(String).join(" ")}</div>)}</div>
         ),
         Tooltip: ({children}: { children: ReactNode }) => <>{children}</>
     };
@@ -243,7 +243,7 @@ describe("DiveEvent waiting list button", () => {
                 return "true";
             }
             if (group === PortalConfigGroupEnum.PAYMENT
-                    && (key === "periodical-payment-method-type" || key === "one-time-expiration-type")) {
+                && (key === "periodical-payment-method-type" || key === "one-time-expiration-type")) {
                 return "ENABLED";
             }
             return "false";

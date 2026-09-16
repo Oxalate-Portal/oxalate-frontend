@@ -4,7 +4,7 @@ export class LanguageTool {
         {label: "English 🇬🇧", value: "en"},
         {label: "Svenska 🇸🇪", value: "sv"},
         {label: "Deutsch 🇩🇪", value: "de"},
-        {label: "Español 🇪🇸", value: "es"},
+        {label: "Español 🇪🇸", value: "es"}
     ];
 
     static getLabelByValue(value: string): string {

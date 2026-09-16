@@ -14,9 +14,9 @@ export function AggregateStats() {
 
     useEffect(() => {
         statsAPI.getAggregates()
-                .then(setData)
-                .catch(console.error)
-                .finally(() => setLoading(false));
+            .then(setData)
+            .catch(console.error)
+            .finally(() => setLoading(false));
     }, []);
 
     const totalColumns = [
@@ -43,7 +43,7 @@ export function AggregateStats() {
     ];
 
     const withKeys = (rows: MultiYearValueResponse[] = []) =>
-            rows.map((r, idx) => ({...r, key: `${r.type || "total"}-${r.year}-${idx}`}));
+        rows.map((r, idx) => ({...r, key: `${r.type || "total"}-${r.year}-${idx}`}));
 
     const totalsConfig = (rows: MultiYearValueResponse[] = []) => ({
         data: rows.map(r => ({...r, type: r.type || "total"})),
@@ -77,33 +77,33 @@ export function AggregateStats() {
     }), [data]);
 
     return (
-            <Spin spinning={loading}>
-                <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                        <Card title={t("AggregateStats.card.eventsPerYear")}>
-                            <Table pagination={false} size="small" dataSource={totals.events} columns={totalColumns}/>
-                            <Column {...totalsConfig(data?.eventsPerYear)}/>
-                        </Card>
-                    </Col>
-                    <Col span={12}>
-                        <Card title={t("AggregateStats.card.diversPerYear")}>
-                            <Table pagination={false} size="small" dataSource={totals.divers} columns={totalColumns}/>
-                            <Column {...totalsConfig(data?.diversPerYear)}/>
-                        </Card>
-                    </Col>
-                    <Col span={12}>
-                        <Card title={t("AggregateStats.card.eventsByTypePerYear")}>
-                            <Table pagination={false} size="small" dataSource={typed.eventTypes} columns={eventTypeColumns}/>
-                            <Line {...lineConfig(data?.eventTypesPerYear)}/>
-                        </Card>
-                    </Col>
-                    <Col span={12}>
-                        <Card title={t("AggregateStats.card.diversByTypePerYear")}>
-                            <Table pagination={false} size="small" dataSource={typed.diverTypes} columns={diverTypeColumns}/>
-                            <Line {...lineConfig(data?.diverTypesPerYear)}/>
-                        </Card>
-                    </Col>
-                </Row>
-            </Spin>
+        <Spin spinning={loading}>
+            <Row gutter={[16, 16]}>
+                <Col span={12}>
+                    <Card title={t("AggregateStats.card.eventsPerYear")}>
+                        <Table pagination={false} size="small" dataSource={totals.events} columns={totalColumns}/>
+                        <Column {...totalsConfig(data?.eventsPerYear)}/>
+                    </Card>
+                </Col>
+                <Col span={12}>
+                    <Card title={t("AggregateStats.card.diversPerYear")}>
+                        <Table pagination={false} size="small" dataSource={totals.divers} columns={totalColumns}/>
+                        <Column {...totalsConfig(data?.diversPerYear)}/>
+                    </Card>
+                </Col>
+                <Col span={12}>
+                    <Card title={t("AggregateStats.card.eventsByTypePerYear")}>
+                        <Table pagination={false} size="small" dataSource={typed.eventTypes} columns={eventTypeColumns}/>
+                        <Line {...lineConfig(data?.eventTypesPerYear)}/>
+                    </Card>
+                </Col>
+                <Col span={12}>
+                    <Card title={t("AggregateStats.card.diversByTypePerYear")}>
+                        <Table pagination={false} size="small" dataSource={typed.diverTypes} columns={diverTypeColumns}/>
+                        <Line {...lineConfig(data?.diverTypesPerYear)}/>
+                    </Card>
+                </Col>
+            </Row>
+        </Spin>
     );
 }

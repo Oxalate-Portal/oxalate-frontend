@@ -15,15 +15,15 @@ export function YearlyStats({typeOfStats, headerText}: YearlyStatsProps) {
 
     useEffect(() => {
         statsAPI.getYearlyStatsData(typeOfStats)
-                .then((response) => {
-                    setYearlyData(response);
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setYearlyData(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [typeOfStats]);
 
 
@@ -34,7 +34,7 @@ export function YearlyStats({typeOfStats, headerText}: YearlyStatsProps) {
         seriesField: "type",
         point: {
             size: 5,
-            shape: "diamond",
+            shape: "diamond"
         },
         theme: "dark",
         colorField: "type",
@@ -42,11 +42,11 @@ export function YearlyStats({typeOfStats, headerText}: YearlyStatsProps) {
     };
 
     return (
-            <div>
-                <h5>{headerText}</h5>
-                <Spin spinning={loading}>
-                    <Line {...config} />
-                </Spin>
-            </div>
+        <div>
+            <h5>{headerText}</h5>
+            <Spin spinning={loading}>
+                <Line {...config} />
+            </Spin>
+        </div>
     );
 }

@@ -32,34 +32,34 @@ jest.mock("antd", () => ({
         title: ReactNode;
         onCancel: () => void;
     }) => open ? (
-            <div>
-                <h2>{title}</h2>
-                <button onClick={onCancel}>modal-cancel</button>
-                {children}
-            </div>
+        <div>
+            <h2>{title}</h2>
+            <button onClick={onCancel}>modal-cancel</button>
+            {children}
+        </div>
     ) : null,
     Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Spin: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Tooltip: ({children}: { children: ReactNode }) => <>{children}</>,
     Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (
-            <div>
-                {dataSource.map((record, index) => (
-                        <div key={String(record.id ?? index)}>
-                            {Object.values(record).map((value, valueIndex) => {
-                                if (value === null || value === undefined || typeof value === "object") {
-                                    return null;
-                                }
+        <div>
+            {dataSource.map((record, index) => (
+                <div key={String(record.id ?? index)}>
+                    {Object.values(record).map((value, valueIndex) => {
+                        if (value === null || value === undefined || typeof value === "object") {
+                            return null;
+                        }
 
-                                return <span key={String(record.id ?? index) + "-" + valueIndex}>{String(value)}</span>;
-                            })}
-                        </div>
-                ))}
-            </div>
+                        return <span key={String(record.id ?? index) + "-" + valueIndex}>{String(value)}</span>;
+                    })}
+                </div>
+            ))}
+        </div>
     )
 }));
 
 const mockAdminNotifications = jest.fn(({participantIds}: { participantIds: number[] }) => (
-        <div>admin-notifications-{participantIds.join(",")}</div>
+    <div>admin-notifications-{participantIds.join(",")}</div>
 ));
 
 jest.mock("../tools", () => ({

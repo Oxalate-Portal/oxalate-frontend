@@ -35,9 +35,9 @@ const session = {
     id: 7, username: "ada@example.com", firstName: "Ada", lastName: "Lovelace",
     accessToken: "", roles: [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER], avatarUrl: null,
     approvedTerms: false, healthStatementId: null, language: "en", memberships: [], payments: []
-} as never;
+};
 const sessionHook = {
-    userSession: session, sessionLanguage: "en", organizationName: "Oxalate",
+    userSession: session as typeof session | null, sessionLanguage: "en", organizationName: "Oxalate",
     logoutUser: jest.fn(), loginUser: jest.fn(), refreshUserSession: jest.fn(), setSessionLanguage: jest.fn(),
     getPortalConfigurationValue: jest.fn((group: string, key: string) => {
         if (group === "MEMBERSHIP" && key === "membership-type") return "DURATIONAL";
@@ -103,7 +103,7 @@ const userData = {
         endDate: null,
         created: new Date("2024-01-01")
     }]
-} as never;
+};
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -120,7 +120,7 @@ describe("User and main controls and API outcomes", () => {
         render(wrap(<><FormMemberships membershipList={[
             {...userData.memberships[0], type: MembershipTypeEnum.PERPETUAL},
             {...userData.memberships[0], id: 3, type: MembershipTypeEnum.PERIODICAL, created: new Date("2024-01-01")}
-        ] as never}/><FormPayments userData={userData}/><UserEventList eventType="past" events={[]}/></>));
+        ] as never}/><FormPayments userData={userData as never}/><UserEventList eventType="past" events={[]}/></>));
         expect(screen.getByRole("columnheader", {name: "FormMemberships.table.end-date"})).toBeInTheDocument();
         expect(screen.getByRole("columnheader", {name: "FormatPayments.table.created"})).toBeInTheDocument();
         expect(screen.queryByText("2024-01-01:")).not.toBeInTheDocument();
@@ -247,6 +247,65 @@ describe("User and main controls and API outcomes", () => {
         fireEvent.click(buttons[0]);
         fireEvent.click(buttons[buttons.length - 1]);
         expect(onChange).toHaveBeenCalled();
+    });
+
+    it("covers profile acceptance actions and update failure paths", async () => {
+        (adminUserAPI.findById as jest.Mock).mockResolvedValue(userData);
+        (userAPI.acceptTerms as jest.Mock).mockResolvedValue({});
+        (userAPI.acceptHealthStatement as jest.Mock).mockResolvedValue({});
+        (adminUserAPI.update as jest.Mock).mockRejectedValue(new Error("update failed"));
+        render(<UserProfile/>);
+        await waitFor(() => expect(screen.getByRole("button", {name: "User.button.acceptTerms"})).toBeInTheDocument());
+
+        fireEvent.click(screen.getByRole("button", {name: "User.button.acceptTerms"}));
+        await waitFor(() => expect(screen.getByRole("button", {name: "common.button.confirm"})).toBeInTheDocument());
+        fireEvent.click(screen.getByRole("button", {name: "common.button.confirm"}));
+        await waitFor(() => expect(userAPI.acceptTerms).toHaveBeenCalledWith({confirmationAnswer: true}));
+
+        fireEvent.click(screen.getByRole("button", {name: "User.button.confirmHealthStatement"}));
+        await waitFor(() => expect(screen.getByRole("button", {name: "common.button.confirm"})).toBeInTheDocument());
+        fireEvent.click(screen.getByRole("button", {name: "common.button.confirm"}));
+        expect(sessionHook.refreshUserSession).toHaveBeenCalled();
+
+        fireEvent.click(screen.getByRole("button", {name: "common.button.update"}));
+        await waitFor(() => expect(adminUserAPI.update).toHaveBeenCalled());
+    });
+
+    it("handles profile status failures, confirmation rejection, and avatar synchronization", async () => {
+        const error = jest.spyOn(console, "error").mockImplementation(() => undefined);
+        (adminUserAPI.findById as jest.Mock).mockResolvedValue({...userData, avatarUrl: "/server-avatar.png"});
+        (userAPI.updateUserStatus as jest.Mock).mockRejectedValue(new Error("status failed"));
+        (userAPI.acceptTerms as jest.Mock).mockRejectedValue(new Error("terms failed"));
+        window.confirm = jest.fn().mockReturnValue(true);
+        render(<UserProfile/>);
+        await waitFor(() => expect(screen.getByRole("button", {name: "User.button.lockAccount"})).toBeInTheDocument());
+        expect(sessionHook.refreshUserSession).toHaveBeenCalledWith(expect.objectContaining({avatarUrl: "/server-avatar.png"}));
+
+        fireEvent.click(screen.getByRole("button", {name: "User.button.lockAccount"}));
+        fireEvent.click(screen.getByRole("button", {name: "User.button.anonymizeAccount"}));
+        await waitFor(() => expect(userAPI.updateUserStatus).toHaveBeenCalledTimes(2));
+        expect(sessionHook.logoutUser).toHaveBeenCalled();
+        expect(error).toHaveBeenCalled();
+
+        fireEvent.click(screen.getByRole("button", {name: "User.button.acceptTerms"}));
+        await waitFor(() => expect(screen.getAllByRole("button", {name: "common.button.reject"}).length).toBeGreaterThan(0));
+        fireEvent.click(screen.getAllByRole("button", {name: "common.button.reject"})[0]);
+        fireEvent.click(screen.getByRole("button", {name: "User.button.acceptTerms"}));
+        await waitFor(() => expect(screen.getAllByRole("button", {name: "common.button.confirm"}).length).toBeGreaterThan(0));
+        fireEvent.click(screen.getAllByRole("button", {name: "common.button.confirm"})[0]);
+        await waitFor(() => expect(error).toHaveBeenCalledWith(new Error("terms failed")));
+
+        fireEvent.click(screen.getByRole("button", {name: "User.button.confirmHealthStatement"}));
+        await waitFor(() => expect(screen.getAllByRole("button", {name: "common.button.reject"}).length).toBeGreaterThan(0));
+        fireEvent.click(screen.getAllByRole("button", {name: "common.button.reject"}).at(-1)!);
+    });
+
+    it("reports a missing session while loading the profile", async () => {
+        const error = jest.spyOn(console, "error").mockImplementation(() => undefined);
+        sessionHook.userSession = null;
+        render(<UserProfile/>);
+        await waitFor(() => expect(error).toHaveBeenCalledWith("No userSession found"));
+        sessionHook.userSession = session;
     });
 
     it("covers login states, navigation languages/mobile drawer, captcha wrapper and footer", async () => {

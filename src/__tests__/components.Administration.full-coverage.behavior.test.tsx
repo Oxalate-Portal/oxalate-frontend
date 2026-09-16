@@ -24,7 +24,6 @@ import {
     TimezoneSelector
 } from "../components";
 
-// eslint-disable-next-line no-var
 var api: Record<string, jest.Mock>;
 let configMode = "enabled";
 let routeParam = "1";
@@ -37,6 +36,7 @@ function makeApi(name: string) {
 function service(name: string, methods: string[]) {
     return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
 }
+
 const mockGetPortalConfigurationValue = (_group: string, key: string) =>
         configMode === "disabled" && (key === "membership-type" || key === "documents-supported" || key === "dive-files-supported")
                 ? key === "membership-type" ? "DISABLED" : "false" : key.includes("supported") ? "true" : "YEAR";
@@ -211,9 +211,8 @@ describe("Administration pages", () => {
             {
                 id: 6,
                 groupKey: "FILES",
-                settingKey: "unit",
-                valueType: "enum",
                 settingKey: "membership-type",
+                valueType: "enum",
                 runtimeValue: "USER",
                 defaultValue: "DISABLED",
                 requiredRuntime: false
@@ -452,10 +451,18 @@ describe("Administration pages", () => {
         </>);
         await waitFor(() => expect(api["adminUserAPI.findAll"]).toHaveBeenCalled());
         await flush();
+        api["portalConfigurationAPI.updateConfigurationValue"].mockRejectedValue(new Error("update failed"));
+        fireEvent.click(screen.getAllByText("switch")[0]);
+        fireEvent.click(screen.getAllByText("date")[0]);
+        fireEvent.click(screen.getAllByText("number")[0]);
+        fireEvent.click(screen.getAllByText("radio")[0]);
+        screen.getAllByText("common.button.update").forEach(button => fireEvent.click(button));
         fireEvent.click(screen.getByText("AdminUploads.document.upload.button"));
         fireEvent.click(screen.getByText("common.button.delete"));
         fireEvent.click(screen.getByText("AdminOrgUsers.terms.resetButton"));
         fireEvent.click(screen.getByText("AdminOrgUsers.healthStatement.resetButton"));
+        fireEvent.click(screen.getByText("PortalConfigurations.button.reload"));
+        api["portalConfigurationAPI.reloadPortalConfiguration"].mockRejectedValue(new Error("reload failed"));
         fireEvent.click(screen.getByText("PortalConfigurations.button.reload"));
         fireEvent.click(screen.getAllByText("table-sort")[0]);
         await flush();

@@ -65,8 +65,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             userId: record.userId,
             paymentType: record.paymentType,
             paymentCount: nextPaymentCount,
-            startDate: dayjs(record.startDate).format("YYYY-MM-DD"),
-            endDate: record.endDate === null ? null : dayjs(record.endDate).format("YYYY-MM-DD")
+            startDate: dayjs(record.startDate),
+            endDate: record.endDate === null ? null : dayjs(record.endDate)
         };
 
         paymentAPI.update(paymentRequest)
@@ -147,7 +147,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                     record.name.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: string, record: PaymentVO) => {
                 return (<Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>);
-            },
+            }
         },
         {
             title: t("PaymentListTable.table.paymentDate"),
@@ -160,7 +160,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                 return (
                         <>{dayjs(record.created).format("YYYY-MM-DD HH:mm")}</>
                 );
-            },
+            }
         },
         {
             title: t("PaymentListTable.table.start-date"),
@@ -175,8 +175,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                             {record.startDate !== null
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
-                        </>)
-            },
+                        </>);
+            }
         },
         {
             title: t("PaymentListTable.table.end-date"),
@@ -191,8 +191,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                             {record.endDate !== null
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
-                        </>)
-            },
+                        </>);
+            }
         },
         {
             title: t("PaymentListTable.table.paymentCount"),
@@ -214,7 +214,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                             cursor: "pointer",
                                             border: "none",
                                             background: "transparent",
-                                            color: "green",
+                                            color: "green"
                                         }}
                                         onClick={() => updateCount(record, 1)}
                                 >
@@ -225,7 +225,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                             cursor: "pointer",
                                             border: "none",
                                             background: "transparent",
-                                            color: "red",
+                                            color: "red"
                                         }}
                                         onClick={() => updateCount(record, -1)}
                                 >
@@ -234,8 +234,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                             </>
                     );
                 }
-            },
-        },
+            }
+        }
     ];
 
     return (

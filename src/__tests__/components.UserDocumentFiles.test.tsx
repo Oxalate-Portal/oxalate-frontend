@@ -2,6 +2,7 @@ import {filterDocumentsForCreator, UserDocumentFiles} from "../components";
 import {type DocumentFileResponse, UploadStatusEnum} from "../models";
 import {render} from "@testing-library/react";
 import {fileTransferAPI} from "../services";
+import dayjs from "dayjs";
 
 const translateMock = (key: string) => key;
 
@@ -27,7 +28,7 @@ describe("UserDocumentFiles filtering", () => {
             filechecksum: "x",
             status: UploadStatusEnum.UPLOADED,
             creator: "Doe, Jane",
-            createdAt: new Date("2026-01-01T10:00:00Z"),
+            createdAt: dayjs("2026-01-01T10:00:00Z"),
             url: "/api/files/documents/1"
         },
         {
@@ -38,7 +39,7 @@ describe("UserDocumentFiles filtering", () => {
             filechecksum: "y",
             status: UploadStatusEnum.UPLOADED,
             creator: "Doe, John",
-            createdAt: new Date("2026-01-02T10:00:00Z"),
+            createdAt: dayjs("2026-01-02T10:00:00Z"),
             url: "/api/files/documents/2"
         }
     ];
@@ -68,4 +69,3 @@ describe("UserDocumentFiles feature gating", () => {
         spy.mockRestore();
     });
 });
-

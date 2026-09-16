@@ -47,7 +47,7 @@ export class CKUploadAdapter {
         // Create query parameters
         const params = new URLSearchParams({
             language: this.language,
-            pageId: this.pageId.toString(),
+            pageId: this.pageId.toString()
         });
 
         // Append parameters to URL
@@ -60,8 +60,8 @@ export class CKUploadAdapter {
     }
 
     private _initListeners(
-            resolve: (value: { default: string }) => void,
-            reject: (reason?: string) => void
+        resolve: (value: { default: string }) => void,
+        reject: (reason?: string) => void
     ): void {
         const xhr = this.xhr!;
         const loader = this.loader;

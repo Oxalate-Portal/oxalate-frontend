@@ -46,11 +46,13 @@ export function CommentCanvas({commentId, allowComment, depth = 0}: CommentCanva
 
     return (
             <div className="darkDiv">
-            <Spin spinning={loading}>
-                {comments.length > 0 && comments.map(comment => (
-                        <DisplayCommentThread comment={comment} depth={depth} refreshCommentList={refreshCommentList} key={"comment-canvas-thread-" + commentId + "-" + comment.id}/>))}
-                {allowComment && <CommentEditor parentCommentId={commentId} refreshCommentList={refreshCommentList} key={"comment-canvas-editor-" + commentId}/>}
-            </Spin>
+                <Spin spinning={loading}>
+                    {comments.length > 0 && comments.map(comment => (
+                            <DisplayCommentThread comment={comment} depth={depth} refreshCommentList={refreshCommentList}
+                                                  key={"comment-canvas-thread-" + commentId + "-" + comment.id}/>))}
+                    {allowComment &&
+                            <CommentEditor parentCommentId={commentId} refreshCommentList={refreshCommentList} key={"comment-canvas-editor-" + commentId}/>}
+                </Spin>
             </div>
     );
 }

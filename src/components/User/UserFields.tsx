@@ -20,6 +20,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
         const languages = languageList.map(lang => {
             return {label: LanguageTool.getLabelByValue(lang), value: lang};
         });
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setSupportedLanguages(languages);
     }, [getFrontendConfigurationValue]);
@@ -96,9 +97,9 @@ export function UserFields(props: { userId: number; username: string | null; isO
                     <Input placeholder={t("UserFields.form.lastName.placeholder")}/>
                 </Form.Item>
                 <Form.Item
-                           label={t("UserFields.form.phoneNumber.placeholder")}
-                           tooltip={t("UserFields.form.phoneNumber.tooltip")}
-                           required={true}
+                        label={t("UserFields.form.phoneNumber.placeholder")}
+                        tooltip={t("UserFields.form.phoneNumber.tooltip")}
+                        required={true}
                 >
                     <Space.Compact style={{width: 300}}>
                         <Input value={"+"} disabled style={{width: 48}}/>

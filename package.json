@@ -20,13 +20,14 @@
     "test:debug" : "jest --inspect-brk --runInBand --no-cache",
     "lint" : "eslint src/",
     "lint:fix" : "eslint src/ --fix",
+    "lint:style" : "eslint --no-config-lookup -c eslint.stylistic.config.mjs src/",
+    "lint:style:fix" : "eslint --no-config-lookup -c eslint.stylistic.config.mjs src/ --fix",
+    "typecheck" : "tsc -p tsconfig.app.json --noEmit",
+    "verify:translations" : "node tools/verifyTranslationParity.cjs",
+    "ratchet" : "yarn prebuild && node tools/qualityRatchet.cjs",
+    "ratchet:update" : "node tools/qualityRatchet.cjs --update",
+    "verify" : "yarn lint && yarn verify:translations && yarn ratchet && yarn test:coverage && yarn build:test",
     "preview" : "vite preview"
-  },
-  "eslintConfig" : {
-    "extends" : [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist" : {
     "production" : [
@@ -55,9 +56,9 @@
     "i18next-http-backend" : "^4.0.2",
     "prop-types" : "^15.8.1",
     "qs" : "^6.16.0",
-    "react" : "^19.2.8",
+    "react" : "^19.3.0",
     "react-csv" : "^2.2.2",
-    "react-dom" : "^19.2.8",
+    "react-dom" : "^19.3.0",
     "react-highlight-words" : "^0.21.0",
     "react-i18next" : "^17.0.13",
     "react-router-dom" : "^7.18.3"
@@ -72,30 +73,24 @@
     "@testing-library/user-event" : "^14.6.7",
     "@types/dompurify" : "^3.2.0",
     "@types/jest" : "^30.0.0",
-    "@types/node" : "^26.5.0",
-    "@types/react" : "^19.2.18",
+    "@types/node" : "^26.5.1",
+    "@types/react" : "^19.3.0",
     "@types/react-csv" : "^1.1.10",
-    "@types/react-dom" : "^19.2.7",
+    "@types/react-dom" : "^19.3.0",
     "@types/react-highlight-words" : "^0.20.1",
     "@vitejs/plugin-react" : "^6.1.1",
     "axios-mock-adapter" : "^2.1.0",
     "env-cmd" : "^11.0.0",
     "eslint" : "10.10.0",
-    "eslint-config-prettier" : "^10.1.8",
-    "eslint-plugin-react" : "^7.37.5",
     "eslint-plugin-react-hooks" : "^7.1.1",
-    "eslint-plugin-react-prefer-function-component" : "^5.0.0",
-    "eslint-plugin-react-refresh" : "^0.5.6",
-    "eslint-plugin-spellcheck" : "^0.0.20",
     "globals" : "^17.12.0",
-    "husky" : "^9.1.7",
     "jest" : "^30.5.1",
     "jest-environment-jsdom" : "^30.5.1",
     "translation-check" : "^1.1.1",
     "ts-jest" : "^29.4.12",
     "typescript" : "^6.0.3",
     "typescript-eslint" : "^8.70.0",
-    "vite" : "^8.2.2",
+    "vite" : "^8.3.0",
     "vite-plugin-svgr" : "^5.2.0"
   },
   "repository" : {

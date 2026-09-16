@@ -29,16 +29,19 @@ jest.mock("react-i18next", () => ({
 }));
 
 jest.mock("antd", () => {
-    const FormMock = ({children, onFinish}: { children: ReactNode; onFinish?: (values: { recipients?: number[]; title: string; message: string; sendAll: boolean }) => void }) => {
+    const FormMock = ({children, onFinish}: {
+        children: ReactNode;
+        onFinish?: (values: { recipients?: number[]; title: string; message: string; sendAll: boolean }) => void
+    }) => {
         capturedOnFinish = onFinish || null;
         return <div>{children}</div>;
     };
 
     FormMock.Item = ({
-        children,
-        name,
-        rules
-    }: {
+                         children,
+                         name,
+                         rules
+                     }: {
         children: ReactNode;
         name?: string;
         rules?: Array<Record<string, unknown>>;

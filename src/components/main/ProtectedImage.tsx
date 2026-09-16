@@ -13,16 +13,16 @@ interface ProtectedImageProps {
     viewOnly?: boolean;
 }
 
-export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOnly }: ProtectedImageProps) {
+export function ProtectedImage({imageUrl, alt, style, onRemove, preview, viewOnly}: ProtectedImageProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-    const { userSession } = useSession();
+    const {userSession} = useSession();
 
     useEffect(() => {
         const fetchImage = async () => {
             try {
                 const response = await axios.get(imageUrl, {
                     withCredentials: true,
-                    responseType: "blob", // Important to get the response as a Blob (binary data)
+                    responseType: "blob" // Important to get the response as a Blob (binary data)
                 });
 
                 // Create a local URL for the downloaded file and set it as the source
@@ -42,7 +42,7 @@ export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOn
     }
 
     return (
-            <div style={{ position: "relative", display: "inline-block" }}>
+            <div style={{position: "relative", display: "inline-block"}}>
                 {/* Display the image */}
                 <Image
                         src={imageSrc}
@@ -61,7 +61,7 @@ export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOn
                                     right: 8,
                                     fontSize: "24px",
                                     color: "black",
-                                    cursor: "pointer",
+                                    cursor: "pointer"
                                 }}
                         />
                 )}

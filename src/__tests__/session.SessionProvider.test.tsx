@@ -1,29 +1,29 @@
-import {act} from 'react';
-import {createRoot, type Root} from 'react-dom/client';
-import {SessionProvider, useSession} from '../session';
-import {portalConfigurationAPI} from '../services';
+import {act} from "react";
+import {createRoot, type Root} from "react-dom/client";
+import {SessionProvider, useSession} from "../session";
+import {portalConfigurationAPI} from "../services";
 
 function FrontendConfigProbe() {
     const {getFrontendConfigurationValue, organizationName, portalTimezone, sessionLanguage} = useSession();
 
     return (
-            <div>
-                <div data-testid="enabled-language">{getFrontendConfigurationValue('enabled-language') || 'missing'}</div>
-                <div data-testid="session-language">{sessionLanguage}</div>
-                <div data-testid="organization-name">{organizationName}</div>
-                <div data-testid="portal-timezone">{portalTimezone}</div>
-            </div>
+        <div>
+            <div data-testid="enabled-language">{getFrontendConfigurationValue("enabled-language") || "missing"}</div>
+            <div data-testid="session-language">{sessionLanguage}</div>
+            <div data-testid="organization-name">{organizationName}</div>
+            <div data-testid="portal-timezone">{portalTimezone}</div>
+        </div>
     );
 }
 
-describe('SessionProvider', () => {
+describe("SessionProvider", () => {
     let container: HTMLDivElement;
     let root: Root;
 
     beforeEach(() => {
         localStorage.clear();
         jest.restoreAllMocks();
-        container = document.createElement('div');
+        container = document.createElement("div");
         document.body.appendChild(container);
     });
 
@@ -34,30 +34,30 @@ describe('SessionProvider', () => {
         container.remove();
     });
 
-    it('keeps rendering when frontend configuration payload is not an array', async () => {
-        const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
+    it("keeps rendering when frontend configuration payload is not an array", async () => {
+        const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => undefined);
 
-        jest.spyOn(portalConfigurationAPI, 'getFrontendConfiguration')
-                .mockResolvedValue('malformed frontend configuration response' as unknown as { key: string, value: string }[]);
+        jest.spyOn(portalConfigurationAPI, "getFrontendConfiguration")
+            .mockResolvedValue("malformed frontend configuration response" as unknown as { key: string, value: string }[]);
 
         await act(async () => {
             root = createRoot(container);
             root.render(
-                    <SessionProvider>
-                        <FrontendConfigProbe/>
-                    </SessionProvider>
+                <SessionProvider>
+                    <FrontendConfigProbe/>
+                </SessionProvider>
             );
             await Promise.resolve();
             await Promise.resolve();
         });
 
-        expect(container.querySelector('[data-testid="enabled-language"]')?.textContent).toBe('missing');
-        expect(container.querySelector('[data-testid="session-language"]')?.textContent).toBe('en');
-        expect(container.querySelector('[data-testid="organization-name"]')?.textContent).toBe('Oxalate Portal');
-        expect(container.querySelector('[data-testid="portal-timezone"]')?.textContent).toBe('UTC');
+        expect(container.querySelector('[data-testid="enabled-language"]')?.textContent).toBe("missing");
+        expect(container.querySelector('[data-testid="session-language"]')?.textContent).toBe("en");
+        expect(container.querySelector('[data-testid="organization-name"]')?.textContent).toBe("Oxalate Portal");
+        expect(container.querySelector('[data-testid="portal-timezone"]')?.textContent).toBe("UTC");
         expect(consoleErrorSpy).toHaveBeenCalledWith(
-                'Expected frontend configurations to be an array but received:',
-                'malformed frontend configuration response'
+            "Expected frontend configurations to be an array but received:",
+            "malformed frontend configuration response"
         );
     });
 });

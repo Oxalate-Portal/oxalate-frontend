@@ -58,7 +58,7 @@ export function EditDiveEvent() {
         {value: DiveEventStatusEnum.DRAFTED, label: t("common.dive-event.status.drafted")},
         {value: DiveEventStatusEnum.PUBLISHED, label: t("common.dive-event.status.published")},
         {value: DiveEventStatusEnum.HELD, label: t("common.dive-event.status.held")},
-        {value: DiveEventStatusEnum.CANCELLED, label: t("common.dive-event.status.cancelled")},
+        {value: DiveEventStatusEnum.CANCELLED, label: t("common.dive-event.status.cancelled")}
     ];
 
     const [diveEventForm] = Form.useForm();
@@ -143,6 +143,7 @@ export function EditDiveEvent() {
             };
         }
 
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
         const frontendValues = setFrontendValues();
@@ -198,7 +199,7 @@ export function EditDiveEvent() {
                                     participants: [],
                                     waitingList: [],
                                     status: DiveEventStatusEnum.DRAFTED,
-                                    eventCommentId: 0,
+                                    eventCommentId: 0
                                 }
                         );
                         const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
@@ -226,6 +227,7 @@ export function EditDiveEvent() {
 
         return Promise.resolve();
     }
+
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     function validateSelectedParticipants(_: unknown, _1: number): Promise<void> {
@@ -452,7 +454,7 @@ export function EditDiveEvent() {
                                            }
 
                                            return Promise.reject(new Error(t("EditEvent.form.startTime.rules.validator")));
-                                       },
+                                       }
                                    })
                                ]}
                     >
@@ -513,7 +515,7 @@ export function EditDiveEvent() {
                                label={t("EditEvent.form.participants.label")}
                                tooltip={t("EditEvent.form.participants.tooltip")}
                                rules={[
-                                   {validator: validateSelectedParticipants},
+                                   {validator: validateSelectedParticipants}
                                ]}
                     >
                         <Select
@@ -522,7 +524,7 @@ export function EditDiveEvent() {
                                 placeholder={t("EditEvent.form.participants.placeholder")}
                                 showSearch={{
                                     filterOption: (input, option) =>
-                                        option?.label.toLowerCase().includes(input.toLowerCase()) ?? false
+                                            option?.label.toLowerCase().includes(input.toLowerCase()) ?? false
                                 }}
                                 style={{
                                     width: "100%"

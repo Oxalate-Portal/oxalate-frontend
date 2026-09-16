@@ -3,7 +3,7 @@ import type {PagedRequest, PagedResponse, PageGroupResponse, PageRequest, PageRe
 
 class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
     async getNavigationItems(language: string): Promise<PageGroupResponse[] | void> {
-        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
 
         const response = await this.axiosInstance.get("/navigation-elements?language=" + language);
 
@@ -17,7 +17,7 @@ class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
     }
 
     async getPagedBlogs(pagedRequest: PagedRequest): Promise<PagedResponse<PageResponse>> {
-        this.axiosInstance.defaults.headers.put['Content-Type'] = 'application/json;charset=utf-8';
+        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
         const response = await this.axiosInstance.post<PagedResponse<PageResponse>>("/blogs", pagedRequest);
         return response.data;
     }

@@ -61,9 +61,9 @@ export function BlogMenuItem({blogEnabled}: BlogMenuItemProps) {
     if (loading) {
         children.push({
             label: (
-                    <Spin size="small">
-                        <span style={{marginLeft: 8}}>{t("BlogMenuItem.loading")}</span>
-                    </Spin>
+                <Spin size="small">
+                    <span style={{marginLeft: 8}}>{t("BlogMenuItem.loading")}</span>
+                </Spin>
             ),
             key: "blog-loading",
             disabled: true

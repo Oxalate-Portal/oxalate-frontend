@@ -25,7 +25,7 @@ class AuthAPI {
 
     async login(user: LoginRequest): Promise<UserSessionToken> {
         const response = await this.axiosInstance
-            .post<UserSessionToken>("/login", user, {headers: {'X-Captcha-Token': user.recaptchaToken}});
+            .post<UserSessionToken>("/login", user, {headers: {"X-Captcha-Token": user.recaptchaToken}});
 
         if (response.status === 200 && response.data.id > 0) {
             const session: UserSessionToken = response.data;
@@ -76,4 +76,4 @@ class AuthAPI {
     }
 }
 
-export const authAPI = new AuthAPI('/auth');
+export const authAPI = new AuthAPI("/auth");

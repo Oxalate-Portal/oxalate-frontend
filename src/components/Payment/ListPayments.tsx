@@ -32,8 +32,8 @@ export function ListPayments() {
     }
 
     return (
-            <Spin spinning={false}>
-                <Collapse items={paymentItems}/>
-            </Spin>
+        <Spin spinning={false}>
+            <Collapse items={paymentItems}/>
+        </Spin>
     );
 }

@@ -24,24 +24,46 @@ jobs:
           node-version: '24'
           cache: 'yarn'
 
+      # Corepack honours the packageManager pin in package.json; do not hardcode a version here.
       - name: Set up Yarn
         run: |
           corepack enable
-          corepack prepare yarn@4.13.0 --activate
 
-      - name: Test
+      - name: Install dependencies
         run: |
           yarn install --immutable
-          yarn build:test
-          yarn test --passWithNoTests -- --watchAll=false
-
-      - name: Coverage
-        run: |
-          yarn test:coverage
 
       - name: ESLint
         run: |
           yarn lint
+
+      # Formatting, type errors and inline lint suppressions are ratcheted rather than gated at
+      # zero, because the repository does not conform today. See quality-baseline.json.
+      - name: Quality ratchet
+        run: |
+          yarn ratchet
+
+      - name: Translation parity
+        run: |
+          yarn verify:translations
+
+      # No --passWithNoTests: a run that collects zero tests is a broken run, not a pass.
+      # Coverage thresholds live in jest.config.cjs and fail the job when breached.
+      - name: Test and coverage
+        run: |
+          yarn test:coverage
+
+      - name: Build
+        run: |
+          yarn build:test
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: frontend-coverage-report
+          path: coverage/**
+          if-no-files-found: warn
 
   version-and-upload:
     runs-on: ubuntu-latest
@@ -56,10 +78,10 @@ jobs:
           node-version: '24'
           cache: 'yarn'
 
+      # Corepack honours the packageManager pin in package.json; do not hardcode a version here.
       - name: Set up Yarn
         run: |
           corepack enable
-          corepack prepare yarn@4.13.0 --activate
 
       - name: Get main and base version
         id: basemain

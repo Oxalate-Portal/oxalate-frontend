@@ -34,7 +34,7 @@ const session = {
     id: 7, username: "person@example.com", firstName: "P", lastName: "Person",
     accessToken: "token", roles: ["ROLE_ADMIN"], avatarUrl: null, approvedTerms: false,
     healthStatementId: null, language: "en", memberships: [], payments: []
-} as never;
+};
 const mockGetFrontendConfigurationValue = (key: string) => key === "enabled-language" ? "en,fi" : "3";
 const mockGetPortalConfigurationValue = () => "true";
 const mockLoginUser = jest.fn();

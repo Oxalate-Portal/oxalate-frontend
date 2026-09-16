@@ -62,63 +62,63 @@ export function Login() {
     }
 
     return (
-            <Row justify="center" align="middle" style={{minHeight: "30vh"}}>
-                <Space orientation={"vertical"}>
+        <Row justify="center" align="middle" style={{minHeight: "30vh"}}>
+            <Space orientation={"vertical"}>
 
-                    <Form
-                            name="basic"
-                            labelCol={{span: 12}}
-                            wrapperCol={{span: 16}}
-                            style={{maxWidth: 600}}
-                            initialValues={{remember: true}}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                            autoComplete="off"
+                <Form
+                    name="basic"
+                    labelCol={{span: 12}}
+                    wrapperCol={{span: 16}}
+                    style={{maxWidth: 600}}
+                    initialValues={{remember: true}}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                >
+                    <Form.Item name={"username"}
+                               label={t("Login.form.username.label")}
+                               rules={[
+                                   {
+                                       type: "email",
+                                       message: t("Login.form.username.rules.email")
+                                   },
+                                   {
+                                       required: true,
+                                       message: t("Login.form.username.rules.required")
+                                   }
+                               ]}>
+                        <Input type="text"/>
+                    </Form.Item>
+                    <Form.Item
+                        label={t("Login.form.password.label")}
+                        name="password"
+                        rules={[
+                            {
+                                required: true,
+                                message: t("Login.form.password.rules.required")
+                            }
+                        ]}
                     >
-                        <Form.Item name={"username"}
-                                   label={t("Login.form.username.label")}
-                                   rules={[
-                                       {
-                                           type: "email",
-                                           message: t("Login.form.username.rules.email"),
-                                       },
-                                       {
-                                           required: true,
-                                           message: t("Login.form.username.rules.required")
-                                       },
-                                   ]}>
-                            <Input type="text"/>
-                        </Form.Item>
-                        <Form.Item
-                                label={t("Login.form.password.label")}
-                                name="password"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: t("Login.form.password.rules.required")
-                                    },
-                                ]}
-                        >
-                            <Input.Password/>
-                        </Form.Item>
-                        <Form.Item wrapperCol={{offset: 8, span: 16,}}
-                        >
-                            <Button
-                                    type={"primary"}
-                                    htmlType={"submit"}
-                                    className={"g-recaptcha"}
-                                    disabled={loading}
-                            >
-                                {t("common.button.login")}
-                            </Button>
-                        </Form.Item>
-                    </Form>
-
-                    <p style={{textAlign: "center"}}><Button
-                            onClick={() => navigate("/auth/lost-password")}
+                        <Input.Password/>
+                    </Form.Item>
+                    <Form.Item wrapperCol={{offset: 8, span: 16}}
+                    >
+                        <Button
+                            type={"primary"}
+                            htmlType={"submit"}
+                            className={"g-recaptcha"}
                             disabled={loading}
-                    >
-                        {t("Login.form.button.forgotPassword")}</Button></p>
-                </Space>
-            </Row>);
+                        >
+                            {t("common.button.login")}
+                        </Button>
+                    </Form.Item>
+                </Form>
+
+                <p style={{textAlign: "center"}}><Button
+                    onClick={() => navigate("/auth/lost-password")}
+                    disabled={loading}
+                >
+                    {t("Login.form.button.forgotPassword")}</Button></p>
+            </Space>
+        </Row>);
 }

@@ -76,26 +76,26 @@ export function UserAvatarManager({userId, initialAvatarUrl}: UserAvatarManagerP
     };
 
     return (
-            <Space orientation={"vertical"} size={12} style={{marginBottom: 16}}>
-                {contextHolder}
-                <Space size={16} align={"start"}>
-                    {avatarUrl ? (
-                            <ProtectedImage
-                                    imageUrl={avatarUrl}
-                                    alt={t("UserFiles.avatar.previewAlt")}
-                                    style={{width: 96, borderRadius: "50%"}}
-                                    preview={true}
-                                    viewOnly={true}
-                            />
-                    ) : (
-                            <Avatar size={96} icon={<UserOutlined/>}/>
-                    )}
+        <Space orientation={"vertical"} size={12} style={{marginBottom: 16}}>
+            {contextHolder}
+            <Space size={16} align={"start"}>
+                {avatarUrl ? (
+                    <ProtectedImage
+                        imageUrl={avatarUrl}
+                        alt={t("UserFiles.avatar.previewAlt")}
+                        style={{width: 96, borderRadius: "50%"}}
+                        preview={true}
+                        viewOnly={true}
+                    />
+                ) : (
+                    <Avatar size={96} icon={<UserOutlined/>}/>
+                )}
 
-                    <Upload {...uploadProps}>
-                        <Button icon={<UploadOutlined/>}>{t("UserFiles.avatar.upload.button")}</Button>
-                    </Upload>
-                </Space>
+                <Upload {...uploadProps}>
+                    <Button icon={<UploadOutlined/>}>{t("UserFiles.avatar.upload.button")}</Button>
+                </Upload>
             </Space>
+        </Space>
     );
 }
 

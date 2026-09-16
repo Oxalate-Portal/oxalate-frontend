@@ -30,20 +30,20 @@ export function Blog() {
     const fetchBlogs = useCallback((request: PagedRequest, append: boolean = false) => {
 
         pageAPI.getPagedBlogs(request)
-                .then((response) => {
-                    setPagedResponse(response);
-                    if (append) {
-                        setBlogs(prev => [...prev, ...response.content]);
-                    } else {
-                        setBlogs(response.content);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error fetching blogs:", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setPagedResponse(response);
+                if (append) {
+                    setBlogs(prev => [...prev, ...response.content]);
+                } else {
+                    setBlogs(response.content);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching blogs:", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     useEffect(() => {
@@ -112,51 +112,51 @@ export function Blog() {
     const totalItems = pagedResponse?.total_elements ?? 0;
 
     return (
-            <div className="darkDiv">
-                <Typography.Title level={2}>{t("Blog.title")}</Typography.Title>
+        <div className="darkDiv">
+            <Typography.Title level={2}>{t("Blog.title")}</Typography.Title>
 
-                <BlogControls
-                        sortBy={sortBy}
-                        sortDirection={sortDirection}
-                        searchText={searchText}
-                        caseSensitive={caseSensitive}
-                        onSortByChange={handleSortByChange}
-                        onSortDirectionChange={handleSortDirectionChange}
-                        onSearchChange={handleSearchChange}
-                        onCaseSensitiveChange={handleCaseSensitiveChange}
-                        totalItems={totalItems}
-                />
+            <BlogControls
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                searchText={searchText}
+                caseSensitive={caseSensitive}
+                onSortByChange={handleSortByChange}
+                onSortDirectionChange={handleSortDirectionChange}
+                onSearchChange={handleSearchChange}
+                onCaseSensitiveChange={handleCaseSensitiveChange}
+                totalItems={totalItems}
+            />
 
-                <Spin spinning={loading}>
-                    {blogs.length === 0 && !loading ? (
-                            <Empty description={t("Blog.empty")}/>
-                    ) : (
-                            blogs.map((blog) => (
-                                    <BlogCard
-                                            key={blog.id}
-                                            blog={blog}
-                                            expanded={expandedBlogId === blog.id}
-                                            onClick={() => handleBlogClick(blog.id)}
-                                    />
-                            ))
-                    )}
-                </Spin>
+            <Spin spinning={loading}>
+                {blogs.length === 0 && !loading ? (
+                    <Empty description={t("Blog.empty")}/>
+                ) : (
+                    blogs.map((blog) => (
+                        <BlogCard
+                            key={blog.id}
+                            blog={blog}
+                            expanded={expandedBlogId === blog.id}
+                            onClick={() => handleBlogClick(blog.id)}
+                        />
+                    ))
+                )}
+            </Spin>
 
-                <BlogControls
-                        sortBy={sortBy}
-                        sortDirection={sortDirection}
-                        searchText={searchText}
-                        caseSensitive={caseSensitive}
-                        onSortByChange={handleSortByChange}
-                        onSortDirectionChange={handleSortDirectionChange}
-                        onSearchChange={handleSearchChange}
-                        onCaseSensitiveChange={handleCaseSensitiveChange}
-                        showLoadMore={true}
-                        onLoadMore={handleLoadMore}
-                        loading={loading}
-                        hasMore={hasMore}
-                        totalItems={totalItems}
-                />
-            </div>
+            <BlogControls
+                sortBy={sortBy}
+                sortDirection={sortDirection}
+                searchText={searchText}
+                caseSensitive={caseSensitive}
+                onSortByChange={handleSortByChange}
+                onSortDirectionChange={handleSortDirectionChange}
+                onSearchChange={handleSearchChange}
+                onCaseSensitiveChange={handleCaseSensitiveChange}
+                showLoadMore={true}
+                onLoadMore={handleLoadMore}
+                loading={loading}
+                hasMore={hasMore}
+                totalItems={totalItems}
+            />
+        </div>
     );
 }

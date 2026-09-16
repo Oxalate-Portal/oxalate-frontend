@@ -3,6 +3,7 @@ import type {ReactNode} from "react";
 import {UserDocumentFiles} from "../components";
 import {type DocumentFileResponse, UploadStatusEnum} from "../models";
 import {fileTransferAPI} from "../services";
+import dayjs from "dayjs";
 
 const mockMessage = {success: jest.fn(), error: jest.fn()};
 const mockMessageContext = [mockMessage, <span key="message-holder"/>] as const;
@@ -94,7 +95,7 @@ const documents: DocumentFileResponse[] = [
         filechecksum: "one",
         status: UploadStatusEnum.UPLOADED,
         creator: "Doe, Jane",
-        createdAt: new Date("2026-01-01T10:00:00Z"),
+        createdAt: dayjs("2026-01-01T10:00:00Z"),
         url: "/files/1"
     },
     {
@@ -105,7 +106,7 @@ const documents: DocumentFileResponse[] = [
         filechecksum: "two",
         status: UploadStatusEnum.UPLOADED,
         creator: "Doe, John",
-        createdAt: new Date("2026-01-02T10:00:00Z"),
+        createdAt: dayjs("2026-01-02T10:00:00Z"),
         url: "/files/2"
     }
 ];

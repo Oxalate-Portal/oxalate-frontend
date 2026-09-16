@@ -23,7 +23,7 @@ function checkRoles(haystack: RoleEnum[] | null, needles: RoleEnum[]): boolean {
 }
 
 function getPageGroupTitleByLanguage(language: string, pageGroup: PageGroupResponse) {
-    let returnValue = '';
+    let returnValue = "";
 
     for (let i = 0; i < pageGroup.pageGroupVersions.length; i++) {
         if (pageGroup.pageGroupVersions[i].language === language) {
@@ -36,7 +36,7 @@ function getPageGroupTitleByLanguage(language: string, pageGroup: PageGroupRespo
 }
 
 function getPageTitleByLanguage(language: string, page: PageResponse) {
-    let returnValue = '';
+    let returnValue = "";
 
     for (let i = 0; i < page.pageVersions.length; i++) {
         if (page.pageVersions[i].language === language) {
@@ -74,5 +74,5 @@ export {
     getPageGroupTitleByLanguage,
     getPageTitleByLanguage,
     getHighestRole,
-    isAllowedToEditPage,
+    isAllowedToEditPage
 };

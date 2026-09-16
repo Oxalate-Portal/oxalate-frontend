@@ -13,7 +13,7 @@ export function FormPayments(props: FormatPaymentsProps) {
 
     if (!props.userData || !props.userData.payments || props.userData.payments.length === 0) {
         return (
-                <span>{t("FormatPayments.noValid")}</span>
+            <span>{t("FormatPayments.noValid")}</span>
         );
     }
 
@@ -23,22 +23,22 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.id"),
             dataIndex: "id",
             key: "id",
-            sorter: (a: PaymentResponse, b: PaymentResponse) => a.id - b.id,
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.id - b.id
         },
         {
             title: t("FormatPayments.table.paymentType"),
             dataIndex: "paymentType",
             key: "paymentType",
             render: (type: PaymentTypeEnum, record: PaymentResponse) => paymentTypeEnum2Tag(type, t, record.id),
-            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentType.localeCompare(b.paymentType),
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentType.localeCompare(b.paymentType)
         },
         {
             title: t("FormatPayments.table.paymentCount"),
             dataIndex: "paymentCount",
             key: "paymentCount",
             render: (count: number, record: PaymentResponse) =>
-                    record.paymentType === PaymentTypeEnum.ONE_TIME ? count : "-",
-            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentCount - b.paymentCount,
+                record.paymentType === PaymentTypeEnum.ONE_TIME ? count : "-",
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentCount - b.paymentCount
         },
         {
             title: t("FormatPayments.table.start-date"),
@@ -47,9 +47,9 @@ export function FormPayments(props: FormatPaymentsProps) {
             render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD")}
-                </>)
+                </>);
             },
-            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix(),
+            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix()
         },
         {
             title: t("FormatPayments.table.end-date"),
@@ -57,11 +57,11 @@ export function FormPayments(props: FormatPaymentsProps) {
             key: "endDate",
             render: (date: Date, record: PaymentResponse) => {
                 return (
-                        <>
-                            {record.endDate !== null
-                                    ? dayjs(date).format("YYYY-MM-DD")
-                                    : "-"}
-                        </>)
+                    <>
+                        {record.endDate !== null
+                            ? dayjs(date).format("YYYY-MM-DD")
+                            : "-"}
+                    </>);
             },
             sorter: (a: PaymentResponse, b: PaymentResponse) => {
                 if (a.endDate === null && b.endDate === null) {
@@ -82,24 +82,24 @@ export function FormPayments(props: FormatPaymentsProps) {
             render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD HH:mm")}
-                </>)
+                </>);
             },
-            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.created).unix() - dayjs(b.created).unix(),
-        },
+            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.created).unix() - dayjs(b.created).unix()
+        }
     ];
 
     // Extract payment data
     const dataSource = props.userData.payments.map((payment) => ({
         key: payment.id,
-        ...payment,
+        ...payment
     }));
 
     return (
-            <Table
-                    dataSource={dataSource}
-                    columns={columns}
-                    pagination={false}
-                    bordered={true}
-            />
+        <Table
+            dataSource={dataSource}
+            columns={columns}
+            pagination={false}
+            bordered={true}
+        />
     );
 }

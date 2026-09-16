@@ -59,6 +59,7 @@ export function SessionProvider({children}: SessionProviderProps) {
             }
         };
 
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
         const userData = localStorage.getItem(userKey);
@@ -70,36 +71,36 @@ export function SessionProvider({children}: SessionProviderProps) {
         }
 
         portalConfigurationAPI.getFrontendConfiguration()
-                .then((response) => {
-                    const configurations = normalizeConfigurationArray<FrontendConfigurationResponse>(response, "frontend configurations");
-                    setFrontendConfiguration(configurations);
-                    const languageData = localStorage.getItem(languageKey);
+            .then((response) => {
+                const configurations = normalizeConfigurationArray<FrontendConfigurationResponse>(response, "frontend configurations");
+                setFrontendConfiguration(configurations);
+                const languageData = localStorage.getItem(languageKey);
 
-                    if (languageData) {
-                        setLanguage(languageData);
-                    } else {
-                        const languageConfig = configurations.find((config) => config.key === "default-language");
+                if (languageData) {
+                    setLanguage(languageData);
+                } else {
+                    const languageConfig = configurations.find((config) => config.key === "default-language");
 
-                        if (languageConfig) {
-                            setLanguage(languageConfig.value);
-                            localStorage.setItem(languageKey, languageConfig.value);
-                        }
+                    if (languageConfig) {
+                        setLanguage(languageConfig.value);
+                        localStorage.setItem(languageKey, languageConfig.value);
                     }
+                }
 
-                    if (organizationName === "") {
-                        setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
-                    }
+                if (organizationName === "") {
+                    setOrganizationName(configurations.find((config) => config.key === "org-name")?.value || "Oxalate Portal");
+                }
 
-                    if (portalTimezone === "") {
-                        setPortalTimezone(configurations.find((config) => config.key === "timezone")?.value || "UTC");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Failed to load frontend configurations", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+                if (portalTimezone === "") {
+                    setPortalTimezone(configurations.find((config) => config.key === "timezone")?.value || "UTC");
+                }
+            })
+            .catch((error) => {
+                console.error("Failed to load frontend configurations", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
 
     }, [userKey, languageKey, organizationName, portalTimezone]);
 
@@ -126,19 +127,19 @@ export function SessionProvider({children}: SessionProviderProps) {
             if (configFetchStatus === ActionResultEnum.SUCCESS) {
                 return {
                     status: ActionResultEnum.SUCCESS,
-                    message: "Login successful",
+                    message: "Login successful"
                 };
             } else {
                 return {
                     status: ActionResultEnum.FAILURE,
-                    message: "Login successful, but failed to load portal configurations",
+                    message: "Login successful, but failed to load portal configurations"
                 };
             }
         } catch (error) {
             console.error("Failed to log in user", error);
             return {
                 status: ActionResultEnum.FAILURE,
-                message: "Failed to log in user",
+                message: "Failed to log in user"
             };
         }
     }
@@ -146,16 +147,16 @@ export function SessionProvider({children}: SessionProviderProps) {
     // Function to handle logout
     function logoutUser(): void {
         authAPI.logout()
-                .then(() => {
-                    console.debug("User logged out");
-                })
-                .catch((error) => {
-                    console.error("Failed to log out user", error);
-                })
-                .finally(() => {
-                    setUser(null);
-                    localStorage.removeItem(userKey);
-                });
+            .then(() => {
+                console.debug("User logged out");
+            })
+            .catch((error) => {
+                console.error("Failed to log out user", error);
+            })
+            .finally(() => {
+                setUser(null);
+                localStorage.removeItem(userKey);
+            });
     }
 
     function setSessionLanguage(language: string): void {
@@ -225,8 +226,8 @@ export function SessionProvider({children}: SessionProviderProps) {
     }
 
     return (
-            <SessionContext.Provider value={contextValue}>
-                {children}
-            </SessionContext.Provider>
+        <SessionContext.Provider value={contextValue}>
+            {children}
+        </SessionContext.Provider>
     );
 }

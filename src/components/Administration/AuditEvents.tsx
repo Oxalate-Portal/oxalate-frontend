@@ -25,7 +25,7 @@ export function AuditEvents() {
         total: 0,
         pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
         showSizeChanger: true,
-        hideOnSinglePage: false,
+        hideOnSinglePage: false
     });
 
     const [tableParams, setTableParams] = useState<SortableTableParams>({
@@ -48,74 +48,74 @@ export function AuditEvents() {
     };
     const getColumnSearchProps = (auditEntryKey: AuditEntryIndex): ColumnType<AuditEntryResponse> => ({
         filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters, close}) => (
-                <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
-                    <Input
-                            autoFocus
-                            placeholder={`Search ${auditEntryKey}`}
-                            value={selectedKeys[0]}
-                            onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                            onPressEnter={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
-                            style={{marginBottom: 8, display: "block"}}
-                    />
-                    <Space>
-                        <Button
-                                type={"primary"}
-                                onClick={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
-                                icon={<SearchOutlined/>}
-                                size="small"
-                                style={{width: 90}}
-                        >
-                            Search
-                        </Button>
-                        <Button
-                                onClick={() => clearFilters && handleReset(clearFilters)}
-                                size="small"
-                                style={{width: 90}}
-                        >
-                            Reset
-                        </Button>
-                        <Button
-                                type="link"
-                                size="small"
-                                onClick={() => {
-                                    confirm({closeDropdown: false});
-                                    setFilterText((selectedKeys as string[])[0]);
-                                    setFilteredColumn(auditEntryKey);
-                                }}
-                        >
-                            Filter
-                        </Button>
-                        <Button
-                                type="link"
-                                size="small"
-                                onClick={() => {
-                                    close();
-                                }}
-                        >
-                            close
-                        </Button>
-                    </Space>
-                </div>
+            <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
+                <Input
+                    autoFocus
+                    placeholder={`Search ${auditEntryKey}`}
+                    value={selectedKeys[0]}
+                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+                    onPressEnter={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
+                    style={{marginBottom: 8, display: "block"}}
+                />
+                <Space>
+                    <Button
+                        type={"primary"}
+                        onClick={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
+                        icon={<SearchOutlined/>}
+                        size="small"
+                        style={{width: 90}}
+                    >
+                        Search
+                    </Button>
+                    <Button
+                        onClick={() => clearFilters && handleReset(clearFilters)}
+                        size="small"
+                        style={{width: 90}}
+                    >
+                        Reset
+                    </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            confirm({closeDropdown: false});
+                            setFilterText((selectedKeys as string[])[0]);
+                            setFilteredColumn(auditEntryKey);
+                        }}
+                    >
+                        Filter
+                    </Button>
+                    <Button
+                        type="link"
+                        size="small"
+                        onClick={() => {
+                            close();
+                        }}
+                    >
+                        close
+                    </Button>
+                </Space>
+            </div>
         ),
         filterIcon: (filtered: boolean) => (
-                <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>
+            <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>
         ),
         onFilter: (value, record) =>
-                record[auditEntryKey]
-                        .toString()
-                        .toLowerCase()
-                        .includes((value as string).toLowerCase()),
+            record[auditEntryKey]
+                .toString()
+                .toLowerCase()
+                .includes((value as string).toLowerCase()),
         render: (text) =>
-                filteredColumn === auditEntryKey ? (
-                        <Highlighter
-                                highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
-                                searchWords={[filterText]}
-                                autoEscape
-                                textToHighlight={text ? text.toString() : ""}
-                        />
-                ) : (
-                        text
-                ),
+            filteredColumn === auditEntryKey ? (
+                <Highlighter
+                    highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
+                    searchWords={[filterText]}
+                    autoEscape
+                    textToHighlight={text ? text.toString() : ""}
+                />
+            ) : (
+                text
+            )
     });
 
     const auditColumns: ColumnsType<AuditEntryResponse> = [
@@ -167,9 +167,9 @@ export function AuditEvents() {
                 }
 
                 return (
-                        <Tag color={color} key={level}>
-                            {level}
-                        </Tag>
+                    <Tag color={color} key={level}>
+                        {level}
+                    </Tag>
                 );
             }),
             ...getColumnSearchProps("level")
@@ -208,37 +208,37 @@ export function AuditEvents() {
         }
 
         auditAPI.findPageable(requestParams)
-                .then((response) => {
-                    setAuditEvents(response.content);
+            .then((response) => {
+                setAuditEvents(response.content);
 
-                    const responsePage = response.pageable?.pageNumber ?? response.number ?? response.page ?? 0;
-                    const responsePageSize = response.pageable?.pageSize ?? response.size ?? tablePaginationConfig.pageSize ?? 10;
-                    const responseTotal = response.totalElements ?? response.total_elements ?? response.content.length;
+                const responsePage = response.pageable?.pageNumber ?? response.number ?? response.page ?? 0;
+                const responsePageSize = response.pageable?.pageSize ?? response.size ?? tablePaginationConfig.pageSize ?? 10;
+                const responseTotal = response.totalElements ?? response.total_elements ?? response.content.length;
 
-                    // AntD pagination is 1-based, backend page is 0-based.
-                    const nextPaginationConfig: TablePaginationConfig = {
-                        current: Math.max(1, responsePage + 1),
-                        pageSize: responsePageSize,
-                        defaultPageSize: 10,
-                        total: responseTotal,
-                        pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
-                        showSizeChanger: true,
-                        hideOnSinglePage: false
-                    };
+                // AntD pagination is 1-based, backend page is 0-based.
+                const nextPaginationConfig: TablePaginationConfig = {
+                    current: Math.max(1, responsePage + 1),
+                    pageSize: responsePageSize,
+                    defaultPageSize: 10,
+                    total: responseTotal,
+                    pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
+                    showSizeChanger: true,
+                    hideOnSinglePage: false
+                };
 
-                    setTablePaginationConfig(nextPaginationConfig);
-                    setTableParams((previousParams) => ({
-                        ...previousParams,
-                        pagination: nextPaginationConfig
-                    }));
-                })
-                .catch((error) => {
-                    console.error(error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                    setRefreshDataFromServer(false);
-                });
+                setTablePaginationConfig(nextPaginationConfig);
+                setTableParams((previousParams) => ({
+                    ...previousParams,
+                    pagination: nextPaginationConfig
+                }));
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+            .finally(() => {
+                setLoading(false);
+                setRefreshDataFromServer(false);
+            });
     }, [filteredColumn, refreshDataFromServer, tablePaginationConfig, tableParams.field, tableParams.filter, tableParams.order]);
 
     function handleTableChange(tablePaginationConfig: TablePaginationConfig, filters: Record<string, FilterValue | null>,
@@ -256,7 +256,7 @@ export function AuditEvents() {
             setTableParams({
                 ...tableParams,
                 pagination: safePaginationConfig,
-                filters: filters,
+                filters: filters
             });
         }
 
@@ -292,8 +292,8 @@ export function AuditEvents() {
             filterColumn: dataIndex,
             pagination: {
                 ...tableParams.pagination,
-                current: 1, // Reset the current page to 1
-            },
+                current: 1 // Reset the current page to 1
+            }
         });
         // We need to reset also the tablePaginationConfig.current to 1, otherwise the table will not be updated
         setTablePaginationConfig({

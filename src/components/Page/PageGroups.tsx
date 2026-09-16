@@ -75,40 +75,40 @@ export function PageGroups() {
 
                 return (<Space size={"middle"}>
                     {userSession
-                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN])
-                            && !RESERVED_PAGE_GROUPS.includes(record.id)
-                            && <Link to={"/administration/page-groups/" + record.id}><Button
-                                    type={"primary"}>{t("common.button.update")}</Button></Link>}
+                        && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN])
+                        && !RESERVED_PAGE_GROUPS.includes(record.id)
+                        && <Link to={"/administration/page-groups/" + record.id}><Button
+                            type={"primary"}>{t("common.button.update")}</Button></Link>}
                     {((userSession
-                                            && record.id === RESERVED_PAGE_ID
-                                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))
-                                    || (userSession
-                                            && record.id !== RESERVED_PAGE_ID
-                                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])))
-                            && <Link to={pageLink}><Button>{buttonText}</Button></Link>}
+                                && record.id === RESERVED_PAGE_ID
+                                && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))
+                            || (userSession
+                                && record.id !== RESERVED_PAGE_ID
+                                && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])))
+                        && <Link to={pageLink}><Button>{buttonText}</Button></Link>}
                     {userSession
-                            && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN])
-                            && !RESERVED_PAGE_GROUPS.includes(record.id)
-                            && record.status !== PageStatusEnum.DELETED
-                            && <Button danger type={"primary"} onClick={() => closePageGroup(record.id)}>{t("common.button.close")}</Button>}
+                        && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN])
+                        && !RESERVED_PAGE_GROUPS.includes(record.id)
+                        && record.status !== PageStatusEnum.DELETED
+                        && <Button danger type={"primary"} onClick={() => closePageGroup(record.id)}>{t("common.button.close")}</Button>}
                 </Space>);
-            },
+            }
         }
     ];
 
     useEffect(() => {
         const fetchData = async () => {
             pageGroupMgmtAPI.findAll()
-                    .then(response => {
-                        setPageGroups(response);
-                    })
-                    .catch((error: Error) => {
-                        console.error(error);
-                        messageApi.error(error.message || t("PageGroups.updateStatus.fail"));
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
+                .then(response => {
+                    setPageGroups(response);
+                })
+                .catch((error: Error) => {
+                    console.error(error);
+                    messageApi.error(error.message || t("PageGroups.updateStatus.fail"));
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
         };
 
         fetchData().catch(console.error);
@@ -116,32 +116,32 @@ export function PageGroups() {
 
     function closePageGroup(pageGroupId: number) {
         if (window.confirm(t("PageGroups.deletePath.confirm.1") + pageGroupId + "?\n" +
-                t("PageGroups.deletePath.confirm.2"))) {
+            t("PageGroups.deletePath.confirm.2"))) {
             pageGroupMgmtAPI.delete(pageGroupId)
-                    .then(() => {
-                        messageApi.success(t("PageGroups.updateStatus.removed"));
-                    })
-                    .catch((e: Error) => {
-                        console.error(e);
-                        messageApi.error(e.message || t("PageGroups.updateStatus.fail"));
-                    });
+                .then(() => {
+                    messageApi.success(t("PageGroups.updateStatus.removed"));
+                })
+                .catch((e: Error) => {
+                    console.error(e);
+                    messageApi.error(e.message || t("PageGroups.updateStatus.fail"));
+                });
         }
     }
 
     return (
-            <div className={"darkDiv"}>
-                {contextHolder}
-                <h4>{t("PageGroups.title")}</h4>
+        <div className={"darkDiv"}>
+            {contextHolder}
+            <h4>{t("PageGroups.title")}</h4>
 
-                <Spin spinning={loading}>
-                    {pageGroups && pageGroups.length > 0 &&
-                            <Table dataSource={pageGroups} columns={columns} pagination={false} rowKey="id"/>}
-                </Spin>
-                <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right", margin: 12}}>
-                    {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
-                            <Link to={"/administration/page-groups/0"}><Button
-                                    type={"primary"}>{t("PageGroups.button.addGroup")}</Button></Link>}
-                </Space>
-            </div>
+            <Spin spinning={loading}>
+                {pageGroups && pageGroups.length > 0 &&
+                    <Table dataSource={pageGroups} columns={columns} pagination={false} rowKey="id"/>}
+            </Spin>
+            <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right", margin: 12}}>
+                {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&
+                    <Link to={"/administration/page-groups/0"}><Button
+                        type={"primary"}>{t("PageGroups.button.addGroup")}</Button></Link>}
+            </Space>
+        </div>
     );
 }

@@ -49,8 +49,8 @@ jest.mock("../components", () => {
     return {
         ...actual,
         ...Object.fromEntries(names.map(name => [
-        name,
-        ({registration}: { registration?: boolean }) =>
+            name,
+            ({registration}: { registration?: boolean }) =>
                 <div data-testid={name}>{registration === false ? "terms" : name}</div>
         ])),
         AdminTags: () => <div data-testid="AdminTags"/>,

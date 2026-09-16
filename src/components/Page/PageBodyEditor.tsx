@@ -41,11 +41,11 @@ interface CkLoader {
 }
 
 interface CKEditorInstance {
-    getData(): string;
-
     plugins: {
         get(name: string): { createUploadAdapter: (loader: CkLoader) => CKUploadAdapter };
     };
+
+    getData(): string;
 }
 
 interface PageBodyEditorProps {
@@ -79,7 +79,8 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
                     onChange={contentUpdated}
                     config={{
                         licenseKey: "GPL",
-                        plugins: [Alignment, Bold, FindAndReplace, Italic, Heading, Image, ImageCaption, ImageResize, ImageSizeAttributes, ImageStyle, ImageTextAlternative, ImageToolbar,
+                        plugins: [Alignment, Bold, FindAndReplace, Italic, Heading, Image, ImageCaption, ImageResize, ImageSizeAttributes,
+                            ImageStyle, ImageTextAlternative, ImageToolbar,
                             ImageUpload, Indent, IndentBlock, Link, LinkImage, List, Paragraph, PasteFromOffice, SourceEditing, Table, TableToolbar,
                             TextTransformation, Undo],
                         extraPlugins: [initiateUploadAdapter],
@@ -148,7 +149,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
                                 }
                             ],
                             upload: {
-                                types: ["jpeg", "png", "gif", "webp"],
+                                types: ["jpeg", "png", "gif", "webp"]
                             }
                         }
                     }}

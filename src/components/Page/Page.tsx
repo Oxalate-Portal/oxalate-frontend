@@ -20,12 +20,12 @@ export function Page(pageProps: PageProps = {}) {
 
     useEffect(() => {
         pageAPI.findById(pageId, "language=" + sessionLanguage)
-                .then((response) => {
-                    setPageData(response);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setPageData(response);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [pageId, sessionLanguage]);
 
     return (<div className={"darkDiv"}>
@@ -35,12 +35,12 @@ export function Page(pageProps: PageProps = {}) {
                     {showTitle && <h4 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].title)}}></h4>}
 
                     {showDate &&
-                            <div>{pageData.modifiedAt == null ?
-                                    t("Page.fields.created") + dayjs(pageData.createdAt).format("YYYY.MM.DD HH:mm") :
-                                    t("Page.fields.updated") + dayjs(pageData.modifiedAt).format("YYYY.MM.DD HH:mm")}</div>}
+                        <div>{pageData.modifiedAt == null ?
+                            t("Page.fields.created") + dayjs(pageData.createdAt).format("YYYY.MM.DD HH:mm") :
+                            t("Page.fields.updated") + dayjs(pageData.modifiedAt).format("YYYY.MM.DD HH:mm")}</div>}
 
                     {pageData.pageVersions[0].ingress.length > 0 &&
-                            <p style={{fontWeight: "bold"}} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].ingress)}}/>}
+                        <p style={{fontWeight: "bold"}} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].ingress)}}/>}
 
                     <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].body)}}/>
 

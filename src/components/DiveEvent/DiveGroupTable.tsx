@@ -114,6 +114,7 @@ export function DiveGroupTable({
 
     useEffect(() => {
         // The parent reloads the dive groups after every change, which is an external synchronization
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setOrderedDiveGroups(sortDiveGroupsByOrder(diveGroups));
     }, [diveGroups]);

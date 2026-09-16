@@ -8,20 +8,20 @@ export function MainAdminStatistics() {
     const {t} = useTranslation();
 
     return (
-            <div className={"darkDiv"}>
-                <h4>{t("StatisticsMain.yearlyStats")}</h4>
+        <div className={"darkDiv"}>
+            <h4>{t("StatisticsMain.yearlyStats")}</h4>
 
-                <Space orientation={"vertical"} size={40} style={{width: "100%"}}>
-                    <AggregateStats/>
-                    <YearlyStats typeOfStats={"events"} headerText={t("StatsYearlyEvents.stats.title")}/>
-                    <YearlyStats typeOfStats={"registrations"} headerText={t("StatsYearlyRegistrations.stats.title")}/>
-                    <YearlyStats typeOfStats={"organizers"} headerText={t("StatsOrganizers.stats.title")}/>
-                    <YearlyStats typeOfStats={"payments"} headerText={t("StatsPayments.stats.title")}/>
-                </Space>
+            <Space orientation={"vertical"} size={40} style={{width: "100%"}}>
+                <AggregateStats/>
+                <YearlyStats typeOfStats={"events"} headerText={t("StatsYearlyEvents.stats.title")}/>
+                <YearlyStats typeOfStats={"registrations"} headerText={t("StatsYearlyRegistrations.stats.title")}/>
+                <YearlyStats typeOfStats={"organizers"} headerText={t("StatsOrganizers.stats.title")}/>
+                <YearlyStats typeOfStats={"payments"} headerText={t("StatsPayments.stats.title")}/>
+            </Space>
 
-                <h4>{t("StatisticsMain.reports")}</h4>
+            <h4>{t("StatisticsMain.reports")}</h4>
 
-                <DiveEventReport/>
-            </div>
+            <DiveEventReport/>
+        </div>
     );
 }

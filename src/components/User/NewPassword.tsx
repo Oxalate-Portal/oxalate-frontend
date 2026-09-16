@@ -29,18 +29,18 @@ export function NewPassword() {
         };
 
         authAPI.resetPassword(postData)
-                .catch(e => {
-                    console.error(e);
-                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
-                })
-                .then((response) => {
-                    if (response?.status === UpdateStatusEnum.OK) {
-                        setUpdateStatus({status: UpdateStatusEnum.OK, message: t("NewPassword.setUpdateStatus.update.ok")});
-                    } else {
-                        console.error("Failed to update user, error: " + response?.message);
-                        setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("NewPassword.setUpdateStatus.update.fail")});
-                    }
-                });
+            .catch(e => {
+                console.error(e);
+                setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
+            })
+            .then((response) => {
+                if (response?.status === UpdateStatusEnum.OK) {
+                    setUpdateStatus({status: UpdateStatusEnum.OK, message: t("NewPassword.setUpdateStatus.update.ok")});
+                } else {
+                    console.error("Failed to update user, error: " + response?.message);
+                    setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("NewPassword.setUpdateStatus.update.fail")});
+                }
+            });
         setLoading(false);
     };
 
@@ -51,54 +51,54 @@ export function NewPassword() {
     if (updateStatus.status === UpdateStatusEnum.OK) {
         return (<div className={"darkDiv"}>
             <Alert
-                    type={"success"}
-                    showIcon={true}
-                    title={t("NewPassword.updateStatus.ok.text") + " " + t("NewPassword.updateStatus.ok.button")}
+                type={"success"}
+                showIcon={true}
+                title={t("NewPassword.updateStatus.ok.text") + " " + t("NewPassword.updateStatus.ok.button")}
             />
         </div>);
     } else if (updateStatus.status === UpdateStatusEnum.FAIL) {
         return (<div className={"darkDiv"}>
             <Alert
-                    type={"error"}
-                    showIcon={true}
-                    title={t("NewPassword.updateStatus.fail.text")}
+                type={"error"}
+                showIcon={true}
+                title={t("NewPassword.updateStatus.fail.text")}
             />
             <div>{t("NewPassword.updateStatus.fail.button")}</div>
         </div>);
     }
 
     return (
-            <div className={"darkDiv"}>
-                <Spin spinning={loading}>
-                    <h4>{t("NewPassword.title")}</h4>
+        <div className={"darkDiv"}>
+            <Spin spinning={loading}>
+                <h4>{t("NewPassword.title")}</h4>
 
-                    <PasswordRules/>
+                <PasswordRules/>
 
-                    <Form
-                            form={newPasswordForm}
-                            name={"update-password"}
-                            labelCol={{span: 8}}
-                            wrapperCol={{span: 12}}
-                            style={{maxWidth: 800}}
-                            initialValues={{
-                                oldPassword: "",
-                                newPassword: "",
-                                confirmPassword: ""
-                            }}
-                            onFinish={resetPassword}
-                            onFinishFailed={updatePasswordFailed}
-                            autoComplete={"off"}
-                            scrollToFirstError={true}
-                    >
-                        <PasswordFields/>
-                        <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
-                            <Button
-                                    type={"primary"}
-                                    htmlType={"submit"}
-                                    disabled={loading}
-                            >{t("common.button.update")}</Button>
-                        </Space>
-                    </Form>
-                </Spin>
-            </div>);
+                <Form
+                    form={newPasswordForm}
+                    name={"update-password"}
+                    labelCol={{span: 8}}
+                    wrapperCol={{span: 12}}
+                    style={{maxWidth: 800}}
+                    initialValues={{
+                        oldPassword: "",
+                        newPassword: "",
+                        confirmPassword: ""
+                    }}
+                    onFinish={resetPassword}
+                    onFinishFailed={updatePasswordFailed}
+                    autoComplete={"off"}
+                    scrollToFirstError={true}
+                >
+                    <PasswordFields/>
+                    <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
+                        <Button
+                            type={"primary"}
+                            htmlType={"submit"}
+                            disabled={loading}
+                        >{t("common.button.update")}</Button>
+                    </Space>
+                </Form>
+            </Spin>
+        </div>);
 }

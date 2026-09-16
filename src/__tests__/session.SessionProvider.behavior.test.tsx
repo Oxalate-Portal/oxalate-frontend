@@ -10,8 +10,10 @@ function Probe() {
         <output data-testid="state">{session.userSession?.language || "anonymous"}</output>
         <output data-testid="frontend">{session.getFrontendConfigurationValue("enabled-language")}</output>
         <output data-testid="portal">{session.getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "welcome")}</output>
+        <output data-testid="enum">{session.getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "mode")}</output>
+        <output data-testid="portal-count">{session.getPortalConfiguration().length}</output>
         <output data-testid="timezone">{session.getPortalTimezone()}</output>
-        <button onClick={() => void session.loginUser({username: "user", password: "password"})}>login</button>
+        <button onClick={() => void session.loginUser({username: "user", password: "password", recaptchaToken: null})}>login</button>
         <button onClick={() => session.logoutUser()}>logout</button>
         <button onClick={() => session.setSessionLanguage("sv")}>language</button>
         <button onClick={() => session.refreshUserSession({language: "fi"} as never)}>refresh</button>
@@ -84,5 +86,36 @@ describe("SessionProvider interactions", () => {
         await act(async () => (container.querySelector("button:nth-of-type(2)") as HTMLButtonElement).click());
         expect(localStorage.getItem("user")).toBeNull();
         expect(ActionResultEnum.SUCCESS).toBeDefined();
+    });
+
+    it("uses stored language and enum defaults and handles initialization failures", async () => {
+        localStorage.setItem("language", "sv");
+        localStorage.setItem("user", JSON.stringify({language: "sv", roles: []}));
+        jest.spyOn(portalConfigurationAPI, "getFrontendConfiguration").mockResolvedValue([
+            {key: "default-language", value: "fi"},
+            {key: "org-name", value: "Configured Portal"},
+            {key: "timezone", value: "UTC"}
+        ] as never);
+        jest.spyOn(portalConfigurationAPI, "findAllPortalConfigurations").mockRejectedValue(new Error("portal unavailable"));
+        const warning = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+        await renderProvider();
+        expect(container.querySelector("[data-testid=enum]")?.textContent).toBe("");
+        expect(container.querySelector("[data-testid=portal-count]")?.textContent).toBe("0");
+        expect(localStorage.getItem("language")).toBe("sv");
+        expect(warning).toHaveBeenCalledWith("Failed to fetch portal configurations during initialization");
+    });
+
+    it("reports login configuration failure and clears session when logout fails", async () => {
+        jest.spyOn(authAPI, "login").mockResolvedValue({language: "fi", roles: []} as never);
+        jest.spyOn(authAPI, "logout").mockRejectedValue(new Error("logout unavailable"));
+        jest.spyOn(portalConfigurationAPI, "findAllPortalConfigurations").mockResolvedValue("invalid" as never);
+        const error = jest.spyOn(console, "error").mockImplementation(() => undefined);
+        await renderProvider();
+
+        await act(async () => (container.querySelector("button") as HTMLButtonElement).click());
+        expect(localStorage.getItem("user")).toContain('"language":"fi"');
+        await act(async () => (container.querySelector("button:nth-of-type(2)") as HTMLButtonElement).click());
+        expect(localStorage.getItem("user")).toBeNull();
+        expect(error).toHaveBeenCalledWith("Failed to log out user", expect.any(Error));
     });
 });

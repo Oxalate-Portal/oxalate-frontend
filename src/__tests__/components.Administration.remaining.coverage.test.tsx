@@ -1,4 +1,4 @@
-import React, {type ReactNode} from "react";
+import {type ReactNode} from "react";
 import {act, fireEvent, render, screen, waitFor} from "@testing-library/react";
 import dayjs from "dayjs";
 import {
@@ -24,7 +24,6 @@ import {
     TimezoneSelector
 } from "../components";
 
-// eslint-disable-next-line no-var
 var api: Record<string, jest.Mock>;
 
 function makeApi(name: string) {
@@ -35,6 +34,7 @@ function makeApi(name: string) {
 function service(name: string, methods: string[]) {
     return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
 }
+
 const mockGetPortalConfigurationValue = (_group: string, key: string) => key.includes("supported") ? "true" : "YEAR";
 const mockGetFrontendConfigurationValue = () => "en,fi";
 const mockT = (key: string) => key;
@@ -180,9 +180,8 @@ describe("Administration pages", () => {
             {
                 id: 6,
                 groupKey: "FILES",
-                settingKey: "unit",
-                valueType: "enum",
                 settingKey: "membership-type",
+                valueType: "enum",
                 runtimeValue: "USER",
                 defaultValue: "DISABLED",
                 requiredRuntime: false

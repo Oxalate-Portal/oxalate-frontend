@@ -95,7 +95,7 @@ describe("DiveGroupFileList", () => {
         jest.spyOn(axios, "get").mockResolvedValue({data: new Blob(["image"])});
 
         render(<DiveGroupFileList
-                diveFiles={[diveFile({id: 101, filename: "wreck.png", mimetype: "image/png", url: "http://localhost/api/files/dive-files/101"})]}/>);
+            diveFiles={[diveFile({id: 101, filename: "wreck.png", mimetype: "image/png", url: "http://localhost/api/files/dive-files/101"})]}/>);
 
         await waitFor(() => expect(screen.getByAltText("wreck.png")).toHaveAttribute("src", "blob:dive-file"));
         expect(axios.get).toHaveBeenCalledWith("http://localhost/api/files/dive-files/101", expect.objectContaining({responseType: "blob"}));
@@ -129,13 +129,13 @@ describe("DiveGroupTable group type and dive files", () => {
 
     function renderTable(diveGroups: DiveGroupResponse[]) {
         return render(<DiveGroupTable
-                diveGroups={diveGroups}
-                loading={false}
-                currentUserId={99}
-                canJoinDiveGroup={true}
-                onJoin={onJoin}
-                onLeave={onLeave}
-                onDelete={onDelete}/>);
+            diveGroups={diveGroups}
+            loading={false}
+            currentUserId={99}
+            canJoinDiveGroup={true}
+            onJoin={onJoin}
+            onLeave={onLeave}
+            onDelete={onDelete}/>);
     }
 
     it("renders the group type column for a project group", () => {

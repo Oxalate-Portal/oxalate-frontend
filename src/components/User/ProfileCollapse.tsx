@@ -23,7 +23,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
     const [maxCertificates, setMaxCertificates] = useState<number>(0);
     const {getFrontendConfigurationValue} = useSession();
 
-    const profileItems: CollapseProps['items'] = [
+    const profileItems: CollapseProps["items"] = [
         {
             key: "profile-certificates",
             label: t("UserEvents.profile-certificates-panel.header"),
@@ -56,7 +56,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
             // const diveEventAPI = new DiveEventAPI.DiveEventAPI("/events");
 
             Promise.all([
-                    diveEventAPI.findAllDiveEventListItemsByUser(userId)
+                diveEventAPI.findAllDiveEventListItemsByUser(userId)
             ])
                     .then(([diveResponses]) => {
                         const oldEvents: DiveEventListItemResponse[] = [];
@@ -74,8 +74,8 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
                         setPastEvents(oldEvents);
                         setMaxCertificates(parseInt(getFrontendConfigurationValue("max-certificates")));
                     }).catch(error => {
-                        console.error(error);
-                    })
+                console.error(error);
+            })
                     .finally(() => {
                         setLoading(false);
                     });

@@ -12,40 +12,40 @@ export function CertificateFiles() {
 
     useEffect(() => {
         fileTransferAPI.findAllCertificateFiles()
-                .then((response) => {
-                    setCertificateFiles(response);
-                })
-                .catch((error) => {
-                    console.error("Error fetching certificate files", error);
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setCertificateFiles(response);
+            })
+            .catch((error) => {
+                console.error("Error fetching certificate files", error);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, []);
 
     const columns = [
         {
             title: t("AdminUploads.certificate.certificate-id"),
             dataIndex: "certificateId",
-            key: "certificateId",
+            key: "certificateId"
         },
         ...commonFileColumns(t, {showPreview: true})
     ];
 
     return (
-            <Table
-                    columns={columns}
-                    dataSource={certificateFiles}
-                    rowKey="id"
-                    loading={loading}
-                    bordered
-                    pagination={{
-                        defaultPageSize: 10,
-                        hideOnSinglePage: true,
-                        showSizeChanger: true,
-                        showQuickJumper: true,
-                        pageSizeOptions: ["5", "10", "20", "30", "50"]
-                    }}
-            />
+        <Table
+            columns={columns}
+            dataSource={certificateFiles}
+            rowKey="id"
+            loading={loading}
+            bordered
+            pagination={{
+                defaultPageSize: 10,
+                hideOnSinglePage: true,
+                showSizeChanger: true,
+                showQuickJumper: true,
+                pageSizeOptions: ["5", "10", "20", "30", "50"]
+            }}
+        />
     );
 }

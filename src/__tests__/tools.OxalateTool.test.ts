@@ -10,25 +10,25 @@ import {
 } from "../models";
 import {checkRoles, getHighestRole, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage} from "../tools";
 
-describe('OxalateTool.ts Tests', () => {
-    describe('checkRoles', () => {
+describe("OxalateTool.ts Tests", () => {
+    describe("checkRoles", () => {
         const userRoles = [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_USER];
 
-        it('returns true when user has the required role', () => {
+        it("returns true when user has the required role", () => {
             expect(checkRoles(userRoles, [RoleEnum.ROLE_ADMIN])).toBe(true);
         });
 
-        it('returns false when user does not have the required role', () => {
+        it("returns false when user does not have the required role", () => {
             expect(checkRoles(userRoles, [RoleEnum.ROLE_ORGANIZER])).toBe(false);
         });
 
-        it('returns false when input roles are null', () => {
+        it("returns false when input roles are null", () => {
             expect(checkRoles(null, [RoleEnum.ROLE_USER])).toBe(false);
         });
     });
 
-    describe('getHighestRole', () => {
-        it('returns the highest role from a list', () => {
+    describe("getHighestRole", () => {
+        it("returns the highest role from a list", () => {
             const roles = [RoleEnum.ROLE_USER, RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN];
             const userVO: UserSessionToken = {
                 accessToken: "",
@@ -55,7 +55,7 @@ describe('OxalateTool.ts Tests', () => {
             const top = getHighestRole(userVO);
             expect(top).toBe(RoleEnum.ROLE_ADMIN);
         });
-        it('returns anonymous if no roles exist', () => {
+        it("returns anonymous if no roles exist", () => {
             const userVO: UserSessionToken = {
                 accessToken: "",
                 approvedTerms: false,
@@ -82,7 +82,7 @@ describe('OxalateTool.ts Tests', () => {
         });
     });
 
-    describe('getPageGroupTitleByLanguage', () => {
+    describe("getPageGroupTitleByLanguage", () => {
         const pageGroup: PageGroupResponse = {
             id: 1,
             status: PageStatusEnum.PUBLISHED,
@@ -93,16 +93,16 @@ describe('OxalateTool.ts Tests', () => {
             pages: []
         };
 
-        it('returns matching title when language exists', () => {
+        it("returns matching title when language exists", () => {
             expect(getPageGroupTitleByLanguage("fi", pageGroup)).toBe("Suomenkielinen");
         });
 
-        it('returns empty string when language missing', () => {
+        it("returns empty string when language missing", () => {
             expect(getPageGroupTitleByLanguage("sv", pageGroup)).toBe("");
         });
     });
 
-    describe('getPageTitleByLanguage', () => {
+    describe("getPageTitleByLanguage", () => {
         const page: PageResponse = {
             id: 1,
             pageGroupId: 1,
@@ -118,16 +118,16 @@ describe('OxalateTool.ts Tests', () => {
             modifiedAt: null
         } as const;
 
-        it('returns title for existing language', () => {
+        it("returns title for existing language", () => {
             expect(getPageTitleByLanguage("de", page)).toBe("Seite DE");
         });
 
-        it('returns empty when language not found', () => {
+        it("returns empty when language not found", () => {
             expect(getPageTitleByLanguage("fi", page)).toBe("");
         });
     });
 
-    describe('isAllowedToEditPage', () => {
+    describe("isAllowedToEditPage", () => {
         const pageRoles: RolePermissionResponse[] = [
             {id: 31, pageId: 3, role: RoleEnum.ROLE_ORGANIZER, readPermission: true, writePermission: true},
             {id: 32, pageId: 3, role: RoleEnum.ROLE_USER, readPermission: true, writePermission: false}
@@ -156,17 +156,17 @@ describe('OxalateTool.ts Tests', () => {
             roles: [RoleEnum.ROLE_ORGANIZER]
         };
 
-        it('returns true when session has write permission role', () => {
+        it("returns true when session has write permission role", () => {
             expect(isAllowedToEditPage(baseSession, pageRoles)).toBe(true);
         });
 
-        it('returns false when no write permission exists', () => {
+        it("returns false when no write permission exists", () => {
             const updated = {...baseSession, roles: [RoleEnum.ROLE_USER]};
             expect(isAllowedToEditPage(updated, pageRoles)).toBe(false);
         });
     });
 
-    describe('healthStatementId field', () => {
+    describe("healthStatementId field", () => {
         const createSession = (overrides: Partial<UserSessionToken> = {}): UserSessionToken => ({
             accessToken: "",
             approvedTerms: false,
@@ -191,34 +191,34 @@ describe('OxalateTool.ts Tests', () => {
             ...overrides
         });
 
-        it('can be set to a numeric value', () => {
+        it("can be set to a numeric value", () => {
             const session = createSession({healthStatementId: 42});
             expect(session.healthStatementId).toBe(42);
         });
 
-        it('can be set to null', () => {
+        it("can be set to null", () => {
             const session = createSession({healthStatementId: null});
             expect(session.healthStatementId).toBeNull();
         });
 
-        it('defaults to null in the helper', () => {
+        it("defaults to null in the helper", () => {
             const session = createSession();
             expect(session.healthStatementId).toBeNull();
         });
 
-        it('is preserved when spreading a session', () => {
+        it("is preserved when spreading a session", () => {
             const session = createSession({healthStatementId: 7});
             const copy = {...session};
             expect(copy.healthStatementId).toBe(7);
         });
 
-        it('can be overridden when spreading a session', () => {
+        it("can be overridden when spreading a session", () => {
             const session = createSession({healthStatementId: 7});
             const updated = {...session, healthStatementId: null};
             expect(updated.healthStatementId).toBeNull();
         });
 
-        it('does not affect role resolution', () => {
+        it("does not affect role resolution", () => {
             const withCheck = createSession({healthStatementId: 1, roles: [RoleEnum.ROLE_ADMIN]});
             const withoutCheck = createSession({healthStatementId: null, roles: [RoleEnum.ROLE_ADMIN]});
             expect(getHighestRole(withCheck)).toBe(RoleEnum.ROLE_ADMIN);

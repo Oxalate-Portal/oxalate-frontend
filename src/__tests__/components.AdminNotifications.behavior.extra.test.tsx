@@ -28,7 +28,7 @@ jest.mock("antd", () => {
     Input.TextArea = ({placeholder}: InputProps) => <textarea placeholder={placeholder}/>;
     const Radio = ({children, value, onChange}: ControlProps) => <label><input type="radio" value={value} onChange={onChange}/>{children}</label>;
     Radio.Group = ({children, onChange}: { children: ReactNode; onChange?: ControlProps["onChange"] }) =>
-            <div>{React.Children.map(children, child => React.isValidElement(child) ? React.cloneElement(child, {onChange}) : child)}</div>;
+            <div>{React.Children.map(children, child => React.isValidElement<ControlProps>(child) ? React.cloneElement(child, {onChange}) : child)}</div>;
     return {
         Button: ({children, onClick, htmlType}: { children: ReactNode; onClick?: () => void; htmlType?: string }) =>
                 <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>,

@@ -47,33 +47,33 @@ export function AdminUploads() {
         {
             key: "2",
             label: t("AdminUploads.avatar.tab-title"),
-            children: <AvatarFiles />
+            children: <AvatarFiles/>
         },
         {
             key: "3",
             label: t("AdminUploads.certificate.tab-title"),
-            children: <CertificateFiles />
+            children: <CertificateFiles/>
         },
         {
             key: "4",
             label: t("AdminUploads.dive-file.tab-title"),
-            children: <DiveFiles />
+            children: <DiveFiles/>
         },
         {
             key: "5",
             label: t("AdminUploads.document.tab-title"),
-            children: <DocumentFiles />
+            children: <DocumentFiles/>
         },
         {
             key: "6",
             label: t("AdminUploads.page-file.tab-title"),
-            children: <PageFiles />
+            children: <PageFiles/>
         }
     ];
 
     return (
             <div className={"darkDiv"}>
-                <Tabs defaultActiveKey={"1"} items={items} />
+                <Tabs defaultActiveKey={"1"} items={items}/>
             </div>
     );
 }

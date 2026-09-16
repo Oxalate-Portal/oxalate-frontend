@@ -33,16 +33,16 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
         }
 
         fileTransferAPI.findAllDocuments(userId)
-                .then((response) => {
-                    setDocuments(filterDocumentsForCreator(response, creatorName));
-                })
-                .catch((error) => {
-                    console.error("Error fetching document files", error);
-                    messageApi.error(t("UserFiles.document.fetchFail"));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
+            .then((response) => {
+                setDocuments(filterDocumentsForCreator(response, creatorName));
+            })
+            .catch((error) => {
+                console.error("Error fetching document files", error);
+                messageApi.error(t("UserFiles.document.fetchFail"));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
     }, [creatorName, documentsSupported, messageApi, refreshKey, t, userId]);
 
     const uploadProps: UploadProps = {
@@ -96,7 +96,7 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
                 dataIndex: "url",
                 key: "url",
                 render: (url: string) => (
-                        <a href={url} target="_blank" rel="noreferrer">{t("UserFiles.document.download")}</a>
+                    <a href={url} target="_blank" rel="noreferrer">{t("UserFiles.document.download")}</a>
                 )
             }
         ];
@@ -107,22 +107,22 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
     }
 
     return (
-            <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
-                {contextHolder}
-                <Typography.Title level={5}>{t("UserFiles.document.title")}</Typography.Title>
-                {canUpload && (
-                        <Upload {...uploadProps}>
-                            <Button icon={<UploadOutlined/>}>{t("UserFiles.document.upload.button")}</Button>
-                        </Upload>
-                )}
-                <Table
-                        rowKey="id"
-                        loading={loading}
-                        dataSource={documents}
-                        columns={columns}
-                        pagination={{hideOnSinglePage: true, defaultPageSize: 5}}
-                />
-            </Space>
+        <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
+            {contextHolder}
+            <Typography.Title level={5}>{t("UserFiles.document.title")}</Typography.Title>
+            {canUpload && (
+                <Upload {...uploadProps}>
+                    <Button icon={<UploadOutlined/>}>{t("UserFiles.document.upload.button")}</Button>
+                </Upload>
+            )}
+            <Table
+                rowKey="id"
+                loading={loading}
+                dataSource={documents}
+                columns={columns}
+                pagination={{hideOnSinglePage: true, defaultPageSize: 5}}
+            />
+        </Space>
     );
 }
 

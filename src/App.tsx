@@ -84,7 +84,7 @@ function App() {
         colorMenuItemHoverBg: "#333333",
         colorMenuBackground: "#121212",
         colorMenuItemText: "#E0E0E0",
-        colorMenuItemActiveBg: "#444444",
+        colorMenuItemActiveBg: "#444444"
     };
 
     let membershipType: MembershipTypeEnum = MembershipTypeEnum.DISABLED;
@@ -120,86 +120,86 @@ function App() {
 
     if (userSession && !userSession.approvedTerms) {
         return (
-                <div className="app-container">
-                    <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
-                        <div className="container" style={{marginTop: '50px'}}>
-                            <NavigationBar/>
-                            <Routes>
-                                <Route path="*" element={<Navigate to="/"/>}/>
-                                <Route path="/" element={<Home/>}/>
-                                <Route path="/user" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
-                            </Routes>
-                            {window.location.pathname !== "/user" && <AcceptTerms registration={false}/>}
-                            <OxalateFooter/>
-                        </div>
-                        <AuthVerify logOut={logoutUser}/>
-                    </ConfigProvider>
-                </div>
+            <div className="app-container">
+                <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
+                    <div className="container" style={{marginTop: "50px"}}>
+                        <NavigationBar/>
+                        <Routes>
+                            <Route path="*" element={<Navigate to="/"/>}/>
+                            <Route path="/" element={<Home/>}/>
+                            <Route path="/user" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
+                        </Routes>
+                        {window.location.pathname !== "/user" && <AcceptTerms registration={false}/>}
+                        <OxalateFooter/>
+                    </div>
+                    <AuthVerify logOut={logoutUser}/>
+                </ConfigProvider>
+            </div>
         );
     }
 
 
     return (
-            <div className="app-container">
-                <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
-                    <NavigationBar/>
-                    <div className="container" style={{marginTop: '50px'}}>
-                        <Routes>
-                            <Route path="*" element={<Navigate to="/"/>}/>
-                            <Route path="/" element={<Home/>}/>
-                            <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
-                            <Route path="/administration/blocked-dates" element={<AdminRoute><BlockedDates/></AdminRoute>}/>
-                            <Route path="/administration/comments" element={<AdminRoute><CommentList/></AdminRoute>}/>
-                            <Route path="/administration/portal-configuration" element={<AdminRoute><PortalConfigurations/></AdminRoute>}/>
-                            <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
-                            <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>
-                            <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
-                            {membershipType !== MembershipTypeEnum.DISABLED &&
-                                    <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
-                            {membershipType !== MembershipTypeEnum.DISABLED &&
-                                    <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
-                            {isCommentingEnabled && <Route path="/administration/comment-moderation" element={<AdminRoute><CommentModeration/></AdminRoute>}/>}
-                            <Route path="/administration/notifications" element={<OrganizerRoute><AdminNotifications/></OrganizerRoute>}/>
-                            <Route path="/administration/tokens" element={<AdminRoute><AdminTokens/></AdminRoute>}/>
-                            <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
-                            <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
-                            <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
-                            <Route path="/administration/pages/:paramId" element={<OrganizerRoute><EditPage/></OrganizerRoute>}/>
-                            <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
-                            <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
-                            <Route path="/administration/tag-groups" element={<AdminRoute><AdminTagGroups/></AdminRoute>}/>
-                            <Route path="/administration/tags" element={<AdminRoute><AdminTags/></AdminRoute>}/>
-                            <Route path="/administration/certificate-classifications" element={<AdminRoute><AdminCertificateClassifications/></AdminRoute>}/>
-                            <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
-                            <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
-                            <Route path="/auth/lost-password" element={<LostPassword/>}/>
-                            <Route path="/auth/email-change" element={<EmailChangeConfirmation/>}/>
-                            <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
-                            <Route path="/auth/reconfirm" element={<LostPassword/>}/>
-                            <Route path="/auth/register" element={<Register/>}/>
-                            {blogEnabled && <Route path="/blog" element={<Blog/>}/>}
-                            <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
-                            <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
-                            <Route path="/events/:paramId/set-dives" element={<PrivateRoute><SetDives/></PrivateRoute>}/>
-                            <Route path="/events/:paramId/show" element={<PrivateRoute><ShowDiveEvent/></PrivateRoute>}/>
-                            <Route path="/events/add" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
-                            <Route path="/events/dive-stats" element={<PrivateRoute><YearlyDiveStats/></PrivateRoute>}/>
-                            <Route path="/events/main" element={<PrivateRoute><DiveEvents/></PrivateRoute>}/>
-                            <Route path="/events/past" element={<PrivateRoute><PastDiveEvents/></PrivateRoute>}/>
-                            <Route path="/forum" element={<PrivateRoute><Forum/></PrivateRoute>}/>
-                            <Route path="/login" element={<LoginWithCaptcha/>}/>
-                            <Route path="/notifications" element={<PrivateRoute><NotificationList/></PrivateRoute>}/>
-                            <Route path="/pages/:paramId" element={<Page/>}/>
-                            <Route path="/registration" element={<Registration/>}/>
-                            <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>
-                            <Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>
-                            <Route path="/users/profile" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
-                        </Routes>
-                        <OxalateFooter/>
-                    </div>
-                </ConfigProvider>
-                <AuthVerify logOut={logoutUser}/>
-            </div>
+        <div className="app-container">
+            <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>
+                <NavigationBar/>
+                <div className="container" style={{marginTop: "50px"}}>
+                    <Routes>
+                        <Route path="*" element={<Navigate to="/"/>}/>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/administration/audit" element={<AdminRoute><AuditEvents/></AdminRoute>}/>
+                        <Route path="/administration/blocked-dates" element={<AdminRoute><BlockedDates/></AdminRoute>}/>
+                        <Route path="/administration/comments" element={<AdminRoute><CommentList/></AdminRoute>}/>
+                        <Route path="/administration/portal-configuration" element={<AdminRoute><PortalConfigurations/></AdminRoute>}/>
+                        <Route path="/administration/download" element={<AdminRoute><DownloadData/></AdminRoute>}/>
+                        <Route path="/administration/files" element={<AdminRoute><AdminUploads/></AdminRoute>}/>
+                        <Route path="/administration/main" element={<AdminRoute><AdminMain/></AdminRoute>}/>
+                        {membershipType !== MembershipTypeEnum.DISABLED &&
+                            <Route path="/administration/members" element={<AdminRoute><AdminMemberships/></AdminRoute>}/>}
+                        {membershipType !== MembershipTypeEnum.DISABLED &&
+                            <Route path="/administration/members/:paramId/edit" element={<AdminRoute><AdminMembership/></AdminRoute>}/>}
+                        {isCommentingEnabled && <Route path="/administration/comment-moderation" element={<AdminRoute><CommentModeration/></AdminRoute>}/>}
+                        <Route path="/administration/notifications" element={<OrganizerRoute><AdminNotifications/></OrganizerRoute>}/>
+                        <Route path="/administration/tokens" element={<AdminRoute><AdminTokens/></AdminRoute>}/>
+                        <Route path="/administration/page-groups" element={<OrganizerRoute><PageGroups/></OrganizerRoute>}/>
+                        <Route path="/administration/page-groups/:paramId" element={<OrganizerRoute><EditPageGroup/></OrganizerRoute>}/>
+                        <Route path="/administration/page-groups/:paramId/pages" element={<OrganizerRoute><Pages/></OrganizerRoute>}/>
+                        <Route path="/administration/pages/:paramId" element={<OrganizerRoute><EditPage/></OrganizerRoute>}/>
+                        <Route path="/administration/payments" element={<AdminRoute><Payments/></AdminRoute>}/>
+                        <Route path="/administration/statistics" element={<AdminRoute><MainAdminStatistics/></AdminRoute>}/>
+                        <Route path="/administration/tag-groups" element={<AdminRoute><AdminTagGroups/></AdminRoute>}/>
+                        <Route path="/administration/tags" element={<AdminRoute><AdminTags/></AdminRoute>}/>
+                        <Route path="/administration/certificate-classifications" element={<AdminRoute><AdminCertificateClassifications/></AdminRoute>}/>
+                        <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
+                        <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
+                        <Route path="/auth/lost-password" element={<LostPassword/>}/>
+                        <Route path="/auth/email-change" element={<EmailChangeConfirmation/>}/>
+                        <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
+                        <Route path="/auth/reconfirm" element={<LostPassword/>}/>
+                        <Route path="/auth/register" element={<Register/>}/>
+                        {blogEnabled && <Route path="/blog" element={<Blog/>}/>}
+                        <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
+                        <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
+                        <Route path="/events/:paramId/set-dives" element={<PrivateRoute><SetDives/></PrivateRoute>}/>
+                        <Route path="/events/:paramId/show" element={<PrivateRoute><ShowDiveEvent/></PrivateRoute>}/>
+                        <Route path="/events/add" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>
+                        <Route path="/events/dive-stats" element={<PrivateRoute><YearlyDiveStats/></PrivateRoute>}/>
+                        <Route path="/events/main" element={<PrivateRoute><DiveEvents/></PrivateRoute>}/>
+                        <Route path="/events/past" element={<PrivateRoute><PastDiveEvents/></PrivateRoute>}/>
+                        <Route path="/forum" element={<PrivateRoute><Forum/></PrivateRoute>}/>
+                        <Route path="/login" element={<LoginWithCaptcha/>}/>
+                        <Route path="/notifications" element={<PrivateRoute><NotificationList/></PrivateRoute>}/>
+                        <Route path="/pages/:paramId" element={<Page/>}/>
+                        <Route path="/registration" element={<Registration/>}/>
+                        <Route path="/users/password" element={<PrivateRoute><Password/></PrivateRoute>}/>
+                        <Route path="/users/:paramId/show" element={<OrganizerRoute><ShowUser/></OrganizerRoute>}/>
+                        <Route path="/users/profile" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
+                    </Routes>
+                    <OxalateFooter/>
+                </div>
+            </ConfigProvider>
+            <AuthVerify logOut={logoutUser}/>
+        </div>
     );
 }
 

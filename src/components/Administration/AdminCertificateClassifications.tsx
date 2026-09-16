@@ -41,6 +41,7 @@ export function AdminCertificateClassifications() {
 
     useEffect(() => {
         // Loading is an external synchronization and intentionally starts on mount.
+
         // eslint-disable-next-line react-hooks/set-state-in-effect
         load();
     }, [load]);
@@ -79,7 +80,14 @@ export function AdminCertificateClassifications() {
     const remove = (id: number) => {
         setDeletingId(id);
         certificateClassificationAPI.delete(id)
-                .then(ok => ok ? (message.success(t("AdminCertificateClassifications.popup.remove-success")), load()) : message.error(t("AdminCertificateClassifications.popup.remove-fail")))
+                .then(ok => {
+                    if (ok) {
+                        message.success(t("AdminCertificateClassifications.popup.remove-success"));
+                        load();
+                    } else {
+                        message.error(t("AdminCertificateClassifications.popup.remove-fail"));
+                    }
+                })
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.popup.remove-fail")))
                 .finally(() => setDeletingId(null));
     };
@@ -133,8 +141,10 @@ export function AdminCertificateClassifications() {
             )
         }
         // The handlers intentionally use current form and service state without rebuilding columns.
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    ], [data.length, deletingId, t]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    ], [deletingId, openModal, remove, t]);
 
     const submitAssignment = (values: { certificateId?: number; certificateNames?: string[]; classificationId?: number }) => {
         certificateAPI.updateClassification({
@@ -254,7 +264,8 @@ export function AdminCertificateClassifications() {
                         </Form.Item>
                         <Form.Item name="newValue" label={t("AdminCertificateClassifications.replacement.new")}
                                    rules={[{required: true, message: t("AdminCertificateClassifications.validation.required")}]}><Input/></Form.Item>
-                        <Button htmlType="submit">{t(field === "organization" ? "AdminCertificateClassifications.replacement.organization" : "AdminCertificateClassifications.replacement.certificateName")}</Button>
+                        <Button
+                                htmlType="submit">{t(field === "organization" ? "AdminCertificateClassifications.replacement.organization" : "AdminCertificateClassifications.replacement.certificateName")}</Button>
                     </Form>)}
                 </Space>
             }

@@ -37,7 +37,7 @@ function makeUser(overrides: Partial<ListUserResponse> = {}): ListUserResponse {
         membershipActive: false,
         userType: UserTypeEnum.SCUBA_DIVER,
         tags: [],
-        ...overrides,
+        ...overrides
     };
 }
 
@@ -60,8 +60,8 @@ describe("hasValidPaymentForEvent", () => {
                 startDate: pastDate,
                 endDate: futureDate,
                 created: pastDate,
-                boundEvents: null,
-            }],
+                boundEvents: null
+            }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(true);
     });
@@ -75,8 +75,8 @@ describe("hasValidPaymentForEvent", () => {
                 startDate: pastDate,
                 endDate: pastDate,
                 created: pastDate,
-                boundEvents: null,
-            }],
+                boundEvents: null
+            }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(false);
     });
@@ -90,8 +90,8 @@ describe("hasValidPaymentForEvent", () => {
                 startDate: pastDate,
                 endDate: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: null,
-            }],
+                boundEvents: null
+            }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(true);
     });
@@ -105,8 +105,8 @@ describe("hasValidPaymentForEvent", () => {
                 startDate: pastDate,
                 endDate: dayjs().add(1, "day").add(1, "day"),
                 created: pastDate,
-                boundEvents: null,
-            }],
+                boundEvents: null
+            }]
         });
         expect(() => hasValidPaymentForEvent(user, eventId)).not.toThrow();
         expect(hasValidPaymentForEvent(user, eventId)).toBe(false);
@@ -121,8 +121,8 @@ describe("hasValidPaymentForEvent", () => {
                 startDate: pastDate,
                 endDate: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: [eventId, 999],
-            }],
+                boundEvents: [eventId, 999]
+            }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(true);
     });
@@ -136,8 +136,8 @@ describe("hasValidPaymentForEvent", () => {
                 startDate: pastDate,
                 endDate: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: [999],
-            }],
+                boundEvents: [999]
+            }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(false);
     });
@@ -160,9 +160,9 @@ describe("buildParticipantOptions", () => {
             startDate: pastDate,
             endDate: dayjs().add(1, "day"),
             created: pastDate,
-            boundEvents: null,
+            boundEvents: null
         }],
-        membershipActive: false,
+        membershipActive: false
     });
 
     // Participant with exhausted payments: paymentCount=0, boundEvents=null.
@@ -190,9 +190,9 @@ describe("buildParticipantOptions", () => {
                 endDate: dayjs().add(1, "day"),
                 created: pastDate,
                 boundEvents: null
-            },
+            }
         ],
-        membershipActive: false,
+        membershipActive: false
     });
 
     // --- Label format ---

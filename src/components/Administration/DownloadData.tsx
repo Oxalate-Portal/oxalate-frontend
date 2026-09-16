@@ -62,7 +62,7 @@ function DownloadData() {
                     {label: "Max depth", key: "maxDepth"},
                     {label: "Max participants", key: "maxParticipants"},
                     {label: "Organizer, last name", key: "organizer.lastName"},
-                    {label: "Organizer, first name", key: "organizer.firstName"},
+                    {label: "Organizer, first name", key: "organizer.firstName"}
                 ]);
                 downloadData(() => diveEventAPI.findAllPastDiveEvents(), "dive-events");
                 break;
@@ -80,7 +80,7 @@ function DownloadData() {
                     {label: "Privacy", key: "privacy"},
                     {label: "Next of kin", key: "nextOfKin"},
                     {label: "Dive count", key: "diveCount"},
-                    {label: "Approved terms", key: "approvedTerms"},
+                    {label: "Approved terms", key: "approvedTerms"}
                 ]);
                 downloadData(() => userAPI.findAll(), "members");
                 break;
@@ -149,4 +149,4 @@ function DownloadData() {
     );
 }
 
-export { DownloadData };
+export {DownloadData};

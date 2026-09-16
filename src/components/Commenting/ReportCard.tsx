@@ -52,8 +52,8 @@ export function ReportCard({report, refreshModerationList}: ReportCardProps) {
     return (
             <Spin spinning={loading}>
                 {contextHolder}
-                <Card size="small" style={{ marginBottom: 10 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <Card size="small" style={{marginBottom: 10}}>
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <div>
                             <p><strong>{t("ReportCard.field.reporter")}:</strong> {report.reporter} (ID: {report.reporterId})</p>
                             <p><strong>{t("ReportCard.field.reason")}:</strong> {report.reason}</p>
