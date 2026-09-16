@@ -61,7 +61,7 @@ export function AddPayments() {
 
     const paymentTypes = [
         {id: PaymentTypeEnum.ONE_TIME, name: t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME)},
-        {id: PaymentTypeEnum.PERIODICAL, name: t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL)},
+        {id: PaymentTypeEnum.PERIODICAL, name: t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL)}
     ];
 
     useEffect(() => {
@@ -111,12 +111,12 @@ export function AddPayments() {
 
         const [start, end] = values.dateRange || [];
 
-        let fallbackStart = defaultPeriodPaymentPeriod.startDate.format("YYYY-MM-DD") || "";
-        let fallbackEnd = defaultPeriodPaymentPeriod.endDate?.format("YYYY-MM-DD") || "";
+        let fallbackStart = defaultPeriodPaymentPeriod.startDate;
+        let fallbackEnd = defaultPeriodPaymentPeriod.endDate;
 
         if (paymentType === PaymentTypeEnum.ONE_TIME) {
-            fallbackStart = defaultOneTimePaymentPeriod.startDate?.format("YYYY-MM-DD") || "";
-            fallbackEnd = defaultOneTimePaymentPeriod.endDate?.format("YYYY-MM-DD") || "";
+            fallbackStart = defaultOneTimePaymentPeriod.startDate;
+            fallbackEnd = defaultOneTimePaymentPeriod.endDate;
         }
 
         const postData: PaymentRequest = {
@@ -124,8 +124,8 @@ export function AddPayments() {
             userId: 0,
             paymentType: values.paymentType,
             paymentCount: values.paymentCount,
-            startDate: start ? start.format("YYYY-MM-DD") : fallbackStart,
-            endDate: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : (end ? end.format("YYYY-MM-DD") : fallbackEnd)
+            startDate: start ?? fallbackStart,
+            endDate: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : (end ?? fallbackEnd)
         };
 
         const requests = values.userIdList.map((userId) => ({...postData, userId}));
@@ -199,7 +199,7 @@ export function AddPayments() {
                                 optionLabelProp={"name"}
                                 options={users.map((item) => ({
                                     id: item.id,
-                                    name: `${item.name} (${item.id})`,
+                                    name: `${item.name} (${item.id})`
                                 }))}
                                 placeholder={t("AddPayments.form.name.placeholder")}
                                 showSearch={{optionFilterProp: "name"}}

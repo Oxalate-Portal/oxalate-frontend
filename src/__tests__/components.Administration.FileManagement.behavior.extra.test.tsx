@@ -26,7 +26,6 @@ import {
     TimezoneSelector
 } from "../components";
 
-// eslint-disable-next-line no-var
 var api: Record<string, jest.Mock>;
 let mockRolesAllowed = false;
 
@@ -38,6 +37,7 @@ function makeApi(name: string) {
 function service(name: string, methods: string[]) {
     return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
 }
+
 const mockGetPortalConfigurationValue = (_group: string, key: string) => key.includes("supported") ? "true" : "YEAR";
 const mockGetFrontendConfigurationValue = () => "en,fi";
 const mockT = (key: string) => key;
@@ -186,9 +186,8 @@ describe("Administration pages", () => {
             {
                 id: 6,
                 groupKey: "FILES",
-                settingKey: "unit",
-                valueType: "enum",
                 settingKey: "membership-type",
+                valueType: "enum",
                 runtimeValue: "USER",
                 defaultValue: "DISABLED",
                 requiredRuntime: false
@@ -326,13 +325,13 @@ describe("Administration pages", () => {
 
         const columns = commonFileColumns(mockT as never);
         expect(columns).toHaveLength(6);
-        expect(columns[1].render?.(2048, {} as never)).toBeTruthy();
-        expect(columns[5].render?.("/preview", {} as never)).toBeTruthy();
+        expect(columns[1].render?.(2048, {} as never, 0)).toBeTruthy();
+        expect(columns[5].render?.("/preview", {} as never, 0)).toBeTruthy();
         const actions = createActionColumn(mockT as never, {
             onEdit: jest.fn(),
             onDelete: jest.fn()
         });
-        const action = actions[0].render?.(undefined, {id: 9} as never);
+        const action = actions[0].render?.(undefined, {id: 9} as never, 0);
         expect(action).toBeTruthy();
     });
 });

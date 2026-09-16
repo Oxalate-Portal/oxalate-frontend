@@ -53,7 +53,9 @@ jest.mock("antd", () => {
     const List = ({dataSource, renderItem}: { dataSource: never[]; renderItem: (item: never, index: number) => ReactNode }) =>
             <div>{dataSource.map((item, index) => renderItem(item, index))}</div>;
     List.Item = ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <div onClick={onClick}>{children}</div>;
-    List.Item.Meta = ({title, description}: { title: ReactNode; description: ReactNode }) => <div>{title}{description}</div>;
+    (List.Item as typeof List.Item & {
+        Meta: (props: { title: ReactNode; description: ReactNode }) => ReactNode
+    }).Meta = ({title, description}) => <div>{title}{description}</div>;
     const Listy = ({items = [], itemRender}: { items?: never[]; itemRender: (item: never, index: number) => ReactNode }) =>
             <div>{items.map((item, index) => itemRender(item, index))}</div>;
     return {
@@ -68,12 +70,12 @@ jest.mock("antd", () => {
 beforeEach(() => {
     jest.clearAllMocks();
     formFinish = undefined;
-    mockApi.notificationAPI.getUnreadNotifications.mockResolvedValue([]);
-    mockApi.notificationAPI.markNotificationsAsRead.mockResolvedValue({});
-    mockApi.notificationAPI.createBulkNotifications.mockResolvedValue({status: UpdateStatusEnum.OK});
-    mockApi.userAPI.findByRole.mockResolvedValue([{id: 4, name: "Diver"}]);
-    mockApi.commentAPI.rejectComment.mockResolvedValue({});
-    mockApi.commentAPI.rejectReports.mockResolvedValue({});
+    (mockApi.notificationAPI.getUnreadNotifications as jest.Mock).mockResolvedValue([]);
+    (mockApi.notificationAPI.markNotificationsAsRead as jest.Mock).mockResolvedValue({});
+    (mockApi.notificationAPI.createBulkNotifications as jest.Mock).mockResolvedValue({status: UpdateStatusEnum.OK});
+    (mockApi.userAPI.findByRole as jest.Mock).mockResolvedValue([{id: 4, name: "Diver"}]);
+    (mockApi.commentAPI.rejectComment as jest.Mock).mockResolvedValue({});
+    (mockApi.commentAPI.rejectReports as jest.Mock).mockResolvedValue({});
 });
 
 describe("notification and moderation edge paths", () => {
@@ -94,7 +96,7 @@ describe("notification and moderation edge paths", () => {
             sendAll: false
         })));
         expect(sent).toHaveBeenCalled();
-        mockApi.notificationAPI.createBulkNotifications.mockResolvedValueOnce({status: UpdateStatusEnum.FAIL, message: "bad"});
+        (mockApi.notificationAPI.createBulkNotifications as jest.Mock).mockResolvedValueOnce({status: UpdateStatusEnum.FAIL, message: "bad"});
         formFinish!({title: "event", message: "hello"} as never);
         await waitFor(() => expect(mockMessageApi.error).toHaveBeenCalledWith("AdminNotifications.error bad"));
     });
@@ -106,8 +108,8 @@ describe("notification and moderation edge paths", () => {
             message: "two",
             createdAt: "2024-01-01"
         }];
-        mockApi.notificationAPI.getUnreadNotifications.mockResolvedValueOnce(notices);
-        mockApi.notificationAPI.markNotificationsAsRead.mockRejectedValueOnce(new Error("offline"));
+        (mockApi.notificationAPI.getUnreadNotifications as jest.Mock).mockResolvedValueOnce(notices);
+        (mockApi.notificationAPI.markNotificationsAsRead as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         render(<NotificationDropdown pollInterval={100000}/>);
         await waitFor(() => expect(screen.getByText("one")).toBeInTheDocument());
         fireEvent.click(screen.getByText("one"));
@@ -119,8 +121,8 @@ describe("notification and moderation edge paths", () => {
         fireEvent.click(screen.getByText("CommentModerationActions.button.dismiss-reports"));
         await waitFor(() => expect(mockApi.commentAPI.rejectComment).toHaveBeenCalledWith(7));
         expect(mockApi.commentAPI.rejectReports).toHaveBeenCalledWith(7);
-        mockApi.commentAPI.rejectComment.mockRejectedValueOnce(new Error("reject"));
-        mockApi.commentAPI.rejectReports.mockRejectedValueOnce(new Error("dismiss"));
+        (mockApi.commentAPI.rejectComment as jest.Mock).mockRejectedValueOnce(new Error("reject"));
+        (mockApi.commentAPI.rejectReports as jest.Mock).mockRejectedValueOnce(new Error("dismiss"));
         fireEvent.click(screen.getByText("CommentModerationActions.button.reject-comment"));
         fireEvent.click(screen.getByText("CommentModerationActions.button.dismiss-reports"));
         await waitFor(() => expect(mockApi.commentAPI.rejectReports).toHaveBeenCalledTimes(2));

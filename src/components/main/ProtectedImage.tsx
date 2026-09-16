@@ -13,9 +13,9 @@ interface ProtectedImageProps {
     viewOnly?: boolean;
 }
 
-export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOnly }: ProtectedImageProps) {
+export function ProtectedImage({imageUrl, alt, style, onRemove, preview, viewOnly}: ProtectedImageProps) {
     const [imageSrc, setImageSrc] = useState<string | null>(null);
-    const { userSession } = useSession();
+    const {userSession} = useSession();
 
     useEffect(() => {
         const fetchImage = async () => {
@@ -42,7 +42,7 @@ export function ProtectedImage({ imageUrl, alt, style, onRemove, preview, viewOn
     }
 
     return (
-            <div style={{ position: "relative", display: "inline-block" }}>
+            <div style={{position: "relative", display: "inline-block"}}>
                 {/* Display the image */}
                 <Image
                         src={imageSrc}

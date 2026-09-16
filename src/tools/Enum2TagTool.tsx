@@ -121,7 +121,7 @@ export function membershipTypeEnum2Tag(type: MembershipTypeEnum, t: TFunction, r
 
 export function pageStatusEnum2Tag(status: PageStatusEnum, t: TFunction, recordId: number): JSX.Element {
     let color = "";
-    const label = t("common.pages.status." +status.toLowerCase());
+    const label = t("common.pages.status." + status.toLowerCase());
 
     switch (status) {
         case PageStatusEnum.DRAFTED:
@@ -143,7 +143,7 @@ export function paymentTypeEnum2Tag(type: PaymentTypeEnum, t: TFunction, recordI
     let color: PresetColorType;
     const label = t("PaymentTypeEnum." + type);
 
-    switch(type) {
+    switch (type) {
         case PaymentTypeEnum.PERIODICAL:
             color = "green";
             break;
@@ -162,7 +162,7 @@ export function reportStatusEnum2Tag(status: ReportStatusEnum, t: TFunction, rec
     let color: PresetColorType;
     const label = t("ReportStatusEnum." + status.toLowerCase());
 
-    switch(status) {
+    switch (status) {
         case ReportStatusEnum.APPROVED:
             color = "green";
             break;
@@ -187,7 +187,7 @@ export function roleEnum2Tag(role: RoleEnum, t: TFunction, recordId: number): JS
     let color: PresetColorType;
     const label = t("common.roles." + role.toLowerCase());
 
-    switch(role) {
+    switch (role) {
         case RoleEnum.ROLE_ANONYMOUS:
             color = "red";
             break;
@@ -213,7 +213,7 @@ export function commentStatusEnum2Tag(status: CommentStatusEnum, t: TFunction, r
     let variant: "solid" | undefined;
     const label = t("CommentStatusEnum." + status.toLowerCase());
 
-    switch(status) {
+    switch (status) {
         case CommentStatusEnum.DRAFTED:
             color = "blue";
             break;
@@ -242,7 +242,7 @@ export function commentTypeEnum2Tag(type: CommentTypeEnum, t: TFunction, recordI
     let color: PresetColorType;
     const label = t("CommentTypeEnum." + type.toLowerCase());
 
-    switch(type) {
+    switch (type) {
         case CommentTypeEnum.TOPIC:
             color = "green";
             break;

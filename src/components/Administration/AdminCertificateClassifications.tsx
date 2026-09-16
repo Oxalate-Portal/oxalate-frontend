@@ -79,7 +79,14 @@ export function AdminCertificateClassifications() {
     const remove = (id: number) => {
         setDeletingId(id);
         certificateClassificationAPI.delete(id)
-                .then(ok => ok ? (message.success(t("AdminCertificateClassifications.popup.remove-success")), load()) : message.error(t("AdminCertificateClassifications.popup.remove-fail")))
+                .then(ok => {
+                    if (ok) {
+                        message.success(t("AdminCertificateClassifications.popup.remove-success"));
+                        load();
+                    } else {
+                        message.error(t("AdminCertificateClassifications.popup.remove-fail"));
+                    }
+                })
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.popup.remove-fail")))
                 .finally(() => setDeletingId(null));
     };

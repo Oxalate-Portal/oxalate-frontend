@@ -61,15 +61,15 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
         setLoading(true);
 
         const [start, end] = values.dateRange || [];
-        const fallbackStart = defaultMembershipPeriod.startDate?.format("YYYY-MM-DD") || null;
-        const fallbackEnd = defaultMembershipPeriod.endDate?.format("YYYY-MM-DD") || null;
+        const fallbackStart = defaultMembershipPeriod.startDate ?? null;
+        const fallbackEnd = defaultMembershipPeriod.endDate ?? null;
         const postData: MembershipRequest = {
             id: 0,
             userId: 0,
             status: MembershipStatusEnum.ACTIVE,
             type: membershipType,
-            startDate: start ? start.format("YYYY-MM-DD") : fallbackStart,
-            endDate: end ? end.format("YYYY-MM-DD") : fallbackEnd
+            startDate: start ?? fallbackStart,
+            endDate: end ?? fallbackEnd
         };
 
         const promises = values.userIdList.map(userId => {

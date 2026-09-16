@@ -186,7 +186,7 @@ export function UserProfile() {
                         </p>}
 
                 <Spin spinning={loading}>
-                    {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatarUrl}/>}
+                    {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatarUrl ?? null}/>}
                     {workUser && workUser.id > 0 && <Form
                             form={userForm}
                             name={"user-info"}

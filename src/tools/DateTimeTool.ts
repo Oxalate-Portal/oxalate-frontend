@@ -8,11 +8,11 @@ dayjs.extend(timezone);
 
 // Copied from https://bobbyhadz.com/blog/javascript-format-date-yyyy-mm-dd-hh-mm-ss
 function padTo2Digits(num: number) {
-    return num.toString().padStart(2, '0');
+    return num.toString().padStart(2, "0");
 }
 
 function padTo3Digits(num: number) {
-    return num.toString().padStart(3, '0');
+    return num.toString().padStart(3, "0");
 }
 
 function formatDateTime(date: Date | string) {
@@ -25,26 +25,29 @@ function formatDateTime(date: Date | string) {
             date.getFullYear(),
             padTo2Digits(date.getMonth() + 1),
             padTo2Digits(date.getDate())
-        ].join('-') +
-        ' ' +
+        ].join("-") +
+        " " +
         [
             padTo2Digits(date.getHours()),
             padTo2Digits(date.getMinutes())
-        ].join(':')
+        ].join(":")
     );
 }
 
-function formatDateTimeWithMs(date: Date | string) {
+function formatDateTimeWithMs(date: Date | string | Dayjs) {
+    if (dayjs.isDayjs(date)) {
+        date = date.toDate();
+    }
     if (!(date instanceof Date)) {
         date = new Date(date);
     }
 
     return (
-        formatDateTime(date) + ':' +
+        formatDateTime(date) + ":" +
         [
             padTo2Digits(date.getSeconds()),
             padTo3Digits(date.getMilliseconds())
-        ].join(':')
+        ].join(":")
     );
 }
 
@@ -114,7 +117,14 @@ function getDefaultOneTimePaymentDates(getPortalConfigurationValue: (
     return calculatePeriod(periodUnit, periodLength, periodType, periodStart, timezoneId, periodStartPoint);
 }
 
-function calculatePeriod(periodUnit: string, periodLength: string, periodType: string, periodStartString: string, timezoneId: string, periodStartPointString: string) {
+function calculatePeriod(
+    periodUnit: string,
+    periodLength: string,
+    periodType: string,
+    periodStartString: string,
+    timezoneId: string,
+    periodStartPointString: string
+) {
     const now = dayjs().tz(timezoneId);
     const unitCounts = parseInt(periodLength, 10);
     const periodStartPoint = parseInt(periodStartPointString, 10);

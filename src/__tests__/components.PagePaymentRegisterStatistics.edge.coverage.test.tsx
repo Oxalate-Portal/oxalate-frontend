@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {cleanup, configure, fireEvent, render, screen, waitFor, within} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type {ReactNode} from "react";
@@ -178,7 +179,7 @@ describe("page, payment, registration and statistics edge controls", () => {
         await user.click(buttons[1] as HTMLElement);
         await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledTimes(2));
         window.dispatchEvent(new Event("updatePaymentList-" + PaymentTypeEnum.ONE_TIME));
-        await waitFor(() => expect(paymentAPI.getAllActivePaymentStatusWithPaymentType.mock.calls.length).toBeGreaterThan(1));
+        await waitFor(() => expect((paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock).mock.calls.length).toBeGreaterThan(1));
     });
 
     it("covers registration status variants and resend request", async () => {
@@ -213,7 +214,7 @@ describe("page, payment, registration and statistics edge controls", () => {
     it("renders report links and the empty report edge case", async () => {
         const events = [{
             eventId: 12,
-            eventDateTime: "2024-06-01T10:00:00Z",
+            eventDateTime: dayjs("2024-06-01T10:00:00Z"),
             organizerName: "Organizer",
             participantCount: 4,
             diveCount: 2

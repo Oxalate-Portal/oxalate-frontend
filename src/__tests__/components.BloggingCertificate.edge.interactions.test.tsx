@@ -131,7 +131,7 @@ describe("blogging components", () => {
         expect(click).toHaveBeenCalled();
         rerender(<BlogCard blog={blog(1)} expanded onClick={click}/>);
         expect(screen.getByText("Body")).toBeInTheDocument();
-        rerender(<BlogCard blog={{...blog(1), pageVersions: []} as never} expanded={false} onClick={click}/>);
+        rerender(<BlogCard blog={{...(blog(1) as object), pageVersions: []} as never} expanded={false} onClick={click}/>);
         expect(screen.queryByText("Body")).not.toBeInTheDocument();
 
         const callbacks = [jest.fn(), jest.fn(), jest.fn(), jest.fn(), jest.fn()];
@@ -221,7 +221,7 @@ describe("certificate components", () => {
     });
 
     it("renders certificate photo controls and remove success/failure", async () => {
-        const cert = {...certificate(), certificatePhotoUrl: "photo.jpg"} as never;
+        const cert = {...(certificate() as object), certificatePhotoUrl: "photo.jpg"} as never;
         render(<ShowCertificateCard certificate={cert} deleteCertificate={jest.fn()} viewOnly={false}/>);
         expect(screen.getByAltText("ShowCertificateCard.card.certificatePhoto")).toBeInTheDocument();
         (fileTransferAPI.removeCertificateFile as jest.Mock).mockResolvedValueOnce(undefined);

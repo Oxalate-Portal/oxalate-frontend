@@ -25,7 +25,7 @@ if (!globalThis.MessageChannel) {
     class TestMessageChannel {
         port1 = {onmessage: null as ((event: MessageEvent) => void) | null, close: jest.fn()};
         port2 = {
-            postMessage: (data: unknown) => queueMicrotask(() => this.port1.onmessage?.({data})),
+            postMessage: (data: unknown) => queueMicrotask(() => this.port1.onmessage?.(new MessageEvent("message", {data}))),
             close: jest.fn()
         };
     }
@@ -35,9 +35,9 @@ if (!globalThis.MessageChannel) {
 
 const session = {
     id: 7, username: "user@example.com", firstName: "Ada", lastName: "Lovelace",
-    accessToken: "", roles: [RoleEnum.ROLE_ADMIN], avatarUrl: null, approvedTerms: true,
+    accessToken: "", roles: [RoleEnum.ROLE_ADMIN] as RoleEnum[], avatarUrl: null, approvedTerms: true,
     healthStatementId: 1, language: "fi", memberships: [], payments: []
-} as never;
+};
 const getPortalConfigurationValue = (_group: string, key: string) => key === "documents-supported" ? "true" : "false";
 const getFrontendConfigurationValue = (key: string) => key === "enabled-language" ? "en,fi" : "4";
 const sessionHook = {
@@ -171,7 +171,7 @@ describe("remaining User components", () => {
         render(<MemoryRouter initialEntries={["/users/7"]}><Routes><Route path="/users/:paramId" element={<ShowUser/>}/></Routes></MemoryRouter>);
         await waitFor(() => expect(screen.getByText("Lovelace, Ada")).toBeInTheDocument());
         cleanup();
-        sessionHook.userSession = {...session, roles: [RoleEnum.ROLE_ORGANIZER]} as never;
+        sessionHook.userSession = {...session, roles: [RoleEnum.ROLE_ORGANIZER]};
         (adminUserAPI.findById as jest.Mock).mockResolvedValue({...session, id: 7, roles: [RoleEnum.ROLE_ORGANIZER], memberships: [], payments: []});
         render(<UserProfile/>);
         await waitFor(() => expect(screen.getByTestId("user-fields")).toHaveTextContent("organizer"));

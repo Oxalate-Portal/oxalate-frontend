@@ -279,7 +279,8 @@ export function PortalConfigurations() {
                                                                 <Space orientation={"horizontal"} size={4}>
                                                                     <Tooltip
                                                                             title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
-                                                                        <Typography.Text strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Typography.Text>
+                                                                        <Typography.Text
+                                                                                strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Typography.Text>
                                                                     </Tooltip>
                                                                     {isModified && <StarOutlined style={{color: "gold"}}/>}
                                                                 </Space>

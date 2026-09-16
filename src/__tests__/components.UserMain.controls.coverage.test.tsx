@@ -35,7 +35,7 @@ const session = {
     id: 7, username: "ada@example.com", firstName: "Ada", lastName: "Lovelace",
     accessToken: "", roles: [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER], avatarUrl: null,
     approvedTerms: false, healthStatementId: null, language: "en", memberships: [], payments: []
-} as never;
+};
 const sessionHook = {
     userSession: session, sessionLanguage: "en", organizationName: "Oxalate",
     logoutUser: jest.fn(), loginUser: jest.fn(), refreshUserSession: jest.fn(), setSessionLanguage: jest.fn(),
@@ -103,7 +103,7 @@ const userData = {
         endDate: null,
         created: new Date("2024-01-01")
     }]
-} as never;
+};
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -120,7 +120,7 @@ describe("User and main controls and API outcomes", () => {
         render(wrap(<><FormMemberships membershipList={[
             {...userData.memberships[0], type: MembershipTypeEnum.PERPETUAL},
             {...userData.memberships[0], id: 3, type: MembershipTypeEnum.PERIODICAL, created: new Date("2024-01-01")}
-        ] as never}/><FormPayments userData={userData}/><UserEventList eventType="past" events={[]}/></>));
+        ] as never}/><FormPayments userData={userData as never}/><UserEventList eventType="past" events={[]}/></>));
         expect(screen.getByRole("columnheader", {name: "FormMemberships.table.end-date"})).toBeInTheDocument();
         expect(screen.getByRole("columnheader", {name: "FormatPayments.table.created"})).toBeInTheDocument();
         expect(screen.queryByText("2024-01-01:")).not.toBeInTheDocument();

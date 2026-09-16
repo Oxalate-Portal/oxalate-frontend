@@ -207,9 +207,9 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
                             <h5 key={"event-part-" + eventInfo.id}>{t("EventDetails.participants.title")}: ({eventInfo.participants.length}):</h5>
                             {canNotifyParticipants &&
-                                   <Button onClick={() => setNotificationModalOpen(true)}>
-                                       {t("EventDetails.notificationModal.button")}
-                                   </Button>}
+                                    <Button onClick={() => setNotificationModalOpen(true)}>
+                                        {t("EventDetails.notificationModal.button")}
+                                    </Button>}
 
                             <Table columns={participantColumns}
                                    dataSource={eventInfo.participants}
@@ -240,12 +240,12 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                         destroyOnHidden
                 >
                     {eventInfo && (
-                           <AdminNotifications
-                                   participantIds={eventInfo.participants.map(participant => participant.id)}
-                                   onNotificationSent={() => setNotificationModalOpen(false)}
-                                   onCancel={() => setNotificationModalOpen(false)}
-                                   embedded={true}
-                           />
+                            <AdminNotifications
+                                    participantIds={eventInfo.participants.map(participant => participant.id)}
+                                    onNotificationSent={() => setNotificationModalOpen(false)}
+                                    onCancel={() => setNotificationModalOpen(false)}
+                                    embedded={true}
+                            />
                     )}
                 </Modal>
             </Spin>

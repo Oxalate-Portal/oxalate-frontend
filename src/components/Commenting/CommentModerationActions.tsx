@@ -16,7 +16,7 @@ export function CommentModerationActions({commentId, refreshModerationList, chil
 
     async function handleRejectComment() {
         if (childCount > 0
-        && !window.confirm(t("CommentModerationActions.messages.reject-comment-confirm"))) {
+                && !window.confirm(t("CommentModerationActions.messages.reject-comment-confirm"))) {
             return;
         }
 
@@ -55,7 +55,7 @@ export function CommentModerationActions({commentId, refreshModerationList, chil
     return (
             <Spin spinning={loading}>
                 {contextHolder}
-                <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
+                <div style={{display: "flex", justifyContent: "space-between", width: "100%"}}>
                     <Button type={"primary"} loading={loading} onClick={handleRejectComment}>
                         {t("CommentModerationActions.button.reject-comment")}
                     </Button>

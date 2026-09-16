@@ -24,7 +24,6 @@ import {
     TimezoneSelector
 } from "../components";
 
-// eslint-disable-next-line no-var
 var api: Record<string, jest.Mock>;
 let configMode = "enabled";
 let routeParam = "1";
@@ -37,6 +36,7 @@ function makeApi(name: string) {
 function service(name: string, methods: string[]) {
     return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
 }
+
 const mockGetPortalConfigurationValue = (_group: string, key: string) =>
         configMode === "disabled" && (key === "membership-type" || key === "documents-supported" || key === "dive-files-supported")
                 ? key === "membership-type" ? "DISABLED" : "false" : key.includes("supported") ? "true" : "YEAR";
@@ -211,9 +211,8 @@ describe("Administration pages", () => {
             {
                 id: 6,
                 groupKey: "FILES",
-                settingKey: "unit",
-                valueType: "enum",
                 settingKey: "membership-type",
+                valueType: "enum",
                 runtimeValue: "USER",
                 defaultValue: "DISABLED",
                 requiredRuntime: false

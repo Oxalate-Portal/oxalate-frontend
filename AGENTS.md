@@ -202,8 +202,8 @@ readable.
 - Five locales, all kept at full parity: `public/locales/{de,en,es,fi,sv}.json` (~1190 keys each).
 - `src/i18n.ts` uses `i18next-http-backend` (`/locales/{{lng}}.json`) with `fallbackLng: 'fi'`, plus the
   `translation-check` plugin that provides the `?showtranslations` UI (e.g. <http://localhost:3000/?showtranslations>).
-- `node tools/verifyTranslationParity.cjs` compares all five files for missing keys and type mismatches; it exits `0`
-  when they match and `1` otherwise. It is not wired into a package script — run it manually after touching locales.
+- `yarn verify:translations` runs `node tools/verifyTranslationParity.cjs`, comparing all five files for missing keys and type mismatches.
+  It exits `0` when they match and `1` otherwise, and is part of the repository verification gate.
 
 ## 10. Build, test, and debugging workflows
 
@@ -212,22 +212,19 @@ readable.
     - `corepack enable`
     - `yarn install`
 - Scripts: `start` (`env-cmd -f .env.local vite`), `build:test`, `build:stage`, `build:production`, `prebuild`, `test`,
-  `test:watch`, `test:coverage`, `test:debug`, `lint`, `lint:fix`, `preview`.
+  `test:watch`, `test:coverage`, `test:debug`, `lint`, `lint:fix`, `typecheck`, `verify:translations`, `preview`.
 - `yarn start` expects `.env.local` with at least `VITE_APP_API_URL` and the reCAPTCHA site key; variables are documented in
   `documentation/installation/index.md`. `vite.config.ts` injects them as `__OXALATE_VITE_APP_*__` compile-time constants rather than via `import.meta.env`.
 - All builds run `generateBuildInfo.cjs` first. It reads `VERSION`, derives a tag-based version (optionally `git fetch`
   and `git describe`), and rewrites `src/buildInfo.json` with `buildTime` and `version`.
 - Jest is configured in `jest.config.cjs` for `src/__tests__/**/*.test.ts(x)` with `ts-jest` (via `tsconfig.jest.json`)
   and `jest-environment-jsdom`; setup is `jest.setup.ts` plus `src/setupTests.ts`. CSS/assets, CKEditor, reCAPTCHA,
-  `LoginWithCaptcha`, and `OxalateFooter` are mocked through `moduleNameMapper`. There is no coverage threshold. (`jest.setup.js` is a legacy leftover that the
-  config does not reference.)
+  `LoginWithCaptcha`, and `OxalateFooter` are mocked through `moduleNameMapper`. Coverage thresholds are ratcheted in
+  `jest.config.cjs` and enforced by `yarn test:coverage`.
 - There are ~76 test files covering services, components, routing (`session.Routes`), `App.behavior`,
   `session.SessionProvider.behavior`, `i18n.configuration`, and `tools.*`. Service tests use `axios-mock-adapter`
   (see `src/__tests__/services.AbstractAPI.test.ts`).
-- There is **no** `typecheck` script and CI does not type-check (`vite build` transpiles without type checking). You can run
-  `yarn tsc -p tsconfig.app.json --noEmit` manually, but be aware it currently reports a **pre-existing baseline of errors** (mostly `Dayjs` vs `string`/`Date`
-  mismatches in Administration/Payment/User components, `AbstractAPI`, and
-  `dateTransformer`). Compare against that baseline instead of expecting zero, and do not add new errors.
+- `yarn typecheck` runs the strict app TypeScript check (`tsc -p tsconfig.app.json --noEmit`); keep it clean before opening a PR.
   `tsconfig.app.json` is the strict app config, `tsconfig.node.json` covers build tooling, and `tsconfig.jest.json` is the looser test transform config.
 - CI (`.github/workflows/ci.yaml`) runs on Node 24: `yarn install --immutable`, `yarn build:test`, `yarn test`,
   `yarn test:coverage`, `yarn lint`. Match this locally before opening a PR.

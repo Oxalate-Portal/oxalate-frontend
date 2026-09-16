@@ -3,19 +3,6 @@ import type {ActionResponse, MarkReadRequest, MessageRequest, MessageResponse} f
 
 class NotificationAPI extends AbstractAPI<MessageRequest, MessageResponse> {
 
-    private getNoCacheConfig() {
-        return {
-            headers: {
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': '0'
-            },
-            params: {
-                _t: Date.now() // Cache-busting timestamp
-            }
-        };
-    }
-
     public async getUnreadNotifications(): Promise<MessageResponse[]> {
         const response = await this.axiosInstance.get<MessageResponse[]>("/unread", this.getNoCacheConfig());
         return response.data;
@@ -39,6 +26,19 @@ class NotificationAPI extends AbstractAPI<MessageRequest, MessageResponse> {
     public async createBulkNotifications(messageRequest: MessageRequest): Promise<ActionResponse> {
         const response = await this.axiosInstance.post<ActionResponse>("/create-bulk", messageRequest);
         return response.data;
+    }
+
+    private getNoCacheConfig() {
+        return {
+            headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+            },
+            params: {
+                _t: Date.now() // Cache-busting timestamp
+            }
+        };
     }
 }
 

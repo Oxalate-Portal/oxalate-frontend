@@ -13,7 +13,15 @@ export interface RuntimeConfig {
 type RuntimeConfigOverrides = Partial<RuntimeConfig>;
 
 declare global {
-    let __OXALATE_RUNTIME_CONFIG__: RuntimeConfigOverrides | undefined;
+    var __OXALATE_RUNTIME_CONFIG__: RuntimeConfigOverrides | undefined;
+
+    interface Window {
+        __OXALATE_RUNTIME_CONFIG__?: RuntimeConfigOverrides;
+    }
+
+    interface GlobalThis {
+        __OXALATE_RUNTIME_CONFIG__?: RuntimeConfigOverrides;
+    }
 }
 
 declare const __OXALATE_VITE_APP_API_URL__: string | undefined;
@@ -42,5 +50,5 @@ const defaultConfig: RuntimeConfig = {
 
 export const runtimeConfig: RuntimeConfig = {
     ...defaultConfig,
-    ...(globalThis.__OXALATE_RUNTIME_CONFIG__ ?? {})
+    ...(typeof __OXALATE_RUNTIME_CONFIG__ === "undefined" ? undefined : __OXALATE_RUNTIME_CONFIG__)
 };

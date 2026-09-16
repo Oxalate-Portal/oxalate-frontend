@@ -20,7 +20,7 @@ const DATE_FIELD_PATTERNS = [
     "joinedAt",
     "lastSeen",
     "created",
-    "modified",
+    "modified"
 ];
 
 /**
@@ -83,7 +83,7 @@ export function transformDatesInObject<T>(obj: T, timezone: string): T {
                 typeof value === "object" &&
                 value !== null &&
                 "valueOf" in value &&
-                typeof (value as {valueOf: () => number}).valueOf() === "number"
+                typeof (value as { valueOf: () => number }).valueOf() === "number"
             ) {
                 // Handle Dayjs or other date-like objects
                 transformed[key] = dayjs(value).tz(timezone);
@@ -118,8 +118,8 @@ export function serializeDayjsInObject<T>(obj: T): T {
     }
 
     // Check if this is a Dayjs object
-    if (typeof obj === "object" && "$isDayjsObject" in obj) {
-        return (obj as Record<string, unknown>).format() as unknown as T;
+    if (dayjs.isDayjs(obj)) {
+        return obj.toISOString() as T;
     }
 
     if (typeof obj !== "object") {
@@ -137,8 +137,8 @@ export function serializeDayjsInObject<T>(obj: T): T {
             serialized[key] = value;
         } else if (typeof value === "object") {
             // Check if it's a Dayjs object
-            if ("$isDayjsObject" in value) {
-                serialized[key] = (value as Record<string, unknown>).format();
+            if (dayjs.isDayjs(value)) {
+                serialized[key] = value.toISOString();
             } else if (Array.isArray(value)) {
                 serialized[key] = value.map((item) => serializeDayjsInObject(item));
             } else {

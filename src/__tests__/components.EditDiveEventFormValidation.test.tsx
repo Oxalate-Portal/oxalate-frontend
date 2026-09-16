@@ -214,7 +214,7 @@ function createDiveEventResponse(): DiveEventResponse {
         title: "Valid event title",
         description: "This event description is long enough for all built-in validation rules.",
         type: DiveTypeEnum.SURFACE,
-        startTime: dayjs().add(3, "day").toISOString(),
+        startTime: dayjs().add(3, "day"),
         eventDuration: 2,
         maxDuration: 60,
         maxDepth: 20,
@@ -281,5 +281,4 @@ describe("EditDiveEvent Ant Form participant validators", () => {
         expect(updateDiveEventMock).not.toHaveBeenCalled();
     });
 });
-
 

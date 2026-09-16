@@ -522,7 +522,7 @@ export function EditDiveEvent() {
                                 placeholder={t("EditEvent.form.participants.placeholder")}
                                 showSearch={{
                                     filterOption: (input, option) =>
-                                        option?.label.toLowerCase().includes(input.toLowerCase()) ?? false
+                                            option?.label.toLowerCase().includes(input.toLowerCase()) ?? false
                                 }}
                                 style={{
                                     width: "100%"

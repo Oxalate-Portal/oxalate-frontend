@@ -11,7 +11,7 @@ function Probe() {
         <output data-testid="frontend">{session.getFrontendConfigurationValue("enabled-language")}</output>
         <output data-testid="portal">{session.getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "welcome")}</output>
         <output data-testid="timezone">{session.getPortalTimezone()}</output>
-        <button onClick={() => void session.loginUser({username: "user", password: "password"})}>login</button>
+        <button onClick={() => void session.loginUser({username: "user", password: "password", recaptchaToken: null})}>login</button>
         <button onClick={() => session.logoutUser()}>logout</button>
         <button onClick={() => session.setSessionLanguage("sv")}>language</button>
         <button onClick={() => session.refreshUserSession({language: "fi"} as never)}>refresh</button>

@@ -56,6 +56,11 @@ export default tseslint.config(
             "@typescript-eslint/no-deprecated": "warn",
             "no-console": "off"
         }
+    },
+    {
+        files: ["src/__tests__/**/*.{ts,tsx}"],
+        rules: {
+            "no-var": "off"
+        }
     }
 );
-

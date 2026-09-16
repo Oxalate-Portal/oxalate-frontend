@@ -41,11 +41,11 @@ interface CkLoader {
 }
 
 interface CKEditorInstance {
-    getData(): string;
-
     plugins: {
         get(name: string): { createUploadAdapter: (loader: CkLoader) => CKUploadAdapter };
     };
+
+    getData(): string;
 }
 
 interface PageBodyEditorProps {

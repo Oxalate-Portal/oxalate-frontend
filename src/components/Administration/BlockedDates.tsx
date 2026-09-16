@@ -138,8 +138,8 @@ function BlockedDates() {
                     />
                     <Form onFinish={addBlockedDate} layout={"vertical"} form={form}>
                         <Form.Item label={t("BlockedDates.form.date.label")}
-                              name="blockedDate"
-                              rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
+                                   name="blockedDate"
+                                   rules={[{required: true, message: t("BlockedDates.form.date.rule")}]}
                         >
                             <DatePicker
                                     format="YYYY-MM-DD"
@@ -148,8 +148,8 @@ function BlockedDates() {
                             />
                         </Form.Item>
                         <Form.Item label={t("BlockedDates.form.reason.label")}
-                              name={"blockedReason"}
-                              rules={[{required: true, message: t("BlockedDates.form.reason.rule")}]}>
+                                   name={"blockedReason"}
+                                   rules={[{required: true, message: t("BlockedDates.form.reason.rule")}]}>
                             <Input.TextArea
                                     placeholder={t("BlockedDates.form.reason.placeholder")}
                                     rows={2}

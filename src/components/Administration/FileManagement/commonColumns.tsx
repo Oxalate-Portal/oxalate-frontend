@@ -40,7 +40,7 @@ export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFile
             title: t("AdminUploads.common-file-column-title.download-link"),
             dataIndex: "url",
             key: "url",
-            render: (url: string) => <Link to={url}><CloudDownloadOutlined style={{fontSize: '24px'}} /></Link>,
+            render: (url: string) => <Link to={url}><CloudDownloadOutlined style={{fontSize: '24px'}}/></Link>,
         },
         {
             title: t("AdminUploads.common-file-column-title.view"),
@@ -49,13 +49,13 @@ export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFile
             render: (url: string) => (
                     showPreview ? (
                             <ProtectedImage
-                                    style={{ width: "150px" }}
+                                    style={{width: "150px"}}
                                     imageUrl={url}
                                     alt="file"
                                     preview={showPreview}
                             />
                     ) : (
-                            <FileOutlined style={{ fontSize: '24px' }} />
+                            <FileOutlined style={{fontSize: '24px'}}/>
                     )
             )
         }

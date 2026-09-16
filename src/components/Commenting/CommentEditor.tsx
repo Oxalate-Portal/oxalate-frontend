@@ -9,7 +9,7 @@ interface CommentEditorProps {
     refreshCommentList: () => void;
 }
 
-export function CommentEditor({ parentCommentId, refreshCommentList }: CommentEditorProps) {
+export function CommentEditor({parentCommentId, refreshCommentList}: CommentEditorProps) {
     const [title, setTitle] = useState<string>("");
     const [body, setBody] = useState<string>("");
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -40,14 +40,14 @@ export function CommentEditor({ parentCommentId, refreshCommentList }: CommentEd
     };
 
     return (
-            <div style={{ marginTop: 10 }}>
-                <Input placeholder={t("CommentEditor.form.title.placeholder")} value={title} onChange={(e) => setTitle(e.target.value)} />
+            <div style={{marginTop: 10}}>
+                <Input placeholder={t("CommentEditor.form.title.placeholder")} value={title} onChange={(e) => setTitle(e.target.value)}/>
                 <Input.TextArea
                         placeholder={t("CommentEditor.form.textarea.placeholder")}
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
                         rows={3}
-                        style={{ marginTop: 5 }}
+                        style={{marginTop: 5}}
                 />
                 <Button type={"primary"} onClick={handleSubmit} loading={submitting} style={{marginTop: 5}}>
                     {t("common.button.send")}

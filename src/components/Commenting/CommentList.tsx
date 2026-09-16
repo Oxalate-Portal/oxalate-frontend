@@ -52,31 +52,31 @@ export function CommentList() {
     }
 
     const columns = [
-                {title: t("CommentList.id"), dataIndex: "id", key: "id"},
-                {title: t("CommentList.title"), dataIndex: "title", key: "title"},
-                {title: t("CommentList.body"), dataIndex: "body", key: "body"},
-                {title: t("CommentList.username"), dataIndex: "username", key: "username"},
-                {
-                    title: t("CommentList.status"),
-                    dataIndex: "commentStatus",
-                    key: "commentStatus",
-                    render: (_: string, item: CommentResponse) => (commentStatusEnum2Tag(item.commentStatus, t, item.id))
-                },
-                {
-                    title: t("CommentList.type"),
-                    dataIndex: "commentType",
-                    key: "commentType",
-                    render: (_: string, item: CommentResponse) => (commentTypeEnum2Tag(item.commentType, t, item.id))
-                },
-                {title: t("CommentList.createdAt"), dataIndex: "createdAt", key: "createdAt", render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm:ss")},
-                {
-                    title: t("common.table.column-title.action"),
-                    key: "comment-list-action",
-                    render: (_: string, item: CommentResponse) => {
-                        return <Button type={"primary"} onClick={() => console.debug("Edit comment", item.id)}>{t("common.button.update")}</Button>;
-                    }
-                }
-            ];
+        {title: t("CommentList.id"), dataIndex: "id", key: "id"},
+        {title: t("CommentList.title"), dataIndex: "title", key: "title"},
+        {title: t("CommentList.body"), dataIndex: "body", key: "body"},
+        {title: t("CommentList.username"), dataIndex: "username", key: "username"},
+        {
+            title: t("CommentList.status"),
+            dataIndex: "commentStatus",
+            key: "commentStatus",
+            render: (_: string, item: CommentResponse) => (commentStatusEnum2Tag(item.commentStatus, t, item.id))
+        },
+        {
+            title: t("CommentList.type"),
+            dataIndex: "commentType",
+            key: "commentType",
+            render: (_: string, item: CommentResponse) => (commentTypeEnum2Tag(item.commentType, t, item.id))
+        },
+        {title: t("CommentList.createdAt"), dataIndex: "createdAt", key: "createdAt", render: (date: Dayjs) => dayjs(date).format("YYYY-MM-DD HH:mm:ss")},
+        {
+            title: t("common.table.column-title.action"),
+            key: "comment-list-action",
+            render: (_: string, item: CommentResponse) => {
+                return <Button type={"primary"} onClick={() => console.debug("Edit comment", item.id)}>{t("common.button.update")}</Button>;
+            }
+        }
+    ];
 
     return (
             <div className="darkDiv">

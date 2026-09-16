@@ -110,7 +110,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
                         okButtonProps={{disabled: !reportReason.trim()}}
                         okText={t("common.button.send")}
                         cancelText={t("common.button.cancel")}
-                    >
+                >
                     <Typography.Paragraph>{t("CommentCard.modal.description")}</Typography.Paragraph>
                     <textarea
                             rows={4}

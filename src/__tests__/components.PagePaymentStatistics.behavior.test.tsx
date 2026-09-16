@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {fireEvent, render, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
 import {
@@ -187,7 +188,7 @@ test("statistics components render API success and tolerate failures", async () 
 
 test("biannual event table handles links and sortable report fields", () => {
     render(<BiannualEventReportTable childKey="period"
-                                     events={[{eventId: 8, eventDateTime: "2024-02-01", organizerName: "Org", participantCount: 1, diveCount: 2}]}/>);
+                                     events={[{eventId: 8, eventDateTime: dayjs("2024-02-01"), organizerName: "Org", participantCount: 1, diveCount: 2}]}/>);
     expect(screen.getByRole("link", {name: "8"})).toHaveAttribute("href", "/events/8");
 });
 
@@ -198,7 +199,8 @@ test("Register redirects authenticated users and displays registration form", ()
 });
 
 test("page editors, upload editor, payment form, and admin statistics mount their API-backed states", async () => {
-    render(<><EditPage/><EditPageGroup/><PageBodyEditor value="<p>x</p>" language="en" pageId={7}/><AddPayments/><MainAdminStatistics/></>);
+    render(<><EditPage/><EditPageGroup/><PageBodyEditor value="<p>x</p>" language="en" pageId={7}
+                                                        onChange={jest.fn()}/><AddPayments/><MainAdminStatistics/></>);
     await waitFor(() => expect(pageMgmtAPI.findById).toHaveBeenCalledWith(2, null));
     expect(screen.getByText("editor")).toBeInTheDocument();
     expect(userAPI.findByRole).toHaveBeenCalledWith(RoleEnum.ROLE_USER);
