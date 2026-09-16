@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Error al actualizar la información de pago del usuario",
+      "mismatch" : "El pago se solapa con un pago existente y no se añadió",
       "ok" : "Información de pago del usuario actualizada"
     },
     "status" : {

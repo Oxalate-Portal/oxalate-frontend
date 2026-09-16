@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Käyttäjien maksutietojen päivitys epäonnistui",
+      "mismatch" : "Maksu on päällekkäinen olemassa olevan maksun kanssa, eikä sitä lisätty",
       "ok" : "Käyttäjien maksutiedot päivitetty"
     },
     "status" : {

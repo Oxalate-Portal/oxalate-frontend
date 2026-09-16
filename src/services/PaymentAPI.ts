@@ -22,6 +22,11 @@ class PaymentAPI extends AbstractAPI<PaymentRequest, PaymentResponse> {
         const response = await this.axiosInstance.get<PaymentStatusResponse>('/user/' + userId);
         return response.data;
     }
+
+    async findCurrentAndFutureByUserId(userId: number): Promise<PaymentStatusResponse> {
+        const response = await this.axiosInstance.get<PaymentStatusResponse>('/user/' + userId + '/current-and-future');
+        return response.data;
+    }
 }
 
 export const paymentAPI = new PaymentAPI('/payments');

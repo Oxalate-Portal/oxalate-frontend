@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Failed to update user payment information",
+      "mismatch" : "The payment overlaps an existing payment and was not added",
       "ok" : "User payment information updated"
     },
     "status" : {

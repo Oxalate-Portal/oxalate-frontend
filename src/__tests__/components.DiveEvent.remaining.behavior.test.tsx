@@ -238,6 +238,27 @@ describe("remaining DiveEvent behavior", () => {
         expect(screen.getByText("health-modal")).toBeInTheDocument();
     });
 
+    it("allows joining an event when a payment starts before its future event date", async () => {
+        session.payment = true;
+        fn("diveEventAPI.findById").mockResolvedValue(event({startTime: "2028-09-23T09:00:00Z"}));
+        fn("paymentAPI.findCurrentAndFutureByUserId").mockResolvedValue({
+            userId: 7,
+            status: "OK",
+            payments: [{
+                paymentType: "PERIODICAL",
+                paymentCount: null,
+                startDate: "2028-01-01",
+                endDate: "2029-01-01"
+            }]
+        });
+
+        render(<DiveEvent/>);
+
+        await waitFor(() => expect(fn("paymentAPI.findCurrentAndFutureByUserId")).toHaveBeenCalledWith(7));
+        expect(screen.getByText("DiveEvent.subscribe.button")).toBeInTheDocument();
+        expect(fn("paymentAPI.findByUserId")).not.toHaveBeenCalled();
+    });
+
     it("sets and updates dives while protecting zero counts", async () => {
         fn("diveEventAPI.getDiveEventDives").mockResolvedValue({dives: [{userId: 7, name: "Diver", diveCount: 0}]});
         fn("diveEventAPI.updateDiveEventDives").mockResolvedValue({dives: [{userId: 7, name: "Diver", diveCount: 1}]});

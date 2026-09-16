@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
-import {Button, InputNumber, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
+import {Button, InputNumber, message, Select, Space, Table, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
-import {type DiveFileResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
+import {type DiveFileResponse, type DiveGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {fileTransferAPI} from "../../services";
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
@@ -10,9 +10,13 @@ import {useSession} from "../../session";
 
 interface DiveEventFilesProps {
     eventId: number;
+    diveGroup?: DiveGroupResponse;
+    diveGroups?: DiveGroupResponse[];
+    currentUserId?: number;
+    onUploaded?: () => void | Promise<void>;
 }
 
-export function DiveEventFiles({eventId}: DiveEventFilesProps) {
+export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, onUploaded}: DiveEventFilesProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const [diveFiles, setDiveFiles] = useState<DiveFileResponse[]>([]);
@@ -20,11 +24,29 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
     const {getPortalConfigurationValue, userSession} = useSession();
-    const canUpload = userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_USER]);
-    const diveFilesSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "dive-files-supported") === "true";
+    const availableGroups = useMemo(() => diveGroup ? [diveGroup] : diveGroups, [diveGroup, diveGroups]);
+    const memberGroups = useMemo(() => availableGroups?.filter((group) =>
+            group.ownerId === currentUserId
+            || (group.members ?? []).some((member) => member.userId === currentUserId)
+    ) ?? [], [availableGroups, currentUserId]);
+    const canUpload = availableGroups !== undefined
+            ? memberGroups.length > 0
+            : userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_USER]);
+    const diveFilesSupported = typeof getPortalConfigurationValue === "function"
+            ? getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "dive-files-supported") === "true"
+            : true;
+    const selectedDiveGroupId = diveGroup
+            ? diveGroup.id
+            : availableGroups !== undefined
+                    ? memberGroups.some((group) => group.id === diveGroupId) ? diveGroupId : memberGroups[0]?.id ?? 0
+                    : diveGroupId;
 
     useEffect(() => {
         if (!diveFilesSupported) {
+            return;
+        }
+
+        if (diveGroup) {
             return;
         }
 
@@ -39,21 +61,25 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
                 .finally(() => {
                     setLoading(false);
                 });
-    }, [diveFilesSupported, eventId, messageApi, refreshKey, t]);
+    }, [diveFilesSupported, diveGroup, eventId, messageApi, refreshKey, t]);
 
     const uploadProps: UploadProps = {
         showUploadList: false,
         customRequest: async (options) => {
-            if (diveGroupId <= 0) {
+            if (selectedDiveGroupId <= 0) {
                 messageApi.error(t("UserFiles.dive.upload.invalidDiveGroupId"));
                 options.onError?.(new Error("Invalid dive group ID"));
                 return;
             }
 
             try {
-                const uploadResponse = await fileTransferAPI.uploadDiveFile(options.file as File, eventId, diveGroupId);
+                const uploadResponse = await fileTransferAPI.uploadDiveFile(options.file as File, eventId, selectedDiveGroupId);
                 setLoading(true);
-                setRefreshKey((key) => key + 1);
+                if (diveGroup) {
+                    await onUploaded?.();
+                } else {
+                    setRefreshKey((key) => key + 1);
+                }
                 options.onSuccess?.(uploadResponse);
                 messageApi.success(t("UserFiles.dive.upload.success"));
             } catch (error) {
@@ -116,24 +142,32 @@ export function DiveEventFiles({eventId}: DiveEventFilesProps) {
     return (
             <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                 {contextHolder}
-                <Typography.Title level={5}>{t("UserFiles.dive.title")}</Typography.Title>
+                {!diveGroup && <Typography.Title level={5}>{t("UserFiles.dive.title")}</Typography.Title>}
                 {canUpload && (
                         <Space size={8} wrap>
-                            <Typography.Text>{t("UserFiles.dive.upload.diveGroupLabel")}</Typography.Text>
-                            <InputNumber min={1} value={diveGroupId} onChange={(value) => setDiveGroupId(value ?? 1)}/>
+                            {!diveGroup && <>
+                                <Typography.Text>{t("UserFiles.dive.upload.diveGroupLabel")}</Typography.Text>
+                                {availableGroups === undefined
+                                        ? <InputNumber min={1} value={diveGroupId || 1} onChange={(value) => setDiveGroupId(value ?? 1)}/>
+                                        : <Select
+                                                value={selectedDiveGroupId || undefined}
+                                                onChange={setDiveGroupId}
+                                                options={memberGroups.map((group) => ({value: group.id, label: group.name}))}
+                                                aria-label={t("UserFiles.dive.upload.diveGroupLabel")}
+                                        />}
+                            </>}
                             <Upload {...uploadProps}>
                                 <Button icon={<UploadOutlined/>}>{t("UserFiles.dive.upload.button")}</Button>
                             </Upload>
                         </Space>
                 )}
-                <Table
+                {!diveGroup && <Table
                         rowKey="id"
                         loading={loading}
                         dataSource={diveFiles}
                         columns={columns}
                         pagination={{hideOnSinglePage: true, defaultPageSize: 5}}
-                />
+                />}
             </Space>
     );
 }
-

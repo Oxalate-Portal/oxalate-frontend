@@ -31,12 +31,14 @@ class FileTransferAPI {
     }
 
     public async uploadAvatarFile(uploadFile: File): Promise<UploadResponse> {
-        this.setMultipartFormDataHeader();
-
         const formData = new FormData();
         formData.append("uploadFile", uploadFile);
 
-        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(FileTransferAPI.AVATAR_PATH, formData);
+        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
+            FileTransferAPI.AVATAR_PATH,
+            formData,
+            {headers: {"Content-Type": "multipart/form-data"}}
+        );
         return response.data;
     }
 
@@ -79,17 +81,18 @@ class FileTransferAPI {
     /**
      * Uploads a dive file (PDF only)
      * @param uploadFile - The dive PDF file to upload
+     * @param eventId - The ID of the event
+     * @param diveGroupId - The ID of the dive group
      * @returns Promise resolving to the response with file download info
      */
     public async uploadDiveFile(uploadFile: File, eventId: number, diveGroupId: number): Promise<UploadResponse> {
-        this.setMultipartFormDataHeader();
-
         const formData = new FormData();
         formData.append("uploadFile", uploadFile);
 
         const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
             `${FileTransferAPI.DIVE_FILE_PATH}?eventId=${eventId}&diveGroupId=${diveGroupId}`,
-            formData
+            formData,
+            {headers: {"Content-Type": "multipart/form-data"}}
         );
         return response.data;
     }
@@ -119,12 +122,14 @@ class FileTransferAPI {
      * @returns Promise resolving to the response with file download info
      */
     public async uploadDocumentFile(uploadFile: File): Promise<UploadResponse> {
-        this.setMultipartFormDataHeader();
-
         const formData = new FormData();
         formData.append("uploadFile", uploadFile);
 
-        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(FileTransferAPI.DOCUMENT_PATH, formData);
+        const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
+            FileTransferAPI.DOCUMENT_PATH,
+            formData,
+            {headers: {"Content-Type": "multipart/form-data"}}
+        );
         return response.data;
     }
 
@@ -152,10 +157,6 @@ class FileTransferAPI {
     public async removePageFile(pageId: number, language: string, fileName: string): Promise<ActionResponse> {
         const response = await this.axiosInstance.delete(`${FileTransferAPI.PAGE_FILE_PATH}/${pageId}/${language}/${fileName}`);
         return response.data;
-    }
-
-    private setMultipartFormDataHeader(): void {
-        this.axiosInstance.defaults.headers.post["Content-Type"] = "multipart/form-data";
     }
 
     private async removeFile(fileId: number, fileTypePath: string): Promise<ActionResponse> {

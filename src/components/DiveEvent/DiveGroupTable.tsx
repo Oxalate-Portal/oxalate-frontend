@@ -7,6 +7,7 @@ import {useSession} from "../../session";
 import {userTypeEnum2Tag} from "../../tools";
 import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum} from "../../models";
 import {ProtectedImage} from "../main";
+import {DiveEventFiles} from "./DiveEventFiles";
 
 interface DiveGroupTableProps {
     diveGroups: DiveGroupResponse[];
@@ -18,6 +19,7 @@ interface DiveGroupTableProps {
     onLeave: (diveGroupId: number) => void;
     onDelete: (diveGroupId: number) => void;
     onReorder?: (diveGroupIds: number[]) => void;
+    onFilesChanged?: () => void | Promise<void>;
 }
 
 export function isMemberOfDiveGroup(diveGroup: DiveGroupResponse, userId: number): boolean {
@@ -102,7 +104,8 @@ export function DiveGroupTable({
                                    onJoin,
                                    onLeave,
                                    onDelete,
-                                   onReorder
+                                   onReorder,
+                                   onFilesChanged
                                }: DiveGroupTableProps) {
     const {t} = useTranslation();
     const {getPortalTimezone} = useSession();
@@ -273,6 +276,11 @@ export function DiveGroupTable({
                                             size={"small"}
                                             locale={{emptyText: t("DiveEvent.diveGroup.members.empty")}}
                                     />
+                                    <DiveEventFiles
+                                            eventId={diveGroup.eventId}
+                                            diveGroup={diveGroup}
+                                            currentUserId={currentUserId}
+                                            onUploaded={onFilesChanged}/>
                                     <DiveGroupFileList diveFiles={diveGroup.diveFiles ?? []}/>
                                 </Space>
                         )

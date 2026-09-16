@@ -44,6 +44,7 @@
     },
     "onFinish" : {
       "fail" : "Aktualisierung der Zahlungsinformationen der Benutzer fehlgeschlagen",
+      "mismatch" : "Die Zahlung überschneidet sich mit einer bestehenden Zahlung und wurde nicht hinzugefügt",
       "ok" : "Zahlungsinformationen der Benutzer aktualisiert"
     },
     "status" : {

@@ -180,7 +180,7 @@ describe("page editors and page listing", () => {
 describe("payment controls", () => {
     it("filters membership users, switches type, submits creates, and handles rejected creates", async () => {
         const user = userEvent.setup({delay: null});
-        (paymentAPI.create as jest.Mock).mockResolvedValue({created: {id: 1}});
+        (paymentAPI.create as jest.Mock).mockImplementation((request) => Promise.resolve({...request, created: {id: 1}}));
         render(<AddPayments/>);
         await waitFor(() => expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0));
         fireEvent.mouseDown(screen.getAllByRole("combobox")[0]);
@@ -194,6 +194,21 @@ describe("payment controls", () => {
         (paymentAPI.create as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         await user.click(screen.getByRole("button", {name: "AddPayments.form.button"}));
         await waitFor(() => expect(mockMessage.error).toHaveBeenCalled());
+    });
+
+    it("reports when the backend returns a different payment", async () => {
+        const user = userEvent.setup({delay: null});
+        (paymentAPI.create as jest.Mock).mockImplementation((request) =>
+                Promise.resolve({...request, endDate: "2099-01-01", created: {id: 1}})
+        );
+        render(<AddPayments/>);
+        await waitFor(() => expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0));
+        fireEvent.mouseDown(screen.getAllByRole("combobox")[0]);
+        await user.click(await screen.findByText("Active (1)"));
+        await user.click(screen.getByRole("button", {name: "AddPayments.form.button"}));
+
+        await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("AddPayments.onFinish.mismatch"));
+        expect(mockMessage.success).not.toHaveBeenCalled();
     });
 
     it("renders edge dates/count controls, updates counts, and tolerates update failure", async () => {

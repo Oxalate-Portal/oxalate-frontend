@@ -21,6 +21,16 @@ import {type RangeValue, ShiftableRangePicker} from "../main";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
+function paymentMatchesRequest(response: PaymentRequest, request: PaymentRequest): boolean {
+    const formatDate = (value: Dayjs | string | null) => value === null ? null : dayjs(value).format("YYYY-MM-DD");
+
+    return response.userId === request.userId &&
+            response.paymentType === request.paymentType &&
+            formatDate(response.startDate) === formatDate(request.startDate) &&
+            formatDate(response.endDate) === formatDate(request.endDate) &&
+            (request.paymentType !== PaymentTypeEnum.ONE_TIME || response.paymentCount === request.paymentCount);
+}
+
 export function AddPayments() {
     const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
@@ -118,17 +128,22 @@ export function AddPayments() {
             endDate: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : (end ? end.format("YYYY-MM-DD") : fallbackEnd)
         };
 
-        const userPromises = values.userIdList.map((userId) =>
-                paymentAPI.create({...postData, userId})
-        );
+        const requests = values.userIdList.map((userId) => ({...postData, userId}));
+        const userPromises = requests.map((request) => paymentAPI.create(request));
 
         Promise.all(userPromises)
                 .then((responses) => {
                     let success = true;
+                    let mismatch = false;
 
                     for (let i = 0; i < responses.length; i++) {
                         if (responses[i].created === null) {
                             success = false;
+                            break;
+                        }
+                        if (!paymentMatchesRequest(responses[i], requests[i])) {
+                            success = false;
+                            mismatch = true;
                             break;
                         }
                     }
@@ -138,7 +153,7 @@ export function AddPayments() {
                         window.dispatchEvent(new Event("updatePaymentList-" + values.paymentType));
                     } else {
                         console.error("Failed to update user payment information");
-                        messageApi.error(t("AddPayments.onFinish.fail"));
+                        messageApi.error(t(mismatch ? "AddPayments.onFinish.mismatch" : "AddPayments.onFinish.fail"));
                     }
                 })
                 .catch((e) => {
@@ -149,11 +164,6 @@ export function AddPayments() {
     }
 
     function handleDateRangeChange(dates: RangeValue) {
-        if (dates && Array.isArray(dates)) {
-            const startDate = dates?.[0] === null ? "-" : dates?.[0]?.format("YYYY-MM-DD");
-            const endDate = dates?.[1] === null ? "-" : dates?.[1]?.format("YYYY-MM-DD");
-            console.debug("Date range changed: from", startDate, "to", endDate);
-        }
         paymentForm.setFieldsValue({dateRange: dates ?? []});
     }
 
