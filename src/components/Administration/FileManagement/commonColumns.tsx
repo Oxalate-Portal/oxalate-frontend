@@ -51,7 +51,7 @@ export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFile
                             <ProtectedImage
                                     style={{width: "150px"}}
                                     imageUrl={url}
-                                    alt="file"
+                                    alt={t("AdminUploads.common-file-column-title.preview")}
                                     preview={showPreview}
                             />
                     ) : (

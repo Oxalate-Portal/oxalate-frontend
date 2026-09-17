@@ -81,7 +81,7 @@ describe("NavigationBar behavior", () => {
     it("loads mobile navigation, opens the drawer, and closes it after selection", async () => {
         render(<NavigationBar/>);
         await waitFor(() => expect(pageAPI.getNavigationItems).toHaveBeenCalledWith("en"));
-        fireEvent.click(screen.getByRole("button", {name: "Open menu"}));
+        fireEvent.click(screen.getByRole("button", {name: "NavigationBar.openMenu"}));
         expect(screen.getByRole("complementary")).toBeInTheDocument();
         fireEvent.click(screen.getByText("NavigationBar.action.logout"));
         expect(mockSession.logoutUser).toHaveBeenCalled();

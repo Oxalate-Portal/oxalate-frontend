@@ -93,7 +93,7 @@ describe("comment editor, canvas, and thread behavior", () => {
     it("covers empty, root, nested, and expandable thread branches", () => {
         const refresh = jest.fn();
         const {rerender} = render(<DisplayCommentThread comment={null as never} refreshCommentList={refresh}/>);
-        expect(screen.getByText("No comments available.")).toBeInTheDocument();
+        expect(screen.getByText("DisplayCommentThread.noComments")).toBeInTheDocument();
         const rootEmpty = comment({parentCommentId: 1, childComments: []});
         rerender(<DisplayCommentThread comment={rootEmpty} refreshCommentList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: "Be first to comment"}));

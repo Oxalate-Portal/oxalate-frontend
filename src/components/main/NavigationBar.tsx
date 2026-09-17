@@ -435,7 +435,7 @@ export function NavigationBar() {
                         type="text"
                         icon={<MenuOutlined style={{fontSize: 24}}/>}
                         onClick={() => setDrawerOpen(true)}
-                        aria-label="Open menu"
+                        aria-label={t("NavigationBar.openMenu")}
                     />
                     <Drawer
                         placement="right"

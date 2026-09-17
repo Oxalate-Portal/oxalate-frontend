@@ -42,9 +42,9 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
                 const uploadedUrl = info.file.response.url;
                 setCertificatePhotoUrl(uploadedUrl);
                 setRefreshKey((prevKey) => prevKey + 1);
-                messageApi.success(`${info.file.name} file uploaded successfully`);
+                messageApi.success(t("ShowCertificateCard.card.upload-photo-success", {fileName: info.file.name}));
             } else if (info.file.status === "error") {
-                messageApi.error(`${info.file.name} file upload failed.`);
+                messageApi.error(t("ShowCertificateCard.card.upload-photo-fail", {fileName: info.file.name}));
             }
         }
     };

@@ -3,6 +3,7 @@ import type {CommentResponse} from "../../models";
 import {Button, Listy, Typography} from "antd";
 import {CommentCard} from "./CommentCard";
 import {CommentEditor} from "./CommentEditor";
+import {useTranslation} from "react-i18next";
 
 interface DisplayCommentThreadProps {
     comment: CommentResponse;
@@ -13,11 +14,12 @@ interface DisplayCommentThreadProps {
 const ROOT_COMMENT_IDS = [1, 2, 3, 4];
 
 export function DisplayCommentThread({comment, depth = 0, refreshCommentList}: DisplayCommentThreadProps) {
+    const {t} = useTranslation();
     const [expanded, setExpanded] = useState<boolean>(false);
     const parentIsRootComment = comment ? ROOT_COMMENT_IDS.includes(comment.parentCommentId) : false;
 
     if (!comment) {
-        return <Typography.Text type="secondary">No comments available.</Typography.Text>;
+        return <Typography.Text type="secondary">{t("DisplayCommentThread.noComments")}</Typography.Text>;
     }
 
     const hasChildComments = comment.childComments.length > 0;

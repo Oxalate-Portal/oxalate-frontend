@@ -512,6 +512,7 @@
       "download-link" : "Latauslinkki",
       "filename" : "Tiedostonimi",
       "filesize" : "Tiedoston koko",
+      "preview" : "Tiedoston esikatselu",
       "view" : "Näytä"
     },
     "dive-file" : {
@@ -580,6 +581,7 @@
       "userName" : "Käyttäjänimi"
     },
     "search" : {
+      "filter" : "Suodata",
       "placeholder" : "Hae..."
     },
     "table" : {
@@ -780,6 +782,9 @@
   "CommentTypeEnum" : {
     "topic" : "Aihe",
     "user_comment" : "Käyttäjäkommentti"
+  },
+  "DisplayCommentThread" : {
+    "noComments" : "Ei kommentteja."
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Hyväksy terveysselostus",
@@ -1306,6 +1311,9 @@
     "unknownPaymentContact" : "Ota yhteyttä tukeen",
     "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja."
   },
+  "Forum" : {
+    "title" : "Foorumin aiheet"
+  },
   "HealthStatementConfirmationModal" : {
     "error" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään.",
     "title" : "Terveysselvitys ja lääkärintarkastus sukelluskelpoisuudesta"
@@ -1430,6 +1438,7 @@
       "link" : "Pääsivu",
       "title" : "Foorumi"
     },
+    "openMenu" : "Avaa valikko",
     "pageManagement" : {
       "blogs" : "Lisää blogikirjoitus",
       "pages" : "Sivut",
@@ -1494,6 +1503,9 @@
       "created" : "Luotu: ",
       "updated" : "Päivitetty: "
     }
+  },
+  "PageBodyEditor" : {
+    "resizeOriginal" : "Alkuperäinen"
   },
   "PageGroups" : {
     "button" : {
@@ -1731,6 +1743,10 @@
       }
     },
     "general" : {
+      "auto-cancel-events" : {
+        "label" : "Peru vajaat tapahtumat automaattisesti",
+        "tooltip" : "Kun käytössä, julkaistu sukellustapahtuma, jonka alkamisaika on ohitettu ja jossa on vähemmän osallistujia kuin osallistujien vähimmäismäärä, perutaan automaattisesti ja sen osallistujat poistetaan ja heille ilmoitetaan"
+      },
       "blog-enabled" : {
         "label" : "Ota blogi käyttöön",
         "tooltip" : "Tämä määrittää, onko blogiominaisuus portaalissa käytössä."
@@ -1942,7 +1958,9 @@
       "remove-photo-success" : "Kuvan lisäys onnistui",
       "title" : "Luokitus: ",
       "upload-photo" : "Lataa luokituskorttikuva",
+      "upload-photo-fail" : "Tiedoston {{fileName}} lataus epäonnistui",
       "upload-photo-size-too-big" : "Tiedosto on liian suuri, suurin sallittu koko on 1 Mt.",
+      "upload-photo-success" : "{{fileName}} ladattiin onnistuneesti",
       "upload-photo-tooltip" : "Lataa valokopio luokituskortista, enintään 1 Mt kooltaan. Toisen tiedoston lataaminen korvaa ensimmäisen. Vain JPEG ja PNG tiedostot sallittu."
     }
   },

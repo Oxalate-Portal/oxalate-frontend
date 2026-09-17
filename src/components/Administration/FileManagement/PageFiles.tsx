@@ -40,7 +40,7 @@ export function PageFiles() {
             render: (language: string) => <Typography.Text>{language}</Typography.Text>
         },
         {
-            title: "Status",
+            title: t("AdminUploads.page-file.status"),
             dataIndex: "status",
             key: "status",
             render: (status: UploadStatusEnum) => {

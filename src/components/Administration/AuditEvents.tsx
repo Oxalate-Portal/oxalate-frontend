@@ -53,7 +53,7 @@ export function AuditEvents() {
             <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
                 <Input
                     autoFocus
-                    placeholder={`Search ${auditEntryKey}`}
+                    placeholder={t("AuditEvents.search.placeholder")}
                     value={selectedKeys[0]}
                     onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
                     onPressEnter={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
@@ -67,14 +67,14 @@ export function AuditEvents() {
                         size="small"
                         style={{width: 90}}
                     >
-                        Search
+                        {t("common.button.search")}
                     </Button>
                     <Button
                         onClick={() => clearFilters && handleReset(clearFilters)}
                         size="small"
                         style={{width: 90}}
                     >
-                        Reset
+                        {t("common.button.reset")}
                     </Button>
                     <Button
                         type="link"
@@ -85,7 +85,7 @@ export function AuditEvents() {
                             setFilteredColumn(auditEntryKey);
                         }}
                     >
-                        Filter
+                        {t("AuditEvents.search.filter")}
                     </Button>
                     <Button
                         type="link"
@@ -94,7 +94,7 @@ export function AuditEvents() {
                             close();
                         }}
                     >
-                        close
+                        {t("common.button.close")}
                     </Button>
                 </Space>
             </div>

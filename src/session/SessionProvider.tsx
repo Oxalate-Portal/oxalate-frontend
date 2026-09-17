@@ -10,6 +10,7 @@ import {
 } from "../models";
 import {authAPI, portalConfigurationAPI, setGlobalTimezone} from "../services";
 import {SessionContext, type SessionContextType} from "./SessionContext";
+import {useTranslation} from "react-i18next";
 
 interface SessionProviderProps {
     children: ReactNode;
@@ -25,6 +26,7 @@ function normalizeConfigurationArray<T>(value: unknown, label: string): T[] {
 }
 
 export function SessionProvider({children}: SessionProviderProps) {
+    const {t} = useTranslation();
     const [user, setUser] = useState<UserSessionToken | null>(null);
     const [language, setLanguage] = useState<string>("en");
     const [organizationName, setOrganizationName] = useState<string>("");
@@ -222,7 +224,7 @@ export function SessionProvider({children}: SessionProviderProps) {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <div>{t("common.spinner.loading")}</div>;
     }
 
     return (

@@ -68,7 +68,7 @@ export function CommentModeration() {
                             return <Collapse key={moderatedComment.id} items={items} defaultActiveKey={["actions-" + moderatedComment.id]}/>;
                         })
                     ) : (
-                        <p>No pending reports.</p>
+                        <p>{t("CommentModeration.no-comments")}</p>
                     )}
                 </Space>
             </div>

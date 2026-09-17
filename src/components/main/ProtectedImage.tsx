@@ -3,6 +3,7 @@ import axios from "axios";
 import {Image} from "antd";
 import {CloseCircleOutlined} from "@ant-design/icons";
 import {useSession} from "../../session";
+import {useTranslation} from "react-i18next";
 
 interface ProtectedImageProps {
     imageUrl: string;
@@ -14,6 +15,7 @@ interface ProtectedImageProps {
 }
 
 export function ProtectedImage({imageUrl, alt, style, onRemove, preview, viewOnly}: ProtectedImageProps) {
+    const {t} = useTranslation();
     const [imageSrc, setImageSrc] = useState<string | null>(null);
     const {userSession} = useSession();
 
@@ -38,7 +40,7 @@ export function ProtectedImage({imageUrl, alt, style, onRemove, preview, viewOnl
     }, [imageUrl, userSession]);
 
     if (!imageSrc) {
-        return <div>Loading image...</div>;
+        return <div>{t("common.spinner.loading")}</div>;
     }
 
     return (
