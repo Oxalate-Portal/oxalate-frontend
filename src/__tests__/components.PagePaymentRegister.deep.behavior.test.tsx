@@ -66,6 +66,11 @@ jest.mock("../components/User", () => ({
     </>
 }));
 jest.mock("../components/main", () => ({
+    useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({
+        layout: "horizontal",
+        labelCol: {span: labelSpan},
+        wrapperCol: {span: wrapperSpan}
+    }),
     AcceptTerms: () => <span>terms content</span>,
     HealthStatementConfirmationModal: ({open, onConfirm, onCancel}: { open: boolean; onConfirm: () => void; onCancel: () => void }) =>
         open ? <div>
