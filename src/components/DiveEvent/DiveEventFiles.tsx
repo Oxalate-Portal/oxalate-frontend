@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import {Button, InputNumber, message, Select, Space, Table, Typography, Upload, type UploadProps} from "antd";
+import {Button, InputNumber, message, Select, Space, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {type DiveFileResponse, type DiveGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {fileTransferAPI} from "../../services";
@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import {checkRoles, FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useSession} from "../../session";
+import {OxTable} from "../main";
 
 interface DiveEventFilesProps {
     eventId: number;
@@ -111,7 +112,8 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
             {
                 title: t("UserFiles.dive.table.filename"),
                 dataIndex: "filename",
-                key: "filename"
+                key: "filename",
+                mobile: true
             },
             {
                 title: t("UserFiles.dive.table.diveGroupId"),
@@ -161,7 +163,7 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
                             </Upload>
                         </Space>
                 )}
-                {!diveGroup && <Table
+                {!diveGroup && <OxTable
                         rowKey="id"
                         loading={loading}
                         dataSource={diveFiles}

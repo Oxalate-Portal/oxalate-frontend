@@ -127,7 +127,7 @@ function DownloadData() {
                     <p>{t("DownloadData.gdprWarning")}</p>
                     <p>{t("DownloadData.choose")}</p>
                     <Select options={downloadSelectOptions}
-                            style={{width: 300}}
+                            style={{width: "100%", maxWidth: 300}}
                             onChange={(value) => {
                                 selectToDownload(value);
                             }}

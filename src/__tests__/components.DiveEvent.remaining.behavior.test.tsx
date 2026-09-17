@@ -64,7 +64,10 @@ jest.mock("../tools", () => ({
 }));
 jest.mock("../components/Notification", () => ({AdminNotifications: () => <div>notifications</div>}));
 jest.mock("../components/Commenting", () => ({CommentCanvas: () => <div>comments</div>}));
-jest.mock("../components/main", () => ({HealthStatementConfirmationModal: ({open}: { open: boolean }) => open ? <div>health-modal</div> : null}));
+jest.mock("../components/main", () => ({
+    ...jest.requireActual("../components/main"),
+    HealthStatementConfirmationModal: ({open}: { open: boolean }) => open ? <div>health-modal</div> : null
+}));
 jest.mock("@ant-design/icons", () => ({
     LinkOutlined: () => <span>link</span>, UploadOutlined: () => <span>upload</span>,
     DownOutlined: ({onClick}: { onClick: () => void }) => <button onClick={onClick}>down</button>,
@@ -99,6 +102,7 @@ jest.mock("antd", () => {
         DatePicker: ({onChange}: any) => <button onClick={() => onChange?.(null)}>date-picker</button>,
         Divider: passthrough,
         Form,
+        Grid: {useBreakpoint: () => ({})},
         Input,
         InputNumber: ({onChange}: any) => <button onClick={() => onChange?.(2)}>input-number</button>,
         Modal,

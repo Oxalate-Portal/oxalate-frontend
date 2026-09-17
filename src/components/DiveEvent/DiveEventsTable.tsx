@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {type DiveEventResponse, DiveEventStatusEnum, RoleEnum} from "../../models";
-import {Button, Space, Spin, Table} from "antd";
-import type {ColumnsType} from "antd/es/table";
+import {Button, Space, Spin} from "antd";
+import {type OxColumnsType, OxTable} from "../main";
 import {checkRoles, diveEventStatusEnum2Tag, diveTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
 import {useSession} from "../../session";
@@ -20,11 +20,12 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
     const [diveEvents, setDiveEvents] = useState<DiveEventResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
-    const diveEventColumns: ColumnsType<DiveEventResponse> = [
+    const diveEventColumns: OxColumnsType<DiveEventResponse> = [
         {
             title: t("Events.table.startTime"),
             dataIndex: "startTime",
             key: "startTime",
+            mobile: true,
             sorter: (a: DiveEventResponse, b: DiveEventResponse) =>
                 dayjs(a.startTime).valueOf() - dayjs(b.startTime).valueOf(),
             sortDirections: ["descend", "ascend"],
@@ -36,6 +37,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t("Events.table.title"),
             dataIndex: "title",
             key: "title",
+            mobile: true,
             sorter: (a: DiveEventResponse, b: DiveEventResponse) => a.title.localeCompare(b.title),
             sortDirections: ["descend", "ascend"]
         },
@@ -183,7 +185,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
         <>
             <h4>{title}</h4>
             <Spin spinning={loading}>
-                {!loading && diveEvents && diveEvents.length > 0 && <Table
+                {!loading && diveEvents && diveEvents.length > 0 && <OxTable
                     dataSource={diveEvents}
                     rowKey={"id"}
                     columns={diveEventColumns}

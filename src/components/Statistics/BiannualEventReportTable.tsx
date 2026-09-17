@@ -1,5 +1,5 @@
 import type {EventReportResponse} from "../../models";
-import {Table} from "antd";
+import {OxTable} from "../main";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
@@ -25,6 +25,7 @@ export function BiannualEventReportTable({events, childKey}: BiannualEventReport
             title: t("ReportEvent.table.eventDateTime"),
             dataIndex: "eventDateTime",
             key: childKey + "-eventDateTime",
+            mobile: true,
             sorter: (a: EventReportResponse, b: EventReportResponse) => {
                 return dayjs(a.eventDateTime).valueOf() - dayjs(b.eventDateTime).valueOf();
             }
@@ -33,6 +34,7 @@ export function BiannualEventReportTable({events, childKey}: BiannualEventReport
             title: t("ReportEvent.table.organizerName"),
             dataIndex: "organizerName",
             key: childKey + "-organizerName",
+            mobile: true,
             sorter: (a: EventReportResponse, b: EventReportResponse) => a.organizerName.localeCompare(b.organizerName)
         },
         {
@@ -50,6 +52,6 @@ export function BiannualEventReportTable({events, childKey}: BiannualEventReport
     ];
 
     return (
-        <Table dataSource={events} columns={eventColumns} pagination={false} key={childKey + "-table"} rowKey="eventId"/>
+        <OxTable dataSource={events} columns={eventColumns} pagination={false} key={childKey + "-table"} rowKey="eventId"/>
     );
 }

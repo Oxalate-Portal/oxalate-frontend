@@ -1,6 +1,7 @@
 import {Alert, Button, Form, Input, Row, Space} from "antd";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "./useResponsiveFormLayout";
 import {useNavigate} from "react-router-dom";
 import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 import {useSession} from "../../session";
@@ -9,6 +10,7 @@ import {type ActionResponse, ActionResultEnum, type LoginRequest, type LoginStat
 export function Login() {
     const [loading, setLoading] = useState(false);
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(12, 16);
     const navigate = useNavigate();
     const {executeRecaptcha} = useReCaptcha();
     const {loginUser} = useSession();
@@ -63,13 +65,12 @@ export function Login() {
 
     return (
         <Row justify="center" align="middle" style={{minHeight: "30vh"}}>
-            <Space orientation={"vertical"}>
+            <Space orientation={"vertical"} style={{width: "100%"}}>
 
                 <Form
                     name="basic"
-                    labelCol={{span: 12}}
-                    wrapperCol={{span: 16}}
-                    style={{maxWidth: 600}}
+                    {...formLayout}
+                    style={{width: "100%", maxWidth: 600}}
                     initialValues={{remember: true}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
@@ -101,7 +102,7 @@ export function Login() {
                     >
                         <Input.Password/>
                     </Form.Item>
-                    <Form.Item wrapperCol={{offset: 8, span: 16}}
+                    <Form.Item wrapperCol={{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 16}}}
                     >
                         <Button
                             type={"primary"}

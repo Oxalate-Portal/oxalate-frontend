@@ -1,8 +1,8 @@
-import {Table} from "antd";
 import {useTranslation} from "react-i18next";
 import {type PaymentResponse, PaymentTypeEnum, type UserResponse} from "../../models";
 import dayjs from "dayjs";
 import {paymentTypeEnum2Tag} from "../../tools";
+import {OxTable} from "../main";
 
 interface FormatPaymentsProps {
     userData: UserResponse | undefined;
@@ -44,6 +44,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.start-date"),
             dataIndex: "startDate",
             key: "startDate",
+            mobile: true,
             render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD")}
@@ -95,7 +96,7 @@ export function FormPayments(props: FormatPaymentsProps) {
     }));
 
     return (
-        <Table
+        <OxTable
             dataSource={dataSource}
             columns={columns}
             pagination={false}

@@ -1,4 +1,5 @@
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {
     type OptionItemVO,
     type PageGroupResponse,
@@ -21,6 +22,7 @@ export function EditPage() {
     const {paramId} = useParams();
     const {userSession, sessionLanguage, getFrontendConfigurationValue} = useSession();
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 22);
     const languageConfig = getFrontendConfigurationValue("enabled-language");
     const languageList = useMemo(() => {
         return languageConfig
@@ -276,8 +278,7 @@ export function EditPage() {
                 {!loading && pageData &&
                     <Form
                         form={pageForm}
-                        labelCol={{span: 8}}
-                        wrapperCol={{span: 22}}
+                        {...formLayout}
                         style={{maxWidth: 1800}}
                         name={"PageForm"}
                         autoComplete={"off"}
@@ -429,7 +430,7 @@ export function EditPage() {
                                                     <Input type={"text"} disabled={true} key={uniqueKey + "-id-item"}/>
                                                 </Form.Item>
                                                 <Form.Item
-                                                    wrapperCol={{offset: 8, span: 12}}
+                                                    wrapperCol={{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 12}}}
                                                     key={uniqueKey + "-divider"}
                                                 >
                                                     <Divider titlePlacement={"left"} orientation={"horizontal"}
@@ -500,7 +501,7 @@ export function EditPage() {
                                                     />
                                                 </Form.Item>
                                                 {rolePermissions.length > 1 && !isDisabledRole &&
-                                                    <Form.Item wrapperCol={{offset: 8, span: 12}}
+                                                    <Form.Item wrapperCol={{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 12}}}
                                                                key={uniqueKey + "-button"}
                                                     >
                                                         <Button
@@ -513,7 +514,7 @@ export function EditPage() {
                                                     </Form.Item>}
                                             </div>);
                                         })}
-                                        {rolePermissions.length < 4 && <Form.Item wrapperCol={{offset: 8, span: 12}}>
+                                        {rolePermissions.length < 4 && <Form.Item wrapperCol={{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 12}}}>
                                             <Button type={"dashed"} onClick={() => add()} block>
                                                 {t("EditPage.form.button.addPermission")}
                                             </Button>

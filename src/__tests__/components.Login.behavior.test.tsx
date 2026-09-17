@@ -30,11 +30,13 @@ jest.mock("antd", () => {
     Form.Item = ({children}: { children: ReactNode }) => <div>{children}</div>;
     const Input = (props: Record<string, unknown>) => <input {...props}/>;
     Input.Password = Input;
+    const Grid = {useBreakpoint: () => ({})};
     return {
         Alert: ({title, action}: { title: string; action: ReactNode }) => <div role="alert">{title}{action}</div>,
         Button: ({children, onClick, htmlType}: { children: ReactNode; onClick?: () => void; htmlType?: string }) =>
             <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>,
         Form,
+        Grid,
         Input,
         Row: ({children}: { children: ReactNode }) => <div>{children}</div>,
         Space: ({children}: { children: ReactNode }) => <div>{children}</div>

@@ -1,10 +1,12 @@
-import {Button, Input, Space, Spin, Table, type TablePaginationConfig, Tag} from "antd";
+import {Button, Input, Space, Spin, type TablePaginationConfig, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../tools";
 import {useEffect, useState} from "react";
 import {type AuditEntryResponse, AuditLevelEnum, type SortableTableParams} from "../../models";
 import {auditAPI} from "../../services";
-import type {ColumnsType, ColumnType} from "antd/es/table";
+import type {ColumnType} from "antd/es/table";
+import type {OxColumnsType} from "../main";
+import {OxTable} from "../main";
 import type {FilterConfirmProps, FilterValue, SorterResult} from "antd/es/table/interface";
 import {SearchOutlined} from "@ant-design/icons";
 import Highlighter from "react-highlight-words";
@@ -118,7 +120,7 @@ export function AuditEvents() {
             )
     });
 
-    const auditColumns: ColumnsType<AuditEntryResponse> = [
+    const auditColumns: OxColumnsType<AuditEntryResponse> = [
         {
             title: t("AuditEvents.table.createdAt"),
             dataIndex: "createdAt",
@@ -133,6 +135,7 @@ export function AuditEvents() {
             title: t("AuditEvents.table.userName"),
             dataIndex: "userName",
             key: "userName",
+            mobile: true,
             sorter: (a, b) => a.userName.localeCompare(b.userName),
             sortDirections: ["descend", "ascend"],
             ...getColumnSearchProps("userName")
@@ -307,7 +310,7 @@ export function AuditEvents() {
         <h4>{t("AuditEvents.title")}</h4>
 
         <Spin spinning={loading}>
-            <Table dataSource={auditEvents}
+            <OxTable dataSource={auditEvents}
                    columns={auditColumns}
                    pagination={tablePaginationConfig}
                    loading={loading}

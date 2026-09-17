@@ -1,8 +1,8 @@
-import {Table} from "antd";
 import {type MembershipResponse, MembershipTypeEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
+import {OxTable} from "../main";
 
 interface FormMembershipsProps {
     membershipList?: MembershipResponse[];
@@ -17,12 +17,14 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             title: t("FormMemberships.table.id"),
             dataIndex: "id",
             key: "membership-id",
+            mobile: true,
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.id - b.id
         },
         {
             title: t("FormMemberships.table.type"),
             dataIndex: "type",
             key: "membership-type",
+            mobile: true,
             render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id),
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.type.localeCompare(b.type)
         },
@@ -76,7 +78,7 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
 
     return (
         <>
-            <Table
+            <OxTable
                 columns={columns}
                 dataSource={sortedMembershipList}
                 pagination={false}

@@ -2,10 +2,11 @@ import {useEffect, useMemo, useState} from "react";
 import type {AggregateResponse, MultiYearValueResponse} from "../../models";
 import {DiveTypeEnum, UserTypeEnum} from "../../models";
 import {statsAPI} from "../../services";
-import {Card, Col, Row, Spin, Table} from "antd";
+import {Card, Col, Row, Spin} from "antd";
 import {Column, Line} from "@ant-design/charts";
 import {useTranslation} from "react-i18next";
 import {diveTypeEnum2Tag, userTypeEnum2Tag} from "../../tools";
+import {OxTable} from "../main";
 
 export function AggregateStats() {
     const {t} = useTranslation();
@@ -20,23 +21,47 @@ export function AggregateStats() {
     }, []);
 
     const totalColumns = [
-        {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
-        {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
+        {
+            title: t("AggregateStats.table.year"),
+            dataIndex: "year",
+            key: "year",
+            mobile: true,
+            sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year
+        },
+        {
+            title: t("AggregateStats.table.value"),
+            dataIndex: "value",
+            key: "value",
+            mobile: true,
+            sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value
+        }
     ];
 
     const eventTypeColumns = [
-        {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
         {
-            title: t("AggregateStats.table.type"), dataIndex: "type", key: "type",
+            title: t("AggregateStats.table.year"),
+            dataIndex: "year",
+            key: "year",
+            mobile: true,
+            sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year
+        },
+        {
+            title: t("AggregateStats.table.type"), dataIndex: "type", key: "type", mobile: true,
             render: (type: DiveTypeEnum, _record: object, index: number) => diveTypeEnum2Tag(type, t, index)
         },
         {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
     ];
 
     const diverTypeColumns = [
-        {title: t("AggregateStats.table.year"), dataIndex: "year", key: "year", sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year},
         {
-            title: t("AggregateStats.table.type"), dataIndex: "type", key: "type",
+            title: t("AggregateStats.table.year"),
+            dataIndex: "year",
+            key: "year",
+            mobile: true,
+            sorter: (a: { year: number; }, b: { year: number; }) => a.year - b.year
+        },
+        {
+            title: t("AggregateStats.table.type"), dataIndex: "type", key: "type", mobile: true,
             render: (type: UserTypeEnum, _record: object, index: number) => userTypeEnum2Tag(type, t, index)
         },
         {title: t("AggregateStats.table.value"), dataIndex: "value", key: "value", sorter: (a: { value: number; }, b: { value: number; }) => a.value - b.value}
@@ -81,25 +106,25 @@ export function AggregateStats() {
             <Row gutter={[16, 16]}>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.eventsPerYear")}>
-                        <Table pagination={false} size="small" dataSource={totals.events} columns={totalColumns}/>
+                        <OxTable pagination={false} size="small" dataSource={totals.events} columns={totalColumns}/>
                         <Column {...totalsConfig(data?.eventsPerYear)}/>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.diversPerYear")}>
-                        <Table pagination={false} size="small" dataSource={totals.divers} columns={totalColumns}/>
+                        <OxTable pagination={false} size="small" dataSource={totals.divers} columns={totalColumns}/>
                         <Column {...totalsConfig(data?.diversPerYear)}/>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.eventsByTypePerYear")}>
-                        <Table pagination={false} size="small" dataSource={typed.eventTypes} columns={eventTypeColumns}/>
+                        <OxTable pagination={false} size="small" dataSource={typed.eventTypes} columns={eventTypeColumns}/>
                         <Line {...lineConfig(data?.eventTypesPerYear)}/>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.diversByTypePerYear")}>
-                        <Table pagination={false} size="small" dataSource={typed.diverTypes} columns={diverTypeColumns}/>
+                        <OxTable pagination={false} size="small" dataSource={typed.diverTypes} columns={diverTypeColumns}/>
                         <Line {...lineConfig(data?.diverTypesPerYear)}/>
                     </Card>
                 </Col>

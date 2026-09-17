@@ -1,8 +1,8 @@
 import {type PaymentRequest, type PaymentResponse, PaymentTypeEnum, type PaymentVO} from "../../models";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
-import {Button, Input, Space, Table, Tag} from "antd";
-import {type ColumnsType} from "antd/es/table";
+import {Button, Input, Space, Tag} from "antd";
+import {type OxColumnsType, OxTable} from "../main";
 import dayjs from "dayjs";
 import {type Key, useEffect, useState} from "react";
 import {paymentAPI} from "../../services";
@@ -78,7 +78,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                 });
     }
 
-    const columns: ColumnsType<PaymentVO> = [
+    const columns: OxColumnsType<PaymentVO> = [
         {
             title: "#",
             dataIndex: "id",
@@ -112,6 +112,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.name"),
             dataIndex: "name",
             key: "name",
+            mobile: true,
             sorter: (a: PaymentVO, b: PaymentVO) => a.name.localeCompare(b.name),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
@@ -153,6 +154,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.paymentDate"),
             dataIndex: "created",
             key: "created",
+            mobile: true,
             sorter: (a: PaymentVO, b: PaymentVO) =>
                     dayjs(a.created).isAfter(dayjs(b.created)) ? 1 : -1,
             sortDirections: ["descend", "ascend"],
@@ -239,11 +241,11 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
     ];
 
     return (
-            <Table columns={columns}
-                   dataSource={payments}
-                   loading={loading}
-                   rowKey={(record) =>
-                           keyName + "-payment-" + record.userId + "-" + record.created
-                   }
+        <OxTable columns={columns}
+                 dataSource={payments}
+                 loading={loading}
+                 rowKey={(record) =>
+                     keyName + "-payment-" + record.userId + "-" + record.created
+                 }
             />);
 }

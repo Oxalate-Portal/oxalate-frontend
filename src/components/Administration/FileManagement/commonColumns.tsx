@@ -1,8 +1,7 @@
 import {Link} from "react-router-dom";
-import type {ColumnsType} from "antd/es/table";
 import {Button, Space} from "antd";
 import type {AbstractFileResponse} from "../../../models";
-import {ProtectedImage} from "../../main";
+import {type OxColumnsType, ProtectedImage} from "../../main";
 import type {TFunction} from "i18next";
 import {CloudDownloadOutlined, FileOutlined} from "@ant-design/icons";
 import dayjs from "dayjs";
@@ -11,12 +10,13 @@ interface CommonFileColumnsOptions {
     showPreview?: boolean;
 }
 
-export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFileColumnsOptions = {}): ColumnsType<AbstractFileResponse> {
+export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFileColumnsOptions = {}): OxColumnsType<AbstractFileResponse> {
     return [
         {
             title: t("AdminUploads.common-file-column-title.filename"),
             dataIndex: "filename",
             key: "filename",
+            mobile: true,
             render: (text: string) => <span>{text}</span>
         },
         {
@@ -67,7 +67,7 @@ export interface ActionColumnOptions {
     onDelete?: (id: number) => void;
 }
 
-export function createActionColumn(t: TFunction, {onEdit, onDelete}: ActionColumnOptions): ColumnsType<AbstractFileResponse> {
+export function createActionColumn(t: TFunction, {onEdit, onDelete}: ActionColumnOptions): OxColumnsType<AbstractFileResponse> {
     return [
         {
             title: t("AdminUploads.common-file-column-title.actions"),

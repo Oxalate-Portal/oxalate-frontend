@@ -14,7 +14,7 @@ import {membershipAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
 import {getDefaultMembershipDates} from "../../tools";
 import {Dayjs} from "dayjs";
-import {type RangeValue, ShiftableRangePicker} from "../main";
+import {type RangeValue, ShiftableRangePicker, useResponsiveFormLayout} from "../main";
 
 interface AddMembershipsProps {
     onMembershipAdded: () => void;
@@ -22,6 +22,7 @@ interface AddMembershipsProps {
 
 export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 16);
     const {getPortalConfigurationValue} = useSession();
     const membershipTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-type");
     const periodTypeString = getPortalConfigurationValue(PortalConfigGroupEnum.MEMBERSHIP, "membership-period-unit");
@@ -104,11 +105,10 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
                                 defaultMembershipPeriod.endDate ?? defaultMembershipPeriod.startDate
                             ]
                         }}
-                        labelCol={{span: 8}}
+                        {...formLayout}
                         name="membership_form"
                         onFinish={onFinish}
                         style={{maxWidth: 1000}}
-                        wrapperCol={{span: 16}}
                 >
                     <Form.Item name={"userIdList"} key={"userIdList"} label={t("AddMemberships.form.name.label")} required={true}>
                         <Select

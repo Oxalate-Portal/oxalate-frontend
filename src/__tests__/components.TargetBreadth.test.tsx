@@ -53,6 +53,7 @@ jest.mock("antd", () => ({
     Button: ({children, onClick}: { children: ReactNode; onClick?: () => void }) => <button onClick={onClick}>{children}</button>,
     Divider: ({children}: { children: ReactNode }) => <h3>{children}</h3>,
     Form: {Item: ({children, label}: { children: ReactNode; label: string }) => <label>{label}{children}</label>},
+    Grid: {useBreakpoint: () => ({})},
     Input: {Password: () => <input type="password"/>},
     Image: (props: Record<string, unknown>) => <img {...props}/>,
     Layout: {Footer: ({children}: { children: ReactNode }) => <footer>{children}</footer>},

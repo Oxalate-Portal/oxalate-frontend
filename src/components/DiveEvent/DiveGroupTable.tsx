@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react";
-import {Button, Popconfirm, Space, Table, Typography} from "antd";
-import type {ColumnsType} from "antd/es/table";
+import {Button, Popconfirm, Space, Typography} from "antd";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
 import {userTypeEnum2Tag} from "../../tools";
 import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum} from "../../models";
-import {ProtectedImage} from "../main";
+import {type OxColumnsType, OxTable, ProtectedImage} from "../main";
 import {DiveEventFiles} from "./DiveEventFiles";
 import {DiveGroupDetailsModal} from "./DiveGroupDetailsModal";
 
@@ -153,11 +152,12 @@ export function DiveGroupTable({
         onDetailsUpdated?.(diveGroup);
     }
 
-    const memberColumns: ColumnsType<DiveGroupMemberResponse> = [
+    const memberColumns: OxColumnsType<DiveGroupMemberResponse> = [
         {
             title: t("DiveEvent.diveGroup.members.name"),
             dataIndex: "name",
-            key: "name"
+            key: "name",
+            mobile: true
         },
         {
             title: t("DiveEvent.diveGroup.members.userType"),
@@ -181,7 +181,7 @@ export function DiveGroupTable({
         }
     ];
 
-    const diveGroupColumns: ColumnsType<DiveGroupResponse> = [
+    const diveGroupColumns: OxColumnsType<DiveGroupResponse> = [
         {
             title: t("DiveEvent.diveGroup.table.order"),
             key: "groupOrder",
@@ -190,7 +190,8 @@ export function DiveGroupTable({
         {
             title: t("DiveEvent.diveGroup.table.name"),
             dataIndex: "name",
-            key: "name"
+            key: "name",
+            mobile: true
         },
         {
             title: t("DiveEvent.diveGroup.table.owner"),
@@ -273,7 +274,7 @@ export function DiveGroupTable({
 
     return (
             <>
-                <Table<DiveGroupResponse>
+                <OxTable<DiveGroupResponse>
                         columns={diveGroupColumns}
                         dataSource={orderedDiveGroups}
                         loading={loading}
@@ -299,7 +300,7 @@ export function DiveGroupTable({
                                                     {diveGroup.description}
                                                 </Typography.Paragraph>
                                                 : <Typography.Text type={"secondary"}>{t("DiveEvent.diveGroup.table.noDescription")}</Typography.Text>}
-                                        <Table<DiveGroupMemberResponse>
+                                        <OxTable<DiveGroupMemberResponse>
                                                 columns={memberColumns}
                                                 dataSource={diveGroup.members ?? []}
                                                 rowKey={"userId"}

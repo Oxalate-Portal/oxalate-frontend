@@ -164,6 +164,18 @@ readable.
 
 - Components heavily use Ant Design primitives plus `message.useMessage()` for transient feedback; see
   `src/components/Administration/PortalConfigurations.tsx`.
+- **Tables go through `OxTable`** (`src/components/main/OxTable.tsx`), never `Table` from antd directly; ESLint rejects the direct import. `OxTable`
+  is a drop-in wrapper: on screens narrower than `md` it keeps only the columns flagged `mobile: true` plus the action column (key `action`/`actions`)
+  and lists every other column inside the expandable row, above any `expandedRowRender` the caller supplies. Flag the one or two columns that
+  identify the row (name, title, date); a table with no flag keeps its first non-action column. Type column arrays as `OxColumnsType<T>`.
+- **The layout has no minimum width.** `html`, `body` and `.darkDiv` are capped at the viewport, `.darkDiv` uses `box-sizing: border-box`, and
+  editor content (`img`, `table`, `iframe`) is capped at 100%. Never set a fixed pixel `width` on a container or form; use `width: "100%"` with a
+  `maxWidth`, and make `wrapperCol` offsets responsive (`{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 16}}`) so nothing forces a horizontal
+  scroll on a phone. Check a change at 375px before calling it done.
+- **Horizontal forms use `useResponsiveFormLayout(labelSpan, wrapperSpan)`** from the `main` barrel and spread the result on the `Form`
+  (`<Form {...formLayout} ...>`). It yields a horizontal form with those spans on wide screens and a vertical form below `md`. Do not put fixed
+  `labelCol`/`wrapperCol` spans on a `Form`; per-item overrides must be responsive (`{xs: {span: 24}, sm: {span: 12}}`). Tests that mock the
+  `main` barrel need to provide the hook (see `components.Administration.coverage.test.tsx`).
 - Charts use `@ant-design/charts`; CSV exports use `react-csv`; search highlighting uses `react-highlight-words`.
 - Translation keys are literal strings passed to `t(...)`; keep additions aligned across
   `public/locales/{de,en,es,fi,sv}.json`.

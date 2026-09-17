@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {type SyntheticEvent, useEffect, useState} from "react";
 import {type AdminUserRequest, type AdminUserResponse, ResultEnum, RoleEnum, UserStatusEnum} from "../../models";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {authAPI, userAPI} from "../../services";
 import {Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin} from "antd";
 import {UserFields} from "../User";
@@ -14,6 +15,7 @@ export function AdminOrgUser() {
     const [loading, setLoading] = useState(true);
     const [invalidForm, setInvalidForm] = useState(false);
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 12);
     const [userForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -143,8 +145,7 @@ export function AdminOrgUser() {
                 {workUser && workUser.id > 0 && <Form
                     form={userForm}
                     name={"admin-user-edit"}
-                    labelCol={{span: 8}}
-                    wrapperCol={{span: 12}}
+                    {...formLayout}
                     style={{maxWidth: 800}}
                     initialValues={{
                         id: workUser.id,

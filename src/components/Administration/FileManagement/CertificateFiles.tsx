@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {Table} from "antd";
 import {fileTransferAPI} from "../../../services";
 import type {CertificateFileResponse} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
+import {OxTable} from "../../main";
 import {useTranslation} from "react-i18next";
 
 export function CertificateFiles() {
@@ -27,13 +27,14 @@ export function CertificateFiles() {
         {
             title: t("AdminUploads.certificate.certificate-id"),
             dataIndex: "certificateId",
-            key: "certificateId"
+            key: "certificateId",
+            mobile: true
         },
         ...commonFileColumns(t, {showPreview: true})
     ];
 
     return (
-        <Table
+        <OxTable
             columns={columns}
             dataSource={certificateFiles}
             rowKey="id"

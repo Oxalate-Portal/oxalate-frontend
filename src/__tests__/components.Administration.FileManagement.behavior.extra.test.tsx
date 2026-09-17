@@ -88,6 +88,12 @@ jest.mock("../components/User", () => ({
     UserFields: ({isOrganizer}: { isOrganizer?: boolean }) => <span>user-fields-{String(isOrganizer)}</span>
 }));
 jest.mock("../components/main", () => ({
+    // Forms are horizontal in jsdom, matching the real hook when no breakpoint matches
+    useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({layout: "horizontal", labelCol: {span: labelSpan}, wrapperCol: {span: wrapperSpan}}),
+    OxTable: (props: Record<string, unknown>) => {
+        const {Table} = jest.requireMock("antd");
+        return <Table {...props}/>;
+    },
     ProtectedImage: ({alt}: { alt: string }) => <img alt={alt}/>,
     ShiftableRangePicker: ({onChange}: { onChange: (value: unknown) => void }) => <button onClick={() => onChange([])}>range</button>
 }));

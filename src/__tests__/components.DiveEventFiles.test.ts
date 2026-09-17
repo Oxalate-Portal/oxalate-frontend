@@ -49,6 +49,7 @@ jest.mock("antd", () => ({
             onChange: (event: React.ChangeEvent<HTMLInputElement>) => onChange(Number(event.target.value))
         })
     ),
+    Grid: {useBreakpoint: () => ({})},
     Space: ({children}: { children: ReactNode }) => React.createElement("div", null, children),
     Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (
         React.createElement("div", {"data-testid": "dive-file-table"},

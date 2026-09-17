@@ -50,6 +50,11 @@ jest.mock("../services", () => ({
     userAPI: {findByRole: jest.fn()}
 }));
 jest.mock("../components/User", () => ({
+    useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({
+        layout: "horizontal",
+        labelCol: {span: labelSpan},
+        wrapperCol: {span: wrapperSpan}
+    }),
     UserFields: () => <>
         <label>username<input name="username"/></label>
         <label>first name<input name="firstName"/></label>
@@ -61,6 +66,11 @@ jest.mock("../components/User", () => ({
     </>
 }));
 jest.mock("../components/main", () => ({
+    useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({
+        layout: "horizontal",
+        labelCol: {span: labelSpan},
+        wrapperCol: {span: wrapperSpan}
+    }),
     AcceptTerms: () => <span>terms content</span>,
     HealthStatementConfirmationModal: ({open, onConfirm, onCancel}: { open: boolean; onConfirm: () => void; onCancel: () => void }) =>
         open ? <div>
@@ -68,7 +78,8 @@ jest.mock("../components/main", () => ({
             <button onClick={onCancel}>health cancel</button>
         </div> : null,
     ShiftableRangePicker: ({onChange}: { onChange: (value: unknown[]) => void }) =>
-        <button onClick={() => onChange([])}>change dates</button>
+        <button onClick={() => onChange([])}>change dates</button>,
+    OxTable: jest.requireActual("../components/main/OxTable").OxTable
 }));
 jest.mock("@ckeditor/ckeditor5-react", () => ({
     CKEditor: ({data, onChange}: { data: string; onChange: (_event: unknown, editor: { getData: () => string }) => void }) =>

@@ -101,7 +101,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                         tooltip={t("UserFields.form.phoneNumber.tooltip")}
                         required={true}
                 >
-                    <Space.Compact style={{width: 300}}>
+                    <Space.Compact style={{width: "100%", maxWidth: 300}}>
                         <Input value={"+"} disabled style={{width: 48}}/>
                         <Form.Item
                                 name="phoneNumber"

@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
-import {Button, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
+import {Button, message, Space, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {fileTransferAPI} from "../../services";
 import {type DocumentFileResponse, PortalConfigGroupEnum} from "../../models";
@@ -7,6 +7,7 @@ import {FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
+import {OxTable} from "../main";
 
 interface UserDocumentFilesProps {
     userId: number;
@@ -83,7 +84,8 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
             {
                 title: t("UserFiles.document.table.filename"),
                 dataIndex: "filename",
-                key: "filename"
+                key: "filename",
+                mobile: true
             },
             {
                 title: t("UserFiles.document.table.createdAt"),
@@ -115,7 +117,7 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
                     <Button icon={<UploadOutlined/>}>{t("UserFiles.document.upload.button")}</Button>
                 </Upload>
             )}
-            <Table
+            <OxTable
                 rowKey="id"
                 loading={loading}
                 dataSource={documents}
@@ -125,4 +127,3 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
         </Space>
     );
 }
-

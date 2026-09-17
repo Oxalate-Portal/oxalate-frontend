@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tag} from "antd";
+import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Tag} from "antd";
+import {OxTable} from "../main";
 import {tagGroupAPI, tagsAPI} from "../../services";
 import type {TagGroupRequest, TagGroupResponse, TagRequest, TagResponse} from "../../models";
 import {TagGroupEnum} from "../../models";
@@ -169,7 +170,8 @@ export function AdminTags() {
             {
                 title: t("AdminTags.table.code"),
                 dataIndex: "code",
-                key: "code"
+                key: "code",
+                mobile: true
             },
             {
                 title: t("AdminTags.table.names"),
@@ -209,7 +211,7 @@ export function AdminTags() {
                 <Button type={"primary"} onClick={openAdd}>{t("AdminTags.button.add-tag")}</Button>
                 <Button onClick={loadTags} loading={loading}>{t("AdminTags.button.refresh")}</Button>
             </Space>
-            <Table<TagResponse>
+            <OxTable<TagResponse>
                 rowKey="id"
                 loading={loading}
                 dataSource={data}

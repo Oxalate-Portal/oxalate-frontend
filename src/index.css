@@ -8,8 +8,13 @@ body {
     background-color: #121212;
 }
 
+html, body, #root {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .app-container {
-    min-height: 1200px;
+    min-height: 100vh;
     text-align: left;
     background-image: var(--oxalate-background-image, url("./background.jpg"));
     background-size: cover;
@@ -26,24 +31,39 @@ code {
     padding: 20px;
     border-radius: 10px;
     color: white;
+    box-sizing: border-box; /* padding must not make the box wider than its container on narrow screens */
+    max-width: 100%;
     overflow-x: auto; /* horizontal scroll host */
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
-/* Ensure Ant Design tables expand to their intrinsic width so backgrounds paint fully */
+/* Tables fill their container and never force it wider than the viewport. Columns that do not fit on a narrow
+   screen are collapsed into the expandable row by OxTable instead of stretching the page. */
 .darkDiv .ant-table-wrapper,
 .darkDiv .ant-table-container,
 .darkDiv .ant-table {
-    width: max-content;
-    min-width: 100%; /* still fill when not overflowing */
+    width: 100%;
+    max-width: 100%;
 }
 
-/* Remove inner horizontal scroll bars (delegate to darkDiv) */
-.darkDiv .ant-table-content,
-.darkDiv .ant-table-body,
-.darkDiv .ant-table-body-inner {
-    overflow: visible !important;
+.darkDiv .ant-table-content {
+    overflow-x: auto;
+}
+
+/* Long words, URLs and file names wrap inside cells instead of widening the table */
+.darkDiv .ant-table-thead > tr > th,
+.darkDiv .ant-table-tbody > tr > td {
+    overflow-wrap: anywhere;
+}
+
+/* Collapsed column values shown in the expanded row on narrow screens */
+.ox-table-collapsed-row .ant-descriptions-item-label {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.ox-table-collapsed-row .ant-descriptions-item-content {
+    overflow-wrap: anywhere;
 }
 
 /* Force cell backgrounds to paint across full intrinsic width */
@@ -65,5 +85,24 @@ code {
 @media (max-width: 600px) {
     .darkDiv {
         width: 100%;
+        padding: 12px;
     }
+}
+
+/* Content authored in the page editor (images, tables, embedded media) must never widen the page on a phone */
+.darkDiv img,
+.darkDiv video,
+.darkDiv iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+.darkDiv figure.table,
+.darkDiv figure.table table {
+    max-width: 100%;
+}
+
+/* Ant Design horizontal forms: never let a label or control column force a horizontal scroll */
+.ant-form-item {
+    max-width: 100%;
 }

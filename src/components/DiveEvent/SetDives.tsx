@@ -2,8 +2,9 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {DownOutlined, UpOutlined} from "@ant-design/icons";
-import {Button, Space, Spin, Table} from "antd";
+import {Button, Space, Spin} from "antd";
 import {diveEventAPI} from "../../services";
+import {OxTable} from "../main";
 import type {DiveCountItemVO, DiveEventListRequest, DiveEventListResponse} from "../../models";
 
 export function SetDives() {
@@ -27,7 +28,8 @@ export function SetDives() {
         {
             title: t("SetDives.table.name"),
             dataIndex: "name",
-            key: "name"
+            key: "name",
+            mobile: true
         },
         {
             title: t("SetDives.table.action"),
@@ -106,7 +108,7 @@ export function SetDives() {
         <div className={"darkDiv"}>
             <Spin spinning={loading}>
                 {eventDives?.dives.length === 0 && <p>{t("SetDives.noDives")}</p>}
-                {eventDives && <Table dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="userId" pagination={false}/>}
+                {eventDives && <OxTable dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="userId" pagination={false}/>}
                 {eventDives && <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right"}}>
                     {modified && <Button type={"primary"} onClick={() => updateEventDives()} style={{margin: 8}}>{t("common.button.save")}</Button>}
                     <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>

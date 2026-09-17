@@ -1,4 +1,5 @@
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import type {CertificateRequest} from "../../models";
 import dayjs from "dayjs";
 import {AutoComplete, Button, Form, Input, message, Modal, Space, Spin} from "antd";
@@ -21,6 +22,7 @@ function formatFetchedCertificationDate(date: CertificateRequest["certificationD
 }
 
 export function EditCertificate({certificateId, open, onClose, onSaved}: EditCertificateProps) {
+    const formLayout = useResponsiveFormLayout(8, 12);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -175,8 +177,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                     <Form
                         form={certificateForm}
                         name="certificate"
-                        labelCol={{span: 8}}
-                        wrapperCol={{span: 12}}
+                        {...formLayout}
                         style={{maxWidth: 800}}
                         initialValues={{
                             ...certificate,

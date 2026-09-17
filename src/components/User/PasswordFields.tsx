@@ -9,7 +9,7 @@ export function PasswordFields() {
             <Form.Item
                 name="newPassword"
                 label={t("PasswordFields.form.newPassword.label")}
-                wrapperCol={{span: 12}}
+                wrapperCol={{xs: {span: 24}, sm: {span: 12}}}
                 rules={[
                     {
                         required: true,
@@ -30,7 +30,7 @@ export function PasswordFields() {
                 name="confirmPassword"
                 label={t("PasswordFields.form.confirmPassword.label")}
                 dependencies={["newPassword", "oldPassword"]}
-                wrapperCol={{span: 12}}
+                wrapperCol={{xs: {span: 24}, sm: {span: 12}}}
                 rules={[
                     {
                         required: true,

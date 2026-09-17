@@ -2,8 +2,8 @@ import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {statsAPI} from "../../services";
 import {type DiverListItemResponse, PortalConfigGroupEnum, type YearlyDiversListResponse} from "../../models";
-import {Collapse, type CollapseProps, Spin, Table} from "antd";
-import type {ColumnsType} from "antd/es/table";
+import {Collapse, type CollapseProps, Spin} from "antd";
+import {type OxColumnsType, OxTable} from "../main";
 import {useSession} from "../../session";
 
 export function YearlyDiveStats() {
@@ -14,7 +14,7 @@ export function YearlyDiveStats() {
     const {getPortalConfigurationValue} = useSession();
     const topDiversListSize = getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "top-divers-list-size");
 
-    const columns: ColumnsType<DiverListItemResponse> = useMemo(() => [
+    const columns: OxColumnsType<DiverListItemResponse> = useMemo(() => [
         {
             title: t("StatsYearlyDives.table.position"),
             dataIndex: "position",
@@ -23,7 +23,8 @@ export function YearlyDiveStats() {
         {
             title: t("StatsYearlyDives.table.userName"),
             dataIndex: "userName",
-            key: "userName"
+            key: "userName",
+            mobile: true
         },
         {
             title: t("StatsYearlyDives.table.diveCount"),
@@ -35,17 +36,17 @@ export function YearlyDiveStats() {
     const collapseItems = useMemo<CollapseProps["items"]>(() => yearlyDiveData.map(yearlyData => ({
         key: yearlyData.year + "-divedata-table",
         label: yearlyData.year,
-        children: <Table dataSource={yearlyData.divers}
-                         columns={columns}
-                         pagination={{
-                             defaultPageSize: 10,
-                             hideOnSinglePage: true,
-                             showSizeChanger: true,
-                             showQuickJumper: true,
-                             pageSizeOptions: ["5", "10", "20", "30", "50"]
-                         }}
-                         key={"table" + yearlyData.year}
-                         rowKey={(record) => `${yearlyData.year}-diver-${record.userId}`}/>
+        children: <OxTable dataSource={yearlyData.divers}
+                           columns={columns}
+                           pagination={{
+                               defaultPageSize: 10,
+                               hideOnSinglePage: true,
+                               showSizeChanger: true,
+                               showQuickJumper: true,
+                               pageSizeOptions: ["5", "10", "20", "30", "50"]
+                           }}
+                           key={"table" + yearlyData.year}
+                           rowKey={(record) => `${yearlyData.year}-diver-${record.userId}`}/>
     })), [columns, yearlyDiveData]);
 
     useEffect(() => {

@@ -30,6 +30,7 @@ jest.mock("antd", () => {
     Input.TextArea = Input;
     const DatePicker = () => <input/>;
     DatePicker.RangePicker = () => <input/>;
+    const Grid = {useBreakpoint: () => ({})};
     const Table = ({dataSource = [], columns = []}: {
         dataSource?: Array<Record<string, unknown>>;
         columns?: Array<{ render?: (value: unknown, record: Record<string, unknown>) => ReactNode }>
@@ -41,7 +42,7 @@ jest.mock("antd", () => {
     const Popconfirm = ({children, onConfirm}: { children: ReactNode; onConfirm?: () => void }) =>
         <span onClick={onConfirm}>{children}</span>;
     return {
-        Button, DatePicker, Form, Input, Modal, Popconfirm,
+        Button, DatePicker, Form, Grid, Input, Modal, Popconfirm,
         Space: ({children}: { children: ReactNode }) => <span>{children}</span>, Table,
         message: {useMessage: () => [mockMessage, <span>messages</span>]}
     };

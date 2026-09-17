@@ -11,12 +11,13 @@ import {UserDocumentFiles} from "./UserDocumentFiles";
 import {UserFields} from "./UserFields";
 import {type AdminUserRequest, type AdminUserResponse, RoleEnum, type UserResponse, type UserSessionToken, UserStatusEnum} from "../../models";
 import {adminUserAPI, userAPI} from "../../services";
-import {AcceptTerms, HealthStatementConfirmationModal} from "../main";
+import {AcceptTerms, HealthStatementConfirmationModal, useResponsiveFormLayout} from "../main";
 
 export function UserProfile() {
     const {userSession, logoutUser, refreshUserSession} = useSession();
     const [loading, setLoading] = useState(true);
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 12);
     const [workUser, setWorkUser] = useState<AdminUserResponse>();
     const [userForm] = Form.useForm();
     const [messageApi, contextHolder] = message.useMessage();
@@ -191,8 +192,7 @@ export function UserProfile() {
                             form={userForm}
                             name={"user-info"}
                             key={"user-info"}
-                            labelCol={{span: 8}}
-                            wrapperCol={{span: 12}}
+                            {...formLayout}
                             style={{maxWidth: 900}}
                             initialValues={{
                                 id: workUser.id,
