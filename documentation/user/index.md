@@ -139,6 +139,13 @@ Participate button.
 
 In a similar way, the user can also unregister from the dive event by opening the dive event details view and clicking on the Remove button.
 
+When a dive event is fully booked, the Participate button is replaced by a Join waiting list button. Joining the waiting list does not reserve a place and
+does not use a payment. When a participant leaves the event, the portal automatically moves the first eligible person on the waiting list into the event, in
+the order they joined the list, and informs them by email and by an in-portal notification. Nothing needs to be accepted or confirmed. A waiting user who no
+longer has a valid payment when a place opens is dropped from the waiting list and the next person is moved instead. The user can leave the waiting list at
+any time before the event starts, and the waiting list is cleared automatically once the event has started. The number of people waiting is shown next to the
+event in the list of upcoming events.
+
 By default, unless the event is a surface-only type, each participating diver is allotted one dive. This number can be altered by the organizer during the
 event according to how many dives the diver as performed.
 
