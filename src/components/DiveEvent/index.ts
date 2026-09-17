@@ -1,9 +1,15 @@
-export {DiveEvent} from "./DiveEvent";
-export {DiveEventDetails} from "./DiveEventDetails";
-export {DiveEventFiles} from "./DiveEventFiles";
-export {DiveEvents} from "./DiveEvents";
-export {DiveEventsTable} from "./DiveEventsTable";
-export {DiveGroupFormModal} from "./DiveGroupFormModal";
+export {DiveEvent} from './DiveEvent';
+export {DiveEventDetails} from './DiveEventDetails';
+export {DiveEventFiles} from './DiveEventFiles';
+export {DiveEvents} from './DiveEvents';
+export {DiveEventsTable} from './DiveEventsTable';
+export {
+    DEFAULT_DIVE_GROUP_DESCRIPTION_MAX_LENGTH,
+    DIVE_GROUP_DESCRIPTION_MAX_LENGTH_KEY,
+    DiveGroupDetailsModal,
+    resolveDiveGroupDescriptionMaxLength
+} from './DiveGroupDetailsModal';
+export {DiveGroupFormModal} from './DiveGroupFormModal';
 export {
     DiveGroupFileList,
     DiveGroupTable,

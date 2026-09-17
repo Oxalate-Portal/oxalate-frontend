@@ -786,8 +786,13 @@
     "comments" : "Comentarios",
     "diveGroup" : {
       "createButton" : "Crear grupo de buceo",
+      "edit" : {
+        "submit" : "Guardar grupo de buceo",
+        "title" : "Editar grupo de buceo"
+      },
       "error" : {
-        "create" : "No se ha podido crear el grupo de buceo"
+        "create" : "No se ha podido crear el grupo de buceo",
+        "update" : "No se pudo actualizar el grupo de buceo"
       },
       "files" : {
         "empty" : "El grupo de buceo no ha subido ningún plan de buceo",
@@ -796,6 +801,14 @@
         "uploaded" : "Subidos"
       },
       "form" : {
+        "description" : {
+          "label" : "Descripción del grupo de buceo",
+          "placeholder" : "Por ejemplo: descendemos por la pared y damos la vuelta a 30 metros",
+          "rules" : {
+            "maxLength" : "La descripción del grupo de buceo puede tener como máximo {{max}} caracteres"
+          },
+          "tooltip" : "Descripción libre del grupo de buceo, por ejemplo el plan de inmersión o el equipo que traen los miembros. Cualquier miembro del grupo puede editarla más tarde"
+        },
         "groupType" : {
           "label" : "Tipo de grupo de buceo",
           "tooltip" : "Si el grupo de buceo realiza un buceo normal o un buceo especial de proyecto"
@@ -836,11 +849,13 @@
         "deleteButton" : "Eliminar grupo de buceo",
         "deleteConfirm" : "¿Seguro que quieres eliminar este grupo de buceo?",
         "diveFiles" : "Planes de buceo",
+        "editButton" : "Editar grupo de buceo",
         "groupType" : "Tipo de buceo",
         "joinButton" : "Unirse al grupo de buceo",
         "leaveButton" : "Salir del grupo de buceo",
         "memberCount" : "Miembros",
         "name" : "Nombre del grupo de buceo",
+        "noDescription" : "El grupo de buceo no tiene descripción",
         "order" : "Orden",
         "owner" : "Propietario",
         "reorderHint" : "Arrastra las filas para cambiar el orden de los grupos de buceo",
@@ -1677,6 +1692,10 @@
       "title" : "Configuración de archivos"
     },
     "frontend" : {
+      "dive-group-description-max-length" : {
+        "label" : "Longitud de la descripción del grupo de buceo",
+        "tooltip" : "Longitud máxima de la descripción de un grupo de buceo, en caracteres"
+      },
       "max-certificates" : {
         "label" : "Máximo de certificados",
         "tooltip" : "Número máximo de certificados que un usuario puede registrar"

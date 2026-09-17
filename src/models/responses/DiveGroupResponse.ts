@@ -7,6 +7,7 @@ export interface DiveGroupResponse {
     id: number;
     eventId: number;
     name: string;
+    description: string | null;
     ownerId: number;
     ownerName: string | null;
     groupType: DiveGroupTypeEnum;

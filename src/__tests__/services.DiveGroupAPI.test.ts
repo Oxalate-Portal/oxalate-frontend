@@ -1,9 +1,9 @@
 /// <reference types="jest" />
-import MockAdapter from "axios-mock-adapter";
-import dayjs from "dayjs";
-import {diveGroupAPI, setGlobalTimezone} from "../services";
-import type {ActionResponse, DiveGroupRequest, DiveGroupResponse, DiveGroupUpdateRequest} from "../models";
-import {UpdateStatusEnum, UserTypeEnum} from "../models";
+import MockAdapter from 'axios-mock-adapter';
+import dayjs from 'dayjs';
+import {diveGroupAPI, setGlobalTimezone} from '../services';
+import type {ActionResponse, DiveGroupDetailsRequest, DiveGroupRequest, DiveGroupResponse, DiveGroupUpdateRequest} from '../models';
+import {UpdateStatusEnum, UserTypeEnum} from '../models';
 
 describe("DiveGroupAPI", () => {
     let mock: MockAdapter;
@@ -111,8 +111,60 @@ describe("DiveGroupAPI", () => {
         expect(JSON.parse(mock.history.put[0].data)).toEqual(payload);
     });
 
-    it("should delete a dive group", async () => {
-        mock.onDelete("/1").reply(200, okActionResponse);
+    it('should send the description when creating a dive group', async () => {
+        const payload: DiveGroupRequest = {eventId: 42, name: 'Team Sidemount', description: 'Wreck first'};
+        mock.onPost('').reply(200, {...rawDiveGroup, description: 'Wreck first'});
+
+        const result = await diveGroupAPI.createDiveGroup(payload);
+
+        expect(result.description).toBe('Wreck first');
+        expect(JSON.parse(mock.history.post[0].data)).toEqual(payload);
+    });
+
+    it('should update the details of a dive group', async () => {
+        const payload: DiveGroupDetailsRequest = {name: 'Team Rebreather', description: 'New plan'};
+        const updatedDiveGroup = {...rawDiveGroup, name: 'Team Rebreather', description: 'New plan', updatedAt: '2026-06-01T12:00:00Z'};
+        mock.onPut('/1/details').reply(200, updatedDiveGroup);
+
+        const result = await diveGroupAPI.updateDiveGroupDetails(1, payload);
+
+        expect(result.name).toBe('Team Rebreather');
+        expect(result.description).toBe('New plan');
+        expect(dayjs.isDayjs(result.updatedAt)).toBe(true);
+        expect(mock.history.put[0].url).toBe('/1/details');
+        expect(JSON.parse(mock.history.put[0].data)).toEqual(payload);
+    });
+
+    it('should send a null description unchanged when clearing the details', async () => {
+        const payload: DiveGroupDetailsRequest = {name: 'Team Rebreather', description: null};
+        mock.onPut('/1/details').reply(200, {...rawDiveGroup, description: null});
+
+        const result = await diveGroupAPI.updateDiveGroupDetails(1, payload);
+
+        expect(result.description).toBeNull();
+        expect(JSON.parse(mock.history.put[0].data)).toEqual({name: 'Team Rebreather', description: null});
+    });
+
+    it('should propagate errors when the caller is not a member of the dive group', async () => {
+        mock.onPut('/1/details').reply(401);
+
+        await expect(diveGroupAPI.updateDiveGroupDetails(1, {name: 'Hijacked'})).rejects.toThrow();
+    });
+
+    it('should propagate errors when the details are rejected', async () => {
+        mock.onPut('/1/details').reply(400, {status: UpdateStatusEnum.FAIL, message: 'Description too long'});
+
+        await expect(diveGroupAPI.updateDiveGroupDetails(1, {name: 'Team', description: 'x'.repeat(9000)})).rejects.toThrow();
+    });
+
+    it('should propagate errors when the dive group to update does not exist', async () => {
+        mock.onPut('/999/details').reply(404);
+
+        await expect(diveGroupAPI.updateDiveGroupDetails(999, {name: 'Missing'})).rejects.toThrow();
+    });
+
+    it('should delete a dive group', async () => {
+        mock.onDelete('/1').reply(200, okActionResponse);
 
         const result = await diveGroupAPI.deleteDiveGroup(1);
 

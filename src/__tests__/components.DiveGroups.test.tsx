@@ -16,17 +16,22 @@ jest.setTimeout(60000);
 configure({asyncUtilTimeout: 10000});
 
 const mockCreateDiveGroup = jest.fn();
+const mockUpdateDiveGroupDetails = jest.fn();
 
 jest.mock("../services", () => ({
     diveGroupAPI: {
-        createDiveGroup: (...args: unknown[]) => mockCreateDiveGroup(...args)
+        createDiveGroup: (...args: unknown[]) => mockCreateDiveGroup(...args),
+        updateDiveGroupDetails: (...args: unknown[]) => mockUpdateDiveGroupDetails(...args)
     }
 }));
+
+const mockFrontendConfiguration = jest.fn<string, [key: string]>(() => "");
 
 jest.mock("../session", () => ({
     useSession: () => ({
         userSession: {id: 10},
-        getPortalTimezone: () => "Europe/Helsinki"
+        getPortalTimezone: () => "Europe/Helsinki",
+        getFrontendConfigurationValue: (key: string) => mockFrontendConfiguration(key)
     })
 }));
 
@@ -277,6 +282,114 @@ describe("DiveGroupTable", () => {
         await waitFor(() => expect(screen.getByText("DiveEvent.diveGroup.members.empty")).toBeInTheDocument());
     });
 
+
+    // ------------------------------------------------------------------
+    // Description and member editing
+    // ------------------------------------------------------------------
+
+    it("shows the description as plain text in the expanded row", async () => {
+        renderTable([diveGroup({description: "Wreck first <b>bold</b>"})], 99);
+
+        fireEvent.click(screen.getByLabelText("Expand row"));
+
+        await waitFor(() => expect(screen.getByTestId("dive-group-description-1")).toBeInTheDocument());
+        // The text is rendered verbatim, the markup is not interpreted
+        expect(screen.getByTestId("dive-group-description-1").textContent).toBe("Wreck first <b>bold</b>");
+        expect(screen.getByTestId("dive-group-description-1").querySelector("b")).toBeNull();
+    });
+
+    it("shows a placeholder when the group has no description", async () => {
+        renderTable([diveGroup({description: null})], 99);
+
+        fireEvent.click(screen.getByLabelText("Expand row"));
+
+        await waitFor(() => expect(screen.getByText("DiveEvent.diveGroup.table.noDescription")).toBeInTheDocument());
+    });
+
+    it("shows the edit button for the owner", () => {
+        renderTable([diveGroup()], 10);
+
+        expect(screen.getByText("DiveEvent.diveGroup.table.editButton")).toBeInTheDocument();
+    });
+
+    it("shows the edit button for a member who is not the owner", () => {
+        const group = diveGroup({
+            members: [
+                {userId: 10, name: "Owner Ten", userType: "SCUBA_DIVER", owner: true, joinedAt: null},
+                {userId: 99, name: "Me", userType: "FREE_DIVER", owner: false, joinedAt: null}
+            ] as never
+        });
+
+        renderTable([group], 99);
+
+        expect(screen.getByText("DiveEvent.diveGroup.table.editButton")).toBeInTheDocument();
+    });
+
+    it("hides the edit button from a user who is not a member", () => {
+        renderTable([diveGroup()], 99);
+
+        expect(screen.queryByText("DiveEvent.diveGroup.table.editButton")).toBeNull();
+    });
+
+    it("shows the edit button to a user who may manage every dive group", () => {
+        render(<DiveGroupTable
+                diveGroups={[diveGroup()]}
+                loading={false}
+                currentUserId={99}
+                canJoinDiveGroup={false}
+                canManageDiveGroups={true}
+                onJoin={onJoin}
+                onLeave={onLeave}
+                onDelete={onDelete}/>);
+
+        expect(screen.getByText("DiveEvent.diveGroup.table.editButton")).toBeInTheDocument();
+    });
+
+    it("opens the edit modal prefilled with the current details and saves them", async () => {
+        const onDetailsUpdated = jest.fn();
+        const updated = diveGroup({name: "Renamed", description: "New plan"});
+        mockUpdateDiveGroupDetails.mockResolvedValue(updated);
+
+        render(<DiveGroupTable
+                diveGroups={[diveGroup({description: "Old plan"})]}
+                loading={false}
+                currentUserId={10}
+                canJoinDiveGroup={false}
+                onJoin={onJoin}
+                onLeave={onLeave}
+                onDelete={onDelete}
+                onDetailsUpdated={onDetailsUpdated}/>);
+
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.table.editButton"));
+
+        await waitFor(() => expect(screen.getByText("DiveEvent.diveGroup.edit.title")).toBeInTheDocument());
+        const nameInput = screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder") as HTMLInputElement;
+        const descriptionInput = screen.getByPlaceholderText("DiveEvent.diveGroup.form.description.placeholder") as HTMLTextAreaElement;
+        await waitFor(() => expect(nameInput.value).toBe("Team Sidemount"));
+        expect(descriptionInput.value).toBe("Old plan");
+
+        fireEvent.change(nameInput, {target: {value: "Renamed"}});
+        fireEvent.change(descriptionInput, {target: {value: "New plan"}});
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.edit.submit"));
+
+        await waitFor(() => expect(mockUpdateDiveGroupDetails).toHaveBeenCalledWith(1, {name: "Renamed", description: "New plan"}));
+        await waitFor(() => expect(onDetailsUpdated).toHaveBeenCalledWith(updated));
+        // The table shows the new name without waiting for the parent to reload
+        await waitFor(() => expect(screen.getByText("Renamed")).toBeInTheDocument());
+    });
+
+    it("closes the edit modal on cancel without saving", async () => {
+        renderTable([diveGroup()], 10);
+
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.table.editButton"));
+        await waitFor(() => expect(screen.getByText("DiveEvent.diveGroup.edit.title")).toBeInTheDocument());
+
+        fireEvent.click(screen.getByText("common.button.cancel"));
+
+        await waitFor(() => expect(screen.queryByText("DiveEvent.diveGroup.edit.title")).toBeNull());
+        expect(mockUpdateDiveGroupDetails).not.toHaveBeenCalled();
+    });
+
     // ------------------------------------------------------------------
     // Dive group order
     // ------------------------------------------------------------------
@@ -422,6 +535,7 @@ describe("DiveGroupFormModal", () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        mockFrontendConfiguration.mockImplementation(() => "");
     });
 
     function renderModal(open: boolean, canAssignOwner: boolean, diveGroups: DiveGroupResponse[] = []) {
@@ -651,5 +765,48 @@ describe("DiveGroupFormModal", () => {
         });
 
         expect(onCancel).toHaveBeenCalled();
+    });
+    it("renders the description field with the configured maximum length", () => {
+        mockFrontendConfiguration.mockImplementation((key: string) => key === "dive-group-description-max-length" ? "120" : "");
+
+        renderModal(true, false);
+
+        const descriptionInput = screen.getByPlaceholderText("DiveEvent.diveGroup.form.description.placeholder");
+        expect(screen.getByText("DiveEvent.diveGroup.form.description.label")).toBeInTheDocument();
+        expect(descriptionInput).toHaveAttribute("maxlength", "120");
+    });
+
+    it("falls back to the default maximum length when the configuration is missing", () => {
+        mockFrontendConfiguration.mockImplementation(() => "");
+
+        renderModal(true, false);
+
+        expect(screen.getByPlaceholderText("DiveEvent.diveGroup.form.description.placeholder")).toHaveAttribute("maxlength", "8000");
+    });
+
+    it("creates a dive group with a trimmed description", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup());
+
+        renderModal(true, false);
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.description.placeholder"), {target: {value: "  Wreck first  "}});
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({
+            eventId: 42, name: "Team Sidemount", groupType: "NORMAL", description: "Wreck first"
+        }));
+    });
+
+    it("omits a blank description from the request", async () => {
+        mockCreateDiveGroup.mockResolvedValue(diveGroup());
+
+        renderModal(true, false);
+
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
+        fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.description.placeholder"), {target: {value: "   "}});
+        fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
+
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", groupType: "NORMAL"}));
     });
 });
