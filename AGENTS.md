@@ -127,7 +127,8 @@ New security behaviour needs a test in `src/__tests__/` named `security.*.test.t
    see `CUSTOMIZATION.md`.
 2. **Frontend configuration** — public, unauthenticated, read with `getFrontendConfigurationValue(key)`. Keys in use:
    `org-name`, `default-language`, `enabled-language`, `timezone`, `min-event-length`, `max-event-length`,
-   `max-dive-length`, `min-participants`, `max-participants`, `max-depth`, `types-of-event`, `max-certificates`.
+   `max-dive-length`, `min-participants`, `max-participants`, `max-depth`, `types-of-event`, `max-certificates`,
+   `dive-group-description-max-length` (the limit for the dive group description text area; the backend enforces it too).
 3. **Portal configuration** — authenticated, read with `getPortalConfigurationValue(group, key)` where group is a
    `PortalConfigGroupEnum` value (`commenting`, `email`, `general`, `frontend`, `files`, `membership`, `payment`). Notable keys: `general.blog-enabled`,
    `general.timezone`, `general.top-divers-list-size`,

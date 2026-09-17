@@ -93,26 +93,30 @@ jest.mock("../components/DiveEvent/DiveGroupTable", () => ({
             diveGroups.find((diveGroup) => (diveGroup.members ?? []).some((member) => member.userId === userId)) ?? null,
     findDiveGroupOwnedByUser: (diveGroups: DiveGroupResponse[], userId: number) =>
             diveGroups.find((diveGroup) => diveGroup.ownerId === userId) ?? null,
-    DiveGroupTable: ({diveGroups, loading, currentUserId, canReorderDiveGroups, onJoin, onLeave, onDelete, onReorder}: {
+    DiveGroupTable: ({diveGroups, loading, currentUserId, canReorderDiveGroups, canManageDiveGroups, onJoin, onLeave, onDelete, onReorder, onDetailsUpdated}: {
         diveGroups: DiveGroupResponse[];
         loading: boolean;
         currentUserId: number;
         canReorderDiveGroups: boolean;
+        canManageDiveGroups: boolean;
         onJoin: (id: number) => void;
         onLeave: (id: number) => void;
         onDelete: (id: number) => void;
         onReorder: (diveGroupIds: number[]) => void;
+        onDetailsUpdated: (diveGroup: DiveGroupResponse) => void;
     }) => (
             <div data-testid="dive-group-table">
                 <span>groups:{diveGroups.length}</span>
                 <span>loading:{String(loading)}</span>
                 <span>user:{currentUserId}</span>
                 <span>canReorder:{String(canReorderDiveGroups)}</span>
+                <span>canManage:{String(canManageDiveGroups)}</span>
                 <span>order:{diveGroups.map((diveGroup) => diveGroup.id).join(",")}</span>
                 <button onClick={() => onJoin(7)}>table-join</button>
                 <button onClick={() => onLeave(7)}>table-leave</button>
                 <button onClick={() => onDelete(7)}>table-delete</button>
                 <button onClick={() => onReorder([8, 7])}>table-reorder</button>
+                <button onClick={() => onDetailsUpdated(diveGroups[0])}>table-details-updated</button>
             </div>
     )
 }));
@@ -511,5 +515,29 @@ describe("DiveEvent dive groups", () => {
         expect(mockReorderDiveGroups).toHaveBeenCalledWith(42, [8, 7]);
         expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(2);
         expect(screen.getByText("order:7,8")).toBeInTheDocument();
+    });
+    it("does not let a plain member manage every dive group but reloads after a details update", async () => {
+        mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByText("canManage:false")).toBeInTheDocument());
+        expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(1);
+
+        await act(async () => {
+            fireEvent.click(screen.getByText("table-details-updated"));
+        });
+
+        await waitFor(() => expect(mockGetDiveGroupsByEventId).toHaveBeenCalledTimes(2));
+    });
+
+    it("lets the organizer of the dive event manage every dive group", async () => {
+        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
+        mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
+
+        await renderDiveEvent();
+
+        await waitFor(() => expect(screen.getByText("canManage:true")).toBeInTheDocument());
     });
 });

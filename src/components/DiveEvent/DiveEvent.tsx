@@ -487,11 +487,13 @@ export function DiveEvent() {
                                         currentUserId={currentUserId}
                                         canJoinDiveGroup={hasJoinedEvent}
                                         canReorderDiveGroups={canReorderDiveGroups}
+                                        canManageDiveGroups={canAssignDiveGroupOwner}
                                         onJoin={joinDiveGroup}
                                         onLeave={leaveDiveGroup}
                                         onDelete={deleteDiveGroup}
                                         onReorder={reorderDiveGroups}
                                         onFilesChanged={() => loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups)}
+                                        onDetailsUpdated={() => loadDiveGroups(diveEventId, setDiveGroupsLoading, setDiveGroups)}
                                         key={diveEventId + "-dive-group-table"}/>
                         }
 

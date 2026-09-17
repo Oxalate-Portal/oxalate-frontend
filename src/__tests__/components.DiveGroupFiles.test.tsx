@@ -8,10 +8,13 @@ jest.setTimeout(60000);
 // Slow machines need more headroom than the 1 s default before waitFor/findBy give up
 configure({asyncUtilTimeout: 10000});
 
+const mockFrontendConfiguration = jest.fn<string, [key: string]>(() => "");
+
 jest.mock("../session", () => ({
     useSession: () => ({
         userSession: {id: 10},
-        getPortalTimezone: () => "Europe/Helsinki"
+        getPortalTimezone: () => "Europe/Helsinki",
+        getFrontendConfigurationValue: (key: string) => mockFrontendConfiguration(key)
     })
 }));
 

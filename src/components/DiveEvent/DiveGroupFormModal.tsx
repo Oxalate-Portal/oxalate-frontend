@@ -5,6 +5,7 @@ import {diveGroupAPI} from "../../services";
 import {useSession} from "../../session";
 import {type DiveGroupRequest, type DiveGroupResponse, DiveGroupTypeEnum, type ListUserResponse, type UserResponse} from "../../models";
 import {isMemberOfDiveGroup} from "./DiveGroupTable";
+import {DIVE_GROUP_DESCRIPTION_MAX_LENGTH_KEY, resolveDiveGroupDescriptionMaxLength} from "./DiveGroupDetailsModal";
 
 interface DiveGroupFormModalProps {
     open: boolean;
@@ -19,6 +20,7 @@ interface DiveGroupFormModalProps {
 
 interface DiveGroupFormData {
     name: string;
+    description?: string;
     groupType?: DiveGroupTypeEnum;
     ownerId?: number | null;
     memberIds?: number[];
@@ -26,10 +28,11 @@ interface DiveGroupFormData {
 
 export function DiveGroupFormModal({open, eventId, participants, eventOrganizer, diveGroups, canAssignOwner, onCancel, onCreated}: DiveGroupFormModalProps) {
     const {t} = useTranslation();
-    const {userSession} = useSession();
+    const {userSession, getFrontendConfigurationValue} = useSession();
     const [form] = Form.useForm<DiveGroupFormData>();
     const [submitting, setSubmitting] = useState(false);
     const [failed, setFailed] = useState(false);
+    const descriptionMaxLength = resolveDiveGroupDescriptionMaxLength(getFrontendConfigurationValue(DIVE_GROUP_DESCRIPTION_MAX_LENGTH_KEY));
     const availableParticipants = useMemo(() => participants.filter((participant) =>
         !diveGroups.some((diveGroup) => diveGroup.ownerId === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
     ), [diveGroups, participants]);
@@ -68,6 +71,12 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
             groupType: values.groupType ?? DiveGroupTypeEnum.NORMAL
         };
 
+        const description = (values.description ?? "").trim();
+
+        if (description.length > 0) {
+            diveGroupRequest.description = description;
+        }
+
         if (canAssignOwner && values.ownerId) {
             diveGroupRequest.ownerId = values.ownerId;
         }
@@ -91,31 +100,46 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
     }
 
     return (
-        <Modal
-            open={open}
-            title={t("DiveEvent.diveGroup.modal.title")}
-            onCancel={handleCancel}
-            footer={null}
-            destroyOnHidden
-        >
-            <Form<DiveGroupFormData>
-                form={form}
-                layout={"vertical"}
-                onFinish={onFinish}
-                autoComplete={"off"}
-                name={"diveGroupForm"}
+            <Modal
+                    open={open}
+                    title={t("DiveEvent.diveGroup.modal.title")}
+                    onCancel={handleCancel}
+                    footer={null}
+                    destroyOnHidden
             >
-                <Form.Item
-                    name={"name"}
-                    label={t("DiveEvent.diveGroup.form.name.label")}
-                    tooltip={t("DiveEvent.diveGroup.form.name.tooltip")}
-                    rules={[
-                        {required: true, message: t("DiveEvent.diveGroup.form.name.rules.required")},
-                        {max: 255, message: t("DiveEvent.diveGroup.form.name.rules.maxLength")}
-                    ]}
+                <Form<DiveGroupFormData>
+                        form={form}
+                        layout={"vertical"}
+                        onFinish={onFinish}
+                        autoComplete={"off"}
+                        name={"diveGroupForm"}
                 >
-                    <Input placeholder={t("DiveEvent.diveGroup.form.name.placeholder")}/>
-                </Form.Item>
+                    <Form.Item
+                            name={"name"}
+                            label={t("DiveEvent.diveGroup.form.name.label")}
+                            tooltip={t("DiveEvent.diveGroup.form.name.tooltip")}
+                            rules={[
+                                {required: true, message: t("DiveEvent.diveGroup.form.name.rules.required")},
+                                {max: 255, message: t("DiveEvent.diveGroup.form.name.rules.maxLength")}
+                            ]}
+                    >
+                        <Input placeholder={t("DiveEvent.diveGroup.form.name.placeholder")}/>
+                    </Form.Item>
+
+                    <Form.Item
+                            name={"description"}
+                            label={t("DiveEvent.diveGroup.form.description.label")}
+                            tooltip={t("DiveEvent.diveGroup.form.description.tooltip")}
+                            rules={[
+                                {max: descriptionMaxLength, message: t("DiveEvent.diveGroup.form.description.rules.maxLength", {max: descriptionMaxLength})}
+                            ]}
+                    >
+                        <Input.TextArea
+                                rows={4}
+                                showCount
+                                maxLength={descriptionMaxLength}
+                                placeholder={t("DiveEvent.diveGroup.form.description.placeholder")}/>
+                    </Form.Item>
 
                 <Form.Item
                     name={"groupType"}

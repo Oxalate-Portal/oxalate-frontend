@@ -43,7 +43,8 @@ jest.mock("react-router-dom", () => ({
 jest.mock("../session", () => ({
     useSession: () => ({
         userSession: mockUserSession,
-        getPortalConfigurationValue: mockGetPortalConfigurationValue
+        getPortalConfigurationValue: mockGetPortalConfigurationValue,
+        getFrontendConfigurationValue: () => ""
     })
 }));
 

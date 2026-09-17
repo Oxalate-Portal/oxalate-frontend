@@ -8,6 +8,7 @@ import {userTypeEnum2Tag} from "../../tools";
 import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum} from "../../models";
 import {ProtectedImage} from "../main";
 import {DiveEventFiles} from "./DiveEventFiles";
+import {DiveGroupDetailsModal} from "./DiveGroupDetailsModal";
 
 interface DiveGroupTableProps {
     diveGroups: DiveGroupResponse[];
@@ -15,11 +16,14 @@ interface DiveGroupTableProps {
     currentUserId: number;
     canJoinDiveGroup: boolean;
     canReorderDiveGroups?: boolean;
+    /** Whether the current user may edit every dive group of the event, which the backend grants the event organizer and administrators */
+    canManageDiveGroups?: boolean;
     onJoin: (diveGroupId: number) => void;
     onLeave: (diveGroupId: number) => void;
     onDelete: (diveGroupId: number) => void;
     onReorder?: (diveGroupIds: number[]) => void;
     onFilesChanged?: () => void | Promise<void>;
+    onDetailsUpdated?: (diveGroup: DiveGroupResponse) => void | Promise<void>;
 }
 
 export function isMemberOfDiveGroup(diveGroup: DiveGroupResponse, userId: number): boolean {
@@ -101,16 +105,19 @@ export function DiveGroupTable({
                                    currentUserId,
                                    canJoinDiveGroup,
                                    canReorderDiveGroups = false,
+                                   canManageDiveGroups = false,
                                    onJoin,
                                    onLeave,
                                    onDelete,
                                    onReorder,
-                                   onFilesChanged
+                                   onFilesChanged,
+                                   onDetailsUpdated
                                }: DiveGroupTableProps) {
     const {t} = useTranslation();
     const {getPortalTimezone} = useSession();
     const [orderedDiveGroups, setOrderedDiveGroups] = useState<DiveGroupResponse[]>(() => sortDiveGroupsByOrder(diveGroups));
     const [draggedDiveGroupId, setDraggedDiveGroupId] = useState<number | null>(null);
+    const [editedDiveGroup, setEditedDiveGroup] = useState<DiveGroupResponse | null>(null);
 
     useEffect(() => {
         // The parent reloads the dive groups after every change, which is an external synchronization
@@ -138,6 +145,12 @@ export function DiveGroupTable({
 
         setOrderedDiveGroups(reordered);
         onReorder?.(reordered.map((diveGroup) => diveGroup.id));
+    }
+
+    function onDiveGroupDetailsUpdated(diveGroup: DiveGroupResponse): void {
+        setEditedDiveGroup(null);
+        setOrderedDiveGroups((current) => current.map((existing) => existing.id === diveGroup.id ? {...existing, ...diveGroup} : existing));
+        onDetailsUpdated?.(diveGroup);
     }
 
     const memberColumns: ColumnsType<DiveGroupMemberResponse> = [
@@ -212,9 +225,18 @@ export function DiveGroupTable({
             render: (_: string, diveGroup: DiveGroupResponse) => {
                 const isOwner = diveGroup.ownerId === currentUserId;
                 const isMember = isMemberOfDiveGroup(diveGroup, currentUserId);
+                // Mirrors the backend rule: members, the owner, the event organizer and administrators may edit the details
+                const canEditDetails = isOwner || isMember || canManageDiveGroups;
 
                 return (
                         <Space>
+                            {canEditDetails &&
+                                    <Button
+                                            onClick={() => setEditedDiveGroup(diveGroup)}
+                                            key={diveGroup.id + "-edit-dive-group-button"}>
+                                        {t("DiveEvent.diveGroup.table.editButton")}
+                                    </Button>
+                            }
                             {isMember && !isOwner &&
                                     <Button
                                             danger
@@ -250,42 +272,56 @@ export function DiveGroupTable({
     ];
 
     return (
-            <Table<DiveGroupResponse>
-                    columns={diveGroupColumns}
-                    dataSource={orderedDiveGroups}
-                    loading={loading}
-                    rowKey={"id"}
-                    pagination={false}
-                    title={() => reorderingEnabled
-                            ? t("DiveEvent.diveGroup.table.title") + " - " + t("DiveEvent.diveGroup.table.reorderHint")
-                            : t("DiveEvent.diveGroup.table.title")}
-                    onRow={(diveGroup: DiveGroupResponse) => reorderingEnabled ? {
-                        draggable: true,
-                        onDragStart: () => setDraggedDiveGroupId(diveGroup.id),
-                        onDragEnd: () => setDraggedDiveGroupId(null),
-                        onDragOver: (event) => event.preventDefault(),
-                        onDrop: () => dropOnDiveGroup(diveGroup.id)
-                    } : {}}
-                    expandable={{
-                        expandedRowRender: (diveGroup: DiveGroupResponse) => (
-                                <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
-                                    <Table<DiveGroupMemberResponse>
-                                            columns={memberColumns}
-                                            dataSource={diveGroup.members ?? []}
-                                            rowKey={"userId"}
-                                            pagination={false}
-                                            size={"small"}
-                                            locale={{emptyText: t("DiveEvent.diveGroup.members.empty")}}
-                                    />
-                                    <DiveEventFiles
-                                            eventId={diveGroup.eventId}
-                                            diveGroup={diveGroup}
-                                            currentUserId={currentUserId}
-                                            onUploaded={onFilesChanged}/>
-                                    <DiveGroupFileList diveFiles={diveGroup.diveFiles ?? []}/>
-                                </Space>
-                        )
-                    }}
-            />
+            <>
+                <Table<DiveGroupResponse>
+                        columns={diveGroupColumns}
+                        dataSource={orderedDiveGroups}
+                        loading={loading}
+                        rowKey={"id"}
+                        pagination={false}
+                        title={() => reorderingEnabled
+                                ? t("DiveEvent.diveGroup.table.title") + " - " + t("DiveEvent.diveGroup.table.reorderHint")
+                                : t("DiveEvent.diveGroup.table.title")}
+                        onRow={(diveGroup: DiveGroupResponse) => reorderingEnabled ? {
+                            draggable: true,
+                            onDragStart: () => setDraggedDiveGroupId(diveGroup.id),
+                            onDragEnd: () => setDraggedDiveGroupId(null),
+                            onDragOver: (event) => event.preventDefault(),
+                            onDrop: () => dropOnDiveGroup(diveGroup.id)
+                        } : {}}
+                        expandable={{
+                            expandedRowRender: (diveGroup: DiveGroupResponse) => (
+                                    <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
+                                        {/* The description is user-entered text and is deliberately rendered as plain text, never as HTML */}
+                                        {diveGroup.description
+                                                ? <Typography.Paragraph style={{whiteSpace: "pre-wrap", marginBottom: 0}}
+                                                                        data-testid={"dive-group-description-" + diveGroup.id}>
+                                                    {diveGroup.description}
+                                                </Typography.Paragraph>
+                                                : <Typography.Text type={"secondary"}>{t("DiveEvent.diveGroup.table.noDescription")}</Typography.Text>}
+                                        <Table<DiveGroupMemberResponse>
+                                                columns={memberColumns}
+                                                dataSource={diveGroup.members ?? []}
+                                                rowKey={"userId"}
+                                                pagination={false}
+                                                size={"small"}
+                                                locale={{emptyText: t("DiveEvent.diveGroup.members.empty")}}
+                                        />
+                                        <DiveEventFiles
+                                                eventId={diveGroup.eventId}
+                                                diveGroup={diveGroup}
+                                                currentUserId={currentUserId}
+                                                onUploaded={onFilesChanged}/>
+                                        <DiveGroupFileList diveFiles={diveGroup.diveFiles ?? []}/>
+                                    </Space>
+                            )
+                        }}
+                />
+                <DiveGroupDetailsModal
+                        open={editedDiveGroup !== null}
+                        diveGroup={editedDiveGroup}
+                        onCancel={() => setEditedDiveGroup(null)}
+                        onUpdated={onDiveGroupDetailsUpdated}/>
+            </>
     );
 }

@@ -786,8 +786,13 @@
     "comments" : "Kommentarer",
     "diveGroup" : {
       "createButton" : "Skapa dykgrupp",
+      "edit" : {
+        "submit" : "Spara dykgrupp",
+        "title" : "Redigera dykgrupp"
+      },
       "error" : {
-        "create" : "Det gick inte att skapa dykgruppen"
+        "create" : "Det gick inte att skapa dykgruppen",
+        "update" : "Uppdateringen av dykgruppen misslyckades"
       },
       "files" : {
         "empty" : "Dykgruppen har inte laddat upp några dykplaner",
@@ -796,6 +801,14 @@
         "uploaded" : "Uppladdade"
       },
       "form" : {
+        "description" : {
+          "label" : "Dykgruppens beskrivning",
+          "placeholder" : "Till exempel: vi går ner längs väggen och vänder vid 30 meter",
+          "rules" : {
+            "maxLength" : "Dykgruppens beskrivning får vara högst {{max}} tecken lång"
+          },
+          "tooltip" : "Fritextbeskrivning av dykgruppen, till exempel dykplanen eller utrustningen som medlemmarna tar med sig. Varje medlem i dykgruppen kan redigera den senare"
+        },
         "groupType" : {
           "label" : "Dykgruppens typ",
           "tooltip" : "Om dykgruppen utför ett normalt dyk eller ett särskilt projektdyk"
@@ -836,11 +849,13 @@
         "deleteButton" : "Radera dykgrupp",
         "deleteConfirm" : "Är du säker på att du vill radera den här dykgruppen?",
         "diveFiles" : "Dykplaner",
+        "editButton" : "Redigera dykgrupp",
         "groupType" : "Dyktyp",
         "joinButton" : "Gå med i dykgruppen",
         "leaveButton" : "Lämna dykgruppen",
         "memberCount" : "Medlemmar",
         "name" : "Dykgruppens namn",
+        "noDescription" : "Dykgruppen har ingen beskrivning",
         "order" : "Ordning",
         "owner" : "Ägare",
         "reorderHint" : "Dra raderna för att ändra dykgruppernas ordning",
@@ -1677,6 +1692,10 @@
       "title" : "Filinställningar"
     },
     "frontend" : {
+      "dive-group-description-max-length" : {
+        "label" : "Längd på dykgruppens beskrivning",
+        "tooltip" : "Maximal längd på en dykgrupps beskrivning, i tecken"
+      },
       "max-certificates" : {
         "label" : "Certifikat (max)",
         "tooltip" : "Maximalt antal certifikat som en medlem kan registrera"

@@ -786,8 +786,13 @@
     "comments" : "Kommentit",
     "diveGroup" : {
       "createButton" : "Luo sukellusryhmä",
+      "edit" : {
+        "submit" : "Tallenna sukellusryhmä",
+        "title" : "Muokkaa sukellusryhmää"
+      },
       "error" : {
-        "create" : "Sukellusryhmän luonti epäonnistui"
+        "create" : "Sukellusryhmän luonti epäonnistui",
+        "update" : "Sukellusryhmän päivittäminen epäonnistui"
       },
       "files" : {
         "empty" : "Sukellusryhmä ei ole ladannut sukellussuunnitelmia",
@@ -796,6 +801,14 @@
         "uploaded" : "Ladattu"
       },
       "form" : {
+        "description" : {
+          "label" : "Sukellusryhmän kuvaus",
+          "placeholder" : "Esimerkiksi: laskeudumme seinämää pitkin ja käännymme 30 metrissä",
+          "rules" : {
+            "maxLength" : "Sukellusryhmän kuvaus saa olla enintään {{max}} merkkiä pitkä"
+          },
+          "tooltip" : "Sukellusryhmän vapaamuotoinen kuvaus, esimerkiksi sukellussuunnitelma tai jäsenten mukanaan tuomat varusteet. Jokainen ryhmän jäsen voi muokata sitä myöhemmin"
+        },
         "groupType" : {
           "label" : "Sukellusryhmän tyyppi",
           "tooltip" : "Suorittaako sukellusryhmä tavallisen sukelluksen vai erityisen projektisukelluksen"
@@ -836,11 +849,13 @@
         "deleteButton" : "Poista sukellusryhmä",
         "deleteConfirm" : "Haluatko varmasti poistaa tämän sukellusryhmän?",
         "diveFiles" : "Sukellussuunnitelmat",
+        "editButton" : "Muokkaa sukellusryhmää",
         "groupType" : "Sukellustyyppi",
         "joinButton" : "Liity sukellusryhmään",
         "leaveButton" : "Poistu sukellusryhmästä",
         "memberCount" : "Jäseniä",
         "name" : "Sukellusryhmän nimi",
+        "noDescription" : "Sukellusryhmällä ei ole kuvausta",
         "order" : "Järjestys",
         "owner" : "Omistaja",
         "reorderHint" : "Vedä rivejä muuttaaksesi sukellusryhmien järjestystä",
@@ -1677,6 +1692,10 @@
       "title" : "Tiedostoasetukset"
     },
     "frontend" : {
+      "dive-group-description-max-length" : {
+        "label" : "Sukellusryhmän kuvauksen pituus",
+        "tooltip" : "Sukellusryhmän kuvauksen enimmäispituus merkkeinä"
+      },
       "max-certificates" : {
         "label" : "Luokitukset (max)",
         "tooltip" : "Maksimimäärä luokituksia, joita yksi sukeltaja voi rekisteröidä"

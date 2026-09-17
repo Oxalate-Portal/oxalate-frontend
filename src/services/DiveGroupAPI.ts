@@ -1,5 +1,12 @@
 import {AbstractAPI} from "./AbstractAPI";
-import type {ActionResponse, DiveGroupOrderRequest, DiveGroupRequest, DiveGroupResponse, DiveGroupUpdateRequest} from "../models";
+import type {
+    ActionResponse,
+    DiveGroupDetailsRequest,
+    DiveGroupOrderRequest,
+    DiveGroupRequest,
+    DiveGroupResponse,
+    DiveGroupUpdateRequest
+} from "../models";
 
 class DiveGroupAPI extends AbstractAPI<DiveGroupRequest, DiveGroupResponse> {
     public async getDiveGroupsByEventId(eventId: number): Promise<DiveGroupResponse[]> {
@@ -19,6 +26,15 @@ class DiveGroupAPI extends AbstractAPI<DiveGroupRequest, DiveGroupResponse> {
 
     public async updateDiveGroup(diveGroupId: number, diveGroupUpdateRequest: DiveGroupUpdateRequest): Promise<DiveGroupResponse> {
         const response = await this.axiosInstance.put<DiveGroupResponse>("/" + diveGroupId, this.serializeRequest(diveGroupUpdateRequest));
+        return this.transformResponse(response.data);
+    }
+
+    /**
+     * Updates the name and description of a dive group. The backend allows this for every member of the group, the
+     * owner, the organizer of the dive event and administrators; ownership and group type are left untouched.
+     */
+    public async updateDiveGroupDetails(diveGroupId: number, diveGroupDetailsRequest: DiveGroupDetailsRequest): Promise<DiveGroupResponse> {
+        const response = await this.axiosInstance.put<DiveGroupResponse>("/" + diveGroupId + "/details", this.serializeRequest(diveGroupDetailsRequest));
         return this.transformResponse(response.data);
     }
 

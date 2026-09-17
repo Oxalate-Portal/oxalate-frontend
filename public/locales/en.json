@@ -786,8 +786,13 @@
     "comments" : "Comments",
     "diveGroup" : {
       "createButton" : "Create dive group",
+      "edit" : {
+        "submit" : "Save dive group",
+        "title" : "Edit dive group"
+      },
       "error" : {
-        "create" : "Creating the dive group failed"
+        "create" : "Creating the dive group failed",
+        "update" : "Updating the dive group failed"
       },
       "files" : {
         "empty" : "The dive group has not uploaded any dive plans",
@@ -796,6 +801,14 @@
         "uploaded" : "Uploaded"
       },
       "form" : {
+        "description" : {
+          "label" : "Dive group description",
+          "placeholder" : "For example: we descend along the wall and turn at 30 metres",
+          "rules" : {
+            "maxLength" : "The dive group description may be at most {{max}} characters long"
+          },
+          "tooltip" : "Free-text description of the dive group, for example the dive plan or the equipment the members bring along. Every member of the dive group can edit it later"
+        },
         "groupType" : {
           "label" : "Dive group type",
           "tooltip" : "Whether the dive group performs a normal dive or a special project dive"
@@ -836,11 +849,13 @@
         "deleteButton" : "Delete dive group",
         "deleteConfirm" : "Are you sure you want to delete this dive group?",
         "diveFiles" : "Dive plans",
+        "editButton" : "Edit dive group",
         "groupType" : "Dive type",
         "joinButton" : "Join dive group",
         "leaveButton" : "Leave dive group",
         "memberCount" : "Members",
         "name" : "Dive group name",
+        "noDescription" : "The dive group has no description",
         "order" : "Order",
         "owner" : "Owner",
         "reorderHint" : "Drag the rows to change the order of the dive groups",
@@ -1677,6 +1692,10 @@
       "title" : "File settings"
     },
     "frontend" : {
+      "dive-group-description-max-length" : {
+        "label" : "Dive group description length",
+        "tooltip" : "Maximum length of a dive group description, in characters"
+      },
       "max-certificates" : {
         "label" : "Max certificates",
         "tooltip" : "Maximum number of certificates a user can register"

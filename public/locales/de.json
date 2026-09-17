@@ -786,8 +786,13 @@
     "comments" : "Kommentare",
     "diveGroup" : {
       "createButton" : "Tauchgruppe erstellen",
+      "edit" : {
+        "submit" : "Tauchgruppe speichern",
+        "title" : "Tauchgruppe bearbeiten"
+      },
       "error" : {
-        "create" : "Das Erstellen der Tauchgruppe ist fehlgeschlagen"
+        "create" : "Das Erstellen der Tauchgruppe ist fehlgeschlagen",
+        "update" : "Die Aktualisierung der Tauchgruppe ist fehlgeschlagen"
       },
       "files" : {
         "empty" : "Die Tauchgruppe hat keine Tauchpläne hochgeladen",
@@ -796,6 +801,14 @@
         "uploaded" : "Hochgeladen"
       },
       "form" : {
+        "description" : {
+          "label" : "Beschreibung der Tauchgruppe",
+          "placeholder" : "Zum Beispiel: wir tauchen entlang der Wand ab und kehren bei 30 Metern um",
+          "rules" : {
+            "maxLength" : "Die Beschreibung der Tauchgruppe darf höchstens {{max}} Zeichen lang sein"
+          },
+          "tooltip" : "Freitextbeschreibung der Tauchgruppe, zum Beispiel der Tauchplan oder die Ausrüstung, die die Mitglieder mitbringen. Jedes Mitglied der Tauchgruppe kann sie später bearbeiten"
+        },
         "groupType" : {
           "label" : "Typ der Tauchgruppe",
           "tooltip" : "Ob die Tauchgruppe einen normalen Tauchgang oder einen speziellen Projekttauchgang durchführt"
@@ -836,11 +849,13 @@
         "deleteButton" : "Tauchgruppe löschen",
         "deleteConfirm" : "Möchtest du diese Tauchgruppe wirklich löschen?",
         "diveFiles" : "Tauchpläne",
+        "editButton" : "Tauchgruppe bearbeiten",
         "groupType" : "Tauchgangstyp",
         "joinButton" : "Tauchgruppe beitreten",
         "leaveButton" : "Tauchgruppe verlassen",
         "memberCount" : "Mitglieder",
         "name" : "Name der Tauchgruppe",
+        "noDescription" : "Die Tauchgruppe hat keine Beschreibung",
         "order" : "Reihenfolge",
         "owner" : "Eigentümer",
         "reorderHint" : "Ziehe die Zeilen, um die Reihenfolge der Tauchgruppen zu ändern",
@@ -1677,6 +1692,10 @@
       "title" : "Dateieinstellungen"
     },
     "frontend" : {
+      "dive-group-description-max-length" : {
+        "label" : "Länge der Tauchgruppenbeschreibung",
+        "tooltip" : "Maximale Länge einer Tauchgruppenbeschreibung in Zeichen"
+      },
       "max-certificates" : {
         "label" : "Maximale Anzahl von Zertifikaten",
         "tooltip" : "Maximale Anzahl von einem Benutzer erhaltenen Zertifikaten"
