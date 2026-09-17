@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {Table} from "antd";
 import {fileTransferAPI} from "../../../services";
 import type {AvatarFileResponse} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
+import {OxTable} from "../../main";
 import {useTranslation} from "react-i18next";
 
 export function AvatarFiles() {
@@ -23,11 +23,11 @@ export function AvatarFiles() {
             });
     }, []);
 
-    const columns = [...commonFileColumns(t, {showPreview: true})];
+    const columns = commonFileColumns(t, {showPreview: true});
 
     return (
         <>
-            {!loading && <Table
+            {!loading && <OxTable
                 columns={columns}
                 dataSource={avatarFiles}
                 rowKey="id"

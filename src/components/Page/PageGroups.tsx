@@ -2,11 +2,11 @@ import {useSession} from "../../session";
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {type PageGroupResponse, PageStatusEnum, RoleEnum} from "../../models";
-import {Button, message, Space, Spin, Table} from "antd";
+import {Button, message, Space, Spin} from "antd";
 import {checkRoles, getPageGroupTitleByLanguage, pageStatusEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
 import {pageGroupMgmtAPI} from "../../services";
-import type {ColumnsType} from "antd/es/table";
+import {type OxColumnsType, OxTable} from "../main";
 
 const RESERVED_PAGE_ID = 1;
 const RESERVED_PAGE_GROUPS = [RESERVED_PAGE_ID, 3];
@@ -18,7 +18,7 @@ export function PageGroups() {
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
 
-    const columns: ColumnsType<PageGroupResponse> = [
+    const columns: OxColumnsType<PageGroupResponse> = [
         {
             title: "#",
             dataIndex: "id",
@@ -28,6 +28,7 @@ export function PageGroups() {
             title: t("PageGroups.table.title"),
             dataIndex: "title",
             key: "title",
+            mobile: true,
             render: (_text: string, record: PageGroupResponse) => {
                 let language = "fi";
 
@@ -135,7 +136,7 @@ export function PageGroups() {
 
             <Spin spinning={loading}>
                 {pageGroups && pageGroups.length > 0 &&
-                    <Table dataSource={pageGroups} columns={columns} pagination={false} rowKey="id"/>}
+                    <OxTable dataSource={pageGroups} columns={columns} pagination={false} rowKey="id"/>}
             </Spin>
             <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right", margin: 12}}>
                 {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]) &&

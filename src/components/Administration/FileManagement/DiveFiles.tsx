@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
-import {Table, Typography} from "antd";
+import {Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
 import {type DiveFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
+import {OxTable} from "../../main";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../../session";
 
@@ -39,6 +40,7 @@ export function DiveFiles() {
             title: t("AdminUploads.dive-file.event-id"),
             dataIndex: "eventId",
             key: "eventId",
+            mobile: true,
             render: (id: number) => <Typography.Text>{id}</Typography.Text>
         },
         {
@@ -59,7 +61,7 @@ export function DiveFiles() {
     ];
 
     return (
-        <Table
+        <OxTable
             columns={columns}
             dataSource={diveFiles}
             rowKey="id"

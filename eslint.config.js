@@ -57,7 +57,20 @@ export default tseslint.config(
         rules: {
             ...reactHooks.configs.recommended.rules,
             "@typescript-eslint/no-deprecated": "warn",
-            "no-console": "off"
+            "no-console": "off",
+            "no-restricted-imports": ["error", {
+                paths: [{
+                    name: "antd",
+                    importNames: ["Table"],
+                    message: "Import OxTable from the components/main barrel instead of Table from antd."
+                }]
+            }]
+        }
+    },
+    {
+        files: ["src/components/main/OxTable.tsx", "src/__tests__/**/*.{ts,tsx}"],
+        rules: {
+            "no-restricted-imports": "off"
         }
     },
     {

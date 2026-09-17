@@ -1,6 +1,7 @@
 import {CopyOutlined, PlusOutlined, ReloadOutlined} from "@ant-design/icons";
-import {Button, DatePicker, Form, Input, message, Modal, Popconfirm, Space, Table} from "antd";
-import type {ColumnsType} from "antd/es/table";
+import {Button, DatePicker, Form, Input, message, Modal, Popconfirm, Space} from "antd";
+import type {OxColumnsType} from "../main";
+import {OxTable} from "../main";
 import dayjs, {type Dayjs} from "dayjs";
 import {useCallback, useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -113,9 +114,9 @@ export function AdminTokens() {
         }
     }, [load, messageApi, t]);
 
-    const columns: ColumnsType<TokenResponse> = useMemo(() => [
+    const columns: OxColumnsType<TokenResponse> = useMemo(() => [
         {
-            title: t("AdminTokens.table.value"), dataIndex: "tokenValue", key: "tokenValue",
+            title: t("AdminTokens.table.value"), dataIndex: "tokenValue", key: "tokenValue", mobile: true,
             render: (value: string | null | undefined, record) => record.tokenId === newToken?.tokenId ? value : `****${value?.slice(-4) || ""}`
         },
         {title: t("AdminTokens.table.created"), dataIndex: "createdAt", key: "createdAt", render: (value: string) => dayjs(value).format("YYYY-MM-DD HH:mm")},
@@ -162,7 +163,7 @@ export function AdminTokens() {
         </Form>
         <Button type="primary" icon={<PlusOutlined/>} onClick={() => setCreateOpen(true)}>{t("AdminTokens.actions.create")}</Button>
         <Button icon={<ReloadOutlined/>} onClick={() => void load()} loading={loading} style={{marginLeft: 8}}>{t("AdminTokens.actions.reload")}</Button>
-        <Table<TokenResponse> rowKey="tokenId" loading={loading} dataSource={visibleTokens} columns={columns}
+        <OxTable<TokenResponse> rowKey="tokenId" loading={loading} dataSource={visibleTokens} columns={columns}
                               pagination={{current: page, pageSize: PAGE_SIZE, total: filteredTokens.length, showSizeChanger: false}}
                               onChange={pagination => setPage(pagination.current || 1)}/>
         <Modal open={createOpen} title={t("AdminTokens.create.title")} onCancel={() => setCreateOpen(false)} footer={null} destroyOnHidden>

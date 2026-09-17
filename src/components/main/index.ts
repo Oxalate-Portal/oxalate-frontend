@@ -10,3 +10,7 @@ export {OxalateFooter} from "./OxalateFooter";
 export {ProtectedImage} from "./ProtectedImage";
 export {ShiftableRangePicker} from "./ShiftableRangePicker";
 export type {RangeValue} from "./ShiftableRangePicker";
+export {OxTable, isActionColumn, isNarrowScreen, renderCollapsedValue, splitColumnsForMobile} from "./OxTable";
+export type {OxColumnGroupType, OxColumnsType, OxColumnType, OxTableProps} from "./OxTable";
+export {resolveFormLayout, useResponsiveFormLayout} from "./useResponsiveFormLayout";
+export type {ResponsiveFormLayout} from "./useResponsiveFormLayout";

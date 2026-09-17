@@ -1,11 +1,12 @@
 import {type Key, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Button, Input, Space, Table} from "antd";
+import {Button, Input, Space} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {membershipAPI} from "../../services";
 import type {MembershipResponse} from "../../models";
-import type {ColumnsType} from "antd/es/table";
+import type {OxColumnsType} from "../main";
+import {OxTable} from "../main";
 import dayjs, {Dayjs} from "dayjs";
 import {AddMemberships} from "./AddMemberships";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
@@ -15,7 +16,7 @@ export function AdminMemberships() {
     const [loading, setLoading] = useState<boolean>(true);
     const {t} = useTranslation();
 
-    const memberListColumns: ColumnsType<MembershipResponse> = [
+    const memberListColumns: OxColumnsType<MembershipResponse> = [
         {
             title: "#",
             dataIndex: "id",
@@ -35,6 +36,7 @@ export function AdminMemberships() {
             title: t("AdminMembers.table.username"),
             dataIndex: "username",
             key: "username",
+            mobile: true,
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
@@ -157,7 +159,7 @@ export function AdminMemberships() {
             <Space orientation={"vertical"} size={12} style={{width: "100%"}}>
                 <h1>{t("AdminMembers.title")}</h1>
 
-                <Table columns={memberListColumns}
+                <OxTable columns={memberListColumns}
                        dataSource={membershipList}
                        loading={loading} rowKey="id"
                        pagination={{

@@ -103,7 +103,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
     const selectedNotification = notifications[selectedNotificationIndex];
 
     const dropdownContent = (
-        <div style={{width: 350, maxHeight: 400, overflow: "auto", backgroundColor: "#1f1f1f", borderRadius: 8, padding: 8}}>
+        <div style={{width: "min(350px, calc(100vw - 32px))", maxHeight: 400, overflow: "auto", backgroundColor: "#1f1f1f", borderRadius: 8, padding: 8}}>
             <div style={{padding: "8px 16px", borderBottom: "1px solid #303030"}}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8}}>
                     <Typography.Text strong>{t("NotificationDropdown.title")}</Typography.Text>

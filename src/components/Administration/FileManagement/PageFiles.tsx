@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
-import {Table, Tag, Typography} from "antd";
+import {Tag, Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
 import {type PageFileResponse, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
+import {OxTable} from "../../main";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
@@ -29,6 +30,7 @@ export function PageFiles() {
             title: t("AdminUploads.page-file.page-id"),
             dataIndex: "pageId",
             key: "pageId",
+            mobile: true,
             render: (pageId: number) => <Link to={"/pages/" + pageId}>{pageId}</Link>
         },
         {
@@ -65,7 +67,7 @@ export function PageFiles() {
     ];
 
     return (
-        <Table
+        <OxTable
             columns={columns}
             dataSource={pageFiles}
             rowKey="id"

@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tabs} from "antd";
+import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Tabs} from "antd";
+import {OxTable} from "../main";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../session";
 import {certificateAPI, certificateClassificationAPI} from "../../services";
@@ -123,6 +124,7 @@ export function AdminCertificateClassifications() {
         {
             title: t("AdminCertificateClassifications.table.titles"),
             key: "titles",
+            mobile: true,
             render: (_: unknown, record: CertificateClassificationResponse) => (
                     <Space wrap>{Object.entries(record.titles || {}).map(([lang, title]) => <span key={lang}>{lang}: {title}</span>)}</Space>
             )
@@ -200,7 +202,7 @@ export function AdminCertificateClassifications() {
                         <Button onClick={saveOrder} loading={savingOrder}>{t("AdminCertificateClassifications.order.save")}</Button>
                         <Button onClick={load} loading={loading}>{t("AdminCertificateClassifications.button.refresh")}</Button>
                     </Space>
-                    <Table<CertificateClassificationResponse>
+                    <OxTable<CertificateClassificationResponse>
                             rowKey="id"
                             loading={loading}
                             dataSource={data}

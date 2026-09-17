@@ -2,9 +2,10 @@ import {type Key, useEffect, useState} from "react";
 import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Button, Divider, Input, message, Space, Spin, Table, Tag} from "antd";
+import {Button, Divider, Input, message, Space, Spin, Tag} from "antd";
 import {adminUserAPI, userAPI} from "../../services";
-import type {ColumnsType} from "antd/es/table";
+import type {OxColumnsType} from "../main";
+import {OxTable} from "../main";
 import {CheckOutlined, CheckSquareOutlined, CloseOutlined, SearchOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
@@ -15,11 +16,12 @@ export function AdminOrgUsers() {
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
 
-    const userListColumns: ColumnsType<AdminUserResponse> = [
+    const userListColumns: OxColumnsType<AdminUserResponse> = [
         {
             title: t("AdminOrgUsers.table.login"),
             dataIndex: "username",
             key: "username",
+            mobile: true,
             sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
             sortDirections: ["descend", "ascend"],
             filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
@@ -293,7 +295,7 @@ export function AdminOrgUsers() {
             {contextHolder}
             <h4>{t("AdminOrgUsers.title")}</h4>
             <Spin spinning={loading}>
-                {userList && <Table dataSource={userList}
+                {userList && <OxTable dataSource={userList}
                                     rowKey="id"
                                     columns={userListColumns}
                                     pagination={{

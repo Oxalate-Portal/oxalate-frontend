@@ -4,9 +4,9 @@ import {useSession} from "../../session";
 import {type DiveEventResponse, type ListUserResponse, RoleEnum} from "../../models";
 import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
-import {Button, Modal, Space, Spin, Table, Tooltip} from "antd";
+import {Button, Modal, Space, Spin, Tooltip} from "antd";
 import {LinkOutlined} from "@ant-design/icons";
-import type {ColumnsType} from "antd/es/table";
+import {type OxColumnsType, OxTable} from "../main";
 import dayjs from "dayjs";
 import {AdminNotifications} from "../Notification";
 
@@ -26,11 +26,12 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             && !!eventInfo
             && eventInfo.participants.length > 0;
 
-    const columns: ColumnsType<DiveEventResponse> = [
+    const columns: OxColumnsType<DiveEventResponse> = [
         {
             title: "#",
             dataIndex: "id",
-            key: "eventId"
+            key: "eventId",
+            mobile: true
         },
         {
             title: t("EventDetails.table.startTime"),
@@ -94,7 +95,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         }
     ];
 
-    let participantColumns: ColumnsType<ListUserResponse> = [
+    let participantColumns: OxColumnsType<ListUserResponse> = [
         {
             title: "#",
             dataIndex: "id",
@@ -112,6 +113,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.participantTable.name"),
             dataIndex: "name",
             key: "name",
+            mobile: true,
             sorter: (a: ListUserResponse, b: ListUserResponse) => a.name.localeCompare(b.name),
             render: (_: string, record: ListUserResponse) => {
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
@@ -199,11 +201,11 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
 
                             <p key={"event-desc-" + eventInfo.id}>{t("EventDetails.description.title")}: {eventInfo.description}</p>
 
-                            <Table columns={columns}
-                                   dataSource={[eventInfo]}
-                                   pagination={false}
-                                   key={"dive-" + eventInfo.id}
-                                   rowKey={(record) => "table-row-" + eventInfo.id + "-" + record.id}
+                            <OxTable columns={columns}
+                                     dataSource={[eventInfo]}
+                                     pagination={false}
+                                     key={"dive-" + eventInfo.id}
+                                     rowKey={(record) => "table-row-" + eventInfo.id + "-" + record.id}
                             />
 
                             <h5 key={"event-part-" + eventInfo.id}>{t("EventDetails.participants.title")}: ({eventInfo.participants.length}):</h5>
@@ -212,7 +214,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                         {t("EventDetails.notificationModal.button")}
                                     </Button>}
 
-                            <Table columns={participantColumns}
+                            <OxTable columns={participantColumns}
                                    dataSource={eventInfo.participants}
                                    pagination={false}
                                    key={"parts" + eventInfo.id}
@@ -224,11 +226,11 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                         <h5 key={"event-waiting-list-" + eventInfo.id}>{t("EventDetails.waitingList.title")}:
                                             ({eventInfo.waitingList.length}):</h5>
 
-                                        <Table columns={participantColumns}
-                                               dataSource={eventInfo.waitingList}
-                                               pagination={false}
-                                               key={"waiting-list-" + eventInfo.id}
-                                               rowKey={(record) => "waiting-list-row-" + record.id}
+                                        <OxTable columns={participantColumns}
+                                                 dataSource={eventInfo.waitingList}
+                                                 pagination={false}
+                                                 key={"waiting-list-" + eventInfo.id}
+                                                 rowKey={(record) => "waiting-list-row-" + record.id}
                                         />
                                     </>}
                         </Space>}

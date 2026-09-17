@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
-import {Button, DatePicker, Form, Input, message, Popconfirm, Spin, Table} from "antd";
-import type {ColumnsType} from "antd/es/table";
+import {Button, DatePicker, Form, Input, message, Popconfirm, Spin} from "antd";
+import type {OxColumnsType} from "../main";
+import {OxTable} from "../main";
 import type {BlockedDateRequest, BlockedDateResponse} from "../../models";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -86,11 +87,12 @@ function BlockedDates() {
         return current && (currentlyBlockedDates.some(date => dayjs(date).isSame(current, "day")) || current < dayjs().startOf("day"));
     }
 
-    const columns: ColumnsType<BlockedDateResponse> = [
+    const columns: OxColumnsType<BlockedDateResponse> = [
         {
             title: t("BlockedDates.table.date"),
             dataIndex: "blockedDate",
             key: "blockedDate",
+            mobile: true,
             render: (value: Date) => dayjs(value).format("YYYY-MM-DD"),
             sorter: (a, b) => dayjs(a.blockedDate).unix() - dayjs(b.blockedDate).unix(),
             defaultSortOrder: "ascend"
@@ -129,7 +131,7 @@ function BlockedDates() {
                 <h4>{t("BlockedDates.title")}</h4>
 
                 <Spin spinning={loading}>
-                    <Table<BlockedDateResponse>
+                    <OxTable<BlockedDateResponse>
                             dataSource={blockedDates}
                             columns={columns}
                             rowKey="id"

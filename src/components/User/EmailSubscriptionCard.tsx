@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {emailNotificationSubscriptionAPI} from "../../services";
 import {type EmailNotificationSubscriptionRequest, type EmailNotificationSubscriptionResponse, EmailNotificationTypeEnum} from "../../models";
 import {Button, Form, Spin, Switch} from "antd";
@@ -11,6 +12,7 @@ interface EmailSubscriptionCardProps {
 export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
     const [loading, setLoading] = useState<boolean>(true);
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(12, 12);
     const [subscriptions, setEmailSubscriptions] = useState<EmailNotificationSubscriptionResponse[]>([]);
     const [subscriptionForm] = Form.useForm();
 
@@ -57,8 +59,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
             {!loading && <Form form={subscriptionForm}
                                name={userId + "-subscription-form"}
                                key={userId + "-subscription-form"}
-                               labelCol={{span: 12}}
-                               wrapperCol={{span: 12}}
+                               {...formLayout}
                                style={{maxWidth: 800}}
                                onFinish={updateSubscriptions}>
                 {Object.values(EmailNotificationTypeEnum).map((type) => {

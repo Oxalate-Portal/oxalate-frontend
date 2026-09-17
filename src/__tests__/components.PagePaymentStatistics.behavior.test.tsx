@@ -52,9 +52,12 @@ jest.mock("../session", () => ({
 }));
 jest.mock("../components/User", () => ({UserFields: () => <div>user-fields</div>}));
 jest.mock("../components/main", () => ({
+    // Forms are horizontal in jsdom, matching the real hook when no breakpoint matches
+    useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({layout: "horizontal", labelCol: {span: labelSpan}, wrapperCol: {span: wrapperSpan}}),
     AcceptTerms: () => <div>terms</div>,
     HealthStatementConfirmationModal: () => null,
-    ShiftableRangePicker: () => <div>date-picker</div>
+    ShiftableRangePicker: () => <div>date-picker</div>,
+    OxTable: jest.requireActual("../components/main/OxTable").OxTable
 }));
 jest.mock("@ant-design/charts", () => ({
     Column: ({data}: { data: unknown[] }) => <div>column-{data?.length ?? 0}</div>,

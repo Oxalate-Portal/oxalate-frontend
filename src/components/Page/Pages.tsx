@@ -3,10 +3,10 @@ import {useSession} from "../../session";
 import {useEffect, useState} from "react";
 import {type PageResponse, PageStatusEnum, RoleEnum, type RolePermissionResponse} from "../../models";
 import {useTranslation} from "react-i18next";
-import {Alert, Button, message, Space, Spin, Table} from "antd";
+import {Alert, Button, message, Space, Spin} from "antd";
 import {checkRoles, getPageGroupTitleByLanguage, getPageTitleByLanguage, isAllowedToEditPage, pageStatusEnum2Tag, roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
-import type {ColumnsType} from "antd/es/table";
+import {type OxColumnsType, OxTable} from "../main";
 import {pageGroupMgmtAPI, pageMgmtAPI} from "../../services";
 
 export function Pages() {
@@ -19,7 +19,7 @@ export function Pages() {
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
 
-    const columns: ColumnsType<PageResponse> = [
+    const columns: OxColumnsType<PageResponse> = [
         {
             title: "#",
             dataIndex: "id",
@@ -29,6 +29,7 @@ export function Pages() {
             title: t("Pages.table.title"),
             dataIndex: "title",
             key: "title",
+            mobile: true,
             render: (_text: string, record: PageResponse) => {
                 let language = "fi";
                 if (sessionLanguage) {
@@ -163,7 +164,7 @@ export function Pages() {
 
             {pages && pages.length === 0 && <Alert key={"info"} showIcon={true} title={t("Pages.alert.noPages")}/>}
             {pages && pages.length > 0 && <Spin spinning={loading}>
-                {pages && pages.length > 0 && <Table dataSource={pages} columns={columns} pagination={false} rowKey="id"/>}
+                {pages && pages.length > 0 && <OxTable dataSource={pages} columns={columns} pagination={false} rowKey="id"/>}
             </Spin>}
 
             {pageGroupId !== 1 &&

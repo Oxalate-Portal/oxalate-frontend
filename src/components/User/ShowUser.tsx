@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {userAPI} from "../../services";
-import {message, Space, Spin, Table} from "antd";
+import {message, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
 import type {UserResponse} from "../../models";
 import {RoleEnum} from "../../models";
@@ -11,6 +11,7 @@ import {ProfileCollapse} from "./ProfileCollapse";
 import {FormMemberships} from "./FormMemberships.tsx";
 import {UserDocumentFiles} from "./UserDocumentFiles";
 import {useSession} from "../../session";
+import {OxTable} from "../main";
 
 export function ShowUser() {
     const {paramId} = useParams<string>();
@@ -64,12 +65,14 @@ export function ShowUser() {
             title: "Name",
             dataIndex: "name",
             key: "name",
+            mobile: true,
             render: (text: string) => (<b>{text}</b>)
         },
         {
             title: "Value",
             dataIndex: "value",
-            key: "value"
+            key: "value",
+            mobile: true
         }
     ];
 
@@ -84,7 +87,7 @@ export function ShowUser() {
                     {userData && t("ShowUser.table.memberships")}
                     {userData && <FormMemberships membershipList={userData.memberships}/>}
                     {userData && t("ShowUser.table.user-details")}
-                    {userData && <Table showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
+                    {userData && <OxTable showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
                     {userData && <UserDocumentFiles
                         userId={userId}
                         creatorName={`${userData.lastName}, ${userData.firstName}`}

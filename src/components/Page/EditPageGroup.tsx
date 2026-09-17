@@ -1,5 +1,6 @@
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {useEffect, useMemo, useState} from "react";
 import {type OptionItemVO, type PageGroupRequest, type PageGroupResponse, PageStatusEnum} from "../../models";
 import {Button, Divider, Form, Input, message, Select, Spin} from "antd";
@@ -10,6 +11,7 @@ export function EditPageGroup() {
     const {paramId} = useParams();
     const [pageGroupId, setPageGroupId] = useState<number>(0);
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 12);
     const [loading, setLoading] = useState<boolean>(true);
     const [submitting, setSubmitting] = useState<boolean>(false);
     const [createNewPageGroup, setCreateNewPageGroup] = useState(false);
@@ -159,8 +161,7 @@ export function EditPageGroup() {
             <Spin spinning={loading || submitting}>
                 {!loading && <Form
                     form={pageGroupForm}
-                    labelCol={{span: 8}}
-                    wrapperCol={{span: 12}}
+                    {...formLayout}
                     style={{maxWidth: 1200}}
                     name={"PageGroupForm"}
                     autoComplete={"off"}
@@ -254,10 +255,7 @@ export function EditPageGroup() {
                         <Select options={statusOptions}/>
                     </Form.Item>
                     <Form.Item
-                        wrapperCol={{
-                            offset: 8,
-                            span: 16
-                        }}
+                        wrapperCol={{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 16}}}
                         key={"pageGroupButtonItem"}
                     >
                         <Button

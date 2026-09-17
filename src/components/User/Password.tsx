@@ -1,4 +1,5 @@
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {Alert, Button, Form, Input, Space, Spin} from "antd";
 import {useState} from "react";
 import {useSession} from "../../session";
@@ -14,6 +15,7 @@ export function Password() {
     const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [updatePasswordForm] = Form.useForm();
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 12);
     const navigate = useNavigate();
 
     const updatePassword = (values: { oldPassword: string; newPassword: string; confirmPassword: string }) => {
@@ -78,8 +80,7 @@ export function Password() {
                 <Form
                     form={updatePasswordForm}
                     name={"update-password"}
-                    labelCol={{span: 8}}
-                    wrapperCol={{span: 12}}
+                    {...formLayout}
                     style={{maxWidth: 800}}
                     initialValues={{
                         oldPassword: "",
@@ -93,7 +94,7 @@ export function Password() {
                     <Form.Item
                         name="oldPassword"
                         label={t("Password.form.oldPassword.label")}
-                        wrapperCol={{span: 12}}
+                        wrapperCol={{xs: {span: 24}, sm: {span: 12}}}
                         rules={[
                             {
                                 required: true,

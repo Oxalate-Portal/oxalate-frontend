@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {Alert, Button, Form, Input, Row} from "antd";
 import {useSession} from "../../session";
 import {authAPI} from "../../services";
@@ -12,6 +13,7 @@ export function LostPassword() {
     const navigate = useNavigate();
     const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(12, 16);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -69,9 +71,8 @@ export function LostPassword() {
             <Row justify={"center"} align={"middle"} style={{minHeight: "15vh"}}>
                 <Form
                     name="lostPasswordForm"
-                    labelCol={{span: 12}}
-                    wrapperCol={{span: 16}}
-                    style={{maxWidth: 600}}
+                    {...formLayout}
+                    style={{width: "100%", maxWidth: 600}}
                     initialValues={{remember: true}}
                     onFinish={requestEmailLink}
                     autoComplete="off"
@@ -90,7 +91,7 @@ export function LostPassword() {
                                ]}>
                         <Input type="text" placeholder={t("LostPassword.form.email.placeholder")}/>
                     </Form.Item>
-                    <Form.Item wrapperCol={{offset: 8, span: 16}}>
+                    <Form.Item wrapperCol={{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 16}}}>
                         <Button
                             type={"primary"}
                             htmlType={"submit"}

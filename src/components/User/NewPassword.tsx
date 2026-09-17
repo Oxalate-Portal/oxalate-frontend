@@ -1,5 +1,6 @@
 import {Alert, Button, Form, Space, Spin} from "antd";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {useParams} from "react-router-dom";
 import {useState} from "react";
 import {type ActionResponse, type PasswordResetRequest, UpdateStatusEnum} from "../../models";
@@ -13,6 +14,7 @@ export function NewPassword() {
     const [loading, setLoading] = useState(false);
     const {token} = useParams();
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 12);
 
     const resetPassword = (values: { newPassword: string; confirmPassword: string }) => {
         if (!token) {
@@ -77,8 +79,7 @@ export function NewPassword() {
                 <Form
                     form={newPasswordForm}
                     name={"update-password"}
-                    labelCol={{span: 8}}
-                    wrapperCol={{span: 12}}
+                    {...formLayout}
                     style={{maxWidth: 800}}
                     initialValues={{
                         oldPassword: "",

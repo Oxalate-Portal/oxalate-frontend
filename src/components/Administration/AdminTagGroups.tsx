@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from "react";
-import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Table, Tag} from "antd";
+import {Button, Form, Input, message, Modal, Popconfirm, Select, Space, Tag} from "antd";
+import {OxTable} from "../main";
 import {tagGroupAPI} from "../../services";
 import type {TagGroupRequest, TagGroupResponse} from "../../models";
 import {TagGroupEnum} from "../../models";
@@ -130,7 +131,7 @@ export function AdminTagGroups() {
 
     const columns = useMemo(
         () => [
-            {title: t("AdminTagGroups.table.code"), dataIndex: "code", key: "code"},
+            {title: t("AdminTagGroups.table.code"), dataIndex: "code", key: "code", mobile: true},
             {
                 title: t("AdminTagGroups.table.names"),
                 dataIndex: "names",
@@ -169,7 +170,7 @@ export function AdminTagGroups() {
                 <Button type={"primary"} onClick={openAdd}>{t("AdminTagGroups.button.add-group")}</Button>
                 <Button onClick={loadGroups} loading={loading}>{t("AdminTagGroups.button.refresh")}</Button>
             </Space>
-            <Table<TagGroupResponse>
+            <OxTable<TagGroupResponse>
                 rowKey="id"
                 loading={loading}
                 dataSource={data}

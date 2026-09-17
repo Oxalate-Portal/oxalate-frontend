@@ -82,7 +82,7 @@ export function Register() {
         return (
             <div className={"darkDiv"}>
                 <Row justify={"center"}>
-                    <div style={{width: 400}}>
+                    <div style={{width: "100%", maxWidth: 400}}>
                         <Alert type={"success"}
                                title={t("Register.success.message")}/>
                         <Row justify={"center"} align={"middle"} style={{minHeight: "10vh"}}>
@@ -114,7 +114,7 @@ export function Register() {
                     layout={"vertical"}
                     labelCol={{span: 12}}
                     wrapperCol={{span: 24}}
-                    style={{width: 600, maxWidth: 900}}
+                    style={{width: "100%", maxWidth: 900}}
                     autoComplete={"off"}
                     scrollToFirstError={true}
                     initialValues={{privacy: false}}

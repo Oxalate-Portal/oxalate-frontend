@@ -13,6 +13,7 @@ import {
     RoleEnum
 } from "../../models";
 import {useTranslation} from "react-i18next";
+import {useResponsiveFormLayout} from "../main";
 import {Button, DatePicker, Form, Input, message, Modal, Select, Slider, Space} from "antd";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
@@ -32,6 +33,7 @@ export function EditDiveEvent() {
     const [loading, setLoading] = useState<boolean>(true);
     const [diveEvent, setDiveEvent] = useState<DiveEventResponse | null>(null);
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 12);
     const [blockedDates, setBlockedDates] = useState<Date[]>([]);
 
     const [organizerOptions, setOrganizerOptions] = useState<OptionItemVO[]>([]);
@@ -322,8 +324,7 @@ export function EditDiveEvent() {
                 {!loading && diveEvent && <Form
                         form={diveEventForm}
                         name={"event"}
-                        labelCol={{span: 8}}
-                        wrapperCol={{span: 12}}
+                        {...formLayout}
                         style={{maxWidth: 800}}
                         initialValues={{
                             id: diveEvent.id,

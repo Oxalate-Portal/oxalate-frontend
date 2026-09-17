@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
 import {UploadOutlined} from "@ant-design/icons";
-import {Button, message, Space, Table, Typography, Upload, type UploadProps} from "antd";
+import {Button, message, Space, Typography, Upload, type UploadProps} from "antd";
 import {fileTransferAPI, getApiBaseUrl} from "../../../services";
 import {type DocumentFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from "../../../models";
 import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
+import {OxTable} from "../../main";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
 
@@ -96,7 +97,7 @@ export function DocumentFiles() {
                 </Button>
             </Upload>
             {!loading &&
-                <Table
+                <OxTable
                     columns={columns}
                     dataSource={documentFiles}
                     rowKey="id"

@@ -36,6 +36,9 @@ jest.mock("../services", () => ({
     transformDatesInObject: jest.requireActual("../services/dateTransformer").transformDatesInObject
 }));
 jest.mock("../components/main", () => ({
+    isNarrowScreen: () => false,
+    // Forms are horizontal in jsdom, matching the real hook when no breakpoint matches
+    useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({layout: "horizontal", labelCol: {span: labelSpan}, wrapperCol: {span: wrapperSpan}}),
     ProtectedImage: ({onRemove, viewOnly, alt}: { onRemove: () => void; viewOnly: boolean; alt: string }) =>
             <div><img alt={alt}/>{!viewOnly && <button onClick={onRemove}>remove photo</button>}</div>
 }));
@@ -75,6 +78,7 @@ jest.mock("antd", () => {
         return <div>{children}</div>;
     };
     return {
+        Grid: {useBreakpoint: () => ({})},
         Form,
         Modal: ({children}: { children: ReactNode }) => <>{children}</>,
         AutoComplete,

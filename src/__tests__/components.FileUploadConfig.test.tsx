@@ -33,6 +33,7 @@ jest.mock("../services", () => ({
 }));
 
 jest.mock("antd", () => ({
+    Grid: {useBreakpoint: () => ({})},
     Button: ({children}: { children: ReactNode }) => <button>{children}</button>,
     Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (

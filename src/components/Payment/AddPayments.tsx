@@ -16,7 +16,7 @@ import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import {getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
-import {type RangeValue, ShiftableRangePicker} from "../main";
+import {type RangeValue, ShiftableRangePicker, useResponsiveFormLayout} from "../main";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -33,6 +33,7 @@ function paymentMatchesRequest(response: PaymentRequest, request: PaymentRequest
 
 export function AddPayments() {
     const {t} = useTranslation();
+    const formLayout = useResponsiveFormLayout(8, 16);
     const [loading, setLoading] = useState<boolean>(true);
     const [users, setUsers] = useState<ListUserResponse[]>([]);
     const [paymentForm] = Form.useForm();
@@ -181,11 +182,10 @@ export function AddPayments() {
                                 selectedDefaultPeriod.endDate ?? selectedDefaultPeriod.startDate
                             ]
                         }}
-                        labelCol={{span: 8}}
+                        {...formLayout}
                         name="payment_form"
                         onFinish={onFinish}
                         style={{maxWidth: 1000}}
-                        wrapperCol={{span: 16}}
                 >
                     <Form.Item
                             name={"userIdList"}
@@ -224,7 +224,7 @@ export function AddPayments() {
                             key={"paymentType"}
                             label={t("AddPayments.form.paymentType.label")}
                             required={true}
-                            wrapperCol={{span: 4}}
+                            wrapperCol={{xs: {span: 24}, sm: {span: 4}}}
                     >
                         <Select
                                 fieldNames={{label: "name", value: "id"}}
