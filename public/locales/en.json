@@ -512,6 +512,7 @@
       "download-link" : "Download link",
       "filename" : "File Name",
       "filesize" : "File Size",
+      "preview" : "File preview",
       "view" : "View"
     },
     "dive-file" : {
@@ -580,6 +581,7 @@
       "userName" : "Username"
     },
     "search" : {
+      "filter" : "Filter",
       "placeholder" : "Search..."
     },
     "table" : {
@@ -780,6 +782,9 @@
   "CommentTypeEnum" : {
     "topic" : "Topic",
     "user_comment" : "User Comment"
+  },
+  "DisplayCommentThread" : {
+    "noComments" : "No comments available."
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Approve health statement",
@@ -1306,6 +1311,9 @@
     "unknownPaymentContact" : "Contact Support",
     "unknownPaymentPlease" : "Please contact support for more information."
   },
+  "Forum" : {
+    "title" : "Forum topics"
+  },
   "HealthStatementConfirmationModal" : {
     "error" : "Something went wrong, please contact the administrator.",
     "title" : "Health statement and medical examination for diving fitness"
@@ -1430,6 +1438,7 @@
       "link" : "Main page",
       "title" : "Forum"
     },
+    "openMenu" : "Open menu",
     "pageManagement" : {
       "blogs" : "Add blog post",
       "pages" : "Pages",
@@ -1494,6 +1503,9 @@
       "created" : "Created: ",
       "updated" : "Updated: "
     }
+  },
+  "PageBodyEditor" : {
+    "resizeOriginal" : "Original"
   },
   "PageGroups" : {
     "button" : {
@@ -1731,6 +1743,10 @@
       }
     },
     "general" : {
+      "auto-cancel-events" : {
+        "label" : "Cancel underbooked events automatically",
+        "tooltip" : "When enabled, a published dive event whose start time has passed with fewer participants than the minimum number of participants is cancelled automatically and its participants are removed and notified"
+      },
       "blog-enabled" : {
         "label" : "Enable blog",
         "tooltip" : "This controls whether the blog feature in the portal is enabled."
@@ -1942,7 +1958,9 @@
       "remove-photo-success" : "Certificate photo removed successfully",
       "title" : "Certification: ",
       "upload-photo" : "Upload certificate",
+      "upload-photo-fail" : "Uploading {{fileName}} failed",
       "upload-photo-size-too-big" : "File size is too big, max 1MB allowed",
+      "upload-photo-success" : "{{fileName}} was uploaded successfully",
       "upload-photo-tooltip" : "Upload a photocopy of your certificate, max. 1MB in size. Uploading a second file will overwrite the first one. Only JPEG and PNG files are allowed."
     }
   },

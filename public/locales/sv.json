@@ -512,6 +512,7 @@
       "download-link" : "Nedladdningslänk",
       "filename" : "Filnamn",
       "filesize" : "Filstorlek",
+      "preview" : "Förhandsvisning av fil",
       "view" : "Visa"
     },
     "dive-file" : {
@@ -580,6 +581,7 @@
       "userName" : "Användarnamn"
     },
     "search" : {
+      "filter" : "Filtrera",
       "placeholder" : "Sök..."
     },
     "table" : {
@@ -780,6 +782,9 @@
   "CommentTypeEnum" : {
     "topic" : "Ämne",
     "user_comment" : "Användarkommentar"
+  },
+  "DisplayCommentThread" : {
+    "noComments" : "Inga kommentarer."
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Godkänn hälsodeklaration",
@@ -1306,6 +1311,9 @@
     "unknownPaymentContact" : "Kontakta supporten",
     "unknownPaymentPlease" : "Kontakta supporten för mer information."
   },
+  "Forum" : {
+    "title" : "Forumämnen"
+  },
   "HealthStatementConfirmationModal" : {
     "error" : "Något gick fel, vänligen kontakta administratören.",
     "title" : "Hälsodeklaration och läkarundersökning för dykarlämplighet"
@@ -1430,6 +1438,7 @@
       "link" : "Huvudsidan",
       "title" : "Forum"
     },
+    "openMenu" : "Öppna menyn",
     "pageManagement" : {
       "blogs" : "Lägg till blogginlägg",
       "pages" : "Sidor",
@@ -1494,6 +1503,9 @@
       "created" : "Skapad: ",
       "updated" : "Senast uppdaterad: "
     }
+  },
+  "PageBodyEditor" : {
+    "resizeOriginal" : "Original"
   },
   "PageGroups" : {
     "button" : {
@@ -1731,6 +1743,10 @@
       }
     },
     "general" : {
+      "auto-cancel-events" : {
+        "label" : "Ställ in underbokade evenemang automatiskt",
+        "tooltip" : "När detta är aktiverat ställs ett publicerat dykevenemang vars starttid har passerat med färre deltagare än minsta antal deltagare in automatiskt, och dess deltagare tas bort och meddelas"
+      },
       "blog-enabled" : {
         "label" : "Aktivera blogg",
         "tooltip" : "Detta styr om bloggfunktionen i portalen är aktiverad."
@@ -1942,7 +1958,9 @@
       "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
       "title" : "Certifikat: ",
       "upload-photo" : "Ladda fotokopia av dykcertifikat",
+      "upload-photo-fail" : "Uppladdningen av {{fileName}} misslyckades",
       "upload-photo-size-too-big" : "Filen är för stor, max 1 MB är tillåtet.",
+      "upload-photo-success" : "{{fileName}} laddades upp",
       "upload-photo-tooltip" : "Ladda upp en fotokopia av ditt certifikat, max. 1 MB stor. Om du laddar upp en andra fil skrivs den första över. Endast JPEG- och PNG-filer är tillåtna."
     }
   },

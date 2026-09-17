@@ -512,6 +512,7 @@
       "download-link" : "Download-Link",
       "filename" : "Dateiname",
       "filesize" : "Dateigröße",
+      "preview" : "Dateivorschau",
       "view" : "Ansehen"
     },
     "dive-file" : {
@@ -580,6 +581,7 @@
       "userName" : "Benutzername"
     },
     "search" : {
+      "filter" : "Filtern",
       "placeholder" : "Suchen..."
     },
     "table" : {
@@ -780,6 +782,9 @@
   "CommentTypeEnum" : {
     "topic" : "Thema",
     "user_comment" : "Benutzerkommentar"
+  },
+  "DisplayCommentThread" : {
+    "noComments" : "Keine Kommentare vorhanden."
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Gesundheitserklärung genehmigen",
@@ -1306,6 +1311,9 @@
     "unknownPaymentContact" : "Support kontaktieren",
     "unknownPaymentPlease" : "Bitte kontaktieren Sie den Support für weitere Informationen."
   },
+  "Forum" : {
+    "title" : "Forumthemen"
+  },
   "HealthStatementConfirmationModal" : {
     "error" : "Etwas ist schief gelaufen, bitte kontaktieren Sie den Administrator.",
     "title" : "Gesundheitserklärung und ärztliche Untersuchung zur Tauchtauglichkeit"
@@ -1430,6 +1438,7 @@
       "link" : "Hauppauge",
       "title" : "Forum"
     },
+    "openMenu" : "Menü öffnen",
     "pageManagement" : {
       "blogs" : "Blogbeitrag hinzufügen",
       "pages" : "Seiten",
@@ -1494,6 +1503,9 @@
       "created" : "Erstellt: ",
       "updated" : "Aktualisiert: "
     }
+  },
+  "PageBodyEditor" : {
+    "resizeOriginal" : "Original"
   },
   "PageGroups" : {
     "button" : {
@@ -1731,6 +1743,10 @@
       }
     },
     "general" : {
+      "auto-cancel-events" : {
+        "label" : "Unterbelegte Veranstaltungen automatisch absagen",
+        "tooltip" : "Wenn aktiviert, wird eine veröffentlichte Tauchveranstaltung, deren Startzeit mit weniger Teilnehmern als der Mindestteilnehmerzahl verstrichen ist, automatisch abgesagt; ihre Teilnehmer werden entfernt und benachrichtigt"
+      },
       "blog-enabled" : {
         "label" : "Blog aktivieren",
         "tooltip" : "Dies steuert, ob die Blog-Funktion im Portal aktiviert ist."
@@ -1942,7 +1958,9 @@
       "remove-photo-success" : "Zertifikatsfoto erfolgreich entfernt",
       "title" : "Zertifikat: ",
       "upload-photo" : "Zertifikat hochladen",
+      "upload-photo-fail" : "Das Hochladen von {{fileName}} ist fehlgeschlagen",
       "upload-photo-size-too-big" : "Die Datei ist zu groß, bitte wählen Sie eine Datei, die kleiner als 1 MB ist.",
+      "upload-photo-success" : "{{fileName}} wurde erfolgreich hochgeladen",
       "upload-photo-tooltip" : "Lade eine Fotokopie deines Zertifikats hoch, max. 1 MB groß. Das Hochladen einer zweiten Datei überschreibt die erste. Nur JPEG und PNG-Dateien sind erlaubt."
     }
   },

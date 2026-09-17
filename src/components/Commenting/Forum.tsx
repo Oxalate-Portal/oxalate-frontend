@@ -5,9 +5,11 @@ import {Avatar, Card, Listy, Space, Typography} from "antd";
 import dayjs from "dayjs";
 import {UserOutlined} from "@ant-design/icons";
 import {resolveCommentAvatarUrl} from "../../tools";
+import {useTranslation} from "react-i18next";
 
 
 export function Forum() {
+    const {t} = useTranslation();
     const [loading, setLoading] = useState<boolean>(true);
     const [comments, setComments] = useState<CommentResponse[]>([]);
 
@@ -79,7 +81,7 @@ export function Forum() {
 
     return (
         <div className={"darkDiv"}>
-            <h1>Forum Topics</h1>
+            <h1>{t("Forum.title")}</h1>
             {renderComments(3)} {/* Render top-level comments (parentCommentId: null) */}
         </div>
     );

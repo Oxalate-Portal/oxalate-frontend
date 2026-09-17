@@ -76,33 +76,6 @@ export function EditPageGroup() {
 
     }, [paramId, enabledLanguages, t]);
 
-    function getErrorMessage(error: unknown): string {
-        if (typeof error === "string") {
-            return error;
-        }
-
-        if (error instanceof Error) {
-            return error.message;
-        }
-
-        if (typeof error === "object" && error !== null) {
-            const maybeError = error as { message?: unknown; response?: { data?: unknown; status?: number } };
-            if (typeof maybeError.message === "string") {
-                return maybeError.message;
-            }
-
-            if (typeof maybeError.response?.data === "string") {
-                return maybeError.response.data;
-            }
-
-            if (typeof maybeError.response?.status === "number") {
-                return `HTTP ${maybeError.response.status}`;
-            }
-        }
-
-        return "Unknown error";
-    }
-
     function onFinish(formData: PageGroupRequest): void {
         setSubmitting(true);
 
@@ -128,8 +101,8 @@ export function EditPageGroup() {
                     setSubmitting(false);
                 })
                 .catch((e: unknown) => {
-                    console.error(e);
-                    messageApi.error(`${t("EditPageGroup.onFinish.create.fail")} ${getErrorMessage(e)}`);
+                    console.error("Creating the page group failed:", e);
+                    messageApi.error(t("EditPageGroup.onFinish.create.fail"));
                     setSubmitting(false);
                 });
         } else {
@@ -144,8 +117,8 @@ export function EditPageGroup() {
                     setSubmitting(false);
                 })
                 .catch((e: unknown) => {
-                    console.error(e);
-                    messageApi.error(`${t("EditPageGroup.onFinish.update.fail")} ${getErrorMessage(e)}`);
+                    console.error("Updating the page group failed:", e);
+                    messageApi.error(t("EditPageGroup.onFinish.update.fail"));
                     setSubmitting(false);
                 });
         }

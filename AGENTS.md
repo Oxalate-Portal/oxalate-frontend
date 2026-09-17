@@ -132,6 +132,7 @@ New security behaviour needs a test in `src/__tests__/` named `security.*.test.t
 3. **Portal configuration** — authenticated, read with `getPortalConfigurationValue(group, key)` where group is a
    `PortalConfigGroupEnum` value (`commenting`, `email`, `general`, `frontend`, `files`, `membership`, `payment`). Notable keys: `general.blog-enabled`,
    `general.timezone`, `general.top-divers-list-size`,
+   `general.auto-cancel-events` (admin toggle for the backend's automatic cancellation of underbooked events),
    `commenting.commenting-enabled`, `commenting.commenting-enabled-features`, `membership.membership-type`
    (`DISABLED`/`PERPETUAL`/`PERIODICAL`/`DURATIONAL`), `membership.event-require-membership`,
    `payment.event-require-payment`, `payment.single-payment-enabled`, `files.dive-files-supported`,

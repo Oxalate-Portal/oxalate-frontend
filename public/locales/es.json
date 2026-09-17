@@ -512,6 +512,7 @@
       "download-link" : "Enlace de descarga",
       "filename" : "Nombre del archivo",
       "filesize" : "Tamaño del archivo",
+      "preview" : "Vista previa del archivo",
       "view" : "Ver"
     },
     "dive-file" : {
@@ -580,6 +581,7 @@
       "userName" : "Nombre de usuario"
     },
     "search" : {
+      "filter" : "Filtrar",
       "placeholder" : "Buscar..."
     },
     "table" : {
@@ -780,6 +782,9 @@
   "CommentTypeEnum" : {
     "topic" : "Tema",
     "user_comment" : "Comentario de usuario"
+  },
+  "DisplayCommentThread" : {
+    "noComments" : "No hay comentarios."
   },
   "DiveEvent" : {
     "approveHealthStatement" : "Aprobar declaración de salud",
@@ -1306,6 +1311,9 @@
     "unknownPaymentContact" : "Contactar soporte",
     "unknownPaymentPlease" : "Por favor, contacte al soporte para más información."
   },
+  "Forum" : {
+    "title" : "Temas del foro"
+  },
   "HealthStatementConfirmationModal" : {
     "error" : "Algo salió mal, por favor contacte al administrador.",
     "title" : "Declaración de salud y examen médico para aptitud de buceo"
@@ -1430,6 +1438,7 @@
       "link" : "Página principal",
       "title" : "Foro"
     },
+    "openMenu" : "Abrir menú",
     "pageManagement" : {
       "blogs" : "Agregar publicación de blog",
       "pages" : "Páginas",
@@ -1494,6 +1503,9 @@
       "created" : "Creado: ",
       "updated" : "Actualizado: "
     }
+  },
+  "PageBodyEditor" : {
+    "resizeOriginal" : "Original"
   },
   "PageGroups" : {
     "button" : {
@@ -1731,6 +1743,10 @@
       }
     },
     "general" : {
+      "auto-cancel-events" : {
+        "label" : "Cancelar automáticamente los eventos con pocos participantes",
+        "tooltip" : "Si está activado, un evento de buceo publicado cuya hora de inicio haya pasado con menos participantes que el mínimo se cancela automáticamente, y sus participantes son eliminados y notificados"
+      },
       "blog-enabled" : {
         "label" : "Habilitar blog",
         "tooltip" : "Esto controla si la función de blog en el portal está habilitada."
@@ -1942,7 +1958,9 @@
       "remove-photo-success" : "Fotografía del certificado eliminada exitosamente",
       "title" : "Certificación: ",
       "upload-photo" : "Subir certificado",
+      "upload-photo-fail" : "La subida de {{fileName}} falló",
       "upload-photo-size-too-big" : "El tamaño del archivo es demasiado grande, se permite máximo 1MB",
+      "upload-photo-success" : "{{fileName}} se subió correctamente",
       "upload-photo-tooltip" : "Suba una fotocopia de su certificado, máximo 1MB de tamaño. Subir un segundo archivo sobrescribirá el primero. Solo se permiten archivos JPEG y PNG."
     }
   },

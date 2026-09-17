@@ -33,6 +33,7 @@ import "./ckeditor_dark_theme.css";
 import {CKUploadAdapter, getApiBaseUrl} from "../../services";
 import type {UserSessionToken} from "../../models";
 import type {JSX} from "react";
+import {useTranslation} from "react-i18next";
 
 interface CkLoader {
     file: Promise<File>;
@@ -56,6 +57,7 @@ interface PageBodyEditorProps {
 }
 
 export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEditorProps): JSX.Element {
+    const {t} = useTranslation();
     function contentUpdated(_event: EventInfo, editor: CKEditorInstance) {
         const data = editor.getData();
         onChange(data);
@@ -124,7 +126,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
                             resizeOptions: [
                                 {
                                     name: "resizeImage:original",
-                                    label: "Original",
+                                    label: t("PageBodyEditor.resizeOriginal"),
                                     value: null
                                 },
                                 {

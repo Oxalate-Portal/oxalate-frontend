@@ -322,8 +322,8 @@ describe("User and main controls and API outcomes", () => {
         expect(await screen.findByText("Login.updateStatus.loginFail")).toBeInTheDocument();
         render(wrap(<LoginWithCaptcha/>));
         render(wrap(<NavigationBar/>));
-        await waitFor(() => expect(screen.getByRole("button", {name: "Open menu"})).toBeInTheDocument());
-        fireEvent.click(screen.getByRole("button", {name: "Open menu"}));
+        await waitFor(() => expect(screen.getByRole("button", {name: "NavigationBar.openMenu"})).toBeInTheDocument());
+        fireEvent.click(screen.getByRole("button", {name: "NavigationBar.openMenu"}));
         expect(await screen.findByText("Ada Lovelace")).toBeInTheDocument();
         render(<OxalateFooter/>);
     });
