@@ -23,15 +23,13 @@ Oxalate frontend uses:
 
 To set up development, copy the `.env` as `.env.local` and add `VITE_APP_SITE_KEY` as variable containing the Google ReCAPTCHA site key.
 
-### Yarn 4 migration
+### Yarn 4
 
-This repository uses Yarn 4 (`packageManager: yarn@4.13.0`) instead of npm.
-
-Before installing dependencies, enable Corepack and activate the pinned Yarn version:
+This repository uses Yarn 4 instead of npm. The exact version is pinned by the `packageManager` field in
+`package.json`; enable Corepack and let it honour that pin rather than activating a version by hand:
 
 ```bash
 corepack enable
-corepack prepare yarn@4.13.0 --activate
 ```
 
 Then use Yarn commands for daily work:
@@ -42,6 +40,9 @@ yarn start
 yarn test
 yarn lint
 ```
+
+`yarn verify` runs the same gate as CI (lint, translation parity, quality ratchet, tests with coverage, and a
+test build) and is the command to run before opening a pull request.
 
 ## Available additional UIs
 

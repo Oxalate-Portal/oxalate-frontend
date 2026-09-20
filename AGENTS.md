@@ -23,7 +23,7 @@ changing user-visible behaviour. `CUSTOMIZATION.md` describes how one image is r
 ### Product invariants the UI must uphold
 
 - **Nothing is hardcoded that the organization can configure.** Event limits, payment/membership rules, enabled languages, timezone, and feature switches all
-  come from the backend at runtime (§4).
+  come from the backend at runtime (§5).
 - **Terms gate**: if `userSession && !userSession.approvedTerms`, only `/` and the user profile route render; everything else redirects to `/` and `AcceptTerms`
   is shown. Do not add routes that bypass this. A `HealthStatementConfirmation`
   flow gates event participation similarly.
@@ -31,11 +31,11 @@ changing user-visible behaviour. `CUSTOMIZATION.md` describes how one image is r
   "fix" this as a leak.
 - **Anonymized accounts still appear** in event lists and statistics with their personal data stripped. Never assume a user row implies personal data is
   present.
-- **Every visible string is translated** into all five locales (§8).
+- **Every visible string is translated** into all five locales (§9).
 
 ## 2. Quick orientation
 
-- App bootstrap is `src/index.tsx`: `I18nextProvider` → `SessionProvider` → `BrowserRouter` → `App`.
+- App bootstrap is `src/index.tsx`: `ErrorBoundary` → `I18nextProvider` → `SessionProvider` → `BrowserRouter` → `App`.
 - `src/App.tsx` is the routing hub, wraps everything in an Ant Design dark-theme `ConfigProvider`, and always renders
   `NavigationBar`, `OxalateFooter`, and `AuthVerify`. Route availability is not static: it depends on `useSession()`
   state plus portal configuration values such as `membership-type`, `commenting-enabled`, and `blog-enabled`.
@@ -226,7 +226,38 @@ readable.
     - `corepack enable`
     - `yarn install`
 - Scripts: `start` (`env-cmd -f .env.local vite`), `build:test`, `build:stage`, `build:production`, `prebuild`, `test`,
-  `test:watch`, `test:coverage`, `test:debug`, `lint`, `lint:fix`, `typecheck`, `verify:translations`, `preview`.
+  `test:watch`, `test:coverage`, `test:debug`, `lint`, `lint:fix`, `lint:style`, `lint:style:fix`, `typecheck`,
+  `verify:translations`, `ratchet`, `ratchet:update`, `verify`, `preview`.
+- **`yarn verify` is the local gate** and reproduces CI in one command: `lint` → `verify:translations` → `ratchet` →
+  `test:coverage` → `build:test`. Run it before opening a PR.
+
+```bash
+corepack enable && yarn install
+
+yarn start                  # dev server; needs .env.local (VITE_APP_API_URL + reCAPTCHA site key)
+yarn verify                 # the full local gate: lint + translations + ratchet + coverage + build
+```
+
+The individual gates:
+
+```bash
+yarn lint                   # eslint src/ — currently clean, so any output is a regression
+yarn lint:style             # stylistic/formatting rules, separate config, ratcheted not gated
+yarn typecheck              # tsc -p tsconfig.app.json --noEmit
+yarn verify:translations    # locale parity across all five files; exits 1 on mismatch
+yarn ratchet                # typecheck/style/suppression counts vs quality-baseline.json
+yarn test                   # jest
+yarn test:coverage          # jest --coverage; thresholds in jest.config.cjs fail the build
+yarn build:test             # runs generateBuildInfo.cjs first, then vite build
+```
+
+Running one test file or one case:
+
+```bash
+yarn test src/__tests__/components.OxTable.test.tsx
+yarn test -t "promotes from the waiting list"
+yarn test:watch
+```
 - `yarn start` expects `.env.local` with at least `VITE_APP_API_URL` and the reCAPTCHA site key; variables are documented in
   `documentation/installation/index.md`. `vite.config.ts` injects them as `__OXALATE_VITE_APP_*__` compile-time constants rather than via `import.meta.env`.
 - All builds run `generateBuildInfo.cjs` first. It reads `VERSION`, derives a tag-based version (optionally `git fetch`
@@ -235,16 +266,50 @@ readable.
   and `jest-environment-jsdom`; setup is `jest.setup.ts` plus `src/setupTests.ts`. CSS/assets, CKEditor, reCAPTCHA,
   `LoginWithCaptcha`, and `OxalateFooter` are mocked through `moduleNameMapper`. Coverage thresholds are ratcheted in
   `jest.config.cjs` and enforced by `yarn test:coverage`.
-- There are ~76 test files covering services, components, routing (`session.Routes`), `App.behavior`,
+- There are ~87 test files covering services, components, routing (`session.Routes`), `App.behavior`,
   `session.SessionProvider.behavior`, `i18n.configuration`, and `tools.*`. Service tests use `axios-mock-adapter`
   (see `src/__tests__/services.AbstractAPI.test.ts`).
+- Test files live **flat** in `src/__tests__/`, named by area with a dotted prefix rather than nested in folders
+  mirroring `src/`: `components.DiveGroups.test.tsx`, `session.Routes.test.tsx`, `services.AbstractAPI.test.ts`,
+  `security.OxalateFooter.test.tsx`. Follow that naming for new tests.
 - `yarn typecheck` runs the strict app TypeScript check (`tsc -p tsconfig.app.json --noEmit`); keep it clean before opening a PR.
   `tsconfig.app.json` is the strict app config, `tsconfig.node.json` covers build tooling, and `tsconfig.jest.json` is the looser test transform config.
-- CI (`.github/workflows/ci.yaml`) runs on Node 24: `yarn install --immutable`, `yarn build:test`, `yarn test`,
-  `yarn test:coverage`, `yarn lint`. Match this locally before opening a PR.
+- CI (`.github/workflows/ci.yaml`) has two jobs on Node 24. The `test` job runs on every push and pull request:
+  `yarn install --immutable`, `yarn lint`, `yarn ratchet`, `yarn verify:translations`, `yarn test:coverage`,
+  `yarn build:test`, then uploads the coverage report. There is deliberately no bare `yarn test` step and no
+  `--passWithNoTests`: a run that collects zero tests is a broken run, not a pass. `yarn verify` matches this locally.
+- The `version-and-upload` job runs only on `main` after `test` passes. It derives the next version from `VERSION` plus
+  the newest matching git tag, rewrites `package.json`, builds the production bundle, pushes a Docker image to
+  `ghcr.io/oxalate-portal/oxalate-frontend` tagged `latest`/major/base/full, then creates the git tag and a GitHub
+  release. Nothing in a PR publishes anything.
 - ESLint uses the flat config in `eslint.config.js` (`typescript-eslint` + `react-hooks`), with
-  `@typescript-eslint/no-deprecated` set to `warn` and `no-console` off. The CRA-style `eslintConfig` block still present in `package.json` is legacy and
-  unused.
+  `@typescript-eslint/no-deprecated` set to `warn`, `no-console` off, and a `no-restricted-imports` rule banning
+  `Table` from `antd` in favour of `OxTable` (§7) — exempted only inside `OxTable.tsx` itself and the tests.
+  Stylistic/formatting rules live in a **separate** config, `eslint.stylistic.config.mjs`, run via `yarn lint:style`;
+  it is ratcheted rather than gated, so `yarn lint` staying clean does not mean `yarn lint:style` is clean. The
+  CRA-style `eslintConfig` block still present in `package.json` is legacy and unused.
+
+### The quality ratchet
+
+`yarn lint`, `yarn test` and `yarn verify:translations` are gated at zero outright. Type errors, stylistic violations
+and inline lint suppressions are instead *ratcheted*, because the repository does not conform today and the backlog is
+too large to fix in one change. `tools/qualityRatchet.cjs` measures each count and compares it with the pinned baseline
+in `quality-baseline.json`:
+
+- `count > baseline` → exit 1, you made it worse
+- `count == baseline` → exit 0
+- `count < baseline` → exit 0, and the script tells you to lower the baseline (`yarn ratchet:update` writes it)
+
+**Never raise a baseline by hand to make a build pass** — that defeats the mechanism; fix the code instead. Lowering a
+baseline is the only edit the script makes. `yarn ratchet` also runs `prebuild`, so it regenerates `src/buildInfo.json`.
+
+The three checks are `typecheck`, `style` and `suppressions`. Note that the `typecheck` baseline has already reached
+`0`, so it is effectively gated at zero: any new type error fails the ratchet. `style` and `suppressions` still carry
+large baselines, so `yarn lint` staying clean says nothing about them — run `yarn ratchet` (or `yarn verify`) to know.
+
+Jest's `coverageThreshold` in `jest.config.cjs` works the same way: the numbers are measured actuals rounded down,
+targeting 90% on every metric, so the build fails on a regression without failing today. Raise them as coverage
+improves; never lower them to make a build pass.
 
 ## 11. Deployment notes that affect code changes
 
@@ -284,8 +349,11 @@ Verify both the editing screen and the menu regeneration path (`reloadNavigation
 
 **Definition of done**
 
-- `yarn test` and `yarn lint` pass (`yarn lint` is currently clean, so any ESLint output is a regression you introduced).
-- `yarn tsc -p tsconfig.app.json --noEmit` introduces no *new* errors beyond the existing baseline.
+- `yarn verify` passes. It covers the rest of this list mechanically except the security and gating review below, and it
+  is what CI runs.
+- `yarn lint` is clean (it is clean today, so any ESLint output is a regression you introduced) and `yarn test` passes.
+- `yarn ratchet` exits 0 — no new type errors, stylistic violations or lint suppressions beyond the pinned baselines in
+  `quality-baseline.json`, and no baseline raised by hand. If your change *lowers* a count, commit the lowered baseline.
 - The section 4 security rules still hold: no unsanitised `dangerouslySetInnerHTML`, no raw backend message rendered, no token/PII logged, no secret in a
   `VITE_APP_*` value, `rel="noopener noreferrer"` on every `target="_blank"`, and the CSP in `vite.config.ts` covers any newly added external origin.
 - New security behaviour has a `security.*` test in `src/__tests__/`.
@@ -295,3 +363,24 @@ Verify both the editing screen and the menu regeneration path (`reloadNavigation
 - New barrel exports are added rather than deep imports.
 - In case of deprecations, never ignore nor remove old code without a clear migration path. Instead, plan for cleanup and include it in the task description so
   that the migration from the deprecated code to the new code becomes a part of the expanded task.
+
+## 13. Commit messages
+
+`.github/git-commit-instructions.md` is authoritative. Write the message from the actual diff only: a concise imperative
+subject line, ideally under 72 characters, then a body with exactly these three sections:
+
+```
+Intent:
+Why the change was made and what problem it solves.
+
+Changes:
+
+- Added, modified, or removed functionality.
+- The most important technical implementation details.
+
+Impact:
+Notable behaviour, user-experience, API, or configuration changes.
+```
+
+Avoid vague wording, implementation-only descriptions, file-by-file lists, and claims about changes that are not in the
+diff.
