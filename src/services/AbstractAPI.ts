@@ -22,15 +22,15 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     }
 
     /**
-     * Fetches one page of a server-paged list endpoint. The request fields and the extra parameters are sent as query
-     * parameters (undefined and empty values are omitted) and every item of the page content is date-transformed.
+     * Fetches one page of a server-paged list endpoint. Paging fields are sent as a JSON body; endpoint-specific
+     * parameters remain query parameters and every item of the page content is date-transformed.
      * @param request paging, sorting and search parameters
      * @param extraParams endpoint-specific query parameters, e.g. `{event_id: 12}`
      * @param path path relative to the API member, e.g. `"/past"`; defaults to the member itself
      */
     public async findPaged(request: PagedRequest, extraParams?: PagedQueryExtraParams, path: string = ""): Promise<PagedResponse<RESPONSE>> {
         this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
-        const response = await this.axiosInstance.get<PagedResponse<RESPONSE>>(path, {params: toPagedQueryParams(request, extraParams)});
+        const response = await this.axiosInstance.post<PagedResponse<RESPONSE>>(path, request, {params: toPagedQueryParams({}, extraParams)});
         return {
             ...response.data,
             content: response.data.content.map((item) => this.transformResponse(item))

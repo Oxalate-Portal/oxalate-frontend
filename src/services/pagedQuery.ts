@@ -6,17 +6,11 @@ export const MAX_PAGE_SIZE = 200;
 export type PagedQueryExtraParams = Record<string, string | number | boolean | undefined>;
 
 /**
- * Turns a {@link PagedRequest} plus optional endpoint-specific parameters into the query parameters of a server-paged
- * GET list endpoint. Undefined and empty values are omitted so the backend applies its own defaults.
+ * Turns optional endpoint-specific parameters into query parameters. Paged request fields are sent in the POST body.
  */
-export function toPagedQueryParams(request: PagedRequest, extraParams?: PagedQueryExtraParams): Record<string, string | number | boolean> {
+export function toPagedQueryParams(request: Partial<PagedRequest>, extraParams?: PagedQueryExtraParams): Record<string, string | number | boolean> {
     const merged: PagedQueryExtraParams = {
-        page: request.page,
-        size: request.size,
-        sort_by: request.sort_by,
-        direction: request.direction,
-        search: request.search,
-        case_sensitive: request.case_sensitive,
+        ...request,
         ...extraParams
     };
     const params: Record<string, string | number | boolean> = {};

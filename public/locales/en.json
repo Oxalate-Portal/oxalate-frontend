@@ -4,6 +4,10 @@
       "alert" : "Something went wrong, please contact the administrator."
     }
   },
+  "ActionResultEnum" : {
+    "FAILURE" : "Failure",
+    "SUCCESS" : "Success"
+  },
   "AddMemberships" : {
     "disabled" : "Membership is disabled",
     "errorGetUsers" : "Failed to get users",
@@ -596,6 +600,11 @@
     },
     "title" : "Audit events"
   },
+  "AuditLevelEnum" : {
+    "error" : "Error",
+    "info" : "Information",
+    "warn" : "Warning"
+  },
   "BlockedDates" : {
     "form" : {
       "date" : {
@@ -870,8 +879,8 @@
     },
     "requiresHealthStatement" : "Joining an event requires that the health statement is approved",
     "requiresMembership" : "Joining an event requires membership",
-    "requiresPayment" : "Joining an event requires payment",
     "requiresMembershipAtEvent" : "Joining an event requires a membership valid when the event takes place",
+    "requiresPayment" : "Joining an event requires payment",
     "requiresPaymentAtEvent" : "Joining an event requires a payment valid when the event takes place",
     "subscribe" : {
       "button" : "Join event",
@@ -921,6 +930,13 @@
     "paymentLabel" : "Payments",
     "rowCount" : "Number of rows:  {{count}}",
     "userLabel" : "Users"
+  },
+  "DownloadTypeEnum" : {
+    "CERTIFICATE" : "Certificate",
+    "DIVE" : "Dive",
+    "DIVE_EVENT" : "Dive event",
+    "MEMBER" : "Member",
+    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -1216,6 +1232,10 @@
       }
     }
   },
+  "EmailNotificationTypeEnum" : {
+    "EVENT" : "Event",
+    "PAGE" : "Page"
+  },
   "EmailSubscriptionCard" : {
     "header" : "Email Receive email notification when:"
   },
@@ -1476,6 +1496,14 @@
     "title" : "Notifications",
     "viewAll" : "View all notifications"
   },
+  "NotificationGroupEnum" : {
+    "active_membership" : "Active membership",
+    "all_registered" : "All registered",
+    "inactive_days" : "Inactive days",
+    "locked_accounts" : "Locked accounts",
+    "never_had_membership" : "Never had membership",
+    "no_active_membership" : "No active membership"
+  },
   "NotificationList" : {
     "markAllAsRead" : "Mark all as read",
     "noNotifications" : "No notifications",
@@ -1530,6 +1558,11 @@
     "updateStatus" : {
       "removed" : "Page group removed"
     }
+  },
+  "PageStatusEnum" : {
+    "deleted" : "Deleted",
+    "drafted" : "Draft",
+    "published" : "Published"
   },
   "Pages" : {
     "alert" : {
@@ -1618,6 +1651,12 @@
     "periodical" : "Periodical",
     "perpetual" : "Perpetual"
   },
+  "PaymentExpirationTypeEnum" : {
+    "DISABLED" : "Disabled",
+    "DURATIONAL" : "Durational",
+    "PERIODICAL" : "Periodical",
+    "PERPETUAL" : "Perpetual"
+  },
   "PaymentListTable" : {
     "table" : {
       "created" : "Created",
@@ -1630,8 +1669,19 @@
     }
   },
   "PaymentTypeEnum" : {
+    "DISABLED" : "Disabled",
+    "NONE" : "None",
     "ONE_TIME" : "One-time",
     "PERIODICAL" : "Periodical"
+  },
+  "PortalConfigGroupEnum" : {
+    "commenting" : "Commenting",
+    "email" : "Email",
+    "files" : "Files",
+    "frontend" : "Frontend",
+    "general" : "General",
+    "membership" : "Membership",
+    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1938,6 +1988,16 @@
       "notReceived" : "If you haven't received the confirmation email, you can resend it by clicking the button below."
     }
   },
+  "ResultEnum" : {
+    "FAIL" : "Failure",
+    "OK" : "OK"
+  },
+  "RoleEnum" : {
+    "ROLE_ADMIN" : "Administrator",
+    "ROLE_ANONYMOUS" : "Anonymous",
+    "ROLE_ORGANIZER" : "Organizer",
+    "ROLE_USER" : "User"
+  },
   "SetDives" : {
     "noDives" : "No dives",
     "table" : {
@@ -1976,6 +2036,10 @@
       "registered" : "Registered",
       "user-details" : "User details"
     }
+  },
+  "SortDirectionEnum" : {
+    "ASC" : "Ascending",
+    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Reports",
@@ -2018,6 +2082,16 @@
     "select" : {
       "placeholder" : "Select timezone"
     }
+  },
+  "UpdateStatusEnum" : {
+    "FAIL" : "Failure",
+    "NONE" : "None",
+    "OK" : "OK"
+  },
+  "UploadStatusEnum" : {
+    "deleted" : "Deleted",
+    "published" : "Published",
+    "uploaded" : "Uploaded"
   },
   "User" : {
     "button" : {
@@ -2240,6 +2314,12 @@
         "success" : "Document uploaded successfully"
       }
     }
+  },
+  "UserStatusEnum" : {
+    "active" : "Active",
+    "anonymized" : "Anonymized",
+    "locked" : "Locked",
+    "registered" : "Registered"
   },
   "UserTypeEnum" : {
     "free_diver" : "Free diving",

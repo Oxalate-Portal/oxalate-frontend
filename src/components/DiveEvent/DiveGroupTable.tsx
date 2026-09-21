@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
 import {userTypeEnum2Tag} from "../../tools";
-import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum} from "../../models";
+import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum, UserTypeEnum} from "../../models";
 import {type OxColumnsType, OxTable, ProtectedImage} from "../main";
 import {DiveEventFiles} from "./DiveEventFiles";
 import {DiveGroupDetailsModal} from "./DiveGroupDetailsModal";
@@ -163,6 +163,7 @@ export function DiveGroupTable({
             title: t("DiveEvent.diveGroup.members.userType"),
             dataIndex: "user_type",
             key: "user_type",
+            filters: Object.values(UserTypeEnum).map((value) => ({text: t(`UserTypeEnum.${value.toLowerCase()}`), value})),
             render: (_: string, member: DiveGroupMemberResponse) => userTypeEnum2Tag(member.user_type, t, member.user_id)
         },
         {
@@ -203,6 +204,7 @@ export function DiveGroupTable({
             title: t("DiveEvent.diveGroup.table.groupType"),
             dataIndex: "group_type",
             key: "group_type",
+            filters: Object.values(DiveGroupTypeEnum).map((value) => ({text: t(`DiveGroupTypeEnum.${value.toLowerCase()}`), value})),
             render: (_: string, diveGroup: DiveGroupResponse) =>
                 t("DiveGroupTypeEnum." + (diveGroup.group_type ?? DiveGroupTypeEnum.NORMAL).toLowerCase())
         },

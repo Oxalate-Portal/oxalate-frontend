@@ -67,12 +67,14 @@ export function Pages() {
             title: t("Pages.table.status"),
             dataIndex: "status",
             key: "status",
+            filters: Object.values(PageStatusEnum).map((value) => ({text: t(`PageStatusEnum.${value.toLowerCase()}`), value})),
             render: (_text: string, record: PageResponse) => pageStatusEnum2Tag(record.status, t, record.id)
         },
         {
             title: t("Pages.table.rolePermissions"),
             dataIndex: "role_permissions",
             key: "role_permissions",
+            filters: Object.values(RoleEnum).map((value) => ({text: t(`common.roles.${value.toLowerCase()}`), value})),
             render: (_: string, record: PageResponse) => (
                 <>
                     {record.role_permissions

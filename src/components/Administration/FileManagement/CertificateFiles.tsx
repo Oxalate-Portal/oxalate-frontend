@@ -1,7 +1,7 @@
 import {fileTransferAPI} from "../../../services";
 import {type CertificateFileResponse, SortDirectionEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
-import {type OxColumnsType, OxTable, OxTableSearch, usePagedTable} from "../../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../../main";
 import {useTranslation} from "react-i18next";
 
 export function CertificateFiles() {
@@ -26,10 +26,6 @@ export function CertificateFiles() {
     return (
         <>
             {certificateTable.contextHolder}
-            <OxTableSearch value={certificateTable.search}
-                           onSearch={certificateTable.setSearch}
-                           caseSensitive={certificateTable.caseSensitive}
-                           onCaseSensitiveChange={certificateTable.setCaseSensitive}/>
             <OxTable
                 columns={columns}
                 dataSource={certificateTable.dataSource}

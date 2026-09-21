@@ -38,7 +38,9 @@ jest.mock("antd", () => {
         columns?: Array<{ render?: (value: unknown, record: Record<string, unknown>) => ReactNode }>;
         onChange?: (...args: unknown[]) => void;
     }) =>
-        <div data-testid="token-table">{dataSource.map(record => <div key={String(record.token_id)}>
+        <div data-testid="token-table"><input placeholder="Search token_value" onChange={event =>
+            onChange?.({current: 1, pageSize: 25}, {token_value: event.target.value ? [event.target.value] : null}, {field: "created_at", order: "descend"})
+        }/>{dataSource.map(record => <div key={String(record.token_id)}>
             {columns.map((column, index) => <span key={index}>{column.render?.(record.token_value, record)}</span>)}
         </div>)}
             <button onClick={() => onChange?.({current: 2, pageSize: 25}, {}, {field: "expires_at", order: "ascend"})}>table-sort</button>
@@ -77,12 +79,10 @@ describe("AdminTokens behavior", () => {
         await waitFor(() => expect(mockAPI.list).toHaveBeenCalledWith({page: 0, size: 25, sort_by: "created_at", direction: "DESC"}));
         await waitFor(() => expect(screen.getByTestId("token-table")).toHaveTextContent("token-value"));
 
-        fireEvent.change(screen.getByPlaceholderText("AdminTokens.filters.value"), {target: {value: "deploy"}});
+        fireEvent.change(screen.getByPlaceholderText("Search token_value"), {target: {value: "deploy"}});
         await waitFor(() => expect(mockAPI.list).toHaveBeenLastCalledWith({
-            page: 0, size: 25, sort_by: "created_at", direction: "DESC", search: "deploy", case_sensitive: false
+            page: 0, size: 25, sort_by: "created_at", direction: "DESC", search: "deploy", case_sensitive: false, filter_column: "token_value"
         }));
-        fireEvent.click(screen.getByText("switch"));
-        await waitFor(() => expect(mockAPI.list).toHaveBeenLastCalledWith(expect.objectContaining({search: "deploy", case_sensitive: true})));
         fireEvent.click(screen.getByText("table-sort"));
         await waitFor(() => expect(mockAPI.list).toHaveBeenLastCalledWith(expect.objectContaining({page: 0, sort_by: "expires_at", direction: "ASC"})));
 

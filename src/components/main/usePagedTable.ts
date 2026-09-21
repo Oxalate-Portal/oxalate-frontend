@@ -54,6 +54,7 @@ interface TableQuery {
     direction?: SortDirectionEnum;
     search: string;
     caseSensitive: boolean;
+    filterColumn?: string;
 }
 
 /**
@@ -92,6 +93,7 @@ export function toPagedRequest(query: TableQuery): PagedRequest {
     if (search !== "") {
         request.search = search;
         request.case_sensitive = query.caseSensitive;
+        request.filter_column = query.filterColumn;
     }
 
     return request;
@@ -99,8 +101,8 @@ export function toPagedRequest(query: TableQuery): PagedRequest {
 
 /**
  * State and Ant Design table bindings for a server-paged list endpoint. The hook maps the table's `onChange` to a
- * {@link PagedRequest} (0-based page, page size, `sort_by`/`direction` from the sorter, column filters are ignored),
- * fetches the page through `fetcher`, and exposes the page as `dataSource` with a 1-based `pagination`.
+ * {@link PagedRequest} (0-based page, page size, `sort_by`/`direction` from the sorter, and the selected column
+ * filter), fetches the page through `fetcher`, and exposes the page as `dataSource` with a 1-based `pagination`.
  *
  * A failed fetch shows a translated Ant Design message and logs a generic console error only.
  */
@@ -173,7 +175,7 @@ export function usePagedTable<T>(fetcher: PagedTableFetcher<T>, options: UsePage
         };
     }, [enabled, request, requestKey]);
 
-    const handleTableChange = useCallback<NonNullable<TableProps<T>["onChange"]>>((paginationConfig, _filters, sorter) => {
+    const handleTableChange = useCallback<NonNullable<TableProps<T>["onChange"]>>((paginationConfig, filters, sorter) => {
         const primarySorter = Array.isArray(sorter) ? sorter[0] : sorter;
         const sortBy = primarySorter?.order ? sorterFieldName(primarySorter) : undefined;
         const direction = primarySorter?.order === undefined || primarySorter.order === null
@@ -185,7 +187,18 @@ export function usePagedTable<T>(fetcher: PagedTableFetcher<T>, options: UsePage
             const sortChanged = sortBy !== previous.sortBy || direction !== previous.direction;
             const page = size !== previous.size || sortChanged ? 0 : Math.max(0, (paginationConfig.current ?? 1) - 1);
 
-            return {...previous, page, size, sortBy, direction};
+            const filterEntry = Object.entries(filters).find(([, values]) => Array.isArray(values) && values.length > 0);
+            const filterColumn = filterEntry?.[0];
+            const search = filterEntry?.[1]?.[0];
+            return {
+                ...previous,
+                page,
+                size,
+                sortBy,
+                direction,
+                filterColumn,
+                search: typeof search === "string" ? search : ""
+            };
         });
     }, []);
 

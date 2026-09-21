@@ -3,14 +3,14 @@ import type {PagedRequest, PagedResponse, TokenCreateRequest, TokenRefreshReques
 
 class TokenAPI extends AbstractAPI<TokenCreateRequest, TokenResponse> {
     public override async findAll(params?: Record<string, string | number>): Promise<TokenResponse[]> {
-        return this.findAllPaged(params);
+        return this.findAllPaged(params, "/paged");
     }
 
     /**
      * Fetches one page of tokens; `request.search` matches the description and the token value.
      */
     async list(request: PagedRequest): Promise<PagedResponse<TokenResponse>> {
-        return this.findPaged(request);
+        return this.findPaged(request, undefined, "/paged");
     }
 
     getTokens(request: PagedRequest): Promise<PagedResponse<TokenResponse>> {

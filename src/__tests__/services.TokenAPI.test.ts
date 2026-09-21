@@ -26,11 +26,18 @@ describe("TokenAPI", () => {
 
     it("lists a page of tokens with the query parameters and creates a token", async () => {
         const token = {token_id: 1, token_value: "a".repeat(64), created_at: "2026-01-01T00:00:00Z", expires_at: "2027-01-01T00:00:00Z"};
-        mock.onGet("").reply(200, page([token]));
+        mock.onPost("/paged").reply(200, page([token]));
         mock.onPost("").reply(201, token);
 
         const result = await tokenAPI.list({page: 0, size: 25, sort_by: "created_at", direction: "DESC", search: "deploy", case_sensitive: false});
-        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 25, sort_by: "created_at", direction: "DESC", search: "deploy", case_sensitive: false});
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual({
+            page: 0,
+            size: 25,
+            sort_by: "created_at",
+            direction: "DESC",
+            search: "deploy",
+            case_sensitive: false
+        });
         expect(result.total_elements).toBe(1);
         expect(result.content).toEqual([expect.objectContaining({token_id: 1})]);
         await expect(tokenAPI.createToken({expires_at: token.expires_at})).resolves.toEqual(expect.objectContaining({token_value: token.token_value}));
@@ -47,7 +54,7 @@ describe("TokenAPI", () => {
 
     it("supports legacy aliases and reports unsuccessful invalidation responses", async () => {
         const token = {token_id: 2, token_value: "alias-token", created_at: "2026-01-01T00:00:00Z", expires_at: "2027-01-01T00:00:00Z"};
-        mock.onGet("").reply(200, page([token]));
+        mock.onPost("/paged").reply(200, page([token]));
         mock.onPost("/refresh", {token_value: "alias-token", days: 7}).reply(200, token);
 
         await expect(tokenAPI.getTokens({page: 0, size: 25})).resolves.toEqual(expect.objectContaining({content: [expect.objectContaining({token_id: 2})]}));

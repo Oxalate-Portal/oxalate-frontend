@@ -2,7 +2,7 @@ import {Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
 import {type DiveFileResponse, PortalConfigGroupEnum, SortDirectionEnum, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
-import {type OxColumnsType, OxTable, OxTableSearch, usePagedTable} from "../../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../../main";
 import {useTranslation} from "react-i18next";
 import {useSession} from "../../../session";
 
@@ -44,6 +44,7 @@ export function DiveFiles() {
             key: "status",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(UploadStatusEnum).map((value) => ({text: t(`UploadStatusEnum.${value.toLowerCase()}`), value})),
             render: (status: UploadStatusEnum) => (
                 <Typography.Text>{status}</Typography.Text>
             )
@@ -54,10 +55,6 @@ export function DiveFiles() {
     return (
         <>
             {diveFileTable.contextHolder}
-            <OxTableSearch value={diveFileTable.search}
-                           onSearch={diveFileTable.setSearch}
-                           caseSensitive={diveFileTable.caseSensitive}
-                           onCaseSensitiveChange={diveFileTable.setCaseSensitive}/>
             <OxTable
                 columns={columns}
                 dataSource={diveFileTable.dataSource}

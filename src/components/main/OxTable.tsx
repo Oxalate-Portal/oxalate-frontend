@@ -1,7 +1,9 @@
-import {Descriptions, Grid, Table, type TableProps} from "antd";
+import {Descriptions, Grid, Input, Select, Table, type TableProps} from "antd";
+import {SearchOutlined} from "@ant-design/icons";
 import type {ColumnGroupType, ColumnsType, ColumnType} from "antd/es/table";
+import type {FilterDropdownProps} from "antd/es/table/interface";
 import type {Breakpoint} from "antd/es/_util/responsiveObserver";
-import type {ReactNode} from "react";
+import {type ReactNode, useState} from "react";
 
 /**
  * A column of an OxTable. In addition to the Ant Design column properties a column can be flagged as `mobile`, which
@@ -90,6 +92,64 @@ function columnLabel<RecordType>(column: OxColumnType<RecordType> | OxColumnGrou
     return title ?? columnIdentity(column);
 }
 
+function searchableColumn<RecordType>(column: OxColumnType<RecordType> | OxColumnGroupType<RecordType>): OxColumnType<RecordType> | OxColumnGroupType<RecordType> {
+    if (isActionColumn(column) || !("dataIndex" in column) || column.dataIndex === undefined || "children" in column) {
+        return column;
+    }
+
+    const filterDropdown = ({selectedKeys, setSelectedKeys, confirm, clearFilters}: FilterDropdownProps) => (
+        <div style={{padding: 8}} onKeyDown={(event) => event.stopPropagation()}>
+            <Input
+                autoFocus
+                placeholder={`Search ${columnIdentity(column)}`}
+                value={selectedKeys[0]}
+                onChange={(event) => setSelectedKeys(event.target.value ? [event.target.value] : [])}
+                onPressEnter={() => confirm()}
+                style={{width: 188, marginBottom: 8, display: "block"}}
+            />
+            <button type="button" onClick={() => {
+                clearFilters?.();
+                confirm();
+            }}>Reset
+            </button>
+        </div>
+    );
+
+    const enumFilterDropdown = column.filters ? (
+        {selectedKeys, setSelectedKeys, confirm, clearFilters}: FilterDropdownProps
+    ) => (
+        <div style={{padding: 8}} onKeyDown={(event) => event.stopPropagation()}>
+            <Select
+                allowClear
+                autoFocus
+                placeholder={`Search ${columnIdentity(column)}`}
+                value={selectedKeys[0]}
+                options={column.filters?.map((filter) => ({label: filter.text, value: filter.value}))}
+                onChange={(value) => {
+                    setSelectedKeys(value === undefined ? [] : [value]);
+                    confirm();
+                }}
+                style={{width: 188, display: "block"}}
+            />
+            <button type="button" onClick={() => {
+                clearFilters?.();
+                confirm();
+            }}>Reset
+            </button>
+        </div>
+    ) : undefined;
+
+    return {
+        ...column,
+        filterDropdown: column.filterDropdown ?? enumFilterDropdown ?? filterDropdown,
+        filterIcon: column.filterIcon ?? <SearchOutlined/>
+    } as OxColumnType<RecordType>;
+}
+
+function searchableColumns<RecordType>(columns: OxColumnsType<RecordType>): OxColumnsType<RecordType> {
+    return columns.map((column) => searchableColumn(column));
+}
+
 /**
  * Renders a single cell the same way the table would, so that tags, links and formatted values look identical in the
  * collapsed view. Cells that render as `{children, props}` objects are unwrapped.
@@ -134,12 +194,14 @@ export function OxTable<RecordType extends object = Record<string, unknown>>({
                                                                              }: OxTableProps<RecordType>) {
     const screens = Grid.useBreakpoint();
     const narrow = isNarrowScreen(screens, collapseBelow);
+    const enhancedColumns = searchableColumns(columns);
+    const [mobileSearch, setMobileSearch] = useState<string>();
 
     if (!narrow) {
-        return <Table<RecordType> {...tableProps} columns={columns as ColumnsType<RecordType>} expandable={expandable} size={size}/>;
+        return <Table<RecordType> {...tableProps} columns={enhancedColumns as ColumnsType<RecordType>} expandable={expandable} size={size}/>;
     }
 
-    const {visible, collapsed} = splitColumnsForMobile(columns);
+    const {visible, collapsed} = splitColumnsForMobile(enhancedColumns);
 
     if (collapsed.length === 0) {
         return <Table<RecordType> {...tableProps} columns={visible as ColumnsType<RecordType>} expandable={expandable} size={size ?? "small"}/>;
@@ -159,10 +221,57 @@ export function OxTable<RecordType extends object = Record<string, unknown>>({
                     colon
                     items={collapsed.map((column, columnIndex) => ({
                         key: columnIdentity(column) || String(columnIndex),
-                        label: columnLabel(column),
+                        label: (
+                            <span>
+                                {columnLabel(column)}
+                                {"dataIndex" in column && column.dataIndex !== undefined && !isActionColumn(column) && (
+                                    <button
+                                        type="button"
+                                        aria-label={`Search ${columnIdentity(column)}`}
+                                        onClick={() => setMobileSearch(columnIdentity(column))}
+                                        style={{border: 0, background: "transparent", cursor: "pointer", marginLeft: 6}}
+                                    >
+                                        <SearchOutlined/>
+                                    </button>
+                                )}
+                            </span>
+                        ),
                         children: renderCollapsedValue(column, record, index)
                     }))}
                 />
+                {mobileSearch && (() => {
+                    const selectedColumn = collapsed.find((column) => columnIdentity(column) === mobileSearch);
+                    const enumFilters = selectedColumn?.filters;
+                    const onSearch = (value: string) => {
+                        const pagination = tableProps.pagination === false ? {} : tableProps.pagination ?? {};
+                        tableProps.onChange?.(
+                            pagination,
+                            {[mobileSearch]: value ? [value] : null},
+                            {},
+                            {} as Parameters<NonNullable<TableProps<RecordType>["onChange"]>>[3]
+                        );
+                        setMobileSearch(undefined);
+                    };
+                    return enumFilters ? (
+                        <Select
+                            autoFocus
+                            allowClear
+                            defaultValue={String(readDataIndex(record, mobileSearch) ?? "")}
+                            options={enumFilters.map((filter) => ({label: filter.text, value: filter.value}))}
+                            onChange={(value) => onSearch(value ?? "")}
+                            style={{marginTop: 8, width: "100%"}}
+                        />
+                    ) : (
+                        <Input.Search
+                            autoFocus
+                            defaultValue={String(readDataIndex(record, mobileSearch) ?? "")}
+                            placeholder={`Search ${mobileSearch}`}
+                            onSearch={onSearch}
+                            onBlur={() => setMobileSearch(undefined)}
+                            style={{marginTop: 8}}
+                        />
+                    );
+                })()}
                 {originalExpandedRowRender && (originalRowExpandable === undefined || originalRowExpandable(record))
                     && originalExpandedRowRender(record, index, indent, expanded)}
             </div>

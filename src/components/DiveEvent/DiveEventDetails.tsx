@@ -1,7 +1,7 @@
 import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 import {useSession} from "../../session";
-import {type DiveEventResponse, type ListUserResponse, RoleEnum} from "../../models";
+import {type DiveEventResponse, DiveTypeEnum, type ListUserResponse, PaymentTypeEnum, RoleEnum, UserTypeEnum} from "../../models";
 import {checkRoles, diveTypeEnum2Tag, paymentTypeEnum2Tag, userTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
 import {Button, Modal, Space, Spin, Tooltip} from "antd";
@@ -65,6 +65,8 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.table.type"),
             dataIndex: "type",
             key: "type",
+            filters: Object.values(DiveTypeEnum).map((value) => ({text: t(`DiveTypeEnum.${value}`), value})),
+            onFilter: (value, record) => record.type === value,
             render: (_, record: DiveEventResponse) => diveTypeEnum2Tag(record.type, t, record.id)
         },
         {
@@ -127,6 +129,8 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             title: t("EventDetails.participantTable.userType"),
             dataIndex: "user_type",
             key: "user_type",
+            filters: Object.values(UserTypeEnum).map((value) => ({text: t(`UserTypeEnum.${value.toLowerCase()}`), value})),
+            onFilter: (value, record) => record.user_type === value,
             sorter: (a: ListUserResponse, b: ListUserResponse) => a.user_type.toLowerCase().localeCompare(b.user_type.toLowerCase()),
             render: (_, record: ListUserResponse) => (
                     <>
@@ -164,6 +168,12 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                 title: t("EventDetails.participantTable.payments"),
                 dataIndex: "payments",
                 key: "payments",
+                filters: Object.values(PaymentTypeEnum).map((value) => ({text: t(`PaymentTypeEnum.${value}`), value})),
+                onFilter: (value, record) => record.payments.some((payment) =>
+                    payment.payment_type === value
+                    && (dayjs(payment.end_date).isAfter(dayjs()) || payment.end_date === null)
+                    && dayjs(payment.start_date).isBefore(dayjs())
+                ),
                 render: (_, {payments}) => (
                         <>
                             {payments.map((payment) => {

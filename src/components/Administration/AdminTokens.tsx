@@ -1,7 +1,7 @@
 import {CopyOutlined, PlusOutlined, ReloadOutlined} from "@ant-design/icons";
 import {Button, DatePicker, Form, Input, message, Modal, Popconfirm, Space} from "antd";
 import type {OxColumnsType} from "../main";
-import {OxTable, OxTableSearch, usePagedTable} from "../main";
+import {OxTable, usePagedTable} from "../main";
 import dayjs, {type Dayjs} from "dayjs";
 import {useCallback, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -121,11 +121,6 @@ export function AdminTokens() {
     return <div className="darkDiv">
         {contextHolder}
         <h4>{t("AdminTokens.title")}</h4>
-        <OxTableSearch value={tokenTable.search}
-                       onSearch={tokenTable.setSearch}
-                       caseSensitive={tokenTable.caseSensitive}
-                       onCaseSensitiveChange={tokenTable.setCaseSensitive}
-                       placeholder={t("AdminTokens.filters.value")}/>
         <Button type="primary" icon={<PlusOutlined/>} onClick={() => setCreateOpen(true)}>{t("AdminTokens.actions.create")}</Button>
         <Button icon={<ReloadOutlined/>} onClick={reload} loading={loading} style={{marginLeft: 8}}>{t("AdminTokens.actions.reload")}</Button>
         <OxTable<TokenResponse> rowKey="token_id" loading={loading} dataSource={tokenTable.dataSource} columns={columns}

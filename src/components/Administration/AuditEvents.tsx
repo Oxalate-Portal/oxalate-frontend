@@ -1,39 +1,23 @@
-import {Select, Tag} from "antd";
+import {Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../tools";
-import {useState} from "react";
 import {type AuditEntryResponse, AuditLevelEnum, SortDirectionEnum} from "../../models";
-import {auditAPI, type AuditFilterColumn} from "../../services";
+import {auditAPI} from "../../services";
 import type {OxColumnsType} from "../main";
-import {OxTable, OxTableSearch, usePagedTable} from "../main";
+import {OxTable, usePagedTable} from "../main";
 import Highlighter from "react-highlight-words";
-
-const FILTER_COLUMNS: AuditFilterColumn[] = ["user_name", "trace_id", "source", "address", "message"];
-
-/** Translation key of each filter column; the wire names are snake_case while the locale keys keep their camelCase names. */
-const FILTER_COLUMN_LABEL_KEYS: Record<AuditFilterColumn, string> = {
-    user_name: "AuditEvents.filter.userName",
-    trace_id: "AuditEvents.filter.traceId",
-    source: "AuditEvents.filter.source",
-    address: "AuditEvents.filter.address",
-    message: "AuditEvents.filter.message"
-};
 
 export function AuditEvents() {
     const {t} = useTranslation();
-    const [filterColumn, setFilterColumn] = useState<AuditFilterColumn>("user_name");
-    // The server pages, sorts and searches the audit trail; `filterColumn` picks the column the search text is
-    // matched against, so changing it refetches the current page.
-    const auditTable = usePagedTable<AuditEntryResponse>((request) => auditAPI.findPagedAudits(request, filterColumn), {
+    const auditTable = usePagedTable<AuditEntryResponse>((request) => auditAPI.findPagedAudits(request), {
         defaultSortBy: "created_at",
         defaultDirection: SortDirectionEnum.DESC,
-        defaultPageSize: 10,
-        deps: [filterColumn]
+        defaultPageSize: 10
     });
     const searchText = auditTable.search.trim();
 
-    const highlighted = (column: AuditFilterColumn) => (text: string) =>
-        filterColumn === column && searchText !== "" ? (
+    const highlighted = (text: string) =>
+        searchText !== "" ? (
             <Highlighter
                 highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
                 searchWords={[searchText]}
@@ -64,7 +48,7 @@ export function AuditEvents() {
             mobile: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            render: highlighted("user_name")
+            render: highlighted
         },
         {
             title: t("AuditEvents.table.traceId"),
@@ -72,7 +56,7 @@ export function AuditEvents() {
             key: "trace_id",
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            render: highlighted("trace_id")
+            render: highlighted
         },
         {
             title: t("AuditEvents.table.source"),
@@ -80,7 +64,7 @@ export function AuditEvents() {
             key: "source",
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            render: highlighted("source")
+            render: highlighted
         },
         {
             title: t("AuditEvents.table.level"),
@@ -88,6 +72,7 @@ export function AuditEvents() {
             key: "level",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(AuditLevelEnum).map((value) => ({text: t(`AuditLevelEnum.${value.toLowerCase()}`), value})),
             render: ((level) => {
                 let color = "";
 
@@ -114,7 +99,7 @@ export function AuditEvents() {
             key: "address",
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            render: highlighted("address")
+            render: highlighted
         },
         {
             title: t("AuditEvents.table.message"),
@@ -122,7 +107,7 @@ export function AuditEvents() {
             key: "message",
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            render: highlighted("message")
+            render: highlighted
         }
     ];
 
@@ -130,19 +115,6 @@ export function AuditEvents() {
         {auditTable.contextHolder}
         <h4>{t("AuditEvents.title")}</h4>
 
-        <OxTableSearch value={auditTable.search}
-                       onSearch={auditTable.setSearch}
-                       caseSensitive={auditTable.caseSensitive}
-                       onCaseSensitiveChange={auditTable.setCaseSensitive}
-                       placeholder={t("AuditEvents.search.placeholder")}>
-            <Select<AuditFilterColumn>
-                value={filterColumn}
-                onChange={setFilterColumn}
-                aria-label={t("AuditEvents.search.filterColumn")}
-                style={{flex: "0 1 180px", minWidth: 140}}
-                options={FILTER_COLUMNS.map((column) => ({value: column, label: t(FILTER_COLUMN_LABEL_KEYS[column])}))}
-            />
-        </OxTableSearch>
         <OxTable dataSource={auditTable.dataSource}
                  columns={auditColumns}
                  pagination={auditTable.pagination}

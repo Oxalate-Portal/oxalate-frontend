@@ -4,7 +4,7 @@ import {Button, message, Space, Typography, Upload, type UploadProps} from "antd
 import {fileTransferAPI, getApiBaseUrl} from "../../../services";
 import {type DocumentFileResponse, PortalConfigGroupEnum, SortDirectionEnum, UploadStatusEnum} from "../../../models";
 import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
-import {type OxColumnsType, OxTable, OxTableSearch, usePagedTable} from "../../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../../main";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
 
@@ -38,6 +38,7 @@ export function DocumentFiles() {
             key: "status",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(UploadStatusEnum).map((value) => ({text: t(`UploadStatusEnum.${value.toLowerCase()}`), value})),
             render: (status: UploadStatusEnum) => (
                 <Typography.Text>{status}</Typography.Text>
             )
@@ -88,10 +89,6 @@ export function DocumentFiles() {
                     {t("AdminUploads.document.upload.button")}
                 </Button>
             </Upload>
-            <OxTableSearch value={documentTable.search}
-                           onSearch={documentTable.setSearch}
-                           caseSensitive={documentTable.caseSensitive}
-                           onCaseSensitiveChange={documentTable.setCaseSensitive}/>
             <OxTable
                 columns={columns}
                 dataSource={documentTable.dataSource}

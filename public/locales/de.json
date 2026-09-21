@@ -4,6 +4,10 @@
       "alert" : "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie den Support."
     }
   },
+  "ActionResultEnum" : {
+    "FAILURE" : "Failure",
+    "SUCCESS" : "Success"
+  },
   "AddMemberships" : {
     "disabled" : "Mitgliedschaft ist deaktiviert",
     "errorGetUsers" : "Benutzer konnten nicht abgerufen werden",
@@ -596,6 +600,11 @@
     },
     "title" : "Audit-Ereignisse"
   },
+  "AuditLevelEnum" : {
+    "error" : "Error",
+    "info" : "Information",
+    "warn" : "Warning"
+  },
   "BlockedDates" : {
     "form" : {
       "date" : {
@@ -870,8 +879,8 @@
     },
     "requiresHealthStatement" : "Für die Teilnahme an einer Veranstaltung muss die Gesundheitserklärung genehmigt werden",
     "requiresMembership" : "Für die Teilnahme an einer Veranstaltung ist eine Mitgliedschaft erforderlich",
-    "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
     "requiresMembershipAtEvent" : "Für die Teilnahme an einer Veranstaltung ist eine zum Veranstaltungszeitpunkt gültige Mitgliedschaft erforderlich",
+    "requiresPayment" : "Für die Teilnahme an einer Veranstaltung ist eine Zahlung erforderlich",
     "requiresPaymentAtEvent" : "Für die Teilnahme an einer Veranstaltung ist eine zum Veranstaltungszeitpunkt gültige Zahlung erforderlich",
     "subscribe" : {
       "button" : "Event beitreten",
@@ -921,6 +930,13 @@
     "paymentLabel" : "Zahlungen",
     "rowCount" : "Zeilenanzahl:  {{count}}",
     "userLabel" : "Benutzer"
+  },
+  "DownloadTypeEnum" : {
+    "CERTIFICATE" : "Certificate",
+    "DIVE" : "Dive",
+    "DIVE_EVENT" : "Dive event",
+    "MEMBER" : "Member",
+    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -1216,6 +1232,10 @@
       }
     }
   },
+  "EmailNotificationTypeEnum" : {
+    "EVENT" : "Event",
+    "PAGE" : "Page"
+  },
   "EmailSubscriptionCard" : {
     "header" : "E-Mail erhalten, für:"
   },
@@ -1476,6 +1496,14 @@
     "title" : "Benachrichtigungen",
     "viewAll" : "Alle Benachrichtigungen anzeigen"
   },
+  "NotificationGroupEnum" : {
+    "active_membership" : "Active membership",
+    "all_registered" : "All registered",
+    "inactive_days" : "Inactive days",
+    "locked_accounts" : "Locked accounts",
+    "never_had_membership" : "Never had membership",
+    "no_active_membership" : "No active membership"
+  },
   "NotificationList" : {
     "markAllAsRead" : "Alle als gelesen markieren",
     "noNotifications" : "Keine Benachrichtigungen",
@@ -1530,6 +1558,11 @@
     "updateStatus" : {
       "removed" : "Gruppe gelöscht"
     }
+  },
+  "PageStatusEnum" : {
+    "deleted" : "Deleted",
+    "drafted" : "Draft",
+    "published" : "Published"
   },
   "Pages" : {
     "alert" : {
@@ -1618,6 +1651,12 @@
     "periodical" : "Periodisch",
     "perpetual" : "Unbefristet"
   },
+  "PaymentExpirationTypeEnum" : {
+    "DISABLED" : "Disabled",
+    "DURATIONAL" : "Durational",
+    "PERIODICAL" : "Periodical",
+    "PERPETUAL" : "Perpetual"
+  },
   "PaymentListTable" : {
     "table" : {
       "created" : "Erstellt",
@@ -1630,8 +1669,19 @@
     }
   },
   "PaymentTypeEnum" : {
+    "DISABLED" : "Deaktiviert",
+    "NONE" : "Keine",
     "ONE_TIME" : "Einmal",
     "PERIODICAL" : "Periodische"
+  },
+  "PortalConfigGroupEnum" : {
+    "commenting" : "Commenting",
+    "email" : "Email",
+    "files" : "Files",
+    "frontend" : "Frontend",
+    "general" : "General",
+    "membership" : "Membership",
+    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1938,6 +1988,16 @@
       "notReceived" : "Falls Sie die Bestätigungs-E-Mail nicht erhalten haben, können Sie sie erneut senden, indem Sie den untenstehenden Button drücken."
     }
   },
+  "ResultEnum" : {
+    "FAIL" : "Failure",
+    "OK" : "OK"
+  },
+  "RoleEnum" : {
+    "ROLE_ADMIN" : "Administrator",
+    "ROLE_ANONYMOUS" : "Anonymous",
+    "ROLE_ORGANIZER" : "Organizer",
+    "ROLE_USER" : "User"
+  },
   "SetDives" : {
     "noDives" : "Keine Tauchgänge",
     "table" : {
@@ -1976,6 +2036,10 @@
       "registered" : "Registriert am",
       "user-details" : "Benutzerdetails"
     }
+  },
+  "SortDirectionEnum" : {
+    "ASC" : "Ascending",
+    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Berichte",
@@ -2018,6 +2082,16 @@
     "select" : {
       "placeholder" : "Zeitzone auswählen"
     }
+  },
+  "UpdateStatusEnum" : {
+    "FAIL" : "Failure",
+    "NONE" : "None",
+    "OK" : "OK"
+  },
+  "UploadStatusEnum" : {
+    "deleted" : "Deleted",
+    "published" : "Published",
+    "uploaded" : "Uploaded"
   },
   "User" : {
     "button" : {
@@ -2240,6 +2314,12 @@
         "success" : "Dokument erfolgreich hochgeladen"
       }
     }
+  },
+  "UserStatusEnum" : {
+    "active" : "Active",
+    "anonymized" : "Anonymized",
+    "locked" : "Locked",
+    "registered" : "Registered"
   },
   "UserTypeEnum" : {
     "free_diver" : "Apnoetauchen",

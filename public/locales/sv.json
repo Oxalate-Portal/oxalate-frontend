@@ -4,6 +4,10 @@
       "alert" : "Något gick fel, vänligen kontakta supporten"
     }
   },
+  "ActionResultEnum" : {
+    "FAILURE" : "Failure",
+    "SUCCESS" : "Success"
+  },
   "AddMemberships" : {
     "disabled" : "Medlemskap är inte i bruk",
     "errorGetUsers" : "Misslyckades med att hämta användare",
@@ -596,6 +600,11 @@
     },
     "title" : "Revisionshändelser"
   },
+  "AuditLevelEnum" : {
+    "error" : "Error",
+    "info" : "Information",
+    "warn" : "Warning"
+  },
   "BlockedDates" : {
     "form" : {
       "date" : {
@@ -870,8 +879,8 @@
     },
     "requiresHealthStatement" : "För att delta i ett evenemang krävs att hälsodeklarationen är godkänd",
     "requiresMembership" : "För att delta i ett evenemang krävs medlemskap",
-    "requiresPayment" : "För att delta i ett evenemang krävs betalning",
     "requiresMembershipAtEvent" : "För att delta i ett evenemang krävs ett medlemskap som är giltigt när evenemanget äger rum",
+    "requiresPayment" : "För att delta i ett evenemang krävs betalning",
     "requiresPaymentAtEvent" : "För att delta i ett evenemang krävs en betalning som är giltig när evenemanget äger rum",
     "subscribe" : {
       "button" : "Ga med i eventet",
@@ -921,6 +930,13 @@
     "paymentLabel" : "Betalningar",
     "rowCount" : "Antal rader: {{count}}",
     "userLabel" : "Användarw"
+  },
+  "DownloadTypeEnum" : {
+    "CERTIFICATE" : "Certificate",
+    "DIVE" : "Dive",
+    "DIVE_EVENT" : "Dive event",
+    "MEMBER" : "Member",
+    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -1216,6 +1232,10 @@
       }
     }
   },
+  "EmailNotificationTypeEnum" : {
+    "EVENT" : "Event",
+    "PAGE" : "Page"
+  },
   "EmailSubscriptionCard" : {
     "header" : "Mottag e-postmeddelanden då:"
   },
@@ -1476,6 +1496,14 @@
     "title" : "Aviseringar",
     "viewAll" : "Visa alla aviseringar"
   },
+  "NotificationGroupEnum" : {
+    "active_membership" : "Active membership",
+    "all_registered" : "All registered",
+    "inactive_days" : "Inactive days",
+    "locked_accounts" : "Locked accounts",
+    "never_had_membership" : "Never had membership",
+    "no_active_membership" : "No active membership"
+  },
   "NotificationList" : {
     "markAllAsRead" : "Markera alla som lästa",
     "noNotifications" : "Inga aviseringar",
@@ -1530,6 +1558,11 @@
     "updateStatus" : {
       "removed" : "Sidgrupp borttagen"
     }
+  },
+  "PageStatusEnum" : {
+    "deleted" : "Deleted",
+    "drafted" : "Draft",
+    "published" : "Published"
   },
   "Pages" : {
     "alert" : {
@@ -1618,6 +1651,12 @@
     "periodical" : "Periodisk",
     "perpetual" : "Permanent"
   },
+  "PaymentExpirationTypeEnum" : {
+    "DISABLED" : "Disabled",
+    "DURATIONAL" : "Durational",
+    "PERIODICAL" : "Periodical",
+    "PERPETUAL" : "Perpetual"
+  },
   "PaymentListTable" : {
     "table" : {
       "created" : "Skapad",
@@ -1630,8 +1669,19 @@
     }
   },
   "PaymentTypeEnum" : {
+    "DISABLED" : "Inaktiverad",
+    "NONE" : "Ingen",
     "ONE_TIME" : "Engångs",
     "PERIODICAL" : "Period"
+  },
+  "PortalConfigGroupEnum" : {
+    "commenting" : "Commenting",
+    "email" : "Email",
+    "files" : "Files",
+    "frontend" : "Frontend",
+    "general" : "General",
+    "membership" : "Membership",
+    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1938,6 +1988,16 @@
       "notReceived" : "Om du inte har mottagit bekräftelsemejlet kan du skicka det igen genom att trycka på knappen nedan."
     }
   },
+  "ResultEnum" : {
+    "FAIL" : "Failure",
+    "OK" : "OK"
+  },
+  "RoleEnum" : {
+    "ROLE_ADMIN" : "Administrator",
+    "ROLE_ANONYMOUS" : "Anonymous",
+    "ROLE_ORGANIZER" : "Organizer",
+    "ROLE_USER" : "User"
+  },
   "SetDives" : {
     "noDives" : "Inga dyk",
     "table" : {
@@ -1976,6 +2036,10 @@
       "registered" : "Registrerad",
       "user-details" : "Användardetaljer"
     }
+  },
+  "SortDirectionEnum" : {
+    "ASC" : "Ascending",
+    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Rapporter",
@@ -2018,6 +2082,16 @@
     "select" : {
       "placeholder" : "Välj tidzon"
     }
+  },
+  "UpdateStatusEnum" : {
+    "FAIL" : "Failure",
+    "NONE" : "None",
+    "OK" : "OK"
+  },
+  "UploadStatusEnum" : {
+    "deleted" : "Deleted",
+    "published" : "Published",
+    "uploaded" : "Uploaded"
   },
   "User" : {
     "button" : {
@@ -2240,6 +2314,12 @@
         "success" : "Dokumentet laddades upp"
       }
     }
+  },
+  "UserStatusEnum" : {
+    "active" : "Active",
+    "anonymized" : "Anonymized",
+    "locked" : "Locked",
+    "registered" : "Registered"
   },
   "UserTypeEnum" : {
     "free_diver" : "Fridykning",

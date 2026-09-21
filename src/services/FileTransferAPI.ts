@@ -174,7 +174,7 @@ class FileTransferAPI {
      * Fetches one page of a file list endpoint and converts the temporal fields of every item to Dayjs.
      */
     private async findPaged<T>(path: string, request: PagedRequest, extraParams?: PagedQueryExtraParams): Promise<PagedResponse<T>> {
-        const response = await this.axiosInstance.get<PagedResponse<T>>(path, {params: toPagedQueryParams(request, extraParams)});
+        const response = await this.axiosInstance.post<PagedResponse<T>>(path, request, {params: toPagedQueryParams({}, extraParams)});
         return {
             ...response.data,
             content: response.data.content.map((item) => transformDatesInObject(item, getGlobalTimezone()))

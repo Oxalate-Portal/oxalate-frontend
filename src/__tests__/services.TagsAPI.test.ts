@@ -65,11 +65,10 @@ describe("TagsAPI", () => {
             last: true,
             empty: false
         };
-        mock.onGet("").reply(200, mockResponse);
+        mock.onPost("").reply(200, mockResponse);
 
         const result = await tagsAPI.findPaged({page: 0, size: 10});
-        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10});
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 0, size: 10});
         expect(result).toEqual(mockResponse);
     });
 });
-

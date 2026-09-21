@@ -16,7 +16,7 @@ class AuditAPI extends AbstractAPI<void, AuditEntryResponse> {
      * Fetches one page of the audit trail. `request.search` is matched against the given column only.
      */
     public async findPagedAudits(request: PagedRequest, filterColumn?: AuditFilterColumn): Promise<PagedResponse<AuditEntryResponse>> {
-        return this.findPaged(request, {filter_column: filterColumn});
+        return this.findPaged({...request, filter_column: filterColumn});
     }
 
     /**

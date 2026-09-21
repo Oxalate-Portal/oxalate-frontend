@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum, SortDirectionEnum} from "../../models";
+import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum, RoleEnum, SortDirectionEnum, UserStatusEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Divider, message, Space, Spin, Tag} from "antd";
 import {adminUserAPI, userAPI} from "../../services";
 import type {OxColumnsType} from "../main";
-import {OxTable, OxTableSearch, usePagedTable} from "../main";
+import {OxTable, usePagedTable} from "../main";
 import {CheckOutlined, CheckSquareOutlined, CloseOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
@@ -61,7 +61,8 @@ export function AdminOrgUsers() {
             dataIndex: "status",
             key: "status",
             sorter: true,
-            sortDirections: ["descend", "ascend"]
+            sortDirections: ["descend", "ascend"],
+            filters: Object.values(UserStatusEnum).map((value) => ({text: t(`UserStatusEnum.${value.toLowerCase()}`), value}))
         },
         {
             title: t("AdminOrgUsers.table.approvedTerms"),
@@ -69,6 +70,10 @@ export function AdminOrgUsers() {
             key: "approved_terms",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: [
+                {text: t("common.button.yes"), value: "true"},
+                {text: t("common.button.no"), value: "false"}
+            ],
             render: (_: string, record: AdminUserResponse) => {
                 return record.approved_terms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
                     <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
@@ -80,6 +85,11 @@ export function AdminOrgUsers() {
             key: "health_statement_id",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: [
+                {text: "None", value: "none"},
+                {text: "Agreed", value: "agreed"},
+                {text: "Completed", value: "completed"}
+            ],
             render: (_: string, record: AdminUserResponse) => {
                 if (record.health_statement_id === null) {
                     return <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
@@ -96,6 +106,7 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.role.title"),
             dataIndex: "roles",
             key: "roles",
+            filters: Object.values(RoleEnum).map((value) => ({text: t(`common.roles.${value.toLowerCase()}`), value})),
             render: (_: string, record: AdminUserResponse) => (
                 <>
                     {record.roles
@@ -109,6 +120,7 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.paymentStatus"),
             dataIndex: "payments",
             key: "payments",
+            filters: Object.values(PaymentTypeEnum).map((value) => ({text: t(`PaymentTypeEnum.${value}`), value})),
             render: (_: string, record: AdminUserResponse) => (
                 <>
                     {record.payments.map((payment: PaymentResponse) => {
@@ -197,10 +209,6 @@ export function AdminOrgUsers() {
             {contextHolder}
             <h4>{t("AdminOrgUsers.title")}</h4>
             <Spin spinning={loading}>
-                <OxTableSearch value={userTable.search}
-                               onSearch={userTable.setSearch}
-                               caseSensitive={userTable.caseSensitive}
-                               onCaseSensitiveChange={userTable.setCaseSensitive}/>
                 <OxTable dataSource={userTable.dataSource}
                          rowKey="id"
                          columns={userListColumns}

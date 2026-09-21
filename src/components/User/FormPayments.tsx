@@ -29,6 +29,7 @@ export function FormPayments(props: FormatPaymentsProps) {
             title: t("FormatPayments.table.paymentType"),
             dataIndex: "payment_type",
             key: "payment_type",
+            filters: Object.values(PaymentTypeEnum).map((value) => ({text: t(`PaymentTypeEnum.${value}`), value})),
             render: (type: PaymentTypeEnum, record: PaymentResponse) => paymentTypeEnum2Tag(type, t, record.id),
             sorter: (a: PaymentResponse, b: PaymentResponse) => a.payment_type.localeCompare(b.payment_type)
         },

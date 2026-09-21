@@ -1,7 +1,7 @@
 import {fileTransferAPI} from "../../../services";
 import {type AvatarFileResponse, SortDirectionEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
-import {OxTable, OxTableSearch, usePagedTable} from "../../main";
+import {OxTable, usePagedTable} from "../../main";
 import {useTranslation} from "react-i18next";
 
 export function AvatarFiles() {
@@ -16,10 +16,6 @@ export function AvatarFiles() {
     return (
         <>
             {avatarTable.contextHolder}
-            <OxTableSearch value={avatarTable.search}
-                           onSearch={avatarTable.setSearch}
-                           caseSensitive={avatarTable.caseSensitive}
-                           onCaseSensitiveChange={avatarTable.setCaseSensitive}/>
             <OxTable
                 columns={columns}
                 dataSource={avatarTable.dataSource}

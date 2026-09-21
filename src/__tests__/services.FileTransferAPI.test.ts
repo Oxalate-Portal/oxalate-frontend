@@ -24,15 +24,15 @@ describe("FileTransferAPI", () => {
         empty: files.length === 0
     });
     const request = {page: 0, size: 10, sort_by: "created_at", direction: "DESC" as const, search: "jpg", case_sensitive: true};
-    const expectedParams = {page: 0, size: 10, sort_by: "created_at", direction: "DESC", search: "jpg", case_sensitive: true};
+    const expectedBody = {page: 0, size: 10, sort_by: "created_at", direction: "DESC", search: "jpg", case_sensitive: true};
 
     describe("Avatar files", () => {
         it("should find a page of avatar files with the paging query parameters", async () => {
-            mock.onGet("/avatars").reply(200, page([{id: 1, filename: "avatar1.jpg", created_at: "2026-01-01T10:00:00Z"}, {id: 2, filename: "avatar2.jpg"}]));
+            mock.onPost("/avatars").reply(200, page([{id: 1, filename: "avatar1.jpg", created_at: "2026-01-01T10:00:00Z"}, {id: 2, filename: "avatar2.jpg"}]));
 
             const result = await fileTransferAPI.findAllAvatarFiles(request);
 
-            expect(mock.history.get[0]?.params).toEqual(expectedParams);
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual(expectedBody);
             expect(result.total_elements).toBe(2);
             expect(result.content.map((file) => file.id)).toEqual([1, 2]);
             expect(typeof result.content[0].created_at.isValid).toBe("function");
@@ -58,11 +58,11 @@ describe("FileTransferAPI", () => {
 
     describe("Certificate files", () => {
         it("should find a page of certificate files", async () => {
-            mock.onGet("/certificates").reply(200, page([{id: 1, filename: "cert1.pdf"}]));
+            mock.onPost("/certificates").reply(200, page([{id: 1, filename: "cert1.pdf"}]));
 
             const result = await fileTransferAPI.findAllCertificateFiles(request);
 
-            expect(mock.history.get[0]?.params).toEqual(expectedParams);
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual(expectedBody);
             expect(result.content).toEqual([{id: 1, filename: "cert1.pdf"}]);
         });
 
@@ -77,13 +77,14 @@ describe("FileTransferAPI", () => {
 
     describe("Dive files", () => {
         it("should find a page of dive files, optionally restricted to an event", async () => {
-            mock.onGet("/dive-files").reply(200, page([{id: 1, filename: "dive1.pdf"}]));
+            mock.onPost("/dive-files").reply(200, page([{id: 1, filename: "dive1.pdf"}]));
 
             const all = await fileTransferAPI.findAllDiveFiles({page: 0, size: 10});
             const forEvent = await fileTransferAPI.findAllDiveFiles(request, 12);
 
-            expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10});
-            expect(mock.history.get[1]?.params).toEqual({...expectedParams, event_id: 12});
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 0, size: 10});
+            expect(JSON.parse(mock.history.post[1]?.data)).toEqual(expectedBody);
+            expect(mock.history.post[1]?.params).toEqual({event_id: 12});
             expect(all.content).toEqual([{id: 1, filename: "dive1.pdf"}]);
             expect(forEvent.last).toBe(true);
         });
@@ -112,20 +113,21 @@ describe("FileTransferAPI", () => {
 
     describe("Document files", () => {
         it("should find a page of documents", async () => {
-            mock.onGet("/documents").reply(200, page([{id: 1, filename: "doc1.pdf"}]));
+            mock.onPost("/documents").reply(200, page([{id: 1, filename: "doc1.pdf"}]));
 
             const result = await fileTransferAPI.findAllDocuments(request);
 
-            expect(mock.history.get[0]?.params).toEqual(expectedParams);
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual(expectedBody);
             expect(result.content).toEqual([{id: 1, filename: "doc1.pdf"}]);
         });
 
         it("should find a page of creator-scoped documents", async () => {
-            mock.onGet("/documents").reply(200, page([{id: 2, filename: "doc2.pdf"}]));
+            mock.onPost("/documents").reply(200, page([{id: 2, filename: "doc2.pdf"}]));
 
             const result = await fileTransferAPI.findAllDocuments({page: 1, size: 5}, 5);
 
-            expect(mock.history.get[0]?.params).toEqual({page: 1, size: 5, creator_id: 5});
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 1, size: 5});
+            expect(mock.history.post[0]?.params).toEqual({creator_id: 5});
             expect(result.content).toEqual([{id: 2, filename: "doc2.pdf"}]);
         });
 
@@ -149,11 +151,11 @@ describe("FileTransferAPI", () => {
 
     describe("Page files", () => {
         it("should find a page of page files", async () => {
-            mock.onGet("/page-files").reply(200, page([{id: 1, filename: "page1.jpg"}]));
+            mock.onPost("/page-files").reply(200, page([{id: 1, filename: "page1.jpg"}]));
 
             const result = await fileTransferAPI.findAllPageFiles(request);
 
-            expect(mock.history.get[0]?.params).toEqual(expectedParams);
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual(expectedBody);
             expect(result.content).toEqual([{id: 1, filename: "page1.jpg"}]);
         });
 

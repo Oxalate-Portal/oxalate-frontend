@@ -48,12 +48,12 @@ describe("DiveEventAPI", () => {
         expect(result).toEqual(mockResponse);
     });
 
-    it("should find a page of past dive events with the paging query parameters", async () => {
+    it("should find a page of past dive events with a paging request body", async () => {
         const mockResponse = {
             content: [{id: 1, status: "HELD", title: "Event 1", start_time: "2026-01-01T10:00:00Z"}],
             page: 0, size: 10, total_elements: 1, total_pages: 1, first: true, last: true, empty: false
         };
-        mock.onGet("/past").reply(200, mockResponse);
+        mock.onPost("/past").reply(200, mockResponse);
 
         const result = await diveEventAPI.findPastDiveEvents({
             page: 0,
@@ -64,14 +64,21 @@ describe("DiveEventAPI", () => {
             case_sensitive: false
         });
 
-        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10, sort_by: "start_time", direction: "DESC", search: "wreck", case_sensitive: false});
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual({
+            page: 0,
+            size: 10,
+            sort_by: "start_time",
+            direction: "DESC",
+            search: "wreck",
+            case_sensitive: false
+        });
         expect(result.total_elements).toBe(1);
         expect(result.content[0]).toEqual(expect.objectContaining({id: 1, title: "Event 1"}));
     });
 
     it("should collect all past dive events by walking through the pages", async () => {
-        mock.onGet("/past").reply((config) => {
-            const page = Number(config.params.page);
+        mock.onPost("/past").reply((config) => {
+            const page = JSON.parse(config.data).page;
             return [200, {
                 content: [{id: page + 1, status: "HELD", title: `Event ${page + 1}`}],
                 page, size: 200, total_elements: 2, total_pages: 2, first: page === 0, last: page === 1, empty: false
@@ -80,7 +87,7 @@ describe("DiveEventAPI", () => {
 
         const result = await diveEventAPI.findAllPastDiveEvents();
         expect(result.map((event) => event.id)).toEqual([1, 2]);
-        expect(mock.history.get).toHaveLength(2);
+        expect(mock.history.post).toHaveLength(2);
     });
 
     it("should subscribe user to event", async () => {
@@ -168,4 +175,3 @@ describe("DiveEventAPI", () => {
         expect(mock.history.delete).toHaveLength(1);
     });
 });
-

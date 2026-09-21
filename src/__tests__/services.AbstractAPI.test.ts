@@ -77,28 +77,29 @@ describe("AbstractAPI", () => {
             empty: false
         };
 
-        it("sends the request fields as query parameters and omits undefined and empty values", async () => {
-            mock.onGet("").reply(200, page);
+        it("sends the paged request as a JSON body", async () => {
+            mock.onPost("").reply(200, page);
 
             const result = await api.findPaged({page: 2, size: 25, sort_by: "name", direction: "DESC", search: "  ", case_sensitive: undefined});
 
-            expect(mock.history.get[0]?.params).toEqual({page: 2, size: 25, sort_by: "name", direction: "DESC"});
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 2, size: 25, sort_by: "name", direction: "DESC", search: "  "});
             expect(result.total_elements).toBe(1);
             expect(result.last).toBe(true);
             expect(result.content[0]).toEqual(expect.objectContaining({id: 1, name: "Item 1"}));
         });
 
         it("adds the search, case sensitivity and extra parameters and hits the given path", async () => {
-            mock.onGet("/past").reply(200, page);
+            mock.onPost("/past").reply(200, page);
 
             await api.findPaged({page: 0, size: 10, search: "dive", case_sensitive: true}, {event_id: 12, creatorId: undefined}, "/past");
 
-            expect(mock.history.get[0]?.url).toBe("/past");
-            expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10, search: "dive", case_sensitive: true, event_id: 12});
+            expect(mock.history.post[0]?.url).toBe("/past");
+            expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 0, size: 10, search: "dive", case_sensitive: true});
+            expect(mock.history.post[0]?.params).toEqual({event_id: 12});
         });
 
         it("converts the temporal fields of every item of the page", async () => {
-            mock.onGet("").reply(200, page);
+            mock.onPost("").reply(200, page);
 
             const result = await api.findPaged({page: 0, size: 10});
             const item = result.content[0] as unknown as { created_at: { isValid?: () => boolean } };
@@ -107,7 +108,7 @@ describe("AbstractAPI", () => {
         });
 
         it("rejects when the request fails", async () => {
-            mock.onGet("").reply(500);
+            mock.onPost("").reply(500);
 
             await expect(api.findPaged({page: 0, size: 10})).rejects.toBeDefined();
         });
@@ -171,4 +172,3 @@ describe("AbstractAPI", () => {
         });
     });
 });
-

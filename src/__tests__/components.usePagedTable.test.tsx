@@ -86,7 +86,7 @@ describe("usePagedTable", () => {
         await waitFor(() => expect(fetcher).toHaveBeenLastCalledWith({page: 0, size: 10, sort_by: undefined, direction: undefined}));
     });
 
-    it("maps the table change to the request: page is 0-based, sorter becomes sortBy/direction and filters are ignored", async () => {
+    it("maps the table change to the request: page is 0-based, sorter becomes sortBy/direction and filters become column searches", async () => {
         const fetcher = jest.fn().mockResolvedValue(page([{id: 1, name: "Ada"}], 30));
         render(<Harness fetcher={fetcher}/>);
         await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
@@ -96,7 +96,15 @@ describe("usePagedTable", () => {
             action: "paginate"
         }));
         await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2));
-        expect(fetcher).toHaveBeenLastCalledWith({page: 2, size: 10, sort_by: undefined, direction: undefined});
+        expect(fetcher).toHaveBeenLastCalledWith({
+            page: 2,
+            size: 10,
+            sort_by: undefined,
+            direction: undefined,
+            search: "ignored",
+            case_sensitive: false,
+            filter_column: "name"
+        });
         expect(screen.getByTestId("current")).toHaveTextContent("3");
 
         act(() => latestState().handleTableChange({current: 3, pageSize: 10}, {}, sorter("name", "descend"), {currentDataSource: [], action: "sort"}));

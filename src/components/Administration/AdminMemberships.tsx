@@ -2,9 +2,9 @@ import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Space} from "antd";
 import {membershipAPI} from "../../services";
-import {type MembershipResponse, SortDirectionEnum} from "../../models";
+import {type MembershipResponse, MembershipStatusEnum, MembershipTypeEnum, SortDirectionEnum} from "../../models";
 import type {OxColumnsType} from "../main";
-import {OxTable, OxTableSearch, usePagedTable} from "../main";
+import {OxTable, usePagedTable} from "../main";
 import dayjs, {Dayjs} from "dayjs";
 import {AddMemberships} from "./AddMemberships";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
@@ -58,6 +58,7 @@ export function AdminMemberships() {
             key: "status",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(MembershipStatusEnum).map((value) => ({text: t(`MembershipStatusEnum.${value.toLowerCase()}`), value})),
             render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id)
         },
         {
@@ -66,6 +67,7 @@ export function AdminMemberships() {
             key: "type",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(MembershipTypeEnum).map((value) => ({text: t(`MembershipTypeEnum.${value.toLowerCase()}`), value})),
             render: (_: string, record: MembershipResponse) => membershipTypeEnum2Tag(record.type, t, record.id)
         },
         {
@@ -111,10 +113,6 @@ export function AdminMemberships() {
                 {membershipTable.contextHolder}
                 <h1>{t("AdminMembers.title")}</h1>
 
-                <OxTableSearch value={membershipTable.search}
-                               onSearch={membershipTable.setSearch}
-                               caseSensitive={membershipTable.caseSensitive}
-                               onCaseSensitiveChange={membershipTable.setCaseSensitive}/>
                 <OxTable columns={memberListColumns}
                          dataSource={membershipTable.dataSource}
                          loading={membershipTable.loading}

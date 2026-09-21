@@ -1,8 +1,8 @@
 import type {SortDirectionEnum} from "../SortDirectionEnum.ts";
 
 /**
- * Paging, sorting and search parameters of the server-paged GET list endpoints. The fields are sent as query
- * parameters with these exact names; `page` is 0-based and `size` is capped by the backend at 200.
+ * Paging, sorting and column search parameters of the server-paged list endpoints. The fields are sent as JSON with
+ * these exact names; `page` is 0-based and `size` is capped by the backend at 200.
  */
 export interface PagedRequest {
     page: number;
@@ -11,4 +11,5 @@ export interface PagedRequest {
     direction?: SortDirectionEnum;
     search?: string;
     case_sensitive?: boolean;
+    filter_column?: string;
 }

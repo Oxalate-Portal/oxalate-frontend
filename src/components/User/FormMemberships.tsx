@@ -1,4 +1,4 @@
-import {type MembershipResponse, MembershipTypeEnum} from "../../models";
+import {type MembershipResponse, MembershipStatusEnum, MembershipTypeEnum} from "../../models";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {membershipStatusEnum2Tag, membershipTypeEnum2Tag} from "../../tools";
@@ -18,6 +18,7 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             dataIndex: "id",
             key: "membership-id",
             mobile: true,
+            filters: Object.values(MembershipTypeEnum).map((value) => ({text: t(`MembershipTypeEnum.${value.toLowerCase()}`), value})),
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.id - b.id
         },
         {
@@ -32,6 +33,7 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
             title: t("FormMemberships.table.status"),
             dataIndex: "status",
             key: "membership-status",
+            filters: Object.values(MembershipStatusEnum).map((value) => ({text: t(`MembershipStatusEnum.${value.toLowerCase()}`), value})),
             render: (_: string, record: MembershipResponse) => membershipStatusEnum2Tag(record.status, t, record.id),
             sorter: (a: MembershipResponse, b: MembershipResponse) => a.status.localeCompare(b.status)
         },

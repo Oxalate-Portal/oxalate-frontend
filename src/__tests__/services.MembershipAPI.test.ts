@@ -33,14 +33,14 @@ describe("MembershipAPI", () => {
     });
 
     it("should collect all memberships through the pages", async () => {
-        mock.onGet("").reply(200, {
+        mock.onPost("/paged").reply(200, {
             content: [{id: 1, type: "ACTIVE"}, {id: 2, type: "EXPIRED"}],
             page: 0, size: 200, total_elements: 2, total_pages: 1, first: true, last: true, empty: false
         });
 
         const result = await membershipAPI.findAll();
         expect(result).toEqual([{id: 1, type: "ACTIVE"}, {id: 2, type: "EXPIRED"}]);
-        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 200});
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 0, size: 200});
     });
 
     it("should find a page of memberships sorted and searched on the server", async () => {
@@ -57,11 +57,11 @@ describe("MembershipAPI", () => {
             }],
             page: 0, size: 10, total_elements: 1, total_pages: 1, first: true, last: true, empty: false
         };
-        mock.onGet("").reply(200, mockResponse);
+        mock.onPost("/paged").reply(200, mockResponse);
 
         const result = await membershipAPI.findPaged({page: 0, size: 10, sort_by: "username", direction: "ASC", search: "ada", case_sensitive: true});
 
-        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10, sort_by: "username", direction: "ASC", search: "ada", case_sensitive: true});
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 0, size: 10, sort_by: "username", direction: "ASC", search: "ada", case_sensitive: true});
         expect(result.total_elements).toBe(1);
         expect(result.content[0]).toEqual(expect.objectContaining({id: 1, username: "Ada"}));
     });
@@ -90,4 +90,3 @@ describe("MembershipAPI", () => {
         expect(mock.history.delete).toHaveLength(1);
     });
 });
-

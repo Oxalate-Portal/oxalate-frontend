@@ -60,6 +60,7 @@ export function PageGroups() {
             title: t("PageGroups.table.status"),
             dataIndex: "status",
             key: "status",
+            filters: Object.values(PageStatusEnum).map((value) => ({text: t(`PageStatusEnum.${value.toLowerCase()}`), value})),
             render: (_text: string, record: PageGroupResponse) => pageStatusEnum2Tag(record.status, t, record.id)
         },
         {

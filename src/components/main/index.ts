@@ -12,8 +12,6 @@ export {ShiftableRangePicker} from "./ShiftableRangePicker";
 export type {RangeValue} from "./ShiftableRangePicker";
 export {OxTable, isActionColumn, isNarrowScreen, renderCollapsedValue, splitColumnsForMobile} from "./OxTable";
 export type {OxColumnGroupType, OxColumnsType, OxColumnType, OxTableProps} from "./OxTable";
-export {OxTableSearch} from "./OxTableSearch";
-export type {OxTableSearchProps} from "./OxTableSearch";
 export {PAGED_TABLE_PAGE_SIZE_OPTIONS, sorterFieldName, toPagedRequest, usePagedTable} from "./usePagedTable";
 export type {PagedTableFetcher, PagedTableState, UsePagedTableOptions} from "./usePagedTable";
 export {resolveFormLayout, useResponsiveFormLayout} from "./useResponsiveFormLayout";

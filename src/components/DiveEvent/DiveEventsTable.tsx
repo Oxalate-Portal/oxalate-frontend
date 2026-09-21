@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {type DiveEventResponse, DiveEventStatusEnum, RoleEnum, SortDirectionEnum} from "../../models";
+import {type DiveEventResponse, DiveEventStatusEnum, DiveTypeEnum, RoleEnum, SortDirectionEnum} from "../../models";
 import {Button, Space, Spin} from "antd";
-import {type OxColumnsType, OxTable, OxTableSearch, usePagedTable} from "../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../main";
 import {checkRoles, diveEventStatusEnum2Tag, diveTypeEnum2Tag} from "../../tools";
 import {Link} from "react-router-dom";
 import {useSession} from "../../session";
@@ -66,6 +66,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             key: "status",
             sorter: sortedOnServerOr((a, b) => a.status.localeCompare(b.status)),
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(DiveEventStatusEnum).map((value) => ({text: t(`DiveEventStatusEnum.${value.toLowerCase()}`), value})),
             render: (_: string, record: DiveEventResponse) => diveEventStatusEnum2Tag(record.status, t, record.id)
         },
         {
@@ -112,6 +113,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t("Events.table.type"),
             dataIndex: "type",
             key: "type",
+            filters: Object.values(DiveTypeEnum).map((type) => ({text: t("DiveTypeEnum." + type), value: type})),
             sorter: sortedOnServerOr((a, b) => a.type.localeCompare(b.type)),
             sortDirections: ["descend", "ascend"],
             render: (_, record: DiveEventResponse) => diveTypeEnum2Tag(record.type, t, record.id)
@@ -206,11 +208,6 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             <>
                 {pastEventTable.contextHolder}
                 <h4>{title}</h4>
-                <OxTableSearch value={pastEventTable.search}
-                               onSearch={pastEventTable.setSearch}
-                               caseSensitive={pastEventTable.caseSensitive}
-                               onCaseSensitiveChange={pastEventTable.setCaseSensitive}
-                               placeholder={t("Events.search.placeholder")}/>
                 <OxTable
                     dataSource={pastEventTable.dataSource}
                     rowKey={"id"}

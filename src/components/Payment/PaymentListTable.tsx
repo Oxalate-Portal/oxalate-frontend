@@ -88,6 +88,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             title: t("PaymentListTable.table.payment-type"),
             dataIndex: "payment_type",
             key: "payment_type",
+            filters: Object.values(PaymentTypeEnum).map((value) => ({text: t(`PaymentTypeEnum.${value}`), value})),
             render: (_: string, record: PaymentVO) => {
                 let color = "";
                 let paymentTypeLabel = "";

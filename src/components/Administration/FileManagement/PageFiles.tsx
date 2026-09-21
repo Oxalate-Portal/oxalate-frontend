@@ -2,7 +2,7 @@ import {Tag, Typography} from "antd";
 import {fileTransferAPI} from "../../../services";
 import {type PageFileResponse, SortDirectionEnum, UploadStatusEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
-import {type OxColumnsType, OxTable, OxTableSearch, usePagedTable} from "../../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../../main";
 import {useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
@@ -37,6 +37,7 @@ export function PageFiles() {
             key: "status",
             sorter: true,
             sortDirections: ["descend", "ascend"],
+            filters: Object.values(UploadStatusEnum).map((value) => ({text: t(`UploadStatusEnum.${value.toLowerCase()}`), value})),
             render: (status: UploadStatusEnum) => {
                 let color = "";
 
@@ -63,10 +64,6 @@ export function PageFiles() {
     return (
         <>
             {pageFileTable.contextHolder}
-            <OxTableSearch value={pageFileTable.search}
-                           onSearch={pageFileTable.setSearch}
-                           caseSensitive={pageFileTable.caseSensitive}
-                           onCaseSensitiveChange={pageFileTable.setCaseSensitive}/>
             <OxTable
                 columns={columns}
                 dataSource={pageFileTable.dataSource}
