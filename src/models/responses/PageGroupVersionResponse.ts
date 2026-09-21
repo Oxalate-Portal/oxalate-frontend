@@ -1,6 +1,6 @@
 export interface PageGroupVersionResponse {
     id: number;
-    pageGroupId: number;
+    page_group_id: number;
     title: string;
     language: string;
 }

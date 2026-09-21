@@ -6,11 +6,11 @@ import type {TagResponse} from "./TagResponse";
 export interface ListUserResponse {
     id: number;
     name: string;
-    eventDiveCount: number;
-    createdAt: Dayjs;
+    event_dive_count: number;
+    created_at: Dayjs;
     payments: PaymentResponse[];
-    membershipActive: boolean;
-    userType: UserTypeEnum;
-    certificateClassificationTitle?: string | null;
+    membership_active: boolean;
+    user_type: UserTypeEnum;
+    certificate_classification_title?: string | null;
     tags?: TagResponse[];
 }

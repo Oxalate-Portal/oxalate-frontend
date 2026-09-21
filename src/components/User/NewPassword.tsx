@@ -25,8 +25,8 @@ export function NewPassword() {
 
         setLoading(true);
         const postData: PasswordResetRequest = {
-            newPassword: values.newPassword,
-            confirmPassword: values.confirmPassword,
+            new_password: values.newPassword,
+            confirm_password: values.confirmPassword,
             token: token
         };
 

@@ -582,6 +582,7 @@
     },
     "search" : {
       "filter" : "Filter",
+      "filterColumn" : "Search column",
       "placeholder" : "Search..."
     },
     "table" : {
@@ -2319,6 +2320,14 @@
     "table" : {
       "column-title" : {
         "action" : "Action"
+      },
+      "loadError" : "The table data could not be loaded.",
+      "pagination" : {
+        "total" : "{{from}}-{{to}} of {{total}}"
+      },
+      "search" : {
+        "caseSensitive" : "Case sensitive",
+        "placeholder" : "Search..."
       }
     },
     "userStatus" : {

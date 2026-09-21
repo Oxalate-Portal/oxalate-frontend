@@ -75,7 +75,7 @@ export function DiveEvent() {
     const [showHealthStatementModal, setShowHealthStatementModal] = useState(false);
     // Add modal state + selected user type
     const [selectUserTypeOpen, setSelectUserTypeOpen] = useState(false);
-    const [selectedUserType, setSelectedUserType] = useState<UserTypeEnum>(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
+    const [selectedUserType, setSelectedUserType] = useState<UserTypeEnum>(userSession?.primary_user_type || UserTypeEnum.SCUBA_DIVER);
     // Dive group state
     const [diveGroups, setDiveGroups] = useState<DiveGroupResponse[]>([]);
     const [diveGroupsLoading, setDiveGroupsLoading] = useState<boolean>(false);
@@ -137,7 +137,7 @@ export function DiveEvent() {
             }
 
             // Check health statement
-            if (userSession.healthStatementId === null) {
+            if (userSession.health_statement_id === null) {
                 result.missingHealthStatement = true;
             }
 
@@ -149,11 +149,11 @@ export function DiveEvent() {
             if (requiresMembership) {
                 try {
                     const activeMembership: MembershipResponse[] = await membershipAPI.findByUserId(userSession.id);
-                    const eventDate = dayjs(diveEvent.startTime);
+                    const eventDate = dayjs(diveEvent.start_time);
                     hasActiveMembership = activeMembership.some(membership =>
                             membership.status === MembershipStatusEnum.ACTIVE
-                            && (membership.startDate === null || !dayjs(membership.startDate).isAfter(eventDate))
-                            && (membership.endDate === null || !dayjs(membership.endDate).isBefore(eventDate))
+                        && (membership.start_date === null || !dayjs(membership.start_date).isAfter(eventDate))
+                        && (membership.end_date === null || !dayjs(membership.end_date).isBefore(eventDate))
                     );
                 } catch (error) {
                     console.error("Error:", error);
@@ -173,7 +173,7 @@ export function DiveEvent() {
                         })
                     ]);
                     const diverPayments: PaymentResponse[] = paymentStatusResponse.payments;
-                    const eventDate = dayjs(diveEvent.startTime);
+                    const eventDate = dayjs(diveEvent.start_time);
 
                     // Either payment type (one-time or periodical) can satisfy the payment requirement.
                     // A one-time payment must still have remaining uses.
@@ -182,11 +182,11 @@ export function DiveEvent() {
                     const oneTimeEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "one-time-expiration-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
                     if (oneTimeEnabled) {
                         const validOneTimePayments = diverPayments.filter(payment =>
-                                payment.paymentType === PaymentTypeEnum.ONE_TIME
-                                && payment.paymentCount !== null
-                                && payment.paymentCount > 0
-                                && (payment.startDate === null || !dayjs(payment.startDate).isAfter(eventDate))
-                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(eventDate))
+                            payment.payment_type === PaymentTypeEnum.ONE_TIME
+                            && payment.payment_count !== null
+                            && payment.payment_count > 0
+                            && (payment.start_date === null || !dayjs(payment.start_date).isAfter(eventDate))
+                            && (payment.end_date === null || !dayjs(payment.end_date).isBefore(eventDate))
                         );
                         if (validOneTimePayments.length > 0) {
                             hasValidPayment = true;
@@ -195,10 +195,10 @@ export function DiveEvent() {
 
                     const periodicalEnabled = getPortalConfigurationValue(PortalConfigGroupEnum.PAYMENT, "periodical-payment-method-type").toUpperCase() !== PaymentExpirationTypeEnum.DISABLED;
                     if (periodicalEnabled) {
-                        const periodicalPayments = diverPayments.filter(payment => payment.paymentType === PaymentTypeEnum.PERIODICAL);
+                        const periodicalPayments = diverPayments.filter(payment => payment.payment_type === PaymentTypeEnum.PERIODICAL);
                         const validPeriodicalPayment = periodicalPayments.find(payment =>
-                                (payment.startDate === null || !dayjs(payment.startDate).isAfter(eventDate))
-                                && (payment.endDate === null || !dayjs(payment.endDate).isBefore(eventDate))
+                            (payment.start_date === null || !dayjs(payment.start_date).isAfter(eventDate))
+                            && (payment.end_date === null || !dayjs(payment.end_date).isBefore(eventDate))
                         );
                         if (validPeriodicalPayment) {
                             hasValidPayment = true;
@@ -239,13 +239,13 @@ export function DiveEvent() {
                 return false;
             }
 
-            const waitingList = diveEvent.waitingList?.map(user => user.id);
+            const waitingList = diveEvent.waiting_list?.map(user => user.id);
             return waitingList?.indexOf(userSession.id) > -1;
         }
 
         // If the event has passed, we don't want to show the subscribe button
         if (diveEvent) {
-            if (dayjs().isAfter(dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour"))) {
+            if (dayjs().isAfter(dayjs(diveEvent.start_time).add(diveEvent.event_duration, "hour"))) {
 
                 // eslint-disable-next-line react-hooks/set-state-in-effect
                 setCanSubscribe(false);
@@ -255,11 +255,11 @@ export function DiveEvent() {
                 return;
             }
             // Diver can only unsubscribe before the event starts
-            if (dayjs().isBefore(dayjs(diveEvent.startTime))) {
+            if (dayjs().isBefore(dayjs(diveEvent.start_time))) {
                 setCanUnsubscribe(true);
             }
 
-            setIsEventFull((diveEvent.participants?.length || 0) >= diveEvent.maxParticipants);
+            setIsEventFull((diveEvent.participants?.length || 0) >= diveEvent.max_participants);
             setIsInWaitingList(isUserWaiting(userSession, diveEvent));
 
             setPaymentCheckCompleted(false);
@@ -290,8 +290,8 @@ export function DiveEvent() {
 
     function subscribeEvent(diveEventId: number, userType: UserTypeEnum) {
         const eventSubscribeRequest: EventSubscribeRequest = {
-            diveEventId: diveEventId,
-            userType: userType
+            dive_event_id: diveEventId,
+            user_type: userType
         };
         diveEventAPI.subscribeUserToEvent(eventSubscribeRequest)
                 .then(response => {
@@ -403,9 +403,9 @@ export function DiveEvent() {
     const hasJoinedEvent = diveEvent?.participants?.some(participant => participant.id === currentUserId) ?? false;
     const eventOrganizerId = diveEvent?.organizer?.id;
     const hasAvailableDiveGroupOwner = (diveEvent?.participants ?? []).some((participant) =>
-            !diveGroups.some((diveGroup) => diveGroup.ownerId === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
+        !diveGroups.some((diveGroup) => diveGroup.owner_id === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
     ) || (eventOrganizerId !== undefined
-            && !diveGroups.some((diveGroup) => diveGroup.ownerId === eventOrganizerId
+        && !diveGroups.some((diveGroup) => diveGroup.owner_id === eventOrganizerId
                     || isMemberOfDiveGroup(diveGroup, eventOrganizerId)));
     const canCreateDiveGroup = currentUserId > 0 && diveEventId > 0
             && hasAvailableDiveGroupOwner
@@ -458,7 +458,7 @@ export function DiveEvent() {
                                             type={"primary"}
                                             style={{background: "#52c41a", borderColor: "#52c41a"}}
                                             onClick={() => {
-                                                setSelectedUserType(userSession?.primaryUserType || UserTypeEnum.SCUBA_DIVER);
+                                                setSelectedUserType(userSession?.primary_user_type || UserTypeEnum.SCUBA_DIVER);
                                                 setSelectUserTypeOpen(true);
                                             }}
                                             key={diveEventId + "-sub-button"}>
@@ -501,9 +501,9 @@ export function DiveEvent() {
                                 <>
                                     <Divider titlePlacement={"left"} orientation={"horizontal"}
                                              key={"diveEventCommentDivider"}>{t("DiveEvent.comments")}</Divider>
-                                    {/* Allow commenting only until the event has ended meaning event.startTime + event.eventDuration hours in hours */}
-                                    <CommentCanvas commentId={diveEvent.eventCommentId}
-                                                   allowComment={dayjs(diveEvent.startTime).add(diveEvent.eventDuration, "hour").isAfter(dayjs())}/>
+                                    {/* Allow commenting only until the event has ended meaning event.start_time + event.event_duration hours in hours */}
+                                    <CommentCanvas commentId={diveEvent.event_comment_id}
+                                                   allowComment={dayjs(diveEvent.start_time).add(diveEvent.event_duration, "hour").isAfter(dayjs())}/>
                                 </>}
                     </Space>
                 </Spin>

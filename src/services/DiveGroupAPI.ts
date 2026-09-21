@@ -1,12 +1,5 @@
 import {AbstractAPI} from "./AbstractAPI";
-import type {
-    ActionResponse,
-    DiveGroupDetailsRequest,
-    DiveGroupOrderRequest,
-    DiveGroupRequest,
-    DiveGroupResponse,
-    DiveGroupUpdateRequest
-} from "../models";
+import type {ActionResponse, DiveGroupDetailsRequest, DiveGroupOrderRequest, DiveGroupRequest, DiveGroupResponse, DiveGroupUpdateRequest} from "../models";
 
 class DiveGroupAPI extends AbstractAPI<DiveGroupRequest, DiveGroupResponse> {
     public async getDiveGroupsByEventId(eventId: number): Promise<DiveGroupResponse[]> {
@@ -49,7 +42,7 @@ class DiveGroupAPI extends AbstractAPI<DiveGroupRequest, DiveGroupResponse> {
      * administrator, is allowed to do this by the backend.
      */
     public async reorderDiveGroups(eventId: number, diveGroupIds: number[]): Promise<DiveGroupResponse[]> {
-        const diveGroupOrderRequest: DiveGroupOrderRequest = {diveGroupIds: diveGroupIds};
+        const diveGroupOrderRequest: DiveGroupOrderRequest = {dive_group_ids: diveGroupIds};
         const response = await this.axiosInstance.put<DiveGroupResponse[]>("/events/" + eventId + "/order", this.serializeRequest(diveGroupOrderRequest));
         return response.data.map((diveGroup) => this.transformResponse(diveGroup));
     }

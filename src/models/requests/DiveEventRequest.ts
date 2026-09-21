@@ -1,6 +1,6 @@
 import type {AbstractDiveEvent} from "../AbstractDiveEvent";
 
 export interface DiveEventRequest extends AbstractDiveEvent {
-    organizerId: number;
+    organizer_id: number;
     participants: number[];
 }

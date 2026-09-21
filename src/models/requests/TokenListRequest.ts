@@ -2,7 +2,7 @@ export interface TokenListRequest {
     page: number;
     size: number;
     value?: string;
-    dateFrom?: string;
-    dateTo?: string;
+    date_from?: string;
+    date_to?: string;
     description?: string;
 }

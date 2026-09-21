@@ -4,11 +4,11 @@ import {MembershipTypeEnum} from "../MembershipTypeEnum";
 
 export interface MembershipResponse {
     id: number;
-    userId: number;
+    user_id: number;
     username: string;
     status: MembershipStatusEnum;
     type: MembershipTypeEnum;
     created: Dayjs;
-    startDate: Dayjs;
-    endDate: Dayjs;
+    start_date: Dayjs;
+    end_date: Dayjs;
 }

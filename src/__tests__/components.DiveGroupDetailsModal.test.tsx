@@ -35,16 +35,16 @@ jest.mock("react-i18next", () => ({
 function diveGroup(overrides: Partial<DiveGroupResponse> = {}): DiveGroupResponse {
     return {
         id: 7,
-        eventId: 42,
+        event_id: 42,
         name: "Team Sidemount",
         description: "Old plan",
-        ownerId: 10,
-        ownerName: "Owner Ten",
-        groupOrder: 1,
-        createdAt: "2026-05-30T12:00:00Z",
-        updatedAt: null,
+        owner_id: 10,
+        owner_name: "Owner Ten",
+        group_order: 1,
+        created_at: "2026-05-30T12:00:00Z",
+        updated_at: null,
         members: [],
-        diveFiles: [],
+        dive_files: [],
         ...overrides
     } as unknown as DiveGroupResponse;
 }

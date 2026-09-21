@@ -1,21 +1,12 @@
+/**
+ * The page envelope returned by every server-paged list endpoint. `page` is 0-based.
+ */
 export interface PagedResponse<T> {
     content: T[];
-
-    // Legacy snake_case fields
-    page?: number;
+    page: number;
     size: number;
-    total_elements?: number;
-    total_pages?: number;
-
-    // Spring Data camelCase fields
-    number?: number;
-    totalElements?: number;
-    totalPages?: number;
-    pageable?: {
-        pageNumber?: number;
-        pageSize?: number;
-    };
-
+    total_elements: number;
+    total_pages: number;
     first: boolean;
     last: boolean;
     empty: boolean;

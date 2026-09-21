@@ -1,10 +1,10 @@
 import type {DiveGroupTypeEnum} from "../DiveGroupTypeEnum";
 
 export interface DiveGroupRequest {
-    eventId: number;
+    event_id: number;
     name: string;
     description?: string | null;
-    ownerId?: number | null;
-    groupType?: DiveGroupTypeEnum;
-    memberIds?: number[];
+    owner_id?: number | null;
+    group_type?: DiveGroupTypeEnum;
+    member_ids?: number[];
 }

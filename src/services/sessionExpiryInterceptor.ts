@@ -21,13 +21,13 @@ export function isSessionExpired(now: number = Date.now()): boolean {
     }
 
     try {
-        const session = JSON.parse(rawSession) as { expiresAt?: string };
+        const session = JSON.parse(rawSession) as { expires_at?: string };
 
-        if (!session?.expiresAt) {
+        if (!session?.expires_at) {
             return false;
         }
 
-        return new Date(session.expiresAt).getTime() < now;
+        return new Date(session.expires_at).getTime() < now;
     } catch {
         // A session we cannot parse is not a session we can trust
         return true;

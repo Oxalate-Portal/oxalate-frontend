@@ -2,6 +2,6 @@ import {EmailNotificationTypeEnum} from "../EmailNotificationTypeEnum";
 
 export interface EmailNotificationSubscriptionResponse {
     id: number;
-    emailNotificationType: EmailNotificationTypeEnum;
-    userId: number;
+    email_notification_type: EmailNotificationTypeEnum;
+    user_id: number;
 }

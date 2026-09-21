@@ -39,8 +39,8 @@ describe("blog controls, cards, menu, and password guidance", () => {
 
     it("renders card states and sanitizes/expands the selected version", () => {
         const blog = {
-            id: 4, createdAt: "2024-01-02", modifiedAt: null,
-            pageVersions: [{language: "en", title: "<b>Title</b>", ingress: "Intro", body: "<p>Body</p>"}]
+            id: 4, created_at: "2024-01-02", modified_at: null,
+            page_versions: [{language: "en", title: "<b>Title</b>", ingress: "Intro", body: "<p>Body</p>"}]
         } as never;
         const click = jest.fn();
         render(<BlogCard blog={blog} expanded={false} onClick={click}/>);
@@ -49,13 +49,13 @@ describe("blog controls, cards, menu, and password guidance", () => {
         expect(click).toHaveBeenCalled();
         render(<BlogCard blog={blog} expanded onClick={click}/>);
         expect(screen.getByText("Body")).toBeInTheDocument();
-        render(<BlogCard blog={{...(blog as object), pageVersions: []} as never} onClick={click} expanded={false}/>);
+        render(<BlogCard blog={{...(blog as object), page_versions: []} as never} onClick={click} expanded={false}/>);
         expect(screen.queryByText("BlogCard.published")).not.toBeInTheDocument();
     });
 
     it("disables sorting for one item and supports load-more and search controls", () => {
         const callbacks = [jest.fn(), jest.fn(), jest.fn(), jest.fn(), jest.fn()];
-        render(<BlogControls sortBy="createdAt" sortDirection={SortDirectionEnum.ASC} searchText=""
+        render(<BlogControls sortBy="created_at" sortDirection={SortDirectionEnum.ASC} searchText=""
                              caseSensitive={false} onSortByChange={callbacks[0]} onSortDirectionChange={callbacks[1]}
                              onSearchChange={callbacks[2]} onCaseSensitiveChange={callbacks[3]}
                              showLoadMore hasMore onLoadMore={callbacks[4]} totalItems={1}/>);
@@ -77,7 +77,7 @@ describe("blog controls, cards, menu, and password guidance", () => {
     }
 
     it("loads blog menu entries, empty state, and failure state", async () => {
-        (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValueOnce({content: [{id: 1, pageVersions: [{title: "Post"}]}]});
+        (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValueOnce({content: [{id: 1, page_versions: [{title: "Post"}]}]});
         const {rerender} = render(<MenuProbe enabled/>);
         await waitFor(() => expect(screen.getByTestId("menu-size")).toHaveTextContent("1"));
         rerender(<MenuProbe enabled={false}/>);

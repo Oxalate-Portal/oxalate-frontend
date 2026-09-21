@@ -4,7 +4,7 @@ export interface CommentRequest {
     id: number;
     title: string;
     body: string;
-    commentType: CommentTypeEnum;
-    parentCommentId: number;
+    comment_type: CommentTypeEnum;
+    parent_comment_id: number;
 }
 

@@ -23,15 +23,15 @@ function participantLabel(user: ListUserResponse): string {
  */
 export function hasValidPaymentForEvent(user: ListUserResponse, eventId: number): boolean {
     for (const payment of user.payments) {
-        if (payment.paymentType === PaymentTypeEnum.PERIODICAL
-            && dayjs(payment.endDate).isAfter(dayjs())) {
+        if (payment.payment_type === PaymentTypeEnum.PERIODICAL
+            && dayjs(payment.end_date).isAfter(dayjs())) {
             return true;
         }
 
-        if (payment.paymentType === PaymentTypeEnum.ONE_TIME
-            && (dayjs(payment.endDate).isAfter(dayjs()) || payment.endDate === null)
-            && (payment.paymentCount > 0
-                || (payment.boundEvents !== null && payment.boundEvents.includes(eventId)))) {
+        if (payment.payment_type === PaymentTypeEnum.ONE_TIME
+            && (dayjs(payment.end_date).isAfter(dayjs()) || payment.end_date === null)
+            && (payment.payment_count > 0
+                || (payment.bound_events !== null && payment.bound_events.includes(eventId)))) {
             return true;
         }
     }
@@ -69,7 +69,7 @@ export function buildParticipantOptions(
             continue;
         }
 
-        if (requiresMembership && !user.membershipActive) {
+        if (requiresMembership && !user.membership_active) {
             continue;
         }
 

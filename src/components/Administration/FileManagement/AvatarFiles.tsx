@@ -1,46 +1,34 @@
-import {useEffect, useState} from "react";
 import {fileTransferAPI} from "../../../services";
-import type {AvatarFileResponse} from "../../../models";
+import {type AvatarFileResponse, SortDirectionEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
-import {OxTable} from "../../main";
+import {OxTable, OxTableSearch, usePagedTable} from "../../main";
 import {useTranslation} from "react-i18next";
 
 export function AvatarFiles() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [avatarFiles, setAvatarFiles] = useState<AvatarFileResponse[]>([]);
     const {t} = useTranslation();
-
-    useEffect(() => {
-        fileTransferAPI.findAllAvatarFiles()
-            .then((response) => {
-                setAvatarFiles(response);
-            })
-            .catch((error) => {
-                console.error("Error fetching avatar files", error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, []);
+    const avatarTable = usePagedTable<AvatarFileResponse>((request) => fileTransferAPI.findAllAvatarFiles(request), {
+        defaultSortBy: "created_at",
+        defaultDirection: SortDirectionEnum.DESC
+    });
 
     const columns = commonFileColumns(t, {showPreview: true});
 
     return (
         <>
-            {!loading && <OxTable
+            {avatarTable.contextHolder}
+            <OxTableSearch value={avatarTable.search}
+                           onSearch={avatarTable.setSearch}
+                           caseSensitive={avatarTable.caseSensitive}
+                           onCaseSensitiveChange={avatarTable.setCaseSensitive}/>
+            <OxTable
                 columns={columns}
-                dataSource={avatarFiles}
+                dataSource={avatarTable.dataSource}
                 rowKey="id"
-                loading={loading}
+                loading={avatarTable.loading}
                 bordered
-                pagination={{
-                    defaultPageSize: 10,
-                    hideOnSinglePage: true,
-                    showSizeChanger: true,
-                    showQuickJumper: true,
-                    pageSizeOptions: ["5", "10", "20", "30", "50"]
-                }}
-            />}
+                pagination={avatarTable.pagination}
+                onChange={avatarTable.handleTableChange}
+            />
         </>
     );
 }

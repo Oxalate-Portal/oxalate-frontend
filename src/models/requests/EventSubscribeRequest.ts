@@ -1,6 +1,6 @@
 import {UserTypeEnum} from "../UserTypeEnum";
 
 export interface EventSubscribeRequest {
-    diveEventId: number;
-    userType: UserTypeEnum;
+    dive_event_id: number;
+    user_type: UserTypeEnum;
 }

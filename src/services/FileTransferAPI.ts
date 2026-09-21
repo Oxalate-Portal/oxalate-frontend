@@ -1,6 +1,18 @@
 import Axios, {type AxiosInstance, type AxiosResponse} from "axios";
-import type {ActionResponse, AvatarFileResponse, CertificateFileResponse, DiveFileResponse, DocumentFileResponse, PageFileResponse} from "../models";
+import type {
+    ActionResponse,
+    AvatarFileResponse,
+    CertificateFileResponse,
+    DiveFileResponse,
+    DocumentFileResponse,
+    PagedRequest,
+    PagedResponse,
+    PageFileResponse
+} from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
+import {transformDatesInObject} from "./dateTransformer";
+import {type PagedQueryExtraParams, toPagedQueryParams} from "./pagedQuery";
+import {getGlobalTimezone} from "./timezoneContext";
 
 // Define the response type for successful uploads
 interface UploadResponse {
@@ -25,14 +37,13 @@ class FileTransferAPI {
 
     /* ==== Avatar file ==== */
 
-    public async findAllAvatarFiles(): Promise<AvatarFileResponse[]> {
-        const response = await this.axiosInstance.get<AvatarFileResponse[]>(FileTransferAPI.AVATAR_PATH);
-        return response.data;
+    public async findAllAvatarFiles(request: PagedRequest): Promise<PagedResponse<AvatarFileResponse>> {
+        return this.findPaged<AvatarFileResponse>(FileTransferAPI.AVATAR_PATH, request);
     }
 
     public async uploadAvatarFile(uploadFile: File): Promise<UploadResponse> {
         const formData = new FormData();
-        formData.append("uploadFile", uploadFile);
+        formData.append("upload_file", uploadFile);
 
         const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
             FileTransferAPI.AVATAR_PATH,
@@ -53,9 +64,8 @@ class FileTransferAPI {
 
     /* ==== Certificate file ==== */
 
-    public async findAllCertificateFiles(): Promise<CertificateFileResponse[]> {
-        const response = await this.axiosInstance.get<CertificateFileResponse[]>(FileTransferAPI.CERTIFICATE_PATH);
-        return response.data;
+    public async findAllCertificateFiles(request: PagedRequest): Promise<PagedResponse<CertificateFileResponse>> {
+        return this.findPaged<CertificateFileResponse>(FileTransferAPI.CERTIFICATE_PATH, request);
     }
 
     /*
@@ -73,9 +83,11 @@ class FileTransferAPI {
 
     /* ==== Dive file ==== */
 
-    public async findAllDiveFiles(): Promise<DiveFileResponse[]> {
-        const response = await this.axiosInstance.get<DiveFileResponse[]>(FileTransferAPI.DIVE_FILE_PATH);
-        return response.data;
+    /**
+     * Fetches one page of dive files, optionally restricted to a single dive event.
+     */
+    public async findAllDiveFiles(request: PagedRequest, eventId?: number): Promise<PagedResponse<DiveFileResponse>> {
+        return this.findPaged<DiveFileResponse>(FileTransferAPI.DIVE_FILE_PATH, request, {event_id: eventId});
     }
 
     /**
@@ -87,10 +99,10 @@ class FileTransferAPI {
      */
     public async uploadDiveFile(uploadFile: File, eventId: number, diveGroupId: number): Promise<UploadResponse> {
         const formData = new FormData();
-        formData.append("uploadFile", uploadFile);
+        formData.append("upload_file", uploadFile);
 
         const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
-            `${FileTransferAPI.DIVE_FILE_PATH}?eventId=${eventId}&diveGroupId=${diveGroupId}`,
+            `${FileTransferAPI.DIVE_FILE_PATH}?event_id=${eventId}&dive_group_id=${diveGroupId}`,
             formData,
             {headers: {"Content-Type": "multipart/form-data"}}
         );
@@ -108,12 +120,12 @@ class FileTransferAPI {
 
     /* ==== Document file ==== */
 
-    public async findAllDocuments(creatorId?: number): Promise<DocumentFileResponse[]> {
-        const path = creatorId === undefined
-            ? FileTransferAPI.DOCUMENT_PATH
-            : `${FileTransferAPI.DOCUMENT_PATH}?creatorId=${creatorId}`;
-        const response = await this.axiosInstance.get<DocumentFileResponse[]>(path);
-        return response.data;
+    /**
+     * Fetches one page of documents, optionally restricted to the ones uploaded by the given user. The backend forces
+     * non-administrators to their own id regardless of the parameter.
+     */
+    public async findAllDocuments(request: PagedRequest, creatorId?: number): Promise<PagedResponse<DocumentFileResponse>> {
+        return this.findPaged<DocumentFileResponse>(FileTransferAPI.DOCUMENT_PATH, request, {creator_id: creatorId});
     }
 
     /**
@@ -123,7 +135,7 @@ class FileTransferAPI {
      */
     public async uploadDocumentFile(uploadFile: File): Promise<UploadResponse> {
         const formData = new FormData();
-        formData.append("uploadFile", uploadFile);
+        formData.append("upload_file", uploadFile);
 
         const response: AxiosResponse<UploadResponse> = await this.axiosInstance.post(
             FileTransferAPI.DOCUMENT_PATH,
@@ -144,9 +156,8 @@ class FileTransferAPI {
 
     /* ==== Page file ==== */
 
-    public async findAllPageFiles(): Promise<PageFileResponse[]> {
-        const response = await this.axiosInstance.get<PageFileResponse[]>(FileTransferAPI.PAGE_FILE_PATH);
-        return response.data;
+    public async findAllPageFiles(request: PagedRequest): Promise<PagedResponse<PageFileResponse>> {
+        return this.findPaged<PageFileResponse>(FileTransferAPI.PAGE_FILE_PATH, request);
     }
 
     /*
@@ -157,6 +168,17 @@ class FileTransferAPI {
     public async removePageFile(pageId: number, language: string, fileName: string): Promise<ActionResponse> {
         const response = await this.axiosInstance.delete(`${FileTransferAPI.PAGE_FILE_PATH}/${pageId}/${language}/${fileName}`);
         return response.data;
+    }
+
+    /**
+     * Fetches one page of a file list endpoint and converts the temporal fields of every item to Dayjs.
+     */
+    private async findPaged<T>(path: string, request: PagedRequest, extraParams?: PagedQueryExtraParams): Promise<PagedResponse<T>> {
+        const response = await this.axiosInstance.get<PagedResponse<T>>(path, {params: toPagedQueryParams(request, extraParams)});
+        return {
+            ...response.data,
+            content: response.data.content.map((item) => transformDatesInObject(item, getGlobalTimezone()))
+        };
     }
 
     private async removeFile(fileId: number, fileTypePath: string): Promise<ActionResponse> {

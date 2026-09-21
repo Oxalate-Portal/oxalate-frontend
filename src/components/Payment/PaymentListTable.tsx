@@ -29,14 +29,14 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                         const payments: PaymentVO[] = result.map((payment) => {
                             return {
                                 id: payment.payments[0].id,
-                                userId: payment.userId,
+                                user_id: payment.user_id,
                                 name: payment.name,
                                 created: payment.payments[0].created,
-                                startDate: payment.payments[0].startDate,
-                                endDate: payment.payments[0].endDate,
-                                paymentCount: payment.payments[0].paymentCount,
-                                paymentType: payment.payments[0].paymentType,
-                                boundEvents: payment.payments[0].boundEvents
+                                start_date: payment.payments[0].start_date,
+                                end_date: payment.payments[0].end_date,
+                                payment_count: payment.payments[0].payment_count,
+                                payment_type: payment.payments[0].payment_type,
+                                bound_events: payment.payments[0].bound_events
                             };
                         });
                         setPayments(payments);
@@ -58,20 +58,20 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
     }, [paymentType]);
 
     function updateCount(record: PaymentVO, change: number) {
-        const nextPaymentCount = (record.paymentCount ?? 0) + change;
+        const nextPaymentCount = (record.payment_count ?? 0) + change;
 
         const paymentRequest: PaymentRequest = {
             id: record.id,
-            userId: record.userId,
-            paymentType: record.paymentType,
-            paymentCount: nextPaymentCount,
-            startDate: dayjs(record.startDate),
-            endDate: record.endDate === null ? null : dayjs(record.endDate)
+            user_id: record.user_id,
+            payment_type: record.payment_type,
+            payment_count: nextPaymentCount,
+            start_date: dayjs(record.start_date),
+            end_date: record.end_date === null ? null : dayjs(record.end_date)
         };
 
         paymentAPI.update(paymentRequest)
                 .then(() => {
-                    window.dispatchEvent(new Event("updatePaymentList-" + record.paymentType));
+                    window.dispatchEvent(new Event("updatePaymentList-" + record.payment_type));
                 })
                 .catch((error) => {
                     console.error("Failed to increase payment count:", error);
@@ -86,23 +86,23 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
         },
         {
             title: t("PaymentListTable.table.payment-type"),
-            dataIndex: "paymentType",
-            key: "paymentType",
+            dataIndex: "payment_type",
+            key: "payment_type",
             render: (_: string, record: PaymentVO) => {
                 let color = "";
                 let paymentTypeLabel = "";
 
-                if (record.paymentType === PaymentTypeEnum.PERIODICAL) {
+                if (record.payment_type === PaymentTypeEnum.PERIODICAL) {
                     color = "green";
                     paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL);
                 }
-                if (record.paymentType === PaymentTypeEnum.ONE_TIME) {
+                if (record.payment_type === PaymentTypeEnum.ONE_TIME) {
                     color = "blue";
                     paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
                 }
 
                 return (
-                        <Tag color={color} key={"payment-" + record.paymentType}>
+                    <Tag color={color} key={"payment-" + record.payment_type}>
                             {paymentTypeLabel}
                         </Tag>
                 );
@@ -147,7 +147,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             onFilter: (value: boolean | Key, record: PaymentVO) =>
                     record.name.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: string, record: PaymentVO) => {
-                return (<Link to={"/users/" + record.userId + "/show"}>{record.name}</Link>);
+                return (<Link to={"/users/" + record.user_id + "/show"}>{record.name}</Link>);
             }
         },
         {
@@ -166,15 +166,15 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
         },
         {
             title: t("PaymentListTable.table.start-date"),
-            dataIndex: "startDate",
-            key: "startDate",
+            dataIndex: "start_date",
+            key: "start_date",
             sorter: (a: PaymentVO, b: PaymentVO) =>
-                    dayjs(a.startDate).isAfter(dayjs(b.startDate)) ? 1 : -1,
+                dayjs(a.start_date).isAfter(dayjs(b.start_date)) ? 1 : -1,
             sortDirections: ["descend", "ascend"],
             render: (date: Date, record: PaymentResponse) => {
                 return (
                         <>
-                            {record.startDate !== null
+                            {record.start_date !== null
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>);
@@ -182,15 +182,15 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
         },
         {
             title: t("PaymentListTable.table.end-date"),
-            dataIndex: "endDate",
-            key: "endDate",
+            dataIndex: "end_date",
+            key: "end_date",
             sorter: (a: PaymentVO, b: PaymentVO) =>
-                    dayjs(a.endDate).isAfter(dayjs(b.endDate)) ? 1 : -1,
+                dayjs(a.end_date).isAfter(dayjs(b.end_date)) ? 1 : -1,
             sortDirections: ["descend", "ascend"],
             render: (date: Date, record: PaymentResponse) => {
                 return (
                         <>
-                            {record.endDate !== null
+                            {record.end_date !== null
                                     ? dayjs(date).format("YYYY-MM-DD")
                                     : "-"}
                         </>);
@@ -198,18 +198,18 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
         },
         {
             title: t("PaymentListTable.table.paymentCount"),
-            dataIndex: "paymentCount",
-            key: "paymentCount",
+            dataIndex: "payment_count",
+            key: "payment_count",
             render: (_: string, record: PaymentVO) => {
                 if (
-                        record.paymentCount === null ||
-                        record.paymentType !== PaymentTypeEnum.ONE_TIME
+                    record.payment_count === null ||
+                    record.payment_type !== PaymentTypeEnum.ONE_TIME
                 ) {
                     return <>-</>;
                 } else {
                     return (
                             <>
-                                <span style={{marginRight: 8}}>{record.paymentCount}</span>
+                                <span style={{marginRight: 8}}>{record.payment_count}</span>
                                 <Button
                                         style={{
                                             marginRight: 4,
@@ -222,7 +222,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                                 >
                                     <PlusCircleOutlined style={{fontSize: "18px"}}/>
                                 </Button>
-                                {(record.paymentCount > 0) && <Button
+                                {(record.payment_count > 0) && <Button
                                         style={{
                                             cursor: "pointer",
                                             border: "none",
@@ -245,7 +245,7 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
                  dataSource={payments}
                  loading={loading}
                  rowKey={(record) =>
-                     keyName + "-payment-" + record.userId + "-" + record.created
+                     keyName + "-payment-" + record.user_id + "-" + record.created
                  }
             />);
 }

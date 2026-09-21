@@ -34,11 +34,11 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
     const [failed, setFailed] = useState(false);
     const descriptionMaxLength = resolveDiveGroupDescriptionMaxLength(getFrontendConfigurationValue(DIVE_GROUP_DESCRIPTION_MAX_LENGTH_KEY));
     const availableParticipants = useMemo(() => participants.filter((participant) =>
-        !diveGroups.some((diveGroup) => diveGroup.ownerId === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
+        !diveGroups.some((diveGroup) => diveGroup.owner_id === participant.id || isMemberOfDiveGroup(diveGroup, participant.id))
     ), [diveGroups, participants]);
     const availableOwners = useMemo(() => eventOrganizer && !diveGroups.some((diveGroup) =>
-        diveGroup.ownerId === eventOrganizer.id || isMemberOfDiveGroup(diveGroup, eventOrganizer.id))
-        ? [...availableParticipants, {id: eventOrganizer.id, name: eventOrganizer.firstName + " " + eventOrganizer.lastName}]
+        diveGroup.owner_id === eventOrganizer.id || isMemberOfDiveGroup(diveGroup, eventOrganizer.id))
+        ? [...availableParticipants, {id: eventOrganizer.id, name: eventOrganizer.first_name + " " + eventOrganizer.last_name}]
         : availableParticipants, [availableParticipants, diveGroups, eventOrganizer]);
     const ownerOptions = useMemo(() => canAssignOwner
             ? availableOwners
@@ -66,9 +66,9 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
         setFailed(false);
 
         const diveGroupRequest: DiveGroupRequest = {
-            eventId: eventId,
+            event_id: eventId,
             name: values.name,
-            groupType: values.groupType ?? DiveGroupTypeEnum.NORMAL
+            group_type: values.groupType ?? DiveGroupTypeEnum.NORMAL
         };
 
         const description = (values.description ?? "").trim();
@@ -78,13 +78,13 @@ export function DiveGroupFormModal({open, eventId, participants, eventOrganizer,
         }
 
         if (canAssignOwner && values.ownerId) {
-            diveGroupRequest.ownerId = values.ownerId;
+            diveGroupRequest.owner_id = values.ownerId;
         }
 
         const memberIds = (values.memberIds ?? []).filter((memberId) => memberId !== effectiveOwnerId);
 
         if (memberIds.length > 0) {
-            diveGroupRequest.memberIds = memberIds;
+            diveGroupRequest.member_ids = memberIds;
         }
 
         try {

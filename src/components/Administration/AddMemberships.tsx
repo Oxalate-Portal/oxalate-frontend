@@ -66,15 +66,15 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
         const fallbackEnd = defaultMembershipPeriod.endDate ?? null;
         const postData: MembershipRequest = {
             id: 0,
-            userId: 0,
+            user_id: 0,
             status: MembershipStatusEnum.ACTIVE,
             type: membershipType,
-            startDate: start ?? fallbackStart,
-            endDate: end ?? fallbackEnd
+            start_date: start ?? fallbackStart,
+            end_date: end ?? fallbackEnd
         };
 
         const promises = values.userIdList.map(userId => {
-            return membershipAPI.create({...postData, userId});
+            return membershipAPI.create({...postData, user_id: userId});
         });
 
         Promise.all(promises)

@@ -12,9 +12,9 @@ export function AuthVerify({logOut}: AuthVerifyProps) {
     useEffect(() => {
         const session: UserSessionToken = JSON.parse(localStorage.getItem("user") || "{}");
 
-        if (session !== null && session.expiresAt) {
+        if (session !== null && session.expires_at) {
             const now = new Date();
-            const sessionExpiry = new Date(session.expiresAt);
+            const sessionExpiry = new Date(session.expires_at);
 
             if (sessionExpiry.getTime() < now.getTime()) {
                 logOut();

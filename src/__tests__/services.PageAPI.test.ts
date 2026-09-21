@@ -31,13 +31,34 @@ describe("PageAPI", () => {
         expect(result).toBeUndefined();
     });
 
-    it("should get paged blogs", async () => {
-        const pagedRequest = {page: 0, size: 10} as unknown as PagedRequest;
-        const mockResponse = {content: [{id: 1, title: "Blog 1"}], totalElements: 1};
-        mock.onPost("/blogs", pagedRequest).reply(200, mockResponse);
+    it("should get paged blogs with the language and paging as query parameters", async () => {
+        const pagedRequest: PagedRequest = {page: 0, size: 10, sort_by: "created_at", direction: "DESC", search: "dive", case_sensitive: true};
+        const mockResponse = {
+            content: [{id: 1, title: "Blog 1", created_at: "2026-01-01T10:00:00Z"}],
+            page: 0,
+            size: 10,
+            total_elements: 1,
+            total_pages: 1,
+            first: true,
+            last: true,
+            empty: false
+        };
+        mock.onGet("/blogs").reply(200, mockResponse);
 
-        const result = await pageAPI.getPagedBlogs(pagedRequest);
-        expect(result).toEqual(mockResponse);
+        const result = await pageAPI.getPagedBlogs(pagedRequest, "fi");
+
+        expect(mock.history.get[0]?.params).toEqual({
+            page: 0,
+            size: 10,
+            sort_by: "created_at",
+            direction: "DESC",
+            search: "dive",
+            case_sensitive: true,
+            language: "fi"
+        });
+        expect(mock.history.post).toHaveLength(0);
+        expect(result.total_elements).toBe(1);
+        expect(result.content[0]).toEqual(expect.objectContaining({id: 1, title: "Blog 1"}));
     });
 
     it("should find all pages", async () => {

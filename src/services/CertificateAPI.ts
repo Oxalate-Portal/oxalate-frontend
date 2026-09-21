@@ -9,12 +9,12 @@ export class CertificateAPI extends AbstractAPI<CertificateRequest, CertificateR
     }
 
     public async findCertificateNames(searchTerm: string): Promise<string[]> {
-        const response = await this.axiosInstance.get<string[]>("/management/certificate-names", {params: {searchTerm}});
+        const response = await this.axiosInstance.get<string[]>("/management/certificate-names", {params: {search_term: searchTerm}});
         return response.data;
     }
 
     public async findOrganizations(searchTerm: string): Promise<string[]> {
-        const response = await this.axiosInstance.get<string[]>("/management/organizations", {params: {searchTerm}});
+        const response = await this.axiosInstance.get<string[]>("/management/organizations", {params: {search_term: searchTerm}});
         return response.data;
     }
 

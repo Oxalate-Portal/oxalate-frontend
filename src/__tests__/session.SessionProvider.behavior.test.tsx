@@ -13,7 +13,7 @@ function Probe() {
         <output data-testid="enum">{session.getPortalConfigurationValue(PortalConfigGroupEnum.GENERAL, "mode")}</output>
         <output data-testid="portal-count">{session.getPortalConfiguration().length}</output>
         <output data-testid="timezone">{session.getPortalTimezone()}</output>
-        <button onClick={() => void session.loginUser({username: "user", password: "password", recaptchaToken: null})}>login</button>
+        <button onClick={() => void session.loginUser({username: "user", password: "password", recaptcha_token: null})}>login</button>
         <button onClick={() => session.logoutUser()}>logout</button>
         <button onClick={() => session.setSessionLanguage("sv")}>language</button>
         <button onClick={() => session.refreshUserSession({language: "fi"} as never)}>refresh</button>
@@ -35,7 +35,7 @@ describe("SessionProvider interactions", () => {
             {key: "timezone", value: "Europe/Helsinki"}
         ] as never);
         jest.spyOn(portalConfigurationAPI, "findAllPortalConfigurations").mockResolvedValue([
-            {groupKey: "general", settingKey: "welcome", runtimeValue: null, valueType: "text", defaultValue: "Welcome"}
+            {group_key: "general", setting_key: "welcome", runtime_value: null, value_type: "text", default_value: "Welcome"}
         ] as never);
     });
 
@@ -75,7 +75,7 @@ describe("SessionProvider interactions", () => {
         jest.spyOn(authAPI, "login").mockResolvedValue({language: "fi", roles: []} as never);
         jest.spyOn(authAPI, "logout").mockResolvedValue(undefined as never);
         jest.spyOn(portalConfigurationAPI, "findAllPortalConfigurations")
-                .mockResolvedValueOnce([{groupKey: "general", settingKey: "welcome", runtimeValue: "Hi", valueType: "text", defaultValue: "Welcome"}] as never)
+            .mockResolvedValueOnce([{group_key: "general", setting_key: "welcome", runtime_value: "Hi", value_type: "text", default_value: "Welcome"}] as never)
                 .mockResolvedValueOnce("invalid" as never);
         await renderProvider();
 

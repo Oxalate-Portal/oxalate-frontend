@@ -4,9 +4,9 @@ import type {Dayjs} from "dayjs";
 
 export interface MembershipRequest {
     id: number;
-    userId: number;
+    user_id: number;
     status: MembershipStatusEnum;
     type: MembershipTypeEnum;
-    startDate: Dayjs | null;
-    endDate: Dayjs | null;
+    start_date: Dayjs | null;
+    end_date: Dayjs | null;
 }

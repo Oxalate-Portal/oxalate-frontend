@@ -1,6 +1,6 @@
 export interface PageVersionResponse {
     id: number;
-    pageId: number;
+    page_id: number;
     language: string;
     title: string;
     ingress: string;

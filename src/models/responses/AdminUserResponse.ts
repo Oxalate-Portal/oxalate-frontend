@@ -4,5 +4,5 @@ import type {Dayjs} from "dayjs";
 
 export interface AdminUserResponse extends UserResponse {
     roles: RoleEnum[];
-    lastSeen: Dayjs | null;
+    last_seen: Dayjs | null;
 }

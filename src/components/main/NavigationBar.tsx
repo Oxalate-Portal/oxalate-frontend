@@ -61,7 +61,7 @@ export function NavigationBar() {
 
     const screens = useBreakpoint();
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const avatarUrl = userSession?.avatarUrl ?? null;
+    const avatarUrl = userSession?.avatar_url ?? null;
 
     // Get the blog menu items from the hook
     const blogMenuItems = useBlogMenuItems(blogEnabled);
@@ -232,14 +232,14 @@ export function NavigationBar() {
             ] || []),
         ...(navigationElements.length > 0
             ? navigationElements.map(navigationElement => ({
-                label: navigationElement.pageGroupVersions[0].title,
+                label: navigationElement.page_group_versions[0].title,
                 key: `page-group-${navigationElement.id}`,
                 children:
                     navigationElement.pages.map(page =>
-                        (page.pageVersions.length > 0 && {
+                        (page.page_versions.length > 0 && {
                             label: (
                                 <NavLink to={`/pages/${page.id}`} className="dropdown-item">
-                                    {page.pageVersions[0].title}
+                                    {page.page_versions[0].title}
                                 </NavLink>
                             ),
                             key: `page-${navigationElement.id}-${page.id}`
@@ -283,7 +283,7 @@ export function NavigationBar() {
         ...(userSession &&
             [
                 {
-                    label: userSession ? userSession.firstName + " " + userSession.lastName : "",
+                    label: userSession ? userSession.first_name + " " + userSession.last_name : "",
                     key: "profile",
                     icon: avatarUrl ? <Avatar size={22} src={avatarUrl}/> : <UserOutlined/>,
                     children: [

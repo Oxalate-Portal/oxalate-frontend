@@ -1,6 +1,6 @@
 import type {AbstractCertificate} from "../AbstractCertificate";
 
 export interface CertificateResponse extends AbstractCertificate {
-    certificatePhotoUrl: string;
-    classificationTitle: string | null;
+    certificate_photo_url: string;
+    classification_title: string | null;
 }

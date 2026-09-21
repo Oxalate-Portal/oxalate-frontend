@@ -17,7 +17,7 @@ export function UserEventList({eventType, events}: UserEventListProps) {
                         return (
                             <li key={eventType + "-" + event.id}>
                                 <Link to={`/events/${event.id}/show`}>
-                                    {dayjs(event.startTime).format("YYYY-MM-DD")}: {event.title}
+                                    {dayjs(event.start_time).format("YYYY-MM-DD")}: {event.title}
                                 </Link>
                             </li>);
                     }

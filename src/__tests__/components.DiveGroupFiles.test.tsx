@@ -29,13 +29,13 @@ function diveFile(overrides: Partial<DiveFileResponse> = {}): DiveFileResponse {
         id: 100,
         filename: "dive-plan.pdf",
         creator: "Owner Ten",
-        createdAt: "2026-05-30T12:00:00Z",
+        created_at: "2026-05-30T12:00:00Z",
         mimetype: "application/pdf",
         filesize: 1234,
         filechecksum: "abc",
         url: "http://localhost/api/files/dive-files/100",
-        eventId: 42,
-        diveGroupId: 1,
+        event_id: 42,
+        dive_group_id: 1,
         status: "UPLOADED",
         ...overrides
     } as unknown as DiveFileResponse;
@@ -44,18 +44,18 @@ function diveFile(overrides: Partial<DiveFileResponse> = {}): DiveFileResponse {
 function diveGroup(overrides: Partial<DiveGroupResponse> = {}): DiveGroupResponse {
     return {
         id: 1,
-        eventId: 42,
+        event_id: 42,
         name: "Team Sidemount",
-        ownerId: 10,
-        ownerName: "Owner Ten",
-        groupType: "NORMAL",
-        groupOrder: 1,
-        createdAt: "2026-05-30T12:00:00Z",
-        updatedAt: null,
+        owner_id: 10,
+        owner_name: "Owner Ten",
+        group_type: "NORMAL",
+        group_order: 1,
+        created_at: "2026-05-30T12:00:00Z",
+        updated_at: null,
         members: [
-            {userId: 10, name: "Owner Ten", userType: "SCUBA_DIVER", owner: true, joinedAt: "2026-05-30T12:00:00Z"}
+            {user_id: 10, name: "Owner Ten", user_type: "SCUBA_DIVER", owner: true, joined_at: "2026-05-30T12:00:00Z"}
         ],
-        diveFiles: [],
+        dive_files: [],
         ...overrides
     } as unknown as DiveGroupResponse;
 }
@@ -142,33 +142,33 @@ describe("DiveGroupTable group type and dive files", () => {
     }
 
     it("renders the group type column for a project group", () => {
-        renderTable([diveGroup({groupType: "PROJECT" as never})]);
+        renderTable([diveGroup({group_type: "PROJECT" as never})]);
 
         expect(screen.getByText("DiveEvent.diveGroup.table.groupType")).toBeInTheDocument();
         expect(screen.getByText("DiveGroupTypeEnum.project")).toBeInTheDocument();
     });
 
     it("defaults the group type to normal when the backend does not provide one", () => {
-        renderTable([diveGroup({groupType: undefined as never})]);
+        renderTable([diveGroup({group_type: undefined as never})]);
 
         expect(screen.getByText("DiveGroupTypeEnum.normal")).toBeInTheDocument();
     });
 
     it("shows that the group has uploaded dive files", () => {
-        renderTable([diveGroup({diveFiles: [diveFile(), diveFile({id: 101})] as never})]);
+        renderTable([diveGroup({dive_files: [diveFile(), diveFile({id: 101})] as never})]);
 
         expect(screen.getByText("DiveEvent.diveGroup.table.diveFiles")).toBeInTheDocument();
         expect(screen.getByText("DiveEvent.diveGroup.files.uploaded (2)")).toBeInTheDocument();
     });
 
     it("shows that the group has no dive files", () => {
-        renderTable([diveGroup({diveFiles: undefined as never})]);
+        renderTable([diveGroup({dive_files: undefined as never})]);
 
         expect(screen.getByText("DiveEvent.diveGroup.files.none")).toBeInTheDocument();
     });
 
     it("shows the dive files of the group in the expanded row", async () => {
-        renderTable([diveGroup({diveFiles: [diveFile()] as never})]);
+        renderTable([diveGroup({dive_files: [diveFile()] as never})]);
 
         expect(screen.queryByText("dive-plan.pdf")).toBeNull();
 

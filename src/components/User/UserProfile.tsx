@@ -35,8 +35,8 @@ export function UserProfile() {
                             setWorkUser(JSON.parse(JSON.stringify(response)));
                             // Sync avatar into the shared session so NavigationBar always
                             // reflects the backend-authoritative URL (including null).
-                            if (userSession.avatarUrl !== response.avatarUrl) {
-                                refreshUserSession({...userSession, avatarUrl: response.avatarUrl});
+                            if (userSession.avatar_url !== response.avatar_url) {
+                                refreshUserSession({...userSession, avatar_url: response.avatar_url});
                             }
                         })
                         .catch((error) => {
@@ -85,7 +85,7 @@ export function UserProfile() {
         }
     };
 
-    function updateAcceptanceState(updates: Partial<Pick<AdminUserResponse, "approvedTerms" | "healthStatementId">>) {
+    function updateAcceptanceState(updates: Partial<Pick<AdminUserResponse, "approved_terms" | "health_statement_id">>) {
         setWorkUser((prevState) => prevState ? {...prevState, ...updates} : prevState);
 
         if (userSession) {
@@ -98,8 +98,8 @@ export function UserProfile() {
         setLoading(true);
 
         try {
-            await userAPI.acceptTerms({confirmationAnswer: answer});
-            updateAcceptanceState({approvedTerms: answer});
+            await userAPI.acceptTerms({confirmation_answer: answer});
+            updateAcceptanceState({approved_terms: answer});
             setShowTermsModal(false);
         } catch (error) {
             console.error(error);
@@ -121,16 +121,16 @@ export function UserProfile() {
         const postData: AdminUserRequest = {
             id: workUser.id,
             username: workUser.username,
-            avatarUrl: workUser.avatarUrl,
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
+            avatar_url: workUser.avatar_url,
+            first_name: userInfo.first_name,
+            last_name: userInfo.last_name,
             status: workUser.status,
-            phoneNumber: userInfo.phoneNumber,
+            phone_number: userInfo.phone_number,
             privacy: userInfo.privacy,
-            approvedTerms: workUser.approvedTerms,
-            healthStatementId: workUser.healthStatementId,
-            primaryUserType: userInfo.primaryUserType,
-            nextOfKin: userInfo.nextOfKin,
+            approved_terms: workUser.approved_terms,
+            health_statement_id: workUser.health_statement_id,
+            primary_user_type: userInfo.primary_user_type,
+            next_of_kin: userInfo.next_of_kin,
             registered: workUser.registered,
             roles: workUser.roles,
             language: userInfo.language
@@ -141,23 +141,23 @@ export function UserProfile() {
                     const newUserSession: UserSessionToken = {
                         id: response.id,
                         username: response.username,
-                        firstName: response.firstName,
-                        lastName: response.lastName,
-                        avatarUrl: response.avatarUrl,
-                        phoneNumber: response.phoneNumber,
+                        first_name: response.first_name,
+                        last_name: response.last_name,
+                        avatar_url: response.avatar_url,
+                        phone_number: response.phone_number,
                         registered: response.registered,
-                        diveCount: response.diveCount,
-                        accessToken: userSession === null ? "" : userSession.accessToken,
+                        dive_count: response.dive_count,
+                        access_token: userSession === null ? "" : userSession.access_token,
                         type: userSession === null ? "" : userSession.type,
-                        expiresAt: userSession === null ? new Date() : userSession.expiresAt,
+                        expires_at: userSession === null ? new Date() : userSession.expires_at,
                         roles: response.roles,
                         language: response.language,
                         status: response.status,
-                        approvedTerms: response.approvedTerms,
-                        healthStatementId: response.healthStatementId,
+                        approved_terms: response.approved_terms,
+                        health_statement_id: response.health_statement_id,
                         privacy: response.privacy,
-                        nextOfKin: response.nextOfKin,
-                        primaryUserType: response.primaryUserType,
+                        next_of_kin: response.next_of_kin,
+                        primary_user_type: response.primary_user_type,
                         payments: response.payments,
                         memberships: response.memberships
                     };
@@ -183,11 +183,11 @@ export function UserProfile() {
                 {contextHolder}
                 <h4>{userSession?.username} {t("User.title")}:</h4>
                 {workUser &&
-                        <p>{t("User.form.certificateClassification.label")}: <b>{workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</b>
+                    <p>{t("User.form.certificateClassification.label")}: <b>{workUser.certificate_classification_title || t("User.form.certificateClassification.none")}</b>
                         </p>}
 
                 <Spin spinning={loading}>
-                    {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatarUrl ?? null}/>}
+                    {workUser && workUser.id > 0 && <UserAvatarManager userId={workUser.id} initialAvatarUrl={workUser.avatar_url ?? null}/>}
                     {workUser && workUser.id > 0 && <Form
                             form={userForm}
                             name={"user-info"}
@@ -197,16 +197,16 @@ export function UserProfile() {
                             initialValues={{
                                 id: workUser.id,
                                 username: workUser.username,
-                                firstName: workUser.firstName,
-                                lastName: workUser.lastName,
+                                first_name: workUser.first_name,
+                                last_name: workUser.last_name,
                                 status: workUser.status,
-                                phoneNumber: workUser.phoneNumber,
+                                phone_number: workUser.phone_number,
                                 privacy: workUser.privacy,
-                                nextOfKin: workUser.nextOfKin,
+                                next_of_kin: workUser.next_of_kin,
                                 registered: workUser.registered,
                                 roles: workUser.roles,
                                 language: workUser.language,
-                                primaryUserType: workUser.primaryUserType
+                                primary_user_type: workUser.primary_user_type
                             }}
                             onFinish={onFinish}
                             onFinishFailed={onFinishFailed}
@@ -232,16 +232,16 @@ export function UserProfile() {
                         </Form.Item>
                         <Form.Item label={t("User.form.terms.label")} key={"terms"}>
                             <Space size={12}>
-                                <span className="ant-form-text">{workUser.approvedTerms ? t("User.form.terms.true") : t("User.form.terms.false")}</span>
-                                {!workUser.approvedTerms && <Button type={"default"}
+                                <span className="ant-form-text">{workUser.approved_terms ? t("User.form.terms.true") : t("User.form.terms.false")}</span>
+                                {!workUser.approved_terms && <Button type={"default"}
                                                                     onClick={() => setShowTermsModal(true)}>{t("User.button.acceptTerms")}</Button>}
                             </Space>
                         </Form.Item>
                         <Form.Item label={t("User.form.healthStatement.label")} key={"healthStatement"}>
                             <Space size={12}>
                             <span
-                                    className="ant-form-text">{workUser.healthStatementId !== null ? t("User.form.healthStatement.true") : t("User.form.healthStatement.false")}</span>
-                                {workUser.healthStatementId === null && <Button type={"default"}
+                                className="ant-form-text">{workUser.health_statement_id !== null ? t("User.form.healthStatement.true") : t("User.form.healthStatement.false")}</span>
+                                {workUser.health_statement_id === null && <Button type={"default"}
                                                                                 onClick={() => setShowHealthStatementModal(true)}>{t("User.button.confirmHealthStatement")}</Button>}
                             </Space>
                         </Form.Item>
@@ -303,7 +303,7 @@ export function UserProfile() {
                                     disabled={loading}
                                     key={"anonymize-button"}
                             >{t("User.button.anonymizeAccount")}</Button>
-                            {!workUser.approvedTerms && <Button
+                            {!workUser.approved_terms && <Button
                                     danger={true}
                                     type={"dashed"} onClick={logoutUser}
                                     href={"/"}
@@ -339,14 +339,14 @@ export function UserProfile() {
                     <HealthStatementConfirmationModal
                             open={showHealthStatementModal}
                             onConfirm={() => {
-                                updateAcceptanceState({healthStatementId: 0});
+                                updateAcceptanceState({health_statement_id: 0});
                                 setShowHealthStatementModal(false);
                             }}
                             onCancel={() => setShowHealthStatementModal(false)}
                     />
 
                     {workUser && <UserDocumentFiles userId={workUser.id}
-                                                    creatorName={`${workUser.lastName}, ${workUser.firstName}`}
+                                                    creatorName={`${workUser.last_name}, ${workUser.first_name}`}
                                                     canUpload={true}/>}
 
                     {workUser && <ProfileCollapse userId={workUser.id} viewOnly={false}/>}

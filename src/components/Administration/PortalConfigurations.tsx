@@ -16,8 +16,8 @@ export function PortalConfigurations() {
     const [messageApi, contextHolder] = message.useMessage();
 
     const groupedConfigurations = portalConfigurations.reduce((acc, config) => {
-        acc[config.groupKey] = acc[config.groupKey] || [];
-        acc[config.groupKey].push(config);
+        acc[config.group_key] = acc[config.group_key] || [];
+        acc[config.group_key].push(config);
         return acc;
     }, {} as Record<string, PortalConfigurationResponse[]>);
 
@@ -47,11 +47,11 @@ export function PortalConfigurations() {
             return;
         }
 
-        const valueType = config.valueType;
+        const valueType = config.value_type;
 
         const value = modifiedValues[configId] ?? "";
 
-        config.runtimeValue = value;
+        config.runtime_value = value;
 
         if (valueType === "email" && !validateEmail(value)) {
             messageApi.error(t("PortalConfigurations.invalid-email"));
@@ -62,7 +62,7 @@ export function PortalConfigurations() {
 
         portalConfigurationAPI.updateConfigurationValue({
             id: config.id,
-            value: config.runtimeValue
+            value: config.runtime_value
         })
                 .then(() => {
                     messageApi.success(t("PortalConfigurations.update-ok"));
@@ -80,10 +80,10 @@ export function PortalConfigurations() {
     }
 
     function renderEditor(config: PortalConfigurationResponse) {
-        const {valueType, runtimeValue, defaultValue} = config;
+        const {value_type: valueType, runtime_value: runtimeValue, default_value: defaultValue} = config;
 
         let currentValue: string = modifiedValues[config.id] ?? runtimeValue ?? defaultValue ?? "";
-        const required = config.requiredRuntime && currentValue.length === 0;
+        const required = config.required_runtime && currentValue.length === 0;
 
         function handleChange(newValue: string | boolean | number | null | undefined) {
             if (newValue === null || newValue === undefined) {
@@ -176,46 +176,46 @@ export function PortalConfigurations() {
             case "enum": {
                 let enumOptions: { label: string, value: string }[] = [];
 
-                if (config.settingKey === "membership-type") {
+                if (config.setting_key === "membership-type") {
                     enumOptions = Object.values(MembershipTypeEnum).map((type) => ({
                         label: t("MembershipTypeEnum." + type.toLowerCase()),
                         value: type.toString()
                     }));
 
-                    if (currentValue === config.defaultValue) {
+                    if (currentValue === config.default_value) {
                         currentValue = Object.values(MembershipTypeEnum)[0];
                     }
-                } else if (config.settingKey === "membership-period-unit") {
+                } else if (config.setting_key === "membership-period-unit") {
                     enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
                         label: t("ChronoUnitEnum." + type.toLowerCase()),
                         value: type.toString()
                     }));
 
-                    if (currentValue === config.defaultValue) {
+                    if (currentValue === config.default_value) {
                         currentValue = Object.values(ChronoUnitEnum)[0];
                     }
-                } else if ((config.settingKey === "periodical-payment-method-type")
-                        || (config.settingKey === "one-time-expiration-type")) {
+                } else if ((config.setting_key === "periodical-payment-method-type")
+                    || (config.setting_key === "one-time-expiration-type")) {
                     enumOptions = Object.values(PaymentExpirationTypeEnum).map((type) => ({
                         label: t("PaymentExpirationType." + type.toLowerCase()),
                         value: type.toString()
                     }));
 
-                    if (currentValue === config.defaultValue) {
+                    if (currentValue === config.default_value) {
                         currentValue = Object.values(PaymentExpirationTypeEnum)[0];
                     }
-                } else if (config.settingKey === "periodical-payment-method-unit"
-                        || config.settingKey === "one-time-expiration-unit") {
+                } else if (config.setting_key === "periodical-payment-method-unit"
+                    || config.setting_key === "one-time-expiration-unit") {
                     enumOptions = Object.values(ChronoUnitEnum).map((type) => ({
                         label: t("ChronoUnitEnum." + type.toLowerCase()),
                         value: type.toString()
                     }));
 
-                    if (currentValue === config.defaultValue) {
+                    if (currentValue === config.default_value) {
                         currentValue = Object.values(ChronoUnitEnum)[0];
                     }
                 } else {
-                    console.error("Unknown enum setting key:", config.settingKey);
+                    console.error("Unknown enum setting key:", config.setting_key);
                 }
 
                 return (
@@ -270,23 +270,23 @@ export function PortalConfigurations() {
                                                  size={"large"}
                                                  style={{fontSize: "20px", color: "#70FF70"}}
                                         >{t("PortalConfigurations." + groupKey + ".title")}</Divider>
-                                        {configs.sort((a, b) => a.settingKey.localeCompare(b.settingKey)).map(config => {
-                                            const isModified = config.defaultValue !== config.runtimeValue && config.runtimeValue !== null;
+                                        {configs.sort((a, b) => a.setting_key.localeCompare(b.setting_key)).map(config => {
+                                            const isModified = config.default_value !== config.runtime_value && config.runtime_value !== null;
                                             return (
                                                     <div key={config.id} style={{marginBottom: "16px"}}>
                                                         <Row gutter={16}>
                                                             <Col span={6}>
                                                                 <Space orientation={"horizontal"} size={4}>
                                                                     <Tooltip
-                                                                            title={t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".tooltip")}>
+                                                                        title={t("PortalConfigurations." + config.group_key + "." + config.setting_key + ".tooltip")}>
                                                                         <Typography.Text
-                                                                                strong>{t("PortalConfigurations." + config.groupKey + "." + config.settingKey + ".label")}</Typography.Text>
+                                                                            strong>{t("PortalConfigurations." + config.group_key + "." + config.setting_key + ".label")}</Typography.Text>
                                                                     </Tooltip>
                                                                     {isModified && <StarOutlined style={{color: "gold"}}/>}
                                                                 </Space>
                                                             </Col>
                                                             <Col span={6}>
-                                                                <Typography.Text>{config.defaultValue}</Typography.Text>
+                                                                <Typography.Text>{config.default_value}</Typography.Text>
                                                             </Col>
                                                             <Col span={6}>
                                                                 {renderEditor(config)}

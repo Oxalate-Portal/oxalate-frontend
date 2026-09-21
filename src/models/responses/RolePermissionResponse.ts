@@ -2,9 +2,9 @@ import {RoleEnum} from "../RoleEnum";
 
 export interface RolePermissionResponse {
     id: number;
-    pageId: number;
+    page_id: number;
     role: RoleEnum;
-    readPermission: boolean;
-    writePermission: boolean;
+    read_permission: boolean;
+    write_permission: boolean;
 }
 

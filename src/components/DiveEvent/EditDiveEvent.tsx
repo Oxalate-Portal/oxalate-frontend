@@ -167,7 +167,7 @@ export function EditDiveEvent() {
                         setDiveEvent(JSON.parse(JSON.stringify(eventResponse)));
                         populateOrganizerList(organizerResponses);
                         populateParticipantList(participantResponses, tmpDiveEventId, eventResponse.participants);
-                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blocked_date).toDate());
                         setBlockedDates(dates);
                     })
                     .catch((error) => {
@@ -192,19 +192,19 @@ export function EditDiveEvent() {
                                     description: "",
                                     type: DiveTypeEnum.SURFACE,
                                     // startTime is a string in the model; store an ISO string
-                                    startTime: nextEventTime(),
-                                    eventDuration: frontendValues.maxEventLength,
-                                    maxDuration: frontendValues.maxDiveLength,
-                                    maxDepth: frontendValues.maxDepth,
-                                    maxParticipants: frontendValues.maxParticipants,
+                                    start_time: nextEventTime(),
+                                    event_duration: frontendValues.maxEventLength,
+                                    max_duration: frontendValues.maxDiveLength,
+                                    max_depth: frontendValues.maxDepth,
+                                    max_participants: frontendValues.maxParticipants,
                                     organizer: null,
                                     participants: [],
-                                    waitingList: [],
+                                    waiting_list: [],
                                     status: DiveEventStatusEnum.DRAFTED,
-                                    eventCommentId: 0
+                                    event_comment_id: 0
                                 }
                         );
-                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                        const dates = blockedDatesResponses.map((item: BlockedDateResponse) => dayjs(item.blocked_date).toDate());
                         setBlockedDates(dates);
                     })
                     .catch((error) => {
@@ -236,7 +236,7 @@ export function EditDiveEvent() {
         // Get the selected participant IDs
         const selectedParticipants = diveEventForm.getFieldValue("participants") ?? [];
         // Get the set maxParticipants value
-        const setMaxParticipants = diveEventForm.getFieldValue("maxParticipants") ?? 0;
+        const setMaxParticipants = diveEventForm.getFieldValue("max_participants") ?? 0;
         // Ensure that the input value is not less than the number of selected participants
 
         if (exceedsMaxParticipants(selectedParticipants.length, setMaxParticipants)) {
@@ -248,13 +248,13 @@ export function EditDiveEvent() {
 
     function onFinish(submitValues: DiveEventRequest) {
         // First make sure we're not editing an event in the past
-        if (dayjs().isAfter(dayjs(submitValues.startTime).add(submitValues.eventDuration, "hour"))) {
+        if (dayjs().isAfter(dayjs(submitValues.start_time).add(submitValues.event_duration, "hour"))) {
             messageApi.error(t("EditEvent.oldEvent.alertText"));
             setLoading(false);
             return;
         }
 
-        if (submitValues.organizerId <= 0) {
+        if (submitValues.organizer_id <= 0) {
             messageApi.error(t("EditEvent.onFinish.updateStatusFail"));
             setLoading(false);
             return;
@@ -262,12 +262,12 @@ export function EditDiveEvent() {
 
         setLoading(true);
         // Normalize to minute precision
-        const normalizedStart = dayjs(submitValues.startTime).second(0).millisecond(0);
+        const normalizedStart = dayjs(submitValues.start_time).second(0).millisecond(0);
         // Shift the datetime to the configured timezone (UTC) and send as ISO string
-        submitValues.startTime = localToUTCDatetime(normalizedStart, getPortalTimezone());
+        submitValues.start_time = localToUTCDatetime(normalizedStart, getPortalTimezone());
 
         // Check also that the new maxParticipants value is not lower than the current number of participants
-        if (submitValues.maxParticipants < submitValues.participants.length) {
+        if (submitValues.max_participants < submitValues.participants.length) {
             messageApi.error(t("EditEvent.onFinish.updateStatusFailMaxParticipant"));
             setLoading(false);
             return;
@@ -328,16 +328,16 @@ export function EditDiveEvent() {
                         style={{maxWidth: 800}}
                         initialValues={{
                             id: diveEvent.id,
-                            organizerId: (diveEvent.organizer ? diveEvent.organizer.id : 0),
+                            organizer_id: (diveEvent.organizer ? diveEvent.organizer.id : 0),
                             title: diveEvent.title,
                             description: diveEvent.description,
                             type: diveEvent.type,
                             // Convert string -> dayjs for DatePicker
-                            startTime: diveEvent.startTime ? dayjs(diveEvent.startTime) : nextEventTime(),
-                            eventDuration: diveEvent.eventDuration,
-                            maxDuration: diveEvent.maxDuration,
-                            maxDepth: diveEvent.maxDepth,
-                            maxParticipants: diveEvent.maxParticipants,
+                            start_time: diveEvent.start_time ? dayjs(diveEvent.start_time) : nextEventTime(),
+                            event_duration: diveEvent.event_duration,
+                            max_duration: diveEvent.max_duration,
+                            max_depth: diveEvent.max_depth,
+                            max_participants: diveEvent.max_participants,
                             status: diveEvent.status,
                             participants: diveEvent.participants.map((participant) => {
                                 return participant.id;
@@ -352,7 +352,7 @@ export function EditDiveEvent() {
                     <Form.Item name={"id"} label={"ID"} style={{display: "none"}}>
                         <Input type={"text"}/>
                     </Form.Item>
-                    <Form.Item name={"organizerId"}
+                    <Form.Item name={"organizer_id"}
                                required={true}
                                label={t("EditEvent.form.organizerId.label")}
                                tooltip={t("EditEvent.form.organizerId.tooltip")}
@@ -435,7 +435,7 @@ export function EditDiveEvent() {
                                ]}>
                         <Select options={eventTypes}/>
                     </Form.Item>
-                    <Form.Item name={"startTime"}
+                    <Form.Item name={"start_time"}
                                required={true}
                                label={t("EditEvent.form.startTime.label")}
                                tooltip={t("EditEvent.form.startTime.tooltip")}
@@ -466,25 +466,25 @@ export function EditDiveEvent() {
                                 format={"YYYY-MM-DD HH:mm"}
                         />
                     </Form.Item>
-                    <Form.Item name={"eventDuration"}
+                    <Form.Item name={"event_duration"}
                                required={true}
                                label={t("EditEvent.form.eventDuration.label")}
                                tooltip={t("EditEvent.form.eventDuration.tooltip")}>
                         <Slider min={minEventLength} max={maxEventLength} step={1} marks={eventDurationMarks}/>
                     </Form.Item>
-                    <Form.Item name={"maxDuration"}
+                    <Form.Item name={"max_duration"}
                                required={true}
                                label={t("EditEvent.form.maxDuration.label")}
                                tooltip={t("EditEvent.form.maxDuration.tooltip")}>
                         <Slider min={30} max={maxDiveLength} step={10} marks={diveLengthMarks}/>
                     </Form.Item>
-                    <Form.Item name={"maxDepth"}
+                    <Form.Item name={"max_depth"}
                                required={true}
                                label={t("EditEvent.form.maxDepth.label")}
                                tooltip={t("EditEvent.form.maxDepth.tooltip")}>
                         <Slider min={10} max={maxDepth} step={5} marks={depthMarks}/>
                     </Form.Item>
-                    <Form.Item name={"maxParticipants"}
+                    <Form.Item name={"max_participants"}
                                required={true}
                                label={t("EditEvent.form.maxParticipants.label")}
                                tooltip={t("EditEvent.form.maxParticipants.tooltip")}

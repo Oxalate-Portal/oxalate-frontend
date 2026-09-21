@@ -1,7 +1,7 @@
 export interface TokenResponse {
-    tokenId: number;
-    tokenValue?: string | null;
-    createdAt: string | Date;
-    expiresAt: string | Date;
+    token_id: number;
+    token_value?: string | null;
+    created_at: string | Date;
+    expires_at: string | Date;
     description?: string | null;
 }

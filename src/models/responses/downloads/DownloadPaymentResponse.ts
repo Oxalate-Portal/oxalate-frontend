@@ -3,9 +3,9 @@ import type {Dayjs} from "dayjs";
 
 export interface DownloadPaymentResponse {
     id: number;
-    userId: number;
+    user_id: number;
     name: string;
-    paymentCount: number;
-    paymentType: PaymentTypeEnum;
+    payment_count: number;
+    payment_type: PaymentTypeEnum;
     created: Dayjs;
 }

@@ -7,10 +7,10 @@ export interface MessageRequest {
     title: string;
     message: string;
     creator: number;
-    createdAt?: Dayjs;
+    created_at?: Dayjs;
     recipients?: number[];
-    sendAll?: boolean;
-    notificationGroup?: NotificationGroupEnum;
-    inactiveDays?: number;
+    send_all?: boolean;
+    notification_group?: NotificationGroupEnum;
+    inactive_days?: number;
 }
 

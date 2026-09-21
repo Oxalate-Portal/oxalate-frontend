@@ -10,7 +10,7 @@ interface FormMembershipsProps {
 
 export function FormMemberships({membershipList}: FormMembershipsProps) {
     const {t} = useTranslation();
-    const sortedMembershipList = membershipList?.slice().sort((a, b) => dayjs(b.endDate).valueOf() - dayjs(a.endDate).valueOf());
+    const sortedMembershipList = membershipList?.slice().sort((a, b) => dayjs(b.end_date).valueOf() - dayjs(a.end_date).valueOf());
 
     const columns = [
         {
@@ -37,7 +37,7 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
         },
         {
             title: t("FormMemberships.table.start-date"),
-            dataIndex: "startDate",
+            dataIndex: "start_date",
             key: "membership-startDate",
             render: (date: Date, record: MembershipResponse) => {
                 return (
@@ -47,11 +47,11 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
                             : "-"}
                     </>);
             },
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix()
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.start_date).unix() - dayjs(b.start_date).unix()
         },
         {
             title: t("FormMemberships.table.end-date"),
-            dataIndex: "endDate",
+            dataIndex: "end_date",
             key: "membership-endDate",
             render: (date: Date, record: MembershipResponse) => {
                 return (
@@ -61,7 +61,7 @@ export function FormMemberships({membershipList}: FormMembershipsProps) {
                             : "-"}
                     </>);
             },
-            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.endDate).unix() - dayjs(b.endDate).unix()
+            sorter: (a: MembershipResponse, b: MembershipResponse) => dayjs(a.end_date).unix() - dayjs(b.end_date).unix()
         },
         {
             title: t("FormMemberships.table.created"),

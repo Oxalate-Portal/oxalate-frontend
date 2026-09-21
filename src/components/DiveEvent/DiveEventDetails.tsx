@@ -19,7 +19,7 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
     const [notificationModalOpen, setNotificationModalOpen] = useState(false);
     const {userSession, getPortalTimezone} = useSession();
     const {t} = useTranslation();
-    const isFutureEvent = !!eventInfo && dayjs(eventInfo.startTime).isAfter(dayjs());
+    const isFutureEvent = !!eventInfo && dayjs(eventInfo.start_time).isAfter(dayjs());
     const canNotifyParticipants = !!userSession
             && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
             && isFutureEvent
@@ -30,15 +30,15 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         {
             title: "#",
             dataIndex: "id",
-            key: "eventId",
+            key: "event_id",
             mobile: true
         },
         {
             title: t("EventDetails.table.startTime"),
-            dataIndex: "startTime",
-            key: "startTime",
+            dataIndex: "start_time",
+            key: "start_time",
             render: (_: string, record: DiveEventResponse) => {
-                return (<>{dayjs(record.startTime).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
+                return (<>{dayjs(record.start_time).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
             }
         },
         {
@@ -47,19 +47,19 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             key: "participants",
             render: (_: string, record: DiveEventResponse) => {
                 if (record.participants) {
-                    return (<>{record.participants.length} / {record.maxParticipants}</>);
+                    return (<>{record.participants.length} / {record.max_participants}</>);
                 }
             }
         },
         {
             title: t("EventDetails.table.maxDuration"),
-            dataIndex: "maxDuration",
-            key: "maxDuration"
+            dataIndex: "max_duration",
+            key: "max_duration"
         },
         {
             title: t("EventDetails.table.maxDepth"),
-            dataIndex: "maxDepth",
-            key: "maxDepth"
+            dataIndex: "max_depth",
+            key: "max_depth"
         },
         {
             title: t("EventDetails.table.type"),
@@ -76,21 +76,21 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                     return (<></>);
                 }
                 if (userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])) {
-                    return (<Link to={"/users/" + record.organizer.id + "/show"}>{record.organizer.lastName} {record.organizer.firstName}</Link>);
+                    return (<Link to={"/users/" + record.organizer.id + "/show"}>{record.organizer.last_name} {record.organizer.first_name}</Link>);
                 }
-                return (<>{record.organizer.lastName} {record.organizer.firstName}</>);
+                return (<>{record.organizer.last_name} {record.organizer.first_name}</>);
             }
         },
         {
             title: t("EventDetails.table.phoneNumber"),
-            dataIndex: "phoneNumber",
-            key: "phoneNumber",
+            dataIndex: "phone_number",
+            key: "phone_number",
             render: (_: string, record: DiveEventResponse) => {
                 if (record.organizer === null) {
                     return (<></>);
                 }
 
-                return (<>{record.organizer.phoneNumber}</>);
+                return (<>{record.organizer.phone_number}</>);
             }
         }
     ];
@@ -125,34 +125,34 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
         },
         {
             title: t("EventDetails.participantTable.userType"),
-            dataIndex: "userType",
-            key: "userType",
-            sorter: (a: ListUserResponse, b: ListUserResponse) => a.userType.toLowerCase().localeCompare(b.userType.toLowerCase()),
+            dataIndex: "user_type",
+            key: "user_type",
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.user_type.toLowerCase().localeCompare(b.user_type.toLowerCase()),
             render: (_, record: ListUserResponse) => (
                     <>
-                        {userTypeEnum2Tag(record.userType, t, record.id)}
+                        {userTypeEnum2Tag(record.user_type, t, record.id)}
                     </>
             )
         },
         {
             title: t("EventDetails.participantTable.certificateClassification"),
-            dataIndex: "certificateClassificationTitle",
-            key: "certificateClassificationTitle",
-            render: (_: string | null, record: ListUserResponse) => record.certificateClassificationTitle || t("User.form.certificateClassification.none")
+            dataIndex: "certificate_classification_title",
+            key: "certificate_classification_title",
+            render: (_: string | null, record: ListUserResponse) => record.certificate_classification_title || t("User.form.certificateClassification.none")
         },
         {
             title: t("EventDetails.participantTable.eventDiveCount"),
-            dataIndex: "eventDiveCount",
-            key: "eventDiveCount",
-            sorter: (a: ListUserResponse, b: ListUserResponse) => a.eventDiveCount - b.eventDiveCount
+            dataIndex: "event_dive_count",
+            key: "event_dive_count",
+            sorter: (a: ListUserResponse, b: ListUserResponse) => a.event_dive_count - b.event_dive_count
         },
         {
             title: t("EventDetails.participantTable.createdAt"),
-            dataIndex: "createdAt",
-            key: "createdAt",
-            sorter: (a: ListUserResponse, b: ListUserResponse) => dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+            dataIndex: "created_at",
+            key: "created_at",
+            sorter: (a: ListUserResponse, b: ListUserResponse) => dayjs(a.created_at).valueOf() - dayjs(b.created_at).valueOf(),
             render: (_: string, record: ListUserResponse) => {
-                return (<>{dayjs(record.createdAt).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
+                return (<>{dayjs(record.created_at).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")}</>);
             }
         }
 
@@ -167,10 +167,10 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                 render: (_, {payments}) => (
                         <>
                             {payments.map((payment) => {
-                                if ((dayjs(payment.endDate).isAfter(dayjs())
-                                                || payment.endDate === null)
-                                        && dayjs(payment.startDate).isBefore(dayjs())) {
-                                    return paymentTypeEnum2Tag(payment.paymentType, t, payment.id);
+                                if ((dayjs(payment.end_date).isAfter(dayjs())
+                                        || payment.end_date === null)
+                                    && dayjs(payment.start_date).isBefore(dayjs())) {
+                                    return paymentTypeEnum2Tag(payment.payment_type, t, payment.id);
                                 }
                             })}
                         </>
@@ -221,13 +221,13 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
                                    rowKey={(record) => "participant-row-" + record.id}
                             />
 
-                            {eventInfo.waitingList && eventInfo.waitingList.length > 0 &&
+                            {eventInfo.waiting_list && eventInfo.waiting_list.length > 0 &&
                                     <>
                                         <h5 key={"event-waiting-list-" + eventInfo.id}>{t("EventDetails.waitingList.title")}:
-                                            ({eventInfo.waitingList.length}):</h5>
+                                            ({eventInfo.waiting_list.length}):</h5>
 
                                         <OxTable columns={participantColumns}
-                                                 dataSource={eventInfo.waitingList}
+                                                 dataSource={eventInfo.waiting_list}
                                                  pagination={false}
                                                  key={"waiting-list-" + eventInfo.id}
                                                  rowKey={(record) => "waiting-list-row-" + record.id}

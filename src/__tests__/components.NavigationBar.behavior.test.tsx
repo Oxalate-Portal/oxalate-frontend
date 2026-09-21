@@ -5,7 +5,7 @@ import {pageAPI} from "../services";
 
 const mockDesktop = {value: false};
 const mockSession = {
-    userSession: {id: 1, username: "admin", roles: ["ROLE_ADMIN"], avatarUrl: null},
+    userSession: {id: 1, username: "admin", roles: ["ROLE_ADMIN"], avatar_url: null},
     logoutUser: jest.fn(),
     sessionLanguage: "en",
     organizationName: "Test Portal",
@@ -72,8 +72,8 @@ describe("NavigationBar behavior", () => {
         (pageAPI.getNavigationItems as jest.Mock).mockResolvedValue([
             {
                 id: 1,
-                pageGroupVersions: [{title: "Pages"}],
-                pages: [{id: 2, pageVersions: [{title: "Home"}], slug: "home"}]
+                page_group_versions: [{title: "Pages"}],
+                pages: [{id: 2, page_versions: [{title: "Home"}], slug: "home"}]
             }
         ]);
     });

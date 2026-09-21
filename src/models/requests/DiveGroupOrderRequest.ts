@@ -1,3 +1,3 @@
 export interface DiveGroupOrderRequest {
-    diveGroupIds: number[];
+    dive_group_ids: number[];
 }

@@ -25,9 +25,9 @@ function checkRoles(haystack: RoleEnum[] | null, needles: RoleEnum[]): boolean {
 function getPageGroupTitleByLanguage(language: string, pageGroup: PageGroupResponse) {
     let returnValue = "";
 
-    for (let i = 0; i < pageGroup.pageGroupVersions.length; i++) {
-        if (pageGroup.pageGroupVersions[i].language === language) {
-            returnValue = pageGroup.pageGroupVersions[i].title;
+    for (let i = 0; i < pageGroup.page_group_versions.length; i++) {
+        if (pageGroup.page_group_versions[i].language === language) {
+            returnValue = pageGroup.page_group_versions[i].title;
             break;
         }
     }
@@ -38,9 +38,9 @@ function getPageGroupTitleByLanguage(language: string, pageGroup: PageGroupRespo
 function getPageTitleByLanguage(language: string, page: PageResponse) {
     let returnValue = "";
 
-    for (let i = 0; i < page.pageVersions.length; i++) {
-        if (page.pageVersions[i].language === language) {
-            returnValue = page.pageVersions[i].title;
+    for (let i = 0; i < page.page_versions.length; i++) {
+        if (page.page_versions[i].language === language) {
+            returnValue = page.page_versions[i].title;
             break;
         }
     }
@@ -61,7 +61,7 @@ function getHighestRole(sessionVO: UserSessionToken): RoleEnum {
 
 function isAllowedToEditPage(sessionVO: UserSessionToken, pageRoles: RolePermissionResponse[]) {
     for (let i = 0; i < pageRoles.length; i++) {
-        if (sessionVO.roles.indexOf(pageRoles[i].role) !== -1 && pageRoles[i].writePermission) {
+        if (sessionVO.roles.indexOf(pageRoles[i].role) !== -1 && pageRoles[i].write_permission) {
             return true;
         }
     }

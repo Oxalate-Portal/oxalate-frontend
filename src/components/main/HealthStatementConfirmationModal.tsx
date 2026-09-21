@@ -28,11 +28,11 @@ export function HealthStatementConfirmationModal({open, onConfirm, onCancel, reg
         setError(null);
 
         try {
-            await userAPI.acceptHealthStatement({confirmationAnswer: true});
+            await userAPI.acceptHealthStatement({confirmation_answer: true});
 
             if (userSession) {
                 const newSession = JSON.parse(JSON.stringify(userSession));
-                newSession.healthStatementId = 0;
+                newSession.health_statement_id = 0;
                 refreshUserSession(newSession);
             }
 

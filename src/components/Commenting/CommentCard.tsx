@@ -20,12 +20,12 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
     const [reportReason, setReportReason] = useState("");
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
-    const avatarImageUrl = resolveCommentAvatarUrl(comment.avatarUrl);
+    const avatarImageUrl = resolveCommentAvatarUrl(comment.avatar_url);
 
     async function handleReport() {
         const reportData: ReportRequest = {
-            commentId: comment.id,
-            reportReason
+            comment_id: comment.id,
+            report_reason: reportReason
         };
         commentAPI.report(reportData)
                 .then((response) => {
@@ -83,7 +83,7 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
                             <Typography.Text strong>{comment.username} (#{comment.id})</Typography.Text>
                             <br/>
                             <Typography.Text type="secondary">
-                                {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")} {comment.childCount} {comment.childCount < 2 ? t("CommentCard.singular-reply") : t("CommentCard.multiple-replies")}
+                                {dayjs(comment.created_at).format("YYYY-MM-DD HH:mm")} {comment.child_count} {comment.child_count < 2 ? t("CommentCard.singular-reply") : t("CommentCard.multiple-replies")}
                             </Typography.Text>
                         </div>
                     </div>
@@ -92,9 +92,9 @@ export function CommentCard({comment, displayOnly = false, refreshCommentList}: 
                     <div style={{display: "flex", justifyContent: "space-between", width: "100%"}}>
                         {!displayOnly &&
                                 <Button onClick={() => setReplyVisible(!replyVisible)}>{replyVisible ? t("common.button.cancel") : t("common.button.respond")}</Button>}
-                        {!displayOnly && !comment.userHasReported &&
+                        {!displayOnly && !comment.user_has_reported &&
                                 <Button danger onClick={() => setReportVisible(true)}>{t("CommentCard.button.report-comment")}</Button>}
-                        {!displayOnly && comment.userHasReported &&
+                        {!displayOnly && comment.user_has_reported &&
                                 <Button danger onClick={() => cancelReport()}>{t("CommentCard.button.cancel-report")}</Button>}
                     </div>
                     {replyVisible && <CommentEditor parentCommentId={comment.id} refreshCommentList={() => {

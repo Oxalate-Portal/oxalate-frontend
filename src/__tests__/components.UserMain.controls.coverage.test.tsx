@@ -7,7 +7,6 @@ import {ChronoUnitEnum, MembershipTypeEnum, PaymentTypeEnum, RoleEnum, UpdateSta
 import {adminUserAPI, authAPI, diveEventAPI, fileTransferAPI, pageAPI, userAPI} from "../services";
 import {
     AcceptTerms,
-    filterDocumentsForCreator,
     FormMemberships,
     FormPayments,
     HealthStatementConfirmationModal,
@@ -32,9 +31,9 @@ jest.setTimeout(120000);
 configure({asyncUtilTimeout: 10000});
 
 const session = {
-    id: 7, username: "ada@example.com", firstName: "Ada", lastName: "Lovelace",
-    accessToken: "", roles: [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER], avatarUrl: null,
-    approvedTerms: false, healthStatementId: null, language: "en", memberships: [], payments: []
+    id: 7, username: "ada@example.com", first_name: "Ada", last_name: "Lovelace",
+    access_token: "", roles: [RoleEnum.ROLE_ADMIN, RoleEnum.ROLE_ORGANIZER], avatar_url: null,
+    approved_terms: false, health_statement_id: null, language: "en", memberships: [], payments: []
 };
 const sessionHook = {
     userSession: session as typeof session | null, sessionLanguage: "en", organizationName: "Oxalate",
@@ -83,33 +82,45 @@ if (!globalThis.MessageChannel) {
     globalThis.MessageChannel = TestMessageChannel as never;
 }
 const userData = {
-    id: 7, username: "ada@example.com", firstName: "Ada", lastName: "Lovelace", phoneNumber: "123",
-    registered: new Date("2020-01-01"), diveCount: 2, nextOfKin: "Kin", status: "ACTIVE",
-    roles: [RoleEnum.ROLE_ADMIN], language: "en", privacy: false, primaryUserType: "USER",
-    approvedTerms: false, healthStatementId: null, avatarUrl: null,
+    id: 7, username: "ada@example.com", first_name: "Ada", last_name: "Lovelace", phone_number: "123",
+    registered: new Date("2020-01-01"), dive_count: 2, next_of_kin: "Kin", status: "ACTIVE",
+    roles: [RoleEnum.ROLE_ADMIN], language: "en", privacy: false, primary_user_type: "USER",
+    approved_terms: false, health_statement_id: null, avatar_url: null,
     memberships: [{
         id: 1,
         type: MembershipTypeEnum.DURATIONAL,
         status: "ACTIVE",
-        startDate: new Date("2024-01-01"),
-        endDate: new Date("2025-01-01"),
+        start_date: new Date("2024-01-01"),
+        end_date: new Date("2025-01-01"),
         created: null
     }],
     payments: [{
         id: 2,
-        paymentType: PaymentTypeEnum.ONE_TIME,
-        paymentCount: 1,
-        startDate: new Date("2024-01-01"),
-        endDate: null,
+        payment_type: PaymentTypeEnum.ONE_TIME,
+        payment_count: 1,
+        start_date: new Date("2024-01-01"),
+        end_date: null,
         created: new Date("2024-01-01")
     }]
 };
+
+/** Wraps rows in the page envelope the server-paged list endpoints return. */
+const mockPage = <T, >(rows: T[]) => ({
+    content: rows,
+    page: 0,
+    size: 10,
+    total_elements: rows.length,
+    total_pages: 1,
+    first: true,
+    last: true,
+    empty: rows.length === 0
+});
 
 beforeEach(() => {
     jest.clearAllMocks();
     sessionHook.userSession = session;
     (diveEventAPI.findAllDiveEventListItemsByUser as jest.Mock).mockResolvedValue([]);
-    (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue([]);
+    (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue(mockPage([]));
     (pageAPI.getNavigationItems as jest.Mock).mockResolvedValue([]);
     (userAPI.updateUserStatus as jest.Mock).mockResolvedValue({});
 });
@@ -124,7 +135,6 @@ describe("User and main controls and API outcomes", () => {
         expect(screen.getByRole("columnheader", {name: "FormMemberships.table.end-date"})).toBeInTheDocument();
         expect(screen.getByRole("columnheader", {name: "FormatPayments.table.created"})).toBeInTheDocument();
         expect(screen.queryByText("2024-01-01:")).not.toBeInTheDocument();
-        expect(filterDocumentsForCreator([{id: 1, creator: "Ada"} as never, {id: 2, creator: "Bob"} as never], "Ada")).toHaveLength(1);
     });
 
     it("uses password and recovery controls through validation, success, failure, and redirects", async () => {
@@ -260,7 +270,7 @@ describe("User and main controls and API outcomes", () => {
         fireEvent.click(screen.getByRole("button", {name: "User.button.acceptTerms"}));
         await waitFor(() => expect(screen.getByRole("button", {name: "common.button.confirm"})).toBeInTheDocument());
         fireEvent.click(screen.getByRole("button", {name: "common.button.confirm"}));
-        await waitFor(() => expect(userAPI.acceptTerms).toHaveBeenCalledWith({confirmationAnswer: true}));
+        await waitFor(() => expect(userAPI.acceptTerms).toHaveBeenCalledWith({confirmation_answer: true}));
 
         fireEvent.click(screen.getByRole("button", {name: "User.button.confirmHealthStatement"}));
         await waitFor(() => expect(screen.getByRole("button", {name: "common.button.confirm"})).toBeInTheDocument());
@@ -273,13 +283,13 @@ describe("User and main controls and API outcomes", () => {
 
     it("handles profile status failures, confirmation rejection, and avatar synchronization", async () => {
         const error = jest.spyOn(console, "error").mockImplementation(() => undefined);
-        (adminUserAPI.findById as jest.Mock).mockResolvedValue({...userData, avatarUrl: "/server-avatar.png"});
+        (adminUserAPI.findById as jest.Mock).mockResolvedValue({...userData, avatar_url: "/server-avatar.png"});
         (userAPI.updateUserStatus as jest.Mock).mockRejectedValue(new Error("status failed"));
         (userAPI.acceptTerms as jest.Mock).mockRejectedValue(new Error("terms failed"));
         window.confirm = jest.fn().mockReturnValue(true);
         render(<UserProfile/>);
         await waitFor(() => expect(screen.getByRole("button", {name: "User.button.lockAccount"})).toBeInTheDocument());
-        expect(sessionHook.refreshUserSession).toHaveBeenCalledWith(expect.objectContaining({avatarUrl: "/server-avatar.png"}));
+        expect(sessionHook.refreshUserSession).toHaveBeenCalledWith(expect.objectContaining({avatar_url: "/server-avatar.png"}));
 
         fireEvent.click(screen.getByRole("button", {name: "User.button.lockAccount"}));
         fireEvent.click(screen.getByRole("button", {name: "User.button.anonymizeAccount"}));

@@ -160,20 +160,20 @@ function createListUser(id: number, name: string): ListUserResponse {
     return {
         id,
         name,
-        eventDiveCount: 0,
-        createdAt: dayjs(),
+        event_dive_count: 0,
+        created_at: dayjs(),
         payments: [{
             id,
-            userId: id,
-            paymentType: PaymentTypeEnum.PERIODICAL,
-            paymentCount: 1,
-            startDate: dayjs().subtract(1, "month"),
-            endDate: dayjs().add(6, "month"),
+            user_id: id,
+            payment_type: PaymentTypeEnum.PERIODICAL,
+            payment_count: 1,
+            start_date: dayjs().subtract(1, "month"),
+            end_date: dayjs().add(6, "month"),
             created: dayjs().subtract(1, "month"),
-            boundEvents: []
+            bound_events: []
         }],
-        membershipActive: true,
-        userType: UserTypeEnum.SCUBA_DIVER,
+        membership_active: true,
+        user_type: UserTypeEnum.SCUBA_DIVER,
         tags: []
     };
 }
@@ -182,19 +182,19 @@ function createOrganizerUser(id: number): UserResponse {
     return {
         id,
         username: "organizer@example.com",
-        firstName: "Org",
-        lastName: "User",
-        avatarUrl: null,
-        phoneNumber: "",
+        first_name: "Org",
+        last_name: "User",
+        avatar_url: null,
+        phone_number: "",
         registered: new Date(),
         language: "en",
         status: UserStatusEnum.ACTIVE,
         privacy: true,
-        nextOfKin: "",
-        approvedTerms: true,
-        healthStatementId: 1,
-        primaryUserType: UserTypeEnum.SCUBA_DIVER,
-        diveCount: 0,
+        next_of_kin: "",
+        approved_terms: true,
+        health_statement_id: 1,
+        primary_user_type: UserTypeEnum.SCUBA_DIVER,
+        dive_count: 0,
         payments: [],
         memberships: [],
         tags: []
@@ -214,16 +214,16 @@ function createDiveEventResponse(): DiveEventResponse {
         title: "Valid event title",
         description: "This event description is long enough for all built-in validation rules.",
         type: DiveTypeEnum.SURFACE,
-        startTime: dayjs().add(3, "day"),
-        eventDuration: 2,
-        maxDuration: 60,
-        maxDepth: 20,
-        maxParticipants: 4,
+        start_time: dayjs().add(3, "day"),
+        event_duration: 2,
+        max_duration: 60,
+        max_depth: 20,
+        max_participants: 4,
         status: DiveEventStatusEnum.PUBLISHED,
         organizer: createOrganizerUser(100),
         participants,
-        waitingList: [],
-        eventCommentId: 0
+        waiting_list: [],
+        event_comment_id: 0
     };
 }
 

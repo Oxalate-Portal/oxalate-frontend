@@ -32,17 +32,43 @@ describe("MembershipAPI", () => {
         expect(result).toEqual(mockResponse);
     });
 
-    it("should find all memberships", async () => {
-        const mockResponse = [{id: 1, type: "ACTIVE"}, {id: 2, type: "EXPIRED"}];
-        mock.onGet("").reply(200, mockResponse);
+    it("should collect all memberships through the pages", async () => {
+        mock.onGet("").reply(200, {
+            content: [{id: 1, type: "ACTIVE"}, {id: 2, type: "EXPIRED"}],
+            page: 0, size: 200, total_elements: 2, total_pages: 1, first: true, last: true, empty: false
+        });
 
         const result = await membershipAPI.findAll();
-        expect(result).toEqual(mockResponse);
+        expect(result).toEqual([{id: 1, type: "ACTIVE"}, {id: 2, type: "EXPIRED"}]);
+        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 200});
+    });
+
+    it("should find a page of memberships sorted and searched on the server", async () => {
+        const mockResponse = {
+            content: [{
+                id: 1,
+                user_id: 2,
+                username: "Ada",
+                status: "ACTIVE",
+                type: "PERIODICAL",
+                start_date: "2026-01-01",
+                end_date: "2026-12-31",
+                created: "2026-01-01T10:00:00Z"
+            }],
+            page: 0, size: 10, total_elements: 1, total_pages: 1, first: true, last: true, empty: false
+        };
+        mock.onGet("").reply(200, mockResponse);
+
+        const result = await membershipAPI.findPaged({page: 0, size: 10, sort_by: "username", direction: "ASC", search: "ada", case_sensitive: true});
+
+        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10, sort_by: "username", direction: "ASC", search: "ada", case_sensitive: true});
+        expect(result.total_elements).toBe(1);
+        expect(result.content[0]).toEqual(expect.objectContaining({id: 1, username: "Ada"}));
     });
 
     it("should create membership", async () => {
-        const payload = {userId: 1, type: "ACTIVE"} as unknown as MembershipRequest;
-        const mockResponse = {id: 1, userId: 1, type: "ACTIVE"};
+        const payload = {user_id: 1, type: "ACTIVE"} as unknown as MembershipRequest;
+        const mockResponse = {id: 1, user_id: 1, type: "ACTIVE"};
         mock.onPost("", payload).reply(200, mockResponse);
 
         const result = await membershipAPI.create(payload);

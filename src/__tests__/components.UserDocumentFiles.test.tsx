@@ -1,8 +1,6 @@
-import {filterDocumentsForCreator, UserDocumentFiles} from "../components";
-import {type DocumentFileResponse, UploadStatusEnum} from "../models";
+import {UserDocumentFiles} from "../components";
 import {render} from "@testing-library/react";
 import {fileTransferAPI} from "../services";
-import dayjs from "dayjs";
 
 const translateMock = (key: string) => key;
 
@@ -17,44 +15,6 @@ jest.mock("../session", () => ({
         getPortalConfigurationValue: () => "false"
     })
 }));
-
-describe("UserDocumentFiles filtering", () => {
-    const documents: DocumentFileResponse[] = [
-        {
-            id: 1,
-            filename: "a.pdf",
-            filesize: 10,
-            mimetype: "application/pdf",
-            filechecksum: "x",
-            status: UploadStatusEnum.UPLOADED,
-            creator: "Doe, Jane",
-            createdAt: dayjs("2026-01-01T10:00:00Z"),
-            url: "/api/files/documents/1"
-        },
-        {
-            id: 2,
-            filename: "b.pdf",
-            filesize: 12,
-            mimetype: "application/pdf",
-            filechecksum: "y",
-            status: UploadStatusEnum.UPLOADED,
-            creator: "Doe, John",
-            createdAt: dayjs("2026-01-02T10:00:00Z"),
-            url: "/api/files/documents/2"
-        }
-    ];
-
-    it("keeps only creator-matching documents", () => {
-        const result = filterDocumentsForCreator(documents, "Doe, Jane");
-        expect(result).toHaveLength(1);
-        expect(result[0].id).toBe(1);
-    });
-
-    it("returns empty when creator does not match", () => {
-        const result = filterDocumentsForCreator(documents, "nobody@example.com");
-        expect(result).toHaveLength(0);
-    });
-});
 
 describe("UserDocumentFiles feature gating", () => {
     it("does not request documents when documents feature is disabled", () => {

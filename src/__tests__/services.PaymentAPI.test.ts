@@ -34,7 +34,7 @@ describe("PaymentAPI", () => {
 
     it("should reset all payments", async () => {
         const type = PaymentTypeEnum.ONE_TIME;
-        mock.onGet(`/reset?paymentType=${type}`).reply(200);
+        mock.onGet(`/reset?payment_type=${type}`).reply(200);
 
         const result = await paymentAPI.resetAllPayments(type);
         expect(result).toBe(true);

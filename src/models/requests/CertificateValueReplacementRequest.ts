@@ -1,4 +1,4 @@
 export interface CertificateValueReplacementRequest {
-    existingValues: string[];
-    newValue: string;
+    existing_values: string[];
+    new_value: string;
 }

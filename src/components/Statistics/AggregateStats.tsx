@@ -92,13 +92,13 @@ export function AggregateStats() {
     });
 
     const totals = useMemo(() => ({
-        events: withKeys(data?.eventsPerYear),
-        divers: withKeys(data?.diversPerYear)
+        events: withKeys(data?.events_per_year),
+        divers: withKeys(data?.divers_per_year)
     }), [data]);
 
     const typed = useMemo(() => ({
-        eventTypes: withKeys(data?.eventTypesPerYear),
-        diverTypes: withKeys(data?.diverTypesPerYear)
+        eventTypes: withKeys(data?.event_types_per_year),
+        diverTypes: withKeys(data?.diver_types_per_year)
     }), [data]);
 
     return (
@@ -107,25 +107,25 @@ export function AggregateStats() {
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.eventsPerYear")}>
                         <OxTable pagination={false} size="small" dataSource={totals.events} columns={totalColumns}/>
-                        <Column {...totalsConfig(data?.eventsPerYear)}/>
+                        <Column {...totalsConfig(data?.events_per_year)}/>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.diversPerYear")}>
                         <OxTable pagination={false} size="small" dataSource={totals.divers} columns={totalColumns}/>
-                        <Column {...totalsConfig(data?.diversPerYear)}/>
+                        <Column {...totalsConfig(data?.divers_per_year)}/>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.eventsByTypePerYear")}>
                         <OxTable pagination={false} size="small" dataSource={typed.eventTypes} columns={eventTypeColumns}/>
-                        <Line {...lineConfig(data?.eventTypesPerYear)}/>
+                        <Line {...lineConfig(data?.event_types_per_year)}/>
                     </Card>
                 </Col>
                 <Col span={12}>
                     <Card title={t("AggregateStats.card.diversByTypePerYear")}>
                         <OxTable pagination={false} size="small" dataSource={typed.diverTypes} columns={diverTypeColumns}/>
-                        <Line {...lineConfig(data?.diverTypesPerYear)}/>
+                        <Line {...lineConfig(data?.diver_types_per_year)}/>
                     </Card>
                 </Col>
             </Row>

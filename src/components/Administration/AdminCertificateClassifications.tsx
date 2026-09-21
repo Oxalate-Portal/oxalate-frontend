@@ -150,17 +150,17 @@ export function AdminCertificateClassifications() {
 
     const submitAssignment = (values: { certificateId?: number; certificateNames?: string[]; classificationId?: number }) => {
         certificateAPI.updateClassification({
-            certificateId: values.certificateId || null,
-            certificateNames: values.certificateNames || null,
-            classificationId: values.classificationId || null
+            certificate_id: values.certificateId || null,
+            certificate_names: values.certificateNames || null,
+            classification_id: values.classificationId || null
         }).then(() => message.success(t("AdminCertificateClassifications.assignment.success")))
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.assignment.fail")));
     };
 
     const submitReplacement = (field: "organization" | "certificate-name", values: { existingValues: string[]; newValue: string }) => {
         const payload: CertificateValueReplacementRequest = {
-            existingValues: values.existingValues,
-            newValue: values.newValue.trim()
+            existing_values: values.existingValues,
+            new_value: values.newValue.trim()
         };
         const operation = field === "organization"
                 ? certificateAPI.replaceOrganizations(payload)

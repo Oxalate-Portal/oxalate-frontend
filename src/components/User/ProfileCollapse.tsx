@@ -63,7 +63,7 @@ export function ProfileCollapse({userId, viewOnly}: ProfileCollapseProps) {
                         const newEvents: DiveEventListItemResponse[] = [];
 
                         for (let i = 0; i < diveResponses.length; i++) {
-                            if (dayjs().isBefore(dayjs(diveResponses[i].startTime))) {
+                            if (dayjs().isBefore(dayjs(diveResponses[i].start_time))) {
                                 newEvents.push(diveResponses[i]);
                             } else {
                                 oldEvents.push(diveResponses[i]);

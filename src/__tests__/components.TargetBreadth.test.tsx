@@ -38,7 +38,7 @@ jest.mock("../components/Page", () => {
     const actual = jest.requireActual("../components/Page");
     return {
         ...actual,
-        Page: ({pageId, ...props}: { pageId: number; [key: string]: unknown }) =>
+        Page: ({pageId, ...props}: { page_id: number; [key: string]: unknown }) =>
             pageId === 1 || pageId === 3
                 ? <div>page-{pageId}</div>
                 : <actual.Page pageId={pageId} {...props}/>
@@ -73,8 +73,8 @@ const mockedStats = jest.mocked(statsAPI);
 beforeEach(() => {
     jest.clearAllMocks();
     mockedPage.findById = jest.fn().mockResolvedValue({
-        createdAt: "2024-01-01", modifiedAt: null,
-        pageVersions: [{title: "<b>Hello</b>", ingress: "intro", body: "<p>body</p>"}]
+        created_at: "2024-01-01", modified_at: null,
+        page_versions: [{title: "<b>Hello</b>", ingress: "intro", body: "<p>body</p>"}]
     }) as typeof mockedPage.findById;
 });
 
@@ -130,7 +130,7 @@ test("renders payment controls and resets enabled payment types", async () => {
 });
 
 test("renders aggregate statistics after API success and failure", async () => {
-    const stats = {eventsPerYear: [{year: 2024, value: 2}], diversPerYear: [], eventTypesPerYear: [], diverTypesPerYear: []};
+    const stats = {events_per_year: [{year: 2024, value: 2}], divers_per_year: [], event_types_per_year: [], diver_types_per_year: []};
     mockedStats.getAggregates = jest.fn().mockResolvedValue(stats) as typeof mockedStats.getAggregates;
     render(<AggregateStats/>);
     await waitFor(() => expect(screen.getByText("AggregateStats.card.eventsPerYear")).toBeInTheDocument());

@@ -32,13 +32,13 @@ function DownloadData() {
             case DownloadTypeEnum.CERTIFICATE:
                 setCsvHeaders([
                     {label: "Certificate ID", key: "id"},
-                    {label: "Member ID", key: "userId"},
-                    {label: "Member name", key: "memberName"},
+                    {label: "Member ID", key: "user_id"},
+                    {label: "Member name", key: "member_name"},
                     {label: "Organization", key: "organization"},
-                    {label: "Certificate name", key: "certificateName"},
-                    {label: "Certificate ID", key: "certificateId"},
-                    {label: "Diver ID", key: "diverId"},
-                    {label: "Certification date", key: "certificationDate"}
+                    {label: "Certificate name", key: "certificate_name"},
+                    {label: "Certificate ID", key: "certificate_id"},
+                    {label: "Diver ID", key: "diver_id"},
+                    {label: "Certification date", key: "certification_date"}
                 ]);
                 downloadData(() => downloadAPI.downloadCertificates(), "certificates");
                 break;
@@ -46,7 +46,7 @@ function DownloadData() {
                 setCsvHeaders([
                     {label: "Member ID", key: "id"},
                     {label: "Name", key: "name"},
-                    {label: "Dive count", key: "diveCount"}
+                    {label: "Dive count", key: "dive_count"}
                 ]);
                 downloadData(() => downloadAPI.downloadDives(), "dives");
                 break;
@@ -56,13 +56,13 @@ function DownloadData() {
                     {label: "Event type", key: "type"},
                     {label: "Title", key: "title"},
                     {label: "Description", key: "description"},
-                    {label: "Start time", key: "startTime"},
-                    {label: "Event duration", key: "eventDuration"},
-                    {label: "Max duration", key: "maxDuration"},
-                    {label: "Max depth", key: "maxDepth"},
-                    {label: "Max participants", key: "maxParticipants"},
-                    {label: "Organizer, last name", key: "organizer.lastName"},
-                    {label: "Organizer, first name", key: "organizer.firstName"}
+                    {label: "Start time", key: "start_time"},
+                    {label: "Event duration", key: "event_duration"},
+                    {label: "Max duration", key: "max_duration"},
+                    {label: "Max depth", key: "max_depth"},
+                    {label: "Max participants", key: "max_participants"},
+                    {label: "Organizer, last name", key: "organizer.last_name"},
+                    {label: "Organizer, first name", key: "organizer.first_name"}
                 ]);
                 downloadData(() => diveEventAPI.findAllPastDiveEvents(), "dive-events");
                 break;
@@ -70,28 +70,28 @@ function DownloadData() {
                 setCsvHeaders([
                     {label: "Member ID", key: "id"},
                     {label: "Username", key: "username"},
-                    {label: "First name", key: "firstName"},
-                    {label: "Last name", key: "lastName"},
-                    {label: "Phone number", key: "phoneNumber"},
+                    {label: "First name", key: "first_name"},
+                    {label: "Last name", key: "last_name"},
+                    {label: "Phone number", key: "phone_number"},
                     {label: "Registered", key: "registered"},
                     {label: "Language", key: "language"},
                     {label: "Roles", key: "roles"},
                     {label: "Status", key: "status"},
                     {label: "Privacy", key: "privacy"},
-                    {label: "Next of kin", key: "nextOfKin"},
-                    {label: "Dive count", key: "diveCount"},
-                    {label: "Approved terms", key: "approvedTerms"}
+                    {label: "Next of kin", key: "next_of_kin"},
+                    {label: "Dive count", key: "dive_count"},
+                    {label: "Approved terms", key: "approved_terms"}
                 ]);
                 downloadData(() => userAPI.findAll(), "members");
                 break;
             case DownloadTypeEnum.PAYMENT:
                 setCsvHeaders([
                     {label: "Payment ID", key: "id"},
-                    {label: "Member ID", key: "userId"},
+                    {label: "Member ID", key: "user_id"},
                     {label: "Member name", key: "name"},
-                    {label: "Payment count", key: "paymentCount"},
-                    {label: "Payment type", key: "paymentType"},
-                    {label: "Created", key: "createdAt"}
+                    {label: "Payment count", key: "payment_count"},
+                    {label: "Payment type", key: "payment_type"},
+                    {label: "Created", key: "created_at"}
                 ]);
                 downloadData(() => downloadAPI.downloadPayments(), "payments");
                 break;

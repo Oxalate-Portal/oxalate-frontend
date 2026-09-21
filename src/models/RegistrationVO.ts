@@ -3,13 +3,13 @@ import {UserTypeEnum} from "./UserTypeEnum";
 export interface RegistrationVO {
     username: string;
     password: string;
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    nextOfKin: string;
+    first_name: string;
+    last_name: string;
+    phone_number: string;
+    next_of_kin: string;
     privacy: boolean;
     language: string;
-    approvedTerms: boolean;
-    healthStatementId: number | null;
-    primaryUserType: UserTypeEnum;
+    approved_terms: boolean;
+    health_statement_id: number | null;
+    primary_user_type: UserTypeEnum;
 }

@@ -1,52 +1,44 @@
-import {useEffect, useState} from "react";
 import {fileTransferAPI} from "../../../services";
-import type {CertificateFileResponse} from "../../../models";
+import {type CertificateFileResponse, SortDirectionEnum} from "../../../models";
 import {commonFileColumns} from "./commonColumns";
-import {OxTable} from "../../main";
+import {type OxColumnsType, OxTable, OxTableSearch, usePagedTable} from "../../main";
 import {useTranslation} from "react-i18next";
 
 export function CertificateFiles() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [certificateFiles, setCertificateFiles] = useState<CertificateFileResponse[]>([]);
     const {t} = useTranslation();
+    const certificateTable = usePagedTable<CertificateFileResponse>((request) => fileTransferAPI.findAllCertificateFiles(request), {
+        defaultSortBy: "created_at",
+        defaultDirection: SortDirectionEnum.DESC
+    });
 
-    useEffect(() => {
-        fileTransferAPI.findAllCertificateFiles()
-            .then((response) => {
-                setCertificateFiles(response);
-            })
-            .catch((error) => {
-                console.error("Error fetching certificate files", error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, []);
-
-    const columns = [
+    const columns: OxColumnsType<CertificateFileResponse> = [
         {
             title: t("AdminUploads.certificate.certificate-id"),
-            dataIndex: "certificateId",
-            key: "certificateId",
-            mobile: true
+            dataIndex: "certificate_id",
+            key: "certificate_id",
+            mobile: true,
+            sorter: true,
+            sortDirections: ["descend", "ascend"]
         },
-        ...commonFileColumns(t, {showPreview: true})
+        ...commonFileColumns<CertificateFileResponse>(t, {showPreview: true})
     ];
 
     return (
-        <OxTable
-            columns={columns}
-            dataSource={certificateFiles}
-            rowKey="id"
-            loading={loading}
-            bordered
-            pagination={{
-                defaultPageSize: 10,
-                hideOnSinglePage: true,
-                showSizeChanger: true,
-                showQuickJumper: true,
-                pageSizeOptions: ["5", "10", "20", "30", "50"]
-            }}
-        />
+        <>
+            {certificateTable.contextHolder}
+            <OxTableSearch value={certificateTable.search}
+                           onSearch={certificateTable.setSearch}
+                           caseSensitive={certificateTable.caseSensitive}
+                           onCaseSensitiveChange={certificateTable.setCaseSensitive}/>
+            <OxTable
+                columns={columns}
+                dataSource={certificateTable.dataSource}
+                rowKey="id"
+                loading={certificateTable.loading}
+                bordered
+                pagination={certificateTable.pagination}
+                onChange={certificateTable.handleTableChange}
+            />
+        </>
     );
 }

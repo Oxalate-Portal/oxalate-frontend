@@ -67,7 +67,7 @@ describe("Login behavior", () => {
         fireEvent.click(screen.getByTestId("form-submit"));
         await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith("/"));
         expect(mockLoginUser).toHaveBeenCalledWith({
-            username: "user@example.com", password: "secret", recaptchaToken: "captcha-token"
+            username: "user@example.com", password: "secret", recaptcha_token: "captcha-token"
         });
         expect(mockNavigate).toHaveBeenCalledWith("/");
     });

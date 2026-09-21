@@ -34,9 +34,9 @@ if (!globalThis.MessageChannel) {
 }
 
 const session = {
-    id: 7, username: "user@example.com", firstName: "Ada", lastName: "Lovelace",
-    accessToken: "", roles: [RoleEnum.ROLE_ADMIN] as RoleEnum[], avatarUrl: null, approvedTerms: true,
-    healthStatementId: 1, language: "fi", memberships: [], payments: []
+    id: 7, username: "user@example.com", first_name: "Ada", last_name: "Lovelace",
+    access_token: "", roles: [RoleEnum.ROLE_ADMIN] as RoleEnum[], avatar_url: null, approved_terms: true,
+    health_statement_id: 1, language: "fi", memberships: [], payments: []
 };
 const getPortalConfigurationValue = (_group: string, key: string) => key === "documents-supported" ? "true" : "false";
 const getFrontendConfigurationValue = (key: string) => key === "enabled-language" ? "en,fi" : "4";
@@ -65,12 +65,24 @@ jest.mock("../components/User/UserFields", () => ({
 }));
 
 const wrap = (node: React.ReactNode) => <MemoryRouter>{node}</MemoryRouter>;
+/** Wraps rows in the page envelope the server-paged list endpoints return. */
+const mockPage = <T, >(rows: T[]) => ({
+    content: rows,
+    page: 0,
+    size: 10,
+    total_elements: rows.length,
+    total_pages: 1,
+    first: true,
+    last: true,
+    empty: rows.length === 0
+});
+
 
 describe("remaining User components", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         (diveEventAPI.findAllDiveEventListItemsByUser as jest.Mock).mockResolvedValue([]);
-        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue([]);
+        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue(mockPage([]));
     });
     afterEach(cleanup);
 
@@ -81,23 +93,30 @@ describe("remaining User components", () => {
                     id: 1,
                     type: MembershipTypeEnum.DURATIONAL,
                     status: "ACTIVE",
-                    startDate: new Date("2025-01-01"),
-                    endDate: new Date("2026-01-01"),
+                    start_date: new Date("2025-01-01"),
+                    end_date: new Date("2026-01-01"),
                     created: null
                 },
-                {id: 2, type: MembershipTypeEnum.PERPETUAL, status: "ACTIVE", startDate: new Date("2025-01-01"), endDate: new Date("2025-01-01"), created: null}
+                {
+                    id: 2,
+                    type: MembershipTypeEnum.PERPETUAL,
+                    status: "ACTIVE",
+                    start_date: new Date("2025-01-01"),
+                    end_date: new Date("2025-01-01"),
+                    created: null
+                }
             ] as never}/>
             <FormPayments userData={{
                 payments: [{
                     id: 3,
-                    paymentType: PaymentTypeEnum.ONE_TIME,
-                    paymentCount: 2,
-                    startDate: new Date("2025-01-01"),
-                    endDate: null,
+                    payment_type: PaymentTypeEnum.ONE_TIME,
+                    payment_count: 2,
+                    start_date: new Date("2025-01-01"),
+                    end_date: null,
                     created: new Date("2025-01-01")
                 }]
             } as never}/>
-            <UserEventList eventType="past" events={[{id: 9, title: "Past event", startTime: new Date("2024-01-01")} as never]}/>
+            <UserEventList eventType="past" events={[{id: 9, title: "Past event", start_time: new Date("2024-01-01")} as never]}/>
         </>));
         expect(screen.getByRole("link", {name: /Past event/})).toHaveAttribute("href", "/events/9/show");
         expect(screen.getByRole("columnheader", {name: "FormMemberships.table.id"})).toBeInTheDocument();
@@ -126,7 +145,7 @@ describe("remaining User components", () => {
 
     it("covers password validation and reset-token form edge", async () => {
         const user = userEvent.setup({delay: null});
-        session.accessToken = "";
+        session.access_token = "";
         render(wrap(<Password/>));
         await user.click(screen.getByRole("button", {name: "Password.form.submitButton"}));
         expect(authAPI.updatePassword).not.toHaveBeenCalled();
@@ -141,8 +160,8 @@ describe("remaining User components", () => {
 
     it("loads profile collapse events and handles API failure", async () => {
         (diveEventAPI.findAllDiveEventListItemsByUser as jest.Mock).mockResolvedValue([
-            {id: 1, title: "future", startTime: new Date("2999-01-01")},
-            {id: 2, title: "past", startTime: new Date("2000-01-01")}
+            {id: 1, title: "future", start_time: new Date("2999-01-01")},
+            {id: 2, title: "past", start_time: new Date("2000-01-01")}
         ]);
         render(<ProfileCollapse userId={7} viewOnly={false}/>);
         await waitFor(() => expect(screen.getByText(/UserEvents.future-panel.header \(1\)/)).toBeInTheDocument());
@@ -155,7 +174,7 @@ describe("remaining User components", () => {
 
     it("gates document files, filters creators, and exercises upload control and avatar states", async () => {
         render(<UserDocumentFiles userId={7} creatorName="Lovelace, Ada" canUpload/>);
-        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith(7));
+        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith(expect.objectContaining({page: 0, size: 5}), 7));
         expect(screen.getByRole("button", {name: /UserFiles\.document\.upload\.button/})).toBeInTheDocument();
         const file = new File(["pdf"], "proof.pdf", {type: "application/pdf"});
         fireEvent.change(document.querySelector('input[type="file"]')!, {target: {files: [file]}});
@@ -165,8 +184,8 @@ describe("remaining User components", () => {
 
     it("loads ShowUser and UserProfile with admin role and Finnish language, including API failure", async () => {
         (userAPI.findById as jest.Mock).mockResolvedValue({
-            id: 7, username: "user@example.com", firstName: "Ada", lastName: "Lovelace",
-            phoneNumber: "123", registered: new Date(), diveCount: 3, nextOfKin: "Kin", payments: [], memberships: []
+            id: 7, username: "user@example.com", first_name: "Ada", last_name: "Lovelace",
+            phone_number: "123", registered: new Date(), dive_count: 3, next_of_kin: "Kin", payments: [], memberships: []
         });
         render(<MemoryRouter initialEntries={["/users/7"]}><Routes><Route path="/users/:paramId" element={<ShowUser/>}/></Routes></MemoryRouter>);
         await waitFor(() => expect(screen.getByText("Lovelace, Ada")).toBeInTheDocument());

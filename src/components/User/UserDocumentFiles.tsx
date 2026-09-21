@@ -1,65 +1,53 @@
-import {useEffect, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {Button, message, Space, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {fileTransferAPI} from "../../services";
-import {type DocumentFileResponse, PortalConfigGroupEnum} from "../../models";
+import {type DocumentFileResponse, PortalConfigGroupEnum, SortDirectionEnum} from "../../models";
 import {FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
-import {OxTable} from "../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../main";
 
 interface UserDocumentFilesProps {
     userId: number;
-    creatorName: string;
+    /** Kept for the callers; the server now selects the documents by `userId`, so the name is no longer used. */
+    creatorName?: string;
     canUpload: boolean;
 }
 
-export function filterDocumentsForCreator(documents: DocumentFileResponse[], creatorName: string): DocumentFileResponse[] {
-    return documents.filter((document) => document.creator === creatorName);
-}
-
-export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocumentFilesProps) {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [refreshKey, setRefreshKey] = useState<number>(0);
-    const [documents, setDocuments] = useState<DocumentFileResponse[]>([]);
+export function UserDocumentFiles({userId, canUpload}: UserDocumentFilesProps) {
+    const [uploading, setUploading] = useState<boolean>(false);
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
     const documentsSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "documents-supported") === "true";
-
-    useEffect(() => {
-        if (!documentsSupported) {
-            return;
-        }
-
-        fileTransferAPI.findAllDocuments(userId)
-            .then((response) => {
-                setDocuments(filterDocumentsForCreator(response, creatorName));
-            })
-            .catch((error) => {
-                console.error("Error fetching document files", error);
-                messageApi.error(t("UserFiles.document.fetchFail"));
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [creatorName, documentsSupported, messageApi, refreshKey, t, userId]);
+    // The server returns only the documents uploaded by this user (and forces non-administrators to their own id),
+    // newest first.
+    const documentTable = usePagedTable<DocumentFileResponse>((request) => fileTransferAPI.findAllDocuments(request, userId), {
+        messageApi,
+        defaultSortBy: "created_at",
+        defaultDirection: SortDirectionEnum.DESC,
+        defaultPageSize: 5,
+        deps: [userId],
+        enabled: documentsSupported
+    });
+    const {reload} = documentTable;
 
     const uploadProps: UploadProps = {
         showUploadList: false,
         customRequest: async (options) => {
             try {
-                setLoading(true);
+                setUploading(true);
                 const uploadResponse = await fileTransferAPI.uploadDocumentFile(options.file as File);
-                setRefreshKey((key) => key + 1);
+                reload();
                 options.onSuccess?.(uploadResponse);
                 messageApi.success(t("UserFiles.document.upload.success"));
             } catch (error) {
                 options.onError?.(error as Error);
                 messageApi.error(t("UserFiles.document.upload.fail"));
             } finally {
-                setLoading(false);
+                setUploading(false);
             }
         },
         beforeUpload: (file) => {
@@ -79,18 +67,23 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
         accept: "image/gif,image/jpeg,image/jpg,image/png,application/pdf"
     };
 
-    const columns = useMemo(() => {
+    const columns: OxColumnsType<DocumentFileResponse> = useMemo(() => {
         return [
             {
                 title: t("UserFiles.document.table.filename"),
                 dataIndex: "filename",
                 key: "filename",
-                mobile: true
+                mobile: true,
+                sorter: true,
+                sortDirections: ["descend", "ascend"]
             },
             {
                 title: t("UserFiles.document.table.createdAt"),
-                dataIndex: "createdAt",
-                key: "createdAt",
+                dataIndex: "created_at",
+                key: "created_at",
+                sorter: true,
+                defaultSortOrder: "descend",
+                sortDirections: ["descend", "ascend"],
                 render: (value: Date) => dayjs(value).format("YYYY.MM.DD HH:mm")
             },
             {
@@ -119,10 +112,11 @@ export function UserDocumentFiles({userId, creatorName, canUpload}: UserDocument
             )}
             <OxTable
                 rowKey="id"
-                loading={loading}
-                dataSource={documents}
+                loading={documentTable.loading || uploading}
+                dataSource={documentTable.dataSource}
                 columns={columns}
-                pagination={{hideOnSinglePage: true, defaultPageSize: 5}}
+                pagination={documentTable.pagination}
+                onChange={documentTable.handleTableChange}
             />
         </Space>
     );

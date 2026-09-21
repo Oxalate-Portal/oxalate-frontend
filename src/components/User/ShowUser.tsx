@@ -41,10 +41,10 @@ export function ShowUser() {
                     setUserData(response);
                     setTableData([
                         {id: 1, name: t("ShowUser.table.email"), value: response.username},
-                        {id: 2, name: t("ShowUser.table.phonenumber"), value: response.phoneNumber},
+                        {id: 2, name: t("ShowUser.table.phonenumber"), value: response.phone_number},
                         {id: 3, name: t("ShowUser.table.registered"), value: formatDateTime(response.registered)},
-                        {id: 4, name: t("ShowUser.table.diveCount"), value: response.diveCount},
-                        {id: 5, name: t("ShowUser.table.nextOfKin"), value: response.nextOfKin}
+                        {id: 4, name: t("ShowUser.table.diveCount"), value: response.dive_count},
+                        {id: 5, name: t("ShowUser.table.nextOfKin"), value: response.next_of_kin}
                     ]);
                 })
                 .catch((error) => {
@@ -81,7 +81,7 @@ export function ShowUser() {
             {contextHolder}
             <Spin spinning={loading}>
                 <Space orientation="vertical" size="large" style={{width: "100%"}}>
-                    {userData && <h4>{userData.lastName}, {userData.firstName}</h4>}
+                    {userData && <h4>{userData.last_name}, {userData.first_name}</h4>}
                     {userData && t("ShowUser.table.payments")}
                     {userData && <FormPayments userData={userData}/>}
                     {userData && t("ShowUser.table.memberships")}
@@ -90,7 +90,7 @@ export function ShowUser() {
                     {userData && <OxTable showHeader={false} pagination={false} rowKey={"id"} dataSource={tableData} columns={colums}/>}
                     {userData && <UserDocumentFiles
                         userId={userId}
-                        creatorName={`${userData.lastName}, ${userData.firstName}`}
+                        creatorName={`${userData.last_name}, ${userData.first_name}`}
                         canUpload={(userSession?.id === userId) || (userSession !== null && checkRoles(userSession.roles, [RoleEnum.ROLE_ADMIN]))}
                     />}
                     {userData && <ProfileCollapse userId={userId} viewOnly={true}/>}

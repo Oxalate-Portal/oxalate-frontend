@@ -28,66 +28,86 @@ jest.mock("antd", () => {
         <button type={htmlType === "submit" ? "submit" : "button"} onClick={onClick}>{children}</button>;
     const Input = ({placeholder}: { placeholder?: string }) => <input placeholder={placeholder}/>;
     Input.TextArea = Input;
+    Input.Search = ({placeholder, onSearch}: { placeholder?: string; onSearch?: (value: string) => void }) =>
+        <input placeholder={placeholder} onChange={event => onSearch?.(event.target.value)}/>;
     const DatePicker = () => <input/>;
     DatePicker.RangePicker = () => <input/>;
     const Grid = {useBreakpoint: () => ({})};
-    const Table = ({dataSource = [], columns = []}: {
+    const Table = ({dataSource = [], columns = [], onChange}: {
         dataSource?: Array<Record<string, unknown>>;
-        columns?: Array<{ render?: (value: unknown, record: Record<string, unknown>) => ReactNode }>
+        columns?: Array<{ render?: (value: unknown, record: Record<string, unknown>) => ReactNode }>;
+        onChange?: (...args: unknown[]) => void;
     }) =>
-        <div data-testid="token-table">{dataSource.map(record => <div key={String(record.tokenId)}>
-            {columns.map((column, index) => <span key={index}>{column.render?.(record.tokenValue, record)}</span>)}
-        </div>)}</div>;
+        <div data-testid="token-table">{dataSource.map(record => <div key={String(record.token_id)}>
+            {columns.map((column, index) => <span key={index}>{column.render?.(record.token_value, record)}</span>)}
+        </div>)}
+            <button onClick={() => onChange?.({current: 2, pageSize: 25}, {}, {field: "expires_at", order: "ascend"})}>table-sort</button>
+        </div>;
     const Modal = ({open, children}: { open?: boolean; children: ReactNode }) => open ? <div role="dialog">{children}</div> : null;
     const Popconfirm = ({children, onConfirm}: { children: ReactNode; onConfirm?: () => void }) =>
         <span onClick={onConfirm}>{children}</span>;
     return {
         Button, DatePicker, Form, Grid, Input, Modal, Popconfirm,
         Space: ({children}: { children: ReactNode }) => <span>{children}</span>, Table,
+        Switch: ({onChange}: { onChange?: (value: boolean) => void }) => <button onClick={() => onChange?.(true)}>switch</button>,
+        Typography: {Text: ({children}: { children: ReactNode }) => <span>{children}</span>},
         message: {useMessage: () => [mockMessage, <span>messages</span>]}
     };
 });
 
 describe("AdminTokens behavior", () => {
     const token = {
-        tokenId: 1, tokenValue: "token-value", description: "description",
-        createdAt: "2026-01-01T00:00:00Z", expiresAt: "2027-01-01T00:00:00Z"
+        token_id: 1, token_value: "token-value", description: "description",
+        created_at: "2026-01-01T00:00:00Z", expires_at: "2027-01-01T00:00:00Z"
     };
+
+    const page = (tokens: object[]) =>
+        ({content: tokens, page: 0, size: 25, total_elements: tokens.length, total_pages: 1, first: true, last: true, empty: false});
 
     beforeEach(() => {
         jest.clearAllMocks();
-        mockAPI.list.mockResolvedValue([token]);
-        mockAPI.createToken.mockResolvedValue({...token, tokenId: 2});
-        mockAPI.refreshToken.mockResolvedValue({...token, expiresAt: "2028-01-01T00:00:00Z"});
+        mockAPI.list.mockResolvedValue(page([token]));
+        mockAPI.createToken.mockResolvedValue({...token, token_id: 2});
+        mockAPI.refreshToken.mockResolvedValue({...token, expires_at: "2028-01-01T00:00:00Z"});
         mockAPI.invalidateToken.mockResolvedValue(true);
     });
 
-    it("loads, filters, creates, refreshes, and invalidates tokens", async () => {
+    it("loads a server page, searches, sorts, creates, refreshes, and invalidates tokens", async () => {
         const {container} = render(<AdminTokens/>);
-        await waitFor(() => expect(mockAPI.list).toHaveBeenCalled());
-        fireEvent.submit(container.querySelectorAll("form")[0]);
-        expect(screen.getByTestId("token-table")).toHaveTextContent("token-value");
+        await waitFor(() => expect(mockAPI.list).toHaveBeenCalledWith({page: 0, size: 25, sort_by: "created_at", direction: "DESC"}));
+        await waitFor(() => expect(screen.getByTestId("token-table")).toHaveTextContent("token-value"));
+
+        fireEvent.change(screen.getByPlaceholderText("AdminTokens.filters.value"), {target: {value: "deploy"}});
+        await waitFor(() => expect(mockAPI.list).toHaveBeenLastCalledWith({
+            page: 0, size: 25, sort_by: "created_at", direction: "DESC", search: "deploy", case_sensitive: false
+        }));
+        fireEvent.click(screen.getByText("switch"));
+        await waitFor(() => expect(mockAPI.list).toHaveBeenLastCalledWith(expect.objectContaining({search: "deploy", case_sensitive: true})));
+        fireEvent.click(screen.getByText("table-sort"));
+        await waitFor(() => expect(mockAPI.list).toHaveBeenLastCalledWith(expect.objectContaining({page: 0, sort_by: "expires_at", direction: "ASC"})));
 
         fireEvent.click(screen.getAllByText("AdminTokens.actions.create")[0]);
-        fireEvent.submit(container.querySelectorAll("form")[1]);
+        fireEvent.submit(container.querySelectorAll("form")[0]);
         await waitFor(() => expect(mockAPI.createToken).toHaveBeenCalledWith({
-            expiresAt: dayjs("2027-01-01").toISOString(), description: "description"
+            expires_at: dayjs("2027-01-01").toISOString(), description: "description"
         }));
 
         fireEvent.click(screen.getAllByText("AdminTokens.actions.refresh")[0]);
-        fireEvent.submit(container.querySelectorAll("form")[1]);
-        await waitFor(() => expect(mockAPI.refreshToken).toHaveBeenCalledWith({tokenValue: "token-value", days: 30}));
+        fireEvent.submit(container.querySelectorAll("form")[0]);
+        await waitFor(() => expect(mockAPI.refreshToken).toHaveBeenCalledWith({token_value: "token-value", days: 30}));
 
         fireEvent.click(screen.getByText("AdminTokens.actions.invalidate"));
         await waitFor(() => expect(mockAPI.invalidateToken).toHaveBeenCalledWith("token-value"));
     });
 
-    it("reports loading and mutation failures", async () => {
+    it("reports a failed page load with a translated message", async () => {
         const error = new Error("service unavailable");
         mockAPI.list.mockRejectedValue(error);
-        mockAPI.createToken.mockRejectedValue(error);
+        const consoleError = jest.spyOn(console, "error").mockImplementation(() => undefined);
         render(<AdminTokens/>);
-        await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("service unavailable"));
+        await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("common.table.loadError"));
+        expect(mockMessage.error).not.toHaveBeenCalledWith("service unavailable");
+        consoleError.mockRestore();
     });
 
     it("reports refresh and invalidation failures and supports manual reload", async () => {
@@ -99,7 +119,7 @@ describe("AdminTokens behavior", () => {
         await waitFor(() => expect(mockAPI.list.mock.calls.length).toBeGreaterThanOrEqual(2));
 
         fireEvent.click(screen.getByText("AdminTokens.actions.refresh"));
-        fireEvent.submit(container.querySelectorAll("form")[1]);
+        fireEvent.submit(container.querySelectorAll("form")[0]);
         await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("refresh unavailable"));
 
         fireEvent.click(screen.getByText("AdminTokens.actions.invalidate"));

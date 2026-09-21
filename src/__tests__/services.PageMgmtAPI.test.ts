@@ -57,13 +57,18 @@ describe("PageMgmtAPI", () => {
     it("should find pageable pages", async () => {
         const mockResponse = {
             content: [{id: 1, title: "Page 1"}],
-            totalElements: 1,
-            totalPages: 1,
-            number: 0
+            page: 0,
+            size: 10,
+            total_elements: 1,
+            total_pages: 1,
+            first: true,
+            last: true,
+            empty: false
         };
         mock.onGet("").reply(200, mockResponse);
 
-        const result = await pageMgmtAPI.findPageable();
+        const result = await pageMgmtAPI.findPaged({page: 0, size: 10});
+        expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10});
         expect(result).toEqual(mockResponse);
     });
 });

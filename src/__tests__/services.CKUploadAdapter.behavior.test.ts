@@ -33,7 +33,7 @@ describe("CKUploadAdapter behavior", () => {
     it("opens a credentialed request with encoded language and page id and uploads the file", async () => {
         const adapter = new CKUploadAdapter(loader, "fi FI", 42, "https://example.test/upload");
         const promise = adapter.upload();
-        expect(xhr.open).toHaveBeenCalledWith("POST", "https://example.test/upload?language=fi+FI&pageId=42", true);
+        expect(xhr.open).toHaveBeenCalledWith("POST", "https://example.test/upload?language=fi+FI&page_id=42", true);
         expect(xhr.responseType).toBe("json");
         expect(xhr.withCredentials).toBe(true);
         await Promise.resolve();

@@ -56,7 +56,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                                    ]}>
                             <Input type="text" placeholder={t("UserFields.form.username.placeholder")}/>
                         </Form.Item>}
-                <Form.Item name={"firstName"}
+                <Form.Item name={"first_name"}
                            required={true}
                            label={t("UserFields.form.firstName.label")}
                            tooltip={t("UserFields.form.firstName.tooltip")}
@@ -76,7 +76,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                            ]}>
                     <Input placeholder={t("UserFields.form.firstName.placeholder")}/>
                 </Form.Item>
-                <Form.Item name={"lastName"}
+                <Form.Item name={"last_name"}
                            required={true}
                            tooltip={t("UserFields.form.lastName.tooltip")}
                            label={t("UserFields.form.lastName.label")}
@@ -104,7 +104,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                     <Space.Compact style={{width: "100%", maxWidth: 300}}>
                         <Input value={"+"} disabled style={{width: 48}}/>
                         <Form.Item
-                                name="phoneNumber"
+                            name="phone_number"
                                 noStyle
                                 rules={[
                                     {
@@ -132,7 +132,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                            valuePropName={"checked"}>
                     <Switch disabled={props.isOrganizer}/>
                 </Form.Item>
-                <Form.Item name={"nextOfKin"}
+                <Form.Item name={"next_of_kin"}
                            label={t("UserFields.form.nextOfKin.label")}
                            tooltip={t("UserFields.form.nextOfKin.tooltip")}>
                     <Input type="text"
@@ -150,7 +150,7 @@ export function UserFields(props: { userId: number; username: string | null; isO
                            ]}>
                     <Select options={supportedLanguages}/>
                 </Form.Item>
-                <Form.Item name={"primaryUserType"}
+                <Form.Item name={"primary_user_type"}
                            required={true}
                            label={t("UserFields.form.primaryUserType.label")}
                            tooltip={t("UserFields.form.primaryUserType.tooltip")}

@@ -21,7 +21,7 @@ describe("AuthAPI", () => {
         const loginRequest = {
             email: "test@example.com",
             password: "password123",
-            recaptchaToken: "token"
+            recaptcha_token: "token"
         } as unknown as LoginRequest;
 
         const sessionResponse = {
@@ -42,7 +42,7 @@ describe("AuthAPI", () => {
         const loginRequest = {
             email: "test@example.com",
             password: "wrongpassword",
-            recaptchaToken: "token"
+            recaptcha_token: "token"
         } as unknown as LoginRequest;
 
         const failResponse = {id: 0, email: "test@example.com", token: ""};
@@ -63,8 +63,8 @@ describe("AuthAPI", () => {
 
     it("should register a new user", async () => {
         const registrationData = {
-            firstName: "John",
-            lastName: "Doe",
+            first_name: "John",
+            last_name: "Doe",
             email: "john@example.com",
             password: "password123"
         } as unknown as RegistrationVO;
@@ -85,15 +85,15 @@ describe("AuthAPI", () => {
         const registrationData: RegistrationVO = {
             username: "newuser@example.com",
             password: "aA1^WWWWWWWWW",
-            firstName: "New",
-            lastName: "User",
-            phoneNumber: "123456789012345",
-            nextOfKin: "Someone",
+            first_name: "New",
+            last_name: "User",
+            phone_number: "123456789012345",
+            next_of_kin: "Someone",
             privacy: false,  // default value injected by Form initialValues
             language: "fi",
-            approvedTerms: true,
-            healthStatementId: 0,
-            primaryUserType: "SCUBA_DIVER" as import("../models").UserTypeEnum
+            approved_terms: true,
+            health_statement_id: 0,
+            primary_user_type: "SCUBA_DIVER" as import("../models").UserTypeEnum
         };
 
         const response = {status: "SUCCESS", token: "abc123"};
@@ -114,15 +114,15 @@ describe("AuthAPI", () => {
         const registrationData: RegistrationVO = {
             username: "newuser@example.com",
             password: "aA1^WWWWWWWWW",
-            firstName: "New",
-            lastName: "User",
-            phoneNumber: "358407031231",
-            nextOfKin: "Someone",
+            first_name: "New",
+            last_name: "User",
+            phone_number: "358407031231",
+            next_of_kin: "Someone",
             privacy: true,
             language: "fi",
-            approvedTerms: true,
-            healthStatementId: 0,
-            primaryUserType: "SCUBA_DIVER" as import("../models").UserTypeEnum
+            approved_terms: true,
+            health_statement_id: 0,
+            primary_user_type: "SCUBA_DIVER" as import("../models").UserTypeEnum
         };
 
         const response = {status: "SUCCESS", token: "abc123"};
@@ -153,7 +153,7 @@ describe("AuthAPI", () => {
     });
 
     it("should reset password", async () => {
-        const data = {token: "reset-token", password: "newpassword123", confirmPassword: "newpassword123"} as unknown as PasswordResetRequest;
+        const data = {token: "reset-token", password: "newpassword123", confirm_password: "newpassword123"} as unknown as PasswordResetRequest;
         const response = {status: "SUCCESS", message: "Password reset successfully"};
 
         mock.onPost("/reset-password").reply(200, response);
@@ -163,7 +163,7 @@ describe("AuthAPI", () => {
 
     it("should update user password", async () => {
         const userId = 1;
-        const passwordData = {oldPassword: "oldpassword", newPassword: "newpassword", confirmPassword: "newpassword"};
+        const passwordData = {old_password: "oldpassword", new_password: "newpassword", confirm_password: "newpassword"};
         const response = {status: "SUCCESS", message: "Password updated"};
 
         mock.onPut("/1/password").reply(200, response);
@@ -172,19 +172,19 @@ describe("AuthAPI", () => {
     });
 
     it("should request email change and return true when backend accepts request", async () => {
-        const requestData = {newEmail: "new.user@example.com", password: "ValidPassword1!"};
+        const requestData = {new_email: "new.user@example.com", password: "ValidPassword1!"};
         mock.onPost("/email-change/requests").reply(200, true);
 
         const result = await authAPI.requestEmailChange(requestData);
 
         expect(result).toBe(true);
         const sentBody = JSON.parse(mock.history.post[0].data as string) as Record<string, unknown>;
-        expect(sentBody["newEmail"]).toBe("new.user@example.com");
+        expect(sentBody["new_email"]).toBe("new.user@example.com");
         expect(sentBody["password"]).toBe("ValidPassword1!");
     });
 
     it("should request email change and return false when backend rejects request", async () => {
-        const requestData = {newEmail: "taken@example.com", password: "WrongPassword1!"};
+        const requestData = {new_email: "taken@example.com", password: "WrongPassword1!"};
         mock.onPost("/email-change/requests").reply(200, false);
 
         const result = await authAPI.requestEmailChange(requestData);

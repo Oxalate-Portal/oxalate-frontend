@@ -85,14 +85,14 @@ export function AdminNotifications({participantIds, onNotificationSent, onCancel
         };
 
         if (mode === "sendAll") {
-            messageRequest.sendAll = true;
+            messageRequest.send_all = true;
         } else if (mode === "group") {
-            messageRequest.notificationGroup = values.notificationGroup;
-            messageRequest.inactiveDays = values.inactiveDays;
-            messageRequest.sendAll = false;
+            messageRequest.notification_group = values.notificationGroup;
+            messageRequest.inactive_days = values.inactiveDays;
+            messageRequest.send_all = false;
         } else {
             messageRequest.recipients = hasParticipants ? participantIds : values.recipients;
-            messageRequest.sendAll = false;
+            messageRequest.send_all = false;
         }
 
         notificationAPI.createBulkNotifications(messageRequest)

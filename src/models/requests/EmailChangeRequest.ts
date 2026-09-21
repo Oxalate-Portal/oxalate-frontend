@@ -1,5 +1,5 @@
 export interface EmailChangeRequest {
-    newEmail: string;
+    new_email: string;
     password: string;
 }
 

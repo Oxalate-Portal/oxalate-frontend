@@ -37,6 +37,11 @@ function service(name: string, methods: string[]) {
     return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
 }
 
+/** Wraps rows in the page envelope the server-paged list endpoints return. */
+function mockPage<T>(rows: T[]) {
+    return {content: rows, page: 0, size: 10, total_elements: rows.length, total_pages: 1, first: true, last: true, empty: rows.length === 0};
+}
+
 const mockGetPortalConfigurationValue = (_group: string, key: string) =>
         configMode === "disabled" && (key === "membership-type" || key === "documents-supported" || key === "dive-files-supported")
                 ? key === "membership-type" ? "DISABLED" : "false" : key.includes("supported") ? "true" : "YEAR";
@@ -55,18 +60,18 @@ jest.mock("../services", () => ({
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),
     downloadAPI: service("downloadAPI", ["downloadCertificates", "downloadDives", "downloadPayments"]),
     userAPI: service("userAPI", ["findAll", "findByRole", "findAdminUserById", "adminUpdateUser", "resetTerms", "resetHealthStatement"]),
-    membershipAPI: service("membershipAPI", ["findAll", "findByMemberId", "create", "update"]),
+    membershipAPI: service("membershipAPI", ["findPaged", "findByMemberId", "create", "update"]),
     tagGroupAPI: service("tagGroupAPI", ["findAll", "create", "update", "delete"]),
     tagsAPI: service("tagsAPI", ["findAll", "create", "update", "delete"]),
-    auditAPI: service("auditAPI", ["findPageable"]),
+    auditAPI: service("auditAPI", ["findPagedAudits"]),
     portalConfigurationAPI: service("portalConfigurationAPI", ["findAllPortalConfigurations", "updateConfigurationValue", "reloadPortalConfiguration"]),
     fileTransferAPI: service("fileTransferAPI", ["findAllAvatarFiles", "findAllCertificateFiles", "findAllDiveFiles", "findAllDocuments", "findAllPageFiles", "removeDocumentFile"]),
-    adminUserAPI: service("adminUserAPI", ["findAll"]),
+    adminUserAPI: service("adminUserAPI", ["findPaged"]),
     authAPI: service("authAPI", ["recoverLostPassword"])
 }));
 jest.mock("../session", () => ({
     useSession: () => ({
-        userSession: {accessToken: "token"},
+        userSession: {access_token: "token"},
         getPortalConfigurationValue: mockGetPortalConfigurationValue,
         getFrontendConfigurationValue: mockGetFrontendConfigurationValue
     })
@@ -77,7 +82,7 @@ jest.mock("../tools", () => ({
     membershipStatusEnum2Tag: (value: string) => <span>{value}</span>,
     membershipTypeEnum2Tag: (value: string) => <span>{value}</span>,
     formatDateTimeWithMs: (value: string) => value,
-    getDefaultMembershipDates: () => ({startDate: {format: () => "2026-01-01"}, endDate: {format: () => "2026-12-31"}}),
+    getDefaultMembershipDates: () => ({start_date: {format: () => "2026-01-01"}, end_date: {format: () => "2026-12-31"}}),
     getApiBaseUrl: () => "http://api"
 }));
 jest.mock("../components/Commenting", () => ({
@@ -87,6 +92,42 @@ jest.mock("../components/Commenting", () => ({
 }));
 jest.mock("../components/User", () => ({UserFields: () => <span>user-fields</span>}));
 jest.mock("../components/main", () => ({
+    OxTableSearch: ({children, onSearch, onCaseSensitiveChange}: {
+        children?: ReactNode;
+        onSearch?: (value: string) => void;
+        onCaseSensitiveChange?: (value: boolean) => void
+    }) =>
+        <div>{children}
+            <button onClick={() => onSearch?.("x")}>table-search</button>
+            <button onClick={() => onCaseSensitiveChange?.(true)}>table-case</button>
+        </div>,
+    usePagedTable: (fetcher: (request: unknown) => Promise<unknown>, options?: { enabled?: boolean; deps?: unknown[] }) => {
+        const React = jest.requireActual("react");
+        const [dataSource, setDataSource] = React.useState([]);
+        const [reloadCounter, setReloadCounter] = React.useState(0);
+        const fetcherRef = React.useRef(fetcher);
+        const depsKey = JSON.stringify(options?.deps ?? []);
+        const enabled = options?.enabled !== false;
+        React.useEffect(() => {
+            fetcherRef.current = fetcher;
+        });
+        React.useEffect(() => {
+            if (!enabled) {
+                return;
+            }
+            Promise.resolve(fetcherRef.current({page: 0, size: 10}))
+                .then((response: unknown) => {
+                    const rows = Array.isArray(response) ? response : (response as { content?: unknown[] } | undefined)?.content ?? [];
+                    setDataSource(rows);
+                })
+                .catch(() => setDataSource([]));
+        }, [enabled, depsKey, reloadCounter]);
+        return {
+            dataSource, loading: false, pagination: {current: 1, pageSize: 10, total: dataSource.length}, handleTableChange: jest.fn(),
+            search: "", setSearch: jest.fn(), case_sensitive: false, setCaseSensitive: jest.fn(), reload: () => setReloadCounter((value: number) => value + 1),
+            error: false, contextHolder: null
+        };
+    },
     // Forms are horizontal in jsdom, matching the real hook when no breakpoint matches
     useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({layout: "horizontal", labelCol: {span: labelSpan}, wrapperCol: {span: wrapperSpan}}),
     OxTable: (props: Record<string, unknown>) => {
@@ -108,9 +149,9 @@ jest.mock("antd", () => {
             <form onSubmit={(event) => {
                 event.preventDefault();
                 onFinish?.({
-                    id: 7, userId: 7, username: "user@example.com", firstName: "First", lastName: "Last",
-                    status: "ACTIVE", type: "YEAR", roles: ["ROLE_USER"], privacy: false, approvedTerms: true,
-                    healthStatementId: null, userIdList: [7], dateRange: []
+                    id: 7, user_id: 7, username: "user@example.com", first_name: "First", last_name: "Last",
+                    status: "ACTIVE", type: "YEAR", roles: ["ROLE_USER"], privacy: false, approved_terms: true,
+                    health_statement_id: null, userIdList: [7], dateRange: []
                 });
             }}>{children}</form>
     );
@@ -148,7 +189,7 @@ jest.mock("antd", () => {
         return <div data-testid="table">{dataSource.map((item, index) => columns.map((column, columnIndex) =>
                 <span key={`${index}-${columnIndex}`}>{column.render ? column.render(undefined, item) : null}</span>))}
             <button onClick={() => onChange?.({current: 0}, {}, {field: undefined, order: undefined})}>table-change</button>
-            <button onClick={() => onChange?.({current: 1}, {}, [{field: "userName", order: "ascend"}])}>table-sort</button>
+            <button onClick={() => onChange?.({current: 1}, {}, [{field: "user_name", order: "ascend"}])}>table-sort</button>
         </div>;
     };
     const Modal = ({open, children, onOk, onCancel}: { open?: boolean; children: ReactNode; onOk?: () => void; onCancel?: () => void }) =>
@@ -209,19 +250,19 @@ describe("Administration pages", () => {
         routeParam = "1";
         Object.values(api).forEach((mock) => mock.mockResolvedValue([]));
         api["portalConfigurationAPI.findAllPortalConfigurations"].mockResolvedValue([
-            {id: 1, groupKey: "FILES", settingKey: "enabled", valueType: "boolean", runtimeValue: "false", defaultValue: "false", requiredRuntime: false},
-            {id: 2, groupKey: "MAIL", settingKey: "address", valueType: "email", runtimeValue: "", defaultValue: "", requiredRuntime: true},
-            {id: 3, groupKey: "FILES", settingKey: "count", valueType: "number", runtimeValue: "2", defaultValue: "0", requiredRuntime: false},
-            {id: 4, groupKey: "FILES", settingKey: "day", valueType: "date", runtimeValue: "2026-01-01", defaultValue: "", requiredRuntime: false},
-            {id: 5, groupKey: "FILES", settingKey: "langs", valueType: "array", runtimeValue: "a", defaultValue: "a,b", requiredRuntime: false},
+            {id: 1, group_key: "FILES", setting_key: "enabled", value_type: "boolean", runtime_value: "false", default_value: "false", required_runtime: false},
+            {id: 2, group_key: "MAIL", setting_key: "address", value_type: "email", runtime_value: "", default_value: "", required_runtime: true},
+            {id: 3, group_key: "FILES", setting_key: "count", value_type: "number", runtime_value: "2", default_value: "0", required_runtime: false},
+            {id: 4, group_key: "FILES", setting_key: "day", value_type: "date", runtime_value: "2026-01-01", default_value: "", required_runtime: false},
+            {id: 5, group_key: "FILES", setting_key: "langs", value_type: "array", runtime_value: "a", default_value: "a,b", required_runtime: false},
             {
                 id: 6,
-                groupKey: "FILES",
-                settingKey: "membership-type",
-                valueType: "enum",
-                runtimeValue: "USER",
-                defaultValue: "DISABLED",
-                requiredRuntime: false
+                group_key: "FILES",
+                setting_key: "membership-type",
+                value_type: "enum",
+                runtime_value: "USER",
+                default_value: "DISABLED",
+                required_runtime: false
             }
         ]);
     });
@@ -235,7 +276,7 @@ describe("Administration pages", () => {
     });
 
     it("renders date administration and exercises API success/error callbacks", async () => {
-        api["blockedDatesAPI.findAll"].mockResolvedValue([{id: 1, blockedDate: "2099-01-01", creatorName: "a", reason: "r"}]);
+        api["blockedDatesAPI.findAll"].mockResolvedValue([{id: 1, blocked_date: "2099-01-01", creator_name: "a", reason: "r"}]);
         render(<BlockedDates/>);
         await flush();
         expect(screen.getByTestId("table")).toBeInTheDocument();
@@ -252,26 +293,26 @@ describe("Administration pages", () => {
 
     it("renders membership and organization administration views", async () => {
         api["membershipAPI.findByMemberId"].mockResolvedValue({
-            id: 1, userId: 2, username: "member", status: "ACTIVE", type: "YEAR",
-            startDate: dayjs("2026-01-01"), endDate: dayjs("2026-12-31")
+            id: 1, user_id: 2, username: "member", status: "ACTIVE", type: "YEAR",
+            start_date: dayjs("2026-01-01"), end_date: dayjs("2026-12-31")
         });
-        api["membershipAPI.findAll"].mockResolvedValue([]);
+        api["membershipAPI.findPaged"].mockResolvedValue(mockPage([]));
         api["userAPI.findAdminUserById"].mockResolvedValue({
-            id: 2, username: "member", firstName: "A", lastName: "User", status: "ACTIVE",
-            roles: [], privacy: false, payments: [], approvedTerms: false, healthStatementId: null
+            id: 2, username: "member", first_name: "A", last_name: "User", status: "ACTIVE",
+            roles: [], privacy: false, payments: [], approved_terms: false, health_statement_id: null
         });
-        api["adminUserAPI.findAll"].mockResolvedValue([]);
+        api["adminUserAPI.findPaged"].mockResolvedValue(mockPage([]));
         render(<><AdminMemberships/><AdminOrgUsers/></>);
         await flush();
         expect(screen.getByText("AdminMembers.title")).toBeInTheDocument();
     });
 
     it("renders certificate classification in the organization user list", async () => {
-        api["adminUserAPI.findAll"].mockResolvedValue([{
-            id: 2, username: "member", firstName: "A", lastName: "User", status: "ACTIVE",
-            roles: [], privacy: false, payments: [], approvedTerms: false, healthStatementId: null,
-            certificateClassificationTitle: "Open water"
-        }]);
+        api["adminUserAPI.findPaged"].mockResolvedValue(mockPage([{
+            id: 2, username: "member", first_name: "A", last_name: "User", status: "ACTIVE",
+            roles: [], privacy: false, payments: [], approved_terms: false, health_statement_id: null,
+            certificate_classification_title: "Open water"
+        }]));
 
         render(<AdminOrgUsers/>);
         await flush();
@@ -281,21 +322,21 @@ describe("Administration pages", () => {
 
     it("covers membership editing, adding, user actions, and file column branches", async () => {
         const member = {
-            id: 1, userId: 2, username: "member", status: "ACTIVE", type: "YEAR",
-            startDate: dayjs("2026-01-01"), endDate: dayjs("2026-12-31")
+            id: 1, user_id: 2, username: "member", status: "ACTIVE", type: "YEAR",
+            start_date: dayjs("2026-01-01"), end_date: dayjs("2026-12-31")
         };
         api["membershipAPI.findByMemberId"].mockResolvedValue(member);
         api["membershipAPI.create"].mockResolvedValue(member);
         api["membershipAPI.update"].mockResolvedValue(member);
         api["userAPI.findByRole"].mockResolvedValue([{id: 2, name: "Member"}]);
         api["userAPI.findAdminUserById"].mockResolvedValue({
-            id: 2, username: "member", firstName: "A", lastName: "User", status: "ACTIVE",
-            roles: [], privacy: false, payments: [], approvedTerms: false, healthStatementId: null
+            id: 2, username: "member", first_name: "A", last_name: "User", status: "ACTIVE",
+            roles: [], privacy: false, payments: [], approved_terms: false, health_statement_id: null
         });
         api["authAPI.recoverLostPassword"].mockResolvedValue({status: "OK"});
         api["userAPI.adminUpdateUser"].mockResolvedValue({
-            id: 2, username: "member", firstName: "A", lastName: "User", status: "ACTIVE",
-            roles: [], privacy: false, payments: [], approvedTerms: false, healthStatementId: null
+            id: 2, username: "member", first_name: "A", last_name: "User", status: "ACTIVE",
+            roles: [], privacy: false, payments: [], approved_terms: false, health_statement_id: null
         });
         render(<AdminMembership/>);
         await flush();
@@ -309,10 +350,10 @@ describe("Administration pages", () => {
     });
 
     it("covers organization reset outcomes and file API error branches", async () => {
-        api["adminUserAPI.findAll"].mockResolvedValue([{
-            id: 3, username: "anon", firstName: "A", lastName: "N", status: "ANONYMIZED",
-            roles: ["ROLE_ADMIN"], privacy: false, payments: [], approvedTerms: true, healthStatementId: 0
-        }]);
+        api["adminUserAPI.findPaged"].mockResolvedValue(mockPage([{
+            id: 3, username: "anon", first_name: "A", last_name: "N", status: "ANONYMIZED",
+            roles: ["ROLE_ADMIN"], privacy: false, payments: [], approved_terms: true, health_statement_id: 0
+        }]));
         api["userAPI.resetTerms"].mockResolvedValue(false);
         api["userAPI.resetHealthStatement"].mockResolvedValue(false);
         api["fileTransferAPI.findAllDiveFiles"].mockRejectedValue(new Error("dive"));
@@ -330,8 +371,8 @@ describe("Administration pages", () => {
 
     it("renders tag pages, table filters, actions, and audit refresh", async () => {
         api["tagGroupAPI.findAll"].mockResolvedValue([{id: 1, code: "g", names: {en: "Group"}, type: "USER"}]);
-        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tagGroupId: 1}]);
-        api["auditAPI.findPageable"].mockResolvedValue({content: [], number: 0, size: 10, totalElements: 0});
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tag_group_id: 1}]);
+        api["auditAPI.findPagedAudits"].mockResolvedValue({content: [], number: 0, size: 10, totalElements: 0});
         render(<><AdminTagGroups/><AdminTags/><AuditEvents/></>);
         await flush();
         fireEvent.click(screen.getByText("AdminTagGroups.button.add-group"));
@@ -339,115 +380,137 @@ describe("Administration pages", () => {
         fireEvent.click(screen.getByText("AdminTags.button.add-tag"));
         fireEvent.click(screen.getAllByText("modal-ok")[0]);
         fireEvent.click(screen.getAllByText("table-change").at(-1)!);
-        await waitFor(() => expect(api["auditAPI.findPageable"]).toHaveBeenCalled());
+        await waitFor(() => expect(api["auditAPI.findPagedAudits"]).toHaveBeenCalled());
     });
 
     it("drives successful administration workflows and all populated table renderers", async () => {
         const now = dayjs();
         const user = {
-            id: 7, username: "user@example.com", firstName: "First", lastName: "Last",
+            id: 7, username: "user@example.com", first_name: "First", last_name: "Last",
             status: "ACTIVE", roles: ["ROLE_USER", "ROLE_ORGANIZER", "ROLE_ADMIN"],
             privacy: true, payments: [
-                {id: 1, paymentType: "PERIODICAL", startDate: now.subtract(1, "day"), endDate: now.add(1, "day")},
-                {id: 2, paymentType: "ONE_TIME", startDate: now.subtract(1, "day"), endDate: now.add(1, "day")},
-                {id: 3, paymentType: "ONE_TIME", startDate: now.add(2, "day"), endDate: now.add(3, "day")}
-            ], approvedTerms: true, healthStatementId: 4
+                {id: 1, payment_type: "PERIODICAL", start_date: now.subtract(1, "day"), end_date: now.add(1, "day")},
+                {id: 2, payment_type: "ONE_TIME", start_date: now.subtract(1, "day"), end_date: now.add(1, "day")},
+                {id: 3, payment_type: "ONE_TIME", start_date: now.add(2, "day"), end_date: now.add(3, "day")}
+            ], approved_terms: true, health_statement_id: 4
         };
-        api["adminUserAPI.findAll"].mockResolvedValue([user, {
+        api["adminUserAPI.findPaged"].mockResolvedValue(mockPage([user, {
             ...user,
             id: 8,
             username: "anon",
             status: "ANONYMIZED",
-            approvedTerms: false,
-            healthStatementId: null,
+            approved_terms: false,
+            health_statement_id: null,
             payments: []
-        }]);
-        api["membershipAPI.findAll"].mockResolvedValue([{
-            id: 4, userId: 7, username: "user@example.com", status: "ACTIVE", type: "YEAR",
-            startDate: now.subtract(1, "day"), endDate: now.add(1, "day"), created: now
-        }]);
+        }]));
+        api["membershipAPI.findPaged"].mockResolvedValue(mockPage([{
+            id: 4, user_id: 7, username: "user@example.com", status: "ACTIVE", type: "YEAR",
+            start_date: now.subtract(1, "day"), end_date: now.add(1, "day"), created: now
+        }]));
         api["userAPI.findByRole"].mockResolvedValue([{id: 7, name: "First Last"}]);
-        api["fileTransferAPI.findAllAvatarFiles"].mockResolvedValue([{id: 1, filename: "avatar", filesize: 1024, creator: "u", createdAt: now, url: "/a"}]);
-        api["fileTransferAPI.findAllCertificateFiles"].mockResolvedValue([{id: 2, filename: "cert", filesize: 2048, creator: "u", createdAt: now, url: "/c"}]);
-        api["fileTransferAPI.findAllDiveFiles"].mockResolvedValue([{
+        api["fileTransferAPI.findAllAvatarFiles"].mockResolvedValue(mockPage([{
+            id: 1,
+            filename: "avatar",
+            filesize: 1024,
+            creator: "u",
+            created_at: now,
+            url: "/a"
+        }]));
+        api["fileTransferAPI.findAllCertificateFiles"].mockResolvedValue(mockPage([{
+            id: 2,
+            filename: "cert",
+            filesize: 2048,
+            creator: "u",
+            created_at: now,
+            url: "/c"
+        }]));
+        api["fileTransferAPI.findAllDiveFiles"].mockResolvedValue(mockPage([{
             id: 3,
-            eventId: 1,
-            diveGroupId: 2,
+            event_id: 1,
+            dive_group_id: 2,
             status: "UPLOADED",
             filename: "dive",
             filesize: 2048,
             creator: "u",
-            createdAt: now,
+            created_at: now,
             url: "/d"
-        }]);
-        api["fileTransferAPI.findAllDocuments"].mockResolvedValue([{
+        }]));
+        api["fileTransferAPI.findAllDocuments"].mockResolvedValue(mockPage([{
             id: 4,
             status: "PUBLISHED",
             filename: "doc",
             filesize: 2048,
             creator: "u",
-            createdAt: now,
+            created_at: now,
             url: "/doc"
-        }]);
-        api["fileTransferAPI.findAllPageFiles"].mockResolvedValue([
-            {id: 5, pageId: 1, language: "en", status: "UPLOADED", filename: "one", filesize: 1024, creator: "u", createdAt: now, url: "/one"},
-            {id: 6, pageId: 2, language: "fi", status: "PUBLISHED", filename: "two", filesize: 1024, creator: "u", createdAt: now, url: "/two"},
-            {id: 7, pageId: 3, language: "sv", status: "DELETED", filename: "three", filesize: 1024, creator: "u", createdAt: now, url: "/three"}
-        ]);
-        api["auditAPI.findPageable"].mockResolvedValue({
-            content: [{id: 1, createdAt: "2026-01-01", userName: "u", traceId: "trace", source: "web", level: "ERROR", address: "local", message: "failed"}],
+        }]));
+        api["fileTransferAPI.findAllPageFiles"].mockResolvedValue(mockPage([
+            {id: 5, page_id: 1, language: "en", status: "UPLOADED", filename: "one", filesize: 1024, creator: "u", created_at: now, url: "/one"},
+            {id: 6, page_id: 2, language: "fi", status: "PUBLISHED", filename: "two", filesize: 1024, creator: "u", created_at: now, url: "/two"},
+            {id: 7, page_id: 3, language: "sv", status: "DELETED", filename: "three", filesize: 1024, creator: "u", created_at: now, url: "/three"}
+        ]));
+        api["auditAPI.findPagedAudits"].mockResolvedValue({
+            content: [{id: 1, created_at: "2026-01-01", user_name: "u", trace_id: "trace", source: "web", level: "ERROR", address: "local", message: "failed"}],
             pageable: {pageNumber: 0, pageSize: 10}, totalElements: 1
         });
         api["portalConfigurationAPI.findAllPortalConfigurations"].mockResolvedValue([
-            {id: 10, groupKey: "G", settingKey: "array", valueType: "array", runtimeValue: "a", defaultValue: "a,b", requiredRuntime: false},
-            {id: 11, groupKey: "G", settingKey: "bool", valueType: "boolean", runtimeValue: "false", defaultValue: "false", requiredRuntime: false},
-            {id: 12, groupKey: "G", settingKey: "date", valueType: "date", runtimeValue: "2026-01-01", defaultValue: "", requiredRuntime: false},
-            {id: 13, groupKey: "G", settingKey: "email", valueType: "email", runtimeValue: "ok@example.com", defaultValue: "", requiredRuntime: true},
-            {id: 14, groupKey: "G", settingKey: "number", valueType: "number", runtimeValue: "2", defaultValue: "0", requiredRuntime: false},
-            {id: 15, groupKey: "G", settingKey: "string", valueType: "string", runtimeValue: "x", defaultValue: "", requiredRuntime: false},
-            {id: 16, groupKey: "G", settingKey: "timezone", valueType: "timezone", runtimeValue: "UTC", defaultValue: "", requiredRuntime: false},
-            {id: 17, groupKey: "G", settingKey: "membership-type", valueType: "enum", runtimeValue: "USER", defaultValue: "DISABLED", requiredRuntime: false},
+            {id: 10, group_key: "G", setting_key: "array", value_type: "array", runtime_value: "a", default_value: "a,b", required_runtime: false},
+            {id: 11, group_key: "G", setting_key: "bool", value_type: "boolean", runtime_value: "false", default_value: "false", required_runtime: false},
+            {id: 12, group_key: "G", setting_key: "date", value_type: "date", runtime_value: "2026-01-01", default_value: "", required_runtime: false},
+            {id: 13, group_key: "G", setting_key: "email", value_type: "email", runtime_value: "ok@example.com", default_value: "", required_runtime: true},
+            {id: 14, group_key: "G", setting_key: "number", value_type: "number", runtime_value: "2", default_value: "0", required_runtime: false},
+            {id: 15, group_key: "G", setting_key: "string", value_type: "string", runtime_value: "x", default_value: "", required_runtime: false},
+            {id: 16, group_key: "G", setting_key: "timezone", value_type: "timezone", runtime_value: "UTC", default_value: "", required_runtime: false},
+            {
+                id: 17,
+                group_key: "G",
+                setting_key: "membership-type",
+                value_type: "enum",
+                runtime_value: "USER",
+                default_value: "DISABLED",
+                required_runtime: false
+            },
             {
                 id: 18,
-                groupKey: "G",
-                settingKey: "membership-period-unit",
-                valueType: "enum",
-                runtimeValue: "YEAR",
-                defaultValue: "YEAR",
-                requiredRuntime: false
+                group_key: "G",
+                setting_key: "membership-period-unit",
+                value_type: "enum",
+                runtime_value: "YEAR",
+                default_value: "YEAR",
+                required_runtime: false
             },
             {
                 id: 19,
-                groupKey: "G",
-                settingKey: "periodical-payment-method-type",
-                valueType: "enum",
-                runtimeValue: "PERIODICAL",
-                defaultValue: "PERIODICAL",
-                requiredRuntime: false
+                group_key: "G",
+                setting_key: "periodical-payment-method-type",
+                value_type: "enum",
+                runtime_value: "PERIODICAL",
+                default_value: "PERIODICAL",
+                required_runtime: false
             },
             {
                 id: 20,
-                groupKey: "G",
-                settingKey: "periodical-payment-method-unit",
-                valueType: "enum",
-                runtimeValue: "YEAR",
-                defaultValue: "YEAR",
-                requiredRuntime: false
+                group_key: "G",
+                setting_key: "periodical-payment-method-unit",
+                value_type: "enum",
+                runtime_value: "YEAR",
+                default_value: "YEAR",
+                required_runtime: false
             },
-            {id: 21, groupKey: "G", settingKey: "unknown", valueType: "enum", runtimeValue: "x", defaultValue: "x", requiredRuntime: false}
+            {id: 21, group_key: "G", setting_key: "unknown", value_type: "enum", runtime_value: "x", default_value: "x", required_runtime: false}
         ]);
         api["portalConfigurationAPI.reloadPortalConfiguration"].mockResolvedValue([{
             id: 10,
-            groupKey: "G",
-            settingKey: "x",
-            valueType: "string",
-            runtimeValue: "x",
-            defaultValue: "x",
-            requiredRuntime: false
+            group_key: "G",
+            setting_key: "x",
+            value_type: "string",
+            runtime_value: "x",
+            default_value: "x",
+            required_runtime: false
         }]);
-        api["commentAPI.getPendingReports"].mockResolvedValue([{id: 1, title: "", body: "A comment body", childCount: 1, reports: [{id: 2}]}]);
+        api["commentAPI.getPendingReports"].mockResolvedValue([{id: 1, title: "", body: "A comment body", child_count: 1, reports: [{id: 2}]}]);
         api["tagGroupAPI.findAll"].mockResolvedValue([{id: 1, code: "g", names: {en: "Group"}, type: "USER"}]);
-        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tagGroupId: 1}]);
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tag_group_id: 1}]);
         global.fetch = jest.fn().mockResolvedValue({json: () => Promise.resolve({UTC: [{value: "UTC", label: "UTC"}]})}) as jest.Mock;
 
         render(<>
@@ -455,7 +518,7 @@ describe("Administration pages", () => {
             <AvatarFiles/><CertificateFiles/><DiveFiles/><DocumentFiles/><PageFiles/>
             <AuditEvents/><PortalConfigurations/><CommentModeration/>
         </>);
-        await waitFor(() => expect(api["adminUserAPI.findAll"]).toHaveBeenCalled());
+        await waitFor(() => expect(api["adminUserAPI.findPaged"]).toHaveBeenCalled());
         await flush();
         api["portalConfigurationAPI.updateConfigurationValue"].mockRejectedValue(new Error("update failed"));
         fireEvent.click(screen.getAllByText("switch")[0]);
@@ -531,15 +594,15 @@ describe("Administration pages", () => {
         expect(api["userAPI.findAdminUserById"]).toHaveBeenCalled();
 
         api["userAPI.findAdminUserById"].mockResolvedValue({
-            id: 7, username: "user@example.com", firstName: "First", lastName: "Last",
+            id: 7, username: "user@example.com", first_name: "First", last_name: "Last",
             status: "ACTIVE", roles: ["ROLE_USER"], privacy: true, payments: [],
-            approvedTerms: true, healthStatementId: null
+            approved_terms: true, health_statement_id: null
         });
         api["authAPI.recoverLostPassword"].mockResolvedValue({status: "OK"});
         api["userAPI.adminUpdateUser"].mockResolvedValue({
-            id: 7, username: "user@example.com", firstName: "First", lastName: "Last",
+            id: 7, username: "user@example.com", first_name: "First", last_name: "Last",
             status: "ACTIVE", roles: ["ROLE_USER"], privacy: false, payments: [],
-            approvedTerms: true, healthStatementId: null
+            approved_terms: true, health_statement_id: null
         });
         render(<AdminOrgUser/>);
         await flush();
@@ -556,15 +619,15 @@ describe("Administration pages", () => {
         configMode = "disabled";
         render(<><DiveFiles/><DocumentFiles/></>);
         configMode = "enabled";
-        api["fileTransferAPI.findAllDocuments"].mockResolvedValue([{
+        api["fileTransferAPI.findAllDocuments"].mockResolvedValue(mockPage([{
             id: 99,
             status: "PUBLISHED",
             filename: "doc",
             filesize: 1,
             creator: "u",
-            createdAt: dayjs(),
+            created_at: dayjs(),
             url: "/doc"
-        }]);
+        }]));
         api["fileTransferAPI.removeDocumentFile"].mockRejectedValue(new Error("remove"));
         render(<DocumentFiles/>);
         await flush();

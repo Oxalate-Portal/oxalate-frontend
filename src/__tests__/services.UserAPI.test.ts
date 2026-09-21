@@ -27,14 +27,14 @@ describe("UserAPI", () => {
     });
 
     it("should accept terms", async () => {
-        const payload = {confirmationAnswer: true} as unknown as ConfirmationRequest;
+        const payload = {confirmation_answer: true} as unknown as ConfirmationRequest;
         mock.onPut("/accept-terms").reply(200);
         await userAPI.acceptTerms(payload);
         expect(mock.history.put.length).toBeGreaterThan(0);
     });
 
     it("should accept health statement", async () => {
-        const payload = {confirmationAnswer: true} as unknown as ConfirmationRequest;
+        const payload = {confirmation_answer: true} as unknown as ConfirmationRequest;
         mock.onPut("/confirm-health-check").reply(200);
         await userAPI.acceptHealthStatement(payload);
         expect(mock.history.put.length).toBeGreaterThan(0);

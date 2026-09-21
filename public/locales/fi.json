@@ -582,6 +582,7 @@
     },
     "search" : {
       "filter" : "Suodata",
+      "filterColumn" : "Hakusarake",
       "placeholder" : "Hae..."
     },
     "table" : {
@@ -2319,6 +2320,14 @@
     "table" : {
       "column-title" : {
         "action" : "Toiminto"
+      },
+      "loadError" : "Taulukon tietoja ei voitu ladata.",
+      "pagination" : {
+        "total" : "{{from}}-{{to}} / {{total}}"
+      },
+      "search" : {
+        "caseSensitive" : "Kirjainkoko merkitsee",
+        "placeholder" : "Hae..."
       }
     },
     "userStatus" : {

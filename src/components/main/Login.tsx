@@ -30,7 +30,7 @@ export function Login() {
         const loginRequest: LoginRequest = {
             username: credentials.username,
             password: credentials.password,
-            recaptchaToken: recaptchaResult
+            recaptcha_token: recaptchaResult
         };
 
         const loginResult: LoginStatus = await loginUser(loginRequest);

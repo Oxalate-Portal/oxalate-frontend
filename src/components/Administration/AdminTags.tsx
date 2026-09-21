@@ -83,8 +83,8 @@ export function AdminTags() {
     const formInitialValues = useMemo(() => {
         if (editing) {
             const resolvedGroupId =
-                editing.tagGroupId ??
-                groups.find(g => g.code === editing.tagGroupCode)?.id;
+                editing.tag_group_id ??
+                groups.find(g => g.code === editing.tag_group_code)?.id;
             return {code: editing.code, names: buildNamesFromConfig(editing.names), tagGroupId: resolvedGroupId};
         }
         return {code: "", names: buildNamesFromConfig(), tagGroupId: undefined};
@@ -103,8 +103,8 @@ export function AdminTags() {
         form.resetFields();
         const resolvedGroupId =
             editing
-                ? (editing.tagGroupId ??
-                    groups.find(g => g.code === editing.tagGroupCode)?.id)
+                ? (editing.tag_group_id ??
+                    groups.find(g => g.code === editing.tag_group_code)?.id)
                 : undefined;
 
         form.setFieldsValue({
@@ -135,8 +135,8 @@ export function AdminTags() {
                     id: editing?.id ?? 0,
                     code: values.code.trim(),
                     names: listToRecord(values.names || []),
-                    tagGroupId: values.tagGroupId ?? editing?.tagGroupId,
-                    tagGroupCode: editing?.tagGroupCode
+                    tag_group_id: values.tagGroupId ?? editing?.tag_group_id,
+                    tag_group_code: editing?.tag_group_code
                 };
                 const op = editing ? tagsAPI.update(payload) : tagsAPI.create(payload);
                 op.then(() => {

@@ -65,14 +65,14 @@ describe("admin notification mode and API behavior", () => {
         await act(async () => {
             await Promise.resolve();
         });
-        expect(api.notificationAPI.createBulkNotifications).toHaveBeenCalledWith(expect.objectContaining({sendAll: true}));
+        expect(api.notificationAPI.createBulkNotifications).toHaveBeenCalledWith(expect.objectContaining({send_all: true}));
         finish?.({title: "T", message: "message", notificationMode: "group", notificationGroup: NotificationGroupEnum.ALL_REGISTERED});
         await act(async () => {
             await Promise.resolve();
         });
         expect(api.notificationAPI.createBulkNotifications).toHaveBeenCalledWith(expect.objectContaining({
-            notificationGroup: NotificationGroupEnum.ALL_REGISTERED,
-            sendAll: false
+            notification_group: NotificationGroupEnum.ALL_REGISTERED,
+            send_all: false
         }));
         api.notificationAPI.createBulkNotifications.mockResolvedValueOnce({status: UpdateStatusEnum.FAIL, message: "bad"});
         finish?.({title: "T", message: "message", notificationMode: "recipients", recipients: [2]});

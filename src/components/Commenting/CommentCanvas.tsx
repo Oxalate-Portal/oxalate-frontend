@@ -26,8 +26,8 @@ export function CommentCanvas({commentId, allowComment, depth = 0}: CommentCanva
     const refreshCommentList = useCallback(() => {
         commentAPI.findAllForParentId(commentId)
                 .then((response) => {
-                    if (ROOT_COMMENT_IDS.includes(response.parentCommentId)) {
-                        setComments(response.childComments);
+                    if (ROOT_COMMENT_IDS.includes(response.parent_comment_id)) {
+                        setComments(response.child_comments);
                     } else {
                         setComments([response]);
                     }

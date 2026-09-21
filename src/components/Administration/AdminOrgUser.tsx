@@ -106,18 +106,18 @@ export function AdminOrgUser() {
         const postData: AdminUserRequest = {
             id: userInfo.id,
             username: userInfo.username,
-            firstName: userInfo.firstName,
-            lastName: userInfo.lastName,
+            first_name: userInfo.first_name,
+            last_name: userInfo.last_name,
             status: userInfo.status,
-            phoneNumber: userInfo.phoneNumber,
-            nextOfKin: userInfo.nextOfKin,
+            phone_number: userInfo.phone_number,
+            next_of_kin: userInfo.next_of_kin,
             privacy: userInfo.privacy,
             registered: userInfo.registered,
             roles: userInfo.roles,
             language: userInfo.language,
-            primaryUserType: userInfo.primaryUserType,
-            approvedTerms: userInfo.approvedTerms,
-            healthStatementId: userInfo.healthStatementId
+            primary_user_type: userInfo.primary_user_type,
+            approved_terms: userInfo.approved_terms,
+            health_statement_id: userInfo.health_statement_id
         };
 
         userAPI.adminUpdateUser(postData)
@@ -150,18 +150,18 @@ export function AdminOrgUser() {
                     initialValues={{
                         id: workUser.id,
                         username: workUser.username,
-                        firstName: workUser.firstName,
-                        lastName: workUser.lastName,
+                        first_name: workUser.first_name,
+                        last_name: workUser.last_name,
                         status: workUser.status,
-                        phoneNumber: workUser.phoneNumber,
+                        phone_number: workUser.phone_number,
                         privacy: workUser.privacy,
-                        nextOfKin: workUser.nextOfKin,
+                        next_of_kin: workUser.next_of_kin,
                         registered: workUser.registered,
                         roles: workUser.roles,
                         language: workUser.language,
                         // add missing fields so Select shows the current value
-                        primaryUserType: workUser.primaryUserType,
-                        approvedTerms: workUser.approvedTerms
+                        primary_user_type: workUser.primary_user_type,
+                        approved_terms: workUser.approved_terms
                     }}
                     onFinish={updateUser}
                     onFinishFailed={updateUserFailed}
@@ -176,7 +176,7 @@ export function AdminOrgUser() {
                         <Input type="text"/>
                     </Form.Item>
                     <UserFields username={workUser.username} userId={workUser.id} isOrganizer={checkRoles(workUser.roles, [RoleEnum.ROLE_ORGANIZER])}/>
-                    <p>{t("User.form.certificateClassification.label")}: {workUser.certificateClassificationTitle || t("User.form.certificateClassification.none")}</p>
+                    <p>{t("User.form.certificateClassification.label")}: {workUser.certificate_classification_title || t("User.form.certificateClassification.none")}</p>
                     <Form.Item name={"status"} required label={t("AdminOrgUser.form.status.label")}
                                tooltip={t("AdminOrgUser.form.status.tooltip")}
                                rules={[

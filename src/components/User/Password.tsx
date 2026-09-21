@@ -21,9 +21,9 @@ export function Password() {
     const updatePassword = (values: { oldPassword: string; newPassword: string; confirmPassword: string }) => {
         setLoading(true);
         const postData = {
-            oldPassword: values.oldPassword,
-            newPassword: values.newPassword,
-            confirmPassword: values.confirmPassword
+            old_password: values.oldPassword,
+            new_password: values.newPassword,
+            confirm_password: values.confirmPassword
         };
 
         authAPI.updatePassword(userSession?.id, postData)

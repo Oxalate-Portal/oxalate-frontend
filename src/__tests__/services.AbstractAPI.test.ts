@@ -65,36 +65,51 @@ describe("AbstractAPI", () => {
         });
     });
 
-    describe("findPageable", () => {
-        it("should retrieve paginated items", async () => {
-            const mockData = {
-                content: [{id: 1, name: "Item 1"}],
-                totalElements: 1,
-                totalPages: 1,
-                number: 0
-            };
+    describe("findPaged", () => {
+        const page = {
+            content: [{id: 1, name: "Item 1", created_at: "2026-01-01T10:00:00Z"}],
+            page: 0,
+            size: 10,
+            total_elements: 1,
+            total_pages: 1,
+            first: true,
+            last: true,
+            empty: false
+        };
 
-            mock.onGet("").reply(200, mockData);
+        it("sends the request fields as query parameters and omits undefined and empty values", async () => {
+            mock.onGet("").reply(200, page);
 
-            const result = await api.findPageable();
+            const result = await api.findPaged({page: 2, size: 25, sort_by: "name", direction: "DESC", search: "  ", case_sensitive: undefined});
 
-            expect(result).toEqual(mockData);
+            expect(mock.history.get[0]?.params).toEqual({page: 2, size: 25, sort_by: "name", direction: "DESC"});
+            expect(result.total_elements).toBe(1);
+            expect(result.last).toBe(true);
+            expect(result.content[0]).toEqual(expect.objectContaining({id: 1, name: "Item 1"}));
         });
 
-        it("should retrieve paginated items with params", async () => {
-            const mockData = {
-                content: [{id: 1, name: "Item 1"}],
-                totalElements: 1,
-                totalPages: 1,
-                number: 0
-            };
-            const params = {page: 0, size: 10};
+        it("adds the search, case sensitivity and extra parameters and hits the given path", async () => {
+            mock.onGet("/past").reply(200, page);
 
-            mock.onGet("", {params}).reply(200, mockData);
+            await api.findPaged({page: 0, size: 10, search: "dive", case_sensitive: true}, {event_id: 12, creatorId: undefined}, "/past");
 
-            const result = await api.findPageable(params);
+            expect(mock.history.get[0]?.url).toBe("/past");
+            expect(mock.history.get[0]?.params).toEqual({page: 0, size: 10, search: "dive", case_sensitive: true, event_id: 12});
+        });
 
-            expect(result).toEqual(mockData);
+        it("converts the temporal fields of every item of the page", async () => {
+            mock.onGet("").reply(200, page);
+
+            const result = await api.findPaged({page: 0, size: 10});
+            const item = result.content[0] as unknown as { created_at: { isValid?: () => boolean } };
+
+            expect(typeof item.created_at.isValid).toBe("function");
+        });
+
+        it("rejects when the request fails", async () => {
+            mock.onGet("").reply(500);
+
+            await expect(api.findPaged({page: 0, size: 10})).rejects.toBeDefined();
         });
     });
 

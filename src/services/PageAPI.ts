@@ -16,10 +16,12 @@ class PageAPI extends AbstractAPI<PageRequest, PageResponse> {
         }
     }
 
-    async getPagedBlogs(pagedRequest: PagedRequest): Promise<PagedResponse<PageResponse>> {
-        this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
-        const response = await this.axiosInstance.post<PagedResponse<PageResponse>>("/blogs", pagedRequest);
-        return response.data;
+    /**
+     * Fetches one page of blog posts in the given language; paging, sorting and search are query parameters of
+     * `GET /pages/blogs`.
+     */
+    async getPagedBlogs(request: PagedRequest, language: string): Promise<PagedResponse<PageResponse>> {
+        return this.findPaged(request, {language}, "/blogs");
     }
 }
 

@@ -45,7 +45,7 @@ export function PageGroups() {
             dataIndex: "languageVersions",
             key: "languageVersions",
             render: (_text: string, record: PageGroupResponse) => {
-                return (<>{record.pageGroupVersions.length}</>);
+                return (<>{record.page_group_versions.length}</>);
             }
         },
         {

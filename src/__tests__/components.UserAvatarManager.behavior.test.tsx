@@ -12,7 +12,7 @@ jest.mock("../tools", () => ({
 }));
 jest.mock("../session", () => ({
     useSession: () => ({
-        userSession: {id: 4, avatarUrl: null},
+        userSession: {id: 4, avatar_url: null},
         refreshUserSession: mockRefreshUserSession
     })
 }));
@@ -57,7 +57,7 @@ describe("UserAvatarManager upload behavior", () => {
         expect(container.querySelector("img")?.getAttribute("src")).toBe("/old.png");
         expect(mockUploadProps.beforeUpload?.({})).toBe(true);
         act(() => mockUploadProps.onChange?.({file: {status: "done", response: {url: "/new.png"}}}));
-        expect(mockRefreshUserSession).toHaveBeenCalledWith({id: 4, avatarUrl: "/new.png"});
+        expect(mockRefreshUserSession).toHaveBeenCalledWith({id: 4, avatar_url: "/new.png"});
         expect(mockMessage.success).toHaveBeenCalledWith("UserFiles.avatar.upload.success");
 
         act(() => mockUploadProps.onChange?.({file: {status: "done", response: {error: {message: "Rejected"}}}}));

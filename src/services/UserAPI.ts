@@ -11,6 +11,13 @@ import {
 } from "../models";
 
 class UserAPI extends AbstractAPI<UserRequest, UserResponse> {
+    /**
+     * `/users` only exists as a server-paged list; this walks through every page for the select boxes and exports
+     * that need the whole member list.
+     */
+    public override async findAll(params?: Record<string, string | number>): Promise<UserResponse[]> {
+        return this.findAllPaged(params);
+    }
 
     public async updateUserStatus(userId: number, status: UserStatusEnum): Promise<UserResponse> {
         const response = await this.axiosInstance.put<UserResponse>("/" + userId + "/status", {status: status});

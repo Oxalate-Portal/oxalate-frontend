@@ -24,7 +24,8 @@ changing user-visible behaviour. `CUSTOMIZATION.md` describes how one image is r
 
 - **Nothing is hardcoded that the organization can configure.** Event limits, payment/membership rules, enabled languages, timezone, and feature switches all
   come from the backend at runtime (§5).
-- **Terms gate**: if `userSession && !userSession.approvedTerms`, only `/` and the user profile route render; everything else redirects to `/` and `AcceptTerms`
+- **Terms gate**: if `userSession && !userSession.approved_terms`, only `/` and the user profile route render; everything else redirects to `/` and
+  `AcceptTerms`
   is shown. Do not add routes that bypass this. A `HealthStatementConfirmation`
   flow gates event participation similarly.
 - **Privacy override for organizers is deliberate**: organizers see full user details so they can verify competence and reach next of kin in an accident. Do not
@@ -80,8 +81,8 @@ Note that page-group management and notifications are **organizer**-accessible e
 - `RoleEnum` (`src/models/RoleEnum.ts`) is an object-as-const, not a TypeScript `enum`: `ROLE_ADMIN`, `ROLE_ORGANIZER`,
   `ROLE_USER`, `ROLE_ANONYMOUS`. Most enums in `src/models` follow this same object-as-const pattern.
 - Authentication is **cookie-based**: axios is configured with `withCredentials: true` and no `Authorization` header is set. `UserSessionToken` in
-  `localStorage` carries roles and `expiresAt` for client-side gating only.
-- `localStorage` holds `user` (the full `UserSessionToken`) and `language`. `src/session/AuthVerify.tsx` logs out expired sessions by checking `expiresAt` on
+  `localStorage` carries roles and `expires_at` for client-side gating only.
+- `localStorage` holds `user` (the full `UserSessionToken`) and `language`. `src/session/AuthVerify.tsx` logs out expired sessions by checking `expires_at` on
   every route change.
 - Route guards are thin wrappers in `src/session/{PrivateRoute,OrganizerRoute,AdminRoute}.tsx`; add access control there instead of duplicating role checks in
   pages. `PrivateRoute` requires any session, `OrganizerRoute` requires
@@ -140,12 +141,12 @@ New security behaviour needs a test in `src/__tests__/` named `security.*.test.t
 
 `getPortalConfigurationValue` falls back to `defaultValue`, returns the first CSV token for `enum`-typed values with no runtime value, and returns `""` for
 unknown keys. `Administration/PortalConfigurations.tsx` groups every
-`PortalConfigurationResponse` by `groupKey` and edits it, so a new backend key shows up automatically — but it needs label and tooltip translation keys to be
+`PortalConfigurationResponse` by `group_key` and edits it, so a new backend key shows up automatically — but it needs label and tooltip translation keys to be
 readable.
 
 ## 6. Service layer conventions
 
-- Most APIs extend `src/services/AbstractAPI.ts` (generic `findAll` / `findPageable` / `findById` / `create` / `update` /
+- Most APIs extend `src/services/AbstractAPI.ts` (generic `findAll` / `findPaged` / `findById` / `create` / `update` /
   `delete`) and expose a singleton instance from the same file, e.g. `pageMgmtAPI`, `pageGroupMgmtAPI`, `diveEventAPI`,
   `membershipAPI`, `certificateAPI`, `tagsAPI`, `tokenAPI`, `auditAPI`, `statsAPI`.
 - Base URLs come from `src/services/getApiBaseUrl.ts`, resolved in order `globalThis.__OXALATE_API_URL__` →
@@ -197,8 +198,8 @@ readable.
   instances. Date-only values are anchored at UTC midnight so the calendar date is preserved.
 - **API Serialization**: When sending requests, Dayjs objects are automatically serialized to ISO-8601 strings before transmission.
 - **Date Field Recognition**: `DATE_FIELD_PATTERNS` in `src/services/dateTransformer.ts` matches field names **exactly**:
-  `createdAt`, `updatedAt`, `modifiedAt`, `deletedAt`, `startTime`, `endTime`, `startDate`, `endDate`, `blockedDate`,
-  `certificationDate`, `eventDateTime`, `joinedAt`, `lastSeen`, `created`, `modified`.
+  `created_at`, `updated_at`, `modified_at`, `deleted_at`, `start_time`, `end_time`, `start_date`, `end_date`, `blocked_date`,
+  `certification_date`, `event_date_time`, `joined_at`, `last_seen`, `created`, `modified`.
 - **Immutability**: Date transformations preserve object immutability; responses are never mutated in place.
 - **Testing**: Tests verify immutability and timezone correctness of date transformations (see
   `src/__tests__/services.dateTransformer.test.ts`).

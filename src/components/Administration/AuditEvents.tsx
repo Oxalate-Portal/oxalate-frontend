@@ -1,161 +1,93 @@
-import {Button, Input, Space, Spin, type TablePaginationConfig, Tag} from "antd";
+import {Select, Tag} from "antd";
 import {useTranslation} from "react-i18next";
 import {formatDateTimeWithMs} from "../../tools";
-import {useEffect, useState} from "react";
-import {type AuditEntryResponse, AuditLevelEnum, type SortableTableParams} from "../../models";
-import {auditAPI} from "../../services";
-import type {ColumnType} from "antd/es/table";
+import {useState} from "react";
+import {type AuditEntryResponse, AuditLevelEnum, SortDirectionEnum} from "../../models";
+import {auditAPI, type AuditFilterColumn} from "../../services";
 import type {OxColumnsType} from "../main";
-import {OxTable} from "../main";
-import type {FilterConfirmProps, FilterValue, SorterResult} from "antd/es/table/interface";
-import {SearchOutlined} from "@ant-design/icons";
+import {OxTable, OxTableSearch, usePagedTable} from "../main";
 import Highlighter from "react-highlight-words";
 
-type AuditEntryIndex = keyof AuditEntryResponse;
+const FILTER_COLUMNS: AuditFilterColumn[] = ["user_name", "trace_id", "source", "address", "message"];
+
+/** Translation key of each filter column; the wire names are snake_case while the locale keys keep their camelCase names. */
+const FILTER_COLUMN_LABEL_KEYS: Record<AuditFilterColumn, string> = {
+    user_name: "AuditEvents.filter.userName",
+    trace_id: "AuditEvents.filter.traceId",
+    source: "AuditEvents.filter.source",
+    address: "AuditEvents.filter.address",
+    message: "AuditEvents.filter.message"
+};
 
 export function AuditEvents() {
-    const defaultFilterColumn: string = "userName";
     const {t} = useTranslation();
-    const [loading, setLoading] = useState<boolean>(true);
-    const [auditEvents, setAuditEvents] = useState<AuditEntryResponse[]>([]);
-    const [refreshDataFromServer, setRefreshDataFromServer] = useState<boolean>(true);
-
-    const [tablePaginationConfig, setTablePaginationConfig] = useState<TablePaginationConfig>({
-        current: 1,
-        pageSize: 10,
+    const [filterColumn, setFilterColumn] = useState<AuditFilterColumn>("user_name");
+    // The server pages, sorts and searches the audit trail; `filterColumn` picks the column the search text is
+    // matched against, so changing it refetches the current page.
+    const auditTable = usePagedTable<AuditEntryResponse>((request) => auditAPI.findPagedAudits(request, filterColumn), {
+        defaultSortBy: "created_at",
+        defaultDirection: SortDirectionEnum.DESC,
         defaultPageSize: 10,
-        total: 0,
-        pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
-        showSizeChanger: true,
-        hideOnSinglePage: false
+        deps: [filterColumn]
     });
+    const searchText = auditTable.search.trim();
 
-    const [tableParams, setTableParams] = useState<SortableTableParams>({
-        sortField: "",
-        sortOrder: "",
-        pagination: tablePaginationConfig,
-        columnKey: "createdAt",
-        field: "createdAt",
-        order: "descend",
-        filter: "",
-        filters: {},
-        filterColumn: defaultFilterColumn
-    });
-
-    const [filterText, setFilterText] = useState("");
-    const [filteredColumn, setFilteredColumn] = useState(defaultFilterColumn);
-    const handleReset = (clearFilters: () => void) => {
-        clearFilters();
-        setFilterText("");
-    };
-    const getColumnSearchProps = (auditEntryKey: AuditEntryIndex): ColumnType<AuditEntryResponse> => ({
-        filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters, close}) => (
-            <div style={{padding: 8}} onKeyDown={(e) => e.stopPropagation()}>
-                <Input
-                    autoFocus
-                    placeholder={t("AuditEvents.search.placeholder")}
-                    value={selectedKeys[0]}
-                    onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                    onPressEnter={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
-                    style={{marginBottom: 8, display: "block"}}
-                />
-                <Space>
-                    <Button
-                        type={"primary"}
-                        onClick={() => handleSearch(selectedKeys as string[], confirm, auditEntryKey)}
-                        icon={<SearchOutlined/>}
-                        size="small"
-                        style={{width: 90}}
-                    >
-                        {t("common.button.search")}
-                    </Button>
-                    <Button
-                        onClick={() => clearFilters && handleReset(clearFilters)}
-                        size="small"
-                        style={{width: 90}}
-                    >
-                        {t("common.button.reset")}
-                    </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            confirm({closeDropdown: false});
-                            setFilterText((selectedKeys as string[])[0]);
-                            setFilteredColumn(auditEntryKey);
-                        }}
-                    >
-                        {t("AuditEvents.search.filter")}
-                    </Button>
-                    <Button
-                        type="link"
-                        size="small"
-                        onClick={() => {
-                            close();
-                        }}
-                    >
-                        {t("common.button.close")}
-                    </Button>
-                </Space>
-            </div>
-        ),
-        filterIcon: (filtered: boolean) => (
-            <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>
-        ),
-        onFilter: (value, record) =>
-            record[auditEntryKey]
-                .toString()
-                .toLowerCase()
-                .includes((value as string).toLowerCase()),
-        render: (text) =>
-            filteredColumn === auditEntryKey ? (
-                <Highlighter
-                    highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
-                    searchWords={[filterText]}
-                    autoEscape
-                    textToHighlight={text ? text.toString() : ""}
-                />
-            ) : (
-                text
-            )
-    });
+    const highlighted = (column: AuditFilterColumn) => (text: string) =>
+        filterColumn === column && searchText !== "" ? (
+            <Highlighter
+                highlightStyle={{backgroundColor: "#ffc069", padding: 0}}
+                searchWords={[searchText]}
+                autoEscape
+                caseSensitive={auditTable.caseSensitive}
+                textToHighlight={text ? text.toString() : ""}
+            />
+        ) : (
+            text
+        );
 
     const auditColumns: OxColumnsType<AuditEntryResponse> = [
         {
             title: t("AuditEvents.table.createdAt"),
-            dataIndex: "createdAt",
-            key: "createdAt",
+            dataIndex: "created_at",
+            key: "created_at",
             sorter: true,
+            defaultSortOrder: "descend",
             sortDirections: ["descend", "ascend"],
             render: (_, record) => {
-                return (<>{formatDateTimeWithMs(record.createdAt)}</>);
+                return (<>{formatDateTimeWithMs(record.created_at)}</>);
             }
         },
         {
             title: t("AuditEvents.table.userName"),
-            dataIndex: "userName",
-            key: "userName",
+            dataIndex: "user_name",
+            key: "user_name",
             mobile: true,
-            sorter: (a, b) => a.userName.localeCompare(b.userName),
+            sorter: true,
             sortDirections: ["descend", "ascend"],
-            ...getColumnSearchProps("userName")
+            render: highlighted("user_name")
         },
         {
             title: t("AuditEvents.table.traceId"),
-            dataIndex: "traceId",
-            key: "traceId",
-            ...getColumnSearchProps("traceId")
+            dataIndex: "trace_id",
+            key: "trace_id",
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
+            render: highlighted("trace_id")
         },
         {
             title: t("AuditEvents.table.source"),
             dataIndex: "source",
             key: "source",
-            ...getColumnSearchProps("source")
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
+            render: highlighted("source")
         },
         {
             title: t("AuditEvents.table.level"),
             dataIndex: "level",
             key: "level",
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
             render: ((level) => {
                 let color = "";
 
@@ -174,149 +106,49 @@ export function AuditEvents() {
                         {level}
                     </Tag>
                 );
-            }),
-            ...getColumnSearchProps("level")
+            })
         },
         {
             title: t("AuditEvents.table.address"),
             dataIndex: "address",
-            sorter: true,
             key: "address",
-            ...getColumnSearchProps("address")
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
+            render: highlighted("address")
         },
         {
             title: t("AuditEvents.table.message"),
             dataIndex: "message",
             key: "message",
-            ...getColumnSearchProps("message")
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
+            render: highlighted("message")
         }
     ];
 
-
-    useEffect(() => {
-        if (!refreshDataFromServer) {
-            return;
-        }
-
-        const currentPage = Math.max(1, tablePaginationConfig.current ?? 1);
-        const requestParams: Record<string, string | number> = {
-            page: Math.max(0, currentPage - 1),
-            pageSize: tablePaginationConfig.pageSize ?? 10,
-            filter: tableParams.filter ?? "",
-            filterColumn: filteredColumn
-        };
-
-        if (tableParams.field) {
-            requestParams.sorting = `${tableParams.field},${tableParams.order}`;
-        }
-
-        auditAPI.findPageable(requestParams)
-            .then((response) => {
-                setAuditEvents(response.content);
-
-                const responsePage = response.pageable?.pageNumber ?? response.number ?? response.page ?? 0;
-                const responsePageSize = response.pageable?.pageSize ?? response.size ?? tablePaginationConfig.pageSize ?? 10;
-                const responseTotal = response.totalElements ?? response.total_elements ?? response.content.length;
-
-                // AntD pagination is 1-based, backend page is 0-based.
-                const nextPaginationConfig: TablePaginationConfig = {
-                    current: Math.max(1, responsePage + 1),
-                    pageSize: responsePageSize,
-                    defaultPageSize: 10,
-                    total: responseTotal,
-                    pageSizeOptions: ["5", "10", "20", "30", "50", "100"],
-                    showSizeChanger: true,
-                    hideOnSinglePage: false
-                };
-
-                setTablePaginationConfig(nextPaginationConfig);
-                setTableParams((previousParams) => ({
-                    ...previousParams,
-                    pagination: nextPaginationConfig
-                }));
-            })
-            .catch((error) => {
-                console.error(error);
-            })
-            .finally(() => {
-                setLoading(false);
-                setRefreshDataFromServer(false);
-            });
-    }, [filteredColumn, refreshDataFromServer, tablePaginationConfig, tableParams.field, tableParams.filter, tableParams.order]);
-
-    function handleTableChange(tablePaginationConfig: TablePaginationConfig, filters: Record<string, FilterValue | null>,
-                               sorter: SorterResult<AuditEntryResponse> | SorterResult<AuditEntryResponse>[]) {
-        setLoading(true);
-
-        const safePaginationConfig: TablePaginationConfig = {
-            ...tablePaginationConfig,
-            current: Math.max(1, tablePaginationConfig.current ?? 1)
-        };
-
-        setTablePaginationConfig(safePaginationConfig);
-
-        if (filters) {
-            setTableParams({
-                ...tableParams,
-                pagination: safePaginationConfig,
-                filters: filters
-            });
-        }
-
-        if (sorter) {
-            // At this point we only sort by one column
-            let primarySorter: null | SorterResult<AuditEntryResponse>;
-
-            if (Array.isArray(sorter)) {
-                primarySorter = sorter[0];
-            } else {
-                primarySorter = sorter;
-            }
-
-            setTableParams({
-                ...tableParams,
-                pagination: safePaginationConfig,
-                field: primarySorter.field === undefined ? defaultFilterColumn : primarySorter.field.toString(),
-                order: primarySorter.order === "ascend" ? "asc" : "desc"
-            });
-        }
-
-        setRefreshDataFromServer(true);
-    }
-
-    function handleSearch(searchText: string[], _confirm: (param?: FilterConfirmProps) => void,
-                          dataIndex: AuditEntryIndex) {
-        setLoading(true);
-        setFilterText(searchText[0]);
-        setFilteredColumn(dataIndex);
-        setTableParams({
-            ...tableParams,
-            filter: searchText[0],
-            filterColumn: dataIndex,
-            pagination: {
-                ...tableParams.pagination,
-                current: 1 // Reset the current page to 1
-            }
-        });
-        // We need to reset also the tablePaginationConfig.current to 1, otherwise the table will not be updated
-        setTablePaginationConfig({
-            ...tablePaginationConfig,
-            current: 1
-        });
-        setRefreshDataFromServer(true);
-    }
-
     return (<div className={"darkDiv"}>
+        {auditTable.contextHolder}
         <h4>{t("AuditEvents.title")}</h4>
 
-        <Spin spinning={loading}>
-            <OxTable dataSource={auditEvents}
-                   columns={auditColumns}
-                   pagination={tablePaginationConfig}
-                   loading={loading}
-                   rowKey={"id"}
-                   onChange={handleTableChange}
+        <OxTableSearch value={auditTable.search}
+                       onSearch={auditTable.setSearch}
+                       caseSensitive={auditTable.caseSensitive}
+                       onCaseSensitiveChange={auditTable.setCaseSensitive}
+                       placeholder={t("AuditEvents.search.placeholder")}>
+            <Select<AuditFilterColumn>
+                value={filterColumn}
+                onChange={setFilterColumn}
+                aria-label={t("AuditEvents.search.filterColumn")}
+                style={{flex: "0 1 180px", minWidth: 140}}
+                options={FILTER_COLUMNS.map((column) => ({value: column, label: t(FILTER_COLUMN_LABEL_KEYS[column])}))}
             />
-        </Spin>
+        </OxTableSearch>
+        <OxTable dataSource={auditTable.dataSource}
+                 columns={auditColumns}
+                 pagination={auditTable.pagination}
+                 loading={auditTable.loading}
+                 rowKey={"id"}
+                 onChange={auditTable.handleTableChange}
+        />
     </div>);
 }

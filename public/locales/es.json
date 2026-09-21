@@ -582,6 +582,7 @@
     },
     "search" : {
       "filter" : "Filtrar",
+      "filterColumn" : "Columna de búsqueda",
       "placeholder" : "Buscar..."
     },
     "table" : {
@@ -2319,6 +2320,14 @@
     "table" : {
       "column-title" : {
         "action" : "Acción"
+      },
+      "loadError" : "No se pudieron cargar los datos de la tabla.",
+      "pagination" : {
+        "total" : "{{from}}-{{to}} de {{total}}"
+      },
+      "search" : {
+        "caseSensitive" : "Distinguir mayúsculas y minúsculas",
+        "placeholder" : "Buscar..."
       }
     },
     "userStatus" : {

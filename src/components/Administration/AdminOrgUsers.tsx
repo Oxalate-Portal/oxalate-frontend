@@ -1,20 +1,27 @@
-import {type Key, useEffect, useState} from "react";
-import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum} from "../../models";
+import {useState} from "react";
+import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum, SortDirectionEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {Button, Divider, Input, message, Space, Spin, Tag} from "antd";
+import {Button, Divider, message, Space, Spin, Tag} from "antd";
 import {adminUserAPI, userAPI} from "../../services";
 import type {OxColumnsType} from "../main";
-import {OxTable} from "../main";
-import {CheckOutlined, CheckSquareOutlined, CloseOutlined, SearchOutlined} from "@ant-design/icons";
+import {OxTable, OxTableSearch, usePagedTable} from "../main";
+import {CheckOutlined, CheckSquareOutlined, CloseOutlined} from "@ant-design/icons";
 import {roleEnum2Tag} from "../../tools";
 import dayjs from "dayjs";
 
 export function AdminOrgUsers() {
-    const [userList, setUserList] = useState<AdminUserResponse[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [loading, setLoading] = useState<boolean>(false);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
+    // Paging, sorting (id, username, firstName, lastName, status, approvedTerms, healthStatementId) and the
+    // username/first name/last name search all happen on the server.
+    const userTable = usePagedTable<AdminUserResponse>((request) => adminUserAPI.findPaged(request), {
+        messageApi,
+        defaultSortBy: "id",
+        defaultDirection: SortDirectionEnum.ASC,
+        defaultPageSize: 10
+    });
 
     const userListColumns: OxColumnsType<AdminUserResponse> = [
         {
@@ -22,155 +29,63 @@ export function AdminOrgUsers() {
             dataIndex: "username",
             key: "username",
             mobile: true,
-            sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.username.localeCompare(b.username),
+            sorter: true,
             sortDirections: ["descend", "ascend"],
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <div style={{padding: 8}}>
-                    <Input
-                        placeholder={t("AdminOrgUsers.table.username")}
-                        value={selectedKeys[0]}
-                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                        onPressEnter={() => confirm()}
-                        style={{marginBottom: 8, display: "block"}}
-                    />
-                    <Space>
-                        <Button
-                            type={"primary"}
-                            onClick={() => confirm()}
-                            icon={<SearchOutlined/>}
-                            size="small"
-                            style={{width: 90}}
-                        >
-                            {t("common.button.search")}
-                        </Button>
-                        <Button onClick={() => {
-                            clearFilters?.();
-                            confirm();
-                        }} size="small" style={{width: 90}}>
-                            {t("common.button.reset")}
-                        </Button>
-                    </Space>
-                </div>
-            ),
-            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
-            onFilter: (value: boolean | Key, record: AdminUserResponse) => record.username.toLowerCase().includes((value as string).toLowerCase()),
             render: (_: string, record: AdminUserResponse) => {
                 return (<Link to={"/users/" + record.id + "/show"}>{record.username}</Link>);
             }
         },
         {
             title: t("AdminOrgUsers.table.firstName"),
-            dataIndex: "firstName",
-            key: "firstName",
-            sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.firstName.localeCompare(b.firstName),
-            sortDirections: ["descend", "ascend"],
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <div style={{padding: 8}}>
-                    <Input
-                        placeholder={t("AdminOrgUsers.table.firstName")}
-                        value={selectedKeys[0]}
-                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                        onPressEnter={() => confirm()}
-                        style={{marginBottom: 8, display: "block"}}
-                    />
-                    <Space>
-                        <Button
-                            type={"primary"}
-                            onClick={() => confirm()}
-                            icon={<SearchOutlined/>}
-                            size="small"
-                            style={{width: 90}}
-                        >
-                            {t("common.button.search")}
-                        </Button>
-                        <Button onClick={() => {
-                            clearFilters?.();
-                            confirm();
-                        }} size="small" style={{width: 90}}>
-                            {t("common.button.reset")}
-                        </Button>
-                    </Space>
-                </div>
-            ),
-            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
-            onFilter: (value: boolean | Key, record: AdminUserResponse) =>
-                record.firstName.toLowerCase().includes((value as string).toLowerCase())
+            dataIndex: "first_name",
+            key: "first_name",
+            sorter: true,
+            sortDirections: ["descend", "ascend"]
         },
         {
             title: t("AdminOrgUsers.table.lastName"),
-            dataIndex: "lastName",
-            key: "lastName",
-            sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.lastName.localeCompare(b.lastName),
-            sortDirections: ["descend", "ascend"],
-            filterDropdown: ({setSelectedKeys, selectedKeys, confirm, clearFilters}) => (
-                <div style={{padding: 8}}>
-                    <Input
-                        placeholder={t("AdminOrgUsers.table.lastName")}
-                        value={selectedKeys[0]}
-                        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
-                        onPressEnter={() => confirm()}
-                        style={{marginBottom: 8, display: "block"}}
-                    />
-                    <Space>
-                        <Button
-                            type={"primary"}
-                            onClick={() => confirm()}
-                            icon={<SearchOutlined/>}
-                            size="small"
-                            style={{width: 90}}
-                        >
-                            {t("common.button.search")}
-                        </Button>
-                        <Button onClick={() => {
-                            clearFilters?.();
-                            confirm();
-                        }} size="small" style={{width: 90}}>
-                            {t("common.button.reset")}
-                        </Button>
-                    </Space>
-                </div>
-            ),
-            filterIcon: (filtered: boolean) => <SearchOutlined style={{color: filtered ? "#1677ff" : undefined}}/>,
-            onFilter: (value: boolean | Key, record: AdminUserResponse) =>
-                record.lastName.toLowerCase().includes((value as string).toLowerCase())
+            dataIndex: "last_name",
+            key: "last_name",
+            sorter: true,
+            sortDirections: ["descend", "ascend"]
         },
         {
             title: t("AdminOrgUsers.table.certificateClassification"),
-            dataIndex: "certificateClassificationTitle",
-            key: "certificateClassificationTitle",
+            dataIndex: "certificate_classification_title",
+            key: "certificate_classification_title",
             render: (_: string | null, record: AdminUserResponse) =>
-                record.certificateClassificationTitle || t("User.form.certificateClassification.none")
+                record.certificate_classification_title || t("User.form.certificateClassification.none")
         },
         {
             title: t("AdminOrgUsers.table.status"),
             dataIndex: "status",
             key: "status",
-            sorter: (a: AdminUserResponse, b: AdminUserResponse) => a.status.localeCompare(b.status),
+            sorter: true,
             sortDirections: ["descend", "ascend"]
         },
         {
             title: t("AdminOrgUsers.table.approvedTerms"),
-            dataIndex: "approvedTerms",
-            key: "approvedTerms",
-            sorter: (a: AdminUserResponse) => a.approvedTerms ? 1 : -1,
+            dataIndex: "approved_terms",
+            key: "approved_terms",
+            sorter: true,
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: AdminUserResponse) => {
-                return record.approvedTerms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
+                return record.approved_terms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
                     <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
             }
         },
         {
             title: t("AdminOrgUsers.table.healthStatementId"),
-            dataIndex: "healthStatementId",
-            key: "healthStatementId",
-            sorter: (a: AdminUserResponse) => a.healthStatementId !== null ? 1 : -1,
+            dataIndex: "health_statement_id",
+            key: "health_statement_id",
+            sorter: true,
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: AdminUserResponse) => {
-                if (record.healthStatementId === null) {
+                if (record.health_statement_id === null) {
                     return <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
                 }
 
-                if (record.healthStatementId === 0) {
+                if (record.health_statement_id === 0) {
                     return <CheckOutlined style={{fontSize: "18px", color: "green"}}/>;
                 }
 
@@ -197,25 +112,25 @@ export function AdminOrgUsers() {
             render: (_: string, record: AdminUserResponse) => (
                 <>
                     {record.payments.map((payment: PaymentResponse) => {
-                        if (dayjs(payment.startDate).isAfter(dayjs())
-                            || dayjs(payment.endDate).isBefore(dayjs())) {
+                        if (dayjs(payment.start_date).isAfter(dayjs())
+                            || dayjs(payment.end_date).isBefore(dayjs())) {
                             return null;
                         }
 
                         let color = "";
                         let paymentTypeLabel = "";
 
-                        if (payment.paymentType === PaymentTypeEnum.PERIODICAL) {
+                        if (payment.payment_type === PaymentTypeEnum.PERIODICAL) {
                             color = "green";
                             paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.PERIODICAL);
                         }
-                        if (payment.paymentType === PaymentTypeEnum.ONE_TIME) {
+                        if (payment.payment_type === PaymentTypeEnum.ONE_TIME) {
                             color = "blue";
                             paymentTypeLabel = t("PaymentTypeEnum." + PaymentTypeEnum.ONE_TIME);
                         }
 
                         return (
-                            <Tag color={color} key={"payment-" + payment.paymentType + "-" + payment.id}>
+                            <Tag color={color} key={"payment-" + payment.payment_type + "-" + payment.id}>
                                 {paymentTypeLabel}
                             </Tag>
                         );
@@ -234,19 +149,6 @@ export function AdminOrgUsers() {
             )
         }
     ];
-
-    useEffect(() => {
-        adminUserAPI.findAll()
-            .then(response => {
-                setUserList(response);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, []);
 
     function invalidateTermAgreements() {
         if (window.confirm(t("AdminOrgUsers.invalidateTermAgreements.confirm"))) {
@@ -295,18 +197,16 @@ export function AdminOrgUsers() {
             {contextHolder}
             <h4>{t("AdminOrgUsers.title")}</h4>
             <Spin spinning={loading}>
-                {userList && <OxTable dataSource={userList}
-                                    rowKey="id"
-                                    columns={userListColumns}
-                                    pagination={{
-                                        defaultPageSize: 5,
-                                        hideOnSinglePage: true,
-                                        showSizeChanger: true,
-                                        showQuickJumper: true,
-                                        total: userList.length,
-                                        pageSizeOptions: ["5", "10", "20", "30", "50", "100"]
-                                    }}/>}
-                {!userList && <p>{t("AdminOrgUsers.search.spinText")}</p>}
+                <OxTableSearch value={userTable.search}
+                               onSearch={userTable.setSearch}
+                               caseSensitive={userTable.caseSensitive}
+                               onCaseSensitiveChange={userTable.setCaseSensitive}/>
+                <OxTable dataSource={userTable.dataSource}
+                         rowKey="id"
+                         columns={userListColumns}
+                         loading={userTable.loading}
+                         pagination={userTable.pagination}
+                         onChange={userTable.handleTableChange}/>
                 <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.terms.resetDivider")}</Divider>
                 <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                     <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>

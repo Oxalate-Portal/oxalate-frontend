@@ -98,36 +98,36 @@ jest.mock("../services", () => ({
 }));
 
 const groups = [
-    {id: 2, status: PageStatusEnum.PUBLISHED, pageGroupVersions: [{language: "en", title: "Group"}], pages: []},
-    {id: 1, status: PageStatusEnum.DELETED, pageGroupVersions: [{language: "en", title: "Reserved"}], pages: [{id: 1}]}
+    {id: 2, status: PageStatusEnum.PUBLISHED, page_group_versions: [{language: "en", title: "Group"}], pages: []},
+    {id: 1, status: PageStatusEnum.DELETED, page_group_versions: [{language: "en", title: "Reserved"}], pages: [{id: 1}]}
 ];
 const payment = {
     id: 5,
-    userId: 9,
+    user_id: 9,
     name: "Diver",
     created: "2024-01-01",
-    startDate: "2024-01-01",
-    endDate: null,
-    paymentCount: 2,
-    paymentType: PaymentTypeEnum.ONE_TIME,
-    boundEvents: []
+    start_date: "2024-01-01",
+    end_date: null,
+    payment_count: 2,
+    payment_type: PaymentTypeEnum.ONE_TIME,
+    bound_events: []
 };
 
 beforeEach(() => {
     jest.clearAllMocks();
     (pageGroupMgmtAPI.findAll as jest.Mock).mockResolvedValue(groups);
-    (pageGroupMgmtAPI.findById as jest.Mock).mockResolvedValue({id: 2, pageGroupVersions: [{language: "en", title: "Group"}], pages: []});
+    (pageGroupMgmtAPI.findById as jest.Mock).mockResolvedValue({id: 2, page_group_versions: [{language: "en", title: "Group"}], pages: []});
     (pageMgmtAPI.findById as jest.Mock).mockResolvedValue({
-        id: 7, pageGroupId: 2, status: PageStatusEnum.DRAFTED,
-        pageVersions: [{id: 1, pageId: 7, language: "en", title: "Page", ingress: "", body: "body"}],
-        rolePermissions: [{id: 1, pageId: 7, role: RoleEnum.ROLE_ADMIN, readPermission: true, writePermission: true}]
+        id: 7, page_group_id: 2, status: PageStatusEnum.DRAFTED,
+        page_versions: [{id: 1, page_id: 7, language: "en", title: "Page", ingress: "", body: "body"}],
+        role_permissions: [{id: 1, page_id: 7, role: RoleEnum.ROLE_ADMIN, read_permission: true, write_permission: true}]
     });
-    (userAPI.findByRole as jest.Mock).mockResolvedValue([{id: 9, name: "Diver", membershipActive: true}]);
-    (statsAPI.getAggregates as jest.Mock).mockResolvedValue({eventsPerYear: [], diversPerYear: [], eventTypesPerYear: [], diverTypesPerYear: []});
+    (userAPI.findByRole as jest.Mock).mockResolvedValue([{id: 9, name: "Diver", membership_active: true}]);
+    (statsAPI.getAggregates as jest.Mock).mockResolvedValue({events_per_year: [], divers_per_year: [], event_types_per_year: [], diver_types_per_year: []});
     (statsAPI.getDiveEventReports as jest.Mock).mockResolvedValue([]);
     (statsAPI.getYearlyDiverList as jest.Mock).mockResolvedValue([]);
     (statsAPI.getYearlyStatsData as jest.Mock).mockResolvedValue([]);
-    (paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock).mockResolvedValue([{userId: 9, name: "Diver", payments: [payment]}]);
+    (paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock).mockResolvedValue([{user_id: 9, name: "Diver", payments: [payment]}]);
     (paymentAPI.update as jest.Mock).mockResolvedValue({});
 });
 
@@ -144,10 +144,14 @@ test("PageGroups loads records, exposes admin links, and closes a group", async 
 test("Pages loads pages and handles refused and failed delete requests", async () => {
     (pageGroupMgmtAPI.findById as jest.Mock).mockResolvedValue({
         pages: [{
-            id: 4, status: PageStatusEnum.PUBLISHED, createdAt: "2024-01-01", modifiedAt: null,
-            pageVersions: [{language: "en", title: "Page"}], rolePermissions: [{id: 1, role: RoleEnum.ROLE_ADMIN, readPermission: true, writePermission: true}]
+            id: 4,
+            status: PageStatusEnum.PUBLISHED,
+            created_at: "2024-01-01",
+            modified_at: null,
+            page_versions: [{language: "en", title: "Page"}],
+            role_permissions: [{id: 1, role: RoleEnum.ROLE_ADMIN, read_permission: true, write_permission: true}]
         }],
-        pageGroupVersions: [{language: "en", title: "Group"}]
+        page_group_versions: [{language: "en", title: "Group"}]
     });
     window.confirm = jest.fn().mockReturnValue(false);
     render(<Pages/>);
@@ -170,16 +174,16 @@ test("payment list supports one-time and periodical data and updates counts", as
 
 test("statistics components render API success and tolerate failures", async () => {
     (statsAPI.getAggregates as jest.Mock).mockResolvedValue({
-        eventsPerYear: [{year: 2024, value: 2}],
-        diversPerYear: [],
-        eventTypesPerYear: [],
-        diverTypesPerYear: []
+        events_per_year: [{year: 2024, value: 2}],
+        divers_per_year: [],
+        event_types_per_year: [],
+        diver_types_per_year: []
     });
     (statsAPI.getDiveEventReports as jest.Mock).mockResolvedValue([{
         period: "2024-H1",
-        events: [{eventId: 7, eventDateTime: "2024-01-01", organizerName: "Org", participantCount: 2, diveCount: 3}]
+        events: [{event_id: 7, event_date_time: "2024-01-01", organizer_name: "Org", participant_count: 2, dive_count: 3}]
     }]);
-    (statsAPI.getYearlyDiverList as jest.Mock).mockResolvedValue([{year: 2024, divers: [{userId: 1, position: 1, userName: "Diver", diveCount: 4}]}]);
+    (statsAPI.getYearlyDiverList as jest.Mock).mockResolvedValue([{year: 2024, divers: [{user_id: 1, position: 1, user_name: "Diver", dive_count: 4}]}]);
     (statsAPI.getYearlyStatsData as jest.Mock).mockResolvedValue([{year: 2024, value: 1, type: "x"}]);
     render(<><AggregateStats/><DiveEventReport/><YearlyDiveStats/><YearlyStats typeOfStats="events" headerText="Yearly"/></>);
     await waitFor(() => expect(screen.getByText("2024-H1")).toBeInTheDocument());
@@ -191,7 +195,13 @@ test("statistics components render API success and tolerate failures", async () 
 
 test("biannual event table handles links and sortable report fields", () => {
     render(<BiannualEventReportTable childKey="period"
-                                     events={[{eventId: 8, eventDateTime: dayjs("2024-02-01"), organizerName: "Org", participantCount: 1, diveCount: 2}]}/>);
+                                     events={[{
+                                         event_id: 8,
+                                         event_date_time: dayjs("2024-02-01"),
+                                         organizer_name: "Org",
+                                         participant_count: 1,
+                                         dive_count: 2
+                                     }]}/>);
     expect(screen.getByRole("link", {name: "8"})).toHaveAttribute("href", "/events/8");
 });
 

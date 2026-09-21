@@ -22,8 +22,8 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Test Message",
             description: "Test Description",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.ACTIVE_MEMBERSHIP,
-            inactiveDays: undefined
+            notification_group: NotificationGroupEnum.ACTIVE_MEMBERSHIP,
+            inactive_days: undefined
         };
         const mockResponse = {status: UpdateStatusEnum.OK, message: "Notification sent to 5 users"};
         mock.onPost("/create-bulk").reply(200, mockResponse);
@@ -32,7 +32,7 @@ describe("NotificationAPI - Group Notifications", () => {
 
         expect(mock.history.post).toHaveLength(1);
         expect(JSON.parse(mock.history.post[0].data)).toMatchObject({
-            notificationGroup: NotificationGroupEnum.ACTIVE_MEMBERSHIP
+            notification_group: NotificationGroupEnum.ACTIVE_MEMBERSHIP
         });
         expect(result.status).toBe(UpdateStatusEnum.OK);
     });
@@ -44,8 +44,8 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Please log in",
             description: "Reminder for inactive users",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.INACTIVE_DAYS,
-            inactiveDays: 30
+            notification_group: NotificationGroupEnum.INACTIVE_DAYS,
+            inactive_days: 30
         };
         const mockResponse = {status: UpdateStatusEnum.OK, message: "Notification sent to 12 inactive users"};
         mock.onPost("/create-bulk").reply(200, mockResponse);
@@ -53,8 +53,8 @@ describe("NotificationAPI - Group Notifications", () => {
         const result = await notificationAPI.createBulkNotifications(messageRequest);
 
         expect(JSON.parse(mock.history.post[0].data)).toMatchObject({
-            notificationGroup: NotificationGroupEnum.INACTIVE_DAYS,
-            inactiveDays: 30
+            notification_group: NotificationGroupEnum.INACTIVE_DAYS,
+            inactive_days: 30
         });
         expect(result.status).toBe(UpdateStatusEnum.OK);
     });
@@ -66,7 +66,7 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Your account is locked",
             description: "Notification for locked accounts",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.LOCKED_ACCOUNTS
+            notification_group: NotificationGroupEnum.LOCKED_ACCOUNTS
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Sent to 2 locked accounts"});
 
@@ -83,14 +83,14 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Interested in becoming a member?",
             description: "Offer for non-members",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.NO_ACTIVE_MEMBERSHIP
+            notification_group: NotificationGroupEnum.NO_ACTIVE_MEMBERSHIP
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Sent to 8 non-members"});
 
         const result = await notificationAPI.createBulkNotifications(messageRequest);
 
         expect(JSON.parse(mock.history.post[0].data)).toMatchObject({
-            notificationGroup: NotificationGroupEnum.NO_ACTIVE_MEMBERSHIP
+            notification_group: NotificationGroupEnum.NO_ACTIVE_MEMBERSHIP
         });
         expect(result.status).toBe(UpdateStatusEnum.OK);
     });
@@ -102,14 +102,14 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Become a member today",
             description: "Invitation for new members",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.NEVER_HAD_MEMBERSHIP
+            notification_group: NotificationGroupEnum.NEVER_HAD_MEMBERSHIP
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Sent to 15 potential members"});
 
         const result = await notificationAPI.createBulkNotifications(messageRequest);
 
         expect(JSON.parse(mock.history.post[0].data)).toMatchObject({
-            notificationGroup: NotificationGroupEnum.NEVER_HAD_MEMBERSHIP
+            notification_group: NotificationGroupEnum.NEVER_HAD_MEMBERSHIP
         });
         expect(result.status).toBe(UpdateStatusEnum.OK);
     });
@@ -121,7 +121,7 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Test",
             description: "Test",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.ACTIVE_MEMBERSHIP
+            notification_group: NotificationGroupEnum.ACTIVE_MEMBERSHIP
         };
         mock.onPost("/create-bulk").networkError();
 
@@ -135,8 +135,8 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "This is a complete notification",
             description: "Full description",
             creator: 123,
-            notificationGroup: NotificationGroupEnum.INACTIVE_DAYS,
-            inactiveDays: 7
+            notification_group: NotificationGroupEnum.INACTIVE_DAYS,
+            inactive_days: 7
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Sent successfully"});
 
@@ -147,8 +147,8 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "This is a complete notification",
             description: "Full description",
             creator: 123,
-            notificationGroup: NotificationGroupEnum.INACTIVE_DAYS,
-            inactiveDays: 7
+            notification_group: NotificationGroupEnum.INACTIVE_DAYS,
+            inactive_days: 7
         });
     });
 
@@ -176,7 +176,7 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Test message",
             description: "Test",
             creator: 1,
-            sendAll: true
+            send_all: true
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Sent to all users"});
 
@@ -212,7 +212,7 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Test",
             description: "Test",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.ALL_REGISTERED
+            notification_group: NotificationGroupEnum.ALL_REGISTERED
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Notification sent to 1000 users"});
 
@@ -228,14 +228,14 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Test",
             description: "Test",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.INACTIVE_DAYS,
-            inactiveDays: 0
+            notification_group: NotificationGroupEnum.INACTIVE_DAYS,
+            inactive_days: 0
         };
         mock.onPost("/create-bulk").reply(200, {status: UpdateStatusEnum.OK, message: "Sent"});
 
         await notificationAPI.createBulkNotifications(messageRequest);
 
-        expect(JSON.parse(mock.history.post[0].data)).toMatchObject({inactiveDays: 0});
+        expect(JSON.parse(mock.history.post[0].data)).toMatchObject({inactive_days: 0});
     });
 
     test("handles network timeout for group notifications", async () => {
@@ -245,7 +245,7 @@ describe("NotificationAPI - Group Notifications", () => {
             message: "Test",
             description: "Test",
             creator: 1,
-            notificationGroup: NotificationGroupEnum.ACTIVE_MEMBERSHIP
+            notification_group: NotificationGroupEnum.ACTIVE_MEMBERSHIP
         };
         mock.onPost("/create-bulk").timeout();
 
@@ -270,8 +270,8 @@ describe("NotificationAPI - Group Notifications", () => {
                 message: "Test",
                 description: "Test",
                 creator: 1,
-                notificationGroup: group,
-                inactiveDays: group === NotificationGroupEnum.INACTIVE_DAYS ? 7 : undefined
+                notification_group: group,
+                inactive_days: group === NotificationGroupEnum.INACTIVE_DAYS ? 7 : undefined
             };
 
             await notificationAPI.createBulkNotifications(messageRequest);

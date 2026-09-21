@@ -18,7 +18,7 @@ export function LostPassword() {
 
     useEffect(() => {
         // redirect to home if already logged in
-        if (userSession && userSession.accessToken.length > 0) {
+        if (userSession && userSession.access_token.length > 0) {
             navigate("/");
         }
     });

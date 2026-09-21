@@ -15,7 +15,7 @@ const mockGetPortalConfigurationValue = jest.fn();
 const mockCheckRoles = jest.fn();
 
 const session = {
-    userSession: {id: 1, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_USER"]} as Record<string, unknown> | null
+    userSession: {id: 1, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_USER"]} as Record<string, unknown> | null
 };
 
 let params: { paramId?: string } = {paramId: "42"};
@@ -23,26 +23,26 @@ let params: { paramId?: string } = {paramId: "42"};
 const baseEvent = {
     id: 42,
     title: "Dive event",
-    startTime: "2099-01-01T10:00:00.000Z",
-    eventDuration: 2,
-    maxParticipants: 10,
+    start_time: "2099-01-01T10:00:00.000Z",
+    event_duration: 2,
+    max_participants: 10,
     status: "PUBLISHED",
     organizer: {id: 99},
     participants: [{id: 1, name: "Me"}, {id: 20, name: "Diver Twenty"}],
-    waitingList: [],
-    eventCommentId: 1
+    waiting_list: [],
+    event_comment_id: 1
 };
 
 function group(overrides: Partial<DiveGroupResponse> = {}): DiveGroupResponse {
     return {
         id: 7,
-        eventId: 42,
+        event_id: 42,
         name: "Team Sidemount",
-        ownerId: 20,
-        ownerName: "Diver Twenty",
-        createdAt: "2026-05-30T12:00:00Z",
-        updatedAt: null,
-        members: [{userId: 20, name: "Diver Twenty", userType: "SCUBA_DIVER", owner: true, joinedAt: null}],
+        owner_id: 20,
+        owner_name: "Diver Twenty",
+        created_at: "2026-05-30T12:00:00Z",
+        updated_at: null,
+        members: [{user_id: 20, name: "Diver Twenty", user_type: "SCUBA_DIVER", owner: true, joined_at: null}],
         ...overrides
     } as unknown as DiveGroupResponse;
 }
@@ -88,11 +88,11 @@ jest.mock("../components/main", () => ({HealthStatementConfirmationModal: () => 
 
 jest.mock("../components/DiveEvent/DiveGroupTable", () => ({
     isMemberOfDiveGroup: (diveGroup: DiveGroupResponse, userId: number) =>
-            (diveGroup.members ?? []).some((member) => member.userId === userId),
+        (diveGroup.members ?? []).some((member) => member.user_id === userId),
     findDiveGroupOfUser: (diveGroups: DiveGroupResponse[], userId: number) =>
-            diveGroups.find((diveGroup) => (diveGroup.members ?? []).some((member) => member.userId === userId)) ?? null,
+        diveGroups.find((diveGroup) => (diveGroup.members ?? []).some((member) => member.user_id === userId)) ?? null,
     findDiveGroupOwnedByUser: (diveGroups: DiveGroupResponse[], userId: number) =>
-            diveGroups.find((diveGroup) => diveGroup.ownerId === userId) ?? null,
+        diveGroups.find((diveGroup) => diveGroup.owner_id === userId) ?? null,
     DiveGroupTable: ({diveGroups, loading, currentUserId, canReorderDiveGroups, canManageDiveGroups, onJoin, onLeave, onDelete, onReorder, onDetailsUpdated}: {
         diveGroups: DiveGroupResponse[];
         loading: boolean;
@@ -166,7 +166,7 @@ describe("DiveEvent dive groups", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         params = {paramId: "42"};
-        session.userSession = {id: 1, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_USER"]};
+        session.userSession = {id: 1, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_USER"]};
         mockFindById.mockResolvedValue(baseEvent);
         mockGetPortalConfigurationValue.mockReturnValue("false");
         mockCheckRoles.mockReturnValue(false);
@@ -213,7 +213,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("hides the create button when the user already owns a dive group in the event", async () => {
-        mockGetDiveGroupsByEventId.mockResolvedValue([group({ownerId: 1, ownerName: "Me"})]);
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({owner_id: 1, owner_name: "Me"})]);
 
         await renderDiveEvent();
 
@@ -223,8 +223,8 @@ describe("DiveEvent dive groups", () => {
 
     it("hides the create button when the user belongs to a dive group", async () => {
         mockGetDiveGroupsByEventId.mockResolvedValue([group({
-            ownerId: 20,
-            members: [{userId: 1, name: "Me", userType: "SCUBA_DIVER", owner: false, joinedAt: dayjs()}]
+            owner_id: 20,
+            members: [{user_id: 1, name: "Me", user_type: "SCUBA_DIVER", owner: false, joined_at: dayjs()}]
         })]);
 
         await renderDiveEvent();
@@ -234,12 +234,12 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("hides the create button for an administrator when every owner candidate already has a group", async () => {
-        session.userSession = {id: 50, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ADMIN"]};
+        session.userSession = {id: 50, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ADMIN"]};
         mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ADMIN"));
         mockGetDiveGroupsByEventId.mockResolvedValue([
-            group({ownerId: 1, ownerName: "Diver One"}),
-            group({id: 8, ownerId: 20, ownerName: "Diver Twenty"}),
-            group({id: 9, ownerId: 99, ownerName: "Event Organizer"})
+            group({owner_id: 1, owner_name: "Diver One"}),
+            group({id: 8, owner_id: 20, owner_name: "Diver Twenty"}),
+            group({id: 9, owner_id: 99, owner_name: "Event Organizer"})
         ]);
 
         await renderDiveEvent();
@@ -285,7 +285,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("allows organizers and administrators to assign the dive group owner", async () => {
-        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        session.userSession = {id: 99, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ORGANIZER"]};
         mockCheckRoles.mockReturnValue(true);
 
         await renderDiveEvent();
@@ -297,7 +297,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("allows the event organizer to create a dive group without joining the event", async () => {
-        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        session.userSession = {id: 99, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ORGANIZER"]};
         mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
         mockFindById.mockResolvedValue({...baseEvent, participants: [{id: 1, name: "Diver One"}, {id: 20, name: "Diver Twenty"}]});
 
@@ -319,7 +319,7 @@ describe("DiveEvent dive groups", () => {
 
         await waitFor(() => expect(screen.getByTestId("dive-group-modal")).toBeInTheDocument());
 
-        mockGetDiveGroupsByEventId.mockResolvedValue([group({ownerId: 1})]);
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({owner_id: 1})]);
         await act(async () => {
             fireEvent.click(screen.getByText("modal-created"));
         });
@@ -375,7 +375,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("deletes a dive group and reloads the list", async () => {
-        mockGetDiveGroupsByEventId.mockResolvedValue([group({ownerId: 1})]);
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({owner_id: 1})]);
 
         await renderDiveEvent();
 
@@ -447,7 +447,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("does not offer reordering to an organizer of another dive event", async () => {
-        session.userSession = {id: 1, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        session.userSession = {id: 1, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ORGANIZER"]};
         mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
         // The event is organized by user 99, not by the current user
         mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
@@ -459,7 +459,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("offers reordering to the organizer of the dive event", async () => {
-        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        session.userSession = {id: 99, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ORGANIZER"]};
         mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
         mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
 
@@ -470,7 +470,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("offers reordering to an administrator who does not organize the event", async () => {
-        session.userSession = {id: 1, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ADMIN"]};
+        session.userSession = {id: 1, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ADMIN"]};
         mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ADMIN"));
         mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
 
@@ -481,8 +481,8 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("persists a new dive group order and uses the returned order", async () => {
-        mockGetDiveGroupsByEventId.mockResolvedValue([group({id: 7}), group({id: 8, ownerId: 30, ownerName: "Diver Thirty"})]);
-        mockReorderDiveGroups.mockResolvedValue([group({id: 8, ownerId: 30, ownerName: "Diver Thirty"}), group({id: 7})]);
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({id: 7}), group({id: 8, owner_id: 30, owner_name: "Diver Thirty"})]);
+        mockReorderDiveGroups.mockResolvedValue([group({id: 8, owner_id: 30, owner_name: "Diver Thirty"}), group({id: 7})]);
 
         await renderDiveEvent();
 
@@ -501,7 +501,7 @@ describe("DiveEvent dive groups", () => {
 
     it("reloads the dive groups when persisting the order fails", async () => {
         jest.spyOn(console, "error").mockImplementation(() => undefined);
-        mockGetDiveGroupsByEventId.mockResolvedValue([group({id: 7}), group({id: 8, ownerId: 30, ownerName: "Diver Thirty"})]);
+        mockGetDiveGroupsByEventId.mockResolvedValue([group({id: 7}), group({id: 8, owner_id: 30, owner_name: "Diver Thirty"})]);
         mockReorderDiveGroups.mockRejectedValue(new Error("reorder failed"));
 
         await renderDiveEvent();
@@ -532,7 +532,7 @@ describe("DiveEvent dive groups", () => {
     });
 
     it("lets the organizer of the dive event manage every dive group", async () => {
-        session.userSession = {id: 99, primaryUserType: "SCUBA_DIVER", healthStatementId: 1, roles: ["ROLE_ORGANIZER"]};
+        session.userSession = {id: 99, primary_user_type: "SCUBA_DIVER", health_statement_id: 1, roles: ["ROLE_ORGANIZER"]};
         mockCheckRoles.mockImplementation((_roles: unknown, wanted: string[]) => wanted.includes("ROLE_ORGANIZER"));
         mockGetDiveGroupsByEventId.mockResolvedValue([group()]);
 

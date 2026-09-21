@@ -582,6 +582,7 @@
     },
     "search" : {
       "filter" : "Filtrera",
+      "filterColumn" : "Sökkolumn",
       "placeholder" : "Sök..."
     },
     "table" : {
@@ -2319,6 +2320,14 @@
     "table" : {
       "column-title" : {
         "action" : "Åtgärd"
+      },
+      "loadError" : "Tabelldata kunde inte läsas in.",
+      "pagination" : {
+        "total" : "{{from}}-{{to}} av {{total}}"
+      },
+      "search" : {
+        "caseSensitive" : "Skilj på stora och små bokstäver",
+        "placeholder" : "Sök..."
       }
     },
     "userStatus" : {

@@ -13,7 +13,7 @@ describe("DownloadAPI", () => {
     });
 
     it("should download certificates", async () => {
-        const mockResponse = [{id: 1, certificateName: "Cert1"}];
+        const mockResponse = [{id: 1, certificate_name: "Cert1"}];
         mock.onGet("/certificates").reply(200, mockResponse);
 
         const result = await downloadAPI.downloadCertificates();

@@ -31,12 +31,12 @@ jest.mock("../components/Certificate/EditCertificate", () => ({
 const certificate = {
     id: 5,
     organization: "PADI",
-    certificateName: "Open Water",
-    certificateId: "OW-1",
-    diverId: "D-1",
-    certificationDate: "2024-01-01",
-    certificatePhotoUrl: null,
-    classificationTitle: null
+    certificate_name: "Open Water",
+    certificate_id: "OW-1",
+    diver_id: "D-1",
+    certification_date: "2024-01-01",
+    certificate_photo_url: null,
+    classification_title: null
 } as unknown as CertificateResponse;
 
 const WIDE = {xs: false, sm: true, md: true, lg: true, xl: false, xxl: false};

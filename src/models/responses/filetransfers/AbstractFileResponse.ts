@@ -4,7 +4,7 @@ export interface AbstractFileResponse {
     id: number;
     filename: string;
     creator: string;
-    createdAt: Dayjs;
+    created_at: Dayjs;
     mimetype: string;
     filesize: number;
     filechecksum: string;

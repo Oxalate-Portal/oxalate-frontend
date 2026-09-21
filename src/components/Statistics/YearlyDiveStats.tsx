@@ -22,14 +22,14 @@ export function YearlyDiveStats() {
         },
         {
             title: t("StatsYearlyDives.table.userName"),
-            dataIndex: "userName",
-            key: "userName",
+            dataIndex: "user_name",
+            key: "user_name",
             mobile: true
         },
         {
             title: t("StatsYearlyDives.table.diveCount"),
-            dataIndex: "diveCount",
-            key: "diveCount"
+            dataIndex: "dive_count",
+            key: "dive_count"
         }
     ], [t]);
 
@@ -46,7 +46,7 @@ export function YearlyDiveStats() {
                                pageSizeOptions: ["5", "10", "20", "30", "50"]
                            }}
                            key={"table" + yearlyData.year}
-                           rowKey={(record) => `${yearlyData.year}-diver-${record.userId}`}/>
+                           rowKey={(record) => `${yearlyData.year}-diver-${record.user_id}`}/>
     })), [columns, yearlyDiveData]);
 
     useEffect(() => {

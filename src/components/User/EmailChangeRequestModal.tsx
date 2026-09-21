@@ -9,7 +9,7 @@ interface EmailChangeRequestModalProps {
 }
 
 interface EmailChangeFormData {
-    newEmail: string;
+    new_email: string;
     password: string;
 }
 
@@ -69,7 +69,7 @@ export function EmailChangeRequestModal({open, onClose}: EmailChangeRequestModal
                         autoComplete="off"
                     >
                         <Form.Item
-                            name="newEmail"
+                            name="new_email"
                             label={t("User.emailChange.form.newEmail.label")}
                             rules={[
                                 {required: true, message: t("User.emailChange.form.newEmail.rules.required")},
