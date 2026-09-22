@@ -51,6 +51,7 @@ import {
     ShowDiveEvent,
     ShowUser,
     UserProfile,
+    WithCaptcha,
     YearlyDiveStats
 } from "./components";
 import dayjs from "dayjs";
@@ -171,12 +172,12 @@ function App() {
                         <Route path="/administration/tags" element={<AdminRoute><AdminTags/></AdminRoute>}/>
                         <Route path="/administration/certificate-classifications" element={<AdminRoute><AdminCertificateClassifications/></AdminRoute>}/>
                         <Route path="/administration/users" element={<AdminRoute><AdminOrgUsers/></AdminRoute>}/>
-                        <Route path="/administration/users/:paramId" element={<AdminRoute><AdminOrgUser/></AdminRoute>}/>
-                        <Route path="/auth/lost-password" element={<LostPassword/>}/>
+                        <Route path="/administration/users/:paramId" element={<AdminRoute><WithCaptcha><AdminOrgUser/></WithCaptcha></AdminRoute>}/>
+                        <Route path="/auth/lost-password" element={<WithCaptcha><LostPassword/></WithCaptcha>}/>
                         <Route path="/auth/email-change" element={<EmailChangeConfirmation/>}/>
-                        <Route path="/auth/new-password/:token" element={<NewPassword/>}/>
-                        <Route path="/auth/reconfirm" element={<LostPassword/>}/>
-                        <Route path="/auth/register" element={<Register/>}/>
+                        <Route path="/auth/new-password/:token" element={<WithCaptcha><NewPassword/></WithCaptcha>}/>
+                        <Route path="/auth/reconfirm" element={<WithCaptcha><LostPassword/></WithCaptcha>}/>
+                        <Route path="/auth/register" element={<WithCaptcha><Register/></WithCaptcha>}/>
                         {blogEnabled && <Route path="/blog" element={<Blog/>}/>}
                         <Route path="/events/:paramId" element={<PrivateRoute><DiveEvent/></PrivateRoute>}/>
                         <Route path="/events/:paramId/edit" element={<OrganizerRoute><EditDiveEvent/></OrganizerRoute>}/>

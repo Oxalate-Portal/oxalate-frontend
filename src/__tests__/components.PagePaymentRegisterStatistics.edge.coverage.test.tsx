@@ -196,7 +196,7 @@ describe("page, payment, registration and statistics edge controls", () => {
         expect(screen.queryByRole("heading")).not.toBeInTheDocument();
         render(<ResendRegistrationEmail token="abc"/>);
         await user.click(screen.getByRole("button", {name: "common.button.send"}));
-        await waitFor(() => expect(authAPI.resendRegistrationEmail).toHaveBeenCalledWith("abc"));
+        await waitFor(() => expect(authAPI.resendRegistrationEmail).toHaveBeenCalledWith("abc", "mock-recaptcha-token"));
         (authAPI.resendRegistrationEmail as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         await user.click(screen.getByRole("button", {name: "common.button.send"}));
         await waitFor(() => expect(authAPI.resendRegistrationEmail).toHaveBeenCalledTimes(2));

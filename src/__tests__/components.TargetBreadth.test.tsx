@@ -92,7 +92,7 @@ test("resends registration email on API success and tolerates failure", async ()
     mockedAuth.resendRegistrationEmail = jest.fn().mockResolvedValue(true) as typeof mockedAuth.resendRegistrationEmail;
     render(<ResendRegistrationEmail token="token-1"/>);
     fireEvent.click(screen.getByRole("button"));
-    await waitFor(() => expect(mockedAuth.resendRegistrationEmail).toHaveBeenCalledWith("token-1"));
+    await waitFor(() => expect(mockedAuth.resendRegistrationEmail).toHaveBeenCalledWith("token-1", "mock-recaptcha-token"));
     mockedAuth.resendRegistrationEmail = jest.fn().mockRejectedValue(new Error("offline")) as typeof mockedAuth.resendRegistrationEmail;
     fireEvent.click(screen.getByRole("button"));
     await waitFor(() => expect(mockedAuth.resendRegistrationEmail).toHaveBeenCalledTimes(1));

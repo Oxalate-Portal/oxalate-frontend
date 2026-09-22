@@ -1,16 +1,12 @@
-import {GoogleReCaptchaProvider} from "@wojtekmaj/react-recaptcha-v3";
 import {Login} from "./Login";
-import {runtimeConfig} from "../../runtimeConfig";
+import {WithCaptcha} from "./WithCaptcha";
 
 export function LoginWithCaptcha() {
     return (
-        <GoogleReCaptchaProvider
-            reCaptchaKey={runtimeConfig.recaptchaSiteKey}
-            useEnterprise={false}
-        >
+        <WithCaptcha>
             <div className={"darkDiv"}>
                 <Login/>
             </div>
-        </GoogleReCaptchaProvider>
+        </WithCaptcha>
     );
 }
