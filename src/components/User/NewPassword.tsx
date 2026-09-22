@@ -5,6 +5,7 @@ import {useParams} from "react-router-dom";
 import {useState} from "react";
 import {type ActionResponse, type PasswordResetRequest, UpdateStatusEnum} from "../../models";
 import {authAPI} from "../../services";
+import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 import {PasswordRules} from "./PasswordRules";
 import {PasswordFields} from "./PasswordFields";
 
@@ -13,10 +14,11 @@ export function NewPassword() {
     const [updateStatus, setUpdateStatus] = useState<ActionResponse>({status: UpdateStatusEnum.NONE, message: ""});
     const [loading, setLoading] = useState(false);
     const {token} = useParams();
+    const {executeRecaptcha} = useReCaptcha();
     const {t} = useTranslation();
     const formLayout = useResponsiveFormLayout(8, 12);
 
-    const resetPassword = (values: { newPassword: string; confirmPassword: string }) => {
+    const resetPassword = async (values: { newPassword: string; confirmPassword: string }) => {
         if (!token) {
             console.error("No token provided");
             setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("NewPassword.setUpdateStatus.update.fail")});
@@ -30,7 +32,16 @@ export function NewPassword() {
             token: token
         };
 
-        authAPI.resetPassword(postData)
+        if (!executeRecaptcha) {
+            console.error("reCAPTCHA is not available, cannot reset the password");
+            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("NewPassword.setUpdateStatus.update.fail")});
+            setLoading(false);
+            return;
+        }
+
+        const recaptchaToken = await executeRecaptcha("reset_password");
+
+        authAPI.resetPassword(postData, recaptchaToken)
             .catch(e => {
                 console.error(e);
                 setUpdateStatus({status: UpdateStatusEnum.FAIL, message: e});
