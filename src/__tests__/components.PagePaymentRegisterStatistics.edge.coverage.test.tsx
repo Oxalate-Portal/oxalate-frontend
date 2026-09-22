@@ -81,14 +81,14 @@ jest.mock("antd", () => {
 
 const page = {
     id: 7,
-    pageGroupId: 2,
+    page_group_id: 2,
     status: PageStatusEnum.PUBLISHED,
-    pageVersions: [{id: 8, pageId: 7, language: "en", title: "<b>Title</b>", ingress: "<i>Ingress</i>", body: "<p>Body</p>"}],
-    rolePermissions: [],
+    page_versions: [{id: 8, page_id: 7, language: "en", title: "<b>Title</b>", ingress: "<i>Ingress</i>", body: "<p>Body</p>"}],
+    role_permissions: [],
     creator: 1,
-    createdAt: "2024-01-01",
+    created_at: "2024-01-01",
     modifier: null,
-    modifiedAt: null
+    modified_at: null
 };
 
 beforeEach(() => {
@@ -98,7 +98,7 @@ beforeEach(() => {
     window.confirm = jest.fn().mockReturnValue(true);
     (pageAPI.findById as jest.Mock).mockResolvedValue(page);
     (pageGroupMgmtAPI.findAll as jest.Mock).mockResolvedValue([]);
-    (pageGroupMgmtAPI.findById as jest.Mock).mockResolvedValue({id: 2, status: PageStatusEnum.DRAFTED, pageGroupVersions: [], pages: []});
+    (pageGroupMgmtAPI.findById as jest.Mock).mockResolvedValue({id: 2, status: PageStatusEnum.DRAFTED, page_group_versions: [], pages: []});
     (pageMgmtAPI.findById as jest.Mock).mockResolvedValue(page);
     (pageMgmtAPI.create as jest.Mock).mockResolvedValue({...page, id: 9});
     (pageMgmtAPI.update as jest.Mock).mockResolvedValue(page);
@@ -108,10 +108,10 @@ beforeEach(() => {
     (authAPI.resendRegistrationEmail as jest.Mock).mockResolvedValue(true);
     (userAPI.findByRole as jest.Mock).mockResolvedValue([]);
     (statsAPI.getAggregates as jest.Mock).mockResolvedValue({
-        eventsPerYear: [{year: 2024, value: 3}],
-        diversPerYear: [{year: 2024, value: 2}],
-        eventTypesPerYear: [{year: 2024, type: "CAVE", value: 1}],
-        diverTypesPerYear: [{year: 2024, type: "USER", value: 1}]
+        events_per_year: [{year: 2024, value: 3}],
+        divers_per_year: [{year: 2024, value: 2}],
+        event_types_per_year: [{year: 2024, type: "CAVE", value: 1}],
+        diver_types_per_year: [{year: 2024, type: "USER", value: 1}]
     });
 });
 afterEach(cleanup);
@@ -164,18 +164,18 @@ describe("page, payment, registration and statistics edge controls", () => {
     it("covers payment table date/count controls and reload events", async () => {
         const user = userEvent.setup({delay: null});
         const record = {
-            id: 4, userId: 3, name: "Diver", created: "2024-01-01",
-            startDate: "2024-01-01", endDate: null, paymentCount: 1,
-            paymentType: PaymentTypeEnum.ONE_TIME, boundEvents: []
+            id: 4, user_id: 3, name: "Diver", created: "2024-01-01",
+            start_date: "2024-01-01", end_date: null, payment_count: 1,
+            payment_type: PaymentTypeEnum.ONE_TIME, bound_events: []
         };
         (paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock)
-                .mockResolvedValue([{userId: 3, name: "Diver", payments: [record]}]);
+            .mockResolvedValue([{user_id: 3, name: "Diver", payments: [record]}]);
         (paymentAPI.update as jest.Mock).mockResolvedValue({});
         render(<PaymentListTable paymentType={PaymentTypeEnum.ONE_TIME} keyName="edge"/>);
         const row = await screen.findByText("Diver");
         const buttons = row.closest("tr")!.querySelectorAll("button");
         await user.click(buttons[0] as HTMLElement);
-        await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledWith(expect.objectContaining({paymentCount: 2})));
+        await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledWith(expect.objectContaining({payment_count: 2})));
         await user.click(buttons[1] as HTMLElement);
         await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledTimes(2));
         window.dispatchEvent(new Event("updatePaymentList-" + PaymentTypeEnum.ONE_TIME));
@@ -213,11 +213,11 @@ describe("page, payment, registration and statistics edge controls", () => {
 
     it("renders report links and the empty report edge case", async () => {
         const events = [{
-            eventId: 12,
-            eventDateTime: dayjs("2024-06-01T10:00:00Z"),
-            organizerName: "Organizer",
-            participantCount: 4,
-            diveCount: 2
+            event_id: 12,
+            event_date_time: dayjs("2024-06-01T10:00:00Z"),
+            organizer_name: "Organizer",
+            participant_count: 4,
+            dive_count: 2
         }];
         render(<BiannualEventReportTable events={events} childKey="report"/>);
         expect(screen.getByRole("link", {name: "12"})).toHaveAttribute("href", "/events/12");

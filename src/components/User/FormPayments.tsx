@@ -27,52 +27,53 @@ export function FormPayments(props: FormatPaymentsProps) {
         },
         {
             title: t("FormatPayments.table.paymentType"),
-            dataIndex: "paymentType",
-            key: "paymentType",
+            dataIndex: "payment_type",
+            key: "payment_type",
+            filters: Object.values(PaymentTypeEnum).map((value) => ({text: t(`PaymentTypeEnum.${value}`), value})),
             render: (type: PaymentTypeEnum, record: PaymentResponse) => paymentTypeEnum2Tag(type, t, record.id),
-            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentType.localeCompare(b.paymentType)
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.payment_type.localeCompare(b.payment_type)
         },
         {
             title: t("FormatPayments.table.paymentCount"),
-            dataIndex: "paymentCount",
-            key: "paymentCount",
+            dataIndex: "payment_count",
+            key: "payment_count",
             render: (count: number, record: PaymentResponse) =>
-                record.paymentType === PaymentTypeEnum.ONE_TIME ? count : "-",
-            sorter: (a: PaymentResponse, b: PaymentResponse) => a.paymentCount - b.paymentCount
+                record.payment_type === PaymentTypeEnum.ONE_TIME ? count : "-",
+            sorter: (a: PaymentResponse, b: PaymentResponse) => a.payment_count - b.payment_count
         },
         {
             title: t("FormatPayments.table.start-date"),
-            dataIndex: "startDate",
-            key: "startDate",
+            dataIndex: "start_date",
+            key: "start_date",
             mobile: true,
             render: (date: Date) => {
                 return (<>
                     {dayjs(date).format("YYYY-MM-DD")}
                 </>);
             },
-            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.startDate).unix() - dayjs(b.startDate).unix()
+            sorter: (a: PaymentResponse, b: PaymentResponse) => dayjs(a.start_date).unix() - dayjs(b.start_date).unix()
         },
         {
             title: t("FormatPayments.table.end-date"),
-            dataIndex: "endDate",
-            key: "endDate",
+            dataIndex: "end_date",
+            key: "end_date",
             render: (date: Date, record: PaymentResponse) => {
                 return (
                     <>
-                        {record.endDate !== null
+                        {record.end_date !== null
                             ? dayjs(date).format("YYYY-MM-DD")
                             : "-"}
                     </>);
             },
             sorter: (a: PaymentResponse, b: PaymentResponse) => {
-                if (a.endDate === null && b.endDate === null) {
+                if (a.end_date === null && b.end_date === null) {
                     return 0;
-                } else if (a.endDate === null) {
+                } else if (a.end_date === null) {
                     return 1;
-                } else if (b.endDate === null) {
+                } else if (b.end_date === null) {
                     return -1;
                 } else {
-                    return dayjs(a.endDate).unix() - dayjs(b.endDate).unix();
+                    return dayjs(a.end_date).unix() - dayjs(b.end_date).unix();
                 }
             }
         },

@@ -40,7 +40,7 @@ export function BlogControls({
     const sortControlsDisabled = totalItems <= 1;
 
     const sortByOptions = [
-        {value: "createdAt", label: t("BlogControls.sortBy.createdAt")},
+        {value: "created_at", label: t("BlogControls.sortBy.createdAt")},
         {value: "title", label: t("BlogControls.sortBy.title")}
     ];
     const sortDirectionOptions = [

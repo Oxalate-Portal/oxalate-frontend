@@ -95,7 +95,7 @@ const documents: DocumentFileResponse[] = [
         filechecksum: "one",
         status: UploadStatusEnum.UPLOADED,
         creator: "Doe, Jane",
-        createdAt: dayjs("2026-01-01T10:00:00Z"),
+        created_at: dayjs("2026-01-01T10:00:00Z"),
         url: "/files/1"
     },
     {
@@ -106,23 +106,34 @@ const documents: DocumentFileResponse[] = [
         filechecksum: "two",
         status: UploadStatusEnum.UPLOADED,
         creator: "Doe, John",
-        createdAt: dayjs("2026-01-02T10:00:00Z"),
+        created_at: dayjs("2026-01-02T10:00:00Z"),
         url: "/files/2"
     }
 ];
+
+const mockPage = (rows: DocumentFileResponse[]) => ({
+    content: rows,
+    page: 0,
+    size: 5,
+    total_elements: rows.length,
+    total_pages: 1,
+    first: true,
+    last: true,
+    empty: rows.length === 0
+});
 
 describe("UserDocumentFiles", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         mockSession.documentsSupported = true;
-        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue(documents);
+        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue(mockPage([documents[0]]));
         (fileTransferAPI.uploadDocumentFile as jest.Mock).mockResolvedValue({url: "/files/uploaded"});
     });
 
-    it("loads and displays only documents created by the requested user", async () => {
+    it("collects the requested user's documents from the paged endpoint in client mode", async () => {
         render(<UserDocumentFiles userId={7} creatorName="Doe, Jane" canUpload={false}/>);
 
-        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith(7));
+        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith({page: 0, size: 100}, 7));
         expect(screen.getByTestId("document-1")).toHaveTextContent("jane.pdf");
         expect(screen.queryByTestId("document-2")).not.toBeInTheDocument();
         expect(screen.getByText("UserFiles.document.download")).toHaveAttribute("href", "/files/1");
@@ -142,7 +153,7 @@ describe("UserDocumentFiles", () => {
 
         render(<UserDocumentFiles userId={7} creatorName="Doe, Jane" canUpload={false}/>);
 
-        await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("UserFiles.document.fetchFail"));
+        await waitFor(() => expect(mockMessage.error).toHaveBeenCalledWith("common.table.loadError"));
     });
 
     it("validates uploads and reports successful uploads", async () => {

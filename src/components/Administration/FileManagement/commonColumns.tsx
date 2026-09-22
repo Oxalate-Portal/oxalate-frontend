@@ -10,30 +10,46 @@ interface CommonFileColumnsOptions {
     showPreview?: boolean;
 }
 
-export function commonFileColumns(t: TFunction, {showPreview = true}: CommonFileColumnsOptions = {}): OxColumnsType<AbstractFileResponse> {
+/**
+ * The columns shared by every file table. The file lists are paged, sorted and searched on the server, so the sortable
+ * columns carry `sorter: true`, the default order is the newest file first, and only the columns the backend searches
+ * (`filename`, `creator`; `mimetype` has no column) are `searchable`.
+ */
+export function commonFileColumns<T extends AbstractFileResponse = AbstractFileResponse>(t: TFunction, {showPreview = true}: CommonFileColumnsOptions = {}): OxColumnsType<T> {
     return [
         {
             title: t("AdminUploads.common-file-column-title.filename"),
             dataIndex: "filename",
             key: "filename",
             mobile: true,
+            searchable: true,
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
             render: (text: string) => <span>{text}</span>
         },
         {
             title: t("AdminUploads.common-file-column-title.filesize"),
             dataIndex: "filesize",
             key: "filesize",
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
             render: (size: number) => <span>{(size / 1024).toFixed(2)} KB</span>
         },
         {
             title: t("AdminUploads.common-file-column-title.creator"),
             dataIndex: "creator",
-            key: "creator"
+            key: "creator",
+            searchable: true,
+            sorter: true,
+            sortDirections: ["descend", "ascend"]
         },
         {
             title: t("AdminUploads.common-file-column-title.created-at"),
-            dataIndex: "createdAt",
-            key: "createdAt",
+            dataIndex: "created_at",
+            key: "created_at",
+            sorter: true,
+            defaultSortOrder: "descend",
+            sortDirections: ["descend", "ascend"],
             render: (date: Date) => <span>{dayjs(date).format("YYYY.MM.DD HH:mm")}</span>
         },
         {
@@ -67,12 +83,15 @@ export interface ActionColumnOptions {
     onDelete?: (id: number) => void;
 }
 
-export function createActionColumn(t: TFunction, {onEdit, onDelete}: ActionColumnOptions): OxColumnsType<AbstractFileResponse> {
+export function createActionColumn<T extends AbstractFileResponse = AbstractFileResponse>(t: TFunction, {
+    onEdit,
+    onDelete
+}: ActionColumnOptions): OxColumnsType<T> {
     return [
         {
             title: t("AdminUploads.common-file-column-title.actions"),
             key: "actions",
-            render: (_, record: AbstractFileResponse) => (
+            render: (_, record: T) => (
                     <Space size={"middle"}>
                         {onEdit && (
                                 <Button onClick={() => onEdit(record.id)} type="link">

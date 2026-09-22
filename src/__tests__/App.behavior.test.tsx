@@ -4,7 +4,7 @@ import {MemoryRouter} from "react-router-dom";
 import App from "../App";
 
 const session = {
-    userSession: null as null | { approvedTerms: boolean },
+    userSession: null as null | { approved_terms: boolean },
     sessionLanguage: "en",
     organizationName: "Test portal",
     logoutUser: jest.fn(),
@@ -82,7 +82,7 @@ describe("App routing and session behavior", () => {
     });
 
     it("renders terms gate for an authenticated user who has not accepted terms", () => {
-        session.userSession = {approvedTerms: false};
+        session.userSession = {approved_terms: false};
         render(<MemoryRouter initialEntries={["/"]}><App/></MemoryRouter>);
         expect(screen.getByTestId("AcceptTerms")).toHaveTextContent("terms");
         expect(screen.getByTestId("Home")).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe("App routing and session behavior", () => {
     });
 
     it("handles configured language and protected routes", async () => {
-        session.userSession = {approvedTerms: true};
+        session.userSession = {approved_terms: true};
         session.sessionLanguage = "fi";
         session.getPortalConfigurationValue.mockImplementation(((group: string, key: string) => {
             if (key === "membership-type") return "enabled";

@@ -32,6 +32,11 @@ function service(name: string, methods: string[]) {
     return Object.fromEntries(methods.map((method) => [method, makeApi(name + "." + method)]));
 }
 
+/** Wraps rows in the page envelope the server-paged list endpoints return. */
+function mockPage<T>(rows: T[]) {
+    return {content: rows, page: 0, size: 10, total_elements: rows.length, total_pages: 1, first: true, last: true, empty: rows.length === 0};
+}
+
 const mockGetPortalConfigurationValue = (_group: string, key: string) => key.includes("supported") ? "true" : "YEAR";
 const mockGetFrontendConfigurationValue = () => "en,fi";
 const mockT = (key: string) => key;
@@ -50,18 +55,18 @@ jest.mock("../services", () => ({
     diveEventAPI: service("diveEventAPI", ["findAllPastDiveEvents"]),
     downloadAPI: service("downloadAPI", ["downloadCertificates", "downloadDives", "downloadPayments"]),
     userAPI: service("userAPI", ["findAll", "findByRole", "findAdminUserById", "resetTerms", "resetHealthStatement"]),
-    membershipAPI: service("membershipAPI", ["findAll", "findByMemberId", "create", "update"]),
+    membershipAPI: service("membershipAPI", ["findPaged", "findByMemberId", "create", "update"]),
     tagGroupAPI: service("tagGroupAPI", ["findAll", "create", "update", "delete"]),
     tagsAPI: service("tagsAPI", ["findAll", "create", "update", "delete"]),
-    auditAPI: service("auditAPI", ["findPageable"]),
+    auditAPI: service("auditAPI", ["findPagedAudits"]),
     portalConfigurationAPI: service("portalConfigurationAPI", ["findAllPortalConfigurations", "updateConfigurationValue", "reloadPortalConfiguration"]),
     fileTransferAPI: service("fileTransferAPI", ["findAllAvatarFiles", "findAllCertificateFiles", "findAllDiveFiles", "findAllDocuments", "findAllPageFiles", "removeDocumentFile"]),
-    adminUserAPI: service("adminUserAPI", ["findAll"]),
+    adminUserAPI: service("adminUserAPI", ["findPaged"]),
     authAPI: service("authAPI", ["recoverLostPassword"])
 }));
 jest.mock("../session", () => ({
     useSession: () => ({
-        userSession: {accessToken: "token"},
+        userSession: {access_token: "token"},
         getPortalConfigurationValue: mockGetPortalConfigurationValue,
         getFrontendConfigurationValue: mockGetFrontendConfigurationValue
     })
@@ -72,7 +77,7 @@ jest.mock("../tools", () => ({
     membershipStatusEnum2Tag: (value: string) => <span>{value}</span>,
     membershipTypeEnum2Tag: (value: string) => <span>{value}</span>,
     formatDateTimeWithMs: (value: string) => value,
-    getDefaultMembershipDates: () => ({startDate: {format: () => "2026-01-01"}, endDate: {format: () => "2026-12-31"}}),
+    getDefaultMembershipDates: () => ({start_date: {format: () => "2026-01-01"}, end_date: {format: () => "2026-12-31"}}),
     getApiBaseUrl: () => "http://api"
 }));
 jest.mock("../components/Commenting", () => ({
@@ -82,11 +87,51 @@ jest.mock("../components/Commenting", () => ({
 }));
 jest.mock("../components/User", () => ({UserFields: () => <span>user-fields</span>}));
 jest.mock("../components/main", () => ({
+    OxTableSearch: ({children, onSearch, onCaseSensitiveChange}: {
+        children?: ReactNode;
+        onSearch?: (value: string) => void;
+        onCaseSensitiveChange?: (value: boolean) => void
+    }) =>
+        <div>{children}
+            <button onClick={() => onSearch?.("x")}>table-search</button>
+            <button onClick={() => onCaseSensitiveChange?.(true)}>table-case</button>
+        </div>,
+    usePagedTable: (fetcher: (request: unknown) => Promise<unknown>, options?: { enabled?: boolean; deps?: unknown[] }) => {
+        const React = jest.requireActual("react");
+        const [dataSource, setDataSource] = React.useState([]);
+        const [reloadCounter, setReloadCounter] = React.useState(0);
+        const fetcherRef = React.useRef(fetcher);
+        const depsKey = JSON.stringify(options?.deps ?? []);
+        const enabled = options?.enabled !== false;
+        React.useEffect(() => {
+            fetcherRef.current = fetcher;
+        });
+        React.useEffect(() => {
+            if (!enabled) {
+                return;
+            }
+            Promise.resolve(fetcherRef.current({page: 0, size: 10}))
+                .then((response: unknown) => {
+                    const rows = Array.isArray(response) ? response : (response as { content?: unknown[] } | undefined)?.content ?? [];
+                    setDataSource(rows);
+                })
+                .catch(() => setDataSource([]));
+        }, [enabled, depsKey, reloadCounter]);
+        return {
+            dataSource, loading: false, pagination: {current: 1, pageSize: 10, total: dataSource.length}, handleTableChange: jest.fn(),
+            search: "", setSearch: jest.fn(), case_sensitive: false, setCaseSensitive: jest.fn(), reload: () => setReloadCounter((value: number) => value + 1),
+            error: false, contextHolder: null
+        };
+    },
     // Forms are horizontal in jsdom, matching the real hook when no breakpoint matches
     useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({layout: "horizontal", labelCol: {span: labelSpan}, wrapperCol: {span: wrapperSpan}}),
-    OxTable: (props: Record<string, unknown>) => {
+    // Server-mode tables get their data props from the `paged` state, like the real OxTable does
+    OxTable: ({paged, dataMode, ...props}: Record<string, unknown> & { paged?: Record<string, unknown>; dataMode?: string }) => {
         const {Table} = jest.requireMock("antd");
-        return <Table {...props}/>;
+        const pagedProps = dataMode === "server" && paged
+            ? {dataSource: paged.dataSource, loading: paged.loading, pagination: paged.pagination, onChange: paged.handleTableChange}
+            : {};
+        return <Table {...pagedProps} {...props}/>;
     },
     ProtectedImage: ({alt}: { alt: string }) => <img alt={alt}/>,
     ShiftableRangePicker: ({onChange}: { onChange: (value: unknown) => void }) => <button onClick={() => onChange([])}>range</button>
@@ -150,7 +195,7 @@ jest.mock("antd", () => {
                 <button key="drop" onClick={() => onRow?.(record)?.onDrop?.()}>row-drop</button>
             ]))}
                 <button onClick={() => onChange?.({current: 0}, {}, {field: undefined, order: undefined})}>table-change</button>
-                <button onClick={() => onChange?.({current: 1}, {}, [{field: "userName", order: "ascend"}])}>table-sort</button>
+                <button onClick={() => onChange?.({current: 1}, {}, [{field: "user_name", order: "ascend"}])}>table-sort</button>
             </div>
     );
     const Modal = ({open, children, onOk, onCancel}: { open?: boolean; children: ReactNode; onOk?: () => void; onCancel?: () => void }) =>
@@ -205,19 +250,19 @@ describe("Administration pages", () => {
         jest.clearAllMocks();
         Object.values(api).forEach((mock) => mock.mockResolvedValue([]));
         api["portalConfigurationAPI.findAllPortalConfigurations"].mockResolvedValue([
-            {id: 1, groupKey: "FILES", settingKey: "enabled", valueType: "boolean", runtimeValue: "false", defaultValue: "false", requiredRuntime: false},
-            {id: 2, groupKey: "MAIL", settingKey: "address", valueType: "email", runtimeValue: "", defaultValue: "", requiredRuntime: true},
-            {id: 3, groupKey: "FILES", settingKey: "count", valueType: "number", runtimeValue: "2", defaultValue: "0", requiredRuntime: false},
-            {id: 4, groupKey: "FILES", settingKey: "day", valueType: "date", runtimeValue: "2026-01-01", defaultValue: "", requiredRuntime: false},
-            {id: 5, groupKey: "FILES", settingKey: "langs", valueType: "array", runtimeValue: "a", defaultValue: "a,b", requiredRuntime: false},
+            {id: 1, group_key: "FILES", setting_key: "enabled", value_type: "boolean", runtime_value: "false", default_value: "false", required_runtime: false},
+            {id: 2, group_key: "MAIL", setting_key: "address", value_type: "email", runtime_value: "", default_value: "", required_runtime: true},
+            {id: 3, group_key: "FILES", setting_key: "count", value_type: "number", runtime_value: "2", default_value: "0", required_runtime: false},
+            {id: 4, group_key: "FILES", setting_key: "day", value_type: "date", runtime_value: "2026-01-01", default_value: "", required_runtime: false},
+            {id: 5, group_key: "FILES", setting_key: "langs", value_type: "array", runtime_value: "a", default_value: "a,b", required_runtime: false},
             {
                 id: 6,
-                groupKey: "FILES",
-                settingKey: "membership-type",
-                valueType: "enum",
-                runtimeValue: "USER",
-                defaultValue: "DISABLED",
-                requiredRuntime: false
+                group_key: "FILES",
+                setting_key: "membership-type",
+                value_type: "enum",
+                runtime_value: "USER",
+                default_value: "DISABLED",
+                required_runtime: false
             }
         ]);
     });
@@ -231,7 +276,7 @@ describe("Administration pages", () => {
     });
 
     it("renders date administration and exercises API success/error callbacks", async () => {
-        api["blockedDatesAPI.findAll"].mockResolvedValue([{id: 1, blockedDate: "2099-01-01", creatorName: "a", reason: "r"}]);
+        api["blockedDatesAPI.findAll"].mockResolvedValue([{id: 1, blocked_date: "2099-01-01", creator_name: "a", reason: "r"}]);
         render(<BlockedDates/>);
         await flush();
         expect(screen.getByTestId("table")).toBeInTheDocument();
@@ -248,21 +293,37 @@ describe("Administration pages", () => {
 
     it("renders portal configuration editors for each supported value type", async () => {
         api["portalConfigurationAPI.findAllPortalConfigurations"].mockResolvedValue([
-            {id: 1, groupKey: "general", settingKey: "array", valueType: "array", runtimeValue: "A", defaultValue: "A,B", requiredRuntime: false},
-            {id: 2, groupKey: "general", settingKey: "boolean", valueType: "boolean", runtimeValue: "false", defaultValue: "false", requiredRuntime: false},
-            {id: 3, groupKey: "general", settingKey: "date", valueType: "date", runtimeValue: "2026-01-01", defaultValue: "", requiredRuntime: false},
-            {id: 4, groupKey: "general", settingKey: "email", valueType: "email", runtimeValue: "a@example.com", defaultValue: "", requiredRuntime: false},
-            {id: 5, groupKey: "general", settingKey: "number", valueType: "number", runtimeValue: "2", defaultValue: "1", requiredRuntime: false},
-            {id: 6, groupKey: "general", settingKey: "string", valueType: "string", runtimeValue: "text", defaultValue: "", requiredRuntime: false},
-            {id: 7, groupKey: "general", settingKey: "timezone", valueType: "timezone", runtimeValue: "UTC", defaultValue: "UTC", requiredRuntime: false},
+            {id: 1, group_key: "general", setting_key: "array", value_type: "array", runtime_value: "A", default_value: "A,B", required_runtime: false},
+            {
+                id: 2,
+                group_key: "general",
+                setting_key: "boolean",
+                value_type: "boolean",
+                runtime_value: "false",
+                default_value: "false",
+                required_runtime: false
+            },
+            {id: 3, group_key: "general", setting_key: "date", value_type: "date", runtime_value: "2026-01-01", default_value: "", required_runtime: false},
+            {
+                id: 4,
+                group_key: "general",
+                setting_key: "email",
+                value_type: "email",
+                runtime_value: "a@example.com",
+                default_value: "",
+                required_runtime: false
+            },
+            {id: 5, group_key: "general", setting_key: "number", value_type: "number", runtime_value: "2", default_value: "1", required_runtime: false},
+            {id: 6, group_key: "general", setting_key: "string", value_type: "string", runtime_value: "text", default_value: "", required_runtime: false},
+            {id: 7, group_key: "general", setting_key: "timezone", value_type: "timezone", runtime_value: "UTC", default_value: "UTC", required_runtime: false},
             {
                 id: 8,
-                groupKey: "membership",
-                settingKey: "membership-type",
-                valueType: "enum",
-                runtimeValue: "PERIODICAL",
-                defaultValue: "DISABLED",
-                requiredRuntime: false
+                group_key: "membership",
+                setting_key: "membership-type",
+                value_type: "enum",
+                runtime_value: "PERIODICAL",
+                default_value: "DISABLED",
+                required_runtime: false
             }
         ]);
         render(<PortalConfigurations/>);
@@ -273,15 +334,15 @@ describe("Administration pages", () => {
 
     it("renders membership and organization administration views", async () => {
         api["membershipAPI.findByMemberId"].mockResolvedValue({
-            id: 1, userId: 2, username: "member", status: "ACTIVE", type: "YEAR",
-            startDate: "2026-01-01", endDate: "2026-12-31"
+            id: 1, user_id: 2, username: "member", status: "ACTIVE", type: "YEAR",
+            start_date: "2026-01-01", end_date: "2026-12-31"
         });
-        api["membershipAPI.findAll"].mockResolvedValue([]);
+        api["membershipAPI.findPaged"].mockResolvedValue(mockPage([]));
         api["userAPI.findAdminUserById"].mockResolvedValue({
-            id: 2, username: "member", firstName: "A", lastName: "User", status: "ACTIVE",
-            roles: [], privacy: false, payments: [], approvedTerms: false, healthStatementId: null
+            id: 2, username: "member", first_name: "A", last_name: "User", status: "ACTIVE",
+            roles: [], privacy: false, payments: [], approved_terms: false, health_statement_id: null
         });
-        api["adminUserAPI.findAll"].mockResolvedValue([]);
+        api["adminUserAPI.findPaged"].mockResolvedValue(mockPage([]));
         render(<><AdminMemberships/><AdminOrgUsers/></>);
         await flush();
         expect(screen.getByText("AdminMembers.title")).toBeInTheDocument();
@@ -289,8 +350,8 @@ describe("Administration pages", () => {
 
     it("renders tag pages, table filters, actions, and audit refresh", async () => {
         api["tagGroupAPI.findAll"].mockResolvedValue([{id: 1, code: "g", names: {en: "Group"}, type: "USER"}]);
-        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tagGroupId: 1}]);
-        api["auditAPI.findPageable"].mockResolvedValue({content: [], number: 0, size: 10, totalElements: 0});
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tag_group_id: 1}]);
+        api["auditAPI.findPagedAudits"].mockResolvedValue({content: [], number: 0, size: 10, totalElements: 0});
         render(<><AdminTagGroups/><AdminTags/><AuditEvents/></>);
         await flush();
         fireEvent.click(screen.getByText("AdminTagGroups.button.add-group"));
@@ -298,12 +359,12 @@ describe("Administration pages", () => {
         fireEvent.click(screen.getByText("AdminTags.button.add-tag"));
         fireEvent.click(screen.getAllByText("modal-ok")[0]);
         fireEvent.click(screen.getAllByText("table-change").at(-1)!);
-        await waitFor(() => expect(api["auditAPI.findPageable"]).toHaveBeenCalled());
+        await waitFor(() => expect(api["auditAPI.findPagedAudits"]).toHaveBeenCalled());
     });
 
     it("updates and deletes tags and creates a tag group from the tag editor", async () => {
         api["tagGroupAPI.findAll"].mockResolvedValue([{id: 1, code: "g", names: {en: "Group"}, type: "USER"}]);
-        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tagGroupId: 1}]);
+        api["tagsAPI.findAll"].mockResolvedValue([{id: 2, code: "t", names: {en: "Tag"}, tag_group_id: 1}]);
         api["tagsAPI.update"].mockResolvedValue({});
 
         api["tagsAPI.delete"].mockResolvedValue(true);
@@ -434,13 +495,13 @@ describe("Administration pages", () => {
         submitButtons.forEach(button => fireEvent.click(button));
         await waitFor(() => {
             expect(api["certificateAPI.updateClassification"]).toHaveBeenCalledWith({
-                certificateId: 7, certificateNames: ["Open Water"], classificationId: 2
+                certificate_id: 7, certificate_names: ["Open Water"], classification_id: 2
             });
             expect(api["certificateAPI.replaceOrganizations"]).toHaveBeenCalledWith({
-                existingValues: ["old"], newValue: "new"
+                existing_values: ["old"], new_value: "new"
             });
             expect(api["certificateAPI.replaceCertificateNames"]).toHaveBeenCalledWith({
-                existingValues: ["old"], newValue: "new"
+                existing_values: ["old"], new_value: "new"
             });
         });
     });

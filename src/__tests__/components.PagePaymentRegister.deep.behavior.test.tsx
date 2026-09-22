@@ -57,12 +57,12 @@ jest.mock("../components/User", () => ({
     }),
     UserFields: () => <>
         <label>username<input name="username"/></label>
-        <label>first name<input name="firstName"/></label>
-        <label>last name<input name="lastName"/></label>
-        <label>phone<input name="phoneNumber"/></label>
-        <label>next of kin<input name="nextOfKin"/></label>
+        <label>first name<input name="first_name"/></label>
+        <label>last name<input name="last_name"/></label>
+        <label>phone<input name="phone_number"/></label>
+        <label>next of kin<input name="next_of_kin"/></label>
         <label>language<input name="language" defaultValue="en"/></label>
-        <label>user type<input name="primaryUserType" defaultValue="USER"/></label>
+        <label>user type<input name="primary_user_type" defaultValue="USER"/></label>
     </>
 }));
 jest.mock("../components/main", () => ({
@@ -104,14 +104,14 @@ if (typeof globalThis.MessageChannel === "undefined") {
 
 const group = {
     id: 2, status: PageStatusEnum.DRAFTED,
-    pageGroupVersions: [{id: 3, pageGroupId: 2, language: "en", title: "English group"}, {id: 4, pageGroupId: 2, language: "fi", title: "Suomi"}],
+    page_group_versions: [{id: 3, page_group_id: 2, language: "en", title: "English group"}, {id: 4, page_group_id: 2, language: "fi", title: "Suomi"}],
     pages: []
 };
 const page = {
-    id: 7, pageGroupId: 2, status: PageStatusEnum.DRAFTED,
-    pageVersions: [{id: 8, pageId: 7, language: "en", title: "English page", ingress: "", body: "<p>body</p>"}],
-    rolePermissions: [{id: 9, pageId: 7, role: RoleEnum.ROLE_ADMIN, readPermission: true, writePermission: true}],
-    creator: 1, createdAt: "2024-01-01", modifier: null, modifiedAt: null
+    id: 7, page_group_id: 2, status: PageStatusEnum.DRAFTED,
+    page_versions: [{id: 8, page_id: 7, language: "en", title: "English page", ingress: "", body: "<p>body</p>"}],
+    role_permissions: [{id: 9, page_id: 7, role: RoleEnum.ROLE_ADMIN, read_permission: true, write_permission: true}],
+    creator: 1, created_at: "2024-01-01", modifier: null, modified_at: null
 };
 
 beforeEach(() => {
@@ -121,8 +121,8 @@ beforeEach(() => {
     (pageGroupMgmtAPI.findById as jest.Mock).mockResolvedValue(group);
     (pageMgmtAPI.findById as jest.Mock).mockResolvedValue(page);
     (userAPI.findByRole as jest.Mock).mockResolvedValue([
-        {id: 1, name: "Active", membershipActive: true},
-        {id: 2, name: "Inactive", membershipActive: false}
+        {id: 1, name: "Active", membership_active: true},
+        {id: 2, name: "Inactive", membership_active: false}
     ]);
     (paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock).mockResolvedValue([]);
 });
@@ -172,7 +172,7 @@ describe("page editors and page listing", () => {
             pages: [{
                 ...page,
                 status: PageStatusEnum.PUBLISHED,
-                rolePermissions: [{id: 1, role: RoleEnum.ROLE_ADMIN, readPermission: true, writePermission: true}]
+                role_permissions: [{id: 1, role: RoleEnum.ROLE_ADMIN, read_permission: true, write_permission: true}]
             }]
         });
         render(<Pages/>);
@@ -201,7 +201,7 @@ describe("payment controls", () => {
         fireEvent.mouseDown(screen.getAllByRole("combobox")[1]);
         await user.click(await screen.findByText("PaymentTypeEnum.ONE_TIME"));
         await user.click(screen.getByRole("button", {name: "AddPayments.form.button"}));
-        await waitFor(() => expect(paymentAPI.create).toHaveBeenCalledWith(expect.objectContaining({userId: 1, paymentType: PaymentTypeEnum.ONE_TIME})));
+        await waitFor(() => expect(paymentAPI.create).toHaveBeenCalledWith(expect.objectContaining({user_id: 1, payment_type: PaymentTypeEnum.ONE_TIME})));
         (paymentAPI.create as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         await user.click(screen.getByRole("button", {name: "AddPayments.form.button"}));
         await waitFor(() => expect(mockMessage.error).toHaveBeenCalled());
@@ -210,7 +210,7 @@ describe("payment controls", () => {
     it("reports when the backend returns a different payment", async () => {
         const user = userEvent.setup({delay: null});
         (paymentAPI.create as jest.Mock).mockImplementation((request) =>
-            Promise.resolve({...request, endDate: "2099-01-01", created: {id: 1}})
+            Promise.resolve({...request, end_date: "2099-01-01", created: {id: 1}})
         );
         render(<AddPayments/>);
         await waitFor(() => expect(screen.getAllByRole("combobox").length).toBeGreaterThan(0));
@@ -226,22 +226,22 @@ describe("payment controls", () => {
         const user = userEvent.setup({delay: null});
         const record = {
             id: 4,
-            userId: 3,
+            user_id: 3,
             name: "Diver",
             created: "2024-01-01",
-            startDate: "2024-01-01",
-            endDate: null,
-            paymentCount: 1,
-            paymentType: PaymentTypeEnum.ONE_TIME,
-            boundEvents: []
+            start_date: "2024-01-01",
+            end_date: null,
+            payment_count: 1,
+            payment_type: PaymentTypeEnum.ONE_TIME,
+            bound_events: []
         };
-        (paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock).mockResolvedValue([{userId: 3, name: "Diver", payments: [record]}]);
+        (paymentAPI.getAllActivePaymentStatusWithPaymentType as jest.Mock).mockResolvedValue([{user_id: 3, name: "Diver", payments: [record]}]);
         (paymentAPI.update as jest.Mock).mockResolvedValue({});
         render(<PaymentListTable paymentType={PaymentTypeEnum.ONE_TIME} keyName="test"/>);
         await screen.findByText("Diver");
         const row = screen.getByText("Diver").closest("tr")!;
         await user.click(within(row).getAllByRole("button")[0]);
-        await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledWith(expect.objectContaining({paymentCount: 2, endDate: null})));
+        await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledWith(expect.objectContaining({payment_count: 2, end_date: null})));
         (paymentAPI.update as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         await user.click(within(row).getAllByRole("button")[1]);
         await waitFor(() => expect(paymentAPI.update).toHaveBeenCalledTimes(2));
@@ -268,7 +268,7 @@ describe("registration and editor callbacks", () => {
         fireEvent.change(password, {target: {value: "GoodPassword1!"}});
         fireEvent.change(confirm, {target: {value: "GoodPassword1!"}});
         fireEvent.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
-        await waitFor(() => expect(authAPI.register).toHaveBeenCalledWith(expect.objectContaining({approvedTerms: true, healthStatementId: 0})));
+        await waitFor(() => expect(authAPI.register).toHaveBeenCalledWith(expect.objectContaining({approved_terms: true, health_statement_id: 0})));
     });
 
     it("shows registration failure and redirects authenticated sessions", async () => {

@@ -10,19 +10,19 @@ describe("DiveGroupAPI", () => {
 
     const rawDiveGroup = {
         id: 1,
-        eventId: 42,
+        event_id: 42,
         name: "Team Sidemount",
-        ownerId: 123,
-        ownerName: "John Doe",
-        createdAt: "2026-05-30T12:00:00Z",
-        updatedAt: null,
+        owner_id: 123,
+        owner_name: "John Doe",
+        created_at: "2026-05-30T12:00:00Z",
+        updated_at: null,
         members: [
             {
-                userId: 123,
+                user_id: 123,
                 name: "John Doe",
-                userType: UserTypeEnum.SCUBA_DIVER,
+                user_type: UserTypeEnum.SCUBA_DIVER,
                 owner: true,
-                joinedAt: "2026-05-30T12:00:00Z"
+                joined_at: "2026-05-30T12:00:00Z"
             }
         ]
     };
@@ -52,8 +52,8 @@ describe("DiveGroupAPI", () => {
         expect(result).toHaveLength(1);
         expect(result[0].id).toBe(1);
         expect(result[0].name).toBe("Team Sidemount");
-        expect(dayjs.isDayjs(result[0].createdAt)).toBe(true);
-        expect(dayjs.isDayjs(result[0].members[0].joinedAt)).toBe(true);
+        expect(dayjs.isDayjs(result[0].created_at)).toBe(true);
+        expect(dayjs.isDayjs(result[0].members[0].joined_at)).toBe(true);
         expect(mock.history.get[0].url).toBe("/events/42");
     });
 
@@ -71,13 +71,13 @@ describe("DiveGroupAPI", () => {
         const result = await diveGroupAPI.getDiveGroupById(1);
 
         expect(result.id).toBe(1);
-        expect(result.ownerId).toBe(123);
-        expect(dayjs.isDayjs(result.createdAt)).toBe(true);
+        expect(result.owner_id).toBe(123);
+        expect(dayjs.isDayjs(result.created_at)).toBe(true);
         expect(mock.history.get[0].url).toBe("/1");
     });
 
     it("should create a dive group", async () => {
-        const payload: DiveGroupRequest = {eventId: 42, name: "Team Sidemount", ownerId: 123};
+        const payload: DiveGroupRequest = {event_id: 42, name: "Team Sidemount", owner_id: 123};
         mock.onPost("").reply(200, rawDiveGroup);
 
         const result = await diveGroupAPI.createDiveGroup(payload);
@@ -88,31 +88,31 @@ describe("DiveGroupAPI", () => {
     });
 
     it("should create a dive group without an explicit owner", async () => {
-        const payload: DiveGroupRequest = {eventId: 42, name: "Team Sidemount"};
+        const payload: DiveGroupRequest = {event_id: 42, name: "Team Sidemount"};
         mock.onPost("").reply(200, rawDiveGroup);
 
         const result = await diveGroupAPI.createDiveGroup(payload);
 
-        expect(result.eventId).toBe(42);
-        expect(JSON.parse(mock.history.post[0].data)).toEqual({eventId: 42, name: "Team Sidemount"});
+        expect(result.event_id).toBe(42);
+        expect(JSON.parse(mock.history.post[0].data)).toEqual({event_id: 42, name: "Team Sidemount"});
     });
 
     it("should update a dive group", async () => {
-        const payload: DiveGroupUpdateRequest = {name: "Team Rebreather", ownerId: 456};
-        const updatedDiveGroup = {...rawDiveGroup, name: "Team Rebreather", ownerId: 456, updatedAt: "2026-06-01T12:00:00Z"};
+        const payload: DiveGroupUpdateRequest = {name: "Team Rebreather", owner_id: 456};
+        const updatedDiveGroup = {...rawDiveGroup, name: "Team Rebreather", owner_id: 456, updated_at: "2026-06-01T12:00:00Z"};
         mock.onPut("/1").reply(200, updatedDiveGroup);
 
         const result: DiveGroupResponse = await diveGroupAPI.updateDiveGroup(1, payload);
 
         expect(result.name).toBe("Team Rebreather");
-        expect(result.ownerId).toBe(456);
-        expect(dayjs.isDayjs(result.updatedAt)).toBe(true);
+        expect(result.owner_id).toBe(456);
+        expect(dayjs.isDayjs(result.updated_at)).toBe(true);
         expect(mock.history.put[0].url).toBe("/1");
         expect(JSON.parse(mock.history.put[0].data)).toEqual(payload);
     });
 
     it('should send the description when creating a dive group', async () => {
-        const payload: DiveGroupRequest = {eventId: 42, name: 'Team Sidemount', description: 'Wreck first'};
+        const payload: DiveGroupRequest = {event_id: 42, name: 'Team Sidemount', description: 'Wreck first'};
         mock.onPost('').reply(200, {...rawDiveGroup, description: 'Wreck first'});
 
         const result = await diveGroupAPI.createDiveGroup(payload);
@@ -123,14 +123,14 @@ describe("DiveGroupAPI", () => {
 
     it('should update the details of a dive group', async () => {
         const payload: DiveGroupDetailsRequest = {name: 'Team Rebreather', description: 'New plan'};
-        const updatedDiveGroup = {...rawDiveGroup, name: 'Team Rebreather', description: 'New plan', updatedAt: '2026-06-01T12:00:00Z'};
+        const updatedDiveGroup = {...rawDiveGroup, name: 'Team Rebreather', description: 'New plan', updated_at: '2026-06-01T12:00:00Z'};
         mock.onPut('/1/details').reply(200, updatedDiveGroup);
 
         const result = await diveGroupAPI.updateDiveGroupDetails(1, payload);
 
         expect(result.name).toBe('Team Rebreather');
         expect(result.description).toBe('New plan');
-        expect(dayjs.isDayjs(result.updatedAt)).toBe(true);
+        expect(dayjs.isDayjs(result.updated_at)).toBe(true);
         expect(mock.history.put[0].url).toBe('/1/details');
         expect(JSON.parse(mock.history.put[0].data)).toEqual(payload);
     });
@@ -214,8 +214,8 @@ describe("DiveGroupAPI", () => {
 
         await diveGroupAPI.getDiveGroupById(1);
 
-        expect(rawDiveGroup.createdAt).toBe("2026-05-30T12:00:00Z");
-        expect(rawDiveGroup.members[0].joinedAt).toBe("2026-05-30T12:00:00Z");
+        expect(rawDiveGroup.created_at).toBe("2026-05-30T12:00:00Z");
+        expect(rawDiveGroup.members[0].joined_at).toBe("2026-05-30T12:00:00Z");
     });
 
     it("should propagate errors from failing requests", async () => {
@@ -232,18 +232,18 @@ describe("DiveGroupAPI", () => {
 
     it("should set the order of the dive groups of an event", async () => {
         const reordered = [
-            {...rawDiveGroup, id: 2, groupOrder: 1},
-            {...rawDiveGroup, id: 1, groupOrder: 2}
+            {...rawDiveGroup, id: 2, group_order: 1},
+            {...rawDiveGroup, id: 1, group_order: 2}
         ];
         mock.onPut("/events/42/order").reply(200, reordered);
 
         const result = await diveGroupAPI.reorderDiveGroups(42, [2, 1]);
 
         expect(result.map((diveGroup) => diveGroup.id)).toEqual([2, 1]);
-        expect(result.map((diveGroup) => diveGroup.groupOrder)).toEqual([1, 2]);
-        expect(dayjs.isDayjs(result[0].createdAt)).toBe(true);
+        expect(result.map((diveGroup) => diveGroup.group_order)).toEqual([1, 2]);
+        expect(dayjs.isDayjs(result[0].created_at)).toBe(true);
         expect(mock.history.put[0].url).toBe("/events/42/order");
-        expect(JSON.parse(mock.history.put[0].data)).toEqual({diveGroupIds: [2, 1]});
+        expect(JSON.parse(mock.history.put[0].data)).toEqual({dive_group_ids: [2, 1]});
     });
 
     it("should send an empty order list unchanged", async () => {
@@ -252,7 +252,7 @@ describe("DiveGroupAPI", () => {
         const result = await diveGroupAPI.reorderDiveGroups(7, []);
 
         expect(result).toEqual([]);
-        expect(JSON.parse(mock.history.put[0].data)).toEqual({diveGroupIds: []});
+        expect(JSON.parse(mock.history.put[0].data)).toEqual({dive_group_ids: []});
     });
 
     it("should propagate errors when the dive group order is rejected", async () => {

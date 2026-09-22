@@ -54,39 +54,39 @@ export function EditPage() {
     const [pageData, setPageData] = useState<PageResponse>(() => {
         const basePageData: PageResponse = {
             id: 0,
-            pageGroupId: tmpPageGroupId,
+            page_group_id: tmpPageGroupId,
             status: PageStatusEnum.DRAFTED,
-            pageVersions: languageList.map((language) => ({
+            page_versions: languageList.map((language) => ({
                 id: 0,
-                pageId: 0,
+                page_id: 0,
                 language: language,
                 title: "",
                 ingress: "",
                 body: ""
             })),
-            rolePermissions: [
+            role_permissions: [
                 {
                     id: 0,
-                    pageId: 0,
+                    page_id: 0,
                     role: RoleEnum.ROLE_ANONYMOUS,
-                    readPermission: true,
-                    writePermission: false
+                    read_permission: true,
+                    write_permission: false
                 }
             ],
             creator: 0,
-            createdAt: dayjs().toDate(),
+            created_at: dayjs().toDate(),
             modifier: null,
-            modifiedAt: null
+            modified_at: null
         };
 
         if (highestRole !== RoleEnum.ROLE_ANONYMOUS) {
             // Add additional role permission
-            basePageData.rolePermissions.push({
+            basePageData.role_permissions.push({
                 id: 0,
-                pageId: 0,
+                page_id: 0,
                 role: highestRole,
-                readPermission: true,
-                writePermission: true
+                read_permission: true,
+                write_permission: true
             });
         }
 
@@ -143,7 +143,7 @@ export function EditPage() {
                 .then(([pageGroups, pageResponse]) => {
                     populatePageGroups(pageGroups);
                     // Filter the page versions to match the enabled languages
-                    pageResponse.pageVersions = pageResponse.pageVersions.filter((pageVersion) => languageList.includes(pageVersion.language));
+                    pageResponse.page_versions = pageResponse.page_versions.filter((pageVersion) => languageList.includes(pageVersion.language));
                     setPageData(pageResponse);
                 })
                 .catch((error) => {
@@ -220,8 +220,8 @@ export function EditPage() {
     }
 
     const validatePermissions = (_: unknown, _1: unknown, index: number) => {
-        const readPermissionValue = pageForm.getFieldValue(["rolePermissions", index, "readPermission"]);
-        const writePermissionValue = pageForm.getFieldValue(["rolePermissions", index, "writePermission"]);
+        const readPermissionValue = pageForm.getFieldValue(["role_permissions", index, "read_permission"]);
+        const writePermissionValue = pageForm.getFieldValue(["role_permissions", index, "write_permission"]);
 
         if (readPermissionValue === false && writePermissionValue === true) {
             return Promise.reject(t("EditPage.form.rolePermissions.readPermission.rules.writeRequiresRead"));
@@ -237,7 +237,7 @@ export function EditPage() {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const validateRoleDuplicates = (_: unknown, _value: RoleEnum, _index: number) => {
-        const allRolePermissions: RolePermissionResponse[] = pageForm.getFieldValue("rolePermissions");
+        const allRolePermissions: RolePermissionResponse[] = pageForm.getFieldValue("role_permissions");
         const roles: RoleEnum[] = allRolePermissions.map((item: RolePermissionResponse) => item.role);
         const countRoles: Record<RoleEnum, number> = roles.reduce((acc, role) => {
             acc[role] = (acc[role] || 0) + 1;
@@ -303,7 +303,7 @@ export function EditPage() {
                         >
                             <Select options={statusOptions}/>
                         </Form.Item>
-                        <Form.Item name={"pageGroupId"}
+                        <Form.Item name={"page_group_id"}
                                    label={t("EditPage.form.pageGroupId.label")}
                                    tooltip={t("EditPage.form.pageGroupId.tooltip")}
                                    key={"page-pageGroupId"}
@@ -318,7 +318,7 @@ export function EditPage() {
                         </Form.Item>
                         <Divider titlePlacement={"left"} orientation={"horizontal"}
                                  key={"page-lang-divider"}>{t("EditPage.form.divider.languages")}</Divider>
-                        <Form.List name={"pageVersions"}
+                        <Form.List name={"page_versions"}
                                    key={"page-versions"}
                         >
                             {}
@@ -327,11 +327,11 @@ export function EditPage() {
                                 return (
                                     <>
                                         {versions.map((_pageVersion, index) => {
-                                            const uniqueKey = `pageVersion-${index}-${pageData.pageVersions[index].language}`;
+                                            const uniqueKey = `pageVersion-${index}-${pageData.page_versions[index].language}`;
 
                                             return (<div key={uniqueKey}>
                                                 <Divider titlePlacement={"left"} orientation={"horizontal"}
-                                                         key={uniqueKey + "-divider"}>{pageData.pageVersions[index].language.toUpperCase()}</Divider>
+                                                         key={uniqueKey + "-divider"}>{pageData.page_versions[index].language.toUpperCase()}</Divider>
                                                 <Form.Item
                                                     name={[index, "id"]}
                                                     label={"ID"}
@@ -341,7 +341,7 @@ export function EditPage() {
                                                     <Input type={"text"} disabled={true} key={uniqueKey + "-id-input"}/>
                                                 </Form.Item>
                                                 <Form.Item
-                                                    name={[index, "pageId"]}
+                                                    name={[index, "page_id"]}
                                                     label={"Page ID"}
                                                     key={uniqueKey + "-pageId"}
                                                     hidden={true}
@@ -391,8 +391,8 @@ export function EditPage() {
                                                     ]}
                                                 >
                                                     <PageBodyEditor key={uniqueKey + "body-editor"}
-                                                                    language={pageData.pageVersions[index].language}
-                                                                    pageId={pageData.pageVersions[index].pageId}
+                                                                    language={pageData.page_versions[index].language}
+                                                                    pageId={pageData.page_versions[index].page_id}
                                                                     onChange={(data: string) => pageForm.setFieldsValue({"index": {body: data}})}
                                                                     value={pageForm.getFieldValue(["index", "body"])}
                                                     />
@@ -406,7 +406,7 @@ export function EditPage() {
 
                         <Divider titlePlacement={"left"} orientation={"horizontal"}
                                  key={"divider-roles"}>{t("EditPage.form.divider.permissions")}</Divider>
-                        <Form.List name={"rolePermissions"}
+                        <Form.List name={"role_permissions"}
                                    key={"page-roles"}
                         >
                             {(rolePermissions, {add, remove}) => {
@@ -416,7 +416,7 @@ export function EditPage() {
                                             const uniqueKey = `pageRole-${index}`;
                                             let isDisabledRole = false;
                                             // This will freeze the role of the user so that it can not be modified
-                                            if (userRole === pageForm.getFieldValue(["rolePermissions", index, "role"])) {
+                                            if (userRole === pageForm.getFieldValue(["role_permissions", index, "role"])) {
                                                 isDisabledRole = true;
                                             }
 
@@ -437,7 +437,7 @@ export function EditPage() {
                                                              key={uniqueKey + "-divider-item"}></Divider>
                                                 </Form.Item>
                                                 <Form.Item
-                                                    name={[index, "readPermission"]}
+                                                    name={[index, "read_permission"]}
                                                     label={t("EditPage.form.rolePermissions.readPermission.label")}
                                                     valuePropName={"checked"}
                                                     key={uniqueKey + "-read"}
@@ -456,7 +456,7 @@ export function EditPage() {
                                                               disabled={isDisabledRole}/>
                                                 </Form.Item>
                                                 <Form.Item
-                                                    name={[index, "writePermission"]}
+                                                    name={[index, "write_permission"]}
                                                     label={t("EditPage.form.rolePermissions.writePermission.label")}
                                                     valuePropName={"checked"}
                                                     key={uniqueKey + "-write"}
@@ -470,8 +470,8 @@ export function EditPage() {
                                                         style={{lineHeight: "32px"}}
                                                         key={uniqueKey + "-write-check"}
                                                         disabled={isDisabledRole ||
-                                                            pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_ANONYMOUS ||
-                                                            pageForm.getFieldValue(["rolePermissions", index, "role"]) === RoleEnum.ROLE_USER}
+                                                            pageForm.getFieldValue(["role_permissions", index, "role"]) === RoleEnum.ROLE_ANONYMOUS ||
+                                                            pageForm.getFieldValue(["role_permissions", index, "role"]) === RoleEnum.ROLE_USER}
                                                     />
                                                 </Form.Item>
                                                 <Form.Item
@@ -495,7 +495,7 @@ export function EditPage() {
                                                         disabled={isDisabledRole}
                                                         onChange={(value: RoleEnum) => {
                                                             if (value === RoleEnum.ROLE_ANONYMOUS || value === RoleEnum.ROLE_USER) {
-                                                                pageForm.setFieldValue(["rolePermissions", index, "writePermission"], false);
+                                                                pageForm.setFieldValue(["role_permissions", index, "write_permission"], false);
                                                             }
                                                         }}
                                                     />
@@ -533,7 +533,7 @@ export function EditPage() {
                             <Input type={"text"} disabled={true}/>
                         </Form.Item>
                         <Form.Item
-                            name={"createdAt"}
+                            name={"created_at"}
                             label={t("EditPage.form.metadata.createdAt")}
                             key={"page-createdAt"}>
                             <Input type={"text"} disabled={true}/>
@@ -545,7 +545,7 @@ export function EditPage() {
                             <Input type={"text"} disabled={true}/>
                         </Form.Item>
                         <Form.Item
-                            name={"modifiedAt"}
+                            name={"modified_at"}
                             label={t("EditPage.form.metadata.modifiedAt")}
                             key={"page-modifiedAt"}>
                             <Input type={"text"} disabled={true}/>

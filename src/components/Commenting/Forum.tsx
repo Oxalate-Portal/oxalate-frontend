@@ -19,7 +19,7 @@ export function Forum() {
             commentAPI.findAllForParentIdWithDepth(3, 2)
         ])
             .then(([rootComment]) => {
-                setComments(rootComment.childComments);
+                setComments(rootComment.child_comments);
             })
             .catch((error) => {
                 console.error("Failed to load comments:", error);
@@ -34,7 +34,7 @@ export function Forum() {
         const groupedComments: { [key: number]: CommentResponse[] } = {};
 
         comments.forEach((comment) => {
-            const parentId = comment.parentCommentId;
+            const parentId = comment.parent_comment_id;
             if (!groupedComments[parentId]) {
                 groupedComments[parentId] = [];
             }
@@ -64,10 +64,10 @@ export function Forum() {
                             style={{width: "100%", marginBottom: 16}}
                         >
                             <Space orientation={"horizontal"}>
-                                <Avatar src={resolveCommentAvatarUrl(comment.avatarUrl) || undefined} icon={<UserOutlined/>} size={32}/>
+                                <Avatar src={resolveCommentAvatarUrl(comment.avatar_url) || undefined} icon={<UserOutlined/>} size={32}/>
                                 <Typography.Text>{comment.username}</Typography.Text>
                                 <Typography.Text>
-                                    {dayjs(comment.createdAt).format("YYYY-MM-DD HH:mm")}
+                                    {dayjs(comment.created_at).format("YYYY-MM-DD HH:mm")}
                                 </Typography.Text>
                             </Space>
                             <p style={{marginTop: 8}}>{comment.body}</p>

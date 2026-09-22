@@ -4,7 +4,7 @@ import type {MembershipResponse} from "./MembershipResponse";
 import type {TagResponse} from "./TagResponse";
 
 export interface UserResponse extends AbstractUser {
-    diveCount: number;
+    dive_count: number;
     payments: PaymentResponse[];
     memberships: MembershipResponse[];
     tags?: TagResponse[];

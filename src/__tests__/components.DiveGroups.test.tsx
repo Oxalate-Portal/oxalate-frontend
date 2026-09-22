@@ -44,15 +44,15 @@ jest.mock("react-i18next", () => ({
 function diveGroup(overrides: Partial<DiveGroupResponse> = {}): DiveGroupResponse {
     return {
         id: 1,
-        eventId: 42,
+        event_id: 42,
         name: "Team Sidemount",
-        ownerId: 10,
-        ownerName: "Owner Ten",
-        groupOrder: 1,
-        createdAt: "2026-05-30T12:00:00Z",
-        updatedAt: null,
+        owner_id: 10,
+        owner_name: "Owner Ten",
+        group_order: 1,
+        created_at: "2026-05-30T12:00:00Z",
+        updated_at: null,
         members: [
-            {userId: 10, name: "Owner Ten", userType: "SCUBA_DIVER", owner: true, joinedAt: "2026-05-30T12:00:00Z"}
+            {user_id: 10, name: "Owner Ten", user_type: "SCUBA_DIVER", owner: true, joined_at: "2026-05-30T12:00:00Z"}
         ],
         ...overrides
     } as unknown as DiveGroupResponse;
@@ -76,8 +76,8 @@ describe("dive group helpers", () => {
     it("finds the dive group a user belongs to", () => {
         const groups = [diveGroup({id: 1}), diveGroup({
             id: 2,
-            ownerId: 20,
-            members: [{userId: 20, name: "Diver Twenty", userType: "SCUBA_DIVER", owner: true, joinedAt: null}] as never
+            owner_id: 20,
+            members: [{user_id: 20, name: "Diver Twenty", user_type: "SCUBA_DIVER", owner: true, joined_at: null}] as never
         })];
 
         expect(findDiveGroupOfUser(groups, 20)?.id).toBe(2);
@@ -85,21 +85,21 @@ describe("dive group helpers", () => {
     });
 
     it("finds the dive group a user owns", () => {
-        const groups = [diveGroup({id: 1, ownerId: 10}), diveGroup({id: 2, ownerId: 20})];
+        const groups = [diveGroup({id: 1, owner_id: 10}), diveGroup({id: 2, owner_id: 20})];
 
         expect(findDiveGroupOwnedByUser(groups, 20)?.id).toBe(2);
         expect(findDiveGroupOwnedByUser(groups, 99)).toBeNull();
     });
 
     it("sorts the dive groups by their order without mutating the input", () => {
-        const groups = [diveGroup({id: 1, groupOrder: 3}), diveGroup({id: 2, groupOrder: 1}), diveGroup({id: 3, groupOrder: 2})];
+        const groups = [diveGroup({id: 1, group_order: 3}), diveGroup({id: 2, group_order: 1}), diveGroup({id: 3, group_order: 2})];
 
         expect(sortDiveGroupsByOrder(groups).map((group) => group.id)).toEqual([2, 3, 1]);
         expect(groups.map((group) => group.id)).toEqual([1, 2, 3]);
     });
 
     it("keeps the received order when the groups have no order", () => {
-        const groups = [diveGroup({id: 5, groupOrder: undefined as never}), diveGroup({id: 6, groupOrder: undefined as never})];
+        const groups = [diveGroup({id: 5, group_order: undefined as never}), diveGroup({id: 6, group_order: undefined as never})];
 
         expect(sortDiveGroupsByOrder(groups).map((group) => group.id)).toEqual([5, 6]);
     });
@@ -169,7 +169,7 @@ describe("DiveGroupTable", () => {
     });
 
     it("renders an empty owner name when the group has none", () => {
-        renderTable([diveGroup({ownerName: null})], 99);
+        renderTable([diveGroup({owner_name: null})], 99);
 
         expect(screen.getByText("Team Sidemount")).toBeInTheDocument();
     });
@@ -196,9 +196,9 @@ describe("DiveGroupTable", () => {
             diveGroup({
                 id: 2,
                 name: "Team Backmount",
-                ownerId: 20,
-                ownerName: "Diver Twenty",
-                members: [{userId: 99, name: "Me", userType: "SCUBA_DIVER", owner: false, joinedAt: null}] as never
+                owner_id: 20,
+                owner_name: "Diver Twenty",
+                members: [{user_id: 99, name: "Me", user_type: "SCUBA_DIVER", owner: false, joined_at: null}] as never
             })
         ];
 
@@ -211,8 +211,8 @@ describe("DiveGroupTable", () => {
     it("shows the leave button for a member who is not the owner", () => {
         const group = diveGroup({
             members: [
-                {userId: 10, name: "Owner Ten", userType: "SCUBA_DIVER", owner: true, joinedAt: null},
-                {userId: 99, name: "Me", userType: "FREE_DIVER", owner: false, joinedAt: null}
+                {user_id: 10, name: "Owner Ten", user_type: "SCUBA_DIVER", owner: true, joined_at: null},
+                {user_id: 99, name: "Me", user_type: "FREE_DIVER", owner: false, joined_at: null}
             ] as never
         });
 
@@ -242,8 +242,8 @@ describe("DiveGroupTable", () => {
     it("expands the row to show the members of the group", async () => {
         const group = diveGroup({
             members: [
-                {userId: 10, name: "Owner Ten", userType: "SCUBA_DIVER", owner: true, joinedAt: "2026-05-30T12:00:00Z"},
-                {userId: 20, name: "Diver Twenty", userType: "SNORKLER", owner: false, joinedAt: null}
+                {user_id: 10, name: "Owner Ten", user_type: "SCUBA_DIVER", owner: true, joined_at: "2026-05-30T12:00:00Z"},
+                {user_id: 20, name: "Diver Twenty", user_type: "SNORKLER", owner: false, joined_at: null}
             ] as never
         });
 
@@ -315,8 +315,8 @@ describe("DiveGroupTable", () => {
     it("shows the edit button for a member who is not the owner", () => {
         const group = diveGroup({
             members: [
-                {userId: 10, name: "Owner Ten", userType: "SCUBA_DIVER", owner: true, joinedAt: null},
-                {userId: 99, name: "Me", userType: "FREE_DIVER", owner: false, joinedAt: null}
+                {user_id: 10, name: "Owner Ten", user_type: "SCUBA_DIVER", owner: true, joined_at: null},
+                {user_id: 99, name: "Me", user_type: "FREE_DIVER", owner: false, joined_at: null}
             ] as never
         });
 
@@ -395,16 +395,16 @@ describe("DiveGroupTable", () => {
     // ------------------------------------------------------------------
 
     const orderedGroups = () => [
-        diveGroup({id: 1, name: "Team One", groupOrder: 1, ownerId: 10, ownerName: "Owner Ten"}),
-        diveGroup({id: 2, name: "Team Two", groupOrder: 2, ownerId: 20, ownerName: "Owner Twenty"}),
-        diveGroup({id: 3, name: "Team Three", groupOrder: 3, ownerId: 30, ownerName: "Owner Thirty"})
+        diveGroup({id: 1, name: "Team One", group_order: 1, owner_id: 10, owner_name: "Owner Ten"}),
+        diveGroup({id: 2, name: "Team Two", group_order: 2, owner_id: 20, owner_name: "Owner Twenty"}),
+        diveGroup({id: 3, name: "Team Three", group_order: 3, owner_id: 30, owner_name: "Owner Thirty"})
     ];
 
     it("renders the dive groups in the order set by the organizer", () => {
         const groups = [
-            diveGroup({id: 1, name: "Team One", groupOrder: 3}),
-            diveGroup({id: 2, name: "Team Two", groupOrder: 1}),
-            diveGroup({id: 3, name: "Team Three", groupOrder: 2})
+            diveGroup({id: 1, name: "Team One", group_order: 3}),
+            diveGroup({id: 2, name: "Team Two", group_order: 1}),
+            diveGroup({id: 3, name: "Team Three", group_order: 2})
         ];
 
         renderTable(groups, 99);
@@ -496,9 +496,9 @@ describe("DiveGroupTable", () => {
 
         rerender(<DiveGroupTable
             diveGroups={[
-                diveGroup({id: 2, name: "Team Two", groupOrder: 1, ownerId: 20, ownerName: "Owner Twenty"}),
-                diveGroup({id: 1, name: "Team One", groupOrder: 2, ownerId: 10, ownerName: "Owner Ten"}),
-                diveGroup({id: 3, name: "Team Three", groupOrder: 3, ownerId: 30, ownerName: "Owner Thirty"})
+                diveGroup({id: 2, name: "Team Two", group_order: 1, owner_id: 20, owner_name: "Owner Twenty"}),
+                diveGroup({id: 1, name: "Team One", group_order: 2, owner_id: 10, owner_name: "Owner Ten"}),
+                diveGroup({id: 3, name: "Team Three", group_order: 3, owner_id: 30, owner_name: "Owner Thirty"})
             ]}
             loading={false}
             currentUserId={99}
@@ -554,7 +554,7 @@ describe("DiveGroupFormModal", () => {
             open={true}
             eventId={42}
             participants={participants}
-            eventOrganizer={{id: 99, firstName: "Event", lastName: "Organizer"} as never}
+            eventOrganizer={{id: 99, first_name: "Event", last_name: "Organizer"} as never}
             diveGroups={[]}
             canAssignOwner={true}
             onCancel={onCancel}
@@ -622,7 +622,7 @@ describe("DiveGroupFormModal", () => {
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 10, groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", owner_id: 10, group_type: "NORMAL"}));
     });
 
     it("validates that the name is required", async () => {
@@ -653,7 +653,7 @@ describe("DiveGroupFormModal", () => {
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.name.placeholder"), {target: {value: "Team Sidemount"}});
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", group_type: "NORMAL"}));
         expect(onCreated).toHaveBeenCalledWith(created);
     });
 
@@ -668,11 +668,11 @@ describe("DiveGroupFormModal", () => {
 
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 20, groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", owner_id: 20, group_type: "NORMAL"}));
     });
 
     it("allows the event organizer to be selected as owner", async () => {
-        mockCreateDiveGroup.mockResolvedValue(diveGroup({ownerId: 99, ownerName: "Event Organizer"}));
+        mockCreateDiveGroup.mockResolvedValue(diveGroup({owner_id: 99, owner_name: "Event Organizer"}));
 
         renderOrganizerModal();
 
@@ -680,7 +680,7 @@ describe("DiveGroupFormModal", () => {
         await selectOption(ownerCombobox(), "Event Organizer");
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Organizer group", ownerId: 99, groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Organizer group", owner_id: 99, group_type: "NORMAL"}));
     });
 
     it("excludes the owner from the member options", async () => {
@@ -694,9 +694,9 @@ describe("DiveGroupFormModal", () => {
 
     it("does not offer participants of another dive group as members", async () => {
         renderModal(true, true, [diveGroup({
-            ownerId: 20,
-            ownerName: "Diver Twenty",
-            members: [{userId: 20, name: "Diver Twenty", userType: "SCUBA_DIVER", owner: true, joinedAt: null}] as never
+            owner_id: 20,
+            owner_name: "Diver Twenty",
+            members: [{user_id: 20, name: "Diver Twenty", user_type: "SCUBA_DIVER", owner: true, joined_at: null}] as never
         })]);
 
         const dropdown = await openSelect(membersCombobox());
@@ -713,11 +713,11 @@ describe("DiveGroupFormModal", () => {
         await selectOption(membersCombobox(), "Diver Twenty");
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", memberIds: [20], groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", member_ids: [20], group_type: "NORMAL"}));
     });
 
     it("omits a selected member who is then selected as the owner", async () => {
-        mockCreateDiveGroup.mockResolvedValue(diveGroup({ownerId: 20, ownerName: "Diver Twenty"}));
+        mockCreateDiveGroup.mockResolvedValue(diveGroup({owner_id: 20, owner_name: "Diver Twenty"}));
 
         renderModal(true, true);
 
@@ -726,7 +726,7 @@ describe("DiveGroupFormModal", () => {
         await selectOption(ownerCombobox(), "Diver Twenty");
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", ownerId: 20, groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", owner_id: 20, group_type: "NORMAL"}));
     });
 
     it("creates a project dive group when the project group type is selected", async () => {
@@ -741,7 +741,7 @@ describe("DiveGroupFormModal", () => {
 
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", groupType: "PROJECT"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", group_type: "PROJECT"}));
     });
 
     it("shows an error when the creation fails", async () => {
@@ -794,7 +794,7 @@ describe("DiveGroupFormModal", () => {
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
         await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({
-            eventId: 42, name: "Team Sidemount", groupType: "NORMAL", description: "Wreck first"
+            event_id: 42, name: "Team Sidemount", group_type: "NORMAL", description: "Wreck first"
         }));
     });
 
@@ -807,6 +807,6 @@ describe("DiveGroupFormModal", () => {
         fireEvent.change(screen.getByPlaceholderText("DiveEvent.diveGroup.form.description.placeholder"), {target: {value: "   "}});
         fireEvent.click(screen.getByText("DiveEvent.diveGroup.form.submit"));
 
-        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({eventId: 42, name: "Team Sidemount", groupType: "NORMAL"}));
+        await waitFor(() => expect(mockCreateDiveGroup).toHaveBeenCalledWith({event_id: 42, name: "Team Sidemount", group_type: "NORMAL"}));
     });
 });

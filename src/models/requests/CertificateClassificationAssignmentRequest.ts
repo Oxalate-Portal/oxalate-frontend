@@ -1,5 +1,5 @@
 export interface CertificateClassificationAssignmentRequest {
-    certificateId?: number | null;
-    certificateNames?: string[] | null;
-    classificationId?: number | null;
+    certificate_id?: number | null;
+    certificate_names?: string[] | null;
+    classification_id?: number | null;
 }

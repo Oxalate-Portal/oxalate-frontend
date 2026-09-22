@@ -8,7 +8,7 @@ const mockFormApi = {
     resetFields: jest.fn()
 };
 
-let capturedOnFinish: ((values: { newEmail: string; password: string }) => void) | null = null;
+let capturedOnFinish: ((values: { new_email: string; password: string }) => void) | null = null;
 
 jest.mock("../services", () => ({
     authAPI: {
@@ -23,7 +23,7 @@ jest.mock("react-i18next", () => ({
 }));
 
 jest.mock("antd", () => {
-    const FormMock = ({children, onFinish}: { children: ReactNode; onFinish?: (values: { newEmail: string; password: string }) => void }) => {
+    const FormMock = ({children, onFinish}: { children: ReactNode; onFinish?: (values: { new_email: string; password: string }) => void }) => {
         capturedOnFinish = onFinish || null;
         return <div>{children}</div>;
     };
@@ -70,11 +70,11 @@ describe("EmailChangeRequestModal", () => {
         expect(screen.getByText("User.emailChange.form.submit")).toBeInTheDocument();
 
         await act(async () => {
-            capturedOnFinish?.({newEmail: "new.user@example.com", password: "ValidPassword1!"});
+            capturedOnFinish?.({new_email: "new.user@example.com", password: "ValidPassword1!"});
             await Promise.resolve();
         });
 
-        expect(mockRequestEmailChange).toHaveBeenCalledWith({newEmail: "new.user@example.com", password: "ValidPassword1!"});
+        expect(mockRequestEmailChange).toHaveBeenCalledWith({new_email: "new.user@example.com", password: "ValidPassword1!"});
         expect(mockFormApi.setFieldsValue).toHaveBeenCalledWith({password: ""});
         expect(screen.getByText("User.emailChange.result.success")).toBeInTheDocument();
         expect(screen.queryByText("User.emailChange.form.submit")).toBeNull();
@@ -91,7 +91,7 @@ describe("EmailChangeRequestModal", () => {
         render(<EmailChangeRequestModal open={true} onClose={() => undefined}/>);
 
         await act(async () => {
-            capturedOnFinish?.({newEmail: "taken@example.com", password: "WrongPassword1!"});
+            capturedOnFinish?.({new_email: "taken@example.com", password: "WrongPassword1!"});
             await Promise.resolve();
         });
 
@@ -106,7 +106,7 @@ describe("EmailChangeRequestModal", () => {
         render(<EmailChangeRequestModal open={true} onClose={() => undefined}/>);
 
         await act(async () => {
-            capturedOnFinish?.({newEmail: "new.user@example.com", password: "ValidPassword1!"});
+            capturedOnFinish?.({new_email: "new.user@example.com", password: "ValidPassword1!"});
             await Promise.resolve();
         });
 

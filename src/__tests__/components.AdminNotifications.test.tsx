@@ -114,7 +114,7 @@ describe("AdminNotifications", () => {
             message: "Valid message",
             creator: 0,
             recipients: [10, 20],
-            sendAll: false
+            send_all: false
         });
         expect(onNotificationSent).toHaveBeenCalled();
     });

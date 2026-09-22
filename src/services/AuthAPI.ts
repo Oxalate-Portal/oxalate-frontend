@@ -25,7 +25,7 @@ class AuthAPI {
 
     async login(user: LoginRequest): Promise<UserSessionToken> {
         const response = await this.axiosInstance
-            .post<UserSessionToken>("/login", user, {headers: {"X-Captcha-Token": user.recaptchaToken}});
+            .post<UserSessionToken>("/login", user, {headers: {"X-Captcha-Token": user.recaptcha_token}});
 
         if (response.status === 200 && response.data.id > 0) {
             const session: UserSessionToken = response.data;
@@ -69,7 +69,7 @@ class AuthAPI {
 
     public async updatePassword(
         userId: number | undefined,
-        postData: { oldPassword: string; newPassword: string; confirmPassword: string }
+        postData: { old_password: string; new_password: string; confirm_password: string }
     ): Promise<ActionResponse> {
         const response = await this.axiosInstance.put<ActionResponse>("/" + userId + "/password", postData);
         return response.data;

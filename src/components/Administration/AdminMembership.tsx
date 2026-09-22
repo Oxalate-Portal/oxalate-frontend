@@ -5,6 +5,7 @@ import {membershipAPI} from "../../services";
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
+import {formatDateOnly} from "../../tools/DateTimeTool.ts";
 
 export function AdminMembership() {
     const {t} = useTranslation();
@@ -23,8 +24,8 @@ export function AdminMembership() {
                         // Convert date strings to Dayjs instances (guarding nullable endDate)
                         const converted = {
                             ...response,
-                            startDate: dayjs(response.startDate),
-                            endDate: response.endDate ? dayjs(response.endDate) : null
+                            start_date: dayjs(response.start_date),
+                            end_date: response.end_date ? dayjs(response.end_date) : null
                         } as MembershipResponse;
                         setMembership(converted);
                         // update form values so AntD sees Dayjs values
@@ -54,11 +55,11 @@ export function AdminMembership() {
 
         const updatedMembership: MembershipRequest = {
             id: membership.id,
-            userId: membership.userId,
+            user_id: membership.user_id,
             status: values.status,
             type: values.type,
-            startDate: membership.startDate,
-            endDate: membership.endDate
+            start_date: formatDateOnly(membership.start_date),
+            end_date: formatDateOnly(membership.end_date)
         };
 
         membershipAPI.update(updatedMembership)
@@ -79,7 +80,7 @@ export function AdminMembership() {
     return (
             <div className="darkDiv">
                 {contextHolder}
-                <h3>{membership.username} {membership.startDate.format("YYYY-MM-DD")} - {(membership.endDate !== null ? membership.endDate.format("YYYY-MM-DD") : "--")} </h3>
+                <h3>{membership.username} {membership.start_date.format("YYYY-MM-DD")} - {(membership.end_date !== null ? membership.end_date.format("YYYY-MM-DD") : "--")} </h3>
                 <Form form={form}
                       onFinish={onFinish}
                       layout={"vertical"}

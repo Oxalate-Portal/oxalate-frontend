@@ -4,6 +4,10 @@
       "alert" : "Algo salió mal, por favor contacte al administrador."
     }
   },
+  "ActionResultEnum" : {
+    "FAILURE" : "Failure",
+    "SUCCESS" : "Success"
+  },
   "AddMemberships" : {
     "disabled" : "La membresía está desactivada",
     "errorGetUsers" : "Error al obtener usuarios",
@@ -582,6 +586,7 @@
     },
     "search" : {
       "filter" : "Filtrar",
+      "filterColumn" : "Columna de búsqueda",
       "placeholder" : "Buscar..."
     },
     "table" : {
@@ -594,6 +599,11 @@
       "userName" : "Nombre"
     },
     "title" : "Eventos de auditoría"
+  },
+  "AuditLevelEnum" : {
+    "error" : "Error",
+    "info" : "Information",
+    "warn" : "Warning"
   },
   "BlockedDates" : {
     "form" : {
@@ -869,8 +879,8 @@
     },
     "requiresHealthStatement" : "Para unirse a un evento se requiere que la declaración de salud esté aprobada",
     "requiresMembership" : "Para unirse a un evento se requiere membresía",
-    "requiresPayment" : "Para unirse a un evento se requiere un pago",
     "requiresMembershipAtEvent" : "Para unirse a un evento se requiere una membresía válida cuando tenga lugar el evento",
+    "requiresPayment" : "Para unirse a un evento se requiere un pago",
     "requiresPaymentAtEvent" : "Para unirse a un evento se requiere un pago válido cuando tenga lugar el evento",
     "subscribe" : {
       "button" : "Unirse al evento",
@@ -920,6 +930,13 @@
     "paymentLabel" : "Pagos",
     "rowCount" : "Número de filas:  {{count}}",
     "userLabel" : "Usuarios"
+  },
+  "DownloadTypeEnum" : {
+    "CERTIFICATE" : "Certificate",
+    "DIVE" : "Dive",
+    "DIVE_EVENT" : "Dive event",
+    "MEMBER" : "Member",
+    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -1215,6 +1232,10 @@
       }
     }
   },
+  "EmailNotificationTypeEnum" : {
+    "EVENT" : "Event",
+    "PAGE" : "Page"
+  },
   "EmailSubscriptionCard" : {
     "header" : "Recibir notificaciones por correo electrónico cuando:"
   },
@@ -1475,6 +1496,14 @@
     "title" : "Notificaciones",
     "viewAll" : "Ver todas las notificaciones"
   },
+  "NotificationGroupEnum" : {
+    "active_membership" : "Active membership",
+    "all_registered" : "All registered",
+    "inactive_days" : "Inactive days",
+    "locked_accounts" : "Locked accounts",
+    "never_had_membership" : "Never had membership",
+    "no_active_membership" : "No active membership"
+  },
   "NotificationList" : {
     "markAllAsRead" : "Marcar todas como leídas",
     "noNotifications" : "No hay notificaciones",
@@ -1529,6 +1558,11 @@
     "updateStatus" : {
       "removed" : "Grupo de páginas eliminado"
     }
+  },
+  "PageStatusEnum" : {
+    "deleted" : "Deleted",
+    "drafted" : "Draft",
+    "published" : "Published"
   },
   "Pages" : {
     "alert" : {
@@ -1617,6 +1651,12 @@
     "periodical" : "Periódico",
     "perpetual" : "Permanente"
   },
+  "PaymentExpirationTypeEnum" : {
+    "DISABLED" : "Disabled",
+    "DURATIONAL" : "Durational",
+    "PERIODICAL" : "Periodical",
+    "PERPETUAL" : "Perpetual"
+  },
   "PaymentListTable" : {
     "table" : {
       "created" : "Creado",
@@ -1629,8 +1669,19 @@
     }
   },
   "PaymentTypeEnum" : {
+    "DISABLED" : "Deshabilitado",
+    "NONE" : "Ninguno",
     "ONE_TIME" : "Único",
     "PERIODICAL" : "Periódico"
+  },
+  "PortalConfigGroupEnum" : {
+    "commenting" : "Commenting",
+    "email" : "Email",
+    "files" : "Files",
+    "frontend" : "Frontend",
+    "general" : "General",
+    "membership" : "Membership",
+    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1937,6 +1988,16 @@
       "notReceived" : "Si no ha recibido el correo de confirmación, puede reenviarlo haciendo clic en el botón a continuación."
     }
   },
+  "ResultEnum" : {
+    "FAIL" : "Failure",
+    "OK" : "OK"
+  },
+  "RoleEnum" : {
+    "ROLE_ADMIN" : "Administrator",
+    "ROLE_ANONYMOUS" : "Anonymous",
+    "ROLE_ORGANIZER" : "Organizer",
+    "ROLE_USER" : "User"
+  },
   "SetDives" : {
     "noDives" : "Sin inmersiones",
     "table" : {
@@ -1975,6 +2036,10 @@
       "registered" : "Registrado",
       "user-details" : "Usuario"
     }
+  },
+  "SortDirectionEnum" : {
+    "ASC" : "Ascending",
+    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Reportes",
@@ -2017,6 +2082,16 @@
     "select" : {
       "placeholder" : "Seleccione la zona horaria"
     }
+  },
+  "UpdateStatusEnum" : {
+    "FAIL" : "Failure",
+    "NONE" : "None",
+    "OK" : "OK"
+  },
+  "UploadStatusEnum" : {
+    "deleted" : "Deleted",
+    "published" : "Published",
+    "uploaded" : "Uploaded"
   },
   "User" : {
     "button" : {
@@ -2240,6 +2315,12 @@
       }
     }
   },
+  "UserStatusEnum" : {
+    "active" : "Active",
+    "anonymized" : "Anonymized",
+    "locked" : "Locked",
+    "registered" : "Registered"
+  },
   "UserTypeEnum" : {
     "free_diver" : "Apnea",
     "non_diver" : "Ninguno",
@@ -2319,6 +2400,20 @@
     "table" : {
       "column-title" : {
         "action" : "Acción"
+      },
+      "fetchLimitReached" : "Solo se cargaron las primeras {{rows}} filas; acote la lista en el servidor.",
+      "filter" : {
+        "reset" : "Restablecer",
+        "searchColumn" : "Buscar {{column}}",
+        "select" : "Seleccione un valor"
+      },
+      "loadError" : "No se pudieron cargar los datos de la tabla.",
+      "pagination" : {
+        "total" : "{{from}}-{{to}} de {{total}}"
+      },
+      "search" : {
+        "caseSensitive" : "Distinguir mayúsculas y minúsculas",
+        "placeholder" : "Buscar..."
       }
     },
     "userStatus" : {

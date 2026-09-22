@@ -31,11 +31,11 @@ function makeUser(overrides: Partial<ListUserResponse> = {}): ListUserResponse {
     return {
         id: 1,
         name: "Doe Jane",
-        eventDiveCount: 0,
-        createdAt: dayjs(),
+        event_dive_count: 0,
+        created_at: dayjs(),
         payments: [],
-        membershipActive: false,
-        userType: UserTypeEnum.SCUBA_DIVER,
+        membership_active: false,
+        user_type: UserTypeEnum.SCUBA_DIVER,
         tags: [],
         ...overrides
     };
@@ -54,13 +54,13 @@ describe("hasValidPaymentForEvent", () => {
     it("returns true for a PERIODICAL payment with future end date", () => {
         const user = makeUser({
             payments: [{
-                id: 1, userId: 1,
-                paymentType: PaymentTypeEnum.PERIODICAL,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: futureDate,
+                id: 1, user_id: 1,
+                payment_type: PaymentTypeEnum.PERIODICAL,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: futureDate,
                 created: pastDate,
-                boundEvents: null
+                bound_events: null
             }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(true);
@@ -69,13 +69,13 @@ describe("hasValidPaymentForEvent", () => {
     it("returns false for a PERIODICAL payment with past end date", () => {
         const user = makeUser({
             payments: [{
-                id: 1, userId: 1,
-                paymentType: PaymentTypeEnum.PERIODICAL,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: pastDate,
+                id: 1, user_id: 1,
+                payment_type: PaymentTypeEnum.PERIODICAL,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: pastDate,
                 created: pastDate,
-                boundEvents: null
+                bound_events: null
             }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(false);
@@ -84,13 +84,13 @@ describe("hasValidPaymentForEvent", () => {
     it("returns true for ONE_TIME payment with null end date and positive paymentCount", () => {
         const user = makeUser({
             payments: [{
-                id: 1, userId: 1,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 1,
-                startDate: pastDate,
-                endDate: dayjs().add(1, "day"),
+                id: 1, user_id: 1,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 1,
+                start_date: pastDate,
+                end_date: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: null
+                bound_events: null
             }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(true);
@@ -99,13 +99,13 @@ describe("hasValidPaymentForEvent", () => {
     it("does not throw when boundEvents is null and paymentCount is 0", () => {
         const user = makeUser({
             payments: [{
-                id: 1, userId: 1,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: dayjs().add(1, "day").add(1, "day"),
+                id: 1, user_id: 1,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: dayjs().add(1, "day").add(1, "day"),
                 created: pastDate,
-                boundEvents: null
+                bound_events: null
             }]
         });
         expect(() => hasValidPaymentForEvent(user, eventId)).not.toThrow();
@@ -115,13 +115,13 @@ describe("hasValidPaymentForEvent", () => {
     it("returns true for ONE_TIME payment when event is in boundEvents and paymentCount is 0", () => {
         const user = makeUser({
             payments: [{
-                id: 1, userId: 1,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: dayjs().add(1, "day"),
+                id: 1, user_id: 1,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: [eventId, 999]
+                bound_events: [eventId, 999]
             }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(true);
@@ -130,13 +130,13 @@ describe("hasValidPaymentForEvent", () => {
     it("returns false for ONE_TIME payment when boundEvents does not include event and paymentCount is 0", () => {
         const user = makeUser({
             payments: [{
-                id: 1, userId: 1,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: dayjs().add(1, "day"),
+                id: 1, user_id: 1,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: [999]
+                bound_events: [999]
             }]
         });
         expect(hasValidPaymentForEvent(user, eventId)).toBe(false);
@@ -154,15 +154,15 @@ describe("buildParticipantOptions", () => {
         id: 450,
         name: "Akşit Kübra",
         payments: [{
-            id: 751, userId: 450,
-            paymentType: PaymentTypeEnum.ONE_TIME,
-            paymentCount: 1,
-            startDate: pastDate,
-            endDate: dayjs().add(1, "day"),
+            id: 751, user_id: 450,
+            payment_type: PaymentTypeEnum.ONE_TIME,
+            payment_count: 1,
+            start_date: pastDate,
+            end_date: dayjs().add(1, "day"),
             created: pastDate,
-            boundEvents: null
+            bound_events: null
         }],
-        membershipActive: false
+        membership_active: false
     });
 
     // Participant with exhausted payments: paymentCount=0, boundEvents=null.
@@ -173,26 +173,26 @@ describe("buildParticipantOptions", () => {
         payments: [
             {
                 id: 670,
-                userId: 243,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: dayjs().add(1, "day"),
+                user_id: 243,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: null
+                bound_events: null
             },
             {
                 id: 380,
-                userId: 243,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 0,
-                startDate: pastDate,
-                endDate: dayjs().add(1, "day"),
+                user_id: 243,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 0,
+                start_date: pastDate,
+                end_date: dayjs().add(1, "day"),
                 created: pastDate,
-                boundEvents: null
+                bound_events: null
             }
         ],
-        membershipActive: false
+        membership_active: false
     });
 
     // --- Label format ---

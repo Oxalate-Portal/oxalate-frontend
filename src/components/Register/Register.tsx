@@ -33,27 +33,27 @@ export function Register() {
     async function onFinish(regData: {
         username: string;
         password: string;
-        firstName: string;
-        lastName: string;
-        phoneNumber: string;
+        first_name: string;
+        last_name: string;
+        phone_number: string;
         privacy: boolean;
-        nextOfKin: string;
+        next_of_kin: string;
         language: string;
-        primaryUserType: UserTypeEnum;
+        primary_user_type: UserTypeEnum;
     }) {
         setLoading(true);
         authAPI.register({
             username: regData.username,
             password: regData.password,
-            firstName: regData.firstName,
-            lastName: regData.lastName,
-            phoneNumber: regData.phoneNumber,
-            nextOfKin: regData.nextOfKin,
+            first_name: regData.first_name,
+            last_name: regData.last_name,
+            phone_number: regData.phone_number,
+            next_of_kin: regData.next_of_kin,
             privacy: regData.privacy,
             language: regData.language,
-            primaryUserType: regData.primaryUserType,
-            approvedTerms: acceptedTerms === true,
-            healthStatementId: healthStatementId ?? null
+            primary_user_type: regData.primary_user_type,
+            approved_terms: acceptedTerms === true,
+            health_statement_id: healthStatementId ?? null
         })
             .then(registrationResponse => {
                 if (registrationResponse.status === ResultEnum.OK) {

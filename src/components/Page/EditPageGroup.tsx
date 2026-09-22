@@ -24,9 +24,9 @@ export function EditPageGroup() {
 
     const [pageGroup, setPageGroup] = useState<PageGroupResponse>({
         id: 0,
-        pageGroupVersions: languageList.map((language) => ({
+        page_group_versions: languageList.map((language) => ({
             id: 0,
-            pageGroupId: 0,
+            page_group_id: 0,
             language: language,
             title: ""
         })),
@@ -58,7 +58,7 @@ export function EditPageGroup() {
             pageGroupMgmtAPI.findById(tmpPageGroupId, null)
                 .then(response => {
                     // Filter the page group versions to only include the languages that are enabled in the frontend
-                    response.pageGroupVersions = response.pageGroupVersions.filter(pg => enabledLanguages.split(",").includes(pg.language));
+                    response.page_group_versions = response.page_group_versions.filter(pg => enabledLanguages.split(",").includes(pg.language));
                     setPageGroup(response);
                 })
                 .catch(error => {
@@ -81,11 +81,11 @@ export function EditPageGroup() {
 
         const normalizedFormData: PageGroupRequest = {
             ...formData,
-            pageGroupVersions: (formData.pageGroupVersions ?? []).map((version, index) => ({
+            page_group_versions: (formData.page_group_versions ?? []).map((version, index) => ({
                 id: version.id ?? 0,
                 title: version.title,
-                language: version.language ?? pageGroup.pageGroupVersions[index]?.language ?? languageList[index] ?? "",
-                pageGroupId: version.pageGroupId ?? formData.id ?? pageGroupId ?? 0
+                language: version.language ?? pageGroup.page_group_versions[index]?.language ?? languageList[index] ?? "",
+                page_group_id: version.page_group_id ?? formData.id ?? pageGroupId ?? 0
             }))
         };
 
@@ -152,7 +152,7 @@ export function EditPageGroup() {
                     <Divider titlePlacement={"left"} orientation={"horizontal"}
                              key={"pageGroupDividerMain"}>{t("EditPageGroup.form.divider.languages")}</Divider>
 
-                    <Form.List name={"pageGroupVersions"}
+                    <Form.List name={"page_group_versions"}
                                key={"page-group-versions"}
                     >
                         {}
@@ -161,8 +161,8 @@ export function EditPageGroup() {
                             return (
                                 <>
                                     {groupVersions.map((groupVersion) => {
-                                        const language = pageGroupForm.getFieldValue(["pageGroupVersions", groupVersion.name, "language"]) ??
-                                            pageGroup.pageGroupVersions[groupVersion.name]?.language ?? "";
+                                        const language = pageGroupForm.getFieldValue(["page_group_versions", groupVersion.name, "language"]) ??
+                                            pageGroup.page_group_versions[groupVersion.name]?.language ?? "";
                                         const uniqueKey = `pageGroupDivider${groupVersion.key}${language}`;
                                         return (<div key={uniqueKey}>
                                             <Divider titlePlacement={"left"} orientation={"horizontal"}
@@ -183,7 +183,7 @@ export function EditPageGroup() {
                                                 <Input type={"text"} key={uniqueKey + "-language-input"}/>
                                             </Form.Item>
                                             <Form.Item
-                                                name={[groupVersion.name, "pageGroupId"]}
+                                                name={[groupVersion.name, "page_group_id"]}
                                                 key={uniqueKey + "-page-group-id"}
                                                 hidden={true}
                                             >

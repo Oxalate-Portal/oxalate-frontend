@@ -25,6 +25,31 @@ function normalizeConfigurationArray<T>(value: unknown, label: string): T[] {
     return [];
 }
 
+/** Fields of the pre-snake_case session token shape; a stored session that still carries them is stale. */
+const LEGACY_SESSION_FIELDS = ["accessToken", "expiresAt", "approvedTerms"];
+
+/**
+ * Parses the session stored in localStorage. A session written before the snake_case wire format or one that cannot
+ * be parsed is discarded so that a stale shape never leaks into the terms gate or the expiry check.
+ */
+export function readStoredSession(userData: string | null): UserSessionToken | null {
+    if (!userData) {
+        return null;
+    }
+
+    try {
+        const parsed: unknown = JSON.parse(userData);
+
+        if (parsed === null || typeof parsed !== "object" || LEGACY_SESSION_FIELDS.some((field) => field in parsed)) {
+            return null;
+        }
+
+        return parsed as UserSessionToken;
+    } catch {
+        return null;
+    }
+}
+
 export function SessionProvider({children}: SessionProviderProps) {
     const {t} = useTranslation();
     const [user, setUser] = useState<UserSessionToken | null>(null);
@@ -64,12 +89,14 @@ export function SessionProvider({children}: SessionProviderProps) {
 
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setLoading(true);
-        const userData = localStorage.getItem(userKey);
+        const storedSession = readStoredSession(localStorage.getItem(userKey));
 
-        if (userData) {
-            setUser(JSON.parse(userData));
+        if (storedSession) {
+            setUser(storedSession);
             // We also reload the portal configurations if the user is already logged in
             loadPortalConfigurations();
+        } else {
+            localStorage.removeItem(userKey);
         }
 
         portalConfigurationAPI.getFrontendConfiguration()
@@ -180,22 +207,22 @@ export function SessionProvider({children}: SessionProviderProps) {
 
     const getPortalConfigurationValue = useCallback((groupKey: PortalConfigGroupEnum, settingKey: string): string => {
         const config = portalConfiguration.find((config) => {
-            return config.groupKey === groupKey.valueOf() && config.settingKey === settingKey;
+            return config.group_key === groupKey.valueOf() && config.setting_key === settingKey;
         });
 
         if (config === undefined) {
             return "";
         }
 
-        if (config.runtimeValue === null) {
-            if (config.valueType === "enum") {
-                return config.defaultValue.split(",")[0];
+        if (config.runtime_value === null) {
+            if (config.value_type === "enum") {
+                return config.default_value.split(",")[0];
             }
 
-            return config.defaultValue;
+            return config.default_value;
         }
 
-        return config.runtimeValue;
+        return config.runtime_value;
     }, [portalConfiguration]);
 
     const getPortalConfiguration = useCallback((): PortalConfigurationResponse[] => {

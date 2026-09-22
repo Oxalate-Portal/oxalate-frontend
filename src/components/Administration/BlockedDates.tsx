@@ -24,7 +24,7 @@ function BlockedDates() {
 
         blockedDatesAPI.findAll()
                 .then(response => {
-                    const dates = response.map((item: BlockedDateResponse) => dayjs(item.blockedDate).toDate());
+                    const dates = response.map((item: BlockedDateResponse) => dayjs(item.blocked_date).toDate());
                     setCurrentlyBlockedDates(dates);
                     setBlockedDates(response);
                 })
@@ -47,7 +47,7 @@ function BlockedDates() {
         const blockedDate = dayjs(dateString);
 
         const request: BlockedDateRequest = {
-            blockedDate: blockedDate,
+            blocked_date: blockedDate,
             reason: values.blockedReason
         };
 
@@ -90,17 +90,17 @@ function BlockedDates() {
     const columns: OxColumnsType<BlockedDateResponse> = [
         {
             title: t("BlockedDates.table.date"),
-            dataIndex: "blockedDate",
-            key: "blockedDate",
+            dataIndex: "blocked_date",
+            key: "blocked_date",
             mobile: true,
             render: (value: Date) => dayjs(value).format("YYYY-MM-DD"),
-            sorter: (a, b) => dayjs(a.blockedDate).unix() - dayjs(b.blockedDate).unix(),
+            sorter: (a, b) => dayjs(a.blocked_date).unix() - dayjs(b.blocked_date).unix(),
             defaultSortOrder: "ascend"
         },
         {
             title: t("BlockedDates.table.creator"),
-            dataIndex: "creatorName",
-            key: "creatorName"
+            dataIndex: "creator_name",
+            key: "creator_name"
         },
         {
             title: t("BlockedDates.table.reason"),

@@ -19,7 +19,7 @@ describe("OWASP A07: client session termination logic", () => {
     });
 
     it("ends the session on 401 when a session is stored", () => {
-        localStorage.setItem("user", JSON.stringify({id: 1, expiresAt: future()}));
+        localStorage.setItem("user", JSON.stringify({id: 1, expires_at: future()}));
 
         expect(shouldTerminateSession(401)).toBe(true);
     });
@@ -29,19 +29,19 @@ describe("OWASP A07: client session termination logic", () => {
     });
 
     it("ends a live session on 403", () => {
-        localStorage.setItem("user", JSON.stringify({id: 1, expiresAt: future()}));
+        localStorage.setItem("user", JSON.stringify({id: 1, expires_at: future()}));
 
         expect(shouldTerminateSession(403)).toBe(true);
     });
 
     it("ends an expired session on 403", () => {
-        localStorage.setItem("user", JSON.stringify({id: 1, expiresAt: past()}));
+        localStorage.setItem("user", JSON.stringify({id: 1, expires_at: past()}));
 
         expect(shouldTerminateSession(403)).toBe(true);
     });
 
     it("ignores successful and unrelated statuses", () => {
-        localStorage.setItem("user", JSON.stringify({id: 1, expiresAt: past()}));
+        localStorage.setItem("user", JSON.stringify({id: 1, expires_at: past()}));
 
         expect(shouldTerminateSession(200)).toBe(false);
         expect(shouldTerminateSession(404)).toBe(false);
@@ -66,7 +66,7 @@ describe("OWASP A07: client session termination logic", () => {
     });
 
     it("checks an expiry timestamp against the supplied current time", () => {
-        localStorage.setItem("user", JSON.stringify({expiresAt: "2026-09-11T12:00:00.000Z"}));
+        localStorage.setItem("user", JSON.stringify({expires_at: "2026-09-11T12:00:00.000Z"}));
 
         expect(isSessionExpired(Date.parse("2026-09-11T12:01:00.000Z"))).toBe(true);
         expect(isSessionExpired(Date.parse("2026-09-11T11:59:00.000Z"))).toBe(false);
@@ -86,7 +86,7 @@ describe("OWASP A07: client session termination logic", () => {
     });
 
     it("removes the stored session when an Axios request receives 403", async () => {
-        localStorage.setItem("user", JSON.stringify({id: 1, expiresAt: future()}));
+        localStorage.setItem("user", JSON.stringify({id: 1, expires_at: future()}));
         const axiosInstance = Axios.create();
         const mock = new MockAdapter(axiosInstance);
         registerSessionExpiryInterceptor(axiosInstance);

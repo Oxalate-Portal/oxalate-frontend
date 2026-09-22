@@ -1,4 +1,4 @@
 export interface ReportRequest {
-    commentId: number;
-    reportReason: string;
+    comment_id: number;
+    report_reason: string;
 }

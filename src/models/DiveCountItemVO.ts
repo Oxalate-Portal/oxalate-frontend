@@ -1,4 +1,4 @@
 export interface DiveCountItemVO {
-    userId: number;
-    diveCount: number;
+    user_id: number;
+    dive_count: number;
 }

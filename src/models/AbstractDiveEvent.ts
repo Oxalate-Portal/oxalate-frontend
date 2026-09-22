@@ -7,10 +7,10 @@ export interface AbstractDiveEvent {
     type: DiveTypeEnum;
     title: string;
     description: string;
-    startTime: Dayjs;
-    eventDuration: number;
-    maxDuration: number;
-    maxDepth: number;
-    maxParticipants: number;
+    start_time: Dayjs;
+    event_duration: number;
+    max_duration: number;
+    max_depth: number;
+    max_participants: number;
     status: DiveEventStatusEnum;
 }

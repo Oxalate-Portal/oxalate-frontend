@@ -57,14 +57,18 @@ describe("PageGroupMgmtAPI", () => {
     it("should find pageable page groups", async () => {
         const mockResponse = {
             content: [{id: 1, name: "Group1"}],
-            totalElements: 1,
-            totalPages: 1,
-            number: 0
+            page: 0,
+            size: 10,
+            total_elements: 1,
+            total_pages: 1,
+            first: true,
+            last: true,
+            empty: false
         };
-        mock.onGet("").reply(200, mockResponse);
+        mock.onPost("").reply(200, mockResponse);
 
-        const result = await pageGroupMgmtAPI.findPageable();
+        const result = await pageGroupMgmtAPI.findPaged({page: 0, size: 10});
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual({page: 0, size: 10});
         expect(result).toEqual(mockResponse);
     });
 });
-

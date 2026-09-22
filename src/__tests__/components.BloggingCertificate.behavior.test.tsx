@@ -105,13 +105,13 @@ jest.mock("antd", () => {
 });
 
 const blog = (id: number, title = "Blog title") => ({
-    id, createdAt: "2024-01-02", modifiedAt: null,
-    pageVersions: [{language: "en", title, ingress: "<b>Intro</b>", body: "<p>Body</p>"}]
+    id, created_at: "2024-01-02", modified_at: null,
+    page_versions: [{language: "en", title, ingress: "<b>Intro</b>", body: "<p>Body</p>"}]
 }) as never;
 const certificate = (id = 3) => ({
-    id, userId: 8, organization: "Org", certificateName: "Diver cert",
-    certificateId: "CERT123", diverId: "DIVER123", certificationDate: "2024-01-01",
-    certificatePhotoUrl: null
+    id, user_id: 8, organization: "Org", certificate_name: "Diver cert",
+    certificate_id: "CERT123", diver_id: "DIVER123", certification_date: "2024-01-01",
+    certificate_photo_url: null
 }) as never;
 
 function MenuProbe() {
@@ -137,11 +137,11 @@ describe("blogging components", () => {
         expect(click).toHaveBeenCalled();
         rerender(<BlogCard blog={blog(1)} expanded onClick={click}/>);
         expect(screen.getByText("Body")).toBeInTheDocument();
-        rerender(<BlogCard blog={{...(blog(1) as object), pageVersions: []} as never} expanded={false} onClick={click}/>);
+        rerender(<BlogCard blog={{...(blog(1) as object), page_versions: []} as never} expanded={false} onClick={click}/>);
         expect(screen.queryByText("Body")).not.toBeInTheDocument();
 
         const callbacks = [jest.fn(), jest.fn(), jest.fn(), jest.fn(), jest.fn()];
-        render(<BlogControls sortBy="createdAt" sortDirection={SortDirectionEnum.DESC} searchText="" caseSensitive={false}
+        render(<BlogControls sortBy="created_at" sortDirection={SortDirectionEnum.DESC} searchText="" caseSensitive={false}
                              onSortByChange={callbacks[0]} onSortDirectionChange={callbacks[1]} onSearchChange={callbacks[2]}
                              onCaseSensitiveChange={callbacks[3]} showLoadMore hasMore onLoadMore={callbacks[4]} totalItems={2}/>);
         fireEvent.change(screen.getAllByRole("combobox")[0], {target: {value: "title"}});
@@ -150,7 +150,7 @@ describe("blogging components", () => {
         expect(callbacks[0]).toHaveBeenCalledWith("title");
         expect(callbacks[2]).toHaveBeenCalledWith("term");
         expect(callbacks[4]).toHaveBeenCalled();
-        render(<BlogControls sortBy="createdAt" sortDirection={SortDirectionEnum.DESC} searchText="" caseSensitive={false}
+        render(<BlogControls sortBy="created_at" sortDirection={SortDirectionEnum.DESC} searchText="" caseSensitive={false}
                              onSortByChange={callbacks[0]} onSortDirectionChange={callbacks[1]} onSearchChange={callbacks[2]}
                              onCaseSensitiveChange={callbacks[3]} totalItems={1}/>);
         expect(screen.getAllByRole("combobox").at(-2)).toBeDisabled();
@@ -165,7 +165,7 @@ describe("blogging components", () => {
         (pageAPI.getPagedBlogs as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         const failed = renderHook(() => useBlogMenuItems(true));
         await waitFor(() => expect(failed.result.current[0]).toBeTruthy());
-        (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValueOnce({content: [{id: 2, pageVersions: []}]});
+        (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValueOnce({content: [{id: 2, page_versions: []}]});
         render(<MenuProbe/>);
         await waitFor(() => expect(screen.getByText("1")).toBeInTheDocument());
 
@@ -229,14 +229,14 @@ describe("certificate components", () => {
     it("keeps a fetched date-only certification date unchanged in the form", async () => {
         const transformedCertificate = {
             ...(certificate(142) as object),
-            certificationDate: transformDatesInObject({certificationDate: "2017-01-01"}, "Europe/Helsinki").certificationDate
+            certification_date: transformDatesInObject({certification_date: "2017-01-01"}, "Europe/Helsinki").certification_date
         };
         (certificateAPI.findById as jest.Mock).mockResolvedValue(transformedCertificate);
 
         render(<EditCertificate certificateId={142} open onClose={jest.fn()}/>);
 
         await waitFor(() => expect(stableCertificateForm.setFieldsValue).toHaveBeenCalledWith(expect.objectContaining({
-            certificationDate: "2017-01-01"
+            certification_date: "2017-01-01"
         })));
     });
 
@@ -262,7 +262,7 @@ describe("certificate components", () => {
     });
 
     it("renders certificate photo controls and remove success/failure", async () => {
-        const cert = {...(certificate() as object), certificatePhotoUrl: "photo.jpg"} as never;
+        const cert = {...(certificate() as object), certificate_photo_url: "photo.jpg"} as never;
         render(<ShowCertificateCard certificate={cert} deleteCertificate={jest.fn()} viewOnly={false}/>);
         expect(screen.getByAltText("ShowCertificateCard.card.certificatePhoto")).toBeInTheDocument();
         (fileTransferAPI.removeCertificateFile as jest.Mock).mockResolvedValueOnce(undefined);

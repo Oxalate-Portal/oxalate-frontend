@@ -2,6 +2,6 @@ export interface TagResponse {
     id: number;
     code: string;
     names: Record<string, string>;
-    tagGroupId?: number;
-    tagGroupCode?: string;
+    tag_group_id?: number;
+    tag_group_code?: string;
 }

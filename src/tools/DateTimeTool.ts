@@ -75,6 +75,12 @@ function localToUTCDatetime(date: Dayjs, timeZone: string): Dayjs {
     return dayjs.tz(timezoneLessDatetime, timeZone);
 }
 
+function formatDateOnly(date: Dayjs): string;
+function formatDateOnly(date: null | undefined): null;
+function formatDateOnly(date: Dayjs | null | undefined): string | null {
+    return date ? date.format("YYYY-MM-DD") : null;
+}
+
 function getDefaultMembershipDates(getPortalConfigurationValue: (
     groupKey: PortalConfigGroupEnum,
     settingKey: string
@@ -227,6 +233,7 @@ export {
     localToUTCDate,
     localToUTCDatetime,
     formatDateTimeWithMs,
+    formatDateOnly,
     getDefaultMembershipDates,
     getDefaultPeriodPaymentDates,
     getDefaultOneTimePaymentDates

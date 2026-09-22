@@ -10,17 +10,17 @@ import {useSession} from "../../session";
 
 export function Blog() {
     const {getSessionLanguage} = useSession();
+    const language = getSessionLanguage();
     const {t} = useTranslation();
-    const [sortBy, setSortBy] = useState<string>("createdAt");
+    const [sortBy, setSortBy] = useState<string>("created_at");
     const [sortDirection, setSortDirection] = useState<SortDirectionEnum>(SortDirectionEnum.DESC);
     const [searchText, setSearchText] = useState<string>("");
     const [caseSensitive, setCaseSensitive] = useState<boolean>(false);
     const [pagedBlogRequest, setPagedBlogRequest] = useState<PagedRequest>({
         page: 0,
         size: 20,
-        sort_by: "createdAt",
-        direction: SortDirectionEnum.DESC,
-        language: getSessionLanguage()
+        sort_by: "created_at",
+        direction: SortDirectionEnum.DESC
     });
     const [blogs, setBlogs] = useState<PageResponse[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -29,7 +29,7 @@ export function Blog() {
 
     const fetchBlogs = useCallback((request: PagedRequest, append: boolean = false) => {
 
-        pageAPI.getPagedBlogs(request)
+        pageAPI.getPagedBlogs(request, language)
             .then((response) => {
                 setPagedResponse(response);
                 if (append) {
@@ -44,7 +44,7 @@ export function Blog() {
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [language]);
 
     useEffect(() => {
         fetchBlogs(pagedBlogRequest);

@@ -1,3 +1,3 @@
 export interface ConfirmationRequest {
-    confirmationAnswer: boolean;
+    confirmation_answer: boolean;
 }

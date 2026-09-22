@@ -1,38 +1,27 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {UploadOutlined} from "@ant-design/icons";
 import {Button, message, Space, Typography, Upload, type UploadProps} from "antd";
 import {fileTransferAPI, getApiBaseUrl} from "../../../services";
-import {type DocumentFileResponse, PortalConfigGroupEnum, UploadStatusEnum} from "../../../models";
+import {type DocumentFileResponse, PortalConfigGroupEnum, SortDirectionEnum, UploadStatusEnum} from "../../../models";
 import {type ActionColumnOptions, commonFileColumns, createActionColumn} from "./commonColumns";
-import {OxTable} from "../../main";
+import {type OxColumnsType, OxTable, usePagedTable} from "../../main";
 import {useSession} from "../../../session";
 import {useTranslation} from "react-i18next";
 
 export function DocumentFiles() {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [documentFiles, setDocumentFiles] = useState<DocumentFileResponse[]>([]);
+    const [deleting, setDeleting] = useState<boolean>(false);
     const {getPortalConfigurationValue, userSession} = useSession();
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
     const documentsSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "documents-supported") === "true";
-
-    useEffect(() => {
-        if (!documentsSupported) {
-            return;
-        }
-
-        fileTransferAPI.findAllDocuments()
-            .then((response) => {
-                setDocumentFiles(response);
-            })
-            .catch((error) => {
-                console.error("Error fetching document files", error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [documentsSupported, refreshKey]);
+    const documentTable = usePagedTable<DocumentFileResponse>((request) => fileTransferAPI.findAllDocuments(request), {
+        messageApi,
+        defaultSortBy: "created_at",
+        defaultDirection: SortDirectionEnum.DESC,
+        enabled: documentsSupported
+    });
+    const {reload} = documentTable;
 
     if (!documentsSupported) {
         return null;
@@ -41,28 +30,32 @@ export function DocumentFiles() {
     const actionColumnOptions: ActionColumnOptions = {
         onDelete: (id: number) => removeDocument(id)
     };
-    const columns = [
-        ...commonFileColumns(t, {showPreview: false}),
+    const columns: OxColumnsType<DocumentFileResponse> = [
+        ...commonFileColumns<DocumentFileResponse>(t, {showPreview: false}),
         {
             title: t("AdminUploads.document.status"),
             dataIndex: "status",
             key: "status",
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
+            filters: Object.values(UploadStatusEnum).map((value) => ({text: t(`UploadStatusEnum.${value.toLowerCase()}`), value})),
             render: (status: UploadStatusEnum) => (
                 <Typography.Text>{status}</Typography.Text>
             )
         },
-        ...createActionColumn(t, actionColumnOptions)
+        ...createActionColumn<DocumentFileResponse>(t, actionColumnOptions)
     ];
 
     const uploadProps: UploadProps = {
         name: "uploadFile",
         action: `${getApiBaseUrl()}/files/documents`,
         headers: {
-            authorization: "Bearer " + userSession?.accessToken
+            authorization: "Bearer " + userSession?.access_token
         },
         onChange(info) {
             if (info.file.status === "done") {
                 setRefreshKey((prevKey) => prevKey + 1);
+                reload();
                 messageApi.success(info.file.name + " " + t("AdminUploads.document.upload.successful"));
             } else if (info.file.status === "error") {
                 messageApi.error(info.file.name + " " + t("AdminUploads.document.upload.fail"));
@@ -73,10 +66,10 @@ export function DocumentFiles() {
     };
 
     function removeDocument(id: number) {
-        setLoading(true);
+        setDeleting(true);
         fileTransferAPI.removeDocumentFile(id)
             .then(() => {
-                setRefreshKey((prevKey) => prevKey + 1);
+                reload();
                 messageApi.success(t("AdminUploads.document.delete.successful"));
             })
             .catch((error) => {
@@ -84,35 +77,27 @@ export function DocumentFiles() {
                 messageApi.error(t("AdminUploads.document.delete.fail"));
             })
             .finally(() => {
-                setLoading(false);
+                setDeleting(false);
             });
     }
 
     return (
-        <Space orientation={"vertical"} size={"middle"}>
+        <Space orientation={"vertical"} size={"middle"} style={{width: "100%"}}>
             {contextHolder}
             <Upload {...uploadProps} key={"upload-document-" + refreshKey}>
                 <Button icon={<UploadOutlined/>}>
                     {t("AdminUploads.document.upload.button")}
                 </Button>
             </Upload>
-            {!loading &&
-                <OxTable
-                    columns={columns}
-                    dataSource={documentFiles}
-                    rowKey="id"
-                    loading={loading}
-                    bordered
-                    key={"upload-table-document"}
-                    pagination={{
-                        defaultPageSize: 10,
-                        hideOnSinglePage: true,
-                        showSizeChanger: true,
-                        showQuickJumper: true,
-                        pageSizeOptions: ["5", "10", "20", "30", "50"]
-                    }}
-                />
-            }
+            <OxTable
+                columns={columns}
+                dataMode={"server"}
+                paged={documentTable}
+                rowKey="id"
+                loading={deleting}
+                bordered
+                key={"upload-table-document"}
+            />
         </Space>
     );
 }

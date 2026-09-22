@@ -47,7 +47,7 @@ export class CKUploadAdapter {
         // Create query parameters
         const params = new URLSearchParams({
             language: this.language,
-            pageId: this.pageId.toString()
+            page_id: this.pageId.toString()
         });
 
         // Append parameters to URL

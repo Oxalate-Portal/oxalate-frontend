@@ -4,8 +4,8 @@ import type {Dayjs} from "dayjs";
 export interface CommentReportResponse {
     id: number;
     reporter: string;
-    reporterId: number;
+    reporter_id: number;
     reason: string;
-    createdAt: Dayjs;
+    created_at: Dayjs;
     status: ReportStatusEnum;
 }

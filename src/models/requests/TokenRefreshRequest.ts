@@ -1,4 +1,4 @@
 export interface TokenRefreshRequest {
-    tokenValue: string;
+    token_value: string;
     days: number;
 }

@@ -5,6 +5,6 @@ import type {AbstractDiveEvent} from "../AbstractDiveEvent";
 export interface DiveEventResponse extends AbstractDiveEvent {
     organizer: UserResponse | null;
     participants: ListUserResponse[];
-    waitingList: ListUserResponse[];
-    eventCommentId: number;
+    waiting_list: ListUserResponse[];
+    event_comment_id: number;
 }

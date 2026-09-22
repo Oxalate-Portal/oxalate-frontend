@@ -15,7 +15,7 @@ interface ShowCertificateCardProps {
 
 export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: ShowCertificateCardProps) {
     const {t} = useTranslation();
-    const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificatePhotoUrl);
+    const [certificatePhotoUrl, setCertificatePhotoUrl] = useState<string | null>(certificate.certificate_photo_url);
     const [refreshKey, setRefreshKey] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(false);
     const [editOpen, setEditOpen] = useState<boolean>(false);
@@ -114,7 +114,7 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
     return (
         <Card
             key={certificate.id}
-            title={t("ShowCertificateCard.card.title") + certificate.certificateName}
+            title={t("ShowCertificateCard.card.title") + certificate.certificate_name}
             style={{backgroundColor: "rgba(50, 50, 50, 1)", border: 2, width: "100%", maxWidth: 800}}
             extra={narrow ? undefined : showExtras()}
         >
@@ -132,12 +132,12 @@ export function ShowCertificateCard({certificate, deleteCertificate, viewOnly}: 
                 {/* Left Column: Certificate details */}
                 <Col xs={24} md={12}>
                     <p key={"cert-detail-1"}>{t("ShowCertificateCard.card.organization")}: {certificate.organization}</p>
-                    <p key={"cert-detail-2"}>{t("ShowCertificateCard.card.certification")}: {certificate.certificateName}</p>
-                    <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificateId}</p>
-                    <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diverId}</p>
-                    <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certificationDate.toString()}</p>
-                    {certificate.classificationTitle &&
-                        <p key={"cert-detail-6"}>{t("ShowCertificateCard.card.classification")}: {certificate.classificationTitle}</p>}
+                    <p key={"cert-detail-2"}>{t("ShowCertificateCard.card.certification")}: {certificate.certificate_name}</p>
+                    <p key={"cert-detail-3"}>{t("ShowCertificateCard.card.certificateId")}: {certificate.certificate_id}</p>
+                    <p key={"cert-detail-4"}>{t("ShowCertificateCard.card.diverId")}: {certificate.diver_id}</p>
+                    <p key={"cert-detail-5"}>{t("ShowCertificateCard.card.date")}: {certificate.certification_date.toString()}</p>
+                    {certificate.classification_title &&
+                        <p key={"cert-detail-6"}>{t("ShowCertificateCard.card.classification")}: {certificate.classification_title}</p>}
                 </Col>
 
                 {/* Right Column: Certificate photocopy or upload button */}

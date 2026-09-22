@@ -33,13 +33,12 @@ export function BlogMenuItem({blogEnabled}: BlogMenuItemProps) {
             const pagedRequest: PagedRequest = {
                 page: 0,
                 size: 10,
-                sort_by: "createdAt",
-                direction: SortDirectionEnum.DESC,
-                language: getSessionLanguage()
+                sort_by: "created_at",
+                direction: SortDirectionEnum.DESC
             };
 
             try {
-                const response = await pageAPI.getPagedBlogs(pagedRequest);
+                const response = await pageAPI.getPagedBlogs(pagedRequest, getSessionLanguage());
                 setBlogPosts(response.content);
             } catch (err) {
                 console.error("Error fetching blog posts for menu:", err);
@@ -74,7 +73,7 @@ export function BlogMenuItem({blogEnabled}: BlogMenuItemProps) {
         children.push({label: t("BlogMenuItem.empty"), key: "blog-empty", disabled: true});
     } else {
         blogPosts.forEach((post) => {
-            const title = post.pageVersions.length > 0 ? post.pageVersions[0].title : t("BlogMenuItem.untitled");
+            const title = post.page_versions.length > 0 ? post.page_versions[0].title : t("BlogMenuItem.untitled");
             children.push({
                 label: <NavLink to={`/pages/${post.id}`}>{title}</NavLink>,
                 key: `blog-post-${post.id}`,

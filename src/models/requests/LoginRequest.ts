@@ -1,5 +1,5 @@
 export interface LoginRequest {
     username: string;
     password: string;
-    recaptchaToken: string | null;
+    recaptcha_token: string | null;
 }

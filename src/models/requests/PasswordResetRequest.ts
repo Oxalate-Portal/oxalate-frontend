@@ -1,5 +1,5 @@
 export interface PasswordResetRequest {
-    newPassword: string;
-    confirmPassword: string;
+    new_password: string;
+    confirm_password: string;
     token: string;
 }

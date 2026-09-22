@@ -95,20 +95,20 @@ function createListUser(id: number, name: string): ListUserResponse {
     return {
         id,
         name,
-        eventDiveCount: 1,
-        createdAt: dayjs(),
+        event_dive_count: 1,
+        created_at: dayjs(),
         payments: [{
             id,
-            userId: id,
-            paymentType: PaymentTypeEnum.PERIODICAL,
-            paymentCount: 1,
-            startDate: dayjs().subtract(1, "month"),
-            endDate: dayjs().add(1, "month"),
+            user_id: id,
+            payment_type: PaymentTypeEnum.PERIODICAL,
+            payment_count: 1,
+            start_date: dayjs().subtract(1, "month"),
+            end_date: dayjs().add(1, "month"),
             created: dayjs().subtract(1, "month"),
-            boundEvents: []
+            bound_events: []
         }],
-        membershipActive: true,
-        userType: UserTypeEnum.SCUBA_DIVER,
+        membership_active: true,
+        user_type: UserTypeEnum.SCUBA_DIVER,
         tags: []
     };
 }
@@ -117,19 +117,19 @@ function createOrganizer(): UserResponse {
     return {
         id: 500,
         username: "organizer@example.com",
-        firstName: "Org",
-        lastName: "User",
-        avatarUrl: null,
-        phoneNumber: "123456",
+        first_name: "Org",
+        last_name: "User",
+        avatar_url: null,
+        phone_number: "123456",
         registered: new Date(),
         language: "en",
         status: UserStatusEnum.ACTIVE,
         privacy: true,
-        nextOfKin: "",
-        approvedTerms: true,
-        healthStatementId: 1,
-        primaryUserType: UserTypeEnum.SCUBA_DIVER,
-        diveCount: 0,
+        next_of_kin: "",
+        approved_terms: true,
+        health_statement_id: 1,
+        primary_user_type: UserTypeEnum.SCUBA_DIVER,
+        dive_count: 0,
         payments: [],
         memberships: [],
         tags: []
@@ -142,16 +142,16 @@ function createEvent(waitingList: ListUserResponse[]): DiveEventResponse {
         title: "Queue test event",
         description: "Description",
         type: DiveTypeEnum.SURFACE,
-        startTime: dayjs().add(2, "day"),
-        eventDuration: 2,
-        maxDuration: 120,
-        maxDepth: 20,
-        maxParticipants: 4,
+        start_time: dayjs().add(2, "day"),
+        event_duration: 2,
+        max_duration: 120,
+        max_depth: 20,
+        max_participants: 4,
         status: DiveEventStatusEnum.PUBLISHED,
         organizer: createOrganizer(),
         participants: [createListUser(10, "Participant One")],
-        waitingList,
-        eventCommentId: 5
+        waiting_list: waitingList,
+        event_comment_id: 5
     };
 }
 
@@ -196,7 +196,7 @@ describe("DiveEventDetails participant notifications", () => {
     it("does not show notify button for past events", () => {
         mockUserSession.roles = ["ROLE_ADMIN"];
         const event = createEvent([createListUser(100, "Queued Diver")]);
-        event.startTime = dayjs().subtract(2, "day");
+        event.start_time = dayjs().subtract(2, "day");
 
         render(<DiveEventDetails eventInfo={event}/>);
         expect(screen.queryByText("EventDetails.notificationModal.button")).toBeNull();

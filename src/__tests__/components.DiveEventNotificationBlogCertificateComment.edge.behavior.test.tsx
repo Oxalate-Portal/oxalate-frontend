@@ -88,12 +88,12 @@ describe("notification and moderation edge paths", () => {
         formFinish!({title: "t", message: "message", notificationMode: "group", notificationGroup: NotificationGroupEnum.INACTIVE_DAYS} as never);
         expect(mockMessageApi.error).toHaveBeenCalledWith("AdminNotifications.errorNoInactiveDays");
         formFinish!({title: "t", message: "message", notificationMode: "sendAll"} as never);
-        await waitFor(() => expect(mockApi.notificationAPI.createBulkNotifications).toHaveBeenCalledWith(expect.objectContaining({sendAll: true})));
+        await waitFor(() => expect(mockApi.notificationAPI.createBulkNotifications).toHaveBeenCalledWith(expect.objectContaining({send_all: true})));
         render(<AdminNotifications participantIds={[2, 3]} onNotificationSent={sent} embedded/>);
         formFinish!({title: "event", message: "hello"} as never);
         await waitFor(() => expect(mockApi.notificationAPI.createBulkNotifications).toHaveBeenCalledWith(expect.objectContaining({
             recipients: [2, 3],
-            sendAll: false
+            send_all: false
         })));
         expect(sent).toHaveBeenCalled();
         (mockApi.notificationAPI.createBulkNotifications as jest.Mock).mockResolvedValueOnce({status: UpdateStatusEnum.FAIL, message: "bad"});
@@ -102,18 +102,18 @@ describe("notification and moderation edge paths", () => {
     });
 
     it("covers notification read failure, navigation controls, and moderation failures", async () => {
-        const notices = [{id: 1, title: "one", message: "long message", createdAt: "2024-01-01"}, {
+        const notices = [{id: 1, title: "one", message: "long message", created_at: "2024-01-01"}, {
             id: 2,
             title: "two",
             message: "two",
-            createdAt: "2024-01-01"
+            created_at: "2024-01-01"
         }];
         (mockApi.notificationAPI.getUnreadNotifications as jest.Mock).mockResolvedValueOnce(notices);
         (mockApi.notificationAPI.markNotificationsAsRead as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         render(<NotificationDropdown pollInterval={100000}/>);
         await waitFor(() => expect(screen.getByText("one")).toBeInTheDocument());
         fireEvent.click(screen.getByText("one"));
-        await waitFor(() => expect(mockApi.notificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({messageIds: [1]}));
+        await waitFor(() => expect(mockApi.notificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({message_ids: [1]}));
         window.confirm = jest.fn(() => true);
         const refresh = jest.fn();
         render(<CommentModerationActions commentId={7} childCount={1} refreshModerationList={refresh}/>);

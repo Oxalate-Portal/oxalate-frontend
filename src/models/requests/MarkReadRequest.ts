@@ -1,3 +1,3 @@
 export interface MarkReadRequest {
-    messageIds: number[];
+    message_ids: number[];
 }

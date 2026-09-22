@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 import {Button, InputNumber, message, Select, Space, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {type DiveFileResponse, type DiveGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import {checkRoles, FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useSession} from "../../session";
-import {OxTable} from "../main";
+import {type OxColumnsType, OxTable, PAGED_TABLE_PAGE_SIZE_OPTIONS} from "../main";
 
 interface DiveEventFilesProps {
     eventId: number;
@@ -18,17 +18,16 @@ interface DiveEventFilesProps {
 }
 
 export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, onUploaded}: DiveEventFilesProps) {
-    const [loading, setLoading] = useState<boolean>(true);
-    const [refreshKey, setRefreshKey] = useState<number>(0);
-    const [diveFiles, setDiveFiles] = useState<DiveFileResponse[]>([]);
+    const [uploading, setUploading] = useState<boolean>(false);
+    const [reloadToken, setReloadToken] = useState<number>(0);
     const [diveGroupId, setDiveGroupId] = useState<number>(1);
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
     const {getPortalConfigurationValue, userSession} = useSession();
     const availableGroups = useMemo(() => diveGroup ? [diveGroup] : diveGroups, [diveGroup, diveGroups]);
     const memberGroups = useMemo(() => availableGroups?.filter((group) =>
-            group.ownerId === currentUserId
-            || (group.members ?? []).some((member) => member.userId === currentUserId)
+        group.owner_id === currentUserId
+        || (group.members ?? []).some((member) => member.user_id === currentUserId)
     ) ?? [], [availableGroups, currentUserId]);
     const canUpload = availableGroups !== undefined
             ? memberGroups.length > 0
@@ -42,27 +41,10 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
                     ? memberGroups.some((group) => group.id === diveGroupId) ? diveGroupId : memberGroups[0]?.id ?? 0
                     : diveGroupId;
 
-    useEffect(() => {
-        if (!diveFilesSupported) {
-            return;
-        }
-
-        if (diveGroup) {
-            return;
-        }
-
-        fileTransferAPI.findAllDiveFiles()
-                .then((response) => {
-                    setDiveFiles(response.filter((diveFile) => diveFile.eventId === eventId));
-                })
-                .catch((error) => {
-                    console.error("Error fetching dive files", error);
-                    messageApi.error(t("UserFiles.dive.fetchFail"));
-                })
-                .finally(() => {
-                    setLoading(false);
-                });
-    }, [diveFilesSupported, diveGroup, eventId, messageApi, refreshKey, t]);
+    // An event has a handful of files, so the table is in client mode: OxTable collects every file of this event
+    // from the paged endpoint (100 per request) and sorts, filters and pages them in the browser. The dive group
+    // variant renders no table, so nothing is fetched for it.
+    const reload = () => setReloadToken((previous) => previous + 1);
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -75,11 +57,11 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
 
             try {
                 const uploadResponse = await fileTransferAPI.uploadDiveFile(options.file as File, eventId, selectedDiveGroupId);
-                setLoading(true);
+                setUploading(true);
                 if (diveGroup) {
                     await onUploaded?.();
                 } else {
-                    setRefreshKey((key) => key + 1);
+                    reload();
                 }
                 options.onSuccess?.(uploadResponse);
                 messageApi.success(t("UserFiles.dive.upload.success"));
@@ -87,7 +69,7 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
                 options.onError?.(error as Error);
                 messageApi.error(t("UserFiles.dive.upload.fail"));
             } finally {
-                setLoading(false);
+                setUploading(false);
             }
         },
         beforeUpload: (file) => {
@@ -107,23 +89,30 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
         accept: "image/gif,image/jpeg,image/jpg,image/png,application/pdf"
     };
 
-    const columns = useMemo(() => {
+    const columns: OxColumnsType<DiveFileResponse> = useMemo(() => {
         return [
             {
                 title: t("UserFiles.dive.table.filename"),
                 dataIndex: "filename",
                 key: "filename",
-                mobile: true
+                mobile: true,
+                sorter: true,
+                sortDirections: ["descend", "ascend"]
             },
             {
                 title: t("UserFiles.dive.table.diveGroupId"),
-                dataIndex: "diveGroupId",
-                key: "diveGroupId"
+                dataIndex: "dive_group_id",
+                key: "dive_group_id",
+                sorter: true,
+                sortDirections: ["descend", "ascend"]
             },
             {
                 title: t("UserFiles.dive.table.createdAt"),
-                dataIndex: "createdAt",
-                key: "createdAt",
+                dataIndex: "created_at",
+                key: "created_at",
+                sorter: true,
+                defaultSortOrder: "descend",
+                sortDirections: ["descend", "ascend"],
                 render: (value: Date) => dayjs(value).format("YYYY.MM.DD HH:mm")
             },
             {
@@ -163,12 +152,15 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
                             </Upload>
                         </Space>
                 )}
-                {!diveGroup && <OxTable
+                {!diveGroup && <OxTable<DiveFileResponse>
                         rowKey="id"
-                        loading={loading}
-                        dataSource={diveFiles}
+                        loading={uploading}
+                        fetcher={(request) => fileTransferAPI.findAllDiveFiles(request, eventId)}
+                        fetchDeps={[eventId]}
+                        reloadToken={reloadToken}
+                        messageApi={messageApi}
                         columns={columns}
-                        pagination={{hideOnSinglePage: true, defaultPageSize: 5}}
+                        pagination={{defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: PAGED_TABLE_PAGE_SIZE_OPTIONS}}
                 />}
             </Space>
     );

@@ -5,7 +5,9 @@ import type {
     DiveEventListResponse,
     DiveEventRequest,
     DiveEventResponse,
-    EventSubscribeRequest
+    EventSubscribeRequest,
+    PagedRequest,
+    PagedResponse
 } from "../models";
 
 class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
@@ -29,9 +31,18 @@ class DiveEventAPI extends AbstractAPI<DiveEventRequest, DiveEventResponse> {
         return response.data;
     }
 
+    /**
+     * Fetches one page of the past dive events, sorted and searched on the server.
+     */
+    public async findPastDiveEvents(request: PagedRequest): Promise<PagedResponse<DiveEventResponse>> {
+        return this.findPaged(request, undefined, "/past");
+    }
+
+    /**
+     * Collects every past dive event by walking through the pages of `/events/past`; used by the data export.
+     */
     public async findAllPastDiveEvents(): Promise<DiveEventResponse[]> {
-        const response = await this.axiosInstance.get<DiveEventResponse[]>("/past");
-        return response.data;
+        return this.findAllPaged(undefined, "/past");
     }
 
     public async subscribeUserToEvent(eventSubscribeRequest: EventSubscribeRequest): Promise<DiveEventResponse> {

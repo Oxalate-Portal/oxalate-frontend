@@ -61,7 +61,7 @@ export function CommentModeration() {
                                     label: t("CommentModeration.collapse.actions.label"),
                                     children: <CommentModerationActions commentId={moderatedComment.id}
                                                                         refreshModerationList={() => fetchPendingReports()}
-                                                                        childCount={moderatedComment.childCount}/>
+                                                                        childCount={moderatedComment.child_count}/>
                                 }
                             ];
 

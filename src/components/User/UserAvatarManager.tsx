@@ -27,7 +27,7 @@ export function UserAvatarManager({userId, initialAvatarUrl}: UserAvatarManagerP
         // Update the shared session so NavigationBar (and any other consumer) picks
         // up the new avatar URL immediately without relying on localStorage or events.
         if (userSession) {
-            refreshUserSession({...userSession, avatarUrl: url});
+            refreshUserSession({...userSession, avatar_url: url});
         }
     }
 

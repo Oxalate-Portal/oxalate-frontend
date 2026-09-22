@@ -66,7 +66,7 @@ export function PageBodyEditor({value, onChange, language, pageId}: PageBodyEdit
     function initiateUploadAdapter(editor: CKEditorInstance) {
         const session: UserSessionToken = JSON.parse(localStorage.getItem("user") || "{}");
 
-        if (session == undefined || session.accessToken == undefined) {
+        if (session == undefined || session.access_token == undefined) {
             return {};
         }
 

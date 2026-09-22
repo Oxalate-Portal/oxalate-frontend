@@ -1,4 +1,4 @@
 export interface TokenCreateRequest {
-    expiresAt: string;
+    expires_at: string;
     description?: string;
 }

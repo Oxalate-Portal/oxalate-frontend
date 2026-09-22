@@ -20,10 +20,10 @@ export function CommentEditor({parentCommentId, refreshCommentList}: CommentEdit
 
         const newComment: CommentRequest = {
             id: 0,
-            commentType: CommentTypeEnum.USER_COMMENT,
+            comment_type: CommentTypeEnum.USER_COMMENT,
             title: title,
             body: body,
-            parentCommentId: parentCommentId
+            parent_comment_id: parentCommentId
         };
 
         setSubmitting(true);

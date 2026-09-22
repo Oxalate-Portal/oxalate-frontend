@@ -89,19 +89,18 @@ describe("DiveEventFiles", () => {
         jest.clearAllMocks();
         mockSession.enabled = true;
         mockSession.roles = ["ROLE_USER"];
-        (fileTransferAPI.findAllDiveFiles as jest.Mock).mockResolvedValue([
-            {id: 1, eventId: 12, filename: "matching.pdf"},
-            {id: 2, eventId: 99, filename: "other.pdf"}
-        ]);
+        (fileTransferAPI.findAllDiveFiles as jest.Mock).mockResolvedValue({
+            content: [{id: 1, event_id: 12, filename: "matching.pdf"}],
+            page: 0, size: 5, total_elements: 1, total_pages: 1, first: true, last: true, empty: false
+        });
         (fileTransferAPI.uploadDiveFile as jest.Mock).mockResolvedValue({url: "/files/dive"});
     });
 
-    it("loads only files belonging to the requested event", async () => {
+    it("collects the requested event's files from the paged endpoint in client mode", async () => {
         render(React.createElement(DiveEventFiles, {eventId: 12}));
 
-        await waitFor(() => expect(fileTransferAPI.findAllDiveFiles).toHaveBeenCalled());
+        await waitFor(() => expect(fileTransferAPI.findAllDiveFiles).toHaveBeenCalledWith({page: 0, size: 100}, 12));
         expect(screen.getByText("matching.pdf")).toBeInTheDocument();
-        expect(screen.queryByText("other.pdf")).not.toBeInTheDocument();
         expect(screen.getByLabelText("dive-group-id")).toBeInTheDocument();
     });
 

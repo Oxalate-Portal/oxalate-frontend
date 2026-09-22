@@ -35,14 +35,14 @@ const stableTranslation = {t: (key: string) => key};
 jest.mock("react-i18next", () => ({useTranslation: () => stableTranslation}));
 
 const comment = (overrides: Record<string, unknown> = {}) => ({
-    id: 7, parentCommentId: 9, title: "Title", body: "Body", username: "User",
-    commentStatus: "PENDING", commentType: "USER_COMMENT",
-    avatarUrl: "", createdAt: "2024-01-02T03:04:00Z", childCount: 1,
-    childComments: [], userHasReported: false, ...overrides
+    id: 7, parent_comment_id: 9, title: "Title", body: "Body", username: "User",
+    comment_status: "PENDING", comment_type: "USER_COMMENT",
+    avatar_url: "", created_at: "2024-01-02T03:04:00Z", child_count: 1,
+    child_comments: [], user_has_reported: false, ...overrides
 }) as never;
 const notification = (id: number, read = false) => ({
     id, title: `Notice ${id}`, message: id === 1 ? "Short" : "A".repeat(60),
-    createdAt: "2024-01-02T03:04:00Z", read
+    created_at: "2024-01-02T03:04:00Z", read
 }) as never;
 
 beforeEach(() => {
@@ -70,7 +70,7 @@ describe("comment editor, canvas, and thread behavior", () => {
         fireEvent.change(screen.getByPlaceholderText("CommentEditor.form.textarea.placeholder"), {target: {value: " A body "}});
         fireEvent.click(screen.getByRole("button"));
         await waitFor(() => expect(mockCommentAPI.create).toHaveBeenCalledWith(expect.objectContaining({
-            parentCommentId: 4,
+            parent_comment_id: 4,
             title: "A title",
             body: " A body "
         })));
@@ -79,10 +79,10 @@ describe("comment editor, canvas, and thread behavior", () => {
 
     it("refreshes canvas for root children and ordinary comments, including failures", async () => {
         const child = comment({id: 8});
-        mockCommentAPI.findAllForParentId.mockResolvedValueOnce({parentCommentId: 1, childComments: [child]});
+        mockCommentAPI.findAllForParentId.mockResolvedValueOnce({parent_comment_id: 1, child_comments: [child]});
         const {rerender} = render(<CommentCanvas commentId={10} allowComment={false}/>);
         await waitFor(() => expect(screen.getByText("User (#8)")).toBeInTheDocument());
-        mockCommentAPI.findAllForParentId.mockResolvedValueOnce(comment({parentCommentId: 20}));
+        mockCommentAPI.findAllForParentId.mockResolvedValueOnce(comment({parent_comment_id: 20}));
         rerender(<CommentCanvas commentId={11} allowComment/>);
         await waitFor(() => expect(mockCommentAPI.findAllForParentId).toHaveBeenCalledWith(11));
         mockCommentAPI.findAllForParentId.mockRejectedValueOnce(new Error("offline"));
@@ -94,15 +94,16 @@ describe("comment editor, canvas, and thread behavior", () => {
         const refresh = jest.fn();
         const {rerender} = render(<DisplayCommentThread comment={null as never} refreshCommentList={refresh}/>);
         expect(screen.getByText("DisplayCommentThread.noComments")).toBeInTheDocument();
-        const rootEmpty = comment({parentCommentId: 1, childComments: []});
+        const rootEmpty = comment({parent_comment_id: 1, child_comments: []});
         rerender(<DisplayCommentThread comment={rootEmpty} refreshCommentList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: "Be first to comment"}));
         expect(screen.getByPlaceholderText("CommentEditor.form.textarea.placeholder")).toBeInTheDocument();
-        const nested = comment({parentCommentId: 9, childComments: [comment({id: 12, childComments: [comment({id: 13})]})]});
+        const nested = comment({parent_comment_id: 9, child_comments: [comment({id: 12, child_comments: [comment({id: 13})]})]});
         rerender(<DisplayCommentThread comment={nested} refreshCommentList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: /Show Replies/}));
         expect(screen.getByText("User (#13)")).toBeInTheDocument();
-        rerender(<DisplayCommentThread key="root" comment={comment({parentCommentId: 1, childComments: [comment({id: 14})]})} refreshCommentList={refresh}/>);
+        rerender(<DisplayCommentThread key="root" comment={comment({parent_comment_id: 1, child_comments: [comment({id: 14})]})}
+                                       refreshCommentList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: "Add a new comment"}));
         expect(screen.getAllByPlaceholderText("CommentEditor.form.textarea.placeholder").length).toBeGreaterThan(0);
     });
@@ -111,20 +112,20 @@ describe("comment editor, canvas, and thread behavior", () => {
 describe("comment cards and moderation", () => {
     it("supports reply, report success/failure, cancel report, and display-only permissions", async () => {
         const refresh = jest.fn();
-        const {rerender} = render(<CommentCard comment={comment({childCount: 1})} refreshCommentList={refresh}/>);
+        const {rerender} = render(<CommentCard comment={comment({child_count: 1})} refreshCommentList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: "common.button.respond"}));
         expect(screen.getByPlaceholderText("CommentEditor.form.textarea.placeholder")).toBeInTheDocument();
         fireEvent.click(screen.getByRole("button", {name: "common.button.cancel"}));
         fireEvent.click(screen.getByRole("button", {name: "CommentCard.button.report-comment"}));
         fireEvent.change(screen.getByPlaceholderText("CommentCard.modal.placeholder"), {target: {value: "spam"}});
         fireEvent.click(screen.getByRole("button", {name: "common.button.send"}));
-        await waitFor(() => expect(mockCommentAPI.report).toHaveBeenCalledWith({commentId: 7, reportReason: "spam"}));
+        await waitFor(() => expect(mockCommentAPI.report).toHaveBeenCalledWith({comment_id: 7, report_reason: "spam"}));
         mockCommentAPI.report.mockResolvedValueOnce({status: UpdateStatusEnum.FAIL});
         fireEvent.click(screen.getByRole("button", {name: "CommentCard.button.report-comment"}));
         fireEvent.change(screen.getByPlaceholderText("CommentCard.modal.placeholder"), {target: {value: "again"}});
         fireEvent.click(screen.getByRole("button", {name: "common.button.send"}));
         await waitFor(() => expect(mockCommentAPI.report).toHaveBeenCalledTimes(2));
-        rerender(<CommentCard comment={comment({userHasReported: true})} refreshCommentList={refresh}/>);
+        rerender(<CommentCard comment={comment({user_has_reported: true})} refreshCommentList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: "CommentCard.button.cancel-report"}));
         await waitFor(() => expect(mockCommentAPI.cancelReport).toHaveBeenCalledWith(7));
         rerender(<CommentCard comment={comment()} displayOnly refreshCommentList={refresh}/>);
@@ -141,7 +142,7 @@ describe("comment cards and moderation", () => {
         fireEvent.click(screen.getByRole("button", {name: "CommentModerationActions.button.reject-comment"}));
         await waitFor(() => expect(mockCommentAPI.rejectComment).toHaveBeenCalledTimes(1));
         await waitFor(() => expect(refresh).toHaveBeenCalledTimes(1));
-        render(<ReportCard report={{id: 1, reporter: "R", reporterId: 2, reason: "spam", createdAt: "2024-01-01", status: "OPEN"} as never}
+        render(<ReportCard report={{id: 1, reporter: "R", reporter_id: 2, reason: "spam", created_at: "2024-01-01", status: "OPEN"} as never}
                            refreshModerationList={refresh}/>);
         fireEvent.click(screen.getByRole("button", {name: "ReportCard.button.accept"}));
         fireEvent.click(screen.getByRole("button", {name: "ReportCard.button.dismiss"}));
@@ -156,7 +157,7 @@ describe("comment cards and moderation", () => {
 
 describe("forum and comment administration", () => {
     it("loads forum data and handles failure", async () => {
-        mockCommentAPI.findAllForParentIdWithDepth.mockResolvedValueOnce({childComments: [comment({parentCommentId: 3})]});
+        mockCommentAPI.findAllForParentIdWithDepth.mockResolvedValueOnce({child_comments: [comment({parent_comment_id: 3})]});
         const {unmount} = render(<Forum/>);
         await waitFor(() => expect(screen.getByText("Title")).toBeInTheDocument());
         unmount();
@@ -166,7 +167,7 @@ describe("forum and comment administration", () => {
     });
 
     it("loads users, applies filters, searches, and handles API failures", async () => {
-        mockUserAPI.findAll.mockResolvedValueOnce([{id: 1, firstName: "A", lastName: "B", username: ""}]);
+        mockUserAPI.findAll.mockResolvedValueOnce([{id: 1, first_name: "A", last_name: "B", username: ""}]);
         mockCommentAPI.findFilteredComments.mockResolvedValueOnce([comment()]);
         render(<CommentList/>);
         await waitFor(() => expect(screen.getAllByText("CommentList.title").length).toBeGreaterThan(0));
@@ -185,7 +186,7 @@ describe("notification list and dropdown", () => {
         render(<MemoryRouter><NotificationList/></MemoryRouter>);
         await waitFor(() => expect(screen.getByText("Notice 2")).toBeInTheDocument());
         fireEvent.click(screen.getByText("Notice 2"));
-        await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({messageIds: [2]}));
+        await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({message_ids: [2]}));
         mockNotificationAPI.getAllNotifications.mockRejectedValueOnce(new Error("offline"));
         render(<MemoryRouter><NotificationList/></MemoryRouter>);
         await waitFor(() => expect(mockNotificationAPI.getAllNotifications).toHaveBeenCalledTimes(2));
@@ -203,7 +204,7 @@ describe("notification list and dropdown", () => {
         fireEvent.click(screen.getByRole("button", {name: "NotificationList.markAllAsRead"}));
 
         await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({
-            messageIds: [2, 3]
+            message_ids: [2, 3]
         }));
         expect(screen.queryAllByText("NotificationList.unread")).toHaveLength(0);
     });
@@ -215,7 +216,7 @@ describe("notification list and dropdown", () => {
         fireEvent.click(screen.getByRole("img"));
         await waitFor(() => expect(screen.getByText("NotificationDropdown.title")).toBeInTheDocument());
         fireEvent.click(screen.getByText("Notice 1"));
-        await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({messageIds: [1]}));
+        await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({message_ids: [1]}));
         mockNotificationAPI.markNotificationsAsRead.mockRejectedValueOnce(new Error("offline"));
         fireEvent.click(screen.getAllByText("Notice 2")[0]);
         await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledTimes(2));
@@ -230,7 +231,7 @@ describe("notification list and dropdown", () => {
         fireEvent.click(screen.getByRole("button", {name: "NotificationDropdown.markAllAsRead"}));
 
         await waitFor(() => expect(mockNotificationAPI.markNotificationsAsRead).toHaveBeenCalledWith({
-            messageIds: [1, 2]
+            message_ids: [1, 2]
         }));
         expect(screen.getByText("NotificationDropdown.noNotifications")).toBeInTheDocument();
     });

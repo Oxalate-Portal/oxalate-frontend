@@ -4,6 +4,10 @@
       "alert" : "Jokin meni vikaan, ole hyvä ja ota yhteyttä ylläpitoon"
     }
   },
+  "ActionResultEnum" : {
+    "FAILURE" : "Failure",
+    "SUCCESS" : "Success"
+  },
   "AddMemberships" : {
     "disabled" : "Jäsenyys ei ole käytössä",
     "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
@@ -582,6 +586,7 @@
     },
     "search" : {
       "filter" : "Suodata",
+      "filterColumn" : "Hakusarake",
       "placeholder" : "Hae..."
     },
     "table" : {
@@ -594,6 +599,11 @@
       "userName" : "Käyttäjänimi"
     },
     "title" : "Audit tapahtumat"
+  },
+  "AuditLevelEnum" : {
+    "error" : "Error",
+    "info" : "Information",
+    "warn" : "Warning"
   },
   "BlockedDates" : {
     "form" : {
@@ -869,8 +879,8 @@
     },
     "requiresHealthStatement" : "Tapahtumaan osallistuminen vaatii terveysselostuksen hyväksymistä",
     "requiresMembership" : "Tapahtumaan osallistuminen vaatii jäsenyyden",
-    "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
     "requiresMembershipAtEvent" : "Tapahtumaan osallistuminen vaatii tapahtuman aikana voimassa olevan jäsenyyden",
+    "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
     "requiresPaymentAtEvent" : "Tapahtumaan osallistuminen vaatii tapahtuman aikana voimassa olevan maksun",
     "subscribe" : {
       "button" : "Liity tapahtumaan",
@@ -920,6 +930,13 @@
     "paymentLabel" : "Maksut",
     "rowCount" : "Rivien määrä:  {{count}}",
     "userLabel" : "Käyttäjät"
+  },
+  "DownloadTypeEnum" : {
+    "CERTIFICATE" : "Certificate",
+    "DIVE" : "Dive",
+    "DIVE_EVENT" : "Dive event",
+    "MEMBER" : "Member",
+    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -1215,6 +1232,10 @@
       }
     }
   },
+  "EmailNotificationTypeEnum" : {
+    "EVENT" : "Event",
+    "PAGE" : "Page"
+  },
   "EmailSubscriptionCard" : {
     "header" : "Vastaanota sähköpostiviesti kun:"
   },
@@ -1475,6 +1496,14 @@
     "title" : "Ilmoitukset",
     "viewAll" : "Näytä kaikki ilmoitukset"
   },
+  "NotificationGroupEnum" : {
+    "active_membership" : "Active membership",
+    "all_registered" : "All registered",
+    "inactive_days" : "Inactive days",
+    "locked_accounts" : "Locked accounts",
+    "never_had_membership" : "Never had membership",
+    "no_active_membership" : "No active membership"
+  },
   "NotificationList" : {
     "markAllAsRead" : "Merkitse kaikki luetuiksi",
     "noNotifications" : "Ei ilmoituksia",
@@ -1529,6 +1558,11 @@
     "updateStatus" : {
       "removed" : "Sivuryhmä poistettu"
     }
+  },
+  "PageStatusEnum" : {
+    "deleted" : "Deleted",
+    "drafted" : "Draft",
+    "published" : "Published"
   },
   "Pages" : {
     "alert" : {
@@ -1617,6 +1651,12 @@
     "periodical" : "Jaksottainen",
     "perpetual" : "Ikuinen"
   },
+  "PaymentExpirationTypeEnum" : {
+    "DISABLED" : "Disabled",
+    "DURATIONAL" : "Durational",
+    "PERIODICAL" : "Periodical",
+    "PERPETUAL" : "Perpetual"
+  },
   "PaymentListTable" : {
     "table" : {
       "created" : "Luotu",
@@ -1629,8 +1669,19 @@
     }
   },
   "PaymentTypeEnum" : {
+    "DISABLED" : "Poistettu käytöstä",
+    "NONE" : "Ei mitään",
     "ONE_TIME" : "Kerta",
     "PERIODICAL" : "Kausi"
+  },
+  "PortalConfigGroupEnum" : {
+    "commenting" : "Commenting",
+    "email" : "Email",
+    "files" : "Files",
+    "frontend" : "Frontend",
+    "general" : "General",
+    "membership" : "Membership",
+    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1937,6 +1988,16 @@
       "notReceived" : "Mikäli et saanut vahvistusviestiä, voit lähettää sen uudelleen painamalla allaolevaa nappia."
     }
   },
+  "ResultEnum" : {
+    "FAIL" : "Failure",
+    "OK" : "OK"
+  },
+  "RoleEnum" : {
+    "ROLE_ADMIN" : "Administrator",
+    "ROLE_ANONYMOUS" : "Anonymous",
+    "ROLE_ORGANIZER" : "Organizer",
+    "ROLE_USER" : "User"
+  },
   "SetDives" : {
     "noDives" : "Ei sukelluksia",
     "table" : {
@@ -1975,6 +2036,10 @@
       "registered" : "Rekisteröitynyt",
       "user-details" : "Käyttäjätiedot"
     }
+  },
+  "SortDirectionEnum" : {
+    "ASC" : "Ascending",
+    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Raportit",
@@ -2017,6 +2082,16 @@
     "select" : {
       "placeholder" : "Valitse aikavyöhyke"
     }
+  },
+  "UpdateStatusEnum" : {
+    "FAIL" : "Failure",
+    "NONE" : "None",
+    "OK" : "OK"
+  },
+  "UploadStatusEnum" : {
+    "deleted" : "Deleted",
+    "published" : "Published",
+    "uploaded" : "Uploaded"
   },
   "User" : {
     "button" : {
@@ -2240,6 +2315,12 @@
       }
     }
   },
+  "UserStatusEnum" : {
+    "active" : "Active",
+    "anonymized" : "Anonymized",
+    "locked" : "Locked",
+    "registered" : "Registered"
+  },
   "UserTypeEnum" : {
     "free_diver" : "Vapaasukellus",
     "non_diver" : "Ei sukeltaja",
@@ -2319,6 +2400,20 @@
     "table" : {
       "column-title" : {
         "action" : "Toiminto"
+      },
+      "fetchLimitReached" : "Vain ensimmäiset {{rows}} riviä ladattiin; rajaa listaa palvelimen puolella.",
+      "filter" : {
+        "reset" : "Tyhjennä",
+        "searchColumn" : "Hae {{column}}",
+        "select" : "Valitse arvo"
+      },
+      "loadError" : "Taulukon tietoja ei voitu ladata.",
+      "pagination" : {
+        "total" : "{{from}}-{{to}} / {{total}}"
+      },
+      "search" : {
+        "caseSensitive" : "Kirjainkoko merkitsee",
+        "placeholder" : "Hae..."
       }
     },
     "userStatus" : {

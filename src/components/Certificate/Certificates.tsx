@@ -44,7 +44,7 @@ export function Certificates({userId, viewOnly}: CertificatesProps) {
             return;
         }
 
-        if (window.confirm(t("Certificates.deleteCertificate.confirm") + certificateObject.certificateName + "\"?")) {
+        if (window.confirm(t("Certificates.deleteCertificate.confirm") + certificateObject.certificate_name + "\"?")) {
             setLoading(true);
             certificateAPI.delete(certificateObject.id)
                     .then(() => {

@@ -16,17 +16,17 @@ export function BlogCard({blog, expanded, onClick}: BlogCardProps) {
     const {t} = useTranslation();
     const {sessionLanguage} = useSession();
 
-    const pageVersion = blog.pageVersions?.find(pv => pv.language === sessionLanguage) || blog.pageVersions?.[0];
+    const pageVersion = blog.page_versions?.find(pv => pv.language === sessionLanguage) || blog.page_versions?.[0];
 
     if (!pageVersion) {
         return null;
     }
 
-    const formattedDate = blog.modifiedAt
-        ? dayjs(blog.modifiedAt).format("YYYY-MM-DD HH:mm")
-        : dayjs(blog.createdAt).format("YYYY-MM-DD HH:mm");
+    const formattedDate = blog.modified_at
+        ? dayjs(blog.modified_at).format("YYYY-MM-DD HH:mm")
+        : dayjs(blog.created_at).format("YYYY-MM-DD HH:mm");
 
-    const dateLabel = blog.modifiedAt
+    const dateLabel = blog.modified_at
         ? t("BlogCard.updated")
         : t("BlogCard.published");
 

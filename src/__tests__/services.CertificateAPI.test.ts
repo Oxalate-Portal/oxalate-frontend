@@ -33,14 +33,14 @@ describe("CertificateAPI", () => {
 
     it("should find matching certificate names", async () => {
         const mockResponse = ["Advanced Open Water", "Open Water"];
-        mock.onGet("/management/certificate-names", {params: {searchTerm: "open"}}).reply(200, mockResponse);
+        mock.onGet("/management/certificate-names", {params: {search_term: "open"}}).reply(200, mockResponse);
 
         await expect(certificateAPI.findCertificateNames("open")).resolves.toEqual(mockResponse);
     });
 
     it("should find matching organizations", async () => {
         const mockResponse = ["DAN", "PADI"];
-        mock.onGet("/management/organizations", {params: {searchTerm: "a"}}).reply(200, mockResponse);
+        mock.onGet("/management/organizations", {params: {search_term: "a"}}).reply(200, mockResponse);
 
         await expect(certificateAPI.findOrganizations("a")).resolves.toEqual(mockResponse);
     });
@@ -78,13 +78,13 @@ describe("CertificateAPI", () => {
     });
 
     it("should update a certificate classification", async () => {
-        const payload = {certificateId: 1, classificationId: 2};
+        const payload = {certificate_id: 1, classification_id: 2};
         mock.onPut("/classification", payload).reply(200);
         await expect(certificateAPI.updateClassification(payload)).resolves.toBe(true);
     });
 
     it("should replace organizations and certificate names", async () => {
-        const payload = {existingValues: ["Old"], newValue: "New"};
+        const payload = {existing_values: ["Old"], new_value: "New"};
         mock.onPut("/management/organization", payload).reply(200);
         mock.onPut("/management/certificate-name", payload).reply(200);
         await expect(certificateAPI.replaceOrganizations(payload)).resolves.toBe(true);

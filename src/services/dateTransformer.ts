@@ -6,19 +6,19 @@ import dayjs from "dayjs";
  */
 const DATE_FIELD_PATTERNS = [
     // Exact patterns
-    "createdAt",
-    "updatedAt",
-    "modifiedAt",
+    "created_at",
+    "updated_at",
+    "modified_at",
     "deletedAt",
-    "startTime",
+    "start_time",
     "endTime",
-    "startDate",
-    "endDate",
-    "blockedDate",
-    "certificationDate",
-    "eventDateTime",
-    "joinedAt",
-    "lastSeen",
+    "start_date",
+    "end_date",
+    "blocked_date",
+    "certification_date",
+    "event_date_time",
+    "joined_at",
+    "last_seen",
     "created",
     "modified"
 ];

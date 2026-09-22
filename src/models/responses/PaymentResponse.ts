@@ -3,11 +3,11 @@ import {PaymentTypeEnum} from "../PaymentTypeEnum";
 
 export interface PaymentResponse {
     id: number;
-    userId: number;
-    paymentType: PaymentTypeEnum;
-    paymentCount: number;
-    startDate: Dayjs;
-    endDate: Dayjs;
+    user_id: number;
+    payment_type: PaymentTypeEnum;
+    payment_count: number;
+    start_date: Dayjs;
+    end_date: Dayjs;
     created: Dayjs;
-    boundEvents: number[] | null;
+    bound_events: number[] | null;
 }

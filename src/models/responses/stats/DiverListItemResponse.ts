@@ -1,6 +1,6 @@
 export interface DiverListItemResponse {
-    userId: number;
-    userName: string;
+    user_id: number;
+    user_name: string;
     position: number;
-    diveCount: number;
+    dive_count: number;
 }

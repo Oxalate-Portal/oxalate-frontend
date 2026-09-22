@@ -12,7 +12,7 @@ import {
 } from "../../models";
 import {membershipAPI, userAPI} from "../../services";
 import {useSession} from "../../session";
-import {getDefaultMembershipDates} from "../../tools";
+import {formatDateOnly, getDefaultMembershipDates} from "../../tools";
 import {Dayjs} from "dayjs";
 import {type RangeValue, ShiftableRangePicker, useResponsiveFormLayout} from "../main";
 
@@ -66,15 +66,15 @@ export function AddMemberships({onMembershipAdded}: AddMembershipsProps) {
         const fallbackEnd = defaultMembershipPeriod.endDate ?? null;
         const postData: MembershipRequest = {
             id: 0,
-            userId: 0,
+            user_id: 0,
             status: MembershipStatusEnum.ACTIVE,
             type: membershipType,
-            startDate: start ?? fallbackStart,
-            endDate: end ?? fallbackEnd
+            start_date: formatDateOnly(start ?? fallbackStart),
+            end_date: formatDateOnly(end ?? fallbackEnd)
         };
 
         const promises = values.userIdList.map(userId => {
-            return membershipAPI.create({...postData, userId});
+            return membershipAPI.create({...postData, user_id: userId});
         });
 
         Promise.all(promises)

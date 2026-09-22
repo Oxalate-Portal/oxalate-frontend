@@ -4,17 +4,17 @@ import {UserTypeEnum} from "./UserTypeEnum";
 export interface AbstractUser {
     id: number;
     username: string;
-    firstName: string;
-    lastName: string;
-    avatarUrl?: string | null;
-    phoneNumber: string;
+    first_name: string;
+    last_name: string;
+    avatar_url?: string | null;
+    phone_number: string;
     registered: Date;
     language: string;
     status: UserStatusEnum;
     privacy: boolean;
-    nextOfKin: string;
-    approvedTerms: boolean;
-    healthStatementId: number | null;
-    primaryUserType: UserTypeEnum;
-    certificateClassificationTitle?: string | null;
+    next_of_kin: string;
+    approved_terms: boolean;
+    health_statement_id: number | null;
+    primary_user_type: UserTypeEnum;
+    certificate_classification_title?: string | null;
 }

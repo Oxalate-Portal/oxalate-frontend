@@ -16,12 +16,12 @@ export function AcceptTerms({registration}: AcceptTermsProps) {
     const [error, setError] = useState<string | null>(null);
 
     async function acceptTerms(answer: boolean) {
-        const payload: ConfirmationRequest = {confirmationAnswer: answer};
+        const payload: ConfirmationRequest = {confirmation_answer: answer};
 
         userAPI.acceptTerms(payload)
             .then(() => {
                 const newSession = JSON.parse(JSON.stringify(userSession));
-                newSession.approvedTerms = answer;
+                newSession.approved_terms = answer;
                 refreshUserSession(newSession);
             })
             .catch((error) => {

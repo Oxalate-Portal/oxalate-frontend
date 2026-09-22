@@ -5,15 +5,15 @@ import type {DiveFileResponse} from "./filetransfers/DiveFileResponse";
 
 export interface DiveGroupResponse {
     id: number;
-    eventId: number;
+    event_id: number;
     name: string;
     description: string | null;
-    ownerId: number;
-    ownerName: string | null;
-    groupType: DiveGroupTypeEnum;
-    groupOrder: number;
-    createdAt: Dayjs;
-    updatedAt: Dayjs | null;
+    owner_id: number;
+    owner_name: string | null;
+    group_type: DiveGroupTypeEnum;
+    group_order: number;
+    created_at: Dayjs;
+    updated_at: Dayjs | null;
     members: DiveGroupMemberResponse[];
-    diveFiles: DiveFileResponse[];
+    dive_files: DiveFileResponse[];
 }

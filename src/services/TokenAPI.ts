@@ -1,14 +1,20 @@
 import {AbstractAPI} from "./AbstractAPI";
-import type {TokenCreateRequest, TokenRefreshRequest, TokenResponse} from "../models";
+import type {PagedRequest, PagedResponse, TokenCreateRequest, TokenRefreshRequest, TokenResponse} from "../models";
 
 class TokenAPI extends AbstractAPI<TokenCreateRequest, TokenResponse> {
-    async list(): Promise<TokenResponse[]> {
-        const response = await this.axiosInstance.get<TokenResponse[]>("");
-        return response.data.map(token => this.transformResponse(token));
+    public override async findAll(params?: Record<string, string | number>): Promise<TokenResponse[]> {
+        return this.findAllPaged(params, "/paged");
     }
 
-    getTokens(): Promise<TokenResponse[]> {
-        return this.list();
+    /**
+     * Fetches one page of tokens; `request.search` matches the description and the token value.
+     */
+    async list(request: PagedRequest): Promise<PagedResponse<TokenResponse>> {
+        return this.findPaged(request, undefined, "/paged");
+    }
+
+    getTokens(request: PagedRequest): Promise<PagedResponse<TokenResponse>> {
+        return this.list(request);
     }
 
     async createToken(request: TokenCreateRequest): Promise<TokenResponse> {
@@ -25,7 +31,7 @@ class TokenAPI extends AbstractAPI<TokenCreateRequest, TokenResponse> {
     }
 
     async invalidateToken(tokenValue: string): Promise<boolean> {
-        const response = await this.axiosInstance.delete("", {data: {tokenValue}});
+        const response = await this.axiosInstance.delete("", {data: {token_value: tokenValue}});
         return response.status >= 200 && response.status < 300;
     }
 

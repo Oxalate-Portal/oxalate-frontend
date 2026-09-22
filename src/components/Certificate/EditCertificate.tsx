@@ -13,7 +13,7 @@ interface EditCertificateProps {
     onSaved?: () => void;
 }
 
-function formatFetchedCertificationDate(date: CertificateRequest["certificationDate"] | string): string {
+function formatFetchedCertificationDate(date: CertificateRequest["certification_date"] | string): string {
     if (typeof date === "string") {
         return date;
     }
@@ -29,10 +29,10 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
     const emptyCertificate = useMemo<CertificateRequest>(() => ({
         id: 0,
         organization: "",
-        certificateName: "",
-        certificateId: "",
-        diverId: "",
-        certificationDate: dayjs()
+        certificate_name: "",
+        certificate_id: "",
+        diver_id: "",
+        certification_date: dayjs()
     }), []);
 
     const [certificateForm] = Form.useForm();
@@ -85,14 +85,14 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                     const formData: CertificateRequest = {
                         id: result.id,
                         organization: result.organization,
-                        certificateName: result.certificateName,
-                        certificateId: result.certificateId,
-                        diverId: result.diverId,
-                        certificationDate: result.certificationDate
+                        certificate_name: result.certificate_name,
+                        certificate_id: result.certificate_id,
+                        diver_id: result.diver_id,
+                        certification_date: result.certification_date
                     };
                     certificateForm.setFieldsValue({
                         ...formData,
-                        certificationDate: formatFetchedCertificationDate(result.certificationDate)
+                        certification_date: formatFetchedCertificationDate(result.certification_date)
                     });
                     // TODO investigate why the form doesn't get updated automatically when setting the certificate data with this
                     setCertificate(formData);
@@ -181,11 +181,11 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                         style={{maxWidth: 800}}
                         initialValues={{
                             ...certificate,
-                            certificationDate: certificate.id === 0
-                                ? typeof certificate.certificationDate === "string"
-                                    ? certificate.certificationDate
-                                    : certificate.certificationDate.format("YYYY-MM-DD")
-                                : formatFetchedCertificationDate(certificate.certificationDate)
+                            certification_date: certificate.id === 0
+                                ? typeof certificate.certification_date === "string"
+                                    ? certificate.certification_date
+                                    : certificate.certification_date.format("YYYY-MM-DD")
+                                : formatFetchedCertificationDate(certificate.certification_date)
                         }}
                         onFinish={updateCertificate}
                         onFinishFailed={updateCertificateFailed}
@@ -215,7 +215,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                 showSearch={{onSearch: value => searchSuggestions(value, "organization")}}
                                 placeholder={t("EditCertificate.form.organization.placeholder")}/>
                         </Form.Item>
-                        <Form.Item name={"certificateName"}
+                        <Form.Item name={"certificate_name"}
                                    required={true}
                                    label={t("EditCertificate.form.certificateName.label")}
                                    tooltip={t("EditCertificate.form.certificateName.tooltip")}
@@ -234,7 +234,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                 showSearch={{onSearch: value => searchSuggestions(value, "certificateName")}}
                                 placeholder={t("EditCertificate.form.certificateName.placeholder")}/>
                         </Form.Item>
-                        <Form.Item name={"certificateId"}
+                        <Form.Item name={"certificate_id"}
                                    required={certificateIdRequired}
                                    label={t("EditCertificate.form.certificateId.label")}
                                    tooltip={t("EditCertificate.form.certificateId.tooltip")}
@@ -245,7 +245,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                        },
                                        ({getFieldValue}) => ({
                                            validator(_, value) {
-                                               if (value.length < 4 && getFieldValue("diverId").length < 4) {
+                                               if (value.length < 4 && getFieldValue("diver_id").length < 4) {
                                                    setDiveIdRequired(true);
                                                    setCertificateIdRequired(true);
                                                    return Promise.reject(new Error(t("EditCertificate.form.certificateId.rules.validator")));
@@ -255,7 +255,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                                    setDiveIdRequired(false);
                                                }
 
-                                               if (getFieldValue("diverId") && getFieldValue("diverId").length > 3) {
+                                               if (getFieldValue("diver_id") && getFieldValue("diver_id").length > 3) {
                                                    setCertificateIdRequired(false);
                                                }
                                                return Promise.resolve();
@@ -264,7 +264,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                    ]}>
                             <Input placeholder={t("EditCertificate.form.certificateId.placeholder")}/>
                         </Form.Item>
-                        <Form.Item name={"diverId"}
+                        <Form.Item name={"diver_id"}
                                    required={diveIdRequired}
                                    label={t("EditCertificate.form.diverId.label")}
                                    tooltip={t("EditCertificate.form.diverId.tooltip")}
@@ -275,7 +275,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                        },
                                        ({getFieldValue}) => ({
                                            validator(_, value) {
-                                               if (value.length < 4 && getFieldValue("certificateId").length < 4) {
+                                               if (value.length < 4 && getFieldValue("certificate_id").length < 4) {
                                                    setDiveIdRequired(true);
                                                    setCertificateIdRequired(true);
                                                    return Promise.reject(new Error(t("EditCertificate.form.diverId.rules.validator")));
@@ -284,7 +284,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                                    setCertificateIdRequired(false);
                                                }
 
-                                               if (getFieldValue("certificateId") && getFieldValue("certificateId").length > 3) {
+                                               if (getFieldValue("certificate_id") && getFieldValue("certificate_id").length > 3) {
                                                    setDiveIdRequired(false);
                                                }
 
@@ -294,7 +294,7 @@ export function EditCertificate({certificateId, open, onClose, onSaved}: EditCer
                                    ]}>
                             <Input placeholder={t("EditCertificate.form.diverId.placeholder")}/>
                         </Form.Item>
-                        <Form.Item name={"certificationDate"}
+                        <Form.Item name={"certification_date"}
                                    required={true}
                                    label={t("EditCertificate.form.certificationDate.label")}
                                    rules={[

@@ -2,10 +2,10 @@ import {PageStatusEnum} from "./PageStatusEnum";
 
 export interface AbstractPage {
     id: number;
-    pageGroupId: number;
+    page_group_id: number;
     status: PageStatusEnum;
     creator: number;
-    createdAt: Date;
+    created_at: Date;
     modifier: number | null;
-    modifiedAt: Date | null;
+    modified_at: Date | null;
 }

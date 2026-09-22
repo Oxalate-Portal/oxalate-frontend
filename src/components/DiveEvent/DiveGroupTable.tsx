@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
 import {userTypeEnum2Tag} from "../../tools";
-import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum} from "../../models";
+import {type DiveFileResponse, type DiveGroupMemberResponse, type DiveGroupResponse, DiveGroupTypeEnum, UserTypeEnum} from "../../models";
 import {type OxColumnsType, OxTable, ProtectedImage} from "../main";
 import {DiveEventFiles} from "./DiveEventFiles";
 import {DiveGroupDetailsModal} from "./DiveGroupDetailsModal";
@@ -26,7 +26,7 @@ interface DiveGroupTableProps {
 }
 
 export function isMemberOfDiveGroup(diveGroup: DiveGroupResponse, userId: number): boolean {
-    return (diveGroup.members ?? []).some((member) => member.userId === userId);
+    return (diveGroup.members ?? []).some((member) => member.user_id === userId);
 }
 
 export function isImageDiveFile(diveFile: DiveFileResponse): boolean {
@@ -65,7 +65,7 @@ export function findDiveGroupOfUser(diveGroups: DiveGroupResponse[], userId: num
 }
 
 export function findDiveGroupOwnedByUser(diveGroups: DiveGroupResponse[], userId: number): DiveGroupResponse | null {
-    return diveGroups.find((diveGroup) => diveGroup.ownerId === userId) ?? null;
+    return diveGroups.find((diveGroup) => diveGroup.owner_id === userId) ?? null;
 }
 
 /**
@@ -73,7 +73,7 @@ export function findDiveGroupOwnedByUser(diveGroups: DiveGroupResponse[], userId
  * were received, which is the creation order returned by the backend.
  */
 export function sortDiveGroupsByOrder(diveGroups: DiveGroupResponse[]): DiveGroupResponse[] {
-    return [...diveGroups].sort((first, second) => (first.groupOrder ?? 0) - (second.groupOrder ?? 0));
+    return [...diveGroups].sort((first, second) => (first.group_order ?? 0) - (second.group_order ?? 0));
 }
 
 /**
@@ -161,9 +161,10 @@ export function DiveGroupTable({
         },
         {
             title: t("DiveEvent.diveGroup.members.userType"),
-            dataIndex: "userType",
-            key: "userType",
-            render: (_: string, member: DiveGroupMemberResponse) => userTypeEnum2Tag(member.userType, t, member.userId)
+            dataIndex: "user_type",
+            key: "user_type",
+            filters: Object.values(UserTypeEnum).map((value) => ({text: t(`UserTypeEnum.${value.toLowerCase()}`), value})),
+            render: (_: string, member: DiveGroupMemberResponse) => userTypeEnum2Tag(member.user_type, t, member.user_id)
         },
         {
             title: t("DiveEvent.diveGroup.members.owner"),
@@ -173,10 +174,10 @@ export function DiveGroupTable({
         },
         {
             title: t("DiveEvent.diveGroup.members.joinedAt"),
-            dataIndex: "joinedAt",
-            key: "joinedAt",
-            render: (_: string, member: DiveGroupMemberResponse) => member.joinedAt
-                    ? dayjs(member.joinedAt).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")
+            dataIndex: "joined_at",
+            key: "joined_at",
+            render: (_: string, member: DiveGroupMemberResponse) => member.joined_at
+                ? dayjs(member.joined_at).tz(getPortalTimezone()).format("YYYY-MM-DD HH:mm")
                     : ""
         }
     ];
@@ -184,7 +185,7 @@ export function DiveGroupTable({
     const diveGroupColumns: OxColumnsType<DiveGroupResponse> = [
         {
             title: t("DiveEvent.diveGroup.table.order"),
-            key: "groupOrder",
+            key: "group_order",
             render: (_: string, _diveGroup: DiveGroupResponse, index: number) => index + 1
         },
         {
@@ -195,23 +196,24 @@ export function DiveGroupTable({
         },
         {
             title: t("DiveEvent.diveGroup.table.owner"),
-            dataIndex: "ownerName",
-            key: "ownerName",
-            render: (_: string, diveGroup: DiveGroupResponse) => diveGroup.ownerName ?? ""
+            dataIndex: "owner_name",
+            key: "owner_name",
+            render: (_: string, diveGroup: DiveGroupResponse) => diveGroup.owner_name ?? ""
         },
         {
             title: t("DiveEvent.diveGroup.table.groupType"),
-            dataIndex: "groupType",
-            key: "groupType",
+            dataIndex: "group_type",
+            key: "group_type",
+            filters: Object.values(DiveGroupTypeEnum).map((value) => ({text: t(`DiveGroupTypeEnum.${value.toLowerCase()}`), value})),
             render: (_: string, diveGroup: DiveGroupResponse) =>
-                    t("DiveGroupTypeEnum." + (diveGroup.groupType ?? DiveGroupTypeEnum.NORMAL).toLowerCase())
+                t("DiveGroupTypeEnum." + (diveGroup.group_type ?? DiveGroupTypeEnum.NORMAL).toLowerCase())
         },
         {
             title: t("DiveEvent.diveGroup.table.diveFiles"),
-            dataIndex: "diveFiles",
-            key: "diveFiles",
-            render: (_: string, diveGroup: DiveGroupResponse) => (diveGroup.diveFiles ?? []).length > 0
-                    ? t("DiveEvent.diveGroup.files.uploaded") + " (" + (diveGroup.diveFiles ?? []).length + ")"
+            dataIndex: "dive_files",
+            key: "dive_files",
+            render: (_: string, diveGroup: DiveGroupResponse) => (diveGroup.dive_files ?? []).length > 0
+                ? t("DiveEvent.diveGroup.files.uploaded") + " (" + (diveGroup.dive_files ?? []).length + ")"
                     : t("DiveEvent.diveGroup.files.none")
         },
         {
@@ -224,7 +226,7 @@ export function DiveGroupTable({
             title: t("DiveEvent.diveGroup.table.action"),
             key: "action",
             render: (_: string, diveGroup: DiveGroupResponse) => {
-                const isOwner = diveGroup.ownerId === currentUserId;
+                const isOwner = diveGroup.owner_id === currentUserId;
                 const isMember = isMemberOfDiveGroup(diveGroup, currentUserId);
                 // Mirrors the backend rule: members, the owner, the event organizer and administrators may edit the details
                 const canEditDetails = isOwner || isMember || canManageDiveGroups;
@@ -303,17 +305,17 @@ export function DiveGroupTable({
                                         <OxTable<DiveGroupMemberResponse>
                                                 columns={memberColumns}
                                                 dataSource={diveGroup.members ?? []}
-                                                rowKey={"userId"}
+                                                rowKey={"user_id"}
                                                 pagination={false}
                                                 size={"small"}
                                                 locale={{emptyText: t("DiveEvent.diveGroup.members.empty")}}
                                         />
                                         <DiveEventFiles
-                                                eventId={diveGroup.eventId}
+                                            eventId={diveGroup.event_id}
                                                 diveGroup={diveGroup}
                                                 currentUserId={currentUserId}
                                                 onUploaded={onFilesChanged}/>
-                                        <DiveGroupFileList diveFiles={diveGroup.diveFiles ?? []}/>
+                                        <DiveGroupFileList diveFiles={diveGroup.dive_files ?? []}/>
                                     </Space>
                             )
                         }}

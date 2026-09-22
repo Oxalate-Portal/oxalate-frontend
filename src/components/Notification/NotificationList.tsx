@@ -39,7 +39,7 @@ export function NotificationList() {
         }
 
         try {
-            await notificationAPI.markNotificationsAsRead({messageIds: [notification.id]});
+            await notificationAPI.markNotificationsAsRead({message_ids: [notification.id]});
             // Update local state
             setNotifications(prev =>
                 prev.map(n => n.id === notification.id ? {...n, read: true} : n)
@@ -59,7 +59,7 @@ export function NotificationList() {
 
         try {
             setMarkingAllAsRead(true);
-            await notificationAPI.markNotificationsAsRead({messageIds: unreadNotificationIds});
+            await notificationAPI.markNotificationsAsRead({message_ids: unreadNotificationIds});
             setNotifications(prev => prev.map(notification => ({...notification, read: true})));
         } catch (error) {
             console.error("Failed to mark all notifications as read:", error);
@@ -113,7 +113,7 @@ export function NotificationList() {
                                     <Space orientation={"vertical"} size={4} style={{width: "100%"}}>
                                         <div style={{whiteSpace: "pre-wrap"}}>{notification.message}</div>
                                         <Typography.Text type="secondary" style={{fontSize: 12}}>
-                                            {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
+                                            {dayjs(notification.created_at).format("YYYY-MM-DD HH:mm")}
                                         </Typography.Text>
                                     </Space>
                                 </div>

@@ -15,7 +15,7 @@ jest.mock("react-i18next", () => ({
 
 jest.mock("../session", () => ({
     useSession: () => ({
-        userSession: {accessToken: "token"},
+        userSession: {access_token: "token"},
         getPortalConfigurationValue: (_group: string, key: string) =>
             key === "documents-supported"
                 ? String(mockSession.documentsSupported)
@@ -34,6 +34,8 @@ jest.mock("../services", () => ({
 
 jest.mock("antd", () => ({
     Grid: {useBreakpoint: () => ({})},
+    Input: {Search: ({placeholder}: { placeholder?: string }) => <input placeholder={placeholder}/>},
+    Switch: () => <button>switch</button>,
     Button: ({children}: { children: ReactNode }) => <button>{children}</button>,
     Space: ({children}: { children: ReactNode }) => <div>{children}</div>,
     Table: ({dataSource}: { dataSource: Array<Record<string, unknown>> }) => (
@@ -50,17 +52,29 @@ jest.mock("antd", () => ({
     }
 }));
 
+/** Wraps rows in the page envelope the server-paged list endpoints return. */
+const mockPage = <T, >(rows: T[]) => ({
+    content: rows,
+    page: 0,
+    size: 10,
+    total_elements: rows.length,
+    total_pages: 1,
+    first: true,
+    last: true,
+    empty: rows.length === 0
+});
+
 describe("file upload configuration components", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         mockSession.documentsSupported = true;
         mockSession.diveFilesSupported = true;
-        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue([
+        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue(mockPage([
             {id: 1, filename: "document.pdf", status: UploadStatusEnum.UPLOADED}
-        ]);
-        (fileTransferAPI.findAllDiveFiles as jest.Mock).mockResolvedValue([
+        ]));
+        (fileTransferAPI.findAllDiveFiles as jest.Mock).mockResolvedValue(mockPage([
             {id: 2, filename: "dive.pdf", status: UploadStatusEnum.UPLOADED}
-        ]);
+        ]));
     });
 
     it("loads configured document and dive file lists", async () => {

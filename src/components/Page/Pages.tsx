@@ -44,38 +44,40 @@ export function Pages() {
             dataIndex: "languageVersions",
             key: "languageVersions",
             render: (_text: string, record: PageResponse) => {
-                return (<>{record.pageVersions.length}</>);
+                return (<>{record.page_versions.length}</>);
             }
         },
         {
             title: t("Pages.table.createdAt"),
-            dataIndex: "createdAt",
-            key: "createdAt",
+            dataIndex: "created_at",
+            key: "created_at",
             render: (_text: string, record: PageResponse) => {
-                return (<>{dayjs(record.createdAt).format("YYYY.MM.DD HH:mm")}</>);
+                return (<>{dayjs(record.created_at).format("YYYY.MM.DD HH:mm")}</>);
             }
         },
         {
             title: t("Pages.table.modifiedAt"),
-            dataIndex: "modifiedAt",
-            key: "modifiedAt",
+            dataIndex: "modified_at",
+            key: "modified_at",
             render: (_text: string, record: PageResponse) => {
-                return (<>{record.modifiedAt != null && dayjs(record.modifiedAt).format("YYYY.MM.DD HH:mm")}</>);
+                return (<>{record.modified_at != null && dayjs(record.modified_at).format("YYYY.MM.DD HH:mm")}</>);
             }
         },
         {
             title: t("Pages.table.status"),
             dataIndex: "status",
             key: "status",
+            filters: Object.values(PageStatusEnum).map((value) => ({text: t(`PageStatusEnum.${value.toLowerCase()}`), value})),
             render: (_text: string, record: PageResponse) => pageStatusEnum2Tag(record.status, t, record.id)
         },
         {
             title: t("Pages.table.rolePermissions"),
-            dataIndex: "rolePermissions",
-            key: "rolePermissions",
+            dataIndex: "role_permissions",
+            key: "role_permissions",
+            filters: Object.values(RoleEnum).map((value) => ({text: t(`common.roles.${value.toLowerCase()}`), value})),
             render: (_: string, record: PageResponse) => (
                 <>
-                    {record.rolePermissions
+                    {record.role_permissions
                         .slice()
                         .sort((a, b) => a.role.localeCompare(b.role))
                         .map((rolePermission: RolePermissionResponse) =>
@@ -90,7 +92,7 @@ export function Pages() {
             render: (_: string, record: PageResponse) => (
                 <Space size={"middle"}>
                     {userSession && checkRoles(userSession.roles, [RoleEnum.ROLE_ORGANIZER, RoleEnum.ROLE_ADMIN])
-                        && isAllowedToEditPage(userSession, record.rolePermissions) &&
+                        && isAllowedToEditPage(userSession, record.role_permissions) &&
                         <>
                             <Link to={"/administration/pages/" + record.id}><Button
                                 type={"primary"}>{t("common.button.update")}</Button></Link>

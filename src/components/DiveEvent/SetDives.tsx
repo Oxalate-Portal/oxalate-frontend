@@ -19,10 +19,10 @@ export function SetDives() {
     const eventDiveColumns = [
         {
             title: "#",
-            dataIndex: "userId",
-            key: "userId",
+            dataIndex: "user_id",
+            key: "user_id",
             render: (_: string, record: DiveCountItemVO) => {
-                return (<Link to={"/users/" + record.userId + "/show"}>{record.userId}</Link>);
+                return (<Link to={"/users/" + record.user_id + "/show"}>{record.user_id}</Link>);
             }
         },
         {
@@ -72,13 +72,13 @@ export function SetDives() {
 
     function changeDiveCount(record: DiveCountItemVO, change: number) {
         const newEventDives = JSON.parse(JSON.stringify(eventDives));
-        const dive = newEventDives.dives.find((x: DiveCountItemVO) => x.userId === record.userId);
+        const dive = newEventDives.dives.find((x: DiveCountItemVO) => x.user_id === record.user_id);
 
-        if (dive.diveCount === 0 && change === -1) {
+        if (dive.dive_count === 0 && change === -1) {
             return;
         }
 
-        dive.diveCount += change;
+        dive.dive_count += change;
         setEventDives(newEventDives);
         setModified(true);
     }
@@ -108,7 +108,7 @@ export function SetDives() {
         <div className={"darkDiv"}>
             <Spin spinning={loading}>
                 {eventDives?.dives.length === 0 && <p>{t("SetDives.noDives")}</p>}
-                {eventDives && <OxTable dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="userId" pagination={false}/>}
+                {eventDives && <OxTable dataSource={eventDives.dives} columns={eventDiveColumns} rowKey="user_id" pagination={false}/>}
                 {eventDives && <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "right"}}>
                     {modified && <Button type={"primary"} onClick={() => updateEventDives()} style={{margin: 8}}>{t("common.button.save")}</Button>}
                     <Button onClick={() => navigate(-1)}>{t("common.button.back")}</Button>

@@ -90,12 +90,12 @@ describe("AuthVerify", () => {
 
     it("logs out expired sessions and leaves valid sessions alone", () => {
         const logOut = jest.fn();
-        localStorage.setItem("user", JSON.stringify({expiresAt: "2000-01-01T00:00:00.000Z"}));
+        localStorage.setItem("user", JSON.stringify({expires_at: "2000-01-01T00:00:00.000Z"}));
         render(<MemoryRouter><AuthVerify logOut={logOut}/></MemoryRouter>);
         expect(logOut).toHaveBeenCalledTimes(1);
 
         logOut.mockClear();
-        localStorage.setItem("user", JSON.stringify({expiresAt: "2999-01-01T00:00:00.000Z"}));
+        localStorage.setItem("user", JSON.stringify({expires_at: "2999-01-01T00:00:00.000Z"}));
         render(<MemoryRouter><AuthVerify logOut={logOut}/></MemoryRouter>);
         expect(logOut).not.toHaveBeenCalled();
     });

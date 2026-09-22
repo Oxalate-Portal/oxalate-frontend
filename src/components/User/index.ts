@@ -14,6 +14,5 @@ export {UserAvatarManager} from "./UserAvatarManager";
 export {UserDocumentFiles} from "./UserDocumentFiles";
 export {UserProfile} from "./UserProfile.tsx";
 export {UserFields} from "./UserFields";
-export {filterDocumentsForCreator} from "./UserDocumentFiles";
 export {EmailSubscriptionCard} from "./EmailSubscriptionCard";
 export {UserEventList} from "./UserEventList";

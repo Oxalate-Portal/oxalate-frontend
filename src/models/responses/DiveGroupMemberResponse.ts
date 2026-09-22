@@ -2,9 +2,9 @@ import type {Dayjs} from "dayjs";
 import type {UserTypeEnum} from "../UserTypeEnum";
 
 export interface DiveGroupMemberResponse {
-    userId: number;
+    user_id: number;
     name: string;
-    userType: UserTypeEnum;
+    user_type: UserTypeEnum;
     owner: boolean;
-    joinedAt: Dayjs;
+    joined_at: Dayjs;
 }

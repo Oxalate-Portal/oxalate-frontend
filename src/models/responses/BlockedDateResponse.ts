@@ -2,8 +2,8 @@ import type {Dayjs} from "dayjs";
 
 export interface BlockedDateResponse {
     id: number;
-    blockedDate: Dayjs;
-    createdAt: Dayjs;
-    creatorName: string;
+    blocked_date: Dayjs;
+    created_at: Dayjs;
+    creator_name: string;
     reason: string;
 }

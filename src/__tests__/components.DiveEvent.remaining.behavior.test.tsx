@@ -6,7 +6,7 @@ import {DiveEvent, DiveEventDetails, DiveEventFiles, DiveEvents, DiveEventsTable
 const api: Record<string, jest.Mock> = {};
 const fn = (name: string) => (api[name] ??= jest.fn());
 const session = {
-    userSession: {id: 7, roles: ["ROLE_USER"], healthStatementId: 1 as number | null, primaryUserType: "SCUBA_DIVER"},
+    userSession: {id: 7, roles: ["ROLE_USER"], health_statement_id: 1 as number | null, primary_user_type: "SCUBA_DIVER"},
     organizer: false,
     membership: false,
     payment: false,
@@ -96,6 +96,8 @@ jest.mock("antd", () => {
     const messageApi = {success: jest.fn(), error: jest.fn()};
     const Input = (props: any) => <input {...props}/>;
     Input.TextArea = Input;
+    Input.Search = ({placeholder, onSearch}: any) =>
+        <input placeholder={placeholder} onChange={(e) => onSearch?.(e.target.value)}/>;
     return {
         Alert: ({title}: any) => <div>{title}</div>,
         Button,
@@ -111,6 +113,7 @@ jest.mock("antd", () => {
         Slider: ({onChange}: any) => <input type="range" onChange={(e) => onChange?.(Number(e.currentTarget.value))}/>,
         Space: passthrough,
         Spin: passthrough,
+        Switch: ({onChange}: any) => <button onClick={() => onChange?.(true)}>switch</button>,
         Table,
         Tooltip: passthrough,
         Typography: {Title: passthrough, Text: passthrough},
@@ -130,34 +133,36 @@ jest.mock("antd", () => {
 const participant = (id: number) => ({
     id,
     name: `User ${id}`,
-    lastName: "User",
-    firstName: `${id}`,
-    userType: "SCUBA_DIVER",
-    eventDiveCount: 2,
-    createdAt: "2026-01-01",
+    last_name: "User",
+    first_name: `${id}`,
+    user_type: "SCUBA_DIVER",
+    event_dive_count: 2,
+    created_at: "2026-01-01",
     payments: [],
-    phoneNumber: "123"
+    phone_number: "123"
 });
 const event = (overrides: any = {}) => ({
     id: 12,
     title: "Future event",
     description: "desc",
     type: "SCUBA",
-    startTime: "2099-01-01T12:00:00Z",
-    eventDuration: 2,
-    maxDuration: 60,
-    maxDepth: 30,
-    maxParticipants: 2,
+    start_time: "2099-01-01T12:00:00Z",
+    event_duration: 2,
+    max_duration: 60,
+    max_depth: 30,
+    max_participants: 2,
     organizer: participant(9),
     participants: [participant(8)],
-    waitingList: [participant(6)],
+    waiting_list: [participant(6)],
     status: "PUBLISHED",
-    eventCommentId: 1, ...overrides
+    event_comment_id: 1, ...overrides
 });
 const flush = async () => act(async () => {
     await Promise.resolve();
     await Promise.resolve();
 });
+const mockPage = (rows: any[]) =>
+    ({content: rows, page: 0, size: 10, total_elements: rows.length, total_pages: 1, first: true, last: true, empty: rows.length === 0});
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -165,24 +170,25 @@ beforeEach(() => {
     session.membership = false;
     session.payment = false;
     session.files = true;
-    session.userSession = {...session.userSession, id: 7, healthStatementId: 1};
+    session.userSession = {...session.userSession, id: 7, health_statement_id: 1};
     params = {paramId: "12"};
     Object.values(api).forEach((mock) => mock.mockResolvedValue([]));
     fn("diveEventAPI.findById").mockResolvedValue(event());
-    fn("fileTransferAPI.findAllDiveFiles").mockResolvedValue([{
+    fn("fileTransferAPI.findAllDiveFiles").mockResolvedValue(mockPage([{
         id: 1,
-        eventId: 12,
+        event_id: 12,
         filename: "plan.pdf",
-        diveGroupId: 1,
-        createdAt: "2026-01-01",
+        dive_group_id: 1,
+        created_at: "2026-01-01",
         url: "/plan"
-    }]);
+    }]));
+    fn("diveEventAPI.findPastDiveEvents").mockResolvedValue(mockPage([]));
 });
 
 describe("remaining DiveEvent behavior", () => {
     it("renders event details, waiting list, role links, payments and notification flow", async () => {
         session.organizer = true;
-        const info = event({participants: [participant(8)], waitingList: [participant(6)]});
+        const info = event({participants: [participant(8)], waiting_list: [participant(6)]});
         render(<DiveEventDetails eventInfo={info}/>);
         await waitFor(() => expect(screen.getByText(/Future event/)).toBeInTheDocument());
         expect(screen.getByText(/EventDetails.waitingList.title/)).toBeInTheDocument();
@@ -208,14 +214,14 @@ describe("remaining DiveEvent behavior", () => {
     });
 
     it("covers event lists, permission actions, waiting-list labels and API failures", async () => {
-        const rows = [event({id: 1, participants: [participant(1), participant(2)], waitingList: [participant(3)]}), event({
+        const rows = [event({id: 1, participants: [participant(1), participant(2)], waiting_list: [participant(3)]}), event({
             id: 2,
             organizer: null,
             status: "DRAFTED"
         })];
         fn("diveEventAPI.findAll").mockResolvedValue(rows);
         fn("diveEventAPI.findAllOngoingDiveEvents").mockRejectedValue(new Error("ongoing"));
-        fn("diveEventAPI.findAllPastDiveEvents").mockResolvedValue(rows);
+        fn("diveEventAPI.findPastDiveEvents").mockResolvedValue(mockPage(rows));
         session.organizer = true;
         render(<><DiveEvents/><DiveEventsTable diveEventType="past" title="Past"/><DiveEventsTable diveEventType="unknown" title="Unknown"/></>);
         await flush();
@@ -224,8 +230,8 @@ describe("remaining DiveEvent behavior", () => {
     });
 
     it("handles subscribe, waiting-list, health statement and API failures", async () => {
-        fn("diveEventAPI.findById").mockResolvedValue(event({participants: [], waitingList: []}));
-        fn("diveEventAPI.subscribeUserToEvent").mockResolvedValue(event({participants: [participant(7)], waitingList: []}));
+        fn("diveEventAPI.findById").mockResolvedValue(event({participants: [], waiting_list: []}));
+        fn("diveEventAPI.subscribeUserToEvent").mockResolvedValue(event({participants: [participant(7)], waiting_list: []}));
         render(<DiveEvent/>);
         await flush();
         fireEvent.click(screen.getByText("DiveEvent.subscribe.button"));
@@ -235,7 +241,7 @@ describe("remaining DiveEvent behavior", () => {
         fn("diveEventAPI.unsubscribeUserToEvent").mockRejectedValueOnce(new Error("unsubscribe"));
         fireEvent.click(screen.getByText("DiveEvent.unsubscribe.button"));
         await flush();
-        session.userSession = {...session.userSession, healthStatementId: null};
+        session.userSession = {...session.userSession, health_statement_id: null};
         render(<DiveEvent/>);
         await flush();
         fireEvent.click(screen.getByText("DiveEvent.approveHealthStatement"));
@@ -244,15 +250,15 @@ describe("remaining DiveEvent behavior", () => {
 
     it("allows joining an event when a payment starts before its future event date", async () => {
         session.payment = true;
-        fn("diveEventAPI.findById").mockResolvedValue(event({startTime: "2028-09-23T09:00:00Z"}));
+        fn("diveEventAPI.findById").mockResolvedValue(event({start_time: "2028-09-23T09:00:00Z"}));
         fn("paymentAPI.findCurrentAndFutureByUserId").mockResolvedValue({
-            userId: 7,
+            user_id: 7,
             status: "OK",
             payments: [{
-                paymentType: "PERIODICAL",
-                paymentCount: null,
-                startDate: "2028-01-01",
-                endDate: "2029-01-01"
+                payment_type: "PERIODICAL",
+                payment_count: null,
+                start_date: "2028-01-01",
+                end_date: "2029-01-01"
             }]
         });
 
@@ -264,8 +270,8 @@ describe("remaining DiveEvent behavior", () => {
     });
 
     it("sets and updates dives while protecting zero counts", async () => {
-        fn("diveEventAPI.getDiveEventDives").mockResolvedValue({dives: [{userId: 7, name: "Diver", diveCount: 0}]});
-        fn("diveEventAPI.updateDiveEventDives").mockResolvedValue({dives: [{userId: 7, name: "Diver", diveCount: 1}]});
+        fn("diveEventAPI.getDiveEventDives").mockResolvedValue({dives: [{user_id: 7, name: "Diver", dive_count: 0}]});
+        fn("diveEventAPI.updateDiveEventDives").mockResolvedValue({dives: [{user_id: 7, name: "Diver", dive_count: 1}]});
         render(<SetDives/>);
         await flush();
         fireEvent.click(screen.getByText("down"));
@@ -282,7 +288,7 @@ describe("remaining DiveEvent behavior", () => {
     it("loads show page and exercises edit success, validation and failure paths", async () => {
         render(<ShowDiveEvent/>);
         await waitFor(() => expect(screen.getByText(/Future event/)).toBeInTheDocument());
-        formValues = {startTime: "2099-01-01T12:00:33Z", eventDuration: 2, organizerId: 9, maxParticipants: 3, participants: []};
+        formValues = {start_time: "2099-01-01T12:00:33Z", event_duration: 2, organizer_id: 9, max_participants: 3, participants: []};
         fn("userAPI.findByRole").mockResolvedValue([participant(9)]);
         fn("blockedDatesAPI.findAll").mockResolvedValue([]);
         fn("diveEventAPI.update").mockResolvedValue({id: 12});
@@ -293,9 +299,9 @@ describe("remaining DiveEvent behavior", () => {
         fn("diveEventAPI.update").mockRejectedValueOnce(new Error("update"));
         fireEvent.click(screen.getByText("form-submit"));
         await flush();
-        formValues = {...formValues, organizerId: 0};
+        formValues = {...formValues, organizer_id: 0};
         fireEvent.click(screen.getByText("form-submit"));
-        formValues = {...formValues, organizerId: 9, maxParticipants: 0, participants: [1]};
+        formValues = {...formValues, organizer_id: 9, max_participants: 0, participants: [1]};
         fireEvent.click(screen.getByText("form-submit"));
         fireEvent.click(screen.getByText("form-fail"));
         params = {paramId: "bad"};

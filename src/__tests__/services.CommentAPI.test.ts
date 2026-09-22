@@ -34,7 +34,7 @@ describe("CommentAPI", () => {
     });
 
     it("should report a comment", async () => {
-        const reportRequest = {commentId: 1, reason: "Spam"} as unknown as ReportRequest;
+        const reportRequest = {comment_id: 1, reason: "Spam"} as unknown as ReportRequest;
         const mockResponse = {status: "SUCCESS"};
         mock.onPost("/report", reportRequest).reply(200, mockResponse);
 
@@ -52,7 +52,7 @@ describe("CommentAPI", () => {
     });
 
     it("should get pending reports", async () => {
-        const mockResponse = [{id: 1, commentId: 1, status: "PENDING"}];
+        const mockResponse = [{id: 1, comment_id: 1, status: "PENDING"}];
         mock.onGet("/pending-reports").reply(200, mockResponse);
 
         const result = await commentAPI.getPendingReports();

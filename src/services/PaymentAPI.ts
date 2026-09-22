@@ -14,7 +14,7 @@ class PaymentAPI extends AbstractAPI<PaymentRequest, PaymentResponse> {
     }
 
     public async resetAllPayments(type: PaymentTypeEnum): Promise<boolean> {
-        const response = await this.axiosInstance.get<void>("/reset?paymentType=" + type);
+        const response = await this.axiosInstance.get<void>("/reset?payment_type=" + type);
         return response.status === 200;
     }
 

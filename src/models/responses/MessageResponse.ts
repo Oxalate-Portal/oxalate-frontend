@@ -6,6 +6,6 @@ export interface MessageResponse {
     title: string;
     message: string;
     creator: number;
-    createdAt: Dayjs;
+    created_at: Dayjs;
     read?: boolean;
 }

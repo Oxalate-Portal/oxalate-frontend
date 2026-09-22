@@ -31,13 +31,13 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
 
     const updateSubscriptions = (values: Record<string, boolean>) => {
         setLoading(true);
-        const subscriptionRequest: EmailNotificationSubscriptionRequest = {subscriptionList: []};
+        const subscriptionRequest: EmailNotificationSubscriptionRequest = {subscription_list: []};
 
         for (const [key, value] of Object.entries(values)) {
             // Get the enum from the key string
             if (value) {
                 const notificationEnum = EmailNotificationTypeEnum[key as keyof typeof EmailNotificationTypeEnum];
-                subscriptionRequest.subscriptionList.push(notificationEnum);
+                subscriptionRequest.subscription_list.push(notificationEnum);
             }
         }
 
@@ -63,7 +63,7 @@ export function EmailSubscriptionCard({userId}: EmailSubscriptionCardProps) {
                                style={{maxWidth: 800}}
                                onFinish={updateSubscriptions}>
                 {Object.values(EmailNotificationTypeEnum).map((type) => {
-                    const subscription = subscriptions.find(sub => sub.emailNotificationType === type);
+                    const subscription = subscriptions.find(sub => sub.email_notification_type === type);
 
                     return (
                         <Form.Item

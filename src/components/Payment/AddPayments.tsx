@@ -6,6 +6,7 @@ import {
     type ListUserResponse,
     PaymentExpirationTypeEnum,
     type PaymentRequest,
+    type PaymentResponse,
     PaymentTypeEnum,
     PortalConfigGroupEnum,
     RoleEnum
@@ -15,20 +16,20 @@ import {useSession} from "../../session";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import {getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
+import {formatDateOnly, getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
 import {type RangeValue, ShiftableRangePicker, useResponsiveFormLayout} from "../main";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-function paymentMatchesRequest(response: PaymentRequest, request: PaymentRequest): boolean {
+function paymentMatchesRequest(response: PaymentResponse, request: PaymentRequest): boolean {
     const formatDate = (value: Dayjs | string | null) => value === null ? null : dayjs(value).format("YYYY-MM-DD");
 
-    return response.userId === request.userId &&
-            response.paymentType === request.paymentType &&
-            formatDate(response.startDate) === formatDate(request.startDate) &&
-            formatDate(response.endDate) === formatDate(request.endDate) &&
-            (request.paymentType !== PaymentTypeEnum.ONE_TIME || response.paymentCount === request.paymentCount);
+    return response.user_id === request.user_id &&
+        response.payment_type === request.payment_type &&
+        formatDate(response.start_date) === formatDate(request.start_date) &&
+        formatDate(response.end_date) === formatDate(request.end_date) &&
+        (request.payment_type !== PaymentTypeEnum.ONE_TIME || response.payment_count === request.payment_count);
 }
 
 export function AddPayments() {
@@ -76,7 +77,7 @@ export function AddPayments() {
                     if (requiresMembership) {
                         // We remove those users that are not active members
                         for (let i = 0; i < userList.length; i++) {
-                            if (userList[i].membershipActive) {
+                            if (userList[i].membership_active) {
                                 participantList.push(userList[i]);
                             }
                         }
@@ -122,14 +123,14 @@ export function AddPayments() {
 
         const postData: PaymentRequest = {
             id: 0,
-            userId: 0,
-            paymentType: values.paymentType,
-            paymentCount: values.paymentCount,
-            startDate: start ?? fallbackStart,
-            endDate: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : (end ?? fallbackEnd)
+            user_id: 0,
+            payment_type: values.paymentType,
+            payment_count: values.paymentCount,
+            start_date: formatDateOnly(start ?? fallbackStart),
+            end_date: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : formatDateOnly(end ?? fallbackEnd)
         };
 
-        const requests = values.userIdList.map((userId) => ({...postData, userId}));
+        const requests = values.userIdList.map((userId) => ({...postData, user_id: userId}));
         const userPromises = requests.map((request) => paymentAPI.create(request));
 
         Promise.all(userPromises)

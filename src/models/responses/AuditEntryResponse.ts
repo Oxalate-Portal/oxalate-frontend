@@ -3,12 +3,12 @@ import type {Dayjs} from "dayjs";
 
 export interface AuditEntryResponse {
     id: number;
-    traceId: string;
+    trace_id: string;
     source: string;
     level: AuditLevelEnum;
-    userId: number;
-    userName: string;
+    user_id: number;
+    user_name: string;
     address: string;
     message: string;
-    createdAt: Dayjs;
+    created_at: Dayjs;
 }

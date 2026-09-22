@@ -39,10 +39,10 @@ describe("StatsAPI", () => {
 
     it("should get aggregates", async () => {
         const mockResponse = {
-            eventsPerYear: [{year: 2023, value: 10}],
-            diversPerYear: [{year: 2023, value: 50}],
-            eventTypesPerYear: [{year: 2023, type: "BOAT", value: 5}],
-            diverTypesPerYear: [{year: 2023, type: "SCUBA_DIVER", value: 30}]
+            events_per_year: [{year: 2023, value: 10}],
+            divers_per_year: [{year: 2023, value: 50}],
+            event_types_per_year: [{year: 2023, type: "BOAT", value: 5}],
+            diver_types_per_year: [{year: 2023, type: "SCUBA_DIVER", value: 30}]
         };
         mock.onGet("/yearly-aggregates").reply(200, mockResponse);
 

@@ -1,6 +1,6 @@
 import {act} from "react";
 import {createRoot, type Root} from "react-dom/client";
-import {SessionProvider, useSession} from "../session";
+import {readStoredSession, SessionProvider, useSession} from "../session";
 import {portalConfigurationAPI} from "../services";
 
 function FrontendConfigProbe() {
@@ -62,3 +62,22 @@ describe("SessionProvider", () => {
     });
 });
 
+
+describe("readStoredSession", () => {
+    it("returns the parsed session when it uses the current snake_case shape", () => {
+        const session = readStoredSession(JSON.stringify({id: 1, expires_at: "2030-01-01T00:00:00Z", approved_terms: true, roles: []}));
+        expect(session?.expires_at).toBe("2030-01-01T00:00:00Z");
+    });
+
+    it("discards a session stored before the snake_case wire format", () => {
+        expect(readStoredSession(JSON.stringify({id: 1, expiresAt: "2030-01-01T00:00:00Z", approvedTerms: true}))).toBeNull();
+        expect(readStoredSession(JSON.stringify({id: 1, accessToken: "x"}))).toBeNull();
+    });
+
+    it("discards missing, malformed or non-object values", () => {
+        expect(readStoredSession(null)).toBeNull();
+        expect(readStoredSession("{not json")).toBeNull();
+        expect(readStoredSession("42")).toBeNull();
+        expect(readStoredSession("null")).toBeNull();
+    });
+});

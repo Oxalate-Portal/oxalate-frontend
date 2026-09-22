@@ -1,7 +1,8 @@
 import Axios, {type AxiosInstance} from "axios";
-import type {PagedResponse} from "../models";
+import type {PagedRequest, PagedResponse} from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 import {serializeDayjsInObject, transformDatesInObject} from "./dateTransformer";
+import {MAX_PAGE_SIZE, type PagedQueryExtraParams, toPagedQueryParams} from "./pagedQuery";
 import {getGlobalTimezone} from "./timezoneContext";
 
 export abstract class AbstractAPI<REQUEST, RESPONSE> {
@@ -21,17 +22,38 @@ export abstract class AbstractAPI<REQUEST, RESPONSE> {
     }
 
     /**
-     * This should be used instead of findAll() when you want to use pagination.
-     * @param params
+     * Fetches one page of a server-paged list endpoint. Paging fields are sent as a JSON body; endpoint-specific
+     * parameters remain query parameters and every item of the page content is date-transformed.
+     * @param request paging, sorting and search parameters
+     * @param extraParams endpoint-specific query parameters, e.g. `{event_id: 12}`
+     * @param path path relative to the API member, e.g. `"/past"`; defaults to the member itself
      */
-    public async findPageable(params?: Record<string, string | number>): Promise<PagedResponse<RESPONSE>> {
+    public async findPaged(request: PagedRequest, extraParams?: PagedQueryExtraParams, path: string = ""): Promise<PagedResponse<RESPONSE>> {
         this.axiosInstance.defaults.headers.put["Content-Type"] = "application/json;charset=utf-8";
-        const response = await this.axiosInstance.get<PagedResponse<RESPONSE>>("", {params: params});
-        const transformedData = this.transformResponse(response.data.content);
+        const response = await this.axiosInstance.post<PagedResponse<RESPONSE>>(path, request, {params: toPagedQueryParams({}, extraParams)});
         return {
             ...response.data,
-            content: transformedData
+            content: response.data.content.map((item) => this.transformResponse(item))
         };
+    }
+
+    /**
+     * Collects every item of a server-paged list endpoint by walking through its pages with the largest allowed page
+     * size. Meant for non-table consumers (exports, select options) of endpoints that only exist in paged form.
+     */
+    protected async findAllPaged(extraParams?: PagedQueryExtraParams, path: string = ""): Promise<RESPONSE[]> {
+        const items: RESPONSE[] = [];
+        let page = 0;
+        let last = false;
+
+        while (!last) {
+            const response = await this.findPaged({page, size: MAX_PAGE_SIZE}, extraParams, path);
+            items.push(...response.content);
+            last = response.last || response.content.length === 0;
+            page++;
+        }
+
+        return items;
     }
 
     public async findById(id: number, parameters: string | null): Promise<RESPONSE> {

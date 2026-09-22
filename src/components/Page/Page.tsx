@@ -30,19 +30,19 @@ export function Page(pageProps: PageProps = {}) {
 
     return (<div className={"darkDiv"}>
         <Spin spinning={loading}>
-            {pageData && pageData.pageVersions && pageData.pageVersions.length > 0 && <div>
+            {pageData && pageData.page_versions && pageData.page_versions.length > 0 && <div>
                 <Space orientation={"vertical"} size={"large"}>
-                    {showTitle && <h4 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].title)}}></h4>}
+                    {showTitle && <h4 dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.page_versions[0].title)}}></h4>}
 
                     {showDate &&
-                        <div>{pageData.modifiedAt == null ?
-                            t("Page.fields.created") + dayjs(pageData.createdAt).format("YYYY.MM.DD HH:mm") :
-                            t("Page.fields.updated") + dayjs(pageData.modifiedAt).format("YYYY.MM.DD HH:mm")}</div>}
+                        <div>{pageData.modified_at == null ?
+                            t("Page.fields.created") + dayjs(pageData.created_at).format("YYYY.MM.DD HH:mm") :
+                            t("Page.fields.updated") + dayjs(pageData.modified_at).format("YYYY.MM.DD HH:mm")}</div>}
 
-                    {pageData.pageVersions[0].ingress.length > 0 &&
-                        <p style={{fontWeight: "bold"}} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].ingress)}}/>}
+                    {pageData.page_versions[0].ingress.length > 0 &&
+                        <p style={{fontWeight: "bold"}} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.page_versions[0].ingress)}}/>}
 
-                    <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.pageVersions[0].body)}}/>
+                    <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(pageData.page_versions[0].body)}}/>
 
                 </Space>
             </div>}

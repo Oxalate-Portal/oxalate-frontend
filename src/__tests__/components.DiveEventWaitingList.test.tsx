@@ -14,8 +14,8 @@ const mockGetDiveGroupsByEventId = jest.fn();
 const mockGetPortalConfigurationValue = jest.fn();
 const mockUserSession = {
     id: 1,
-    primaryUserType: "SCUBA_DIVER",
-    healthStatementId: 1,
+    primary_user_type: "SCUBA_DIVER",
+    health_statement_id: 1,
     roles: ["ROLE_USER"]
 };
 
@@ -24,16 +24,16 @@ const baseEvent = {
     type: "cave",
     title: "Full event",
     description: "desc",
-    startTime: "2099-01-01T10:00:00.000Z",
-    eventDuration: 2,
-    maxDuration: 120,
-    maxDepth: 20,
-    maxParticipants: 1,
+    start_time: "2099-01-01T10:00:00.000Z",
+    event_duration: 2,
+    max_duration: 120,
+    max_depth: 20,
+    max_participants: 1,
     status: "PUBLISHED",
-    organizer: {id: 99, firstName: "Org", lastName: "User"},
-    participants: [{id: 2, name: "Other", eventDiveCount: 0, createdAt: "", payments: [], membershipActive: true, userType: "SCUBA_DIVER"}],
-    waitingList: [],
-    eventCommentId: 1
+    organizer: {id: 99, first_name: "Org", last_name: "User"},
+    participants: [{id: 2, name: "Other", event_dive_count: 0, created_at: "", payments: [], membership_active: true, user_type: "SCUBA_DIVER"}],
+    waiting_list: [],
+    event_comment_id: 1
 };
 
 jest.mock("react-router-dom", () => ({
@@ -145,12 +145,12 @@ describe("DiveEvent waiting list button", () => {
         mockFindCurrentAndFuturePaymentsByUserId.mockResolvedValue({payments: []});
         mockGetDiveGroupsByEventId.mockResolvedValue([]);
 
-        mockJoinWaitingList.mockResolvedValue({...baseEvent, waitingList: [{id: 1}]});
-        mockLeaveWaitingList.mockResolvedValue({...baseEvent, waitingList: []});
+        mockJoinWaitingList.mockResolvedValue({...baseEvent, waiting_list: [{id: 1}]});
+        mockLeaveWaitingList.mockResolvedValue({...baseEvent, waiting_list: []});
     });
 
     it("joinWaitingListValidOk", async () => {
-        mockFindById.mockResolvedValue({...baseEvent, waitingList: []});
+        mockFindById.mockResolvedValue({...baseEvent, waiting_list: []});
 
         await act(async () => {
             render(<DiveEvent/>);
@@ -163,7 +163,7 @@ describe("DiveEvent waiting list button", () => {
     });
 
     it("leaveWaitingListValidOk", async () => {
-        mockFindById.mockResolvedValue({...baseEvent, waitingList: [{id: 1, name: "Me"}]});
+        mockFindById.mockResolvedValue({...baseEvent, waiting_list: [{id: 1, name: "Me"}]});
 
         await act(async () => {
             render(<DiveEvent/>);
@@ -176,18 +176,18 @@ describe("DiveEvent waiting list button", () => {
     });
 
     it("hides join button when payment count is zero even with active membership", async () => {
-        mockFindById.mockResolvedValue({...baseEvent, maxParticipants: 5, waitingList: []});
+        mockFindById.mockResolvedValue({...baseEvent, max_participants: 5, waiting_list: []});
         mockFindMembershipByUserId.mockResolvedValue([{id: 58, status: "ACTIVE"}]);
         mockFindCurrentAndFuturePaymentsByUserId.mockResolvedValue({
             payments: [{
                 id: 760,
-                userId: 1,
-                paymentType: PaymentTypeEnum.ONE_TIME,
-                paymentCount: 0,
-                startDate: "2026-01-01",
-                endDate: "2099-01-01",
+                user_id: 1,
+                payment_type: PaymentTypeEnum.ONE_TIME,
+                payment_count: 0,
+                start_date: "2026-01-01",
+                end_date: "2099-01-01",
                 created: "2026-09-02T15:09:30.011Z",
-                boundEvents: []
+                bound_events: []
             }]
         });
         mockGetPortalConfigurationValue.mockImplementation((group: string, key: string) => {
@@ -215,19 +215,19 @@ describe("DiveEvent waiting list button", () => {
     });
 
     it("shows payment and membership warnings when they expire before the event", async () => {
-        mockFindById.mockResolvedValue({...baseEvent, maxParticipants: 5, waitingList: []});
+        mockFindById.mockResolvedValue({...baseEvent, max_participants: 5, waiting_list: []});
         mockFindMembershipByUserId.mockResolvedValue([{
             id: 58,
             status: "ACTIVE",
-            startDate: "2026-01-01",
-            endDate: "2027-01-01"
+            start_date: "2026-01-01",
+            end_date: "2027-01-01"
         }]);
         mockFindCurrentAndFuturePaymentsByUserId.mockResolvedValue({
             payments: [{
-                paymentType: PaymentTypeEnum.PERIODICAL,
-                paymentCount: null,
-                startDate: "2026-01-01",
-                endDate: "2027-01-01"
+                payment_type: PaymentTypeEnum.PERIODICAL,
+                payment_count: null,
+                start_date: "2026-01-01",
+                end_date: "2027-01-01"
             }]
         });
         mockGetPortalConfigurationValue.mockImplementation((group: string, key: string) => {
@@ -264,9 +264,9 @@ describe("DiveEvent waiting list button", () => {
         jest.useFakeTimers({now: new Date("2026-09-12T13:13:54.260+03:00")});
         mockFindById.mockResolvedValue({
             ...baseEvent,
-            startTime: "2028-09-23T09:00:00Z",
-            maxParticipants: 5,
-            waitingList: []
+            start_time: "2028-09-23T09:00:00Z",
+            max_participants: 5,
+            waiting_list: []
         });
         mockFindCurrentAndFuturePaymentsByUserId.mockImplementation(() => new Promise(resolve => {
             resolvePayment = resolve;
@@ -299,9 +299,9 @@ describe("DiveEvent waiting list button", () => {
             await act(async () => {
                 resolvePayment?.({
                     payments: [{
-                        paymentType: PaymentTypeEnum.PERIODICAL,
-                        paymentCount: null,
-                        endDate: "2029-01-01"
+                        payment_type: PaymentTypeEnum.PERIODICAL,
+                        payment_count: null,
+                        end_date: "2029-01-01"
                     }]
                 });
                 await Promise.resolve();
@@ -316,7 +316,7 @@ describe("DiveEvent waiting list button", () => {
     });
 
     it("shows the payment warning after a payment response without a valid payment", async () => {
-        mockFindById.mockResolvedValue({...baseEvent, maxParticipants: 5, waitingList: []});
+        mockFindById.mockResolvedValue({...baseEvent, max_participants: 5, waiting_list: []});
         mockFindCurrentAndFuturePaymentsByUserId.mockResolvedValue({payments: []});
         mockGetPortalConfigurationValue.mockImplementation((group: string, key: string) => {
             if (key === "commenting-enabled") {
@@ -342,7 +342,7 @@ describe("DiveEvent waiting list button", () => {
 
     it("shows the payment warning when the payment check times out", async () => {
         jest.useFakeTimers();
-        mockFindById.mockResolvedValue({...baseEvent, maxParticipants: 5, waitingList: []});
+        mockFindById.mockResolvedValue({...baseEvent, max_participants: 5, waiting_list: []});
         mockFindCurrentAndFuturePaymentsByUserId.mockReturnValue(new Promise(() => undefined));
         mockGetPortalConfigurationValue.mockImplementation((group: string, key: string) => {
             if (key === "commenting-enabled") {

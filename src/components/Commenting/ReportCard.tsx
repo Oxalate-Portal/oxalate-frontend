@@ -55,9 +55,9 @@ export function ReportCard({report, refreshModerationList}: ReportCardProps) {
                 <Card size="small" style={{marginBottom: 10}}>
                     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                         <div>
-                            <p><strong>{t("ReportCard.field.reporter")}:</strong> {report.reporter} (ID: {report.reporterId})</p>
+                            <p><strong>{t("ReportCard.field.reporter")}:</strong> {report.reporter} (ID: {report.reporter_id})</p>
                             <p><strong>{t("ReportCard.field.reason")}:</strong> {report.reason}</p>
-                            <p><strong>{t("ReportCard.field.created-at")}:</strong> {dayjs(report.createdAt).format("YYYY.MM.DD HH:mm")}</p>
+                            <p><strong>{t("ReportCard.field.created-at")}:</strong> {dayjs(report.created_at).format("YYYY.MM.DD HH:mm")}</p>
                             <p><strong>{t("ReportCard.field.status")}:</strong> {reportStatusEnum2Tag(report.status, t, report.id)}</p>
                         </div>
                         <div style={{display: "flex", flexDirection: "column", gap: 8, alignSelf: "flex-start"}}>

@@ -118,7 +118,7 @@ function App() {
     // If the user is logged in, but they have not accepted the terms and conditions, then redirect them to the terms and conditions page. The user
     // is only allowed to access their own profile page until they have accepted the terms and conditions.
 
-    if (userSession && !userSession.approvedTerms) {
+    if (userSession && !userSession.approved_terms) {
         return (
             <div className="app-container">
                 <ConfigProvider theme={{algorithm: darkAlgorithm, token: darkThemeTokens}}>

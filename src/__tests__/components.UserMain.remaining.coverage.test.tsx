@@ -31,9 +31,9 @@ jest.setTimeout(60000);
 configure({asyncUtilTimeout: 10000});
 
 const session = {
-    id: 7, username: "person@example.com", firstName: "P", lastName: "Person",
-    accessToken: "token", roles: ["ROLE_ADMIN"], avatarUrl: null, approvedTerms: false,
-    healthStatementId: null, language: "en", memberships: [], payments: []
+    id: 7, username: "person@example.com", first_name: "P", last_name: "Person",
+    access_token: "token", roles: ["ROLE_ADMIN"], avatar_url: null, approved_terms: false,
+    health_statement_id: null, language: "en", memberships: [], payments: []
 };
 const mockGetFrontendConfigurationValue = (key: string) => key === "enabled-language" ? "en,fi" : "3";
 const mockGetPortalConfigurationValue = () => "true";
@@ -73,14 +73,26 @@ if (!globalThis.MessageChannel) {
     globalThis.MessageChannel = NodeMessageChannel as never;
 }
 
+/** Wraps rows in the page envelope the server-paged list endpoints return. */
+const mockPage = <T, >(rows: T[]) => ({
+    content: rows,
+    page: 0,
+    size: 10,
+    total_elements: rows.length,
+    total_pages: 1,
+    first: true,
+    last: true,
+    empty: rows.length === 0
+});
+
 describe("remaining User and main component paths", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         (emailNotificationSubscriptionAPI.getUserEmailSubscriptions as jest.Mock).mockResolvedValue(
-                [{emailNotificationType: Object.values(EmailNotificationTypeEnum)[0]}]);
+            [{email_notification_type: Object.values(EmailNotificationTypeEnum)[0]}]);
         (emailNotificationSubscriptionAPI.subscribeToEmailNotification as jest.Mock).mockResolvedValue([]);
         (diveEventAPI.findAllDiveEventListItemsByUser as jest.Mock).mockResolvedValue([]);
-        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue([]);
+        (fileTransferAPI.findAllDocuments as jest.Mock).mockResolvedValue(mockPage([]));
     });
 
     it("renders tables, empty payment state, events, and shifts all picker units", async () => {
@@ -88,14 +100,14 @@ describe("remaining User and main component paths", () => {
             id: 2,
             type: MembershipTypeEnum.DURATIONAL,
             status: "ACTIVE",
-            startDate: new Date("2025-01-01"),
-            endDate: new Date("2026-01-01"),
+            start_date: new Date("2025-01-01"),
+            end_date: new Date("2026-01-01"),
             created: null
         }] as never;
         render(wrap(<><FormMemberships membershipList={memberships}/><FormPayments userData={undefined}/><UserEventList eventType="past" events={[{
             id: 2,
             title: "event",
-            startTime: new Date("2025-01-01")
+            start_time: new Date("2025-01-01")
         } as never]}/></>));
         expect(screen.getByText("FormatPayments.noValid")).toBeInTheDocument();
         expect(screen.getByText(/event/)).toBeInTheDocument();
@@ -126,7 +138,7 @@ describe("remaining User and main component paths", () => {
 
     it("covers password and lost-password success and failures", async () => {
         const user = userEvent.setup({delay: null});
-        session.accessToken = "";
+        session.access_token = "";
         (authAPI.recoverLostPassword as jest.Mock).mockResolvedValue({status: UpdateStatusEnum.OK});
         render(wrap(<LostPassword/>));
         fireEvent.change(screen.getByRole("textbox"), {target: {value: "person@example.com"}});
@@ -179,15 +191,15 @@ describe("remaining User and main component paths", () => {
         (userAPI.findById as jest.Mock).mockResolvedValue({
             id: 7,
             username: "person@example.com",
-            firstName: "P",
-            lastName: "Person",
-            phoneNumber: "",
+            first_name: "P",
+            last_name: "Person",
+            phone_number: "",
             registered: new Date(),
-            diveCount: 1,
-            nextOfKin: "",
+            dive_count: 1,
+            next_of_kin: "",
             payments: [],
             memberships: [],
-            avatarUrl: null
+            avatar_url: null
         });
         render(wrap(<Login/>));
         fireEvent.click(screen.getByRole("button", {name: "Login.form.button.forgotPassword"}));

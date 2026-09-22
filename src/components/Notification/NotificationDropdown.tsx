@@ -56,7 +56,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
 
         // Mark the notification as read
         try {
-            await notificationAPI.markNotificationsAsRead({messageIds: [notification.id]});
+            await notificationAPI.markNotificationsAsRead({message_ids: [notification.id]});
             // Update local state to reflect the read status
             setNotifications(prev => prev.filter(n => n.id !== notification.id));
         } catch (error) {
@@ -72,7 +72,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
 
         try {
             setMarkingAllAsRead(true);
-            await notificationAPI.markNotificationsAsRead({messageIds: unreadNotificationIds});
+            await notificationAPI.markNotificationsAsRead({message_ids: unreadNotificationIds});
             setNotifications([]);
         } catch (error) {
             console.error("Failed to mark all notifications as read:", error);
@@ -141,7 +141,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                                 <Space orientation={"vertical"} size={0}>
                                     <Typography.Text type="secondary">{truncateMessage(notification.message)}</Typography.Text>
                                     <Typography.Text type="secondary" style={{fontSize: 12}}>
-                                        {dayjs(notification.createdAt).format("YYYY-MM-DD HH:mm")}
+                                        {dayjs(notification.created_at).format("YYYY-MM-DD HH:mm")}
                                     </Typography.Text>
                                 </Space>
                             </div>
@@ -209,7 +209,7 @@ export function NotificationDropdown({pollInterval = 300000}: NotificationDropdo
                 {selectedNotification && (
                     <Space orientation={"vertical"} style={{width: "100%"}}>
                         <Typography.Text type="secondary">
-                            {dayjs(selectedNotification.createdAt).format("YYYY-MM-DD HH:mm")}
+                            {dayjs(selectedNotification.created_at).format("YYYY-MM-DD HH:mm")}
                         </Typography.Text>
                         <div style={{whiteSpace: "pre-wrap"}}>{selectedNotification.message}</div>
                     </Space>
