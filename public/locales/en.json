@@ -4,10 +4,6 @@
       "alert" : "Something went wrong, please contact the administrator."
     }
   },
-  "ActionResultEnum" : {
-    "FAILURE" : "Failure",
-    "SUCCESS" : "Success"
-  },
   "AddMemberships" : {
     "disabled" : "Membership is disabled",
     "errorGetUsers" : "Failed to get users",
@@ -15,9 +11,6 @@
       "button" : "Add Membership",
       "membershipDuration" : {
         "label" : "Membership Duration"
-      },
-      "membershipType" : {
-        "label" : "Membership Type"
       },
       "name" : {
         "label" : "User Name",
@@ -50,18 +43,7 @@
       "fail" : "Failed to update user payment information",
       "mismatch" : "The payment overlaps an existing payment and was not added",
       "ok" : "User payment information updated"
-    },
-    "status" : {
-      "buttonOk" : "Refresh profile data",
-      "tryAgain" : "Try again"
-    },
-    "types" : {
-      "oneTime" : "One-time payment",
-      "period" : "Periodical payment"
     }
-  },
-  "AdminAudit" : {
-    "header" : "Audit logs"
   },
   "AdminCertificateClassifications" : {
     "assignment" : {
@@ -236,10 +218,7 @@
         "update" : "Update information"
       },
       "roles" : {
-        "administrator" : "Administrator",
-        "label" : "Roles",
-        "organizer" : "Event organizer",
-        "user" : "User"
+        "label" : "Roles"
       },
       "status" : {
         "label" : "Status",
@@ -272,10 +251,6 @@
       "confirm" : "Are you sure that all users need to re-accept the terms of use? This change cannot be undone.",
       "fail" : "Failed to invalidate the terms agreements",
       "ok" : "Successfully invalidated the terms agreements"
-    },
-    "search" : {
-      "placeholder" : "Search users",
-      "spinText" : "Searching users..."
     },
     "table" : {
       "action" : {
@@ -323,14 +298,7 @@
         }
       },
       "names" : {
-        "add-language" : "Add language",
         "label" : "Names",
-        "lang" : {
-          "placeholder" : "en",
-          "rule" : {
-            "required" : "Language is required"
-          }
-        },
         "value" : {
           "placeholder" : "Display name",
           "rule" : {
@@ -386,14 +354,7 @@
         "placeholder" : "group-code"
       },
       "names" : {
-        "add-language" : "Add language",
         "label" : "Names",
-        "lang" : {
-          "placeholder" : "en",
-          "rule" : {
-            "required" : "Lang required"
-          }
-        },
         "value" : {
           "placeholder" : "Display name",
           "rule" : {
@@ -447,8 +408,7 @@
       "create" : "Create token",
       "invalidate" : "Invalidate",
       "refresh" : "Refresh",
-      "reload" : "Reload",
-      "search" : "Search"
+      "reload" : "Reload"
     },
     "confirm" : {
       "invalidate" : "Invalidate this token?",
@@ -460,14 +420,7 @@
     "errors" : {
       "create" : "Could not create token.",
       "invalidate" : "Could not invalidate token.",
-      "load" : "Could not load tokens.",
       "refresh" : "Could not refresh token."
-    },
-    "filters" : {
-      "description" : "Description",
-      "from" : "From",
-      "to" : "To",
-      "value" : "Search"
     },
     "form" : {
       "days" : "Days",
@@ -577,18 +530,6 @@
     }
   },
   "AuditEvents" : {
-    "filter" : {
-      "address" : "IP Address",
-      "message" : "Message",
-      "source" : "Source",
-      "traceId" : "Trace ID",
-      "userName" : "Username"
-    },
-    "search" : {
-      "filter" : "Filter",
-      "filterColumn" : "Search column",
-      "placeholder" : "Search..."
-    },
     "table" : {
       "address" : "IP address",
       "createdAt" : "Timestamp",
@@ -649,8 +590,7 @@
   },
   "BlogControls" : {
     "caseSensitive" : {
-      "label" : "Case sensitivity",
-      "text" : "Case sensitive"
+      "label" : "Case sensitivity"
     },
     "loadMore" : "Load more",
     "noMore" : "No more posts",
@@ -683,9 +623,7 @@
       "confirm" : "Are you sure you want to delete the classification \""
     },
     "panel" : {
-      "addButton" : "Add a new certificate",
-      "text" : "The user has completed the following diving certifications:",
-      "title" : "Dive certifications"
+      "addButton" : "Add a new certificate"
     }
   },
   "ChronoUnitEnum" : {
@@ -735,21 +673,14 @@
       "beforeDate" : "Before Date",
       "bodySearch" : "Body Search",
       "commentClass" : "Comment class",
-      "commentId" : "Comment ID",
       "commentStatus" : "Comment Status",
       "commentType" : "Comment Type",
-      "depth" : "Depth",
-      "diveEventId" : "Dive Event ID",
-      "forumId" : "Forum ID",
-      "parentId" : "Parent ID",
-      "reportCount" : "Report Count",
       "titleSearch" : "Title Search",
       "user-name" : "User name"
     },
     "id" : "ID",
     "status" : "Status",
     "title" : "Comment List",
-    "titleColumn" : "Title",
     "type" : "Type",
     "username" : "Username"
   },
@@ -878,9 +809,7 @@
       }
     },
     "requiresHealthStatement" : "Joining an event requires that the health statement is approved",
-    "requiresMembership" : "Joining an event requires membership",
     "requiresMembershipAtEvent" : "Joining an event requires a membership valid when the event takes place",
-    "requiresPayment" : "Joining an event requires payment",
     "requiresPaymentAtEvent" : "Joining an event requires a payment valid when the event takes place",
     "subscribe" : {
       "button" : "Join event",
@@ -892,8 +821,6 @@
     },
     "waitingList" : {
       "joinButton" : "Join waiting list",
-      "joinLabel" : "Join the waiting list",
-      "joinMainText" : "The event is fully booked. You can join the waiting list and will be notified if a spot becomes available.",
       "leaveButton" : "Leave waiting list"
     }
   },
@@ -930,13 +857,6 @@
     "paymentLabel" : "Payments",
     "rowCount" : "Number of rows:  {{count}}",
     "userLabel" : "Users"
-  },
-  "DownloadTypeEnum" : {
-    "CERTIFICATE" : "Certificate",
-    "DIVE" : "Dive",
-    "DIVE_EVENT" : "Dive event",
-    "MEMBER" : "Member",
-    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -989,9 +909,6 @@
         },
         "tooltip" : "Dive organization name, e.g., PADI, SSI, CMAS, DSAT, DSAC, NAUI, or other"
       }
-    },
-    "suggestions" : {
-      "fail" : "Failed to load certificate suggestions"
     },
     "title" : "Certification information",
     "updateCertificate" : {
@@ -1232,10 +1149,6 @@
       }
     }
   },
-  "EmailNotificationTypeEnum" : {
-    "EVENT" : "Event",
-    "PAGE" : "Page"
-  },
   "EmailSubscriptionCard" : {
     "header" : "Email Receive email notification when:"
   },
@@ -1255,10 +1168,6 @@
       "createdAt" : "Registration time",
       "eventDiveCount" : "Dive count",
       "name" : "Name",
-      "paymentType" : {
-        "oneTime" : "One-time payment",
-        "period" : "Periodical payment"
-      },
       "payments" : "Payment status",
       "userType" : "Dive type"
     },
@@ -1280,13 +1189,8 @@
     }
   },
   "Events" : {
-    "healthStatementRequired" : "Please confirm your health statement to access this event",
     "ongoing" : {
       "title" : "Ongoing events"
-    },
-    "results" : {
-      "error" : "Failed to load data: ",
-      "noEvents" : "No upcoming events."
     },
     "search" : {
       "placeholder" : "Search events"
@@ -1301,9 +1205,6 @@
       "title" : "Description",
       "type" : "Type",
       "waitingList" : "Waiting list"
-    },
-    "upcoming" : {
-      "title" : "Upcoming events"
     }
   },
   "FormMemberships" : {
@@ -1324,13 +1225,8 @@
       "id" : "ID",
       "paymentCount" : "Count",
       "paymentType" : "Payment Type",
-      "periodPayment" : "Period Payment",
-      "singlePayment" : "One-Time Payment",
       "start-date" : "Starts"
-    },
-    "unknownPayment" : "Unknown Payment Type",
-    "unknownPaymentContact" : "Contact Support",
-    "unknownPaymentPlease" : "Please contact support for more information."
+    }
   },
   "Forum" : {
     "title" : "Forum topics"
@@ -1338,10 +1234,6 @@
   "HealthStatementConfirmationModal" : {
     "error" : "Something went wrong, please contact the administrator.",
     "title" : "Health statement and medical examination for diving fitness"
-  },
-  "ListPayments" : {
-    "oneTime" : "One-time payments",
-    "period" : "Periodical payments"
   },
   "Login" : {
     "form" : {
@@ -1445,7 +1337,6 @@
       "users" : "Users"
     },
     "blog" : {
-      "link" : "Blog",
       "title" : "Blog"
     },
     "events" : {
@@ -1496,36 +1387,11 @@
     "title" : "Notifications",
     "viewAll" : "View all notifications"
   },
-  "NotificationGroupEnum" : {
-    "active_membership" : "Active membership",
-    "all_registered" : "All registered",
-    "inactive_days" : "Inactive days",
-    "locked_accounts" : "Locked accounts",
-    "never_had_membership" : "Never had membership",
-    "no_active_membership" : "No active membership"
-  },
   "NotificationList" : {
     "markAllAsRead" : "Mark all as read",
     "noNotifications" : "No notifications",
     "title" : "All Notifications",
     "unread" : "Unread"
-  },
-  "OngoingEvents" : {
-    "results" : {
-      "noEvents" : "No ongoing events."
-    },
-    "search" : {
-      "placeholder" : "Search events"
-    },
-    "table" : {
-      "maxDepth" : "Maximum depth, m",
-      "maxDuration" : "Maximum time, min",
-      "organizer" : "Organizer",
-      "participants" : "Participants",
-      "startTime" : "Start time",
-      "title" : "Description",
-      "type" : "Type"
-    }
   },
   "Page" : {
     "fields" : {
@@ -1651,15 +1517,8 @@
     "periodical" : "Periodical",
     "perpetual" : "Perpetual"
   },
-  "PaymentExpirationTypeEnum" : {
-    "DISABLED" : "Disabled",
-    "DURATIONAL" : "Durational",
-    "PERIODICAL" : "Periodical",
-    "PERPETUAL" : "Perpetual"
-  },
   "PaymentListTable" : {
     "table" : {
-      "created" : "Created",
       "end-date" : "Ends at",
       "name" : "Name",
       "payment-type" : "Payment type",
@@ -1673,15 +1532,6 @@
     "NONE" : "None",
     "ONE_TIME" : "One-time",
     "PERIODICAL" : "Periodical"
-  },
-  "PortalConfigGroupEnum" : {
-    "commenting" : "Commenting",
-    "email" : "Email",
-    "files" : "Files",
-    "frontend" : "Frontend",
-    "general" : "General",
-    "membership" : "Membership",
-    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1917,8 +1767,7 @@
       },
       "healthStatement" : {
         "button" : "health statement",
-        "text" : "Read and confirm",
-        "title" : "Health statement confirmation"
+        "text" : "Read and confirm"
       },
       "password" : {
         "label" : "Password:",
@@ -1988,21 +1837,10 @@
       "notReceived" : "If you haven't received the confirmation email, you can resend it by clicking the button below."
     }
   },
-  "ResultEnum" : {
-    "FAIL" : "Failure",
-    "OK" : "OK"
-  },
-  "RoleEnum" : {
-    "ROLE_ADMIN" : "Administrator",
-    "ROLE_ANONYMOUS" : "Anonymous",
-    "ROLE_ORGANIZER" : "Organizer",
-    "ROLE_USER" : "User"
-  },
   "SetDives" : {
     "noDives" : "No dives",
     "table" : {
       "action" : "Action",
-      "diveCount" : "Dives",
       "name" : "Diver"
     }
   },
@@ -2014,7 +1852,6 @@
       "date" : "Certification date",
       "diverId" : "Diver ID",
       "organization" : "Certification organization",
-      "photocopy" : "Certification photocopy",
       "remove-photo-fail" : "Failed to remove certificate photo",
       "remove-photo-success" : "Certificate photo removed successfully",
       "title" : "Certification: ",
@@ -2036,10 +1873,6 @@
       "registered" : "Registered",
       "user-details" : "User details"
     }
-  },
-  "SortDirectionEnum" : {
-    "ASC" : "Ascending",
-    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Reports",
@@ -2082,11 +1915,6 @@
     "select" : {
       "placeholder" : "Select timezone"
     }
-  },
-  "UpdateStatusEnum" : {
-    "FAIL" : "Failure",
-    "NONE" : "None",
-    "OK" : "OK"
   },
   "UploadStatusEnum" : {
     "deleted" : "Deleted",
@@ -2182,16 +2010,13 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Email subscriptions",
-      "tooltip" : "Select the types of email notifications you want to receive"
+      "header" : "Email subscriptions"
     },
     "future-panel" : {
-      "header" : "Upcoming events",
-      "tooltip" : "Future events you have signed up for"
+      "header" : "Upcoming events"
     },
     "past-panel" : {
-      "header" : "Past events",
-      "tooltip" : "Past events you have participated in"
+      "header" : "Past events"
     },
     "profile-certificates-panel" : {
       "header" : "Dive certifications",
@@ -2279,7 +2104,6 @@
     },
     "dive" : {
       "download" : "Download",
-      "fetchFail" : "Failed to load dive files",
       "table" : {
         "createdAt" : "Created",
         "diveGroupId" : "Dive group",
@@ -2299,7 +2123,6 @@
     },
     "document" : {
       "download" : "Download",
-      "fetchFail" : "Failed to load document files",
       "table" : {
         "createdAt" : "Created",
         "download" : "File",
@@ -2336,7 +2159,6 @@
       "confirm" : "I confirm",
       "delete" : "Delete",
       "edit" : "Edit",
-      "held" : "Held",
       "login" : "Log In",
       "logout" : "Log Out",
       "no" : "No",
@@ -2375,20 +2197,11 @@
         "published" : "Published"
       }
     },
-    "payment" : {
-      "type" : {
-        "oneTime" : "One time",
-        "period" : "Periodical"
-      }
-    },
     "roles" : {
       "role_admin" : "Administrator",
       "role_anonymous" : "Anonymous",
       "role_organizer" : "Event Organizer",
       "role_user" : "User"
-    },
-    "select" : {
-      "empty" : "None selected"
     },
     "spinner" : {
       "loading" : "Loading..."
@@ -2410,10 +2223,6 @@
       "loadError" : "The table data could not be loaded.",
       "pagination" : {
         "total" : "{{from}}-{{to}} of {{total}}"
-      },
-      "search" : {
-        "caseSensitive" : "Case sensitive",
-        "placeholder" : "Search..."
       }
     },
     "userStatus" : {

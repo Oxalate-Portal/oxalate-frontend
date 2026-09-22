@@ -1,6 +1,6 @@
 import {fireEvent, render, renderHook, screen, waitFor} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {Blog, BlogCard, BlogControls, BlogMenuItem, Certificates, EditCertificate, ShowCertificateCard, useBlogMenuItems} from "../components";
+import {Blog, BlogCard, BlogControls, Certificates, EditCertificate, ShowCertificateCard, useBlogMenuItems} from "../components";
 import {SortDirectionEnum} from "../models";
 import {certificateAPI, fileTransferAPI, pageAPI, transformDatesInObject} from "../services";
 
@@ -114,11 +114,6 @@ const certificate = (id = 3) => ({
     certificate_photo_url: null
 }) as never;
 
-function MenuProbe() {
-    const items = BlogMenuItem({blogEnabled: true}) as never[];
-    return <output>{items.length}</output>;
-}
-
 beforeEach(() => {
     jest.clearAllMocks();
     formPropsRef.current = undefined;
@@ -165,9 +160,6 @@ describe("blogging components", () => {
         (pageAPI.getPagedBlogs as jest.Mock).mockRejectedValueOnce(new Error("offline"));
         const failed = renderHook(() => useBlogMenuItems(true));
         await waitFor(() => expect(failed.result.current[0]).toBeTruthy());
-        (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValueOnce({content: [{id: 2, page_versions: []}]});
-        render(<MenuProbe/>);
-        await waitFor(() => expect(screen.getByText("1")).toBeInTheDocument());
 
         (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValue({content: [blog(1), blog(2)], page: 0, last: false, total_elements: 2});
         render(<Blog/>);

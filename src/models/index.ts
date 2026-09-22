@@ -6,15 +6,12 @@ export type {AbstractPage} from "./AbstractPage";
 export type {AbstractUser} from "./AbstractUser";
 // Interfaces
 export type {BuildInfo} from "./BuildInfo";
-export type {CertificateVO} from "./CertificateVO";
 export type {DiveCountItemVO} from "./DiveCountItemVO";
-export type {DiveEventVO} from "./DiveEventVO";
 export type {LoginStatus} from "./LoginStatus";
 export type {OptionItemVO} from "./OptionItemVO";
 export type {PaymentVO} from "./PaymentVO";
 export type {RegistrationVO} from "./RegistrationVO";
 export type {UserSessionToken} from "./UserSessionToken";
-export type {SortableTableParams} from "./SortableTableParams";
 // Enums
 export {AuditLevelEnum} from "./AuditLevelEnum";
 export {ActionResultEnum} from "./ActionResultEnum";

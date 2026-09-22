@@ -1,8 +1,7 @@
-import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import type {ReactNode} from "react";
-import {BlogCard, BlogControls, BlogMenuItem, PasswordFields, PasswordRules} from "../components";
+import {BlogCard, BlogControls, PasswordFields, PasswordRules} from "../components";
 import {SortDirectionEnum} from "../models";
-import {pageAPI} from "../services";
 
 const stableTranslation = {t: (key: string) => key};
 jest.mock("react-i18next", () => ({useTranslation: () => stableTranslation}));
@@ -69,22 +68,6 @@ describe("blog controls, cards, menu, and password guidance", () => {
                              onSearchChange={callbacks[2]} onCaseSensitiveChange={callbacks[3]}
                              showLoadMore hasMore={false} totalItems={2}/>);
         expect(screen.getByText("BlogControls.noMore")).toBeInTheDocument();
-    });
-
-    function MenuProbe({enabled}: { enabled: boolean }) {
-        const items = BlogMenuItem({blogEnabled: enabled});
-        return <output data-testid="menu-size">{items.length}</output>;
-    }
-
-    it("loads blog menu entries, empty state, and failure state", async () => {
-        (pageAPI.getPagedBlogs as jest.Mock).mockResolvedValueOnce({content: [{id: 1, page_versions: [{title: "Post"}]}]});
-        const {rerender} = render(<MenuProbe enabled/>);
-        await waitFor(() => expect(screen.getByTestId("menu-size")).toHaveTextContent("1"));
-        rerender(<MenuProbe enabled={false}/>);
-        expect(screen.getByTestId("menu-size")).toHaveTextContent("0");
-        (pageAPI.getPagedBlogs as jest.Mock).mockRejectedValueOnce(new Error("offline"));
-        rerender(<MenuProbe enabled/>);
-        await waitFor(() => expect(screen.getByTestId("menu-size")).toHaveTextContent("1"));
     });
 
     it("renders translated password rules and fields", () => {
