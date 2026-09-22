@@ -47,17 +47,14 @@ export function AdminCertificateClassifications() {
         load();
     }, [load]);
 
-    const titleFields = (titles?: Record<string, string>): TitleValue[] =>
-            languages.map(lang => ({lang, value: titles?.[lang] || ""}));
-
-    const openModal = (record: CertificateClassificationResponse | null) => {
+    const openModal = useCallback((record: CertificateClassificationResponse | null) => {
         setEditing(record);
         form.setFieldsValue({
-            titles: titleFields(record?.titles),
+            titles: languages.map(lang => ({lang, value: record?.titles?.[lang] || ""})),
             description: record?.description || ""
         });
         setModalOpen(true);
-    };
+    }, [form, languages]);
 
     const submit = () => {
         form.validateFields().then((values: { titles: TitleValue[]; description: string }) => {
@@ -78,7 +75,7 @@ export function AdminCertificateClassifications() {
         }).catch(() => void 0);
     };
 
-    const remove = (id: number) => {
+    const remove = useCallback((id: number) => {
         setDeletingId(id);
         certificateClassificationAPI.delete(id)
                 .then(ok => {
@@ -91,7 +88,7 @@ export function AdminCertificateClassifications() {
                 })
                 .catch(error => message.error(error?.response?.data?.message || error.message || t("AdminCertificateClassifications.popup.remove-fail")))
                 .finally(() => setDeletingId(null));
-    };
+    }, [load, t]);
 
     const moveRow = (sourceId: number, targetId: number) => {
         if (sourceId === targetId) return;
@@ -142,10 +139,6 @@ export function AdminCertificateClassifications() {
                     </Space>
             )
         }
-        // The handlers intentionally use current form and service state without rebuilding columns.
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     ], [deletingId, openModal, remove, t]);
 
     const submitAssignment = (values: { certificateId?: number; certificateNames?: string[]; classificationId?: number }) => {

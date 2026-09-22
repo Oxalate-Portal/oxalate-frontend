@@ -5,7 +5,7 @@ import {membershipAPI} from "../../services";
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
-import {formatDateOnly} from "../../tools";
+import {formatDateOnly} from "../../tools/DateTimeTool.ts";
 
 export function AdminMembership() {
     const {t} = useTranslation();
