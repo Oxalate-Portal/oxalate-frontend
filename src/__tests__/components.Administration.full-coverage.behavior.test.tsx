@@ -82,6 +82,7 @@ jest.mock("../tools", () => ({
     membershipStatusEnum2Tag: (value: string) => <span>{value}</span>,
     membershipTypeEnum2Tag: (value: string) => <span>{value}</span>,
     formatDateTimeWithMs: (value: string) => value,
+    formatDateOnly: (value: { format?: (pattern: string) => string } | undefined) => value?.format?.("YYYY-MM-DD") ?? "",
     getDefaultMembershipDates: () => ({start_date: {format: () => "2026-01-01"}, end_date: {format: () => "2026-12-31"}}),
     getApiBaseUrl: () => "http://api"
 }));
