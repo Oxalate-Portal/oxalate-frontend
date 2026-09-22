@@ -66,12 +66,10 @@ export function PageFiles() {
             {pageFileTable.contextHolder}
             <OxTable
                 columns={columns}
-                dataSource={pageFileTable.dataSource}
+                dataMode={"server"}
+                paged={pageFileTable}
                 rowKey="id"
-                loading={pageFileTable.loading}
                 bordered
-                pagination={pageFileTable.pagination}
-                onChange={pageFileTable.handleTableChange}
             />
         </>
     );

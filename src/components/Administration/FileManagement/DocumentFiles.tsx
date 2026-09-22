@@ -91,13 +91,12 @@ export function DocumentFiles() {
             </Upload>
             <OxTable
                 columns={columns}
-                dataSource={documentTable.dataSource}
+                dataMode={"server"}
+                paged={documentTable}
                 rowKey="id"
-                loading={documentTable.loading || deleting}
+                loading={deleting}
                 bordered
                 key={"upload-table-document"}
-                pagination={documentTable.pagination}
-                onChange={documentTable.handleTableChange}
             />
         </Space>
     );

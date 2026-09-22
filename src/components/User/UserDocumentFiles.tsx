@@ -2,12 +2,12 @@ import {useMemo, useState} from "react";
 import {Button, message, Space, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
 import {fileTransferAPI} from "../../services";
-import {type DocumentFileResponse, PortalConfigGroupEnum, SortDirectionEnum} from "../../models";
+import {type DocumentFileResponse, PortalConfigGroupEnum} from "../../models";
 import {FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
 import {useSession} from "../../session";
-import {type OxColumnsType, OxTable, usePagedTable} from "../main";
+import {type OxColumnsType, OxTable, PAGED_TABLE_PAGE_SIZE_OPTIONS} from "../main";
 
 interface UserDocumentFilesProps {
     userId: number;
@@ -18,21 +18,15 @@ interface UserDocumentFilesProps {
 
 export function UserDocumentFiles({userId, canUpload}: UserDocumentFilesProps) {
     const [uploading, setUploading] = useState<boolean>(false);
+    const [reloadToken, setReloadToken] = useState<number>(0);
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
     const {getPortalConfigurationValue} = useSession();
     const documentsSupported = getPortalConfigurationValue(PortalConfigGroupEnum.FILES, "documents-supported") === "true";
-    // The server returns only the documents uploaded by this user (and forces non-administrators to their own id),
-    // newest first.
-    const documentTable = usePagedTable<DocumentFileResponse>((request) => fileTransferAPI.findAllDocuments(request, userId), {
-        messageApi,
-        defaultSortBy: "created_at",
-        defaultDirection: SortDirectionEnum.DESC,
-        defaultPageSize: 5,
-        deps: [userId],
-        enabled: documentsSupported
-    });
-    const {reload} = documentTable;
+    // The server returns only the documents uploaded by this user (and forces non-administrators to their own id).
+    // A user has a handful of documents, so the table is in client mode: OxTable collects them all from the paged
+    // endpoint (100 per request) and sorts, filters and pages them in the browser.
+    const reload = () => setReloadToken((previous) => previous + 1);
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -110,13 +104,15 @@ export function UserDocumentFiles({userId, canUpload}: UserDocumentFilesProps) {
                     <Button icon={<UploadOutlined/>}>{t("UserFiles.document.upload.button")}</Button>
                 </Upload>
             )}
-            <OxTable
+            <OxTable<DocumentFileResponse>
                 rowKey="id"
-                loading={documentTable.loading || uploading}
-                dataSource={documentTable.dataSource}
+                loading={uploading}
+                fetcher={(request) => fileTransferAPI.findAllDocuments(request, userId)}
+                fetchDeps={[userId]}
+                reloadToken={reloadToken}
+                messageApi={messageApi}
                 columns={columns}
-                pagination={documentTable.pagination}
-                onChange={documentTable.handleTableChange}
+                pagination={{defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: PAGED_TABLE_PAGE_SIZE_OPTIONS}}
             />
         </Space>
     );

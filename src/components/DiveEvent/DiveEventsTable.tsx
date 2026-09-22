@@ -17,9 +17,11 @@ interface DiveEventsTableProps {
 type Comparator = (a: DiveEventResponse, b: DiveEventResponse) => number;
 
 /**
- * Lists dive events. Future (`new`) and ongoing events are small bounded lists that are sorted on the client, while
- * the `past` events are paged, sorted and searched by the server: the allow-listed columns (startTime, title, status,
- * type, maxDuration, maxDepth) carry `sorter: true` and the participants/organizer columns are not sortable there.
+ * Lists dive events. Future (`new`) and ongoing events are small bounded lists that are filtered and sorted in the
+ * browser (client-mode OxTable), while the `past` events are paged, sorted, searched and filtered by the server
+ * (server-mode OxTable): the allow-listed columns (startTime, title, status, type, maxDuration, maxDepth) carry
+ * `sorter: true`, the `status` and `type` enum filters are served by the backend, the `title` and `organizer`
+ * columns are `searchable` there, and the participants/organizer columns are not sortable there.
  */
 export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
     const {userSession, getPortalTimezone} = useSession();
@@ -57,6 +59,7 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             dataIndex: "title",
             key: "title",
             mobile: true,
+            searchable: true,
             sorter: sortedOnServerOr((a, b) => a.title.localeCompare(b.title)),
             sortDirections: ["descend", "ascend"]
         },
@@ -122,6 +125,8 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
             title: t("Events.table.organizer"),
             dataIndex: "organizer",
             key: "organizer",
+            // The backend searches the organizer by name; the client-side substring search cannot handle the object.
+            searchable: serverPaged,
             sorter: clientOnlySorter((a, b) => {
                 if (a.organizer === b.organizer) {
                     return 0;
@@ -209,12 +214,10 @@ export function DiveEventsTable({diveEventType, title}: DiveEventsTableProps) {
                 {pastEventTable.contextHolder}
                 <h4>{title}</h4>
                 <OxTable
-                    dataSource={pastEventTable.dataSource}
+                    dataMode={"server"}
+                    paged={pastEventTable}
                     rowKey={"id"}
-                    columns={diveEventColumns}
-                    loading={pastEventTable.loading}
-                    pagination={pastEventTable.pagination}
-                    onChange={pastEventTable.handleTableChange}/>
+                    columns={diveEventColumns}/>
             </>
         );
     }

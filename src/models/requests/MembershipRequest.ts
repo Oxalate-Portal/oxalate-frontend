@@ -1,12 +1,12 @@
 import {MembershipStatusEnum} from "../MembershipStatusEnum";
 import {MembershipTypeEnum} from "../MembershipTypeEnum";
-import type {Dayjs} from "dayjs";
 
 export interface MembershipRequest {
     id: number;
     user_id: number;
     status: MembershipStatusEnum;
     type: MembershipTypeEnum;
-    start_date: Dayjs | null;
-    end_date: Dayjs | null;
+    /** Membership dates are calendar dates, not instants in time. */
+    start_date: string | null;
+    end_date: string | null;
 }

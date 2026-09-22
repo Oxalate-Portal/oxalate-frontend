@@ -39,6 +39,13 @@ export interface PagedTableState<T> {
     caseSensitive: boolean;
     /** Toggles case-sensitive search and returns to the first page. */
     setCaseSensitive: (caseSensitive: boolean) => void;
+    /** The column the current search is restricted to (`filter_column`), if any. */
+    filterColumn?: string;
+    /**
+     * Restricts the search to one column and returns to the first page; an empty search clears the column filter. The
+     * backend accepts a single `filter_column`, so setting a filter replaces any previous one. Sorting is untouched.
+     */
+    setFilter: (filterColumn: string | undefined, search: string) => void;
     /** Fetches the current page again, e.g. after a row was added or deleted. */
     reload: () => void;
     /** True after a failed fetch until the next successful one. */
@@ -210,6 +217,11 @@ export function usePagedTable<T>(fetcher: PagedTableFetcher<T>, options: UsePage
         setQuery((previous) => ({...previous, page: 0, caseSensitive}));
     }, []);
 
+    const setFilter = useCallback((filterColumn: string | undefined, search: string) => {
+        const trimmed = search.trim();
+        setQuery((previous) => ({...previous, page: 0, filterColumn: trimmed === "" ? undefined : filterColumn, search: trimmed === "" ? "" : search}));
+    }, []);
+
     const reload = useCallback(() => {
         setReloadCounter((previous) => previous + 1);
     }, []);
@@ -232,6 +244,8 @@ export function usePagedTable<T>(fetcher: PagedTableFetcher<T>, options: UsePage
         setSearch,
         caseSensitive: query.caseSensitive,
         setCaseSensitive,
+        filterColumn: query.filterColumn,
+        setFilter,
         reload,
         error,
         contextHolder

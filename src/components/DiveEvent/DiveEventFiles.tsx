@@ -1,13 +1,13 @@
 import {useMemo, useState} from "react";
 import {Button, InputNumber, message, Select, Space, Typography, Upload, type UploadProps} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
-import {type DiveFileResponse, type DiveGroupResponse, PortalConfigGroupEnum, RoleEnum, SortDirectionEnum} from "../../models";
+import {type DiveFileResponse, type DiveGroupResponse, PortalConfigGroupEnum, RoleEnum} from "../../models";
 import {fileTransferAPI} from "../../services";
 import dayjs from "dayjs";
 import {useTranslation} from "react-i18next";
 import {checkRoles, FileUploadValidationError, validateUploadFile} from "../../tools";
 import {useSession} from "../../session";
-import {type OxColumnsType, OxTable, usePagedTable} from "../main";
+import {type OxColumnsType, OxTable, PAGED_TABLE_PAGE_SIZE_OPTIONS} from "../main";
 
 interface DiveEventFilesProps {
     eventId: number;
@@ -19,6 +19,7 @@ interface DiveEventFilesProps {
 
 export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, onUploaded}: DiveEventFilesProps) {
     const [uploading, setUploading] = useState<boolean>(false);
+    const [reloadToken, setReloadToken] = useState<number>(0);
     const [diveGroupId, setDiveGroupId] = useState<number>(1);
     const [messageApi, contextHolder] = message.useMessage();
     const {t} = useTranslation();
@@ -40,17 +41,10 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
                     ? memberGroups.some((group) => group.id === diveGroupId) ? diveGroupId : memberGroups[0]?.id ?? 0
                     : diveGroupId;
 
-    // The server returns only the files of this event, newest first; the list is not fetched at all when the dive
-    // group variant is rendered because that variant shows no table.
-    const diveFileTable = usePagedTable<DiveFileResponse>((request) => fileTransferAPI.findAllDiveFiles(request, eventId), {
-        messageApi,
-        defaultSortBy: "created_at",
-        defaultDirection: SortDirectionEnum.DESC,
-        defaultPageSize: 5,
-        deps: [eventId],
-        enabled: diveFilesSupported && diveGroup === undefined
-    });
-    const {reload} = diveFileTable;
+    // An event has a handful of files, so the table is in client mode: OxTable collects every file of this event
+    // from the paged endpoint (100 per request) and sorts, filters and pages them in the browser. The dive group
+    // variant renders no table, so nothing is fetched for it.
+    const reload = () => setReloadToken((previous) => previous + 1);
 
     const uploadProps: UploadProps = {
         showUploadList: false,
@@ -158,13 +152,15 @@ export function DiveEventFiles({eventId, diveGroup, diveGroups, currentUserId, o
                             </Upload>
                         </Space>
                 )}
-                {!diveGroup && <OxTable
+                {!diveGroup && <OxTable<DiveFileResponse>
                         rowKey="id"
-                        loading={diveFileTable.loading || uploading}
-                        dataSource={diveFileTable.dataSource}
+                        loading={uploading}
+                        fetcher={(request) => fileTransferAPI.findAllDiveFiles(request, eventId)}
+                        fetchDeps={[eventId]}
+                        reloadToken={reloadToken}
+                        messageApi={messageApi}
                         columns={columns}
-                        pagination={diveFileTable.pagination}
-                        onChange={diveFileTable.handleTableChange}
+                        pagination={{defaultPageSize: 5, showSizeChanger: true, pageSizeOptions: PAGED_TABLE_PAGE_SIZE_OPTIONS}}
                 />}
             </Space>
     );

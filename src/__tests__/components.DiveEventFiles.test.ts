@@ -96,11 +96,10 @@ describe("DiveEventFiles", () => {
         (fileTransferAPI.uploadDiveFile as jest.Mock).mockResolvedValue({url: "/files/dive"});
     });
 
-    it("asks the server for the first page of the requested event's files", async () => {
+    it("collects the requested event's files from the paged endpoint in client mode", async () => {
         render(React.createElement(DiveEventFiles, {eventId: 12}));
 
-        await waitFor(() => expect(fileTransferAPI.findAllDiveFiles).toHaveBeenCalledWith(
-            {page: 0, size: 5, sort_by: "created_at", direction: "DESC"}, 12));
+        await waitFor(() => expect(fileTransferAPI.findAllDiveFiles).toHaveBeenCalledWith({page: 0, size: 100}, 12));
         expect(screen.getByText("matching.pdf")).toBeInTheDocument();
         expect(screen.getByLabelText("dive-group-id")).toBeInTheDocument();
     });

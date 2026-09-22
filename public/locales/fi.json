@@ -2401,6 +2401,12 @@
       "column-title" : {
         "action" : "Toiminto"
       },
+      "fetchLimitReached" : "Vain ensimmäiset {{rows}} riviä ladattiin; rajaa listaa palvelimen puolella.",
+      "filter" : {
+        "reset" : "Tyhjennä",
+        "searchColumn" : "Hae {{column}}",
+        "select" : "Valitse arvo"
+      },
       "loadError" : "Taulukon tietoja ei voitu ladata.",
       "pagination" : {
         "total" : "{{from}}-{{to}} / {{total}}"

@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import {
+    formatDateOnly,
     formatDateTime,
     formatDateTimeWithMs,
     getDefaultMembershipDates,
@@ -44,6 +45,13 @@ describe("DateTimeTool", () => {
         const result = localToUTCDatetime(local, "Europe/Helsinki");
         expect(result.minute()).toBe(30);
         expect(result.utcOffset()).toBe(120);
+    });
+
+    it("formats membership calendar dates without converting them to UTC", () => {
+        const selectedDate = dayjs.tz("2026-01-01T00:00:00", timezoneId);
+
+        expect(formatDateOnly(selectedDate)).toBe("2026-01-01");
+        expect(formatDateOnly(null)).toBeNull();
     });
 
     describe("getDefaultMembershipDates", () => {

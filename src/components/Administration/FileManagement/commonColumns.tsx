@@ -12,7 +12,8 @@ interface CommonFileColumnsOptions {
 
 /**
  * The columns shared by every file table. The file lists are paged, sorted and searched on the server, so the sortable
- * columns carry `sorter: true` and the default order is the newest file first.
+ * columns carry `sorter: true`, the default order is the newest file first, and only the columns the backend searches
+ * (`filename`, `creator`; `mimetype` has no column) are `searchable`.
  */
 export function commonFileColumns<T extends AbstractFileResponse = AbstractFileResponse>(t: TFunction, {showPreview = true}: CommonFileColumnsOptions = {}): OxColumnsType<T> {
     return [
@@ -21,6 +22,7 @@ export function commonFileColumns<T extends AbstractFileResponse = AbstractFileR
             dataIndex: "filename",
             key: "filename",
             mobile: true,
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: (text: string) => <span>{text}</span>
@@ -37,6 +39,7 @@ export function commonFileColumns<T extends AbstractFileResponse = AbstractFileR
             title: t("AdminUploads.common-file-column-title.creator"),
             dataIndex: "creator",
             key: "creator",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"]
         },

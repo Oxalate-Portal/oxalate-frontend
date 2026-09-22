@@ -82,7 +82,7 @@ export function AdminTokens() {
 
     const columns: OxColumnsType<TokenResponse> = useMemo(() => [
         {
-            title: t("AdminTokens.table.value"), dataIndex: "token_value", key: "token_value", mobile: true,
+            title: t("AdminTokens.table.value"), dataIndex: "token_value", key: "token_value", mobile: true, searchable: true,
             render: (value: string | null | undefined, record) => record.token_id === newToken?.token_id ? value : `****${value?.slice(-4) || ""}`
         },
         {
@@ -98,7 +98,12 @@ export function AdminTokens() {
             render: (value: string) => dayjs(value).format("YYYY-MM-DD HH:mm")
         },
         {
-            title: t("AdminTokens.table.description"), dataIndex: "description", key: "description", sorter: true, sortDirections: ["descend", "ascend"],
+            title: t("AdminTokens.table.description"),
+            dataIndex: "description",
+            key: "description",
+            searchable: true,
+            sorter: true,
+            sortDirections: ["descend", "ascend"],
             render: (value?: string) => value || "-"
         },
         {
@@ -123,9 +128,7 @@ export function AdminTokens() {
         <h4>{t("AdminTokens.title")}</h4>
         <Button type="primary" icon={<PlusOutlined/>} onClick={() => setCreateOpen(true)}>{t("AdminTokens.actions.create")}</Button>
         <Button icon={<ReloadOutlined/>} onClick={reload} loading={loading} style={{marginLeft: 8}}>{t("AdminTokens.actions.reload")}</Button>
-        <OxTable<TokenResponse> rowKey="token_id" loading={loading} dataSource={tokenTable.dataSource} columns={columns}
-                                pagination={tokenTable.pagination}
-                                onChange={tokenTable.handleTableChange}/>
+        <OxTable<TokenResponse> rowKey="token_id" dataMode={"server"} paged={tokenTable} columns={columns}/>
         <Modal open={createOpen} title={t("AdminTokens.create.title")} onCancel={() => setCreateOpen(false)} footer={null} destroyOnHidden>
             <Form form={form} layout="vertical" onFinish={create}>
                 <Form.Item name="expiresAt" label={t("AdminTokens.form.expiration")} rules={[{

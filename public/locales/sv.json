@@ -2401,6 +2401,12 @@
       "column-title" : {
         "action" : "Åtgärd"
       },
+      "fetchLimitReached" : "Endast de första {{rows}} raderna lästes in; begränsa listan på serversidan.",
+      "filter" : {
+        "reset" : "Återställ",
+        "searchColumn" : "Sök {{column}}",
+        "select" : "Välj ett värde"
+      },
       "loadError" : "Tabelldata kunde inte läsas in.",
       "pagination" : {
         "total" : "{{from}}-{{to}} av {{total}}"

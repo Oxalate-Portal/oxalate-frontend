@@ -28,12 +28,10 @@ export function CertificateFiles() {
             {certificateTable.contextHolder}
             <OxTable
                 columns={columns}
-                dataSource={certificateTable.dataSource}
+                dataMode={"server"}
+                paged={certificateTable}
                 rowKey="id"
-                loading={certificateTable.loading}
                 bordered
-                pagination={certificateTable.pagination}
-                onChange={certificateTable.handleTableChange}
             />
         </>
     );

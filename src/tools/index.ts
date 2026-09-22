@@ -31,6 +31,7 @@ export {
 export {
     formatDateTime,
     formatDateTimeWithMs,
+    formatDateOnly,
     localToUTCDate,
     localToUTCDatetime,
     getDefaultMembershipDates

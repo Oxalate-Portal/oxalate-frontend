@@ -125,9 +125,13 @@ jest.mock("../components/main", () => ({
     },
     // Forms are horizontal in jsdom, matching the real hook when no breakpoint matches
     useResponsiveFormLayout: (labelSpan: number, wrapperSpan: number) => ({layout: "horizontal", labelCol: {span: labelSpan}, wrapperCol: {span: wrapperSpan}}),
-    OxTable: (props: Record<string, unknown>) => {
+    // Server-mode tables get their data props from the `paged` state, like the real OxTable does
+    OxTable: ({paged, dataMode, ...props}: Record<string, unknown> & { paged?: Record<string, unknown>; dataMode?: string }) => {
         const {Table} = jest.requireMock("antd");
-        return <Table {...props}/>;
+        const pagedProps = dataMode === "server" && paged
+            ? {dataSource: paged.dataSource, loading: paged.loading, pagination: paged.pagination, onChange: paged.handleTableChange}
+            : {};
+        return <Table {...pagedProps} {...props}/>;
     },
     ProtectedImage: ({alt}: { alt: string }) => <img alt={alt}/>,
     ShiftableRangePicker: ({onChange}: { onChange: (value: unknown) => void }) => <button onClick={() => onChange([])}>range</button>

@@ -2401,6 +2401,12 @@
       "column-title" : {
         "action" : "Aktion"
       },
+      "fetchLimitReached" : "Nur die ersten {{rows}} Zeilen wurden geladen; grenzen Sie die Liste serverseitig ein.",
+      "filter" : {
+        "reset" : "Zurücksetzen",
+        "searchColumn" : "{{column}} suchen",
+        "select" : "Wert auswählen"
+      },
       "loadError" : "Die Tabellendaten konnten nicht geladen werden.",
       "pagination" : {
         "total" : "{{from}}-{{to}} von {{total}}"

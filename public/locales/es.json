@@ -2401,6 +2401,12 @@
       "column-title" : {
         "action" : "Acción"
       },
+      "fetchLimitReached" : "Solo se cargaron las primeras {{rows}} filas; acote la lista en el servidor.",
+      "filter" : {
+        "reset" : "Restablecer",
+        "searchColumn" : "Buscar {{column}}",
+        "select" : "Seleccione un valor"
+      },
       "loadError" : "No se pudieron cargar los datos de la tabla.",
       "pagination" : {
         "total" : "{{from}}-{{to}} de {{total}}"

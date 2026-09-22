@@ -5,6 +5,7 @@ import {membershipAPI} from "../../services";
 import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import dayjs from "dayjs";
+import {formatDateOnly} from "../../tools";
 
 export function AdminMembership() {
     const {t} = useTranslation();
@@ -57,8 +58,8 @@ export function AdminMembership() {
             user_id: membership.user_id,
             status: values.status,
             type: values.type,
-            start_date: membership.start_date,
-            end_date: membership.end_date
+            start_date: formatDateOnly(membership.start_date),
+            end_date: formatDateOnly(membership.end_date)
         };
 
         membershipAPI.update(updatedMembership)

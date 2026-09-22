@@ -174,7 +174,7 @@ describe("remaining User components", () => {
 
     it("gates document files, filters creators, and exercises upload control and avatar states", async () => {
         render(<UserDocumentFiles userId={7} creatorName="Lovelace, Ada" canUpload/>);
-        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith(expect.objectContaining({page: 0, size: 5}), 7));
+        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith({page: 0, size: 100}, 7));
         expect(screen.getByRole("button", {name: /UserFiles\.document\.upload\.button/})).toBeInTheDocument();
         const file = new File(["pdf"], "proof.pdf", {type: "application/pdf"});
         fireEvent.change(document.querySelector('input[type="file"]')!, {target: {files: [file]}});

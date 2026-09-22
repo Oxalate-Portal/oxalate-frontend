@@ -67,12 +67,21 @@ describe("MembershipAPI", () => {
     });
 
     it("should create membership", async () => {
-        const payload = {user_id: 1, type: "ACTIVE"} as unknown as MembershipRequest;
+        const payload = {
+            id: 0,
+            user_id: 214,
+            status: "ACTIVE",
+            type: "PERIODICAL",
+            start_date: "2026-01-01",
+            end_date: "2027-01-01"
+        } as MembershipRequest;
         const mockResponse = {id: 1, user_id: 1, type: "ACTIVE"};
         mock.onPost("", payload).reply(200, mockResponse);
 
         const result = await membershipAPI.create(payload);
         expect(result).toEqual(mockResponse);
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual(payload);
+        expect(mock.history.post[0]?.data).not.toContain("T00:00:00");
     });
 
     it("should update membership", async () => {

@@ -130,11 +130,10 @@ describe("UserDocumentFiles", () => {
         (fileTransferAPI.uploadDocumentFile as jest.Mock).mockResolvedValue({url: "/files/uploaded"});
     });
 
-    it("loads the first page of the requested user's documents, newest first", async () => {
+    it("collects the requested user's documents from the paged endpoint in client mode", async () => {
         render(<UserDocumentFiles userId={7} creatorName="Doe, Jane" canUpload={false}/>);
 
-        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith(
-            {page: 0, size: 5, sort_by: "created_at", direction: "DESC"}, 7));
+        await waitFor(() => expect(fileTransferAPI.findAllDocuments).toHaveBeenCalledWith({page: 0, size: 100}, 7));
         expect(screen.getByTestId("document-1")).toHaveTextContent("jane.pdf");
         expect(screen.queryByTestId("document-2")).not.toBeInTheDocument();
         expect(screen.getByText("UserFiles.document.download")).toHaveAttribute("href", "/files/1");

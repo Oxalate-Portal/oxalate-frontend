@@ -170,6 +170,26 @@ readable.
   is a drop-in wrapper: on screens narrower than `md` it keeps only the columns flagged `mobile: true` plus the action column (key `action`/`actions`)
   and lists every other column inside the expandable row, above any `expandedRowRender` the caller supplies. Flag the one or two columns that
   identify the row (name, title, date); a table with no flag keeps its first non-action column. Type column arrays as `OxColumnsType<T>`.
+- **`OxTable` decides where the data is processed with `dataMode`** (`"client"` by default, or `"server"`); both modes speak the backend's paging
+  DTOs (`PagedRequest` body, `PagedResponse` envelope, see §6).
+    - `dataMode="client"` takes either a static `dataSource` or a `fetcher: (request: PagedRequest) => Promise<PagedResponse<T>>` (plus optional
+      `fetchDeps`, `fetchEnabled`, `reloadToken`, `messageApi`). With a fetcher the table itself collects **every** row, walking the pages with
+      `size: CLIENT_PAGE_SIZE` (100) until `last` (capped at `CLIENT_FETCH_MAX_PAGES`, with a translated warning), shows `loading`, and reports a
+      load error with `common.table.loadError`. Filtering, sorting and paging happen in the browser: a column with `filters` but no `onFilter`
+      gets an equality filter (arrays match when they contain the value), a text column gets a case-insensitive substring search, and `sorter: true`
+      gets a default comparator (numbers, strings, Dayjs/Date, empty values last). Use it for small bounded lists (an event's files, a user's
+      documents, participants). Refresh after a mutation with `reloadToken` or the `ref` handle's `reload()`.
+    - `dataMode="server"` takes `paged={usePagedTable(...)}` and wires `dataSource`, `loading`, `pagination` and `onChange` from it; the screen
+      keeps the hook for `reload`, `setSearch`, `contextHolder`. Column filters travel as `filter_column` + `search`. **The backend accepts one
+      column filter per request**, so choosing a filter on another column replaces the previous one (the table reflects that in the header icons
+      and the hook exposes `setFilter`). Only give `filters` to columns the backend can filter (enum columns such as `status`, `type`, `level`);
+      computed or collection columns (users' `roles`, `payments`, `approved_terms`, `health_statement_id`) must not carry `filters` in server mode.
+      The free-text column search is **opt-in** in server mode: flag `searchable: true` only on the columns the backend actually searches (e.g. users'
+      `username`/`first_name`/`last_name`, files' `filename`/`creator`); columns with neither `filters` nor `searchable` show no
+      filter icon. In client mode every data column is searchable unless it sets `searchable: false`.
+    - In both modes `OxTable` owns the column filter state (controlled `filteredValue` per column), so the header dropdown (a Select for enum
+      columns, an Input for text columns) and the search inside a collapsed mobile row drive the same filter, and every visible string of the
+      table comes from `common.table.*`.
 - **The layout has no minimum width.** `html`, `body` and `.darkDiv` are capped at the viewport, `.darkDiv` uses `box-sizing: border-box`, and
   editor content (`img`, `table`, `iframe`) is capped at 100%. Never set a fixed pixel `width` on a container or form; use `width: "100%"` with a
   `maxWidth`, and make `wrapperCol` offsets responsive (`{xs: {offset: 0, span: 24}, sm: {offset: 8, span: 16}}`) so nothing forces a horizontal

@@ -67,12 +67,21 @@ describe("PaymentAPI", () => {
     });
 
     it("should create payment", async () => {
-        const payload = {type: PaymentTypeEnum.ONE_TIME, amount: 100} as unknown as PaymentRequest;
+        const payload = {
+            id: 0,
+            user_id: 214,
+            payment_type: PaymentTypeEnum.PERIODICAL,
+            payment_count: 1,
+            start_date: "2026-01-01",
+            end_date: "2027-01-01"
+        } as PaymentRequest;
         const mockResponse = {id: 1, type: PaymentTypeEnum.ONE_TIME, amount: 100};
         mock.onPost("", payload).reply(200, mockResponse);
 
         const result = await paymentAPI.create(payload);
         expect(result).toEqual(mockResponse);
+        expect(JSON.parse(mock.history.post[0]?.data)).toEqual(payload);
+        expect(mock.history.post[0]?.data).not.toContain("T00:00:00");
     });
 
     it("should update payment", async () => {

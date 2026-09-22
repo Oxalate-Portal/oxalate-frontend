@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum, RoleEnum, SortDirectionEnum, UserStatusEnum} from "../../models";
+import {type AdminUserResponse, type PaymentResponse, PaymentTypeEnum, SortDirectionEnum, UserStatusEnum} from "../../models";
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 import {Button, Divider, message, Space, Spin, Tag} from "antd";
@@ -15,7 +15,9 @@ export function AdminOrgUsers() {
     const {t} = useTranslation();
     const [messageApi, contextHolder] = message.useMessage();
     // Paging, sorting (id, username, firstName, lastName, status, approvedTerms, healthStatementId) and the
-    // username/first name/last name search all happen on the server.
+    // username/first name/last name search all happen on the server (`searchable: true` on those columns). The only column filter the users endpoint
+    // serves is the `status` enum; `approved_terms`, `health_statement_id`, `roles` and `payments` are computed or
+    // collection columns without a server filter, so they carry no `filters` in this server-mode table.
     const userTable = usePagedTable<AdminUserResponse>((request) => adminUserAPI.findPaged(request), {
         messageApi,
         defaultSortBy: "id",
@@ -29,6 +31,7 @@ export function AdminOrgUsers() {
             dataIndex: "username",
             key: "username",
             mobile: true,
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: AdminUserResponse) => {
@@ -39,6 +42,7 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.firstName"),
             dataIndex: "first_name",
             key: "first_name",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"]
         },
@@ -46,6 +50,7 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.lastName"),
             dataIndex: "last_name",
             key: "last_name",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"]
         },
@@ -70,10 +75,6 @@ export function AdminOrgUsers() {
             key: "approved_terms",
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            filters: [
-                {text: t("common.button.yes"), value: "true"},
-                {text: t("common.button.no"), value: "false"}
-            ],
             render: (_: string, record: AdminUserResponse) => {
                 return record.approved_terms ? <CheckOutlined style={{fontSize: "18px", color: "green"}}/> :
                     <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
@@ -85,11 +86,6 @@ export function AdminOrgUsers() {
             key: "health_statement_id",
             sorter: true,
             sortDirections: ["descend", "ascend"],
-            filters: [
-                {text: "None", value: "none"},
-                {text: "Agreed", value: "agreed"},
-                {text: "Completed", value: "completed"}
-            ],
             render: (_: string, record: AdminUserResponse) => {
                 if (record.health_statement_id === null) {
                     return <CloseOutlined style={{fontSize: "18px", color: "red"}}/>;
@@ -106,7 +102,6 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.role.title"),
             dataIndex: "roles",
             key: "roles",
-            filters: Object.values(RoleEnum).map((value) => ({text: t(`common.roles.${value.toLowerCase()}`), value})),
             render: (_: string, record: AdminUserResponse) => (
                 <>
                     {record.roles
@@ -120,7 +115,6 @@ export function AdminOrgUsers() {
             title: t("AdminOrgUsers.table.paymentStatus"),
             dataIndex: "payments",
             key: "payments",
-            filters: Object.values(PaymentTypeEnum).map((value) => ({text: t(`PaymentTypeEnum.${value}`), value})),
             render: (_: string, record: AdminUserResponse) => (
                 <>
                     {record.payments.map((payment: PaymentResponse) => {
@@ -209,12 +203,10 @@ export function AdminOrgUsers() {
             {contextHolder}
             <h4>{t("AdminOrgUsers.title")}</h4>
             <Spin spinning={loading}>
-                <OxTable dataSource={userTable.dataSource}
+                <OxTable dataMode={"server"}
+                         paged={userTable}
                          rowKey="id"
-                         columns={userListColumns}
-                         loading={userTable.loading}
-                         pagination={userTable.pagination}
-                         onChange={userTable.handleTableChange}/>
+                         columns={userListColumns}/>
                 <Divider orientation={"horizontal"} titlePlacement={"left"}>{t("AdminOrgUsers.terms.resetDivider")}</Divider>
                 <Space orientation={"horizontal"} size={12} style={{width: "100%", justifyContent: "center"}}>
                     <Button danger={true} type={"primary"} onClick={() => invalidateTermAgreements()}>{t("AdminOrgUsers.terms.resetButton")}</Button>

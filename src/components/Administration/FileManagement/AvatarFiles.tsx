@@ -18,12 +18,10 @@ export function AvatarFiles() {
             {avatarTable.contextHolder}
             <OxTable
                 columns={columns}
-                dataSource={avatarTable.dataSource}
+                dataMode={"server"}
+                paged={avatarTable}
                 rowKey="id"
-                loading={avatarTable.loading}
                 bordered
-                pagination={avatarTable.pagination}
-                onChange={avatarTable.handleTableChange}
             />
         </>
     );

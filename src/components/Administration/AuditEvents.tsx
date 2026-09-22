@@ -46,6 +46,7 @@ export function AuditEvents() {
             dataIndex: "user_name",
             key: "user_name",
             mobile: true,
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: highlighted
@@ -54,6 +55,7 @@ export function AuditEvents() {
             title: t("AuditEvents.table.traceId"),
             dataIndex: "trace_id",
             key: "trace_id",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: highlighted
@@ -62,6 +64,7 @@ export function AuditEvents() {
             title: t("AuditEvents.table.source"),
             dataIndex: "source",
             key: "source",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: highlighted
@@ -97,6 +100,7 @@ export function AuditEvents() {
             title: t("AuditEvents.table.address"),
             dataIndex: "address",
             key: "address",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: highlighted
@@ -105,6 +109,7 @@ export function AuditEvents() {
             title: t("AuditEvents.table.message"),
             dataIndex: "message",
             key: "message",
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: highlighted
@@ -115,12 +120,10 @@ export function AuditEvents() {
         {auditTable.contextHolder}
         <h4>{t("AuditEvents.title")}</h4>
 
-        <OxTable dataSource={auditTable.dataSource}
+        <OxTable dataMode={"server"}
+                 paged={auditTable}
                  columns={auditColumns}
-                 pagination={auditTable.pagination}
-                 loading={auditTable.loading}
                  rowKey={"id"}
-                 onChange={auditTable.handleTableChange}
         />
     </div>);
 }

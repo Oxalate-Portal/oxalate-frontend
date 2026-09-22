@@ -155,6 +155,39 @@ describe("usePagedTable", () => {
         expect(fetcher).toHaveBeenLastCalledWith({page: 0, size: 10, sort_by: undefined, direction: undefined});
     });
 
+    it("restricts the search to one column with setFilter, keeps the sort and clears the column with an empty search", async () => {
+        const fetcher = jest.fn().mockResolvedValue(page([{id: 1, name: "Ada"}], 30));
+        render(<Harness fetcher={fetcher} options={{defaultSortBy: "name", defaultDirection: "DESC"}}/>);
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(1));
+
+        act(() => latestState().handleTableChange({current: 3, pageSize: 10}, {}, sorter("name", "descend"), {currentDataSource: [], action: "paginate"}));
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(2));
+
+        act(() => latestState().setFilter("status", "ACTIVE"));
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(3));
+        expect(fetcher).toHaveBeenLastCalledWith({
+            page: 0,
+            size: 10,
+            sort_by: "name",
+            direction: "DESC",
+            search: "ACTIVE",
+            case_sensitive: false,
+            filter_column: "status"
+        });
+        expect(latestState().filterColumn).toBe("status");
+
+        // A second filter replaces the first: the backend accepts a single filter column
+        act(() => latestState().setFilter("type", "BOAT"));
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(4));
+        expect(fetcher).toHaveBeenLastCalledWith(expect.objectContaining({search: "BOAT", filter_column: "type"}));
+
+        act(() => latestState().setFilter("type", "   "));
+        await waitFor(() => expect(fetcher).toHaveBeenCalledTimes(5));
+        expect(fetcher).toHaveBeenLastCalledWith({page: 0, size: 10, sort_by: "name", direction: "DESC"});
+        expect(latestState().filterColumn).toBeUndefined();
+        expect(latestState().search).toBe("");
+    });
+
     it("reloads the current page on demand and when a dependency changes, and never fetches while disabled", async () => {
         const fetcher = jest.fn().mockResolvedValue(page([{id: 1, name: "Ada"}]));
         const {rerender} = render(<Harness fetcher={fetcher} options={{deps: [7], enabled: false}}/>);

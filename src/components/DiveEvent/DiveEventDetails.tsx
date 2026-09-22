@@ -66,7 +66,6 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: "type",
             key: "type",
             filters: Object.values(DiveTypeEnum).map((value) => ({text: t(`DiveTypeEnum.${value}`), value})),
-            onFilter: (value, record) => record.type === value,
             render: (_, record: DiveEventResponse) => diveTypeEnum2Tag(record.type, t, record.id)
         },
         {
@@ -130,7 +129,6 @@ export function DiveEventDetails({eventInfo}: DiveEventDetailsProps) {
             dataIndex: "user_type",
             key: "user_type",
             filters: Object.values(UserTypeEnum).map((value) => ({text: t(`UserTypeEnum.${value.toLowerCase()}`), value})),
-            onFilter: (value, record) => record.user_type === value,
             sorter: (a: ListUserResponse, b: ListUserResponse) => a.user_type.toLowerCase().localeCompare(b.user_type.toLowerCase()),
             render: (_, record: ListUserResponse) => (
                     <>

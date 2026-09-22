@@ -57,12 +57,10 @@ export function DiveFiles() {
             {diveFileTable.contextHolder}
             <OxTable
                 columns={columns}
-                dataSource={diveFileTable.dataSource}
+                dataMode={"server"}
+                paged={diveFileTable}
                 rowKey="id"
-                loading={diveFileTable.loading}
                 bordered
-                pagination={diveFileTable.pagination}
-                onChange={diveFileTable.handleTableChange}
             />
         </>
     );

@@ -7,6 +7,7 @@ import dayjs from "dayjs";
 import {type Key, useEffect, useState} from "react";
 import {paymentAPI} from "../../services";
 import {MinusCircleOutlined, PlusCircleOutlined, SearchOutlined} from "@ant-design/icons";
+import {formatDateOnly} from "../../tools";
 
 interface PaymentListPanelProps {
     paymentType: PaymentTypeEnum;
@@ -65,8 +66,8 @@ export function PaymentListTable({paymentType, keyName}: PaymentListPanelProps) 
             user_id: record.user_id,
             payment_type: record.payment_type,
             payment_count: nextPaymentCount,
-            start_date: dayjs(record.start_date),
-            end_date: record.end_date === null ? null : dayjs(record.end_date)
+            start_date: formatDateOnly(dayjs(record.start_date)),
+            end_date: record.end_date === null ? null : formatDateOnly(dayjs(record.end_date))
         };
 
         paymentAPI.update(paymentRequest)

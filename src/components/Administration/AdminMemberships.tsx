@@ -46,6 +46,7 @@ export function AdminMemberships() {
             dataIndex: "username",
             key: "username",
             mobile: true,
+            searchable: true,
             sorter: true,
             sortDirections: ["descend", "ascend"],
             render: (_: string, record: MembershipResponse) => {
@@ -114,11 +115,9 @@ export function AdminMemberships() {
                 <h1>{t("AdminMembers.title")}</h1>
 
                 <OxTable columns={memberListColumns}
-                         dataSource={membershipTable.dataSource}
-                         loading={membershipTable.loading}
+                         dataMode={"server"}
+                         paged={membershipTable}
                          rowKey="id"
-                         pagination={membershipTable.pagination}
-                         onChange={membershipTable.handleTableChange}
                 />
                 <AddMemberships onMembershipAdded={membershipTable.reload}/>
             </Space>

@@ -6,6 +6,7 @@ import {
     type ListUserResponse,
     PaymentExpirationTypeEnum,
     type PaymentRequest,
+    type PaymentResponse,
     PaymentTypeEnum,
     PortalConfigGroupEnum,
     RoleEnum
@@ -15,13 +16,13 @@ import {useSession} from "../../session";
 import dayjs, {Dayjs} from "dayjs";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
-import {getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
+import {formatDateOnly, getDefaultOneTimePaymentDates, getDefaultPeriodPaymentDates} from "../../tools/DateTimeTool.ts";
 import {type RangeValue, ShiftableRangePicker, useResponsiveFormLayout} from "../main";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-function paymentMatchesRequest(response: PaymentRequest, request: PaymentRequest): boolean {
+function paymentMatchesRequest(response: PaymentResponse, request: PaymentRequest): boolean {
     const formatDate = (value: Dayjs | string | null) => value === null ? null : dayjs(value).format("YYYY-MM-DD");
 
     return response.user_id === request.user_id &&
@@ -125,8 +126,8 @@ export function AddPayments() {
             user_id: 0,
             payment_type: values.paymentType,
             payment_count: values.paymentCount,
-            start_date: start ?? fallbackStart,
-            end_date: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : (end ?? fallbackEnd)
+            start_date: formatDateOnly(start ?? fallbackStart),
+            end_date: paymentExpirationType === PaymentExpirationTypeEnum.PERPETUAL ? null : formatDateOnly(end ?? fallbackEnd)
         };
 
         const requests = values.userIdList.map((userId) => ({...postData, user_id: userId}));
