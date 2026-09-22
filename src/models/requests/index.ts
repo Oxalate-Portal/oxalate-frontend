@@ -13,7 +13,6 @@ export type {DiveGroupOrderRequest} from './DiveGroupOrderRequest';
 export type {DiveGroupUpdateRequest} from './DiveGroupUpdateRequest';
 export type {EmailChangeRequest} from './EmailChangeRequest';
 export type {EmailNotificationSubscriptionRequest} from './EmailNotificationSubscriptionRequest';
-export type {EmailRequest} from './EmailRequest';
 export type {EventSubscribeRequest} from './EventSubscribeRequest';
 export type {LoginRequest} from './LoginRequest';
 export type {LostPasswordRequest} from './LostPasswordRequest';
@@ -29,7 +28,6 @@ export type {PortalConfigurationRequest} from './PortalConfigurationRequest';
 export type {TagGroupRequest} from './TagGroupRequest';
 export type {TagRequest} from './TagRequest';
 export type {TokenCreateRequest} from './TokenCreateRequest';
-export type {TokenListRequest} from './TokenListRequest';
 export type {TokenRefreshRequest} from './TokenRefreshRequest';
 export type {UserRequest} from './UserRequest';
 

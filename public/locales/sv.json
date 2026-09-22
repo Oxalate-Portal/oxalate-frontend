@@ -4,10 +4,6 @@
       "alert" : "Något gick fel, vänligen kontakta supporten"
     }
   },
-  "ActionResultEnum" : {
-    "FAILURE" : "Failure",
-    "SUCCESS" : "Success"
-  },
   "AddMemberships" : {
     "disabled" : "Medlemskap är inte i bruk",
     "errorGetUsers" : "Misslyckades med att hämta användare",
@@ -15,9 +11,6 @@
       "button" : "Lägg till medlemskap",
       "membershipDuration" : {
         "label" : "Medlemskapslängd"
-      },
-      "membershipType" : {
-        "label" : "Medlemstyp"
       },
       "name" : {
         "label" : "Användarnamn",
@@ -50,18 +43,7 @@
       "fail" : "Misslyckades med att uppdatera användarnas betalningsinformation",
       "mismatch" : "Betalningen överlappar en befintlig betalning och lades inte till",
       "ok" : "Användarnas betalningsinformation uppdaterad"
-    },
-    "status" : {
-      "buttonOk" : "Ladda ned uppdaterad information",
-      "tryAgain" : "Försök igen"
-    },
-    "types" : {
-      "oneTime" : "Engångsbetalning",
-      "period" : "Periodisk betalning"
     }
-  },
-  "AdminAudit" : {
-    "header" : "Revisionsloggar"
   },
   "AdminCertificateClassifications" : {
     "assignment" : {
@@ -236,10 +218,7 @@
         "update" : "Uppdatera information"
       },
       "roles" : {
-        "administrator" : "Administratör",
-        "label" : "Roller",
-        "organizer" : "Evenemangsarrangör",
-        "user" : "Användare"
+        "label" : "Roller"
       },
       "status" : {
         "label" : "Status",
@@ -272,10 +251,6 @@
       "confirm" : "Är du säker på att alla användare måste godkänna användarvillkoren igen? Denna ändring kan inte ångras.",
       "fail" : "Det gick inte att ogiltigförklara användarvillkoren",
       "ok" : "Användarvillkoren ogiltigförklarades framgångsrikt"
-    },
-    "search" : {
-      "placeholder" : "Sök användare",
-      "spinText" : "Söker användare..."
     },
     "table" : {
       "action" : {
@@ -323,14 +298,7 @@
         }
       },
       "names" : {
-        "add-language" : "Lägg till språk",
         "label" : "Namn",
-        "lang" : {
-          "placeholder" : "sv",
-          "rule" : {
-            "required" : "Språk är obligatoriskt"
-          }
-        },
         "value" : {
           "placeholder" : "Visningsnamn",
           "rule" : {
@@ -386,14 +354,7 @@
         "placeholder" : "gruppkod"
       },
       "names" : {
-        "add-language" : "Lägg till språk",
         "label" : "Namn",
-        "lang" : {
-          "placeholder" : "sv",
-          "rule" : {
-            "required" : "Språk är obligatoriskt"
-          }
-        },
         "value" : {
           "placeholder" : "Visningsnamn",
           "rule" : {
@@ -447,8 +408,7 @@
       "create" : "Skapa åtkomsttoken",
       "invalidate" : "Ogiltigförklara",
       "refresh" : "Förnya",
-      "reload" : "Ladda om",
-      "search" : "Sök"
+      "reload" : "Ladda om"
     },
     "confirm" : {
       "invalidate" : "Ogiltigförklara denna åtkomsttoken?",
@@ -460,14 +420,7 @@
     "errors" : {
       "create" : "Det gick inte att skapa åtkomsttoken.",
       "invalidate" : "Det gick inte att ogiltigförklara åtkomsttoken.",
-      "load" : "Det gick inte att läsa in åtkomsttoken.",
       "refresh" : "Det gick inte att förnya åtkomsttoken."
-    },
-    "filters" : {
-      "description" : "Beskrivning",
-      "from" : "Från",
-      "to" : "Till",
-      "value" : "Sök"
     },
     "form" : {
       "days" : "Dagar",
@@ -577,18 +530,6 @@
     }
   },
   "AuditEvents" : {
-    "filter" : {
-      "address" : "IP-adress",
-      "message" : "Meddelande",
-      "source" : "Källa",
-      "traceId" : "Spår-ID",
-      "userName" : "Användarnamn"
-    },
-    "search" : {
-      "filter" : "Filtrera",
-      "filterColumn" : "Sökkolumn",
-      "placeholder" : "Sök..."
-    },
     "table" : {
       "address" : "IP-adress",
       "createdAt" : "Skapat vid",
@@ -649,8 +590,7 @@
   },
   "BlogControls" : {
     "caseSensitive" : {
-      "label" : "Skiftläge",
-      "text" : "Skiftlägeskänslig"
+      "label" : "Skiftläge"
     },
     "loadMore" : "Ladda fler",
     "noMore" : "Inga fler inlägg",
@@ -683,9 +623,7 @@
       "confirm" : "Är du säker på att du vill ta bort certifikatet \""
     },
     "panel" : {
-      "addButton" : "Lägg till nytt certifikat",
-      "text" : "Användaren har slutfört följande dykcertifieringar:",
-      "title" : "Dykcertifikat"
+      "addButton" : "Lägg till nytt certifikat"
     }
   },
   "ChronoUnitEnum" : {
@@ -735,21 +673,14 @@
       "beforeDate" : "Före datum",
       "bodySearch" : "Innehållssökning",
       "commentClass" : "Kommentarklass",
-      "commentId" : "Kommentar-ID",
       "commentStatus" : "Kommentarstatus",
       "commentType" : "Kommentarstyp",
-      "depth" : "Djup",
-      "diveEventId" : "Dykningsevenemang-ID",
-      "forumId" : "Forum-ID",
-      "parentId" : "Överordnad ID",
-      "reportCount" : "Rapporteringsantal",
       "titleSearch" : "Titelsökning",
       "user-name" : "Användarens namn"
     },
     "id" : "ID",
     "status" : "Status",
     "title" : "Kommentarslista",
-    "titleColumn" : "Titel",
     "type" : "Typ",
     "username" : "Användarnamn"
   },
@@ -878,9 +809,7 @@
       }
     },
     "requiresHealthStatement" : "För att delta i ett evenemang krävs att hälsodeklarationen är godkänd",
-    "requiresMembership" : "För att delta i ett evenemang krävs medlemskap",
     "requiresMembershipAtEvent" : "För att delta i ett evenemang krävs ett medlemskap som är giltigt när evenemanget äger rum",
-    "requiresPayment" : "För att delta i ett evenemang krävs betalning",
     "requiresPaymentAtEvent" : "För att delta i ett evenemang krävs en betalning som är giltig när evenemanget äger rum",
     "subscribe" : {
       "button" : "Ga med i eventet",
@@ -892,8 +821,6 @@
     },
     "waitingList" : {
       "joinButton" : "Ga med i vantelistan",
-      "joinLabel" : "Ga med i vantelistan",
-      "joinMainText" : "Evenemanget ar fullbokat. Du kan ga med i vantelistan och blir meddelad om en plats blir ledig.",
       "leaveButton" : "Lamna vantelistan"
     }
   },
@@ -930,13 +857,6 @@
     "paymentLabel" : "Betalningar",
     "rowCount" : "Antal rader: {{count}}",
     "userLabel" : "Användarw"
-  },
-  "DownloadTypeEnum" : {
-    "CERTIFICATE" : "Certificate",
-    "DIVE" : "Dive",
-    "DIVE_EVENT" : "Dive event",
-    "MEMBER" : "Member",
-    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -989,9 +909,6 @@
         },
         "tooltip" : "Klassificeringsorganisationens namn, t.ex. PADI, SSI, CMAS, DSAT, DSAC, NAUI eller annat"
       }
-    },
-    "suggestions" : {
-      "fail" : "Det gick inte att läsa in certifikatförslag"
     },
     "title" : "Klassificeringsinformation",
     "updateCertificate" : {
@@ -1232,10 +1149,6 @@
       }
     }
   },
-  "EmailNotificationTypeEnum" : {
-    "EVENT" : "Event",
-    "PAGE" : "Page"
-  },
   "EmailSubscriptionCard" : {
     "header" : "Mottag e-postmeddelanden då:"
   },
@@ -1255,10 +1168,6 @@
       "createdAt" : "Registrerad",
       "eventDiveCount" : "Antal dykningar",
       "name" : "Namn",
-      "paymentType" : {
-        "oneTime" : "Engångsbetalning",
-        "period" : "Periodisk betalning"
-      },
       "payments" : "Betalningssituation",
       "userType" : "Dyktyp"
     },
@@ -1280,13 +1189,8 @@
     }
   },
   "Events" : {
-    "healthStatementRequired" : "Vänligen bekräfta din hälsodeklaration för att komma åt detta evenemang",
     "ongoing" : {
       "title" : "Pågående evenemang"
-    },
-    "results" : {
-      "error" : "Hämtning av data misslyckades: ",
-      "noEvents" : "Inga kommande evenemang."
     },
     "search" : {
       "placeholder" : "Sök efter evenemang"
@@ -1301,9 +1205,6 @@
       "title" : "Beskrivning",
       "type" : "Typ",
       "waitingList" : "Vantelista"
-    },
-    "upcoming" : {
-      "title" : "Kommande evenemang"
     }
   },
   "FormMemberships" : {
@@ -1324,13 +1225,8 @@
       "id" : "ID",
       "paymentCount" : "Antal",
       "paymentType" : "Betalningstyp",
-      "periodPayment" : "Period betalning",
-      "singlePayment" : "Engångsbetalning",
       "start-date" : "Startdatum"
-    },
-    "unknownPayment" : "Okänd betalningstyp",
-    "unknownPaymentContact" : "Kontakta supporten",
-    "unknownPaymentPlease" : "Kontakta supporten för mer information."
+    }
   },
   "Forum" : {
     "title" : "Forumämnen"
@@ -1338,10 +1234,6 @@
   "HealthStatementConfirmationModal" : {
     "error" : "Något gick fel, vänligen kontakta administratören.",
     "title" : "Hälsodeklaration och läkarundersökning för dykarlämplighet"
-  },
-  "ListPayments" : {
-    "oneTime" : "Engångsbetalningar",
-    "period" : "Periodiska betalningar"
   },
   "Login" : {
     "form" : {
@@ -1445,7 +1337,6 @@
       "users" : "Användare"
     },
     "blog" : {
-      "link" : "Blogg",
       "title" : "Blogg"
     },
     "events" : {
@@ -1496,36 +1387,11 @@
     "title" : "Aviseringar",
     "viewAll" : "Visa alla aviseringar"
   },
-  "NotificationGroupEnum" : {
-    "active_membership" : "Active membership",
-    "all_registered" : "All registered",
-    "inactive_days" : "Inactive days",
-    "locked_accounts" : "Locked accounts",
-    "never_had_membership" : "Never had membership",
-    "no_active_membership" : "No active membership"
-  },
   "NotificationList" : {
     "markAllAsRead" : "Markera alla som lästa",
     "noNotifications" : "Inga aviseringar",
     "title" : "Alla aviseringar",
     "unread" : "Oläst"
-  },
-  "OngoingEvents" : {
-    "results" : {
-      "noEvents" : "Inga pågående evenemang."
-    },
-    "search" : {
-      "placeholder" : "Sök efter evenemang"
-    },
-    "table" : {
-      "maxDepth" : "Maxdjup, m",
-      "maxDuration" : "Maxtid, min",
-      "organizer" : "Arrangör",
-      "participants" : "Deltagare",
-      "startTime" : "Tidpunkt",
-      "title" : "Beskrivning",
-      "type" : "Typ"
-    }
   },
   "Page" : {
     "fields" : {
@@ -1651,15 +1517,8 @@
     "periodical" : "Periodisk",
     "perpetual" : "Permanent"
   },
-  "PaymentExpirationTypeEnum" : {
-    "DISABLED" : "Disabled",
-    "DURATIONAL" : "Durational",
-    "PERIODICAL" : "Periodical",
-    "PERPETUAL" : "Perpetual"
-  },
   "PaymentListTable" : {
     "table" : {
-      "created" : "Skapad",
       "end-date" : "Slutar",
       "name" : "Namn",
       "payment-type" : "Betalningstyp",
@@ -1673,15 +1532,6 @@
     "NONE" : "Ingen",
     "ONE_TIME" : "Engångs",
     "PERIODICAL" : "Period"
-  },
-  "PortalConfigGroupEnum" : {
-    "commenting" : "Commenting",
-    "email" : "Email",
-    "files" : "Files",
-    "frontend" : "Frontend",
-    "general" : "General",
-    "membership" : "Membership",
-    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1917,8 +1767,7 @@
       },
       "healthStatement" : {
         "button" : "hälsodeklaration",
-        "text" : "Läs och bekräfta",
-        "title" : "Bekräftelse av hälsodeklaration"
+        "text" : "Läs och bekräfta"
       },
       "password" : {
         "label" : "Lösenord:",
@@ -1988,21 +1837,10 @@
       "notReceived" : "Om du inte har mottagit bekräftelsemejlet kan du skicka det igen genom att trycka på knappen nedan."
     }
   },
-  "ResultEnum" : {
-    "FAIL" : "Failure",
-    "OK" : "OK"
-  },
-  "RoleEnum" : {
-    "ROLE_ADMIN" : "Administrator",
-    "ROLE_ANONYMOUS" : "Anonymous",
-    "ROLE_ORGANIZER" : "Organizer",
-    "ROLE_USER" : "User"
-  },
   "SetDives" : {
     "noDives" : "Inga dyk",
     "table" : {
       "action" : "Åtgärd",
-      "diveCount" : "Antal dyk",
       "name" : "Dykare"
     }
   },
@@ -2014,7 +1852,6 @@
       "date" : "Datum för dykcertifikat",
       "diverId" : "Dykarnummer",
       "organization" : "Certifieringsorganisation",
-      "photocopy" : "Kopia av dykcertifikat",
       "remove-photo-fail" : "Kunde inte ta bort fotokopia av dykcertifikat",
       "remove-photo-success" : "Fotokopia av dykcertifikat borttagen",
       "title" : "Certifikat: ",
@@ -2036,10 +1873,6 @@
       "registered" : "Registrerad",
       "user-details" : "Användardetaljer"
     }
-  },
-  "SortDirectionEnum" : {
-    "ASC" : "Ascending",
-    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Rapporter",
@@ -2082,11 +1915,6 @@
     "select" : {
       "placeholder" : "Välj tidzon"
     }
-  },
-  "UpdateStatusEnum" : {
-    "FAIL" : "Failure",
-    "NONE" : "None",
-    "OK" : "OK"
   },
   "UploadStatusEnum" : {
     "deleted" : "Deleted",
@@ -2182,16 +2010,13 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "E-postprenumerationer",
-      "tooltip" : "Välj vilka e-postmeddelanden du vill prenumerera på"
+      "header" : "E-postprenumerationer"
     },
     "future-panel" : {
-      "header" : "Kommande evenemang",
-      "tooltip" : "Evenemang som du har anmält dig till"
+      "header" : "Kommande evenemang"
     },
     "past-panel" : {
-      "header" : "Tidigare evenemang",
-      "tooltip" : "Evenemang som du har deltagit i"
+      "header" : "Tidigare evenemang"
     },
     "profile-certificates-panel" : {
       "header" : "Dykcertifikat",
@@ -2279,7 +2104,6 @@
     },
     "dive" : {
       "download" : "Ladda ner",
-      "fetchFail" : "Det gick inte att läsa in dykfiler",
       "table" : {
         "createdAt" : "Skapad",
         "diveGroupId" : "Dykgrupp",
@@ -2299,7 +2123,6 @@
     },
     "document" : {
       "download" : "Ladda ner",
-      "fetchFail" : "Det gick inte att läsa in dokumentfiler",
       "table" : {
         "createdAt" : "Skapad",
         "download" : "Fil",
@@ -2336,7 +2159,6 @@
       "confirm" : "Jag bekräftar",
       "delete" : "Ta bort",
       "edit" : "Redigera",
-      "held" : "Hållits",
       "login" : "Logga in",
       "logout" : "Logga ut",
       "no" : "Nej",
@@ -2375,20 +2197,11 @@
         "published" : "Publicerad"
       }
     },
-    "payment" : {
-      "type" : {
-        "oneTime" : "Engångs",
-        "period" : "Periodisk"
-      }
-    },
     "roles" : {
       "role_admin" : "Administratör",
       "role_anonymous" : "Anonym",
       "role_organizer" : "Evenemangsarrangör",
       "role_user" : "Användare"
-    },
-    "select" : {
-      "empty" : "Inget valt"
     },
     "spinner" : {
       "loading" : "Laddar..."
@@ -2410,10 +2223,6 @@
       "loadError" : "Tabelldata kunde inte läsas in.",
       "pagination" : {
         "total" : "{{from}}-{{to}} av {{total}}"
-      },
-      "search" : {
-        "caseSensitive" : "Skilj på stora och små bokstäver",
-        "placeholder" : "Sök..."
       }
     },
     "userStatus" : {

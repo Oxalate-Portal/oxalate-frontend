@@ -4,10 +4,6 @@
       "alert" : "Algo salió mal, por favor contacte al administrador."
     }
   },
-  "ActionResultEnum" : {
-    "FAILURE" : "Failure",
-    "SUCCESS" : "Success"
-  },
   "AddMemberships" : {
     "disabled" : "La membresía está desactivada",
     "errorGetUsers" : "Error al obtener usuarios",
@@ -15,9 +11,6 @@
       "button" : "Agregar membresía",
       "membershipDuration" : {
         "label" : "Duración de la membresía"
-      },
-      "membershipType" : {
-        "label" : "Tipo de membresía"
       },
       "name" : {
         "label" : "Nombre de usuario",
@@ -50,18 +43,7 @@
       "fail" : "Error al actualizar la información de pago del usuario",
       "mismatch" : "El pago se solapa con un pago existente y no se añadió",
       "ok" : "Información de pago del usuario actualizada"
-    },
-    "status" : {
-      "buttonOk" : "Actualizar datos del perfil",
-      "tryAgain" : "Intentar de nuevo"
-    },
-    "types" : {
-      "oneTime" : "Pago único",
-      "period" : "Pago periódico"
     }
-  },
-  "AdminAudit" : {
-    "header" : "Registros de auditoría"
   },
   "AdminCertificateClassifications" : {
     "assignment" : {
@@ -236,10 +218,7 @@
         "update" : "Actualizar información"
       },
       "roles" : {
-        "administrator" : "Administrador",
-        "label" : "Roles",
-        "organizer" : "Organizador de eventos",
-        "user" : "Usuario"
+        "label" : "Roles"
       },
       "status" : {
         "label" : "Estado",
@@ -272,10 +251,6 @@
       "confirm" : "¿Está seguro de que todos los usuarios deben volver a aceptar los términos de uso? Este cambio no se puede deshacer.",
       "fail" : "Error al invalidar los acuerdos de términos",
       "ok" : "Acuerdos de términos invalidados con éxito"
-    },
-    "search" : {
-      "placeholder" : "Buscar usuarios",
-      "spinText" : "Buscando usuarios..."
     },
     "table" : {
       "action" : {
@@ -323,14 +298,7 @@
         }
       },
       "names" : {
-        "add-language" : "Agregar idioma",
         "label" : "Nombres",
-        "lang" : {
-          "placeholder" : "es",
-          "rule" : {
-            "required" : "El idioma es obligatorio"
-          }
-        },
         "value" : {
           "placeholder" : "Nombre para mostrar",
           "rule" : {
@@ -386,14 +354,7 @@
         "placeholder" : "código-de-grupo"
       },
       "names" : {
-        "add-language" : "Añadir idioma",
         "label" : "Nombres",
-        "lang" : {
-          "placeholder" : "es",
-          "rule" : {
-            "required" : "El idioma es obligatorio"
-          }
-        },
         "value" : {
           "placeholder" : "Nombre para mostrar",
           "rule" : {
@@ -447,8 +408,7 @@
       "create" : "Crear token de acceso",
       "invalidate" : "Invalidar",
       "refresh" : "Actualizar",
-      "reload" : "Recargar",
-      "search" : "Buscar"
+      "reload" : "Recargar"
     },
     "confirm" : {
       "invalidate" : "¿Invalidar este token de acceso?",
@@ -460,14 +420,7 @@
     "errors" : {
       "create" : "No se pudo crear el token de acceso.",
       "invalidate" : "No se pudo invalidar el token de acceso.",
-      "load" : "No se pudieron cargar los tokens de acceso.",
       "refresh" : "No se pudo actualizar el token de acceso."
-    },
-    "filters" : {
-      "description" : "Descripción",
-      "from" : "Desde",
-      "to" : "Hasta",
-      "value" : "Buscar"
     },
     "form" : {
       "days" : "Días",
@@ -577,18 +530,6 @@
     }
   },
   "AuditEvents" : {
-    "filter" : {
-      "address" : "Dirección IP",
-      "message" : "Mensaje",
-      "source" : "Fuente",
-      "traceId" : "ID de seguimiento",
-      "userName" : "Nombre de usuario"
-    },
-    "search" : {
-      "filter" : "Filtrar",
-      "filterColumn" : "Columna de búsqueda",
-      "placeholder" : "Buscar..."
-    },
     "table" : {
       "address" : "Dirección IP",
       "createdAt" : "Marca de tiempo",
@@ -649,8 +590,7 @@
   },
   "BlogControls" : {
     "caseSensitive" : {
-      "label" : "Mayúsculas/minúsculas",
-      "text" : "Distinguir mayúsculas"
+      "label" : "Mayúsculas/minúsculas"
     },
     "loadMore" : "Cargar más",
     "noMore" : "No hay más publicaciones",
@@ -683,9 +623,7 @@
       "confirm" : "¿Está seguro de que desea eliminar la clasificación \""
     },
     "panel" : {
-      "addButton" : "Agregar un nuevo certificado",
-      "text" : "El usuario ha completado las siguientes certificaciones de buceo:",
-      "title" : "Certificaciones de buceo"
+      "addButton" : "Agregar un nuevo certificado"
     }
   },
   "ChronoUnitEnum" : {
@@ -735,21 +673,14 @@
       "beforeDate" : "Antes de la fecha",
       "bodySearch" : "Búsqueda en contenido",
       "commentClass" : "Clase de comentario",
-      "commentId" : "ID de comentario",
       "commentStatus" : "Estado del comentario",
       "commentType" : "Tipo de comentario",
-      "depth" : "Profundidad",
-      "diveEventId" : "ID del evento de buceo",
-      "forumId" : "ID del foro",
-      "parentId" : "ID padre",
-      "reportCount" : "Número de reportes",
       "titleSearch" : "Búsqueda de título",
       "user-name" : "Nombre de usuario"
     },
     "id" : "ID",
     "status" : "Estado",
     "title" : "Lista de comentarios",
-    "titleColumn" : "Título",
     "type" : "Tipo",
     "username" : "Nombre de usuario"
   },
@@ -878,9 +809,7 @@
       }
     },
     "requiresHealthStatement" : "Para unirse a un evento se requiere que la declaración de salud esté aprobada",
-    "requiresMembership" : "Para unirse a un evento se requiere membresía",
     "requiresMembershipAtEvent" : "Para unirse a un evento se requiere una membresía válida cuando tenga lugar el evento",
-    "requiresPayment" : "Para unirse a un evento se requiere un pago",
     "requiresPaymentAtEvent" : "Para unirse a un evento se requiere un pago válido cuando tenga lugar el evento",
     "subscribe" : {
       "button" : "Unirse al evento",
@@ -892,8 +821,6 @@
     },
     "waitingList" : {
       "joinButton" : "Unirse a la lista de espera",
-      "joinLabel" : "Unirse a la lista de espera",
-      "joinMainText" : "El evento esta completo. Puedes unirte a la lista de espera y se te notificara si queda un lugar libre.",
       "leaveButton" : "Abandonar la lista de espera"
     }
   },
@@ -930,13 +857,6 @@
     "paymentLabel" : "Pagos",
     "rowCount" : "Número de filas:  {{count}}",
     "userLabel" : "Usuarios"
-  },
-  "DownloadTypeEnum" : {
-    "CERTIFICATE" : "Certificate",
-    "DIVE" : "Dive",
-    "DIVE_EVENT" : "Dive event",
-    "MEMBER" : "Member",
-    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -989,9 +909,6 @@
         },
         "tooltip" : "Nombre de la organización de buceo, por ejemplo, PADI, SSI, CMAS, DSAT, DSAC, NAUI u otra"
       }
-    },
-    "suggestions" : {
-      "fail" : "No se pudieron cargar las sugerencias de certificación"
     },
     "title" : "Información de certificación",
     "updateCertificate" : {
@@ -1232,10 +1149,6 @@
       }
     }
   },
-  "EmailNotificationTypeEnum" : {
-    "EVENT" : "Event",
-    "PAGE" : "Page"
-  },
   "EmailSubscriptionCard" : {
     "header" : "Recibir notificaciones por correo electrónico cuando:"
   },
@@ -1255,10 +1168,6 @@
       "createdAt" : "Hora de registro",
       "eventDiveCount" : "Conteo de inmersiones",
       "name" : "Nombre",
-      "paymentType" : {
-        "oneTime" : "Pago único",
-        "period" : "Pago periódico"
-      },
       "payments" : "Estado del pago",
       "userType" : "Tipo de buceo"
     },
@@ -1280,13 +1189,8 @@
     }
   },
   "Events" : {
-    "healthStatementRequired" : "Por favor, confirme su declaración de salud para acceder a este evento",
     "ongoing" : {
       "title" : "Eventos en curso"
-    },
-    "results" : {
-      "error" : "Error al cargar los datos: ",
-      "noEvents" : "No hay eventos próximos."
     },
     "search" : {
       "placeholder" : "Buscar eventos"
@@ -1301,9 +1205,6 @@
       "title" : "Descripción",
       "type" : "Tipo",
       "waitingList" : "Lista de espera"
-    },
-    "upcoming" : {
-      "title" : "Próximos eventos"
     }
   },
   "FormMemberships" : {
@@ -1324,13 +1225,8 @@
       "id" : "ID",
       "paymentCount" : "Cantidad",
       "paymentType" : "Tipo de pago",
-      "periodPayment" : "Pago periódico",
-      "singlePayment" : "Pago único",
       "start-date" : "Comenzar"
-    },
-    "unknownPayment" : "Tipo de pago desconocido",
-    "unknownPaymentContact" : "Contactar soporte",
-    "unknownPaymentPlease" : "Por favor, contacte al soporte para más información."
+    }
   },
   "Forum" : {
     "title" : "Temas del foro"
@@ -1338,10 +1234,6 @@
   "HealthStatementConfirmationModal" : {
     "error" : "Algo salió mal, por favor contacte al administrador.",
     "title" : "Declaración de salud y examen médico para aptitud de buceo"
-  },
-  "ListPayments" : {
-    "oneTime" : "Pagos únicos",
-    "period" : "Pagos periódicos"
   },
   "Login" : {
     "form" : {
@@ -1445,7 +1337,6 @@
       "users" : "Usuarios"
     },
     "blog" : {
-      "link" : "Blog",
       "title" : "Blog"
     },
     "events" : {
@@ -1496,36 +1387,11 @@
     "title" : "Notificaciones",
     "viewAll" : "Ver todas las notificaciones"
   },
-  "NotificationGroupEnum" : {
-    "active_membership" : "Active membership",
-    "all_registered" : "All registered",
-    "inactive_days" : "Inactive days",
-    "locked_accounts" : "Locked accounts",
-    "never_had_membership" : "Never had membership",
-    "no_active_membership" : "No active membership"
-  },
   "NotificationList" : {
     "markAllAsRead" : "Marcar todas como leídas",
     "noNotifications" : "No hay notificaciones",
     "title" : "Todas las notificaciones",
     "unread" : "Sin leer"
-  },
-  "OngoingEvents" : {
-    "results" : {
-      "noEvents" : "No hay eventos en curso."
-    },
-    "search" : {
-      "placeholder" : "Buscar eventos"
-    },
-    "table" : {
-      "maxDepth" : "Profundidad máxima, m",
-      "maxDuration" : "Tiempo máximo, min",
-      "organizer" : "Organizador",
-      "participants" : "Participantes",
-      "startTime" : "Hora de inicio",
-      "title" : "Descripción",
-      "type" : "Tipo"
-    }
   },
   "Page" : {
     "fields" : {
@@ -1651,15 +1517,8 @@
     "periodical" : "Periódico",
     "perpetual" : "Permanente"
   },
-  "PaymentExpirationTypeEnum" : {
-    "DISABLED" : "Disabled",
-    "DURATIONAL" : "Durational",
-    "PERIODICAL" : "Periodical",
-    "PERPETUAL" : "Perpetual"
-  },
   "PaymentListTable" : {
     "table" : {
-      "created" : "Creado",
       "end-date" : "Finaliza el",
       "name" : "Nombre",
       "payment-type" : "Tipo de pago",
@@ -1673,15 +1532,6 @@
     "NONE" : "Ninguno",
     "ONE_TIME" : "Único",
     "PERIODICAL" : "Periódico"
-  },
-  "PortalConfigGroupEnum" : {
-    "commenting" : "Commenting",
-    "email" : "Email",
-    "files" : "Files",
-    "frontend" : "Frontend",
-    "general" : "General",
-    "membership" : "Membership",
-    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1917,8 +1767,7 @@
       },
       "healthStatement" : {
         "button" : "declaración de salud",
-        "text" : "Leer y confirmar",
-        "title" : "Confirmación de la declaración de salud"
+        "text" : "Leer y confirmar"
       },
       "password" : {
         "label" : "Contraseña:",
@@ -1988,21 +1837,10 @@
       "notReceived" : "Si no ha recibido el correo de confirmación, puede reenviarlo haciendo clic en el botón a continuación."
     }
   },
-  "ResultEnum" : {
-    "FAIL" : "Failure",
-    "OK" : "OK"
-  },
-  "RoleEnum" : {
-    "ROLE_ADMIN" : "Administrator",
-    "ROLE_ANONYMOUS" : "Anonymous",
-    "ROLE_ORGANIZER" : "Organizer",
-    "ROLE_USER" : "User"
-  },
   "SetDives" : {
     "noDives" : "Sin inmersiones",
     "table" : {
       "action" : "Acción",
-      "diveCount" : "Inmersiones",
       "name" : "Buceador"
     }
   },
@@ -2014,7 +1852,6 @@
       "date" : "Fecha de certificación",
       "diverId" : "ID del buceador",
       "organization" : "Organización certificadora",
-      "photocopy" : "Fotocopia del certificado",
       "remove-photo-fail" : "Error al eliminar la fotografía del certificado",
       "remove-photo-success" : "Fotografía del certificado eliminada exitosamente",
       "title" : "Certificación: ",
@@ -2036,10 +1873,6 @@
       "registered" : "Registrado",
       "user-details" : "Usuario"
     }
-  },
-  "SortDirectionEnum" : {
-    "ASC" : "Ascending",
-    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Reportes",
@@ -2082,11 +1915,6 @@
     "select" : {
       "placeholder" : "Seleccione la zona horaria"
     }
-  },
-  "UpdateStatusEnum" : {
-    "FAIL" : "Failure",
-    "NONE" : "None",
-    "OK" : "OK"
   },
   "UploadStatusEnum" : {
     "deleted" : "Deleted",
@@ -2182,16 +2010,13 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Suscripciones de correo electrónico",
-      "tooltip" : "Seleccione los tipos de notificaciones por correo que desea recibir"
+      "header" : "Suscripciones de correo electrónico"
     },
     "future-panel" : {
-      "header" : "Eventos próximos",
-      "tooltip" : "Eventos futuros a los que se ha inscrito"
+      "header" : "Eventos próximos"
     },
     "past-panel" : {
-      "header" : "Eventos pasados",
-      "tooltip" : "Eventos pasados en los que ha participado"
+      "header" : "Eventos pasados"
     },
     "profile-certificates-panel" : {
       "header" : "Certificaciones de buceo",
@@ -2279,7 +2104,6 @@
     },
     "dive" : {
       "download" : "Descargar",
-      "fetchFail" : "Error al cargar los archivos de buceo",
       "table" : {
         "createdAt" : "Creado",
         "diveGroupId" : "Grupo de buceo",
@@ -2299,7 +2123,6 @@
     },
     "document" : {
       "download" : "Descargar",
-      "fetchFail" : "Error al cargar los archivos de documento",
       "table" : {
         "createdAt" : "Creado",
         "download" : "Archivo",
@@ -2336,7 +2159,6 @@
       "confirm" : "Confirmo",
       "delete" : "Eliminar",
       "edit" : "Editar",
-      "held" : "Realizado",
       "login" : "Iniciar sesión",
       "logout" : "Cerrar sesión",
       "no" : "No",
@@ -2375,20 +2197,11 @@
         "published" : "Publicado"
       }
     },
-    "payment" : {
-      "type" : {
-        "oneTime" : "Único",
-        "period" : "Periódico"
-      }
-    },
     "roles" : {
       "role_admin" : "Administrador",
       "role_anonymous" : "Anónimo",
       "role_organizer" : "Organizador de eventos",
       "role_user" : "Usuario"
-    },
-    "select" : {
-      "empty" : "Ninguno seleccionado"
     },
     "spinner" : {
       "loading" : "Cargando..."
@@ -2410,10 +2223,6 @@
       "loadError" : "No se pudieron cargar los datos de la tabla.",
       "pagination" : {
         "total" : "{{from}}-{{to}} de {{total}}"
-      },
-      "search" : {
-        "caseSensitive" : "Distinguir mayúsculas y minúsculas",
-        "placeholder" : "Buscar..."
       }
     },
     "userStatus" : {

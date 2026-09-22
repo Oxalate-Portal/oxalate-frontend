@@ -22,12 +22,10 @@ export type {PageVersionResponse} from "./PageVersionResponse";
 export type {PaymentResponse} from "./PaymentResponse";
 export type {PaymentStatusResponse} from "./PaymentStatusResponse";
 export type {PortalConfigurationResponse} from "./PortalConfigurationResponse";
-export type {PortalConfigurationStatusResponse} from "./PortalConfigurationStatusResponse";
 export type {RegistrationResponse} from "./RegistrationResponse";
 export type {RolePermissionResponse} from "./RolePermissionResponse";
 export type {TagGroupResponse} from "./TagGroupResponse";
 export type {TagResponse} from "./TagResponse";
-export type {TermsResponse} from "./TermsResponse";
 export type {TokenResponse} from "./TokenResponse";
 export type {UserResponse} from "./UserResponse";
 

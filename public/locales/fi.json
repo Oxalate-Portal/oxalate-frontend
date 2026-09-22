@@ -4,10 +4,6 @@
       "alert" : "Jokin meni vikaan, ole hyvä ja ota yhteyttä ylläpitoon"
     }
   },
-  "ActionResultEnum" : {
-    "FAILURE" : "Failure",
-    "SUCCESS" : "Success"
-  },
   "AddMemberships" : {
     "disabled" : "Jäsenyys ei ole käytössä",
     "errorGetUsers" : "Käyttäjien hakeminen epäonnistui",
@@ -15,9 +11,6 @@
       "button" : "Lisää jäsenyys",
       "membershipDuration" : {
         "label" : "Jäsenyyden kesto"
-      },
-      "membershipType" : {
-        "label" : "Jäsenyyden tyyppi"
       },
       "name" : {
         "label" : "Käyttäjän nimi",
@@ -50,18 +43,7 @@
       "fail" : "Käyttäjien maksutietojen päivitys epäonnistui",
       "mismatch" : "Maksu on päällekkäinen olemassa olevan maksun kanssa, eikä sitä lisätty",
       "ok" : "Käyttäjien maksutiedot päivitetty"
-    },
-    "status" : {
-      "buttonOk" : "Lataa päivitetyt tiedot",
-      "tryAgain" : "Yritä uudelleen"
-    },
-    "types" : {
-      "oneTime" : "Kertamaksu",
-      "period" : "Kausimaksu"
     }
-  },
-  "AdminAudit" : {
-    "header" : "Auditointilogit"
   },
   "AdminCertificateClassifications" : {
     "assignment" : {
@@ -236,10 +218,7 @@
         "update" : "Päivitä tiedot"
       },
       "roles" : {
-        "administrator" : "Ylläpitäjä",
-        "label" : "Roolit",
-        "organizer" : "Tapahtumajärjestäjä",
-        "user" : "Käyttäjä"
+        "label" : "Roolit"
       },
       "status" : {
         "label" : "Status",
@@ -272,10 +251,6 @@
       "confirm" : "Oletko varma että kaikkien käyttäjien täytyy uudelleen hyväksyä käyttöehdot? Tätä muutosta ei voi perua.",
       "fail" : "Ei onnistuttu mitätöimään käyttöehtoja",
       "ok" : "Käyttöehdot mitätöitiin onnistuneesti"
-    },
-    "search" : {
-      "placeholder" : "Hae käyttäjiä",
-      "spinText" : "Haetaan käyttäjiä..."
     },
     "table" : {
       "action" : {
@@ -323,14 +298,7 @@
         }
       },
       "names" : {
-        "add-language" : "Lisää kieli",
         "label" : "Nimet",
-        "lang" : {
-          "placeholder" : "fi",
-          "rule" : {
-            "required" : "Kieli on pakollinen"
-          }
-        },
         "value" : {
           "placeholder" : "Näyttönimi",
           "rule" : {
@@ -386,14 +354,7 @@
         "placeholder" : "ryhmäkoodi"
       },
       "names" : {
-        "add-language" : "Lisää kieli",
         "label" : "Nimet",
-        "lang" : {
-          "placeholder" : "fi",
-          "rule" : {
-            "required" : "Kieli on pakollinen"
-          }
-        },
         "value" : {
           "placeholder" : "Näyttönimi",
           "rule" : {
@@ -447,8 +408,7 @@
       "create" : "Luo käyttöoikeustunnus",
       "invalidate" : "Mitätöi",
       "refresh" : "Päivitä",
-      "reload" : "Lataa uudelleen",
-      "search" : "Hae"
+      "reload" : "Lataa uudelleen"
     },
     "confirm" : {
       "invalidate" : "Mitätöidäänkö tämä käyttöoikeustunnus?",
@@ -460,14 +420,7 @@
     "errors" : {
       "create" : "Käyttöoikeustunnusta ei voitu luoda.",
       "invalidate" : "Käyttöoikeustunnusta ei voitu mitätöidä.",
-      "load" : "Käyttöoikeustunnuksia ei voitu ladata.",
       "refresh" : "Käyttöoikeustunnusta ei voitu päivittää."
-    },
-    "filters" : {
-      "description" : "Kuvaus",
-      "from" : "Alkaen",
-      "to" : "Päättyen",
-      "value" : "Haku"
     },
     "form" : {
       "days" : "Päivät",
@@ -577,18 +530,6 @@
     }
   },
   "AuditEvents" : {
-    "filter" : {
-      "address" : "IP osoite",
-      "message" : "Viesti",
-      "source" : "Lähde",
-      "traceId" : "Seurantatunnus",
-      "userName" : "Käyttäjänimi"
-    },
-    "search" : {
-      "filter" : "Suodata",
-      "filterColumn" : "Hakusarake",
-      "placeholder" : "Hae..."
-    },
     "table" : {
       "address" : "IP osoite",
       "createdAt" : "Aikaleima",
@@ -649,8 +590,7 @@
   },
   "BlogControls" : {
     "caseSensitive" : {
-      "label" : "Kirjainkoko",
-      "text" : "Kirjainkoko huomioiden"
+      "label" : "Kirjainkoko"
     },
     "loadMore" : "Lataa lisää",
     "noMore" : "Ei enempää kirjoituksia",
@@ -683,9 +623,7 @@
       "confirm" : "Haluatko varmasti poistaa luokituksen \""
     },
     "panel" : {
-      "addButton" : "Lisää uusi luokitus",
-      "text" : "Käyttäjä on suorittanut seuraavat sukellusluokitukset:",
-      "title" : "Sukellusluokitukset"
+      "addButton" : "Lisää uusi luokitus"
     }
   },
   "ChronoUnitEnum" : {
@@ -735,21 +673,14 @@
       "beforeDate" : "Ennen päivämäärää",
       "bodySearch" : "Sisällön haku",
       "commentClass" : "Kommenttiluokka",
-      "commentId" : "Kommentti-ID",
       "commentStatus" : "Kommentin tila",
       "commentType" : "Kommenttityyppi",
-      "depth" : "Syvyys",
-      "diveEventId" : "Sukellustapahtuma-ID",
-      "forumId" : "Foorumi-ID",
-      "parentId" : "Yläkommentti-ID",
-      "reportCount" : "Ilmoitusmäärä",
       "titleSearch" : "Otsikon haku",
       "user-name" : "Käyttäjän nimi"
     },
     "id" : "ID",
     "status" : "Tila",
     "title" : "Kommenttilista",
-    "titleColumn" : "Otsikko",
     "type" : "Tyyppi",
     "username" : "Käyttäjänimi"
   },
@@ -878,9 +809,7 @@
       }
     },
     "requiresHealthStatement" : "Tapahtumaan osallistuminen vaatii terveysselostuksen hyväksymistä",
-    "requiresMembership" : "Tapahtumaan osallistuminen vaatii jäsenyyden",
     "requiresMembershipAtEvent" : "Tapahtumaan osallistuminen vaatii tapahtuman aikana voimassa olevan jäsenyyden",
-    "requiresPayment" : "Tapahtumaan osallistuminen vaatii maksun",
     "requiresPaymentAtEvent" : "Tapahtumaan osallistuminen vaatii tapahtuman aikana voimassa olevan maksun",
     "subscribe" : {
       "button" : "Liity tapahtumaan",
@@ -892,8 +821,6 @@
     },
     "waitingList" : {
       "joinButton" : "Liity jonotuslistalle",
-      "joinLabel" : "Liity jonotuslistalle",
-      "joinMainText" : "Tapahtuma on taynna. Voit liittya jonotuslistalle ja sinulle ilmoitetaan, jos paikka vapautuu.",
       "leaveButton" : "Poistu jonotuslistalta"
     }
   },
@@ -930,13 +857,6 @@
     "paymentLabel" : "Maksut",
     "rowCount" : "Rivien määrä:  {{count}}",
     "userLabel" : "Käyttäjät"
-  },
-  "DownloadTypeEnum" : {
-    "CERTIFICATE" : "Certificate",
-    "DIVE" : "Dive",
-    "DIVE_EVENT" : "Dive event",
-    "MEMBER" : "Member",
-    "PAYMENT" : "Payment"
   },
   "EditCertificate" : {
     "form" : {
@@ -989,9 +909,6 @@
         },
         "tooltip" : "Luokitusjärjestön nimi, esim. PADI, SSI, CMAS, DSAT, DSAC, NAUI tai muu"
       }
-    },
-    "suggestions" : {
-      "fail" : "Todistusehdotusten lataaminen epäonnistui"
     },
     "title" : "Luokitustiedot",
     "updateCertificate" : {
@@ -1232,10 +1149,6 @@
       }
     }
   },
-  "EmailNotificationTypeEnum" : {
-    "EVENT" : "Event",
-    "PAGE" : "Page"
-  },
   "EmailSubscriptionCard" : {
     "header" : "Vastaanota sähköpostiviesti kun:"
   },
@@ -1255,10 +1168,6 @@
       "createdAt" : "Ilmoittautumisaika",
       "eventDiveCount" : "Sukellusmäärä",
       "name" : "Nimi",
-      "paymentType" : {
-        "oneTime" : "Kertamaksu",
-        "period" : "Kausimaksu"
-      },
       "payments" : "Maksutilanne",
       "userType" : "Sukellustyyppi"
     },
@@ -1280,13 +1189,8 @@
     }
   },
   "Events" : {
-    "healthStatementRequired" : "Vahvista terveysselvityksesi päästäksesi tapahtumaan",
     "ongoing" : {
       "title" : "Käynnissä olevat tapahtumat"
-    },
-    "results" : {
-      "error" : "'Tietojen lataaminen epäonnistui: '",
-      "noEvents" : "Ei tulevia tapahtumia."
     },
     "search" : {
       "placeholder" : "Hae tapahtumia"
@@ -1301,9 +1205,6 @@
       "title" : "Kuvaus",
       "type" : "Tyyppi",
       "waitingList" : "Jonolista"
-    },
-    "upcoming" : {
-      "title" : "Tulevat tapahtumat"
     }
   },
   "FormMemberships" : {
@@ -1324,13 +1225,8 @@
       "id" : "ID",
       "paymentCount" : "Määrä",
       "paymentType" : "Maksutyyppi",
-      "periodPayment" : "Kausimaksu",
-      "singlePayment" : "Kertamaksu",
       "start-date" : "Alkamisaika"
-    },
-    "unknownPayment" : "Tuntematon maksutyyppi",
-    "unknownPaymentContact" : "Ota yhteyttä tukeen",
-    "unknownPaymentPlease" : "Ota yhteyttä tukeen saadaksesi lisätietoja."
+    }
   },
   "Forum" : {
     "title" : "Foorumin aiheet"
@@ -1338,10 +1234,6 @@
   "HealthStatementConfirmationModal" : {
     "error" : "Jokin meni pieleen, ota yhteyttä ylläpitäjään.",
     "title" : "Terveysselvitys ja lääkärintarkastus sukelluskelpoisuudesta"
-  },
-  "ListPayments" : {
-    "oneTime" : "Kertamaksut",
-    "period" : "Kausimaksut"
   },
   "Login" : {
     "form" : {
@@ -1445,7 +1337,6 @@
       "users" : "Käyttäjät"
     },
     "blog" : {
-      "link" : "Blogi",
       "title" : "Blogi"
     },
     "events" : {
@@ -1496,36 +1387,11 @@
     "title" : "Ilmoitukset",
     "viewAll" : "Näytä kaikki ilmoitukset"
   },
-  "NotificationGroupEnum" : {
-    "active_membership" : "Active membership",
-    "all_registered" : "All registered",
-    "inactive_days" : "Inactive days",
-    "locked_accounts" : "Locked accounts",
-    "never_had_membership" : "Never had membership",
-    "no_active_membership" : "No active membership"
-  },
   "NotificationList" : {
     "markAllAsRead" : "Merkitse kaikki luetuiksi",
     "noNotifications" : "Ei ilmoituksia",
     "title" : "Kaikki ilmoitukset",
     "unread" : "Lukematon"
-  },
-  "OngoingEvents" : {
-    "results" : {
-      "noEvents" : "Ei meneillään olevia tapahtumia."
-    },
-    "search" : {
-      "placeholder" : "Hae tapahtumia"
-    },
-    "table" : {
-      "maxDepth" : "Maksimisyvyys, m",
-      "maxDuration" : "Maksimiaika, min",
-      "organizer" : "Järjestäjä",
-      "participants" : "Osallistujat",
-      "startTime" : "Ajankohta",
-      "title" : "Kuvaus",
-      "type" : "Tyyppi"
-    }
   },
   "Page" : {
     "fields" : {
@@ -1651,15 +1517,8 @@
     "periodical" : "Jaksottainen",
     "perpetual" : "Ikuinen"
   },
-  "PaymentExpirationTypeEnum" : {
-    "DISABLED" : "Disabled",
-    "DURATIONAL" : "Durational",
-    "PERIODICAL" : "Periodical",
-    "PERPETUAL" : "Perpetual"
-  },
   "PaymentListTable" : {
     "table" : {
-      "created" : "Luotu",
       "end-date" : "Päättymisaika",
       "name" : "Nimi",
       "payment-type" : "Maksutyyppi",
@@ -1673,15 +1532,6 @@
     "NONE" : "Ei mitään",
     "ONE_TIME" : "Kerta",
     "PERIODICAL" : "Kausi"
-  },
-  "PortalConfigGroupEnum" : {
-    "commenting" : "Commenting",
-    "email" : "Email",
-    "files" : "Files",
-    "frontend" : "Frontend",
-    "general" : "General",
-    "membership" : "Membership",
-    "payment" : "Payment"
   },
   "PortalConfigurations" : {
     "button" : {
@@ -1917,8 +1767,7 @@
       },
       "healthStatement" : {
         "button" : "terveysselvitys",
-        "text" : "Lue ja vahvista",
-        "title" : "Terveysselvityksen vahvistus"
+        "text" : "Lue ja vahvista"
       },
       "password" : {
         "label" : "Salasana:",
@@ -1988,21 +1837,10 @@
       "notReceived" : "Mikäli et saanut vahvistusviestiä, voit lähettää sen uudelleen painamalla allaolevaa nappia."
     }
   },
-  "ResultEnum" : {
-    "FAIL" : "Failure",
-    "OK" : "OK"
-  },
-  "RoleEnum" : {
-    "ROLE_ADMIN" : "Administrator",
-    "ROLE_ANONYMOUS" : "Anonymous",
-    "ROLE_ORGANIZER" : "Organizer",
-    "ROLE_USER" : "User"
-  },
   "SetDives" : {
     "noDives" : "Ei sukelluksia",
     "table" : {
       "action" : "Action",
-      "diveCount" : "Sukelluksia",
       "name" : "Sukeltaja"
     }
   },
@@ -2014,7 +1852,6 @@
       "date" : "Sukellusluokituksen päiväys",
       "diverId" : "Sukeltajatunnus",
       "organization" : "Luokitusjärjestö",
-      "photocopy" : "Luokituskortin kopio",
       "remove-photo-fail" : "Kuvan poisto epäonnistui",
       "remove-photo-success" : "Kuvan lisäys onnistui",
       "title" : "Luokitus: ",
@@ -2036,10 +1873,6 @@
       "registered" : "Rekisteröitynyt",
       "user-details" : "Käyttäjätiedot"
     }
-  },
-  "SortDirectionEnum" : {
-    "ASC" : "Ascending",
-    "DESC" : "Descending"
   },
   "StatisticsMain" : {
     "reports" : "Raportit",
@@ -2082,11 +1915,6 @@
     "select" : {
       "placeholder" : "Valitse aikavyöhyke"
     }
-  },
-  "UpdateStatusEnum" : {
-    "FAIL" : "Failure",
-    "NONE" : "None",
-    "OK" : "OK"
   },
   "UploadStatusEnum" : {
     "deleted" : "Deleted",
@@ -2182,16 +2010,13 @@
   },
   "UserEvents" : {
     "email-subscription-panel" : {
-      "header" : "Sähköpostitilaukset",
-      "tooltip" : "Valitse mitä sähköposteja haluat vastaanottaa"
+      "header" : "Sähköpostitilaukset"
     },
     "future-panel" : {
-      "header" : "Tulevat tapahtumat",
-      "tooltip" : "Tulevat tapahtumat, joihin olet ilmoittautunut"
+      "header" : "Tulevat tapahtumat"
     },
     "past-panel" : {
-      "header" : "Menneet tapahtumat",
-      "tooltip" : "Menneet tapahtumat, joihin olet osallistunut"
+      "header" : "Menneet tapahtumat"
     },
     "profile-certificates-panel" : {
       "header" : "Sukellusluokitukset",
@@ -2279,7 +2104,6 @@
     },
     "dive" : {
       "download" : "Lataa",
-      "fetchFail" : "Sukellustiedostojen lataaminen epäonnistui",
       "table" : {
         "createdAt" : "Luotu",
         "diveGroupId" : "Sukellussarja",
@@ -2299,7 +2123,6 @@
     },
     "document" : {
       "download" : "Lataa",
-      "fetchFail" : "Asiakirjatiedostojen lataaminen epäonnistui",
       "table" : {
         "createdAt" : "Luotu",
         "download" : "Tiedosto",
@@ -2336,7 +2159,6 @@
       "confirm" : "Vahvistan",
       "delete" : "Poista",
       "edit" : "Muokkaa",
-      "held" : "Pidetty",
       "login" : "Kirjaudu sisään",
       "logout" : "Kirjaudu ulos",
       "no" : "Ei",
@@ -2375,20 +2197,11 @@
         "published" : "Julkaistu"
       }
     },
-    "payment" : {
-      "type" : {
-        "oneTime" : "Kerta",
-        "period" : "Kausi"
-      }
-    },
     "roles" : {
       "role_admin" : "Ylläpitäjä",
       "role_anonymous" : "Anonyymi",
       "role_organizer" : "Tapahtumajärjestäjä",
       "role_user" : "Käyttäjä"
-    },
-    "select" : {
-      "empty" : "Ei valittu"
     },
     "spinner" : {
       "loading" : "Ladataan..."
@@ -2410,10 +2223,6 @@
       "loadError" : "Taulukon tietoja ei voitu ladata.",
       "pagination" : {
         "total" : "{{from}}-{{to}} / {{total}}"
-      },
-      "search" : {
-        "caseSensitive" : "Kirjainkoko merkitsee",
-        "placeholder" : "Hae..."
       }
     },
     "userStatus" : {
