@@ -7,6 +7,7 @@ import {authAPI, userAPI} from "../../services";
 import {Button, Checkbox, Col, Form, Input, message, Row, Select, Space, Spin} from "antd";
 import {UserFields} from "../User";
 import {checkRoles} from "../../tools";
+import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 
 export function AdminOrgUser() {
     const {paramId} = useParams();
@@ -14,6 +15,7 @@ export function AdminOrgUser() {
     const [blockSendEmail, setBlockSendEmail] = useState(false);
     const [loading, setLoading] = useState(true);
     const [invalidForm, setInvalidForm] = useState(false);
+    const {executeRecaptcha} = useReCaptcha();
     const {t} = useTranslation();
     const formLayout = useResponsiveFormLayout(8, 12);
     const [userForm] = Form.useForm();
@@ -59,7 +61,7 @@ export function AdminOrgUser() {
         }
     }, [paramId]);
 
-    function sendPasswordEmail(event: SyntheticEvent) {
+    async function sendPasswordEmail(event: SyntheticEvent) {
         // Block default submit of the form
         event.preventDefault();
 
@@ -70,7 +72,17 @@ export function AdminOrgUser() {
 
         setLoading(true);
 
-        authAPI.recoverLostPassword({email: workUser.username})
+        if (!executeRecaptcha) {
+            console.error("reCAPTCHA is not available, cannot send the password email");
+            alert(t("AdminOrgUser.sendPasswordEmail.fail"));
+            setLoading(false);
+            return;
+        }
+
+        // The lost-password endpoint is public and captcha protected, so the admin action needs a token as well.
+        const recaptchaToken = await executeRecaptcha("lost_password");
+
+        authAPI.recoverLostPassword({email: workUser.username}, recaptchaToken)
             .then((response) => {
                 if (response.status === ResultEnum.OK) {
                     alert(t("AdminOrgUser.sendPasswordEmail.ok"));

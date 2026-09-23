@@ -2,6 +2,7 @@ import {useTranslation} from "react-i18next";
 import {Alert, Button} from "antd";
 import {useState} from "react";
 import {authAPI} from "../../services";
+import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 
 interface ResendRegistrationEmailProps {
     token: string;
@@ -10,9 +11,17 @@ interface ResendRegistrationEmailProps {
 export function ResendRegistrationEmail({token}: ResendRegistrationEmailProps) {
     const {t} = useTranslation();
     const [resendSuccess, setResendSuccess] = useState(true);
+    const {executeRecaptcha} = useReCaptcha();
 
     async function requestEmailResend() {
-        authAPI.resendRegistrationEmail(token)
+        if (!executeRecaptcha) {
+            console.error("reCAPTCHA is not available, cannot resend the confirmation email");
+            setResendSuccess(false);
+            return;
+        }
+
+        const recaptchaToken = await executeRecaptcha("resend_confirmation");
+        authAPI.resendRegistrationEmail(token, recaptchaToken)
             .then((response) => {
                 if (response) {
                     setResendSuccess(true);

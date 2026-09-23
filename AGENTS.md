@@ -87,7 +87,9 @@ Note that page-group management and notifications are **organizer**-accessible e
 - Route guards are thin wrappers in `src/session/{PrivateRoute,OrganizerRoute,AdminRoute}.tsx`; add access control there instead of duplicating role checks in
   pages. `PrivateRoute` requires any session, `OrganizerRoute` requires
   `ROLE_ORGANIZER` or `ROLE_ADMIN`, `AdminRoute` requires `ROLE_ADMIN`. Unauthenticated users go to `/login`, authenticated-but-unprivileged users go to `/`.
-- Login and registration are protected by Google reCAPTCHA v3 (`LoginWithCaptcha`).
+- Login, registration, lost/reset password and resend-confirmation are protected by Google reCAPTCHA v3: the routes are wrapped in
+  `WithCaptcha` (`LoginWithCaptcha` for the login page), each submit calls `useReCaptcha().executeRecaptcha(action)` and passes the token to the
+  `authAPI` method, which sends it as the `X-Captcha-Token` header the backend `RecaptchaFilter` requires on those POSTs.
 - Client-side guards are convenience only; the backend re-checks every request. Never treat a UI role check as security.
 - `src/services/sessionExpiryInterceptor.ts` is registered on every axios instance by `configureAxiosBaseUrl.ts`. It clears the stored session and redirects to
   `/login` on a 401, and on a 403 only when the stored session has already expired — a 403 is also the normal "you lack this permission" answer and must not

@@ -5,6 +5,7 @@ import {useResponsiveFormLayout} from "../main";
 import {Alert, Button, Form, Input, Row} from "antd";
 import {useSession} from "../../session";
 import {authAPI} from "../../services";
+import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 import {type ActionResponse, UpdateStatusEnum} from "../../models";
 
 export function LostPassword() {
@@ -15,6 +16,7 @@ export function LostPassword() {
     const {t} = useTranslation();
     const formLayout = useResponsiveFormLayout(12, 16);
     const [loading, setLoading] = useState(false);
+    const {executeRecaptcha} = useReCaptcha();
 
     useEffect(() => {
         // redirect to home if already logged in
@@ -23,9 +25,18 @@ export function LostPassword() {
         }
     });
 
-    function requestEmailLink(credentials: { email: string; }) {
+    async function requestEmailLink(credentials: { email: string; }) {
         setLoading(true);
-        authAPI.recoverLostPassword(credentials)
+
+        if (!executeRecaptcha) {
+            console.error("reCAPTCHA is not available, cannot request a password reset");
+            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("LostPassword.setStatus.update.fail")});
+            setLoading(false);
+            return;
+        }
+
+        const recaptchaToken = await executeRecaptcha("lost_password");
+        authAPI.recoverLostPassword(credentials, recaptchaToken)
             .then((response) => {
                 if (response.status === UpdateStatusEnum.OK) {
                     setUpdateStatus({status: UpdateStatusEnum.OK, message: t("LostPassword.setStatus.update.ok")});

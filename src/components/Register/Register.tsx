@@ -9,11 +9,13 @@ import {type ActionResponse, type RegistrationResponse, ResultEnum, UpdateStatus
 import {ResendRegistrationEmail} from "./ResendRegistrationEmail";
 import {authAPI} from "../../services";
 import {CheckOutlined, CloseOutlined} from "@ant-design/icons";
+import {useReCaptcha} from "@wojtekmaj/react-recaptcha-v3";
 
 export function Register() {
     const {userSession} = useSession();
     const {t} = useTranslation();
     const [registrationForm] = Form.useForm();
+    const {executeRecaptcha} = useReCaptcha();
     const [showTerms, setShowTerms] = useState(false);
     const [showHealthStatement, setShowHealthStatement] = useState(false);
     const [acceptedTerms, setAcceptedTerms] = useState<boolean | undefined>(undefined);
@@ -42,6 +44,16 @@ export function Register() {
         primary_user_type: UserTypeEnum;
     }) {
         setLoading(true);
+
+        if (!executeRecaptcha) {
+            console.error("reCAPTCHA is not available, cannot register");
+            setRegistrationStatus({status: UpdateStatusEnum.FAIL, message: t("Register.fail.message")} as ActionResponse);
+            setLoading(false);
+            return;
+        }
+
+        const recaptchaToken = await executeRecaptcha("register");
+
         authAPI.register({
             username: regData.username,
             password: regData.password,
@@ -54,7 +66,7 @@ export function Register() {
             primary_user_type: regData.primary_user_type,
             approved_terms: acceptedTerms === true,
             health_statement_id: healthStatementId ?? null
-        })
+        }, recaptchaToken)
             .then(registrationResponse => {
                 if (registrationResponse.status === ResultEnum.OK) {
                     localStorage.setItem("oxalateRegistrationStatus", JSON.stringify(registrationResponse));
@@ -164,7 +176,7 @@ export function Register() {
                             {t("Register.form.terms.text")}
                             <Button type={"default"} onClick={() => setShowTerms(true)}>{t("Register.form.terms.button")}</Button>
                             {acceptedTerms === true && <CheckOutlined style={{color: "green", fontSize: 24}}/>}
-                            {acceptedTerms === false && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
+                            {acceptedTerms !== true && <CloseOutlined style={{color: "red", fontSize: 24}}/>}
                         </Space>
                         <Space orientation={"horizontal"}>
                             {t("Register.form.healthStatement.text")}

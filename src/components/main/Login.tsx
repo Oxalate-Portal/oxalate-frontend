@@ -10,7 +10,7 @@ import {type ActionResponse, ActionResultEnum, type LoginRequest, type LoginStat
 export function Login() {
     const [loading, setLoading] = useState(false);
     const {t} = useTranslation();
-    const formLayout = useResponsiveFormLayout(12, 16);
+    const formLayout = useResponsiveFormLayout(8, 16);
     const navigate = useNavigate();
     const {executeRecaptcha} = useReCaptcha();
     const {loginUser} = useSession();
@@ -25,7 +25,7 @@ export function Login() {
             return;
         }
 
-        const recaptchaResult = await executeRecaptcha("register");
+        const recaptchaResult = await executeRecaptcha("login");
 
         const loginRequest: LoginRequest = {
             username: credentials.username,
@@ -70,7 +70,7 @@ export function Login() {
                 <Form
                     name="basic"
                     {...formLayout}
-                    style={{width: "100%", maxWidth: 600}}
+                    style={{width: "100%", maxWidth: 600, margin: "0 auto"}}
                     initialValues={{remember: true}}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}

@@ -72,7 +72,7 @@ describe("AuthAPI", () => {
         const response = {status: "SUCCESS", message: "Registration successful"};
         mock.onPost("/register").reply(200, response);
 
-        const result = await authAPI.register(registrationData);
+        const result = await authAPI.register(registrationData, "captcha-token");
         expect(result).toEqual(response);
     });
 
@@ -99,7 +99,7 @@ describe("AuthAPI", () => {
         const response = {status: "SUCCESS", token: "abc123"};
         mock.onPost("/register").reply(200, response);
 
-        await authAPI.register(registrationData);
+        await authAPI.register(registrationData, "captcha-token");
 
         expect(mock.history.post).toHaveLength(1);
         const sentBody = JSON.parse(mock.history.post[0].data as string) as Record<string, unknown>;
@@ -128,7 +128,7 @@ describe("AuthAPI", () => {
         const response = {status: "SUCCESS", token: "abc123"};
         mock.onPost("/register").reply(200, response);
 
-        await authAPI.register(registrationData);
+        await authAPI.register(registrationData, "captcha-token");
 
         const sentBody = JSON.parse(mock.history.post[0].data as string) as Record<string, unknown>;
         expect(sentBody["privacy"]).toBe(true);
@@ -139,7 +139,7 @@ describe("AuthAPI", () => {
         const token = "registration-token";
         mock.onPost("/registrations/resend-confirmation").reply(200);
 
-        const result = await authAPI.resendRegistrationEmail(token);
+        const result = await authAPI.resendRegistrationEmail(token, "captcha-token");
         expect(result).toBe(true);
     });
 
@@ -148,7 +148,7 @@ describe("AuthAPI", () => {
         const response = {status: "SUCCESS", message: "Recovery email sent"};
 
         mock.onPost("/lost-password").reply(200, response);
-        const result = await authAPI.recoverLostPassword(data);
+        const result = await authAPI.recoverLostPassword(data, "captcha-token");
         expect(result).toEqual(response);
     });
 
@@ -157,7 +157,7 @@ describe("AuthAPI", () => {
         const response = {status: "SUCCESS", message: "Password reset successfully"};
 
         mock.onPost("/reset-password").reply(200, response);
-        const result = await authAPI.resetPassword(data);
+        const result = await authAPI.resetPassword(data, "captcha-token");
         expect(result).toEqual(response);
     });
 

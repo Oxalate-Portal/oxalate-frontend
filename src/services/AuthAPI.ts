@@ -25,7 +25,7 @@ class AuthAPI {
 
     async login(user: LoginRequest): Promise<UserSessionToken> {
         const response = await this.axiosInstance
-            .post<UserSessionToken>("/login", user, {headers: {"X-Captcha-Token": user.recaptcha_token}});
+            .post<UserSessionToken>("/login", user, this.captchaConfig(user.recaptcha_token));
 
         if (response.status === 200 && response.data.id > 0) {
             const session: UserSessionToken = response.data;
@@ -42,8 +42,12 @@ class AuthAPI {
         await this.axiosInstance.get<void>("/logout");
     }
 
-    async register(registrationData: RegistrationVO): Promise<RegistrationResponse> {
-        const response = await this.axiosInstance.post<RegistrationResponse>("/register", registrationData);
+    /**
+     * Registers a new user. The backend captcha filter rejects the request without a reCAPTCHA token, so the
+     * caller obtains one with `executeRecaptcha("register")` first.
+     */
+    async register(registrationData: RegistrationVO, recaptchaToken: string | null): Promise<RegistrationResponse> {
+        const response = await this.axiosInstance.post<RegistrationResponse>("/register", registrationData, this.captchaConfig(recaptchaToken));
         return response.data;
     }
 
@@ -52,18 +56,18 @@ class AuthAPI {
         return response.data === true;
     }
 
-    async resendRegistrationEmail(token: string): Promise<boolean> {
-        const response = await this.axiosInstance.post<void>("/registrations/resend-confirmation", {token: token});
+    async resendRegistrationEmail(token: string, recaptchaToken: string | null): Promise<boolean> {
+        const response = await this.axiosInstance.post<void>("/registrations/resend-confirmation", {token: token}, this.captchaConfig(recaptchaToken));
         return response.status === 200;
     }
 
-    async recoverLostPassword(data: LostPasswordRequest): Promise<ActionResponse> {
-        const response = await this.axiosInstance.post<ActionResponse>("/lost-password", data);
+    async recoverLostPassword(data: LostPasswordRequest, recaptchaToken: string | null): Promise<ActionResponse> {
+        const response = await this.axiosInstance.post<ActionResponse>("/lost-password", data, this.captchaConfig(recaptchaToken));
         return response.data;
     }
 
-    async resetPassword(data: PasswordResetRequest): Promise<ActionResponse> {
-        const response = await this.axiosInstance.post<ActionResponse>("/reset-password", data);
+    async resetPassword(data: PasswordResetRequest, recaptchaToken: string | null): Promise<ActionResponse> {
+        const response = await this.axiosInstance.post<ActionResponse>("/reset-password", data, this.captchaConfig(recaptchaToken));
         return response.data;
     }
 
@@ -73,6 +77,11 @@ class AuthAPI {
     ): Promise<ActionResponse> {
         const response = await this.axiosInstance.put<ActionResponse>("/" + userId + "/password", postData);
         return response.data;
+    }
+
+    /** Request config carrying the reCAPTCHA v3 token the backend `RecaptchaFilter` requires on unauthenticated POSTs. */
+    private captchaConfig(recaptchaToken: string | null): { headers: { "X-Captcha-Token": string } } {
+        return {headers: {"X-Captcha-Token": recaptchaToken ?? ""}};
     }
 }
 

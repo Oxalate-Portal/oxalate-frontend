@@ -268,7 +268,26 @@ describe("registration and editor callbacks", () => {
         fireEvent.change(password, {target: {value: "GoodPassword1!"}});
         fireEvent.change(confirm, {target: {value: "GoodPassword1!"}});
         fireEvent.click(screen.getByRole("button", {name: "Register.form.submitButton"}));
-        await waitFor(() => expect(authAPI.register).toHaveBeenCalledWith(expect.objectContaining({approved_terms: true, health_statement_id: 0})));
+        await waitFor(() => expect(authAPI.register).toHaveBeenCalledWith(expect.objectContaining({
+            approved_terms: true,
+            health_statement_id: 0
+        }), "mock-recaptcha-token"));
+    });
+
+    it("marks both the terms and the health statement as unconfirmed until each is accepted", async () => {
+        render(<Register/>);
+        // Scoped to the form so the modal close buttons rendered in a portal are not counted.
+        const iconCount = (name: string) => document.querySelector("form")!.querySelectorAll(`.anticon-${name}`).length;
+        expect(iconCount("close")).toBe(2);
+        expect(iconCount("check")).toBe(0);
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.terms.button"}));
+        fireEvent.click(await screen.findByRole("button", {name: "common.button.confirm"}));
+        await waitFor(() => expect(iconCount("check")).toBe(1));
+        expect(iconCount("close")).toBe(1);
+        fireEvent.click(screen.getByRole("button", {name: "Register.form.healthStatement.button"}));
+        fireEvent.click(await screen.findByRole("button", {name: "health confirm"}));
+        await waitFor(() => expect(iconCount("check")).toBe(2));
+        expect(iconCount("close")).toBe(0);
     });
 
     it("shows registration failure and redirects authenticated sessions", async () => {
