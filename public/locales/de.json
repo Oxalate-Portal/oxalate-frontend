@@ -1255,7 +1255,8 @@
       }
     },
     "updateStatus" : {
-      "loginFail" : "Anmeldung fehlgeschlagen!"
+      "loginFail" : "Anmeldung fehlgeschlagen!",
+      "recaptchaVerificationFailed" : "Unser automatisiertes Sicherheitssystem konnte Ihre Anfrage nicht verifizieren. Bitte warten Sie einige Minuten und versuchen Sie, sich erneut anzumelden. Wenn das Problem weiterhin besteht, wenden Sie sich bitte an den Support."
     }
   },
   "LostPassword" : {

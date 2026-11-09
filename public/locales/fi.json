@@ -1255,7 +1255,8 @@
       }
     },
     "updateStatus" : {
-      "loginFail" : "Sisäänkirjautuminen epäonnistui!"
+      "loginFail" : "Sisäänkirjautuminen epäonnistui!",
+      "recaptchaVerificationFailed" : "Automaattinen turvajärjestelmämme ei voinut vahvistaa pyyntöäsi. Odota muutama minuutti ja yritä kirjautua uudelleen. Jos ongelma jatkuu, ota yhteyttä tukeen."
     }
   },
   "LostPassword" : {

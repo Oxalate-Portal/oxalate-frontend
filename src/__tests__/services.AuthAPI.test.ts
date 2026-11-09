@@ -1,5 +1,5 @@
 /// <reference types="jest" />
-import {authAPI} from "../services";
+import {authAPI, isRecaptchaVerificationFailure} from "../services";
 import MockAdapter from "axios-mock-adapter";
 import type {LoginRequest, PasswordResetRequest, RegistrationVO} from "../models";
 
@@ -53,6 +53,19 @@ describe("AuthAPI", () => {
         expect(result).toEqual(failResponse);
         expect(localStorage.getItem("user")).toBeNull();
         expect(consoleErrorSpy).toHaveBeenCalled();
+    });
+
+    it("recognizes a backend reCAPTCHA verification failure", async () => {
+        mock.onPost("/login").reply(503, {code: "RECAPTCHA_VERIFICATION_FAILED"});
+
+        let error: unknown;
+        try {
+            await authAPI.login({username: "test@example.com", password: "password123", recaptcha_token: "token"});
+        } catch (caughtError) {
+            error = caughtError;
+        }
+
+        expect(isRecaptchaVerificationFailure(error)).toBe(true);
     });
 
     it("should logout a user", async () => {
@@ -192,4 +205,3 @@ describe("AuthAPI", () => {
         expect(result).toBe(false);
     });
 });
-

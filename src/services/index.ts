@@ -1,7 +1,7 @@
 export {adminUserAPI} from "./AdminUserAPI";
 export {auditAPI} from "./AuditAPI";
 export type {AuditFilterColumn} from "./AuditAPI";
-export {authAPI} from "./AuthAPI";
+export {authAPI, isRecaptchaVerificationFailure} from "./AuthAPI";
 export {blockedDatesAPI} from "./BlockedDatesAPI";
 export {certificateAPI} from "./CertificateAPI";
 export {certificateClassificationAPI} from "./CertificateClassificationAPI";

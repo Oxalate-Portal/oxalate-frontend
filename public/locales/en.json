@@ -1255,7 +1255,8 @@
       }
     },
     "updateStatus" : {
-      "loginFail" : "Login failed!"
+      "loginFail" : "Login failed!",
+      "recaptchaVerificationFailed" : "Our automated security system couldn't verify your request. Please wait a few minutes and try login in again. If the issue persists, please contact the support"
     }
   },
   "LostPassword" : {

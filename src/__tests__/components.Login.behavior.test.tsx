@@ -82,4 +82,13 @@ describe("Login behavior", () => {
         fireEvent.click(screen.getByText("common.button.back"));
         expect(mockNavigate).toHaveBeenCalledWith("/");
     });
+
+    it("shows a translated warning when reCAPTCHA verification fails", async () => {
+        mockLoginUser.mockResolvedValue({status: "FAILURE", message: "Login.updateStatus.recaptchaVerificationFailed"});
+        render(<Login/>);
+
+        fireEvent.click(screen.getByTestId("form-submit"));
+
+        expect(await screen.findByRole("alert")).toHaveTextContent("Login.updateStatus.recaptchaVerificationFailed");
+    });
 });

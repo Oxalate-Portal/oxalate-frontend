@@ -11,6 +11,19 @@ import type {
 } from "../models";
 import {configureAxiosBaseUrl} from "./configureAxiosBaseUrl";
 
+export const RECAPTCHA_VERIFICATION_FAILED_CODE = "RECAPTCHA_VERIFICATION_FAILED";
+
+export function isRecaptchaVerificationFailure(error: unknown): boolean {
+    if (!Axios.isAxiosError(error) || error.response?.status !== 503) {
+        return false;
+    }
+
+    const responseData: unknown = error.response.data;
+    return typeof responseData === "object"
+        && responseData !== null
+        && (responseData as { code?: unknown }).code === RECAPTCHA_VERIFICATION_FAILED_CODE;
+}
+
 class AuthAPI {
     userKey: string = "user";
 

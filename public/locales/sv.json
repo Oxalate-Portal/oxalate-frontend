@@ -1255,7 +1255,8 @@
       }
     },
     "updateStatus" : {
-      "loginFail" : "Inloggning misslyckades!"
+      "loginFail" : "Inloggning misslyckades!",
+      "recaptchaVerificationFailed" : "Vårt automatiserade säkerhetssystem kunde inte verifiera din begäran. Vänta några minuter och försök logga in igen. Om problemet kvarstår, kontakta supporten."
     }
   },
   "LostPassword" : {

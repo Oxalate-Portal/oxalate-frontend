@@ -8,7 +8,7 @@ import {
     type PortalConfigurationResponse,
     type UserSessionToken
 } from "../models";
-import {authAPI, portalConfigurationAPI, setGlobalTimezone} from "../services";
+import {authAPI, isRecaptchaVerificationFailure, portalConfigurationAPI, setGlobalTimezone} from "../services";
 import {SessionContext, type SessionContextType} from "./SessionContext";
 import {useTranslation} from "react-i18next";
 
@@ -168,7 +168,9 @@ export function SessionProvider({children}: SessionProviderProps) {
             console.error("Failed to log in user", error);
             return {
                 status: ActionResultEnum.FAILURE,
-                message: "Failed to log in user"
+                message: isRecaptchaVerificationFailure(error)
+                    ? "Login.updateStatus.recaptchaVerificationFailed"
+                    : "Failed to log in user"
             };
         }
     }

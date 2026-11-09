@@ -1255,7 +1255,8 @@
       }
     },
     "updateStatus" : {
-      "loginFail" : "¡Error al iniciar sesión!"
+      "loginFail" : "¡Error al iniciar sesión!",
+      "recaptchaVerificationFailed" : "Nuestro sistema de seguridad automatizado no pudo verificar su solicitud. Espere unos minutos e intente iniciar sesión de nuevo. Si el problema persiste, póngase en contacto con el servicio de soporte."
     }
   },
   "LostPassword" : {

@@ -37,7 +37,10 @@ export function Login() {
 
         if (!loginResult || loginResult.status === ActionResultEnum.FAILURE) {
             console.error("Login failed", loginResult);
-            setUpdateStatus({status: UpdateStatusEnum.FAIL, message: t("Login.updateStatus.loginFail")});
+            const message = loginResult?.message === "Login.updateStatus.recaptchaVerificationFailed"
+                ? t(loginResult.message)
+                : t("Login.updateStatus.loginFail");
+            setUpdateStatus({status: UpdateStatusEnum.FAIL, message});
         } else {
             navigate("/");
         }
